@@ -1,5 +1,90 @@
 
-# v82pre release: v82.0.7578.6369
+# v82pre release: v82.0.7579.33985 (UNPUBLISHED)
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+
+
+
+
+
+2020-11-01
+----------
+
+			
+* (7e1423a8) one of the files that are about copyright, license, etc. is now largely adapted to the GPL3 (as it should be). https://github.com/jimmejardine/qiqqa-open-source/issues/259
+			
+* (d986df54) when testing the app multiple times, the GC (garbage collection) in the unhandled exception dialog is locking up ever so rarely. Nuking the code as its non-essential for the rest of the process.
+			
+* (722921e4) Last test before prelim release: turns out the heap memory doesn't drop at app end for whatever reason. Temporarily re-introduced the hard library killer code for application shutdown. Helps but the heap lockup is happening someplace else. Hmmmm.
+			
+* (4e9bf7de) Another Mother of All PRs with the following fixes and tweaks:
+  
+  - when an SQLite error occurs, a full diagnostics report is included in the logfiles for further diagnosis by the user and/or engineer.
+    + this is applied to both local database files (`*.library`)and the 'Sync Point' (`*.s3db`) to help diagnose https://github.com/jimmejardine/qiqqa-open-source/issues/257 and similar.
+  - dialed the Sqlite diagnostics up: Turn on extended result codes via `connection.SetExtendedResultCodes(true);`
+  - Library integrity checks dialed up several notches: report and track data corruption in the log and pop an alertbox for user to decide to either abort the application or continue as-is -- which should be reasonably safe... - done the same on the Sync Point/Share Target side! .s3db is now integrity-checked on access.
+  - disambiguated a few confusing log lines.
+  - quite a bit of work done on metadata record recovery from corrupted/botched/hand-edited SQLite databases (like the ones I still have around from the time of the bad days of Commercial Qiqqa v76-v79, which led to: )
+    - some records can be recovered in a way as to treat them as pure BibTeX; adding the fingerprint from the first column as needed.
+    - the above is a THIRD option for recovering the metadata and is useful when older databases have been touched by external Sqlite tools: it turns out the previous Qiqqa code did not behave well when a BLOB field was changed in subtle ways by these external tools, including the SQLite CLI itself.
+  - stop yakking about 'don't know how to yada yada' for libraries which landed in the sync list but do not have a Sync Point: these libraries are now *ignored* (but reported in the log, in case sync was intended and we have a very obscure failure on our hands, e.g. https://github.com/jimmejardine/qiqqa-open-source/issues/257 )
+  - add developer JSON5 option "BuildSearchIndex" to shut up and cut off the Lucene index building/updating background task. This was/is important as we're hitting the very limit of 32-bit memory with Qiqqa while testing with 30+ LARGE old databases in various states of disrepair: at a grand total of 200K+ PDF records, it looks like some re-indexing action will quickly drive us into 'Out Of Memory' fatal failure, while we test for other matters and are NOT interested in the index per se, right now.
+  - LoadFromMetaData(): add addition sanity check to WARN in log about record key/document fingerprint NOT matching the fingerprint stored in the metadata BLOB. (This should be a RARE error, but indicative of DB data corruption / manual patching and important for diagnosis in your own log files.)
+  - killed a couple of (even cycling!) 'unhandled exception' dialogs: these buggers are useless when we're already shutting down the app and should therefor only dump the error report in the log.
+  - correction for the 'end of life of application run' checks and consequent log shutdown.
+  
+  An overall stability improvement!
+			
+* (ee0ae111) Working on PHASE 1 of the cyclic reference refactor (commit ): added code to the 'end of life' of the application run to:
+  - verify that all threads have terminated properly (*okay*, I just check the SafeThreadPool so there's a bunch out there which are still unguarded, but that should be fine.)
+  - verify that all libraries are 'unloaded' properly: we're VERY interested to know whether anyone is keeping illegal references at the end, because the libraries sticking around after this means there's still cyclic dependencies the .NET garbage collector chokes on.
+  - monitor the .NET heap at the end right there to observe if it is actually cleaned up the way we'ld **expect** of a decent application (one without nasty cyclic dependencies)
+  
+  This is the sort of noise we want to hear at the very end (this example is me quitting the app by clicking the close button during a load of 30+ libraries in various corrupted states -- old backups of mine thanks to Commercial Qiqqa b0rking a giant street pizza several times and which once triggered me into doing a reverse engineer over at: https://github.com/GerHobbelt/qiqqa-revengin (God, was I upset! 20K+ libraries dropping out from under me, just like that!)
+  
+  Anyway, the good noise your looking for is that 278MByte number dropping like a brick at the very end:
+  
+  ```
+  20201101.101627 [Q] INFO  [4] [278.779M] WebLibrariesChanged: Breaking out of UI update due to application termination
+  20201101.101627 [Q] INFO  [4] [278.787M] -Notifying everyone that web libraries have changed
+  The thread 0x66a4 has exited with code 0 (0x0).
+  20201101.101627 [Q] INFO  [Main] [278.647M] UnloadAllLibraries: Heap after forced GC compacting at the end: 278646892
+  20201101.101627 [Q] INFO  [Main] [278.647M] Making sure all threads have completed or terminated...
+  20201101.101627 [Q] INFO  [Main] [5.932M] -static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): 5931812 Bytes, 0 tasks active
+  20201101.101628 [Q] INFO  [Main] [5.932M] Last machine state observation before shutting down the log at the very end of the application run: Heap after forced GC compacting: 5931812 Bytes, 0 tasks active, 14 seconds overtime unused (more than zero for this one is good!)
+  ```
+  
+  User benefit: Qiqqa now shuts down promptly and safely during long running multiple library loads (tested with a rig with 30+ very large and **corrupted** commercial Qiqqa backups, plus extras).
+			
+* (69a2a4c7) Speed optimization: when requesting the Sync Details, the library sizes were **estimated** but the estimation code would still check if the PDFs were present in the libraries. Now that I test with a bunch of 'bad' Qiqqa libraries, this takes ages as over 50K PDF records will trigger a File.Exists check. Fixed: now the quick estimate just assumes all PDFs are present and barge on without loading the disk and making us wait...
+			
+* (522fa83f) fix startup process: the refresh + hourglass reset will be done in the registered Instance_WebLibrariesChanged callback after all libraries have been loaded. Removed superfluous, antiquated code.
+			
+* (588655cd) fix one print/log statement caught by the ToString->throw debug code in Library: log/print lines should use the WebLibraryDetail instance for reporting the library Id/Name.
+			
+* (0d35bf65) PHASE 1 Refactoring the bloody nauseating **multiple** cyclic references in the WebLibraryDetails->Library->Document and the library managers, which all reference back to library. This crap has been hackily "resolved" by me in the past using WeakReferences, but it's crap either way, with lots of runtime bugs waiting to happen, such as the ones in https://github.com/jimmejardine/qiqqa-open-source/issues/264
+  
+  So now everyone if refering back to the WebLibraryDetails, which have the longest lifetime of the stuff: the Library takes a long time to load and is alive later.
+  
+  Of course, the current refactored code still does not check the validate the validity of the Library forward references so null references galore. This is to be fixed in subsequent commit(s).
+			
+* (5ea494fb) typo fix
+			
+
+
+
+
+
+
+
+
+# v82pre release: v82.0.7578.6369 (UNPUBLISHED)
 
 > ## Note
 >
@@ -39,7 +124,7 @@
   - TODO: AutoSync et al should not yek about 'not knowing how to do this' when a library has no Sync Point set up, wheen it has ended up in the AutoSync set.
   - all libraries (except Bundles) are now read/write. This is the first step towards truly being able to work wwith and use your old commercial Qiqqa cloud libraries. (See the TODO above about being able to set/edit the Sync Point)
   - UI: removed some of the lingering bits from the Commercial era: Invite, Top Up, etc.
-  - DO NOT treat Guest library special any longer: this was another remnant of the Commercial Qiqqa Era, where the Guest library was not allowed to be included in the Sync and other behaviours of the Intranet and Cloud/Web Libraries. Today, I consider them all equal (except for Bundle libraries, of course)
+  - DO NOT treat Guest library as special any longer: this was another remnant of the Commercial Qiqqa Era, where the Guest library was not allowed to be included in the Sync and other behaviours of the Intranet and Cloud/Web Libraries. Today, I consider them all equal (except for Bundle libraries, of course)
 
 
 
@@ -47,10 +132,6 @@
 2020-10-30
 ----------
 
-
-* (8c6ed3d1) bump_version task script: make sure to skip over the MuPDF subtree as that one has its own version(s)!
-
-* (fb13f211) clean out docs-src/_meta/
 
 * (48d9718b) edit/delete menu options: had not correctly saved the english texts file for that one
 
@@ -95,7 +176,7 @@
 
 * (5815f5e4)
   - Added ShutdownableManager.Sleep() api, which is a near clone of Daemon.Sleep(), i.e. sleep with included faster shutdown check.
-  - Code review -> update a few possibly long running loops with abort-on-exit code.
+  - Code review -> update a few possibly long running loops with abort-on-exit code: reducing the risk of Qiqqa hanging 'forever' on exit.
 
 * (6025f3f5) Improve commit 1b2daca9fc12e1be3956a3b960dbc9227154cd93 : keep the Windows Hourglass visible until *both* the main window UI has rendered *and* the Qiqqa libraries have been loaded by the startup code.
 
@@ -105,8 +186,6 @@
     SuggestingMetadata: false,       // this kills the metadata (Title, Author, etc.) suggesting from extracted text
 
 * (6205de31) At least, now we can tick boxes for the Legacy libraries in sync dialog.    @#%)(*&^%$
-
-* (4433a6ac) bumped build revision for test release for https://github.com/jimmejardine/qiqqa-open-source/issues/257
 
 * (d08c0179) tweak the LibraryType code so as to identify auto-discovered 'Legacy' libraries as 'Legacy' instead of 'UNKNOWN' and allow these to be synced -- ONCE WE GET TO ADDING AN EDITOR SO YOU CAN SET/CHANGE THE SYNC TARGET DIRECTORY FOR ANY LIBRARY, that is.
 
@@ -1406,7 +1485,7 @@
 
 * (2a51f204) GetOutputsDumpString() :: oddly enough this code can produce a race condition exception for some Output: "Collection was modified; enumeration operation may not execute." -- HACK: we cope with that by re-iterating over the list until success is ours...   :-S :-S  hacky!
 
-* (651bac5b) fix coding bug in SafeThreadPool handling: the logc to determine which tasks to skip/abort on application Exit was inverted. :-(
+* (651bac5b) fix coding bug in SafeThreadPool handling: the logic to determine which tasks to skip/abort on application Exit was inverted. :-(
 
 
 

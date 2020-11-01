@@ -1,5 +1,81 @@
 
-# v82pre release: v82.0.7578.6369
+# v82pre release: v82.0.7579.33985 (UNPUBLISHED)
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+
+
+
+
+
+2020-11-01
+----------
+
+			
+* (d986df54) when testing the app multiple times, the GC (garbage collection) in the unhandled exception dialog is locking up ever so rarely. Nuking the code as its non-essential for the rest of the process.
+			
+* (722921e4) Last test before prelim release: turns out the heap memory doesn't drop at app end for whatever reason. Temporarily re-introduced the hard library killer code for application shutdown. Helps but the heap lockup is happening someplace else. Hmmmm.
+			
+* (4e9bf7de) Another Mother of All PRs with the following fixes and tweaks:
+  
+  - when an SQLite error occurs, a full diagnostics report is included in the logfiles for further diagnosis by the user and/or engineer.
+    + this is applied to both local database files (`*.library`)and the 'Sync Point' (`*.s3db`) to help diagnose https://github.com/jimmejardine/qiqqa-open-source/issues/257 and similar.
+  - dialed the Sqlite diagnostics up: Turn on extended result codes via `connection.SetExtendedResultCodes(true);`
+  - Library integrity checks dialed up several notches: report and track data corruption in the log and pop an alertbox for user to decide to either abort the application or continue as-is -- which should be reasonably safe... - done the same on the Sync Point/Share Target side! .s3db is now integrity-checked on access.
+  - disambiguated a few confusing log lines.
+  - quite a bit of work done on metadata record recovery from corrupted/botched/hand-edited SQLite databases (like the ones I still have around from the time of the bad days of Commercial Qiqqa v76-v79, which led to: )
+    - some records can be recovered in a way as to treat them as pure BibTeX; adding the fingerprint from the first column as needed.
+    - the above is a THIRD option for recovering the metadata and is useful when older databases have been touched by external Sqlite tools: it turns out the previous Qiqqa code did not behave well when a BLOB field was changed in subtle ways by these external tools, including the SQLite CLI itself.
+  - stop yakking about 'don't know how to yada yada' for libraries which landed in the sync list but do not have a Sync Point: these libraries are now *ignored* (but reported in the log, in case sync was intended and we have a very obscure failure on our hands, e.g. https://github.com/jimmejardine/qiqqa-open-source/issues/257 )
+  - add developer JSON5 option "BuildSearchIndex" to shut up and cut off the Lucene index building/updating background task. This was/is important as we're hitting the very limit of 32-bit memory with Qiqqa while testing with 30+ LARGE old databases in various states of disrepair: at a grand total of 200K+ PDF records, it looks like some re-indexing action will quickly drive us into 'Out Of Memory' fatal failure, while we test for other matters and are NOT interested in the index per se, right now.
+  - LoadFromMetaData(): add addition sanity check to WARN in log about record key/document fingerprint NOT matching the fingerprint stored in the metadata BLOB. (This should be a RARE error, but indicative of DB data corruption / manual patching and important for diagnosis in your own log files.)
+  - killed a couple of (even cycling!) 'unhandled exception' dialogs: these buggers are useless when we're already shutting down the app and should therefor only dump the error report in the log.
+  - correction for the 'end of life of application run' checks and consequent log shutdown.
+  
+  An overall stability improvement!
+			
+* (ee0ae111) Working on PHASE 1 of the cyclic reference refactor (commit ): added code to the 'end of life' of the application run to:
+  - verify that all threads have terminated properly (*okay*, I just check the SafeThreadPool so there's a bunch out there which are still unguarded, but that should be fine.)
+  - verify that all libraries are 'unloaded' properly: we're VERY interested to know whether anyone is keeping illegal references at the end, because the libraries sticking around after this means there's still cyclic dependencies the .NET garbage collector chokes on.
+  - monitor the .NET heap at the end right there to observe if it is actually cleaned up the way we'ld **expect** of a decent application (one without nasty cyclic dependencies)
+  
+  This is the sort of noise we want to hear at the very end (this example is me quitting the app by clicking the close button during a load of 30+ libraries in various corrupted states -- old backups of mine thanks to Commercial Qiqqa b0rking a giant street pizza several times and which once triggered me into doing a reverse engineer over at: https://github.com/GerHobbelt/qiqqa-revengin (God, was I upset! 20K+ libraries dropping out from under me, just like that!)
+  
+  Anyway, the good noise your looking for is that 278MByte number dropping like a brick at the very end:
+  
+  ```
+  20201101.101627 [Q] INFO  [4] [278.779M] WebLibrariesChanged: Breaking out of UI update due to application termination
+  20201101.101627 [Q] INFO  [4] [278.787M] -Notifying everyone that web libraries have changed
+  The thread 0x66a4 has exited with code 0 (0x0).
+  20201101.101627 [Q] INFO  [Main] [278.647M] UnloadAllLibraries: Heap after forced GC compacting at the end: 278646892
+  20201101.101627 [Q] INFO  [Main] [278.647M] Making sure all threads have completed or terminated...
+  20201101.101627 [Q] INFO  [Main] [5.932M] -static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): 5931812 Bytes, 0 tasks active
+  20201101.101628 [Q] INFO  [Main] [5.932M] Last machine state observation before shutting down the log at the very end of the application run: Heap after forced GC compacting: 5931812 Bytes, 0 tasks active, 14 seconds overtime unused (more than zero for this one is good!)
+  ```
+  
+  User benefit: Qiqqa now shuts down promptly and safely during long running multiple library loads (tested with a rig with 30+ very large and **corrupted** commercial Qiqqa backups, plus extras).
+			
+* (69a2a4c7) Speed optimization: when requesting the Sync Details, the library sizes were **estimated** but the estimation code would still check if the PDFs were present in the libraries. Now that I test with a bunch of 'bad' Qiqqa libraries, this takes ages as over 50K PDF records will trigger a File.Exists check. Fixed: now the quick estimate just assumes all PDFs are present and barge on without loading the disk and making us wait...
+			
+* (522fa83f) fix startup process: the refresh + hourglass reset will be done in the registered Instance_WebLibrariesChanged callback after all libraries have been loaded. Removed superfluous, antiquated code.
+			
+* (588655cd) fix one print/log statement caught by the ToString->throw debug code in Library: log/print lines should use the WebLibraryDetail instance for reporting the library Id/Name.
+			
+			
+
+
+
+
+
+
+
+
+# v82pre release: v82.0.7578.6369 (UNPUBLISHED)
 
 > ## Note
 >
@@ -964,46 +1040,46 @@
 
   update README with latest info about Qiqqa software releases.
 
-* (acd9229) README: point at the various places where software releases are to be found.
+* (acd92291) README: point at the various places where software releases are to be found.
 
 * work done on run-time performance / reduce memory leaks. Code simplification.
 
-* (305c085) fixes https://github.com/jimmejardine/qiqqa-open-source/issues/96 / https://github.com/jimmejardine/qiqqa-open-source/issues/98: correct deadlock prevention code in CitationManager. Code robustness.
+* (305c0851) fixes https://github.com/jimmejardine/qiqqa-open-source/issues/96 / https://github.com/jimmejardine/qiqqa-open-source/issues/98: correct deadlock prevention code in CitationManager. Code robustness.
 
 * (6ef9b44) Code robustness. Refactoring the code and making its interface threadsafe. Fixes https://github.com/jimmejardine/qiqqa-open-source/issues/96 / https://github.com/jimmejardine/qiqqa-open-source/issues/106 / https://github.com/jimmejardine/qiqqa-open-source/issues/98.
 
 * (6ef9b44) Tweak: `AddLegacyWebLibrariesThatCanBeFoundOnDisk()`: at startup, try to load all .known_web_libraries files you can find as those should provide better (= original) names of the various Commercial Qiqqa Web Libraries. (This is running ahead to the tune of https://github.com/jimmejardine/qiqqa-open-source/issues/109 / https://github.com/jimmejardine/qiqqa-open-source/issues/103)
 
-* (8b90f41) Code robustness. Fix https://github.com/jimmejardine/qiqqa-open-source/issues/105 : turns out the config user GUID is NULL/not initialized at startup. This fix ensures there's a predictable (Guest) config active from the very start of the Qiqqa app.
+* (8b90f41e) Code robustness. Fix https://github.com/jimmejardine/qiqqa-open-source/issues/105 : turns out the config user GUID is NULL/not initialized at startup. This fix ensures there's a predictable (Guest) config active from the very start of the Qiqqa app.
 
-* (d52d565) quick hack for https://github.com/jimmejardine/qiqqa-open-source/issues/104: make Qiqqa start no matter what.
+* (d52d5655) quick hack for https://github.com/jimmejardine/qiqqa-open-source/issues/104: make Qiqqa start no matter what.
 
-* (f515ca7) "directory tree as tags" fix: recognize both \ and / as 'tag' separators in any document path.
+* (f515ca73) "directory tree as tags" fix: recognize both \ and / as 'tag' separators in any document path.
 
-* (626902b) (fix) Code robustness. Copy the new library background image file into place, if it is another file than the one we already have. Fix: do *not* delete the active image file when the user did not select another image file.
+* (626902bc) (fix) Code robustness. Copy the new library background image file into place, if it is another file than the one we already have. Fix: do *not* delete the active image file when the user did not select another image file.
 
-* (1b2daca) Performance / Code Robustness.
+* (1b2daca9) Performance / Code Robustness.
   - at very high loads allow the UI to update regularly while work is done in background tasks.
   - show mouse cursor as Hourglass/Busybee: during application startup, this is used to give visual feedback to the user that the work done is taking a while (relatively long startup time, particularly for large libraries which are auto-opened due to saved tab panel sets including their main library tabs)
   - fixed a couple of crashes.
 
-* (fb775d5) Code Robustness. Take out the Sorax PDF page count API call due to suspicion of memleaking and heapcorrupting as per https://github.com/jimmejardine/qiqqa-open-source/issues/98 initial analysis report.
+* (fb775d57) Code Robustness. Take out the Sorax PDF page count API call due to suspicion of memleaking and heapcorrupting as per https://github.com/jimmejardine/qiqqa-open-source/issues/98 initial analysis report.
 
-* (e353006) Code Robustness. PDFRendererFileLayer: when calculating the PDF page count happens to fail 3 times or more (Three Strikes Rule), then this PDF is flagged as irreparably obnoxious and the page count will be set to zero for the remainder of the current Qiqqa run -- this is not something we wish to persist in the metadata store as different software releases may have different page count abilities and *bugs*.
+* (e353006a) Code Robustness. PDFRendererFileLayer: when calculating the PDF page count happens to fail 3 times or more (Three Strikes Rule), then this PDF is flagged as irreparably obnoxious and the page count will be set to zero for the remainder of the current Qiqqa run -- this is not something we wish to persist in the metadata store as different software releases may have different page count abilities and *bugs*.
 
-* (935a61f) Code Robustness.
+* (935a61f0) Code Robustness.
 
-* (171bf18) Performance / Code Robustness. Turning off those thread lock monitors which are hit often, take up a notable bit of CPU and are not suspect any more anyway.
+* (171bf182) Performance / Code Robustness. Turning off those thread lock monitors which are hit often, take up a notable bit of CPU and are not suspect any more anyway.
 
-* (eba4472) Fix bug where it looked like "Copy To Another Library" menu choice and "Move to Another Library" memu choice didn't differ at all: it's just that MOVE did not properly signal the sourcing library needed an update as well as the document itself.
+* (eba4472f) Fix bug where it looked like "Copy To Another Library" menu choice and "Move to Another Library" memu choice didn't differ at all: it's just that MOVE did not properly signal the sourcing library needed an update as well as the document itself.
 
-* (1cc4d1f) Clone/Copy didn't always carry the document metadata across to the new lib. Fixed.
+* (1cc4d1f3) Clone/Copy didn't always carry the document metadata across to the new lib. Fixed.
 
 * (ec57707) fix crash - https://github.com/jimmejardine/qiqqa-open-source/issues/93
 
-* (2373620) Google Analytics throws a 403. Probably did so before, but now we notice it once again as we watch for exceptions occuring in the code flow. Better logging of the 403 failure.
+* (237362033) Google Analytics throws a 403. Probably did so before, but now we notice it once again as we watch for exceptions occuring in the code flow. Better logging of the 403 failure.
 
-* (c8590be) Trying to cope with the bother of https://github.com/jimmejardine/qiqqa-open-source/issues/94 - quite a bit of it is inexplicable, unless Windows updates pulled the rug from under me (and CLR 4.0)
+* (c8590be8) Trying to cope with the bother of https://github.com/jimmejardine/qiqqa-open-source/issues/94 - quite a bit of it is inexplicable, unless Windows updates pulled the rug from under me (and CLR 4.0)
 
 * (cdd51d6) Sniffer: BibTeX editor pane can toggle between formatted/parsed field editor mode and raw BibTeX editor mode.
 
@@ -1013,23 +1089,23 @@
 
   (Pending: https://github.com/jimmejardine/qiqqa-open-source/issues/82)
 
-* (1765137) fix https://github.com/jimmejardine/qiqqa-open-source/issues/74 + https://github.com/jimmejardine/qiqqa-open-source/issues/73 = https://github.com/GerHobbelt/qiqqa-open-source/issues/1 : QiqqaOCR is rather fruity when it comes to generating rectangle areas to OCR. This is now sanitized.
+* (17651379) fix https://github.com/jimmejardine/qiqqa-open-source/issues/74 + https://github.com/jimmejardine/qiqqa-open-source/issues/73 = https://github.com/GerHobbelt/qiqqa-open-source/issues/1 : QiqqaOCR is rather fruity when it comes to generating rectangle areas to OCR. This is now sanitized.
 
 * Improved code robustness.
 
 * Some performance improvements.
 
-* (a3bc0b4) fix/tweak: when qiqqa server software revision XML response shows a *revert* to an older Qiqqa software release, such was coded but would not have been caught before as that bit of conditional code would never be reached when the user is running a later Qiqqa version.
+* (a3bc0b46) fix/tweak: when qiqqa server software revision XML response shows a *revert* to an older Qiqqa software release, such was coded but would not have been caught before as that bit of conditional code would never be reached when the user is running a later Qiqqa version.
 
-* (4fd0bd1 et al) fixed 'recover desktop' functionality: screen positions and opened panes are now correctly remembered.
+* (4fd0bd1f et al) fixed 'recover desktop' functionality: screen positions and opened panes are now correctly remembered.
 
-* (45f083d) upgrade projects to all reference .NET 4.7.2 instead of .NET 4.0 Client Profile
+* (45f083d2) upgrade projects to all reference .NET 4.7.2 instead of .NET 4.0 Client Profile
 
-* (48daaa2) `support@qiqqa.com` is of course R.I.P., hence point at github issue tracker instead for software failures.
+* (48daaa2b) `support@qiqqa.com` is of course R.I.P., hence point at github issue tracker instead for software failures.
 
-* (4f07d34) Legacy Web Library: such a library is NOT read-only. (What we got to do is point it to an 'Intranet' sync point = directory/URI path instead. (TODO)
+* (4f07d34f) Legacy Web Library: such a library is NOT read-only. (What we got to do is point it to an 'Intranet' sync point = directory/URI path instead. (TODO)
 
-* (bd923e5) fix https://github.com/jimmejardine/qiqqa-open-source/issues/72 + adding **minimal** support for bibtex concatenation macros in order to (somewhat) correctly parse google scholar patents records: fixes https://github.com/jimmejardine/qiqqa-open-source/issues/22 and a bit of work towards https://github.com/jimmejardine/qiqqa-open-source/issues/68
+* (bd923e57) fix https://github.com/jimmejardine/qiqqa-open-source/issues/72 + adding **minimal** support for bibtex concatenation macros in order to (somewhat) correctly parse google scholar patents records: fixes https://github.com/jimmejardine/qiqqa-open-source/issues/22 and a bit of work towards https://github.com/jimmejardine/qiqqa-open-source/issues/68
 
 * (07bb569) allow tags to be separated by COMMA as well as SEMICOLON. (Added COMMA separator support)
 
