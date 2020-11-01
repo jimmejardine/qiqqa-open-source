@@ -446,7 +446,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
 
             long clk_duration = clk.ElapsedMilliseconds;
-            Logging.Debug特("Rescan of library {0} for indexing took {1}ms for {2} documents.", web_library_detail.Xlibrary, clk_duration, pdf_documents.Count);
+            Logging.Debug特("Rescan of library {0} for indexing took {1}ms for {2} documents.", web_library_detail, clk_duration, pdf_documents.Count);
 
             if (total_new_to_be_indexed > 0)
             {
