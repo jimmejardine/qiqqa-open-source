@@ -19,6 +19,7 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Maintainable;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
@@ -103,6 +104,12 @@ namespace Qiqqa.Main
         private void Instance_WebLibrariesChanged()
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            if (ShutdownableManager.Instance.IsShuttingDown)
+            {
+                Logging.Info("WebLibrariesChanged: Breaking out of UI update due to application termination");
+                return;
+            }
 
             // NOTE:
             // the code in PostStartupWork() depends on the completed loading of the libraries,

@@ -214,7 +214,8 @@ namespace Utilities.GUI
         public static void AssertThisCodeIs_NOT_RunningInTheUIThread()
         {
             // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
-            ASSERT.Test(!CurrentThreadIsUIThread(), "This code MUST NOT execute in the Main UI Thread.", dont_throw: true);
+            // Besides, the basic test would fail when we are shutting down the application.
+            ASSERT.Test(!CurrentThreadIsUIThread() || ShutdownableManager.Instance.IsShuttingDown, "This code MUST NOT execute in the Main UI Thread.", dont_throw: true);
         }
 
         [Conditional("DEBUG")]

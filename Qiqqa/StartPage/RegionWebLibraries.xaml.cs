@@ -7,8 +7,10 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Synchronisation.BusinessLogic;
 using Qiqqa.UtilisationTracking;
+using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.StartPage
 {
@@ -36,6 +38,12 @@ namespace Qiqqa.StartPage
         {
             WPFDoEvents.InvokeInUIThread(() =>
             {
+                if (ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Info("WebLibrariesChanged::Refresh UI: Breaking out of UI update due to application termination");
+                    return;
+                }
+
                 Refresh();
             },
             priority: DispatcherPriority.Background);

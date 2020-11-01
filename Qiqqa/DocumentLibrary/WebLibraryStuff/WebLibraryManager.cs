@@ -228,6 +228,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 WebLibraryDetail web_lib = pair.Value;
                 Library library = web_lib.Xlibrary;
                 ASSERT.Test(library == null);
+
+                if (ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Info("InitAllLoadedLibraries: Breaking out of library loading loop due to application termination");
+                    break;
+                }
+
                 library = web_lib.Xlibrary = new Library(web_lib);
                 library.BuildFromDocumentRepository(web_lib);
             }
@@ -288,6 +295,38 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
 
         public WebLibraryDetail Library_Guest => guest_web_library_detail;
+
+        // *************************************************************************************************************
+
+        public void UnloadAllLibraries()
+        {
+            //WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+#if false
+            foreach (var pair in web_library_details)
+            {
+                WebLibraryDetail web_lib = pair.Value;
+                Library library = web_lib.Xlibrary;
+                if (library != null)
+                {
+                    web_lib.Xlibrary = null;
+                    library.Dispose();
+                }
+            }
+#endif
+            // Allow the GC to collect these naturally.
+            // Only when there are still dependency cycles or other stuff active, would this
+            // nuking of the references to the libraries NOT help to release their memory.
+            web_library_details = new Dictionary<string, WebLibraryDetail>();
+            // DO NOT forget to also release the reference to the Guest library:
+            guest_web_library_detail = null;
+
+            GC.WaitForPendingFinalizers();
+            GC.Collect(100, GCCollectionMode.Forced, true, true);
+            Logging.Info("UnloadAllLibraries: Heap after forced GC compacting at the end: {0}", GC.GetTotalMemory(false));
+        }
+
+        // *************************************************************************************************************
 
         /// <summary>
         /// Returns all working web libraries, including the guest library.
@@ -383,7 +422,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             );
         }
 
-        #region --- Known web library management -------------------------------------------------------------------------------------------------------------------------
+#region --- Known web library management -------------------------------------------------------------------------------------------------------------------------
 
         public static string KNOWN_WEB_LIBRARIES_FILENAME => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.known_web_libraries"));
 
@@ -868,6 +907,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             Logging.Info("-Forgetting {1} Library from {0}", web_library_detail.Title, web_library_detail.LibraryType());
         }
 
-        #endregion
+#endregion
     }
 }

@@ -292,9 +292,10 @@ namespace Qiqqa.Common.Configuration
         private void ButtonGarbageCollect_Click(object sender, RoutedEventArgs e)
         {
             Logging.Info("+Before Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(false));
-            GC.Collect();
-            //GC.WaitForPendingFinalizers();
-            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+            GC.WaitForPendingFinalizers();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
             Logging.Info("-After Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(true));
         }
 

@@ -9,7 +9,9 @@ namespace Utilities.Misc
         public static event UnhandledExceptionEventHandler UnhandledException;
 
         private static int queued_thread_count = 0;
+        private static int running_thread_count = 0;
         private static object queued_thread_count_lock = new object();
+        private static object running_thread_count_lock = new object();
 
         public static int QueuedThreadCount
         {
@@ -19,6 +21,33 @@ namespace Utilities.Misc
                 {
                     return queued_thread_count;
                 }
+            }
+        }
+
+        public static int RunningThreadCount
+        {
+            get
+            {
+                lock (running_thread_count_lock)
+                {
+                    return running_thread_count;
+                }
+            }
+        }
+
+        private static void IncrementRunningThreadCount()
+        {
+                lock (running_thread_count_lock)
+                {
+                    running_thread_count++;
+                }
+        }
+
+        private static void DecrementRunningThreadCount()
+        {
+            lock (running_thread_count_lock)
+            {
+                running_thread_count--;
             }
         }
 
@@ -61,6 +90,8 @@ namespace Utilities.Misc
 
         private static void UserWorkItem(WaitCallback callback, bool skip_at_app_shutdown)
         {
+            IncrementRunningThreadCount();
+
             try
             {
                 if (skip_at_app_shutdown && ShutdownableManager.Instance.IsShuttingDown)
@@ -93,6 +124,7 @@ namespace Utilities.Misc
                 {
                     queued_thread_count--;
                 }
+                DecrementRunningThreadCount();
             }
         }
 

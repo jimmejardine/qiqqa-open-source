@@ -24,7 +24,8 @@ namespace Qiqqa.Common.MessageBoxControls
         private UnhandledExceptionMessageBox()
         {
             // Collect all generations of memory.
-            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
 
             InitializeComponent();
 
@@ -42,7 +43,8 @@ namespace Qiqqa.Common.MessageBoxControls
         public static void DisplayException(Exception ex)
         {
             // Collect all generations of memory.
-            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
 
             // When we're looking at an OutOfMem exception, there's nothing we can do but abort everything!
             if (ex is System.OutOfMemoryException)
@@ -108,7 +110,8 @@ namespace Qiqqa.Common.MessageBoxControls
         public static void DisplayInfo(string useful_text, string useful_text_subheading, bool display_faq_link, Exception ex)
         {
             // Collect all generations of memory.
-            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
 
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
             if (ShutdownableManager.Instance.IsShuttingDown)
