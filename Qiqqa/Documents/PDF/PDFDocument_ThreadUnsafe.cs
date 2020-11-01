@@ -804,12 +804,18 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             // When the document does not exist, the size is reported as ZERO.
             // When we do not know yet whether the document exists, we'll have to go and check and find its size anyhow,
-            // unless the override value is sensible, i.e. **non-negative**.
+            // unless the override value is sensible, i.e. **positive**.
+            //
+            // Note: do NOT cache the override value!
+            if (uncached_document_storage_size_override > 0)
+            {
+                // quick estimate override: do not check if the file exists as that will cost us dearly thanks to Disk I/O:
+                if (document_size > 0) return document_size;
+                return uncached_document_storage_size_override;
+            }
+
             if (!DocumentExists) return 0;
             if (document_size > 0) return document_size;
-
-            // Note: do NOT cache the override value!
-            if (uncached_document_storage_size_override >= 0) return uncached_document_storage_size_override;
 
             // Execute file system query and cache its result:
             document_size = File.GetSize(DocumentPath);
