@@ -23,14 +23,13 @@ namespace Qiqqa.StartPage
 
             ObjWebLibraryListControl.OnWebLibrarySelected += ObjWebLibraryListControl_OnWebLibrarySelected;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
-            {
-                // This particular action would BLOCK a very long time on `WebLibraryManager.Instance` as another background
-                // task is busy loading all libraries as part of the WebLibraryManager initialization.
-                WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
-
-                WPFDoEvents.InvokeAsyncInUIThread(() => Refresh());
-            });
+            // NOTE: in older Qiqqa code `WebLibraryManager.Instance` was taking *ages*. This has changed since Nov/2020
+            // as the constructor inside `WebLibraryManager.Instance` getter will now execute swiftly, only
+            // pushing the larger work onto the ThreadPool. Hence this statement should execute very swiftly!
+            //
+            // This particular action would previously BLOCK a very long time on `WebLibraryManager.Instance` as another background
+            // task is busy loading all libraries as part of the WebLibraryManager initialization.
+            WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
         }
 
         private void Instance_WebLibrariesChanged()
