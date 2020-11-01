@@ -5,6 +5,7 @@ using System.Text;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -56,7 +57,12 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         private SQLiteConnection GetConnection()
         {
-            return new SQLiteConnection("Pooling=True;Max Pool Size=3;Data Source=" + library_path);
+            SQLiteConnection connection = new SQLiteConnection("Pooling=True;Max Pool Size=3;Data Source=" + library_path);
+
+            // Turn on extended result codes
+            connection.SetExtendedResultCodes(true);
+
+            return connection;
         }
 
         private static readonly char[] queryWildcards = { '*', '?', '%', '_' };
@@ -170,6 +176,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             catch (Exception ex)
             {
                 Logging.Error(ex, "IntranetLibraryDB::PutBLOB: Database I/O failure for DB '{0}'.", library_path);
+                LibraryDB.FurtherDiagnoseDBProblem(ex, null, library_path);
                 throw ex;
             }
         }
@@ -211,6 +218,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         public List<IntranetLibraryItem> GetIntranetLibraryItems(string filename, int MaxRecordCount = 0)
         {
             List<IntranetLibraryItem> results = new List<IntranetLibraryItem>();
+            List<Exception> database_corruption = new List<Exception>();
 
             try
             {
@@ -243,16 +251,37 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                                     IntranetLibraryItem result = new IntranetLibraryItem();
                                     results.Add(result);
 
+                                    long total_bytes = 0;
+
+                                    try
+                                    {
                                     result.filename = reader.GetString(0);
                                     result.last_updated_by = reader.GetString(1);
                                     result.md5 = reader.GetString(2);
 
-                                    long total_bytes = reader.GetBytes(3, 0, null, 0, 0);
-                                    result.data = new byte[total_bytes];
-                                    long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
-                                    if (total_bytes != total_bytes2)
+                                        total_bytes = reader.GetBytes(3, 0, null, 0, 0);
+                                        result.data = new byte[total_bytes];
+                                        long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
+                                        if (total_bytes != total_bytes2)
+                                        {
+                                            throw new Exception("Error reading blob - blob size different on each occasion.");
+                                        }
+                                    }
+                                    catch (Exception ex)
                                     {
-                                        throw new Exception("Error reading blob - blob size different on each occasion.");
+                                        string msg = String.Format("IntranetLibraryDB::GetLibraryItems: Database record #{4} decode failure for DB '{0}': filename_id={1}, last_updated_by={2}, md5={3}, length={5}.",
+                                            library_path,
+                                            String.IsNullOrEmpty(result.filename) ? "???" : result.filename,
+                                            String.IsNullOrEmpty(result.last_updated_by) ? "???" : result.last_updated_by,
+                                            String.IsNullOrEmpty(result.md5) ? "???" : result.md5,
+                                            reader.StepCount, // ~= results.Count + database_corruption.Count
+                                            total_bytes
+                                            );
+                                        Logging.Error(ex, "{0}", msg);
+
+                                        Exception ex2 = new Exception(msg, ex);
+
+                                        database_corruption.Add(ex2);
                                     }
                                 }
 
@@ -282,7 +311,19 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             catch (Exception ex)
             {
                 Logging.Error(ex, "IntranetLibraryDB::GetLibraryItems: Database I/O failure for DB '{0}'.", library_path);
+                LibraryDB.FurtherDiagnoseDBProblem(ex, database_corruption, library_path);
                 throw ex;
+            }
+
+            if (database_corruption.Count > 0)
+            {
+                // report database corruption: the user may want to recover from this ASAP!
+                if (MessageBoxes.AskErrorQuestion(true, "INTRANET Library (Sync Point) '{0}' has some data corruption. Do you want to abort the application to attempt recovery using external tools, e.g. a data restore from backup?\n\nWhen you answer NO, we will continue with what we could recover so far instead.\n\n\nConsult the Qiqqa logfiles to see the individual corruptions reported.",
+                    library_path))
+                {
+                    Logging.Warn("User chose to abort the application on database corruption report");
+                    Environment.Exit(3);
+                }
             }
 
             return results;
@@ -291,6 +332,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
         public List<IntranetLibraryItem> GetIntranetLibraryItemsSummary()
         {
             List<IntranetLibraryItem> results = new List<IntranetLibraryItem>();
+            List<Exception> database_corruption = new List<Exception>();
 
             try
             {
@@ -311,8 +353,25 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                                     IntranetLibraryItem result = new IntranetLibraryItem();
                                     results.Add(result);
 
+                                    try
+                                    {
                                     result.filename = reader.GetString(0);
                                     result.md5 = reader.GetString(1);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        string msg = String.Format("IntranetLibraryDB::GetIntranetLibraryItemsSummary: Database record #{3} decode failure for DB '{0}': filename_id={1}, md5={2}.",
+                                            library_path,
+                                            String.IsNullOrEmpty(result.filename) ? "???" : result.filename,
+                                            String.IsNullOrEmpty(result.md5) ? "???" : result.md5,
+                                            reader.StepCount // ~= results.Count + database_corruption.Count
+                                            );
+                                        Logging.Error(ex, "{0}", msg);
+
+                                        Exception ex2 = new Exception(msg, ex);
+
+                                        database_corruption.Add(ex2);
+                                    }
                                 }
 
                                 reader.Close();
@@ -340,8 +399,20 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "IntranetLibraryDB::GetItemsSummary: Database I/O failure for DB '{0}'.", library_path);
+                Logging.Error(ex, "IntranetLibraryDB::GetLibraryItemsSummary: Database I/O failure for DB '{0}'.", library_path);
+                LibraryDB.FurtherDiagnoseDBProblem(ex, database_corruption, library_path);
                 throw ex;
+            }
+
+            if (database_corruption.Count > 0)
+            {
+                // report database corruption: the user may want to recover from this ASAP!
+                if (MessageBoxes.AskErrorQuestion(true, "INTRANET Library (Sync Point) '{0}' has some data corruption. Do you want to abort the application to attempt recovery using external tools, e.g. a data restore from backup?\n\nWhen you answer NO, we will continue with what we could recover so far instead.\n\n\nConsult the Qiqqa logfiles to see the individual corruptions reported.",
+                    library_path))
+                {
+                    Logging.Warn("User chose to abort the application on database corruption report");
+                    Environment.Exit(3);
+                }
             }
 
             return results;

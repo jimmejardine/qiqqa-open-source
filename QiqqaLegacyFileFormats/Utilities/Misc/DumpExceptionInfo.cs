@@ -12,7 +12,7 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Misc
     {
         // https://stackoverflow.com/questions/8039660/net-how-to-convert-exception-to-string
         //
-        // 
+        //
         private static void WriteExceptionDetails(StringBuilder builderToFill, Exception exception, int level)
         {
             var indent = new string(' ', level);
@@ -67,7 +67,7 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Misc
             }
         }
         //
-        // and call it via extension: 
+        // and call it via extension:
         //
         public static string ToStringAllExceptionDetails(this Exception exception)
         {

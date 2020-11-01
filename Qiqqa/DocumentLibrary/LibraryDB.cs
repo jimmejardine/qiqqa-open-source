@@ -7,6 +7,7 @@ using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -63,7 +64,12 @@ namespace Qiqqa.DocumentLibrary
 
         private SQLiteConnection GetConnection()
         {
-            return new SQLiteConnection("Pooling=True;Max Pool Size=3;Data Source=" + library_path);
+            SQLiteConnection connection = new SQLiteConnection("Pooling=True;Max Pool Size=3;Data Source=" + library_path);
+
+            // Turn on extended result codes
+            connection.SetExtendedResultCodes(true);
+
+            return connection;
         }
 
         private static readonly char[] queryWildcards = { '*', '?', '%', '_' };
@@ -181,6 +187,7 @@ namespace Qiqqa.DocumentLibrary
             catch (Exception ex)
             {
                 Logging.Error(ex, "LibraryDB::PutBLOB: Database I/O failure for DB '{0}'.", library_path);
+                LibraryDB.FurtherDiagnoseDBProblem(ex, null, library_path);
                 throw ex;
             }
         }
@@ -271,39 +278,109 @@ namespace Qiqqa.DocumentLibrary
                                 while (reader.Read())
                                 {
                                     LibraryItem result = new LibraryItem();
-                                    results.Add(result);
 
-                                    long total_bytes = 0;
+                                    int field_count = 0;
 
+                                    // Read the record in 2-3 gangs, as there's some DBs out there which have the BLOB as NOT A BLOB but as a STRING type instead:
+                                    // this is probably caused by manual editing (using SQLite CLI or other means) of the BLOB record.
+
+                                    // gang 1: load the field count and header fields: these almost never fail.
                                     try
                                     {
+                                        field_count = reader.FieldCount;
+
                                         result.fingerprint = reader.GetString(0);
                                         result.extension = reader.GetString(1);
                                         result.md5 = reader.GetString(2);
-
-                                        total_bytes = reader.GetBytes(3, 0, null, 0, 0);
-                                        result.data = new byte[total_bytes];
-                                        long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
-                                        if (total_bytes != total_bytes2)
-                                        {
-                                            throw new Exception("Error reading blob - blob size different on each occasion.");
-                                        }
                                     }
                                     catch (Exception ex)
                                     {
-                                        string msg = String.Format("LibraryDB::GetLibraryItems: Database record #{4} decode failure for DB '{0}': fingerprint={1}, ext={2}, md5={3}, length={5}.",
+                                        string msg = String.Format("LibraryDB::GetLibraryItems: Database record #{4} gang 1 decode failure for DB '{0}': fingerprint={1}, ext={2}, md5={3}, field_count={5}.",
                                             library_path,
                                             String.IsNullOrEmpty(result.fingerprint) ? "???" : result.fingerprint,
                                             String.IsNullOrEmpty(result.extension) ? "???" : result.extension,
                                             String.IsNullOrEmpty(result.md5) ? "???" : result.md5,
                                             reader.StepCount, // ~= results.Count + database_corruption.Count
-                                            total_bytes
+                                            field_count
                                             );
                                         Logging.Error(ex, "{0}", msg);
 
                                         Exception ex2 = new Exception(msg, ex);
 
                                         database_corruption.Add(ex2);
+
+                                        // it's no use to try to decode the rest of the DB record: it is lost to us
+                                        continue;
+                                    }
+
+                                    {
+                                        Exception ex2 = null;
+
+                                        long total_bytes = 0;
+
+                                        // gang 2: get the BLOB
+                                        try
+                                        {
+                                            total_bytes = reader.GetBytes(3, 0, null, 0, 0);
+                                            result.data = new byte[total_bytes];
+                                            long total_bytes2 = reader.GetBytes(3, 0, result.data, 0, (int)total_bytes);
+                                            if (total_bytes != total_bytes2)
+                                            {
+                                                throw new Exception("Error reading blob - blob size different on each occasion.");
+                                            }
+
+                                            results.Add(result);
+                                            continue;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            string msg = String.Format("LibraryDB::GetLibraryItems: Database record #{4} BLOB decode failure for DB '{0}': fingerprint={1}, ext={2}, md5={3}, BLOB length={5}.",
+                                                library_path,
+                                                String.IsNullOrEmpty(result.fingerprint) ? "???" : result.fingerprint,
+                                                String.IsNullOrEmpty(result.extension) ? "???" : result.extension,
+                                                String.IsNullOrEmpty(result.md5) ? "???" : result.md5,
+                                                reader.StepCount, // ~= results.Count + database_corruption.Count
+                                                total_bytes
+                                                );
+
+                                            ex2 = new Exception(msg, ex);
+
+                                            // gang 3: get at the BLOB-née-STRING in an indirect way
+                                            object[] fields = new object[5];
+
+                                            try
+                                            {
+                                                reader.GetValues(fields);
+                                                byte[] arr = fields[3] as byte[];
+                                                if (arr != null)
+                                                {
+                                                    string blob = Encoding.UTF8.GetString(arr, 0, arr.Length);
+
+                                                    result.data = new byte[arr.Length];
+                                                    Array.Copy(arr, result.data, arr.Length);
+
+                                                    results.Add(result);
+
+                                                    Logging.Warn("LibraryDB::GetLibraryItems: Database record #{0} BLOB field is instead decoded as UTF8 STRING, following this RESOLVED ERROR: {1}\n  Decoded STRING content:\n{2}",
+                                                reader.StepCount, // ~= results.Count + database_corruption.Count
+                                                ex2.ToStringAllExceptionDetails(),
+                                                blob);
+
+                                                    continue;
+                                                }
+                                                else
+                                                {
+                                                    throw new Exception("Cannot extract BLOB field.");
+                                                }
+                                            }
+                                            catch (Exception ex3)
+                                            {
+                                                Logging.Error(ex2);
+                                                Logging.Error(ex3);
+
+                                                database_corruption.Add(ex2);
+                                            }
+                                        }
                                     }
                                 }
 
@@ -333,6 +410,7 @@ namespace Qiqqa.DocumentLibrary
             catch (Exception ex)
             {
                 Logging.Error(ex, "LibraryDB::GetLibraryItems: Database I/O failure for DB '{0}'.", library_path);
+                LibraryDB.FurtherDiagnoseDBProblem(ex, database_corruption, library_path);
                 throw ex;
             }
 
@@ -349,5 +427,246 @@ namespace Qiqqa.DocumentLibrary
 
             return results;
         }
+
+        public static void FurtherDiagnoseDBProblem(Exception ex, List<Exception> corruption_list, string library_path)
+        {
+            SQLiteException sql_ex = ex as SQLiteException;
+
+            // so we had a failure (or several)... now check the state of the database file and report on our findings:
+            StringBuilder sb = new StringBuilder();
+            do
+            {
+                sb.AppendLine("--- Diagnosis for reported problem ---");
+                sb.AppendLine("======================================");
+                sb.AppendLine("");
+
+                if (!File.Exists(library_path))
+                {
+                    sb.AppendLine($"--> The database file '{library_path}' does not exist.");
+                    break;
+                }
+
+                bool looks_sane = true;
+                bool is_readonly = false;
+
+                // what are the access rights and size?
+                try
+                {
+                    var info = File.GetFileSystemEntryInfo(library_path);
+
+                    sb.AppendLine($"--> File Attributes:                                {info.Attributes}");
+                    sb.AppendLine($"--> File Creation Date (UTC):                       {info.CreationTimeUtc}");
+                    sb.AppendLine($"--> File Last Changed Date (UTC):                   {info.LastWriteTimeUtc}");
+                    sb.AppendLine($"--> File Last Access Date (UTC):                    {info.LastAccessTimeUtc}");
+                    sb.AppendLine($"--> Is marked as READ ONLY:                         {info.IsReadOnly}");
+                    sb.AppendLine($"--> Is marked as OFFLINE:                           {info.IsOffline}");
+                    sb.AppendLine($"--> Is marked as archived:                          {info.IsArchive}");
+                    sb.AppendLine($"--> Is marked as HIDDEN:                            {info.IsHidden}");
+                    sb.AppendLine($"--> Is a SYSTEM FILE:                               {info.IsSystem}");
+                    sb.AppendLine($"--> Is encrypted by the operating system:           {info.IsEncrypted}");
+                    sb.AppendLine($"--> Is compressed by the operating system:          {info.IsCompressed}");
+                    sb.AppendLine($"--> Is a mount point:                               {info.IsMountPoint}");
+                    sb.AppendLine($"--> Is temporary:                                   {info.IsTemporary}");
+                    sb.AppendLine($"--> Is a symbolic link:                             {info.IsSymbolicLink}");
+                    sb.AppendLine($"--> Is a sparse file:                               {info.IsSparseFile}");
+                    sb.AppendLine($"--> Is a reparse point:                             {info.IsReparsePoint}");
+                    sb.AppendLine($"--> Is not content indexed by the operating system: {info.IsNotContentIndexed}");
+                    sb.AppendLine($"--> Is a directory:                                 {info.IsDirectory}");
+                    sb.AppendLine($"--> Is a device:                                    {info.IsDevice}");
+                    sb.AppendLine($"--> Is a normal file:                               {info.IsNormal}");
+                    sb.AppendLine($"--> File size:                                      {info.FileSize} bytes");
+
+                    is_readonly = info.IsReadOnly;
+
+                    if (info.IsOffline || info.IsHidden || info.IsSystem || info.IsEncrypted || info.IsMountPoint || info.IsTemporary || info.IsSymbolicLink || info.IsSparseFile || info.IsReparsePoint || info.IsDirectory || info.IsDevice)
+                    {
+                        sb.AppendLine("");
+                        sb.AppendLine("--> WARNING: this doesn't look like a very normal file.");
+                        sb.AppendLine("    Check the attributes above to determine if they are as you expect.");
+                        sb.AppendLine("");
+                        looks_sane = false;
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    sb.AppendLine($"--> FAILED to collect the file attributes: {ex2.ToStringAllExceptionDetails()}");
+                    looks_sane = false;
+                }
+
+                // Check if we can open the file for basic I/O:
+                try
+                {
+                    // read the entire file into a 1M buffer. Watch for errors.
+                    byte[] buf = new byte[1024 * 1024];
+                    const int count = 1024 * 1024;
+                    long length_read = 0;
+
+                    using (var stream = File.OpenRead(library_path))
+                    {
+                        int rc;
+
+                        while (true)
+                        {
+                            rc = stream.Read(buf, 0, count);
+                            if (rc > 0)
+                            {
+                                length_read += rc;
+                            }
+                            else if (rc == 0)
+                            {
+                                // EOF
+                                break;
+                            }
+                            else
+                            {
+                                throw new Exception($"stream.Read produced a negative result: {rc}");
+                            }
+                        }
+                    }
+
+                    long file_size = File.GetSize(library_path);
+
+                    if (file_size != length_read)
+                    {
+                        throw new Exception($"stream.Read was unable to read/scan the entire file:\n      file size reported by the file system = {file_size} bytes, length scanned = {length_read} bytes");
+                    }
+
+                    sb.AppendLine($"--> Successfully scanned the entire file: length scanned = {length_read} bytes");
+                }
+                catch (Exception ex2)
+                {
+                    sb.AppendLine($"--> FAILED to read/scan the file: {ex2.ToStringAllExceptionDetails()}");
+                    looks_sane = false;
+                }
+
+                if (!is_readonly)
+                {
+                    // check if we can open the file for WRITE access
+                    try
+                    {
+                        using (var stream = File.OpenWrite(library_path))
+                        {
+                            sb.AppendLine($"--> Successfully opened the file for WRITE ACCESS");
+                        }
+                    }
+                    catch (Exception ex2)
+                    {
+                        sb.AppendLine($"--> FAILED to open the file for WRITE ACCESS:);");
+                        sb.AppendLine(ex2.ToStringAllExceptionDetails());
+                        looks_sane = false;
+                    }
+                }
+
+                if (corruption_list != null && corruption_list.Count > 0)
+                {
+                    if (looks_sane)
+                    {
+                        sb.AppendLine("--> WARNING: while the RAW file scan and access checks may have PASSED,");
+                        sb.AppendLine("    the Qiqqa inner systems certainly found stuff in the file to complain about:");
+                        sb.AppendLine("    these data corruptions (a.k.a. DECODE FAILURES) have already been reported,");
+                        sb.AppendLine("    but here they are once more in summarized form:");
+                    }
+                    else
+                    {
+                        sb.AppendLine("--> ERROR: while the RAW file scan and access checks may have FAILED,");
+                        sb.AppendLine("    the Qiqqa inner systems also found stuff in the file to complain about");
+                        sb.AppendLine("    -- which is VERY PROBABLY related to or caused by the findings reported above.");
+                        sb.AppendLine("");
+                        sb.AppendLine("    The data corruptions (a.k.a. DECODE FAILURES) have already been reported,");
+                        sb.AppendLine("    but here they are once more in summarized form:");
+                    }
+                    sb.AppendLine("");
+
+                    int index = 1;
+                    foreach (var corruption in corruption_list)
+                    {
+                        sb.AppendLine($"      #{index.ToString("03")}: {corruption.Message.Split('\n')[0]}");
+                        index++;
+                    }
+                    sb.AppendLine($"      --- {corruption_list.Count} reported data corruptions ---------------------------------------");
+
+                    looks_sane = false;
+                }
+
+                if (sql_ex != null)
+                {
+                    sb.AppendLine("");
+                    sb.AppendLine("    As this report is about a SQLite database error, it MAY be useful to search");
+                    sb.AppendLine("    the Internet for generic help and/or discussion of the reported SQLite error:");
+                    sb.AppendLine("");
+                    int errorcode = sql_ex.ErrorCode;
+                    int basenum = errorcode & 0xFF;
+                    int extended_shift = errorcode >> 8;
+                    int herr = sql_ex.HResult;
+
+                    sb.AppendLine("    ( ref: https://sqlite.org/rescode.html )");
+                    sb.AppendLine("    ( ref: https://sqlite.org/c3ref/c_abort.html )");
+                    sb.AppendLine($"    SQLite Error Code: {basenum}");
+                    if (extended_shift != 0)
+                    {
+                        sb.AppendLine("    ( ref: https://sqlite.org/c3ref/c_abort_rollback.html )");
+                        sb.AppendLine($"    SQLite Extended Error Code: ({basenum} | ({extended_shift} << 8))   = {errorcode}");
+                    }
+                    else
+                    {
+                        sb.AppendLine("    Reported error code is NOT a SQLite Extended Error Code.");
+                    }
+                    sb.AppendLine($"    SQLite HResult: {herr.ToString("08:X")}");
+                    sb.AppendLine("");
+                    sb.AppendLine($"      SQLite: the define constants (i.e. compile-time options): {SQLiteConnection.DefineConstants}");
+                    sb.AppendLine($"      SQLite: the underlying SQLite core library: {SQLiteConnection.SQLiteVersion}");
+                    sb.AppendLine($"      SQLite: SQLITE_SOURCE_ID: {SQLiteConnection.SQLiteSourceId}");
+                    sb.AppendLine($"      SQLite: the compile-time options: {SQLiteConnection.SQLiteCompileOptions}");
+                    sb.AppendLine($"      SQLite: the version of the interop SQLite assembly: {SQLiteConnection.InteropVersion}");
+                    sb.AppendLine($"      SQLite: the unique identifier for the source checkout used to build the interop assembly: {SQLiteConnection.InteropSourceId}");
+                    sb.AppendLine($"      SQLite: the compile-time options used to compile the SQLite interop assembly: {SQLiteConnection.InteropCompileOptions}");
+                    sb.AppendLine($"      SQLite: the version of the managed components: {SQLiteConnection.ProviderVersion}");
+                    sb.AppendLine($"      SQLite: the unique identifier for the source checkout used to build the managed components: {SQLiteConnection.ProviderSourceId}");
+                    sb.AppendLine($"      SQLite: the extra connection flags: {SQLiteConnection.SharedFlags}");
+                    sb.AppendLine($"      SQLite: the default connection flags: {SQLiteConnection.DefaultFlags}");
+                    sb.AppendLine("");
+                    sb.AppendLine("      (ref: https://sqlite.org/c3ref/extended_result_codes.html )");
+                    sb.AppendLine("      SQLite Extended Error Reporting has been ENABLED: SetExtendedResultCodes(true)");
+                }
+
+                sb.AppendLine("---------");
+
+                if (looks_sane)
+                {
+                    sb.AppendLine("");
+                    sb.AppendLine("--> VERDICT OK(?): this DOES look like a very normal file.");
+                    sb.AppendLine("");
+                    sb.AppendLine("    HOWEVER, it may have incorrect a.k.a. 'corrupted' content, which made Qiqqa barf,");
+                    sb.AppendLine("    or there's something else going on which this simply diagnosis routine");
+                    sb.AppendLine("    is unable to unearth.");
+                    sb.AppendLine("");
+                    sb.AppendLine("    Please file a report at the Qiqqa issue tracker and include this logging");
+                    sb.AppendLine("    for further inspection.");
+                }
+                else
+                {
+                    sb.AppendLine("");
+                    sb.AppendLine("--> VERDICT BAD(?): as far as this simple diagnostic routine can tell,");
+                    sb.AppendLine("    this is NOT an 'okay' file.");
+                    sb.AppendLine("");
+                    if (is_readonly)
+                    {
+                        sb.AppendLine("    It MAY be marked READ-ONLY, which MAY be okay in your book, but is certainly");
+                        sb.AppendLine("    unexpected here.");
+                        sb.AppendLine("");
+                    }
+                    sb.AppendLine("    There's something going on which this simply diagnosis routine CANNOT diagnose further.");
+                    sb.AppendLine("");
+                    sb.AppendLine("    Please file a report at the Qiqqa issue tracker and include this logging");
+                    sb.AppendLine("    for further inspection.");
+                }
+
+                sb.AppendLine("");
+                sb.AppendLine("==================== End of diagnostics report ============================================");
+            } while (false);
+
+            Logging.Error(sb.ToString());
+        }
     }
 }
+

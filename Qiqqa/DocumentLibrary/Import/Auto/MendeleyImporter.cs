@@ -56,6 +56,9 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
                     {
                         using (SQLiteConnection connection = new SQLiteConnection("Data Source=" + sqlite_filename))
                         {
+                            // Turn on extended result codes
+                            connection.SetExtendedResultCodes(true);
+
                             connection.Open();
 
                             // Build the authors lookup

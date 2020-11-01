@@ -252,23 +252,36 @@ namespace Qiqqa.Synchronisation.BusinessLogic
             {
                 // Needed for passing to background thread...
                 SyncControlGridItem sync_control_grid_item = sync_control_grid_item_temp;
+                WebLibraryDetail web_library_detail = sync_control_grid_item.library_sync_detail.web_library_detail;
 
-                if (sync_control_grid_item.library_sync_detail.web_library_detail.Xlibrary.sync_in_progress)
+                if (!web_library_detail.IsIntranetLibrary)
+                {
+                    string local_sync_db = HistoricalSyncFile.GetSyncDbFilename(web_library_detail);
+
+                    if (File.Exists(local_sync_db))
+                    {
+                        Logging.Warn("INTEGRITY CHECK 'CURIOSITY': library '{0}' has a Historical Sync file at '{1}', while at the same time seems to NOT HAVE a Sync Point a.k.a. Share Target set and thus cannot be synced. The presense of the Histrorical Sync File indicates that this library has had a Sync Point sometime in the past.", web_library_detail, local_sync_db);
+                    }
+
+                    Logging.Warn("SYNC IGNORE: library '{0}' has no Sync Point a.k.a. Share Target set and thus cannot be synced.", web_library_detail);
+                }
+
+                if (web_library_detail.Xlibrary.sync_in_progress)
                 {
                     if (!sync_control_grid_item_set.sync_request.suppress_already_in_progress_notification)
                     {
-                        MessageBoxes.Info("A sync operation is already in progress for library {0}.  Please wait for it to finish before trying to sync again.", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
+                        MessageBoxes.Info("A sync operation is already in progress for library {0}.  Please wait for it to finish before trying to sync again.", web_library_detail.Title);
                     }
                     else
                     {
-                        Logging.Info("A sync operation is already in progress for library {0}.  This has been suppressed from the GUI.", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
+                        Logging.Info("A sync operation is already in progress for library {0}.  This has been suppressed from the GUI.", web_library_detail.Title);
                     }
                 }
                 else
                 {
                     if (sync_control_grid_item.SyncMetadata || sync_control_grid_item.SyncDocuments)
                     {
-                        sync_control_grid_item.library_sync_detail.web_library_detail.Xlibrary.sync_in_progress = true;
+                        web_library_detail.Xlibrary.sync_in_progress = true;
                         SafeThreadPool.QueueUserWorkItem(o => Sync_BACKGROUND(sync_control_grid_item));
                     }
                 }
@@ -284,7 +297,6 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             try
             {
-
                 if (sync_control_grid_item.SyncMetadata)
                 {
                     if (sd.sync_decision.can_sync)
@@ -343,6 +355,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
         private void SynchronizeMetadata_INTERNAL_BACKGROUND(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, bool is_readonly)
         {
             Dictionary<string, string> historical_sync_file = HistoricalSyncFile.GetHistoricalSyncFile(web_library_detail);
+
             try
             {
                 SynchronisationStates ss = SynchronisationStateBuilder.Build(web_library_detail, historical_sync_file);
@@ -380,7 +393,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
             if (is_readonly)
             {
                 // Do nothing...
-                Logging.Info("Not queueing upload of PDFs for readonly library.");
+                Logging.Info("Not queueing upload of PDFs for read-only library '{0}'.", web_library_detail);
             }
             else if (web_library_detail.IsIntranetLibrary)
             {

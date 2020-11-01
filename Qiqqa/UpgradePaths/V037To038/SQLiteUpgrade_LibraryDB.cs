@@ -30,7 +30,12 @@ namespace Qiqqa.UpgradePaths.V037To038
 
         public SQLiteConnection GetConnection()
         {
-            return new SQLiteConnection("Pooling=True;Max Pool Size=10;Data Source=" + library_path);
+            SQLiteConnection connection = new SQLiteConnection("Pooling=True;Max Pool Size=3;Data Source=" + library_path);
+
+            // Turn on extended result codes
+            connection.SetExtendedResultCodes(true);
+
+            return connection;
         }
 
         internal void PutBlob(SQLiteConnection connection, SQLiteTransaction transaction, string fingerprint, string extension, byte[] data)
@@ -46,6 +51,5 @@ namespace Qiqqa.UpgradePaths.V037To038
                 command.ExecuteNonQuery();
             }
         }
-
     }
 }

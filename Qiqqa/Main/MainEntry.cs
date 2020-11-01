@@ -315,7 +315,7 @@ namespace Qiqqa.Main
 
             // give this a sane upper limit so the application cannot ever be 'stuck in the background' due to this:
             int wait_time = 15000;
-            for (int min_rounds = 5; min_rounds > 0 && wait_time > 0 && (SafeThreadPool.RunningThreadCount > 0 || GC.GetTotalMemory(false) > 10000000); min_rounds--)
+            for (int min_rounds = 3; wait_time > 0 && (min_rounds > 0 || SafeThreadPool.RunningThreadCount > 0 || GC.GetTotalMemory(false) > 10000000L); min_rounds--)
             {
                 GC.WaitForPendingFinalizers();
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
@@ -353,7 +353,7 @@ namespace Qiqqa.Main
         private static void RemarkOnException(Exception ex, bool potentially_fatal)
         {
             Logging.Error(ex, "RemarkOnException.....");
-            if (null != Application.Current)
+            if (null != Application.Current && !ShutdownableManager.Instance.IsShuttingDown)
             {
                 WPFDoEvents.InvokeInUIThread(() =>
                 {

@@ -44,7 +44,7 @@ namespace Qiqqa.UpgradePaths.V037To038
                     string database_file = LibraryDB.GetLibraryDBPath(library_directory);
                     string database_syncref_file = IntranetLibraryTools.GetLibraryMetadataPath(library_directory);
 
-                    // make sure we skip S3DB internet DB sync directories and only 'go through the upgrade process
+                    // make sure we skip S3DB internet DB sync directories and only go through the upgrade process
                     // when this looks like a viable (local) Qiqqa library:
                     if (!File.Exists(database_file) && Directory.Exists(documents_directory) && !File.Exists(database_syncref_file))
                     {

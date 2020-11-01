@@ -207,6 +207,12 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
+            if (!ConfigurationManager.IsEnabled("BuildSearchIndex"))
+            {
+                Logging.Debug特("DoMaintenance_Infrequent::IncrementalBuildIndex: Breaking out of processing loop due to BuildSearchIndex=false");
+                return;
+            }
+
             foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 Library library = web_library_detail.Xlibrary;
@@ -235,6 +241,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     Logging.Error(ex, "Exception in metadata_extraction_daemon");
                 }
             }
+
             Logging.Debug特("DoMaintenance_Infrequent END");
         }
 

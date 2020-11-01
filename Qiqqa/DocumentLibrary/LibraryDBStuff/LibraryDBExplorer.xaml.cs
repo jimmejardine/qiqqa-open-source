@@ -110,19 +110,19 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                                 }
                                 break;
 
-                                // highlights format: JSON:
-                                //
-                                // [
-                                //  {
-                                //    "P": 3,
-                                //    "L": 0.21154,
-                                //    "T": 0.1395,
-                                //    "W": 0.09829,
-                                //    "H": 0.01615,
-                                //    "C": 0
-                                //  },
-                                //  ...
-                                //
+                            // highlights format: JSON:
+                            //
+                            // [
+                            //  {
+                            //    "P": 3,
+                            //    "L": 0.21154,
+                            //    "T": 0.1395,
+                            //    "W": 0.09829,
+                            //    "H": 0.01615,
+                            //    "C": 0
+                            //  },
+                            //  ...
+                            //
 
                             /*
                              * example annotation: JSON format:
@@ -169,8 +169,8 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                                 }
                                 break;
 
-                                // inks format: binary serialized
-                                //
+                            // inks format: binary serialized
+                            //
                             case "inks":
                                 try
                                 {
@@ -186,7 +186,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                             case "metadata":
                                 try
                                 {
-                                    PDFDocument doc = PDFDocument.LoadFromMetaData(web_library_detail, item.data, null);
+                                    PDFDocument doc = PDFDocument.LoadFromMetaData(web_library_detail, item.fingerprint, item.data, null);
                                     string bibtexStr = doc.BibTex;
                                     if (null == bibtexStr)
                                     {

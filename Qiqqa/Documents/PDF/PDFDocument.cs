@@ -1076,11 +1076,28 @@ namespace Qiqqa.Documents.PDF
         /// <param name="data"></param>
         /// <param name="library_items_annotations_cache"></param>
         /// <returns></returns>
-        public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
+        public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, string fingerprint, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
         {
+            ASSERT.Test(!String.IsNullOrEmpty(fingerprint));
+
             DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
+
+            // Recover partially damaged record: if there's no fingerprint in the dictionary, add the given one:
+            string id = dictionary["Fingerprint"] as string;
+            if (String.IsNullOrEmpty(id))
+            {
+                dictionary["Fingerprint"] = fingerprint;
+            }
+
             LockObject _lock = new LockObject();
             PDFDocument pdf_document = new PDFDocument(_lock, web_library_detail, dictionary);
+
+            // extra verification / sanity check: this will catch some very obscure DB corruption, or rather **manual editing**! ;-)
+            if (pdf_document.Fingerprint != fingerprint)
+            {
+                Logging.Warn("Sanity check: given fingerprint '{0}' does not match the fingerprint '{1}' obtained from the DB metadata record. Running with the fingerprint specified in the metadata record.", fingerprint, pdf_document.Fingerprint);
+            }
+
             // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
             pdf_document.doc.GetAnnotations(library_items_annotations_cache);
             return pdf_document;
@@ -1119,7 +1136,7 @@ namespace Qiqqa.Documents.PDF
                 try
                 {
                     LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(web_library_detail, library_item.data, null);
+                    pdf_document = LoadFromMetaData(web_library_detail, pdf_document.doc.Fingerprint, library_item.data, null);
                 }
                 catch (Exception ex)
                 {
@@ -1159,7 +1176,7 @@ namespace Qiqqa.Documents.PDF
                 try
                 {
                     LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(web_library_detail, library_item.data, null);
+                    pdf_document = LoadFromMetaData(web_library_detail, pdf_document.Fingerprint, library_item.data, null);
                 }
                 catch (Exception ex)
                 {

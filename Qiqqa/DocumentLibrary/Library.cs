@@ -233,7 +233,8 @@ namespace Qiqqa.DocumentLibrary
                 long elapsed = 0;
                 Logging.Debug特("+Build library {0} from repository", web_library_detail.Id);
                 List<LibraryDB.LibraryItem> library_items = library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
-                /* const */ int library_item_count = library_items.Count;
+                /* const */
+                int library_item_count = library_items.Count;
 
                 elapsed = clk.ElapsedMilliseconds;
                 Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_item_count, web_library_detail.DescriptiveTitle);
@@ -255,7 +256,8 @@ namespace Qiqqa.DocumentLibrary
                 Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_item_count, web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH, web_library_detail.DescriptiveTitle);
 
                 long clk_bound = elapsed;
-                /* const */ int one_pct_point = library_item_count / 200; // one percent point is defined here as 0.5%
+                /* const */
+                int one_pct_point = library_item_count / 200; // one percent point is defined here as 0.5%
                 int next_i_bound = one_pct_point;
                 for (int i = 0; i < library_item_count; ++i)
                 {
@@ -339,7 +341,7 @@ namespace Qiqqa.DocumentLibrary
                 throw new Exception(String.Format("Skipping corrupted NULL record for ID {0}", library_item.ToString()));
             }
 
-            PDFDocument pdf_document = PDFDocument.LoadFromMetaData(web_library_detail, library_item.data, library_items_annotations_cache);
+            PDFDocument pdf_document = PDFDocument.LoadFromMetaData(web_library_detail, library_item.fingerprint, library_item.data, library_items_annotations_cache);
 
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
@@ -982,7 +984,7 @@ namespace Qiqqa.DocumentLibrary
             SignalThatDocumentsHaveChanged(null);
         }
 
-#region --- Signaling that documents have been changed ------------------
+        #region --- Signaling that documents have been changed ------------------
 
         public class PDFDocumentEventArgs : EventArgs
         {
@@ -1068,9 +1070,9 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#endregion
+        #endregion
 
-#region --- IDisposable ------------------------------------------------------------------------
+        #region --- IDisposable ------------------------------------------------------------------------
 
         ~Library()
         {
@@ -1143,7 +1145,7 @@ namespace Qiqqa.DocumentLibrary
             ++dispose_count;
         }
 
-#endregion
+        #endregion
 
     }
 }
