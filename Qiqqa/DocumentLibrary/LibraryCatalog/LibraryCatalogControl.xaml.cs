@@ -6,6 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.LibraryFilter;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
@@ -108,21 +109,21 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         public Dictionary<string, double> SearchScores => search_scores;
 
 
-        private Library library;
-        public Library Library
+        private WebLibraryDetail web_library_detail;
+        public WebLibraryDetail LibraryRef
         {
-            get => library;
+            get => web_library_detail;
             set
             {
-                if (null != library)
+                if (null != web_library_detail)
                 {
                     throw new Exception("Library can only be assigned once!");
                 }
 
-                library = value;
+                web_library_detail = value;
                 DataContext = value;
 
-                drag_to_library_manager = new DragToLibraryManager(library);
+                drag_to_library_manager = new DragToLibraryManager(web_library_detail);
                 drag_to_library_manager.RegisterControl(this);
             }
         }
@@ -285,12 +286,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         public static void TestHarness()
         {
             Library library = Library.GuestInstance;
-            while (!library.LibraryIsLoaded) 
-            { 
-                Thread.Sleep(1000); 
+            while (!library.LibraryIsLoaded)
+            {
+                Thread.Sleep(1000);
             }
             LibraryCatalogControl lcc = new LibraryCatalogControl();
-            lcc.Library = library;
+            lcc.LibraryRef = library;
 
             ControlHostingWindow window = new ControlHostingWindow("Fast library control", lcc);
             window.Show();

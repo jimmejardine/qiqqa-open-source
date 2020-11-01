@@ -82,7 +82,7 @@ namespace Qiqqa.InCite
                 string key = pdf_document.BibTexKey;
                 if (!String.IsNullOrEmpty(key))
                 {
-                    foreach (PDFDocument pdf_document_other in pdf_document.Library.PDFDocuments)
+                    foreach (PDFDocument pdf_document_other in pdf_document.LibraryRef.Xlibrary.PDFDocuments)
                     {
                         if (pdf_document_other != pdf_document)
                         {
@@ -116,7 +116,7 @@ namespace Qiqqa.InCite
                     string reference_key = selected_pdf_document.BibTexKey;
                     if (null != reference_key)
                     {
-                        string reference_library = selected_pdf_document.Library.WebLibraryDetail.Id;
+                        string reference_library = selected_pdf_document.LibraryRef.Id;
                         CitationItem ci = new CitationItem(reference_key, reference_library);
                         cc.citation_items.Add(ci);
                     }
@@ -174,7 +174,7 @@ namespace Qiqqa.InCite
             string last_style_filename = GetLastStyleFilename();
             if (null != last_style_filename)
             {
-                CSLProcessor.GenerateRtfCitationSnippet(suppress_messages, pdf_documents, last_style_filename, null, brd);
+                CSLProcessor.GenerateRtfCitationSnippet(suppress_messages, pdf_documents, last_style_filename, brd);
             }
         }
 

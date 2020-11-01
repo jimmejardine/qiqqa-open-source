@@ -1,15 +1,14 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterOverviewControl"
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterOverviewControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
->
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
     <Grid>
-        <local_gui:AugmentedBorder x:Name="ObjLibraryFilterDescriptiveTextBorder" >
+        <local_gui:AugmentedBorder x:Name="ObjLibraryFilterDescriptiveTextBorder">
             <Grid>
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
-                    <commongui:StandardFlowDocument x:Name="ObjLibraryFilterDescriptiveText">
-                    </commongui:StandardFlowDocument>
+                    <commongui:StandardFlowDocument x:Name="ObjLibraryFilterDescriptiveText" />
                 </FlowDocumentScrollViewer>
             </Grid>
         </local_gui:AugmentedBorder>

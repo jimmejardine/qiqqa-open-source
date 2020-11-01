@@ -16,15 +16,15 @@ namespace Qiqqa.DocumentLibrary
 {
     internal class DragToLibraryManager
     {
-        private Library default_library;
+        private WebLibraryDetail default_library;
         private FrameworkElement previously_registered_control = null;
 
-        public DragToLibraryManager(Library default_library)
+        public DragToLibraryManager(WebLibraryDetail web_library_detail)
         {
-            this.default_library = default_library;
+            this.default_library = web_library_detail;
         }
 
-        public Library DefaultLibrary
+        public WebLibraryDetail DefaultLibrary
         {
             get => default_library;
             set => default_library = value;
@@ -91,18 +91,14 @@ namespace Qiqqa.DocumentLibrary
         public void OnDrop(object sender, DragEventArgs e)
         {
             // Pick the library
-            Library library = default_library;
-            if (null == library)
+            WebLibraryDetail web_library_detail = default_library;
+            if (null == web_library_detail)
             {
-                WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
-                if (null != web_library_detail)
-                {
-                    library = web_library_detail.library;
-                }
+                web_library_detail = WebLibraryPicker.PickWebLibrary();
             }
 
             // If there still is no library (the user canceled perhaps)
-            if (null == library)
+            if (null == web_library_detail)
             {
                 Logging.Info("No library was selected for the DragToLibraryManager.");
                 return;
@@ -130,7 +126,7 @@ namespace Qiqqa.DocumentLibrary
                     if (1 == filenames.Length)
                     {
                         // Invoke the directory handler
-                        new ImportFromFolder(library, filenames[0]).ShowDialog();
+                        new ImportFromFolder(web_library_detail, filenames[0]).ShowDialog();
                     }
                     else
                     {
@@ -139,30 +135,26 @@ namespace Qiqqa.DocumentLibrary
                 }
                 else
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, filenames);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, false, filenames);
                 }
             }
-
             else if (e.Data.GetDataPresent("UniformResourceLocator"))
             {
                 string download_url = DragDropTools.GetDataString("UniformResourceLocator", e);
                 Logging.Info("The dropped item is {0}", download_url);
-                ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(library, download_url);
+                ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(web_library_detail, download_url);
             }
-
             else if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
                 PDFDocument pdf_document = (PDFDocument)e.Data.GetData(typeof(PDFDocument));
                 Logging.Info("The dropped item is {0}", pdf_document);
-                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_document, library, suppress_signal_that_docs_have_changed: false);
+                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_document, web_library_detail, suppress_signal_that_docs_have_changed: false);
             }
-
             else if (e.Data.GetDataPresent(typeof(List<PDFDocument>)))
             {
                 List<PDFDocument> pdf_documents = (List<PDFDocument>)e.Data.GetData(typeof(List<PDFDocument>));
-                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_documents, library);
+                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_documents, web_library_detail);
             }
-
             else
             {
                 Logging.Info("Not using any of:");

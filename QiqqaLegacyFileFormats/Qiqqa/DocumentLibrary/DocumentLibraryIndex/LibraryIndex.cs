@@ -61,25 +61,25 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Doc
         {
             lock (libraryIndexInit_is_pending_lock)
             {
-                Logging.Info("Try to load a historical progress file: {0}", Filename_DocumentProgressList);
+                Logging.Info("Try to load a historical progress file: {0}", FILENAME_DOCUMENT_PROGRESS_LIST);
                 try
                 {
-                    if (File.Exists(Filename_DocumentProgressList))
+                    if (File.Exists(FILENAME_DOCUMENT_PROGRESS_LIST))
                     {
                         Stopwatch clk = Stopwatch.StartNew();
-                        Logging.Info("+Loading historical progress file: {0}", Filename_DocumentProgressList);
+                        Logging.Info("+Loading historical progress file: {0}", FILENAME_DOCUMENT_PROGRESS_LIST);
                         //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                         lock (pdf_documents_in_library_lock)
                         {
                             //l1_clk.LockPerfTimerStop();
-                            pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(Filename_DocumentProgressList);
+                            pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(FILENAME_DOCUMENT_PROGRESS_LIST);
                         }
-                        Logging.Info("-Loaded historical progress file: {0} (time spent: {1} ms)", Filename_DocumentProgressList, clk.ElapsedMilliseconds);
+                        Logging.Info("-Loaded historical progress file: {0} (time spent: {1} ms)", FILENAME_DOCUMENT_PROGRESS_LIST, clk.ElapsedMilliseconds);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", Filename_DocumentProgressList);
+                    Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", FILENAME_DOCUMENT_PROGRESS_LIST);
                     //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     lock (pdf_documents_in_library_lock)
                     {
@@ -102,7 +102,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Doc
             }
         }
 
-        private string Filename_DocumentProgressList => Path.GetFullPath(Path.Combine(Library.LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
+        private string FILENAME_DOCUMENT_PROGRESS_LIST => Path.GetFullPath(Path.Combine(Library.LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
     }
 
 #endif

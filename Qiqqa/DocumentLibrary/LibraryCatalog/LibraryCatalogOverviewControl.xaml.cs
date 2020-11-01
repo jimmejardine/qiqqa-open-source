@@ -75,7 +75,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             AugmentedBindable<PDFDocument> pdf_document_bindable = PDFDocumentBindable;
             if (null != pdf_document_bindable)
             {
-                MainWindowServiceDispatcher.Instance.OpenExpedition(pdf_document_bindable.Underlying.Library, pdf_document_bindable.Underlying);
+                MainWindowServiceDispatcher.Instance.OpenExpedition(pdf_document_bindable.Underlying.LibraryRef, pdf_document_bindable.Underlying);
             }
         }
 

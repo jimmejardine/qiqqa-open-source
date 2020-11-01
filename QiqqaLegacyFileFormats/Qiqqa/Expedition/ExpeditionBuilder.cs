@@ -12,7 +12,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Expedition
     {
         private const int MAX_TOPIC_ITERATIONS = 30;
 
-        public static ExpeditionDataSource BuildExpeditionDataSource(Library library, int num_topics, bool add_autotags, bool add_tags)
+        public static ExpeditionDataSource BuildExpeditionDataSource(WebLibraryDetail web_library_detail, int num_topics, bool add_autotags, bool add_tags)
         {
             // Initialise the datasource
             ExpeditionDataSource data_source = new ExpeditionDataSource();

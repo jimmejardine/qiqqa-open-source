@@ -64,17 +64,17 @@ namespace Qiqqa.Expedition
 
             PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-            if (null == pdf_document.Library.ExpeditionManager.ExpeditionDataSource)
+            if (null == pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource)
             {
                 return;
             }
 
-            ExpeditionDataSource eds = pdf_document.Library.ExpeditionManager.ExpeditionDataSource;
+            ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
             LDAAnalysis lda_analysis = eds.LDAAnalysis;
 
             try
             {
-                if (!pdf_document.Library.ExpeditionManager.ExpeditionDataSource.docs_index.ContainsKey(pdf_document.Fingerprint))
+                if (!pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index.ContainsKey(pdf_document.Fingerprint))
                 {
                     MessageBoxes.Warn("Expedition doesn't have any information about this paper.  Please Refresh your Expedition.");
                     return;

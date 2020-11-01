@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Qiqqa.Common.TagManagement;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.DocumentLibraryIndex;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
@@ -29,8 +30,8 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         private const int DOCUMENT_INDEX_RETRY_PERIOD_SECONDS = 60;
         private const int MAX_MILLISECONDS_PER_ITERATION = 15 * 1000;
 
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        //private TypedWeakReference<WebLibraryDetail> web_library_detail;
+        //public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
         private LuceneIndex word_index_manager = null;
         private object word_index_manager_lock = new object();
@@ -64,14 +65,14 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
         }
 
-        public LibraryIndex(Library library)
+        public LibraryIndex(WebLibraryDetail web_library_detail)
         {
-            this.library = new TypedWeakReference<Library>(library);
+            //this.web_library_detail = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
 
             // postpone INIT phase...
         }
 
-        private void Init()
+        private void Init(WebLibraryDetail web_library_detail)
         {
             // have we been here before?
             if (LibraryIndexIsLoaded)
@@ -98,25 +99,25 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                 }
 
-                Logging.Info("Try to load a historical progress file: {0}", Filename_DocumentProgressList);
+                Logging.Info("Try to load a historical progress file: {0}", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                 try
                 {
-                    if (File.Exists(Filename_DocumentProgressList))
+                    if (File.Exists(web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST))
                     {
                         Stopwatch clk = Stopwatch.StartNew();
-                        Logging.Info("+Loading historical progress file: {0}", Filename_DocumentProgressList);
+                        Logging.Info("+Loading historical progress file: {0}", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                         //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                         lock (pdf_documents_in_library_lock)
                         {
                             //l1_clk.LockPerfTimerStop();
-                            pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(Filename_DocumentProgressList);
+                            pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                         }
-                        Logging.Info("-Loaded historical progress file: {0} (time spent: {1} ms)", Filename_DocumentProgressList, clk.ElapsedMilliseconds);
+                        Logging.Info("-Loaded historical progress file: {0} (time spent: {1} ms)", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST, clk.ElapsedMilliseconds);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", Filename_DocumentProgressList);
+                    Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                     //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     lock (pdf_documents_in_library_lock)
                     {
@@ -132,7 +133,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     //l3_clk.LockPerfTimerStop();
                     if (null == pdf_documents_in_library)
                     {
-                        Logging.Warn("Cound not find any indexing progress, so starting from scratch.");
+                        Logging.Warn("Could not find any indexing progress, so starting from scratch.");
                         pdf_documents_in_library = new Dictionary<string, PDFDocumentInLibrary>();
                     }
                 }
@@ -141,7 +142,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 lock (word_index_manager_lock)
                 {
                     // l6_clk.LockPerfTimerStop();
-                    word_index_manager = new LuceneIndex(Library.LIBRARY_INDEX_BASE_PATH);
+                    word_index_manager = new LuceneIndex(web_library_detail.LIBRARY_INDEX_BASE_PATH);
                     word_index_manager.WriteMasterList();
                 }
 
@@ -190,7 +191,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             WPFDoEvents.SafeExec(() =>
             {
                 //this.word_index_manager = null;
-                library = null;
+                //web_library_detail = null;
             });
 
             WPFDoEvents.SafeExec(() =>
@@ -210,7 +211,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         #endregion
 
-        public void IncrementalBuildIndex()
+        public void IncrementalBuildIndex(WebLibraryDetail web_library_detail)
         {
             if (ShutdownableManager.Instance.IsShuttingDown)
             {
@@ -224,17 +225,17 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 return;
             }
 
-            Init();
+            Init(web_library_detail);
 
             if (time_of_last_library_scan.ElapsedMilliseconds >= LIBRARY_SCAN_PERIOD_SECONDS * 1000)
             {
-                if (RescanLibrary())
+                if (RescanLibrary(web_library_detail))
                 {
                     time_of_last_library_scan.Restart();
                 }
             }
 
-            bool did_some_work = IncrementalBuildNextDocuments();
+            bool did_some_work = IncrementalBuildNextDocuments(web_library_detail);
 
             // Flush to disk
             if (did_some_work)
@@ -255,7 +256,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 lock (pdf_documents_in_library_lock)
                 {
                     //l2_clk.LockPerfTimerStop();
-                    SerializeFile.SaveSafely(Filename_DocumentProgressList, pdf_documents_in_library);
+                    SerializeFile.SaveSafely(web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST, pdf_documents_in_library);
                 }
 
                 Logging.Info("-Wrote the index master list (time spent: {0} ms", clk.ElapsedMilliseconds);
@@ -369,12 +370,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
         }
 
-        private string Filename_DocumentProgressList => Path.GetFullPath(Path.Combine(Library.LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
-
-        private bool RescanLibrary()
+        private bool RescanLibrary(WebLibraryDetail web_library_detail)
         {
             // We include the deleted ones because we need to re-index their metadata...
-            List<PDFDocument> pdf_documents = Library.PDFDocuments_IncludingDeleted;
+            List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments_IncludingDeleted;
 
             int total_new_to_be_indexed = 0;
 
@@ -388,7 +387,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     return false;
                 }
 
-                if (Library.LibraryIsKilled)
+                if (web_library_detail.Xlibrary.LibraryIsKilled)
                 {
                     Logging.Info("Breaking out of RescanLibrary loop due to forced ABORT/Dispose of library instance.");
                     return false;
@@ -447,7 +446,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
 
             long clk_duration = clk.ElapsedMilliseconds;
-            Logging.Debug特("Rescan of library {0} for indexing took {1}ms for {2} documents.", Library.ToString(), clk_duration, pdf_documents.Count);
+            Logging.Debug特("Rescan of library {0} for indexing took {1}ms for {2} documents.", web_library_detail.Xlibrary, clk_duration, pdf_documents.Count);
 
             if (total_new_to_be_indexed > 0)
             {
@@ -476,7 +475,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             public string extra_message = "";
         }
 
-        private bool IncrementalBuildNextDocuments()
+        private bool IncrementalBuildNextDocuments(WebLibraryDetail web_library_detail)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -498,7 +497,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             //
             // IMPORTANT THREAD SAFETY NOTE:
             //
-            // We can use minimal locking (i.e. only critical section-ing the list-fetch qeury code below, instead of the entire work loop further below)
+            // We can use minimal locking (i.e. only critical section-ing the list-fetch query code below, instead of the entire work loop further below)
             // as this is the only place where the content of the individual records is edited and accessed (apart from the non-critical function
             // `GetStatusCounts()` which only serves to update the UI status reports) and the rest of the Qiqqa code ensures that this method
             // `IncrementalBuildNextDocuments()` is only invoked from a single (background) thread.
@@ -544,7 +543,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     break;
                 }
 
-                if (Library.LibraryIsKilled)
+                if (web_library_detail.Xlibrary.LibraryIsKilled)
                 {
                     Logging.Info("Breaking out of IncrementalBuildNextDocuments loop due to forced ABORT/Dispose of library instance.");
                     break;
@@ -556,7 +555,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     Logging.Info("Indexing document {0}", pdf_document_in_library.fingerprint);
 
-                    PDFDocument pdf_document = Library.GetDocumentByFingerprint(pdf_document_in_library.fingerprint);
+                    PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(pdf_document_in_library.fingerprint);
 
                     bool all_pages_processed_so_far = true;
 
@@ -676,7 +675,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                     else
                     {
-                        Logging.Warn("It appears that document {0} is no longer in library {1} so will be removed from indexing", pdf_document_in_library.fingerprint, Library.WebLibraryDetail.Id);
+                        Logging.Warn("It appears that document {0} is no longer in library {1} so will be removed from indexing", pdf_document_in_library.fingerprint, web_library_detail.Id);
                     }
 
                     if (all_pages_processed_so_far)
@@ -709,7 +708,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             }
 
             long clk_duration = clk.ElapsedMilliseconds;
-            Logging.Debug特("Incremental building of the library index for library {0} took {1}ms.", Library.ToString(), clk_duration);
+            Logging.Debug特("Incremental building of the library index for library {0} took {1}ms.", web_library_detail, clk_duration);
 
             return did_some_work;
         }

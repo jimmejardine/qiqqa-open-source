@@ -86,12 +86,12 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
             string query = ObjSearchBox.Text;
             if (!String.IsNullOrEmpty(query))
             {
-                List<IndexResult> matches = this.pdf_document.Library.LibraryIndex.GetFingerprintsForQuery(query);
+                List<IndexResult> matches = this.pdf_document.LibraryRef.Xlibrary.LibraryIndex.GetFingerprintsForQuery(query);
                 List<TextBlock> text_blocks = new List<TextBlock>();
                 bool alternator = false;
                 for (int i = 0; i < MAX_DOCUMENTS && i < matches.Count; ++i)
                 {
-                    PDFDocument pdf_document = this.pdf_document.Library.GetDocumentByFingerprint(matches[i].fingerprint);
+                    PDFDocument pdf_document = this.pdf_document.LibraryRef.Xlibrary.GetDocumentByFingerprint(matches[i].fingerprint);
                     if (null == pdf_document || pdf_document.Deleted) continue;
 
                     string prefix = String.Format("{0:0%} - ", matches[i].score);

@@ -276,30 +276,30 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Store the web library details
             web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail && null != web_library_detail.library)
+            if (null != web_library_detail && null != web_library_detail)
             {
                 // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;
-                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<Library, WebLibraryDetailControl>(
-                    web_library_detail.library,
+                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, WebLibraryDetailControl>(
+                    web_library_detail,
                     registerWeakEvent,
                     deregisterWeakEvent,
                     this,
                     forwardWeakEvent
                 );
 
-                drag_to_library_manager.DefaultLibrary = web_library_detail.library;
+                drag_to_library_manager.DefaultLibrary = web_library_detail;
             }
 
             UpdateLibraryStatistics();
         }
 
-        private static void registerWeakEvent(Library sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
         {
-            sender.OnDocumentsChanged += eh;
+            sender.Xlibrary.OnDocumentsChanged += eh;
         }
-        private static void deregisterWeakEvent(Library sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        private static void deregisterWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
         {
-            sender.OnDocumentsChanged -= eh;
+            sender.Xlibrary.OnDocumentsChanged -= eh;
         }
         private static void forwardWeakEvent(WebLibraryDetailControl me, object event_sender, Library.PDFDocumentEventArgs args)
         {
@@ -329,12 +329,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ObjCarousel.Visibility = Visibility.Collapsed;
             ObjEmptyLibraryGrid.Visibility = Visibility.Collapsed;
 
-            if (null == web_library_detail || web_library_detail.library == null || !web_library_detail.library.LibraryIsLoaded)
+            if (null == web_library_detail || web_library_detail.Xlibrary == null || !web_library_detail.Xlibrary.LibraryIsLoaded)
             {
                 return;
             }
 
-            bool library_is_empty = (null == web_library_detail || 0 == web_library_detail.library.PDFDocuments_IncludingDeleted_Count);
+            bool library_is_empty = (0 == web_library_detail.Xlibrary.PDFDocuments_IncludingDeleted_Count);
 
             if (!concise_view)
             {
@@ -376,9 +376,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Get the buckets for the past few weeks of READING
             CountingDictionary<DateTime> date_buckets_read = new CountingDictionary<DateTime>();
-            if (web_library_detail.library != null)
+            if (web_library_detail.Xlibrary != null)
             {
-                List<DateTime> recently_reads = web_library_detail.library.RecentlyReadManager.GetRecentlyReadDates();
+                List<DateTime> recently_reads = web_library_detail.Xlibrary.RecentlyReadManager.GetRecentlyReadDates();
                 foreach (DateTime recently_read in recently_reads)
                 {
                     for (int week = 1; week < WEEK_HISTORY; ++week)
@@ -395,9 +395,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Get the buckets for the past few weeks of ADDING
             CountingDictionary<DateTime> date_buckets_added = new CountingDictionary<DateTime>();
-            if (web_library_detail.library != null)
+            if (web_library_detail.Xlibrary != null)
             {
-                foreach (PDFDocument pdf_document in web_library_detail.library.PDFDocuments)
+                foreach (PDFDocument pdf_document in web_library_detail.Xlibrary.PDFDocuments)
                 {
                     for (int week = 1; week < WEEK_HISTORY; ++week)
                     {
@@ -476,7 +476,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             // The list of recommended items
             DocumentDisplayWorkManager ddwm = new DocumentDisplayWorkManager();
 
-            if (web_library_detail.library == null)
+            if (web_library_detail.Xlibrary == null)
             {
                 return;
             }
@@ -490,7 +490,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 //  read again
                 //  recently added and no status
 
-                List<PDFDocument> pdf_documents_all = web_library_detail.library.PDFDocuments;
+                List<PDFDocument> pdf_documents_all = web_library_detail.Xlibrary.PDFDocuments;
                 pdf_documents_all.Sort(PDFDocumentListSorters.DateAddedToDatabase);
 
                 foreach (string reading_stage in new string[] { Choices.ReadingStages_INTERRUPTED, Choices.ReadingStages_TOP_PRIORITY, Choices.ReadingStages_READ_AGAIN })
@@ -524,7 +524,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 // Recently added
                 {
-                    List<PDFDocument> pdf_documents = web_library_detail.library.PDFDocuments;
+                    List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
                     pdf_documents.Sort(PDFDocumentListSorters.DateAddedToDatabase);
 
                     int num_added = 0;
@@ -549,7 +549,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 // Recently read
                 {
-                    List<PDFDocument> pdf_documents = web_library_detail.library.PDFDocuments;
+                    List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
                     pdf_documents.Sort(PDFDocumentListSorters.DateLastRead);
 
                     int num_added = 0;
@@ -778,12 +778,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 if (!web_library_detail.IsIntranetLibrary)
                 {
-                    TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.library?.PDFDocuments_IncludingDeleted_Count ?? 0);
+                    TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.Xlibrary?.PDFDocuments_IncludingDeleted_Count ?? 0);
                 }
                 else
                 {
                     TextLibraryCount.Text = String.Format("{0} document(s) in this library, {1}",
-                        web_library_detail.library?.PDFDocuments_IncludingDeleted_Count ?? 0,
+                        web_library_detail.Xlibrary?.PDFDocuments_IncludingDeleted_Count ?? 0,
                         web_library_detail.LastSynced.HasValue ? $"last synced on {web_library_detail.LastSynced.Value.ToString()}" : @"has never been synced yet");
                 }
 
@@ -893,9 +893,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        private string CustomIconFilename => Path.GetFullPath(Path.Combine(web_library_detail.library?.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_icon.png"));
+        private string CustomIconFilename => Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_icon.png"));
 
-        private string CustomBackgroundFilename => Path.GetFullPath(Path.Combine(web_library_detail.library?.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_background.jpg"));
+        private string CustomBackgroundFilename => Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_background.jpg"));
 
         internal void CustomiseBackground()
         {
@@ -941,7 +941,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
-    #region --- Useful ancilliary classes ------------
+    #region --- Useful ancillary classes ------------
 
     public class ChartItem
     {

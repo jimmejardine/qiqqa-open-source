@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding;
 using Utilities;
 using Utilities.Misc;
@@ -18,7 +19,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
             Library library = Library.GuestInstance;
 
             int total_found = 0;
-            
+
             foreach (PDFDocument pdf_document in library.PDFDocuments)
             {
                 total_found += FindCitations(pdf_document);
@@ -30,11 +31,11 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
         #endregion
 
-        public static int FindCitations(Library library)
+        public static int FindCitations(WebLibraryDetail web_library_detail)
         {
             int total_found = 0;
 
-            List<PDFDocument> pdf_documents = library.PDFDocuments;
+            List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
 
             StatusManager.Instance.ClearCancelled("CitationLibraryFinder");
             for (int i = 0; i < pdf_documents.Count; ++i)

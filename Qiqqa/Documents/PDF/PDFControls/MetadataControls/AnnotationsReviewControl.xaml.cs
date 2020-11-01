@@ -51,7 +51,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
             if (null != pdf_document_bindable)
             {
-                MainWindowServiceDispatcher.Instance.GenerateAnnotationReport(pdf_document_bindable.Underlying.Library, new List<PDFDocument>() { pdf_document_bindable.Underlying });
+                MainWindowServiceDispatcher.Instance.GenerateAnnotationReport(pdf_document_bindable.Underlying.LibraryRef, new List<PDFDocument>() { pdf_document_bindable.Underlying });
             }
         }
 
@@ -101,7 +101,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             annotation_report_options.SuppressPDFAnnotationTags = true;
             annotation_report_options.InitialRenderDelayMilliseconds = 1000;
 
-            var annotation_report = AsyncAnnotationReportBuilder.BuildReport(pdf_document.Library, pdf_documents, annotation_report_options);
+            var annotation_report = AsyncAnnotationReportBuilder.BuildReport(pdf_document.LibraryRef, pdf_documents, annotation_report_options);
             ObjDocumentViewer.Document = annotation_report.flow_document;
         }
     }

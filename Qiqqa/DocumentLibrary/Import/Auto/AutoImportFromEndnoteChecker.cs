@@ -26,7 +26,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             int total_pdfs = 0;
             foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
-                total_pdfs += web_library_detail.library.PDFDocuments_IncludingDeleted_Count;
+                total_pdfs += web_library_detail.Xlibrary.PDFDocuments_IncludingDeleted_Count;
             }
 
             // Count the number of found Endnote papers
@@ -73,7 +73,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
 
             if (null != web_library_detail)
             {
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail.library, false, false, mdd.metadata_imports.ToArray());
+                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, mdd.metadata_imports.ToArray());
             }
         }
 

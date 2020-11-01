@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -12,15 +13,15 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
     public class BlackWhiteListManager
     {
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        private TypedWeakReference<WebLibraryDetail> web_library_detail;
+        public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
-        public BlackWhiteListManager(Library library)
+        public BlackWhiteListManager(WebLibraryDetail web_library_detail)
         {
-            this.library = new TypedWeakReference<Library>(library);
+            this.web_library_detail = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
         }
 
-        public string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.aitag_blackwhitelists"));
+        public string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.aitag_blackwhitelists"));
 
         public void WriteList(List<BlackWhiteListEntry> list)
         {

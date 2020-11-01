@@ -28,7 +28,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Synchronisation
             return historical_sync_file;
         }
 
-        internal static void PutHistoricalSyncFile(Library library, Dictionary<string, string> historical_sync_file)
+        internal static void PutHistoricalSyncFile(WebLibraryDetail web_library_detail, Dictionary<string, string> historical_sync_file)
         {
             SerializeFile.SaveSafely(GetFILENAME(library), historical_sync_file);
         }

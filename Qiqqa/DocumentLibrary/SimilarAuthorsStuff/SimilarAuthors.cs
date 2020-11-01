@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
@@ -23,7 +24,7 @@ namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
             return names;
         }
 
-        public static MultiMap<string, PDFDocument> GetDocumentsBySameAuthors(Library library, PDFDocument pdf_document_original, List<NameTools.Name> authors)
+        public static MultiMap<string, PDFDocument> GetDocumentsBySameAuthors(WebLibraryDetail web_library_detail, PDFDocument pdf_document_original, List<NameTools.Name> authors)
         {
             // Build a quick lookup of the authors
             HashSet<string> last_names = new HashSet<string>();
@@ -32,18 +33,18 @@ namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
                 last_names.Add(author.last_name);
             }
 
-            return GetDocumentsBySameAuthorsSurname(library, pdf_document_original, last_names);
+            return GetDocumentsBySameAuthorsSurname(web_library_detail, pdf_document_original, last_names);
         }
 
-        public static MultiMap<string, PDFDocument> GetDocumentsBySameAuthorsSurname(Library library, string last_name)
+        public static MultiMap<string, PDFDocument> GetDocumentsBySameAuthorsSurname(WebLibraryDetail web_library_detail, string last_name)
         {
-            return GetDocumentsBySameAuthorsSurname(library, null, new HashSet<string>(new string[] { last_name }));
+            return GetDocumentsBySameAuthorsSurname(web_library_detail, null, new HashSet<string>(new string[] { last_name }));
         }
 
-        public static MultiMap<string, PDFDocument> GetDocumentsBySameAuthorsSurname(Library library, PDFDocument pdf_document_original, HashSet<string> last_names)
+        public static MultiMap<string, PDFDocument> GetDocumentsBySameAuthorsSurname(WebLibraryDetail web_library_detail, PDFDocument pdf_document_original, HashSet<string> last_names)
         {
             MultiMap<string, PDFDocument> authors_documents = new MultiMap<string, PDFDocument>(true);
-            foreach (PDFDocument pdf_document in library.PDFDocuments)
+            foreach (PDFDocument pdf_document in web_library_detail.Xlibrary.PDFDocuments)
             {
                 // Don't include the original document
                 if (pdf_document == pdf_document_original)
@@ -64,10 +65,10 @@ namespace Qiqqa.DocumentLibrary.SimilarAuthorsStuff
             return authors_documents;
         }
 
-        internal static List<PDFDocument> GetDocumentsBySameAuthorsSurnameAndInitial(Library library, string surname, string initial)
+        internal static List<PDFDocument> GetDocumentsBySameAuthorsSurnameAndInitial(WebLibraryDetail web_library_detail, string surname, string initial)
         {
             List<PDFDocument> pdf_documents = new List<PDFDocument>();
-            foreach (PDFDocument pdf_document in library.PDFDocuments)
+            foreach (PDFDocument pdf_document in web_library_detail.Xlibrary.PDFDocuments)
             {
                 List<NameTools.Name> authors_search = GetAuthorsForPDFDocument(pdf_document);
                 foreach (var author_search in authors_search)

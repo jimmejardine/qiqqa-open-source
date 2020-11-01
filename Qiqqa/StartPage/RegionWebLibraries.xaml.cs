@@ -44,8 +44,7 @@ namespace Qiqqa.StartPage
 
         private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
-            Library library = WebLibraryManager.Instance.GetLibrary(web_library_detail);
-            MainWindowServiceDispatcher.Instance.OpenLibrary(library);
+            MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail);
         }
 
         private void Refresh()

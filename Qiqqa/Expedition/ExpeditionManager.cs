@@ -1,5 +1,6 @@
 ﻿using System;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -13,14 +14,14 @@ namespace Qiqqa.Expedition
 {
     public class ExpeditionManager
     {
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        private TypedWeakReference<WebLibraryDetail> web_library_detail;
+        public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
-        public string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.expedition"));
+        public string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.expedition"));
 
-        public ExpeditionManager(Library library)
+        public ExpeditionManager(WebLibraryDetail web_library_detail)
         {
-            this.library = new TypedWeakReference<Library>(library);
+            this.web_library_detail = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
         }
 
         public delegate void RebuiltExpeditionCompleteDelegate();
@@ -35,7 +36,7 @@ namespace Qiqqa.Expedition
             {
                 Library.IsBusyRegeneratingTags = true;
 
-                ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(Library, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
+                ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(LibraryRef, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
                 SerializeFile.SaveSafely(Filename_Store, eds);
                 expedition_data_source = eds;
             }
@@ -55,7 +56,7 @@ namespace Qiqqa.Expedition
             }
         }
 
-        public int RecommendedThemeCount => (int)Math.Ceiling(Math.Sqrt(Library.PDFDocuments.Count));
+        public int RecommendedThemeCount => (int)Math.Ceiling(Math.Sqrt(LibraryRef.Xlibrary.PDFDocuments.Count));
 
         private ExpeditionDataSource expedition_data_source = null;
         public ExpeditionDataSource ExpeditionDataSource

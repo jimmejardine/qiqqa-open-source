@@ -202,7 +202,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_SearchLibrary);
 
-                MainWindowServiceDispatcher.Instance.SearchLibrary(pdf_document.Library, selected_text);
+                MainWindowServiceDispatcher.Instance.SearchLibrary(pdf_document.LibraryRef, selected_text);
             }
         }
 

@@ -216,7 +216,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
             }
 
             string text = sb.ToString();
-            pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.CITATIONS, text);
+            pdf_document.LibraryRef.Xlibrary.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.CITATIONS, text);
         }
 
         private static List<Citation> ReadFromDisk(PDFDocument pdf_document)
@@ -225,7 +225,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
             List<Citation> citations = new List<Citation>();
 
-            List<LibraryDB.LibraryItem> library_items = pdf_document.Library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.CITATIONS);
+            List<LibraryDB.LibraryItem> library_items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.CITATIONS);
             if (0 < library_items.Count)
             {
                 LibraryDB.LibraryItem library_item = library_items[0];

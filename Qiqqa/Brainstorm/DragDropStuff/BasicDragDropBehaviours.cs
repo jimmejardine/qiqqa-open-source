@@ -27,7 +27,7 @@ namespace Qiqqa.Brainstorm.DragDropStuff
         private void OnDrop_PDFDocument(object drop_object, Point mouse_current_virtual)
         {
             PDFDocument pdf_document = (PDFDocument)drop_object;
-            PDFDocumentNodeContent document_node_content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
+            PDFDocumentNodeContent document_node_content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
             drag_drop_manager.SceneRenderingControl.AddNewNodeControl(document_node_content, mouse_current_virtual.X, mouse_current_virtual.Y);
         }
 
@@ -39,7 +39,7 @@ namespace Qiqqa.Brainstorm.DragDropStuff
 
             foreach (PDFDocument pdf_document in pdf_documents)
             {
-                PDFDocumentNodeContent document_node_content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
+                PDFDocumentNodeContent document_node_content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
                 node_contents.Add(document_node_content);
             }
 

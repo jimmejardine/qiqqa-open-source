@@ -142,7 +142,7 @@ namespace Qiqqa.Documents.Common
             lock (documents_to_store_lock)
             {
                 // l1_clk.LockPerfTimerStop();
-                documents_to_store[pdf_document.Library.WebLibraryDetail.Id + "." + pdf_document.Fingerprint] = pdf_document;
+                documents_to_store[pdf_document.LibraryRef.Id + "." + pdf_document.Fingerprint] = pdf_document;
             }
         }
 

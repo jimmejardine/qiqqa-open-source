@@ -1,50 +1,81 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff.AITagExplorerControl"
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff.AITagExplorerControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:local_explorer="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff"
->
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
     <DockPanel>
-        <local_gui:AugmentedClosableBorder DockPanel.Dock="Top" Name="TxtWarningNeverGenerated" Padding="5">
-            <TextBlock TextWrapping="Wrap" >
-                Qiqqa can automatically generate AutoTags and assign them to your documents.  These AutoTags improve as you add more papers with valid titles to your library.  Press the "Refresh" button below to start.
+        <local_gui:AugmentedClosableBorder
+            Name="TxtWarningNeverGenerated"
+            Padding="5"
+            DockPanel.Dock="Top">
+            <TextBlock TextWrapping="Wrap">
+                Qiqqa can automatically generate AutoTags and assign them to your documents.  These AutoTags improve as you add more papers with valid titles to your library.  Press the &quot;Refresh&quot; button below to start.
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
-        <local_gui:AugmentedClosableBorder DockPanel.Dock="Top" Name="TxtWarningGettingOld" Padding="5">
-            <TextBlock TextWrapping="Wrap" >
-                You have not refreshed your AutoTags for this library for a while.  Press the "Refresh" button below to bring your AutoTags up to date with your new documents and updated document titles.
+        <local_gui:AugmentedClosableBorder
+            Name="TxtWarningGettingOld"
+            Padding="5"
+            DockPanel.Dock="Top">
+            <TextBlock TextWrapping="Wrap">
+                You have not refreshed your AutoTags for this library for a while.  Press the &quot;Refresh&quot; button below to bring your AutoTags up to date with your new documents and updated document titles.
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
-        <local_gui:AugmentedClosableBorder DockPanel.Dock="Top" Name="TxtWarningNoAutoTags" Padding="5">
-            <TextBlock TextWrapping="Wrap" >
+        <local_gui:AugmentedClosableBorder
+            Name="TxtWarningNoAutoTags"
+            Padding="5"
+            DockPanel.Dock="Top">
+            <TextBlock TextWrapping="Wrap">
                 No AutoTags have been found, perhaps because you have too few documents or your too few document titles contain reasonable tags.  Try again once you have more documents in your library.
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
-        <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="GridVote" Padding="5">
-            <Grid >
+        <local_gui:AugmentedClosableBorder
+            Name="GridVote"
+            Padding="5"
+            DockPanel.Dock="Bottom">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" Padding="5">
+                <TextBlock
+                    Grid.ColumnSpan="2"
+                    Padding="5"
+                    TextWrapping="Wrap">
                     We are always trying to improve our algorithms.  How do you rate the quality of these AutoTags?
                 </TextBlock>
-                <local_gui:AugmentedButton Grid.Row="1" Grid.Column="0" x:Name="VoteUp" MinHeight="20" />
-                <local_gui:AugmentedButton Grid.Row="1" Grid.Column="1" x:Name="VoteDown" MinHeight="20" />
+                <local_gui:AugmentedButton
+                    x:Name="VoteUp"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    MinHeight="20" />
+                <local_gui:AugmentedButton
+                    x:Name="VoteDown"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    MinHeight="20" />
             </Grid>
         </local_gui:AugmentedClosableBorder>
         <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <local_gui:AugmentedButton Name="ButtonRefreshTags" Grid.Column="0" DockPanel.Dock="Top" MinHeight="20"  />
-            <local_gui:AugmentedButton Name="ButtonManageLists" Grid.Column="1" DockPanel.Dock="Top" MinHeight="20"  />
+            <local_gui:AugmentedButton
+                Name="ButtonRefreshTags"
+                Grid.Column="0"
+                MinHeight="20"
+                DockPanel.Dock="Top" />
+            <local_gui:AugmentedButton
+                Name="ButtonManageLists"
+                Grid.Column="1"
+                MinHeight="20"
+                DockPanel.Dock="Top" />
         </Grid>
         <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
         <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree" />

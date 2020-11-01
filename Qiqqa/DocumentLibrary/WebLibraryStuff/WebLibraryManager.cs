@@ -225,11 +225,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             foreach (var pair in web_library_details)
             {
-                var web_lib = pair.Value;
-                var library = web_lib.library;
+                WebLibraryDetail web_lib = pair.Value;
+                Library library = web_lib.Xlibrary;
                 ASSERT.Test(library == null);
-                library = web_lib.library = new Library(web_lib);
-                library.BuildFromDocumentRepository();
+                library = web_lib.Xlibrary = new Library(web_lib);
+                library.BuildFromDocumentRepository(web_lib);
             }
         }
 
@@ -274,7 +274,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             // Import the Qiqqa manuals in the background, waiting until the library has loaded...
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                while (!guest_web_library_detail.library.LibraryIsLoaded)
+                while (!guest_web_library_detail.Xlibrary.LibraryIsLoaded)
                 {
                     if (ShutdownableManager.Instance.IsShuttingDown)
                     {
@@ -283,13 +283,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     Thread.Sleep(500);
                 }
 
-                QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
+                QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail);
             });
         }
 
-        public WebLibraryDetail WebLibraryDetails_Guest => guest_web_library_detail;
-
-        public Library Library_Guest => guest_web_library_detail.library;
+        public WebLibraryDetail Library_Guest => guest_web_library_detail;
 
         /// <summary>
         /// Returns all working web libraries, including the guest library.
@@ -323,12 +321,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        public Library GetLibrary(string library_id)
+        public WebLibraryDetail GetLibrary(string library_id)
         {
             WebLibraryDetail web_library_detail;
             if (web_library_details.TryGetValue(library_id, out web_library_detail))
             {
-                return GetLibrary(web_library_detail);
+                return web_library_detail;
             }
             else
             {
@@ -336,9 +334,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        public Library GetLibrary(WebLibraryDetail web_library_detail)
+        public void WaitForLibraryToLoad(WebLibraryDetail web_library_detail, Action exec_after_load)
         {
-            return web_library_detail.library;
+            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            // TBD TBD TBD TBD TBD TBD
         }
 
         public void NotifyOfChangeToWebLibraryDetail()
@@ -408,7 +407,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                             if (!new_web_library_detail.IsPurged)
                             {
-                                string libdir_path = Library.GetLibraryBasePathForId(new_web_library_detail.Id);
+                                string libdir_path = WebLibraryDetail.GetLibraryBasePathForId(new_web_library_detail.Id);
                                 string libfile_path = LibraryDB.GetLibraryDBPath(libdir_path);
 
                                 if (File.Exists(libfile_path) || !only_load_those_libraries_which_are_actually_present)
@@ -765,8 +764,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     MixOldAndNew(old.IsIntranetLibrary, new_web_library_detail.IsIntranetLibrary, new_web_library_detail.Id + "::" + nameof(old.IsIntranetLibrary), ref state);
                     /* old.IsWebLibrary = */
 
-                    ASSERT.Test(old.library == null);
-                    ASSERT.Test(new_web_library_detail.library == null);
+                    ASSERT.Test(old.Xlibrary == null);
+                    ASSERT.Test(new_web_library_detail.Xlibrary == null);
 #if false    // this code is not needed in the current use of the API as long as the ASSERTions above hold
                     old.library?.Dispose();
                     if (new_web_library_detail.library != null)
@@ -797,7 +796,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            ASSERT.Test(new_web_library_detail.library == null);
+            ASSERT.Test(new_web_library_detail.Xlibrary == null);
             web_library_details[new_web_library_detail.Id] = new_web_library_detail;
 
             if (!suppress_flush_to_disk)

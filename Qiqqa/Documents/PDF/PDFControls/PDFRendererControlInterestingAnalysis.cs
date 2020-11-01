@@ -101,7 +101,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             // Populate the tag cloud
             try
             {
-                List<TagCloudEntry> tag_cloud_entries = PDFDocumentTagCloudBuilder.BuildTagCloud(pdf_renderer_control_stats.pdf_document.Library, pdf_renderer_control_stats.pdf_document);
+                List<TagCloudEntry> tag_cloud_entries = PDFDocumentTagCloudBuilder.BuildTagCloud(pdf_renderer_control_stats.pdf_document.LibraryRef, pdf_renderer_control_stats.pdf_document);
 
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {
@@ -121,7 +121,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             try
             {
                 List<NameTools.Name> authors = SimilarAuthors.GetAuthorsForPDFDocument(pdf_renderer_control_stats.pdf_document);
-                MultiMap<string, PDFDocument> authors_documents = SimilarAuthors.GetDocumentsBySameAuthors(pdf_renderer_control_stats.pdf_document.Library, pdf_renderer_control_stats.pdf_document, authors);
+                MultiMap<string, PDFDocument> authors_documents = SimilarAuthors.GetDocumentsBySameAuthors(pdf_renderer_control_stats.pdf_document.LibraryRef, pdf_renderer_control_stats.pdf_document, authors);
 
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {

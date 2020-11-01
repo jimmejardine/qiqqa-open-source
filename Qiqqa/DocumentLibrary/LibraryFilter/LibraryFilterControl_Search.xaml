@@ -1,13 +1,13 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl_Search"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-  xmlns:local_library_filter="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter"
->
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl_Search"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:local_library_filter="clr-namespace:Qiqqa.DocumentLibrary.LibraryFilter">
     <Grid>
         <local_gui:AugmentedBorder>
             <DockPanel>
-                <local_library_filter:LuceneSearchHelpButton DockPanel.Dock="Right" x:Name="SearchQuickHelpButton"/>
+                <local_library_filter:LuceneSearchHelpButton x:Name="SearchQuickHelpButton" DockPanel.Dock="Right" />
                 <local_gui:AugmentedSearchBox Name="SearchQuick" EmptyTextPrompt="Search entire library..." />
             </DockPanel>
         </local_gui:AugmentedBorder>

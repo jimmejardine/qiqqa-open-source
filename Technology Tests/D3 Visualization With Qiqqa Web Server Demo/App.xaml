@@ -1,9 +1,8 @@
-﻿<Application x:Class="D3_Visualization_With_Qiqqa_Web_Server_Demo.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:D3_Visualization_With_Qiqqa_Web_Server_Demo"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+﻿<Application
+    x:Class="D3_Visualization_With_Qiqqa_Web_Server_Demo.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:D3_Visualization_With_Qiqqa_Web_Server_Demo"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources />
 </Application>

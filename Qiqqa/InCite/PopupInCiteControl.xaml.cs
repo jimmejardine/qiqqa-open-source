@@ -271,12 +271,12 @@ namespace Qiqqa.InCite
                 string query = TxtSearchTerms.Text;
                 if (!String.IsNullOrEmpty(query))
                 {
-                    List<IndexResult> matches = web_library_detail.library.LibraryIndex.GetFingerprintsForQuery(query);
+                    List<IndexResult> matches = web_library_detail.Xlibrary.LibraryIndex.GetFingerprintsForQuery(query);
                     List<TextBlock> text_blocks = new List<TextBlock>();
                     bool alternator = false;
                     for (int i = 0; i < MAX_DOCUMENTS && i < matches.Count; ++i)
                     {
-                        PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(matches[i].fingerprint);
+                        PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(matches[i].fingerprint);
                         if (null == pdf_document || pdf_document.Deleted) continue;
 
                         string prefix = String.Format("{0:0%} - ", matches[i].score);

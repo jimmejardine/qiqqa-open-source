@@ -12,8 +12,8 @@ using Utilities.OCR;
 namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
 {
     /**
-     * This CitationFinder looks at the authors of this doc.  
-     * It then finds all docs in the index with those author names.  
+     * This CitationFinder looks at the authors of this doc.
+     * It then finds all docs in the index with those author names.
      * It then searches those docs for the title of this doc.
      */
     internal class BruteForceCitationFinder
@@ -61,7 +61,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
 
                 StatusManager.Instance.UpdateStatus("CitationDocumentFinder", String.Format("Looking for new citations in \"{0}\" by \"{1}\"", pdf_document.TitleCombined, author_query));
 
-                List<IndexPageResult> index_page_results_with_author = LibrarySearcher.FindAllPagesMatchingQuery(pdf_document.Library, author_query);
+                List<IndexPageResult> index_page_results_with_author = LibrarySearcher.FindAllPagesMatchingQuery(pdf_document.LibraryRef, author_query);
                 Logging.Info("  **** We have {0} documents matching {1}", index_page_results_with_author.Count, author_query);
                 foreach (var index_page_result in index_page_results_with_author)
                 {
@@ -70,7 +70,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
                         string fingerprint = index_page_result.fingerprint;
 
                         // Check that the other one exists
-                        PDFDocument pdf_document_other = pdf_document.Library.GetDocumentByFingerprint(fingerprint);
+                        PDFDocument pdf_document_other = pdf_document.LibraryRef.Xlibrary.GetDocumentByFingerprint(fingerprint);
                         if (null == pdf_document_other || !pdf_document_other.DocumentExists)
                         {
                             continue;

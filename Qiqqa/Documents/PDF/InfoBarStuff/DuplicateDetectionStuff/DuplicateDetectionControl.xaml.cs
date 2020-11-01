@@ -83,7 +83,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             }
 
             // Find all the document in the library that have the same title as this document's
-            TitleCombinedCache cache = new TitleCombinedCache(pdf_document_this.Library.PDFDocuments);
+            TitleCombinedCache cache = new TitleCombinedCache(pdf_document_this.LibraryRef.Xlibrary.PDFDocuments);
             List<PDFDocument> duplicate_pdf_documents = FindDuplicates(pdf_document_this, cache);
             Logging.Info("It took {0}ms to run the duplicate detection.", stopwatch.ElapsedMilliseconds);
 

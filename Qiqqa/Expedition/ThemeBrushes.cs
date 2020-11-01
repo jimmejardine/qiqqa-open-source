@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities.Mathematics.Topics.LDAStuff;
 
@@ -20,12 +21,12 @@ namespace Qiqqa.Expedition
                 return UNKNOWN_BRUSH;
             }
 
-            return GetBrushForDistribution(pdf_document.Library, num_topics, density_of_topics_in_document);
+            return GetBrushForDistribution(pdf_document.LibraryRef, num_topics, density_of_topics_in_document);
         }
 
-        public static Brush GetBrushForDistribution(Library library, int num_topics, float[] distribution)
+        public static Brush GetBrushForDistribution(WebLibraryDetail web_library_detail, int num_topics, float[] distribution)
         {
-            Color[] colours = library.ExpeditionManager.ExpeditionDataSource.Colours;
+            Color[] colours = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.Colours;
 
             int num_stops = 2 * num_topics;
 
@@ -55,20 +56,20 @@ namespace Qiqqa.Expedition
                 return;
             }
 
-            if (null == pdf_document.Library.ExpeditionManager.ExpeditionDataSource)
+            if (null == pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource)
             {
                 return;
             }
 
-            ExpeditionDataSource eds = pdf_document.Library.ExpeditionManager.ExpeditionDataSource;
+            ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
             LDAAnalysis lda_analysis = eds.LDAAnalysis;
-            if (!pdf_document.Library.ExpeditionManager.ExpeditionDataSource.docs_index.ContainsKey(pdf_document.Fingerprint))
+            if (!pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index.ContainsKey(pdf_document.Fingerprint))
             {
                 return;
             }
 
             // Result!
-            doc_id = pdf_document.Library.ExpeditionManager.ExpeditionDataSource.docs_index[pdf_document.Fingerprint];
+            doc_id = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index[pdf_document.Fingerprint];
             num_topics = lda_analysis.NUM_TOPICS;
             density_of_topics_in_document = new float[num_topics];
             for (int i = 0; i < lda_analysis.NUM_TOPICS; ++i)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 
@@ -10,8 +11,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
     /// </summary>
     public class MendeleyImporter : BibTeXImporter
     {
-        public MendeleyImporter(Library library, string filename, bool recordUsageAsGenericBibTeX)
-            : base(library, filename)
+        public MendeleyImporter(WebLibraryDetail web_library_detail, string filename, bool recordUsageAsGenericBibTeX)
+            : base(web_library_detail, filename)
         {
             if (recordUsageAsGenericBibTeX)
             {
@@ -65,7 +66,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
                     // Handle notes
 
-                    // Parse notes. 
+                    // Parse notes.
                     string notes = entry.Item["annote"];
                     if (!String.IsNullOrEmpty(notes))
                     {

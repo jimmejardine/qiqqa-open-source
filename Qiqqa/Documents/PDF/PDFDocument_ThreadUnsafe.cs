@@ -5,6 +5,7 @@ using System.Windows.Media;
 using Newtonsoft.Json;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.Common;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Qiqqa.Documents.PDF.DiskSerialisation;
@@ -40,8 +41,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
     public class PDFDocument_ThreadUnsafe
     {
         [NonSerialized]
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        private TypedWeakReference<WebLibraryDetail> library;
+        public WebLibraryDetail LibraryRef => library?.TypedTarget;
 
         private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
@@ -98,15 +99,15 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             property_dependencies.Add(() => p.BibTex, () => p.Abstract);
         }
 
-        internal PDFDocument_ThreadUnsafe(Library library)
+        internal PDFDocument_ThreadUnsafe(WebLibraryDetail web_library_detail)
         {
-            this.library = new TypedWeakReference<Library>(library);
+            this.library = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
             dictionary = new DictionaryBasedObject();
         }
 
-        internal PDFDocument_ThreadUnsafe(Library library, DictionaryBasedObject dictionary)
+        internal PDFDocument_ThreadUnsafe(WebLibraryDetail web_library_detail, DictionaryBasedObject dictionary)
         {
-            this.library = new TypedWeakReference<Library>(library);
+            this.library = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
             this.dictionary = dictionary;
         }
 
@@ -118,7 +119,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             {
                 if (null == pdf_renderer)
                 {
-                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, Library.PasswordManager.GetPassword(this), Library.PasswordManager.GetPassword(this));
+                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, LibraryRef.Xlibrary.PasswordManager.GetPassword(this), LibraryRef.Xlibrary.PasswordManager.GetPassword(this));
                 }
 
                 return pdf_renderer;
@@ -177,7 +178,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         /// <summary>
         /// Unique id for both this document and the library that it exists in.
         /// </summary>
-        public string UniqueId => string.Format("{0}_{1}", Fingerprint, Library.WebLibraryDetail.Id);
+        public string UniqueId => string.Format("{0}_{1}", Fingerprint, LibraryRef.Id);
 
         public string FileType
         {
@@ -200,7 +201,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                     if (null != bibtex_item)
                     {
-                        // if the bibtex is ill formatted, make sure some basic sanity is provided:
+                        // if the BibTeX is ill formatted, make sure some basic sanity is provided:
                         if (String.IsNullOrWhiteSpace(BibTexItem.Type))
                         {
                             BibTexItem.Type = "empty_and_erroneous";
@@ -228,7 +229,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 // Store the new value
                 dictionary["BibTex"] = value;
 
-                // If the bibtex contains title, author or year, use those by clearing out any overriding values
+                // If the BibTeX contains title, author or year, use those by clearing out any overriding values
                 if (!String.IsNullOrEmpty(BibTexTools.GetTitle(BibTexItem)))
                 {
                     Title = null;
@@ -258,7 +259,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "exception in BibTexKey");
+                    Logging.Error(ex, "Exception in BibTexKey");
                 }
 
                 return null;
@@ -427,7 +428,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         /// - check the suggested year field (@xref YearSuggested)
         /// - if also else fails, return the UNKNOWN_YEAR value.
         ///
-        /// When setting this value, the first action in this prioirty list is executed, where the conditions pass:
+        /// When setting this value, the first action in this priority list is executed, where the conditions pass:
         ///
         /// - check if there's a non-empty (partial) BibTeX record: when there is, add/update the `year` field
         /// - update the manual-entry Year field (@xref Year)
@@ -777,12 +778,12 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         #endregion ----------------------------------------------------------------------------------------------------
 
-        public string DocumentBasePath => PDFDocumentFileLocations.DocumentBasePath(Library, Fingerprint);
+        public string DocumentBasePath => PDFDocumentFileLocations.DocumentBasePath(LibraryRef, Fingerprint);
 
         /// <summary>
         /// The location of the PDF on disk.
         /// </summary>
-        public string DocumentPath => PDFDocumentFileLocations.DocumentPath(Library, Fingerprint, FileType);
+        public string DocumentPath => PDFDocumentFileLocations.DocumentPath(LibraryRef, Fingerprint, FileType);
 
         [NonSerialized]
         private bool? document_exists = null;
@@ -860,17 +861,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return json;
         }
 
-        //public void QueueToStorage()
-        //{
-        //    DocumentQueuedStorer.Instance.Queue(this);
-        //}
-
-        //void annotations_OnPDFAnnotationListChanged()
-        //{
-        //    QueueToStorage();
-        //    this.library.LibraryIndex.ReIndexDocument(this);
-        //}
-
         [NonSerialized]
         private PDFHightlightList highlights = null;
         public PDFHightlightList Highlights => GetHighlights(null);
@@ -908,12 +898,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
             return json;
         }
-
-        //void highlights_OnPDFHighlightListChanged()
-        //{
-        //    QueueToStorage();
-        //    this.library.LibraryIndex.ReIndexDocument(this);
-        //}
 
         [NonSerialized]
         private PDFInkList inks = null;
@@ -971,12 +955,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             PDFInkSerializer.WriteToDisk(this, force_flush_no_matter_what);
         }
 
-        //void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //    QueueToStorage();
-        //    this.library.LibraryIndex.ReIndexDocument(this);
-        //}
-
 #if false
         /// <summary>
         /// Throws exception when metadata could not be converted to a valid PDFDocument instance.
@@ -985,7 +963,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         /// <param name="data"></param>
         /// <param name="library_items_annotations_cache"></param>
         /// <returns></returns>
-        public static PDFDocument LoadFromMetaData(Library library, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
+        public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
         {
             DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
             PDFDocument pdf_document = new PDFDocument(library, dictionary);
@@ -993,7 +971,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return pdf_document;
         }
 
-        public static PDFDocument CreateFromPDF(Library library, string filename, string precalculated_fingerprint__can_be_null)
+        public static PDFDocument CreateFromPDF(WebLibraryDetail web_library_detail, string filename, string precalculated_fingerprint__can_be_null)
         {
             string fingerprint = precalculated_fingerprint__can_be_null;
             if (String.IsNullOrEmpty(fingerprint))
@@ -1236,7 +1214,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return null;
         }
 
-        internal PDFDocument AssociatePDFWithVanillaReference_Part1(string pdf_filename)
+        internal PDFDocument AssociatePDFWithVanillaReference_Part1(string pdf_filename, WebLibraryDetail web_library_detail)
         {
             // Only works with vanilla references
             if (!IsVanillaReference)
@@ -1245,7 +1223,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
 
             // Create the new PDF document
-            PDFDocument new_pdf_document = Library.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, pdf_filename, pdf_filename, null, null, null, false, true);
+            PDFDocument new_pdf_document = LibraryRef.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, web_library_detail, pdf_filename, pdf_filename, null, null, null, false, true);
 
             return new_pdf_document;
         }

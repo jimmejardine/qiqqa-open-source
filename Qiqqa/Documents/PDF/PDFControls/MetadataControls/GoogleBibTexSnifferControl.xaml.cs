@@ -15,6 +15,7 @@ using Qiqqa.Common.GUI;
 using Qiqqa.Common.WebcastStuff;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.LibraryCatalog;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Qiqqa.Documents.PDF.Search;
 using Qiqqa.Localisation;
@@ -970,27 +971,27 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             return (text.StartsWith("@") && text.EndsWith("}"));
         }
 
-        private Library CurrentLibrary
+        private WebLibraryDetail CurrentLibrary
         {
             get
             {
-                if (null != user_specified_pdf_document && null != user_specified_pdf_document.Library)
+                if (null != user_specified_pdf_document && null != user_specified_pdf_document.LibraryRef)
                 {
-                    return user_specified_pdf_document.Library;
+                    return user_specified_pdf_document.LibraryRef;
                 }
-                if (null != pdf_document_rendered && null != pdf_document_rendered.Library)
+                if (null != pdf_document_rendered && null != pdf_document_rendered.LibraryRef)
                 {
-                    return pdf_document_rendered.Library;
+                    return pdf_document_rendered.LibraryRef;
                 }
-                if (null != pdf_document && null != pdf_document.Library)
+                if (null != pdf_document && null != pdf_document.LibraryRef)
                 {
-                    return pdf_document.Library;
+                    return pdf_document.LibraryRef;
                 }
                 foreach (PDFDocument pdf in pdf_documents_total_pool)
                 {
-                    if (null != pdf && null != pdf.Library)
+                    if (null != pdf && null != pdf.LibraryRef)
                     {
-                        return pdf.Library;
+                        return pdf.LibraryRef;
                     }
                 }
                 return null;
@@ -1007,9 +1008,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             GoogleBibTexSnifferControl c = new GoogleBibTexSnifferControl();
             PDFDocument pdf_document = library.PDFDocuments[0];
-            //c.Show(pdf_document.Library, pdf_document, "test search term");
-            //c.Show(pdf_document.Library, pdf_document);
-            c.Show(pdf_document.Library.PDFDocuments);
+            //c.Show(pdf_document.LibraryRef, pdf_document, "test search term");
+            //c.Show(pdf_document.LibraryRef, pdf_document);
+            c.Show(pdf_document.LibraryRef.PDFDocuments);
         }
 #endif
 

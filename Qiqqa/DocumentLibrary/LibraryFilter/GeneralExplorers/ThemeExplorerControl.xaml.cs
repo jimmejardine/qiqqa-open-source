@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.TagExplorerStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Expedition;
 using Utilities;
 using Utilities.Collections;
@@ -16,7 +17,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
     /// </summary>
     public partial class ThemeExplorerControl : UserControl
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
 
         public delegate void OnTagSelectionChangedDelegate(HashSet<string> fingerprints, Span descriptive_span);
         public event OnTagSelectionChangedDelegate OnTagSelectionChanged;
@@ -38,18 +39,18 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         private void HypRunExpedition_Click(object sender, RoutedEventArgs e)
         {
-            MainWindowServiceDispatcher.Instance.OpenExpedition(library);
+            MainWindowServiceDispatcher.Instance.OpenExpedition(web_library_detail);
         }
 
         // -----------------------------
 
-        public Library Library
+        public WebLibraryDetail LibraryRef
         {
-            get => library;
+            get => web_library_detail;
             set
             {
-                library = value;
-                ThemeExplorerTree.Library = value;
+                web_library_detail = value;
+                ThemeExplorerTree.LibraryRef = value;
             }
         }
 
@@ -60,17 +61,17 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         // -----------------------------
 
-        private MultiMapSet<string, string> GetNodeItems(Library library, HashSet<string> parent_fingerprints)
+        private MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
-            MultiMapSet<string, string> results = GetNodeItems_STATIC(library, parent_fingerprints);
+            MultiMapSet<string, string> results = GetNodeItems_STATIC(web_library_detail, parent_fingerprints);
 
             // Show the no themes message
             {
                 bool have_topics =
                     true
-                    && null != library.ExpeditionManager
-                    && null != library.ExpeditionManager.ExpeditionDataSource
-                    && 0 < library.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS
+                    && null != web_library_detail.Xlibrary.ExpeditionManager
+                    && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource
+                    && 0 < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS
                     ;
 
                 TxtNoThemesMessage.Visibility = 0 == results.Count ? Visibility.Visible : Visibility.Collapsed;
@@ -79,20 +80,20 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             return results;
         }
 
-        public static MultiMapSet<string, string> GetNodeItems_STATIC(Library library, HashSet<string> parent_fingerprints)
+        public static MultiMapSet<string, string> GetNodeItems_STATIC(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
             MultiMapSet<string, string> results = new MultiMapSet<string, string>();
 
             try
             {
                 // Check that expedition has been run...
-                if (null == library.ExpeditionManager || null == library.ExpeditionManager.ExpeditionDataSource)
+                if (null == web_library_detail.Xlibrary.ExpeditionManager || null == web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
                 {
                     return results;
                 }
 
-                ExpeditionDataSource eds = library.ExpeditionManager.ExpeditionDataSource;
-                HashSet<string> pdf_doc_fingerprints = library.GetAllDocumentFingerprints();
+                ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+                HashSet<string> pdf_doc_fingerprints = web_library_detail.Xlibrary.GetAllDocumentFingerprints();
 
                 for (int t = 0; t < eds.LDAAnalysis.NUM_TOPICS; ++t)
                 {

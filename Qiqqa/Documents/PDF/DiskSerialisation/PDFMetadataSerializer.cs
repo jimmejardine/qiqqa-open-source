@@ -28,7 +28,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             // A little hack to make sure the legacies are updated...
 
             string json = pdf_document.GetAttributesAsJSON();
-            pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);
+            pdf_document.LibraryRef.Xlibrary.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);
             Logging.Debug("Update metadata DB for PDF document {1}: JSON =\n{0}", json, pdf_document.Fingerprint);
         }
 

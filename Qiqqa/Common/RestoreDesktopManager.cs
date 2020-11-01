@@ -30,8 +30,8 @@ namespace Qiqqa.Common
                     LibraryControl library_control = framework_element as LibraryControl;
                     if (null != library_control)
                     {
-                        Logging.Info("Remembering a library control {0}", library_control.Library.WebLibraryDetail.Id);
-                        restore_settings.Add(String.Format("PDF_LIBRARY,{0}", library_control.Library.WebLibraryDetail.Id));
+                        Logging.Info("Remembering a library control {0}", library_control.LibraryRef.Id);
+                        restore_settings.Add(String.Format("PDF_LIBRARY,{0}", library_control.LibraryRef.Id));
                     }
                 }
 
@@ -40,7 +40,7 @@ namespace Qiqqa.Common
                     if (null != pdf_reading_control)
                     {
                         Logging.Info("Remembering a PDF reader {0}", pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint);
-                        restore_settings.Add(String.Format("PDF_DOCUMENT,{0},{1}", pdf_reading_control.PDFRendererControlStats.pdf_document.Library.WebLibraryDetail.Id, pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint));
+                        restore_settings.Add(String.Format("PDF_DOCUMENT,{0},{1}", pdf_reading_control.PDFRendererControlStats.pdf_document.LibraryRef.Id, pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint));
                     }
                 }
             }
@@ -68,14 +68,14 @@ namespace Qiqqa.Common
                                 string[] parts = restore_setting.Split(',');
                                 string library_id = parts[1];
 
-                                Library library = WebLibraryManager.Instance.GetLibrary(library_id);
-                                if (null == library)
+                                WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(library_id);
+                                if (null == web_library_detail)
                                 {
                                     Logging.Warn("RestoreDesktop: Cannot find library anymore for Id {0}", library_id);
                                 }
                                 else
                                 {
-                                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(library));
+                                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail));
                                 }
                             }
                             else if (restore_setting.StartsWith("PDF_DOCUMENT"))
@@ -84,14 +84,14 @@ namespace Qiqqa.Common
                                 string library_id = parts[1];
                                 string document_fingerprint = parts[2];
 
-                                Library library = WebLibraryManager.Instance.GetLibrary(library_id);
-                                if (null == library)
+                                WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(library_id);
+                                if (null == web_library_detail)
                                 {
                                     Logging.Warn("RestoreDesktop: Cannot find library anymore for Id {0}", library_id);
                                 }
                                 else
                                 {
-                                    PDFDocument pdf_document = library.GetDocumentByFingerprint(document_fingerprint);
+                                    PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(document_fingerprint);
                                     if (null == pdf_document)
                                     {
                                         Logging.Warn("RestoreDesktop: Cannot find document anymore for fingerprint {0}", document_fingerprint);

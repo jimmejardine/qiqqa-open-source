@@ -25,7 +25,7 @@ namespace Qiqqa.DocumentLibrary.AutoSyncStuff
             List<string> library_identifiers = new List<string>();
             List<WebLibraryDetail> web_library_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
 
-            List<Library> libraries_to_sync = new List<Library>();
+            List<WebLibraryDetail> libraries_to_sync = new List<WebLibraryDetail>();
             foreach (WebLibraryDetail web_library_detail in web_library_details)
             {
                 // This needs to be written for intranet libraries
@@ -39,15 +39,13 @@ namespace Qiqqa.DocumentLibrary.AutoSyncStuff
                 //
                 if (web_library_detail.AutoSync)
                 {
-                    Library library = WebLibraryManager.Instance.GetLibrary(web_library_detail.Id);
-
-                    string syncfilepath = HistoricalSyncFile.GetSyncDbFilename(library);
+                    string syncfilepath = HistoricalSyncFile.GetSyncDbFilename(web_library_detail);
                     DateTime dt = File.Exists(syncfilepath) ? File.GetLastWriteTimeUtc(syncfilepath) : WebLibraryManager.DATE_ZERO;
 
-                    if (dt != (library.WebLibraryDetail.LastSynced ?? WebLibraryManager.DATE_ZERO))
+                    if (dt != (web_library_detail.LastSynced ?? WebLibraryManager.DATE_ZERO))
                     {
-                        Logging.Info("Library {0} is in need of a sync - and has been flagged for autosync", library.WebLibraryDetail.Title);
-                        libraries_to_sync.Add(library);
+                        Logging.Info("Library {0} is in need of a sync - and has been flagged for autosync", web_library_detail.Title);
+                        libraries_to_sync.Add(web_library_detail);
                     }
                 }
             }

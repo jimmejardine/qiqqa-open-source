@@ -5,6 +5,7 @@ using System.IO;
 using Alphaleonis.Win32.Filesystem;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.TagManagement;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
@@ -25,8 +26,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
     {
         private TypedWeakReference<FolderWatcherManager> folder_watcher_manager;
 
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        private TypedWeakReference<WebLibraryDetail> web_library_detail;
+        public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
         private readonly HashSet<string> tags;
 
@@ -49,7 +50,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
             set
             {
-                // can only SET the signal; TestAndReset is required to RESET the signalling boolean
+                // can only SET the signal; TestAndReset is required to RESET the signaling boolean
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (folder_contents_has_changed_lock)
                 {
@@ -74,10 +75,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             return rv;
         }
 
-        public FolderWatcher(FolderWatcherManager _folder_watcher_manager, Library _library, string folder_to_watch, string _tags)
+        public FolderWatcher(FolderWatcherManager _folder_watcher_manager, WebLibraryDetail _library, string folder_to_watch, string _tags)
         {
             folder_watcher_manager = new TypedWeakReference<FolderWatcherManager>(_folder_watcher_manager);
-            library = new TypedWeakReference<Library>(_library);
+            web_library_detail = new TypedWeakReference<WebLibraryDetail>(_library);
             aspiring_folder_to_watch = folder_to_watch;
             tags = TagTools.ConvertTagBundleToTags(_tags);
             configured_folder_to_watch = null;
@@ -200,7 +201,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         public void ExecuteBackgroundProcess(Daemon daemon)
         {
             // We don't want to start watching files until the library is loaded...
-            if (!(library?.TypedTarget?.LibraryIsLoaded ?? false))
+            if (!(LibraryRef?.Xlibrary.LibraryIsLoaded ?? false))
             {
                 Logging.Info("Library is not yet loaded, so waiting before watching...");
 
@@ -273,7 +274,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
-                if (library?.TypedTarget == null || folder_watcher_manager?.TypedTarget == null)
+                if (LibraryRef == null || folder_watcher_manager?.TypedTarget == null)
                 {
                     Logging.Debug特("FolderWatcher: Breaking out of outer processing loop due to disposed library and/or watch manager");
                     FolderContentsHaveChanged = true;
@@ -384,7 +385,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 // Get the library to import all these new files
                 if (filename_with_metadata_imports.Count > 0)
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(Library, true, true, filename_with_metadata_imports.ToArray());
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(LibraryRef, true, true, filename_with_metadata_imports.ToArray());
 
                     // TODO: refactor the ImportingIntoLibrary class
                 }
@@ -449,7 +450,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 throw new OperationCanceledException("FolderWatcher: Breaking out of inner processing loop due to DisableAllBackgroundTasks");
             }
 
-            if (library?.TypedTarget == null || folder_watcher_manager?.TypedTarget == null)
+            if (LibraryRef == null || folder_watcher_manager?.TypedTarget == null)
             {
                 Logging.Info("FolderWatcher: Breaking out of inner processing loop due to disposed library and/or watch manager");
                 throw new OperationCanceledException("FolderWatcher: Breaking out of inner processing loop due to disposed library and/or watch manager");
@@ -536,7 +537,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
 
                 // check if the PDF is already known:
-                PDFDocument doc = Library.GetDocumentByFingerprint(fingerprint);
+                PDFDocument doc = LibraryRef.Xlibrary.GetDocumentByFingerprint(fingerprint);
 
                 if (doc != null)
                 {
@@ -622,7 +623,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             {
                 folder_watcher_manager = null;
                 //library.TypedTarget.Dispose();
-                library = null;
+                web_library_detail = null;
             });
 
             WPFDoEvents.SafeExec(() =>

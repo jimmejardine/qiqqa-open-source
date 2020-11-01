@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities.BibTex.Parsing;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
@@ -19,25 +20,25 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
 
         /// <summary>
-        /// If specified, all the file entries will be prefixed. See JabRef import for example. 
+        /// If specified, all the file entries will be prefixed. See JabRef import for example.
         /// </summary>
         protected string FileEntryBasePath { get; set; }
 
-        protected BibTeXImporter(Library library, string filename)
-            : base(library, filename)
+        protected BibTeXImporter(WebLibraryDetail web_library_detail, string filename)
+            : base(web_library_detail, filename)
         {
             string bibTex = File.ReadAllText(ExportFileName, System.Text.Encoding.UTF8);
 
             BibTexParseResult = BibTexParser.Parse(bibTex);
 
-            BibTexParseResult.Items.ForEach(x => Entries.Add(new BibTeXEntry { 
-				Item = x, 
-				BibTeX = x.ToBibTex() 
+            BibTexParseResult.Items.ForEach(x => Entries.Add(new BibTeXEntry {
+				Item = x,
+				BibTeX = x.ToBibTex()
 			}));
         }
 
         /// <summary>
-        /// Does replacements on file paths (for generic bibtex files) to turn the path into something we can use. 
+        /// Does replacements on file paths (for generic bibtex files) to turn the path into something we can use.
         /// </summary>
         public string TranslateFilePath(string value)
         {
@@ -45,8 +46,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             if (!String.IsNullOrEmpty(FileEntryBasePath))
             {
-                //If its rooted, prepending it with anything will always be wrong. 
-                //So assume its an error in their export. 
+                //If its rooted, prepending it with anything will always be wrong.
+                //So assume its an error in their export.
                 //Otherwise prepend
                 if (!Path.IsPathRooted(value))
                 {
@@ -58,15 +59,15 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         }
 
         /// <summary>
-        /// Does replacements on file paths (for generic bibtex files) to turn the path into something we can use. 
-        /// Without context meaning static - irresepctive of a particular file
+        /// Does replacements on file paths (for generic bibtex files) to turn the path into something we can use.
+        /// Without context meaning static - irrespective of a particular file
         /// </summary>
         public static string TranslateFilePathWithoutContext(string value)
         {
             value = value.Replace("$\\backslash$:", ":"); //Mendeley
             value = value.Replace("/", "\\");  //Mendeley
             value = value.Replace("\\_", "_"); //Mendeley escapes underscores. I get the feeling from http://www.citeulike.org/groupforum/1245 that others might not.
-            value = value.Replace("\\&", "&"); //Mendeley escapes &.(https://quantisle.fogbugz.com/f/cases/15838/) 
+            value = value.Replace("\\&", "&"); //Mendeley escapes &.(https://quantisle.fogbugz.com/f/cases/15838/)
 
             value = value.Replace("\\:", ":");
             value = value.Replace("\\\\", "\\");

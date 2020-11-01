@@ -1,16 +1,17 @@
 ﻿using System;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
     public class JabRefImporter : MendeleyImporter
     {
-        public JabRefImporter(Library library, string filename)
-            : base(library, filename, true)
+        public JabRefImporter(WebLibraryDetail web_library_detail, string filename)
+            : base(web_library_detail, filename, true)
         {
             //JabRef files can have a comment like this:
-            //@comment{jabref-meta: fileDirectory:D:\\Biblioteca;} 
-            //which means the base dir is rooted off that. 
+            //@comment{jabref-meta: fileDirectory:D:\\Biblioteca;}
+            //which means the base dir is rooted off that.
 
             try
             {
@@ -28,8 +29,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             {
                 Logging.Warn(ex, "Could not extract jabref file base metadata");
             }
-
         }
     }
-
 }

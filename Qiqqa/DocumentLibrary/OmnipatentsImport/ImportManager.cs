@@ -10,10 +10,10 @@ namespace Qiqqa.DocumentLibrary.OmnipatentsImport
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportFromOmnipatents);
 
-            WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary("Please select the Qiqqa library into which you want to import your Omnipatents portfolio.");
-            if (null != web_library_detail)
+            WebLibraryDetail picked_web_library_detail = WebLibraryPicker.PickWebLibrary("Please select the Qiqqa library into which you want to import your Omnipatents portfolio.");
+            if (null != picked_web_library_detail)
             {
-                ImportFromThirdParty win = new ImportFromThirdParty(web_library_detail.library);
+                ImportFromThirdParty win = new ImportFromThirdParty(picked_web_library_detail);
                 win.DoAutomatedBibTeXImport(filename);
                 win.ShowDialog();
             }

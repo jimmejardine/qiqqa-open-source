@@ -14,6 +14,7 @@ using Qiqqa.Common;
 using Qiqqa.Common.Common;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
@@ -92,13 +93,13 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
         }
 
-        internal static AnnotationReport BuildReport(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
+        internal static AnnotationReport BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             AnnotationReport annotation_report = new AnnotationReport();
             StandardFlowDocument flow_document = annotation_report.flow_document;
 
             // Create a list of all the work we need to do
-            List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(library, pdf_documents, annotation_report_options);
+            List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(web_library_detail, pdf_documents, annotation_report_options);
 
             // Now build the report
             PDFDocument last_pdf_document = null;
@@ -720,7 +721,7 @@ namespace Qiqqa.AnnotationsReportBuilding
         private static void OpenAnnotationWork(AnnotationWorkGenerator.AnnotationWork annotation_work)
         {
             string fingerprint = annotation_work.pdf_annotation.DocumentFingerprint;
-            PDFDocument pdf_document = annotation_work.library.GetDocumentByFingerprint(fingerprint);
+            PDFDocument pdf_document = annotation_work.web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
             if (null == pdf_document)
             {
                 Logging.Error("AsyncAnnotationReportBuilder: Cannot find document anymore for fingerprint {0}", fingerprint);
@@ -759,7 +760,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             arow.ShowTagOptions(library, pdf_documents, OnShowTagOptionsComplete);
         }
 
-        private static void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
+        private static void OnShowTagOptionsComplete(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             var annotation_report = BuildReport(library, pdf_documents, annotation_report_options);
             FlowDocumentScrollViewer viewer = new FlowDocumentScrollViewer();

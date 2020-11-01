@@ -21,7 +21,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             string json = pdf_document.GetAnnotationsAsJSON();
             if (!String.IsNullOrEmpty(json))
             {
-                pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.ANNOTATIONS, json);
+                pdf_document.LibraryRef.Xlibrary.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.ANNOTATIONS, json);
             }
         }
 
@@ -36,7 +36,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
             else // Try to load the annotations from file if they exist
             {
-                var items = pdf_document.Library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.ANNOTATIONS);
+                var items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.ANNOTATIONS);
                 if (0 < items.Count)
                 {
                     annotations_data = items[0].data;

@@ -23,7 +23,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                 }
                 else
                 {
-                    List<LibraryDB.LibraryItem> library_items = pdf_document.Library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.INKS);
+                    List<LibraryDB.LibraryItem> library_items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.INKS);
                     if (0 < library_items.Count)
                     {
                         inks_data = library_items[0].data;
@@ -60,7 +60,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
             if (null != data)
             {
-                pdf_document.Library.LibraryDB.PutBlob(pdf_document.Fingerprint, PDFDocumentFileLocations.INKS, data);
+                pdf_document.LibraryRef.Xlibrary.LibraryDB.PutBlob(pdf_document.Fingerprint, PDFDocumentFileLocations.INKS, data);
             }
         }
     }

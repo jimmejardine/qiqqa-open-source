@@ -2,6 +2,7 @@
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.AITagsStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Collections;
 using Utilities.Strings;
@@ -10,11 +11,11 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
 {
     public static class PDFDocumentTagCloudBuilder
     {
-        public static List<TagCloudEntry> BuildTagCloud(Library library, PDFDocument pdf_document)
+        public static List<TagCloudEntry> BuildTagCloud(WebLibraryDetail web_library_detail, PDFDocument pdf_document)
         {
             int MAX_PAGE_LIMIT = 20;
 
-            AITags ai_tags = pdf_document.Library.AITagManager.AITags;
+            AITags ai_tags = pdf_document.LibraryRef.Xlibrary.AITagManager.AITags;
 
             HashSet<string> autotags = ai_tags.GetTagsWithDocument(pdf_document.Fingerprint);
             foreach (var tag in TagTools.ConvertTagBundleToTags(pdf_document.Tags))

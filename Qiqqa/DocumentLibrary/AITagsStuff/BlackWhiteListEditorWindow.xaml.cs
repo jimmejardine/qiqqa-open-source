@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using icons;
 using Qiqqa.Common.GUI;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 
 namespace Qiqqa.DocumentLibrary.AITagsStuff
@@ -14,7 +15,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
     /// </summary>
     public partial class BlackWhiteListEditorWindow : StandardWindow
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
         private List<BlackWhiteListEntry> entries;
 
         public BlackWhiteListEditorWindow()
@@ -43,7 +44,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
         private void CmdSave_Click(object sender, RoutedEventArgs e)
         {
             List<BlackWhiteListEntry> new_entries = ProcessNewUserEntries();
-            library.BlackWhiteListManager.WriteList(new_entries);
+            web_library_detail.Xlibrary.BlackWhiteListManager.WriteList(new_entries);
             Close();
         }
 
@@ -101,19 +102,18 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         #endregion
 
-        public void SetLibrary(Library library_)
+        public void SetLibrary(WebLibraryDetail library_)
         {
             // Reset the screen
-            library = null;
+            web_library_detail = library_;
             entries = null;
             TxtWhite.Text = "";
             TxtBlack.Text = "";
 
             // Reflect the library
-            if (null != library_)
+            if (null != web_library_detail)
             {
-                library = library_;
-                entries = library_.BlackWhiteListManager.ReadList();
+                entries = web_library_detail.Xlibrary.BlackWhiteListManager.ReadList();
                 foreach (var entry in entries)
                 {
                     if (entry.is_deleted)
@@ -151,7 +151,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            library = null;
+            web_library_detail = null;
             entries?.Clear();
             entries = null;
         }

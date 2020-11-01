@@ -1,5 +1,7 @@
 ﻿using System;
+using Alphaleonis.Win32.Filesystem;
 using ProtoBuf;
+using Qiqqa.Common.Configuration;
 using Utilities.Strings;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
@@ -63,7 +65,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             set;
         }
 
-        public Library library {
+        public Library Xlibrary {
             get;
             set;
         }
@@ -91,5 +93,40 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             if (IsBundleLibrary) return "Bundle";
             return "Local";
         }
+
+        // -----------------------------------------------------------------------
+
+#region --- File locations ------------------------------------------------------------------------------------
+
+        public static string GetLibraryBasePathForId(string id)
+        {
+            return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, id));
+        }
+
+        public string LIBRARY_BASE_PATH => GetLibraryBasePathForId(Id);
+
+        public string LIBRARY_DOCUMENTS_BASE_PATH
+        {
+            get
+            {
+                string folder_override = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForPDFs;
+                if (!String.IsNullOrEmpty(folder_override))
+                {
+                    return Path.GetFullPath(folder_override + @"\");
+                }
+                else
+                {
+                    return Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"documents"));
+                }
+            }
+        }
+
+        public string LIBRARY_INDEX_BASE_PATH => Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"index"));
+
+        public string FILENAME_DOCUMENT_PROGRESS_LIST => Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
+
+
+        #endregion
+
     }
 }

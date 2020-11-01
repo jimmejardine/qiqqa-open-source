@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Misc;
 
@@ -14,18 +15,18 @@ namespace Qiqqa.Synchronisation.MetadataSync
         ///     filename -> SynchronisationState
         /// </summary>
         /// <returns></returns>
-        internal static SynchronisationStates Build(Library library, Dictionary<string, string> historical_sync_file)
+        internal static SynchronisationStates Build(WebLibraryDetail web_library_detail, Dictionary<string, string> historical_sync_file)
         {
             SynchronisationStates synchronisation_states = new SynchronisationStates();
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from local history");
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Building sync state from local history");
             BuildFromHistoricalSyncFile(historical_sync_file, ref synchronisation_states);
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from local files");
-            BuildFromLocal(library, ref synchronisation_states);
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Building sync state from local files");
+            BuildFromLocal(web_library_detail, ref synchronisation_states);
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Building sync state from Web/Intranet Library");
-            BuildFromRemote(library, ref synchronisation_states);
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Building sync state from Web/Intranet Library");
+            BuildFromRemote(web_library_detail, ref synchronisation_states);
 
             FilterSynchronisationStates(ref synchronisation_states);
 
@@ -60,9 +61,9 @@ namespace Qiqqa.Synchronisation.MetadataSync
             }
         }
 
-        private static void BuildFromLocal(Library library, ref SynchronisationStates synchronisation_states)
+        private static void BuildFromLocal(WebLibraryDetail web_library_detail, ref SynchronisationStates synchronisation_states)
         {
-            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(null, null);
+            List<LibraryDB.LibraryItem> library_items = web_library_detail.Xlibrary.LibraryDB.GetLibraryItems(null, null);
             foreach (LibraryDB.LibraryItem library_item in library_items)
             {
                 string short_filename = library_item.ToFileNameFormat();
@@ -72,16 +73,16 @@ namespace Qiqqa.Synchronisation.MetadataSync
             }
         }
 
-        private static void BuildFromRemote(Library library, ref SynchronisationStates synchronisation_states)
+        private static void BuildFromRemote(WebLibraryDetail web_library_detail, ref SynchronisationStates synchronisation_states)
         {
             // TODO: Replace this with a pretty interface class ------------------------------------------------
-            if (library.WebLibraryDetail.IsIntranetLibrary)
+            if (web_library_detail.IsIntranetLibrary)
             {
-                SynchronisationStateBuilder_Intranet.BuildFromRemote(library, ref synchronisation_states);
+                SynchronisationStateBuilder_Intranet.BuildFromRemote(web_library_detail, ref synchronisation_states);
             }
             else
             {
-                throw new Exception(String.Format("Did not understand how to build from remote for library '{0}' (Type: {1})", library.WebLibraryDetail.Title, library.WebLibraryDetail.LibraryType()));
+                throw new Exception(String.Format("Did not understand how to build from remote for library '{0}' (Type: {1})", web_library_detail.Title, web_library_detail.LibraryType()));
             }
             // -----------------------------------------------------------------------------------------------------
         }

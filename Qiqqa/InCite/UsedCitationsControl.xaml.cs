@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -28,9 +29,9 @@ namespace Qiqqa.InCite
             ObjUsedCitationsCatalog.SelectionChanged += ObjUsedCitationsCatalog_SelectionChanged;
         }
 
-        public void Refresh(Library primary_library)
+        public void Refresh(WebLibraryDetail web_library_detail)
         {
-            SafeThreadPool.QueueUserWorkItem(o => Refresh_BACKGROUND(primary_library));
+            SafeThreadPool.QueueUserWorkItem(o => Refresh_BACKGROUND(web_library_detail));
         }
 
         private class UsedCitation
@@ -46,7 +47,7 @@ namespace Qiqqa.InCite
             public CitationItem citation_item;
         }
 
-        private void Refresh_BACKGROUND(Library primary_library)
+        private void Refresh_BACKGROUND(WebLibraryDetail primary_library)
         {
             StatusManager.Instance.UpdateStatus("UsedCitations", "Finding used citations...");
 

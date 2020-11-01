@@ -63,11 +63,14 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
             foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 Logging.Info("Searching library {0}", web_library_detail.Title);
-                List<IndexResult> index_results = LibrarySearcher.FindAllFingerprintsMatchingQuery(web_library_detail.library, query);
+
+                Library library = web_library_detail.Xlibrary;
+
+                List<IndexResult> index_results = LibrarySearcher.FindAllFingerprintsMatchingQuery(web_library_detail, query);
 
                 foreach (IndexResult index_result in index_results)
                 {
-                    PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(index_result.fingerprint);
+                    PDFDocument pdf_document = library.GetDocumentByFingerprint(index_result.fingerprint);
                     if (null != pdf_document)
                     {
                         CombinedSearchResultItem result = new CombinedSearchResultItem

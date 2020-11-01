@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -14,8 +15,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 {
     public class FolderWatcherManager
     {
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        private TypedWeakReference<WebLibraryDetail> web_library_detail;
+        public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
         private class FolderWatcherRecord
         {
@@ -32,9 +33,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         // lock for all Filename_Store File I/O and filenames_processed HashSet:
         private object filenames_processed_lock = new object();
 
-        public FolderWatcherManager(Library _library)
+        public FolderWatcherManager(WebLibraryDetail _library)
         {
-            library = new TypedWeakReference<Library>(_library);
+            web_library_detail = new TypedWeakReference<WebLibraryDetail>(_library);
 
             // Load any pre-existing watched filenames
             bool file_exists;
@@ -62,7 +63,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             if (ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
             {
-                managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, extra_descr: $".Lib({Library})");
+                managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, extra_descr: $".Lib({LibraryRef})");
             }
         }
 
@@ -98,7 +99,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             WPFDoEvents.SafeExec(() =>
             {
                 //Library.Dispose();
-                library = null;
+                web_library_detail = null;
             });
 
             WPFDoEvents.SafeExec(() =>
@@ -112,7 +113,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             });
         }
 
-        public string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.folder_watcher"));
+        public string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.folder_watcher"));
 
         internal void ResetHistory()
         {
@@ -149,12 +150,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal void TaskDaemonEntryPoint(Utilities.Daemon daemon)
         {
-            Logging.Debug特("FolderWatcherTask for library {0} START", Library);
+            Logging.Debug特("FolderWatcherTask for library {0} START", LibraryRef);
 
             Dictionary<string, FolderWatcherRecord> folder_watchset = new Dictionary<string, FolderWatcherRecord>();
 
             // Get the new list of folders to watch
-            string folders_to_watch_batch = Library?.WebLibraryDetail.FolderToWatch;
+            string folders_to_watch_batch = LibraryRef?.FolderToWatch;
             HashSet<string> folders_to_watch = new HashSet<string>();
             if (null != folders_to_watch_batch)
             {
@@ -197,7 +198,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         FolderWatcherRecord fwr = new FolderWatcherRecord();
                         fwr.path = parts[0];
                         fwr.tags = (1 < parts.Length) ? parts[1] : null;
-                        fwr.folder_watcher = new FolderWatcher(this, Library, fwr.path, fwr.tags);
+                        fwr.folder_watcher = new FolderWatcher(this, LibraryRef, fwr.path, fwr.tags);
 
                         folder_watcher_records[folder_to_watch] = fwr;
                     }

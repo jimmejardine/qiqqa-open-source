@@ -20,7 +20,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
     /// </summary>
     public partial class LibraryDBExplorer : UserControl
     {
-        private Library library = null;
+        private WebLibraryDetail web_library_detail = null;
 
         public LibraryDBExplorer()
         {
@@ -42,7 +42,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
 
         private void ButtonGet_Click(object sender, RoutedEventArgs e)
         {
-            if (null == library)
+            if (null == web_library_detail)
             {
                 MessageBoxes.Error("You must choose a library...");
                 return;
@@ -56,7 +56,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                 MaxRecordCount = 0;
             }
 
-            var items = library.LibraryDB.GetLibraryItems(TxtFingerprint.Text, TxtExtension.Text, MaxRecordCount);
+            var items = web_library_detail.Xlibrary.LibraryDB.GetLibraryItems(TxtFingerprint.Text, TxtExtension.Text, MaxRecordCount);
             if (0 == items.Count)
             {
                 MessageBoxes.Warn("No entry was found.");
@@ -126,7 +126,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
 
                             /*
                              * example annotation: JSON format:
-                             * 
+                             *
                              *  [
                              *     {
                              *       "Guid": "329abf6b-59b4-450a-b015-65402c25068d",
@@ -186,7 +186,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                             case "metadata":
                                 try
                                 {
-                                    PDFDocument doc = PDFDocument.LoadFromMetaData(library, item.data, null);
+                                    PDFDocument doc = PDFDocument.LoadFromMetaData(web_library_detail, item.data, null);
                                     string bibtexStr = doc.BibTex;
                                     if (null == bibtexStr)
                                     {
@@ -269,7 +269,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                 }
 
                 // also dump the output to file (for diagnostics)
-                string path = Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.DBexplorer.QueryDump.txt"));
+                string path = Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH, @"Qiqqa.DBexplorer.QueryDump.txt"));
 
                 // overwrite previous query dump:
                 using (StreamWriter sr = new StreamWriter(path, false /* overwrite */))
@@ -283,7 +283,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
 
         private void ButtonPut_Click(object sender, RoutedEventArgs e)
         {
-            if (null == library)
+            if (null == web_library_detail)
             {
                 MessageBoxes.Error("You must choose a library...");
                 return;
@@ -292,21 +292,21 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
             string json = TxtData.Text;
             if (MessageBoxes.AskQuestion("Are you sure you want to write {0} characters to the database?", json.Length))
             {
-                library.LibraryDB.PutString(TxtFingerprint.Text, TxtExtension.Text, json);
+                web_library_detail.Xlibrary.LibraryDB.PutString(TxtFingerprint.Text, TxtExtension.Text, json);
             }
         }
 
         private void TxtLibrary_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            library = null;
+            web_library_detail = null;
             TxtLibrary.Text = "Click to choose a library.";
 
             // Pick a new library...
-            WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
-            if (null != web_library_detail)
+            WebLibraryDetail picked_web_library_detail = WebLibraryPicker.PickWebLibrary();
+            if (null != picked_web_library_detail)
             {
-                library = web_library_detail.library;
-                TxtLibrary.Text = web_library_detail.Title;
+                web_library_detail = picked_web_library_detail;
+                TxtLibrary.Text = picked_web_library_detail.Title;
             }
 
             e.Handled = true;

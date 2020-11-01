@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -17,7 +18,7 @@ namespace Qiqqa.Exporting
 {
     public static class LibraryExporter
     {
-        public static void Export(Library library, List<PDFDocument> pdf_documents)
+        public static void Export(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_Export);
 
@@ -40,12 +41,12 @@ namespace Qiqqa.Exporting
                     ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder = base_path;
                     ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder));
 
-                    SafeThreadPool.QueueUserWorkItem(o => Export(library, pdf_documents, base_path));
+                    SafeThreadPool.QueueUserWorkItem(o => Export(web_library_detail, pdf_documents, base_path));
                 }
             }
         }
 
-        public static void Export(Library library, List<PDFDocument> pdf_documents, string base_path)
+        public static void Export(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, string base_path)
         {
             try
             {
@@ -57,35 +58,35 @@ namespace Qiqqa.Exporting
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Starting library export", 0, MAX_STEPS, true);
                 Directory.CreateDirectory(base_path);
-                Dictionary<string, PDFDocumentExportItem> pdf_document_export_items = Export_Docs(library, pdf_documents, base_path);
+                Dictionary<string, PDFDocumentExportItem> pdf_document_export_items = Export_Docs(web_library_detail, pdf_documents, base_path);
 
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Exporting BibTeX", 1, MAX_STEPS, true);
-                LibraryExporter_BibTeX.Export(library, pdf_documents, base_path, pdf_document_export_items, true);
+                LibraryExporter_BibTeX.Export(web_library_detail, pdf_documents, base_path, pdf_document_export_items, true);
 
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Exporting html", 2, MAX_STEPS, true);
-                LibraryExporter_HTML.Export(library, base_path, pdf_document_export_items);
+                LibraryExporter_HTML.Export(web_library_detail, base_path, pdf_document_export_items);
 
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Exporting tabs", 3, MAX_STEPS, true);
-                LibraryExporter_Tabs.Export(library, pdf_documents, base_path, pdf_document_export_items);
+                LibraryExporter_Tabs.Export(web_library_detail, pdf_documents, base_path, pdf_document_export_items);
 
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Exporting BibTeX tabs", 4, MAX_STEPS, true);
-                LibraryExporter_BibTeXTabs.Export(library, pdf_documents, base_path, pdf_document_export_items);
+                LibraryExporter_BibTeXTabs.Export(web_library_detail, pdf_documents, base_path, pdf_document_export_items);
 
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Exporting directories", 5, MAX_STEPS, true);
-                LibraryExporter_Directories.Export(library, base_path, pdf_document_export_items);
+                LibraryExporter_Directories.Export(web_library_detail, base_path, pdf_document_export_items);
 
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Exporting PDF content", 6, MAX_STEPS, true);
-                LibraryExporter_PDFs.Export(library, base_path, pdf_document_export_items);
+                LibraryExporter_PDFs.Export(web_library_detail, base_path, pdf_document_export_items);
 
                 if (StatusManager.Instance.IsCancelled("LibraryExport")) return;
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Exporting PDF text", 7, MAX_STEPS, true);
-                LibraryExporter_PDFText.Export(library, base_path, pdf_document_export_items);
+                LibraryExporter_PDFText.Export(web_library_detail, base_path, pdf_document_export_items);
 
                 StatusManager.Instance.UpdateStatus("LibraryExport", "Finished library export");
                 Process.Start(base_path);
@@ -96,7 +97,7 @@ namespace Qiqqa.Exporting
             }
         }
 
-        private static Dictionary<string, PDFDocumentExportItem> Export_Docs(Library library, List<PDFDocument> pdf_documents, string base_path)
+        private static Dictionary<string, PDFDocumentExportItem> Export_Docs(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, string base_path)
         {
             // Where the original docs go
             string doc_base_path_original = Path.GetFullPath(Path.Combine(base_path, @"docs_original"));
@@ -144,7 +145,7 @@ namespace Qiqqa.Exporting
         {
             LibraryExporter_PDFs.Test();
         }
-        
+
         public static void Test()
         {
             // Get the gust library

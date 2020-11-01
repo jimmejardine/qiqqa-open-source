@@ -8,6 +8,7 @@ using PdfSharp.Pdf.IO;
 using Qiqqa.Common.Common;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Misc;
@@ -16,7 +17,7 @@ namespace Qiqqa.Exporting
 {
     internal class LibraryExporter_PDFs
     {
-        internal static void Export(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        internal static void Export(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             List<PDFDocumentExportItem> pdf_document_export_items_values = new List<PDFDocumentExportItem>(pdf_document_export_items.Values);
             for (int i = 0; i < pdf_document_export_items_values.Count; ++i)

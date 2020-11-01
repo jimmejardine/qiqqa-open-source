@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Qiqqa.DocumentLibrary.DocumentLibraryIndex;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
@@ -21,18 +22,18 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
     public class AITagManager
     {
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        private TypedWeakReference<WebLibraryDetail> web_library_detail;
+        public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
         private AITags current_ai_tags_record;
         private object in_progress_lock = new object();
         private bool regenerating_in_progress = false;
 
-        public AITagManager(Library library)
+        public AITagManager(WebLibraryDetail web_library_detail)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            this.library = new TypedWeakReference<Library>(library);
+            this.web_library_detail = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
 
             current_ai_tags_record = new AITags();
 
@@ -53,7 +54,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
             }
         }
 
-        private string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
+        private string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
 
         public void Regenerate(AsyncCallback callback = null)
         {
@@ -80,7 +81,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 Logging.Info("+AITagManager is starting regenerating");
 
                 StatusManager.Instance.UpdateStatus("AITags", "Loading documents");
-                List<PDFDocument> pdf_documents = Library.PDFDocuments;
+                List<PDFDocument> pdf_documents = LibraryRef.Xlibrary.PDFDocuments;
 
                 int count_title_by_user = 0;
                 int could_title_by_suggest = 0;
@@ -115,7 +116,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 List<string> words_blacklist = new List<string>();
                 List<string> words_whitelist = new List<string>();
                 {
-                    List<BlackWhiteListEntry> entries = Library.BlackWhiteListManager.ReadList();
+                    List<BlackWhiteListEntry> entries = LibraryRef.Xlibrary.BlackWhiteListManager.ReadList();
                     foreach (var entry in entries)
                     {
                         if (entry.is_deleted)
@@ -170,7 +171,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                         // Surround the tag with quotes and search the index
                         string search_tag = "\"" + tag + "\"";
-                        List<IndexPageResult> fingerprints_potential = LibrarySearcher.FindAllPagesMatchingQuery(Library, search_tag);
+                        List<IndexPageResult> fingerprints_potential = LibrarySearcher.FindAllPagesMatchingQuery(LibraryRef, search_tag);
 
                         if (null != fingerprints_potential)
                         {
@@ -191,7 +192,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                                 else
                                 {
                                     // Acronyms need to be done manually because we only want the upper case ones...
-                                    PDFDocument pdf_document = Library.GetDocumentByFingerprint(fingerprint_potential.fingerprint);
+                                    PDFDocument pdf_document = LibraryRef.Xlibrary.GetDocumentByFingerprint(fingerprint_potential.fingerprint);
                                     if (null != pdf_document && !pdf_document.Deleted)
                                     {
                                         bool have_tag = false;

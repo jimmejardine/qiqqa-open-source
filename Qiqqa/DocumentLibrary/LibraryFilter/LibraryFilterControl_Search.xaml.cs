@@ -9,6 +9,7 @@ using Qiqqa.DocumentLibrary.DocumentLibraryIndex;
 using Qiqqa.UtilisationTracking;
 using Utilities.GUI.Wizard;
 using Utilities.Language.TextIndexing;
+using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter
 {
@@ -47,19 +48,20 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         {
             library_filter_control.ObjLibraryFilterControl_Sort.SetSortToSearchScore();
 
-            ExecuteSearchQuick();
+            ExecuteSearchQuick(SearchQuick.Text);
             library_filter_control.ReviewParameters();
         }
 
-        internal void ExecuteSearchQuick()
+        internal void ExecuteSearchQuick(string query)
         {
-            string query = SearchQuick.Text;
+            ASSERT.Test(query != null);
+            SearchQuick.Text = query;
 
             if (!String.IsNullOrEmpty(query))
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Library_KeywordFilter);
 
-                List<IndexResult> index_results = LibrarySearcher.FindAllFingerprintsMatchingQuery(library_filter_control.library, query);
+                List<IndexResult> index_results = LibrarySearcher.FindAllFingerprintsMatchingQuery(library_filter_control.web_library_detail, query);
 
                 library_filter_control.search_quick_query = query;
                 library_filter_control.search_quick_scores = new Dictionary<string, double>();

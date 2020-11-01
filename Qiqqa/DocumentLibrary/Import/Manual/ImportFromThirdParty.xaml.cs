@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using icons;
 using Qiqqa.Common.GUI;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
@@ -21,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
     /// </summary>
     public partial class ImportFromThirdParty : StandardWindow
     {
-        private Library _library;
+        private WebLibraryDetail web_library_detail;
         private Providers _currentProvider;
         private UiState _currentUiState;
         private string _currentSelectedExportFile;
@@ -30,9 +31,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         private Auto.MendeleyImporter.MendeleyDatabaseDetails mdd;
         private Auto.EndnoteImporter.EndnoteDatabaseDetails edd;
 
-        public ImportFromThirdParty(Library library)
+        public ImportFromThirdParty(WebLibraryDetail _web_library_detail)
         {
-            _library = library;
+            web_library_detail = _web_library_detail;
 
             Theme.Initialize();
 
@@ -123,14 +124,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         private void CmdAutomaticMendeleyImport_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(_library, false, false, mdd.metadata_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, mdd.metadata_imports.ToArray());
             Close();
         }
 
         private void CmdAutomaticEndnoteImport_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(_library, false, false, edd.metadata_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, edd.metadata_imports.ToArray());
             Close();
         }
 
@@ -329,15 +330,15 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 switch (_currentProvider)
                 {
                     case Providers.Mendeley:
-                        importer = new MendeleyImporter(_library, _currentSelectedExportFile, false);
+                        importer = new MendeleyImporter(web_library_detail, _currentSelectedExportFile, false);
                         break;
 
                     case Providers.BibTeX:
-                        importer = new MendeleyImporter(_library, _currentSelectedExportFile, true);
+                        importer = new MendeleyImporter(web_library_detail, _currentSelectedExportFile, true);
                         break;
 
                     case Providers.Zotero:
-                        importer = new ZoteroImporter(_library, _currentSelectedExportFile);
+                        importer = new ZoteroImporter(web_library_detail, _currentSelectedExportFile);
                         break;
 
                     case Providers.EndNote:
@@ -346,11 +347,11 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                             MessageBoxes.Warn("The data directory you have picked might not be the right one - it should have a subdirectory called \"PDF\" where EndNote has exported your PDF files.");
                         }
 
-                        importer = new EndNoteImporter(_library, _currentSelectedExportFile, _currentSelectedSupplementaryFolder);
+                        importer = new EndNoteImporter(web_library_detail, _currentSelectedExportFile, _currentSelectedSupplementaryFolder);
                         break;
 
                     case Providers.JabRef:
-                        importer = new JabRefImporter(_library, _currentSelectedExportFile);
+                        importer = new JabRefImporter(web_library_detail, _currentSelectedExportFile);
                         break;
 
                     default:
@@ -572,7 +573,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 filename_and_bibtex_imports.Add(filename_with_metadata_import);
             }
 
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(_library, false, false, filename_and_bibtex_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, filename_and_bibtex_imports.ToArray());
 
             MessageBoxes.Info("{0} files are now being imported - this may take a little while.  You can track the import progress in the status bar.", filename_and_bibtex_imports.Count);
 
@@ -629,7 +630,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            _library = null;
+            web_library_detail = null;
 
             mdd = null;
             edd = null;

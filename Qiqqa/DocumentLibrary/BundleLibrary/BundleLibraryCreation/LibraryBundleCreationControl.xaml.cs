@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using icons;
 using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -24,7 +25,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
     public partial class LibraryBundleCreationControl : UserControl
     {
         public static readonly string TITLE = "Bundle Library Builder";
-        private Library library = null;
+        private WebLibraryDetail web_library_detail = null;
         private BundleLibraryManifest manifest = null;
 
         public LibraryBundleCreationControl()
@@ -88,7 +89,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             File.WriteAllText(target_filename_bundle_manifest, json);
 
             // Smash out the bundle
-            string source_directory = Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"*"));
+            string source_directory = Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH, @"*"));
             string directory_exclusion_parameter = (manifest.IncludesPDFs ? "" : "-xr!documents");
             string parameters = String.Format("a -tzip -mm=Deflate -mmt=on -mx9 \"{0}\" \"{1}\" {2}", target_filename_bundle, source_directory, directory_exclusion_parameter);
 
@@ -146,46 +147,46 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         private void CmdThemes_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => library.ExpeditionManager.RebuildExpedition(library.ExpeditionManager.RecommendedThemeCount, true, true, null));
+            SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.ExpeditionManager.RebuildExpedition(web_library_detail.Xlibrary.ExpeditionManager.RecommendedThemeCount, true, true, null));
         }
 
         private void CmdAutoTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate());
+            SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.AITagManager.Regenerate());
         }
 
         private void CmdCrossReference_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(library));
+            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(web_library_detail));
         }
 
         private void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var pdf_document in library.PDFDocuments)
+            foreach (var pdf_document in web_library_detail.Xlibrary.PDFDocuments)
             {
-                pdf_document.Library.LibraryIndex.ReIndexDocument(pdf_document);
+                pdf_document.LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(pdf_document);
             }
         }
 
-        public void ReflectLibrary(Library library_)
+        public void ReflectLibrary(WebLibraryDetail library_)
         {
-            library = library_;
+            web_library_detail = library_;
             manifest = new BundleLibraryManifest();
 
-            string bundle_title = library_.WebLibraryDetail.Title + " Bundle Library";
+            string bundle_title = web_library_detail.Title + " Bundle Library";
             bundle_title = bundle_title.Replace("Library Bundle Library", "Bundle Library");
 
             // Set the manifest
-            manifest.Id = "BUNDLE_" + library_.WebLibraryDetail.Id;
+            manifest.Id = "BUNDLE_" + web_library_detail.Id;
             manifest.Version = DateTime.UtcNow.ToString("yyyyMMdd.HHmmss");
 
             manifest.Title = bundle_title;
-            manifest.Description = library_.WebLibraryDetail.Description;
+            manifest.Description = web_library_detail.Description;
 
             // GUI updates
             DataContext = manifest;
-            ObjRunLibraryName.Text = library_.WebLibraryDetail.Title;
+            ObjRunLibraryName.Text = web_library_detail.Title;
 
             ResetProgress();
         }

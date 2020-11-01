@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Misc;
 
@@ -15,11 +16,11 @@ namespace Qiqqa.Synchronisation.PDFSync
         private class SyncQueueEntry
         {
             public string fingerprint;
-            public Library library;
+            public WebLibraryDetail web_library_detail;
 
             public override string ToString()
             {
-                return String.Format("{0}/{1}", library.WebLibraryDetail.Id, fingerprint);
+                return String.Format("{0}/{1}", web_library_detail.Id, fingerprint);
             }
         }
 
@@ -34,7 +35,7 @@ namespace Qiqqa.Synchronisation.PDFSync
 
         #region --- Public queueing --------------------------------------------------------------------------------------------------------
 
-        internal void QueuePut(string fingerprint, Library library)
+        internal void QueuePut(string fingerprint, WebLibraryDetail web_library_detail)
         {
             // We never send vanilla ref PDFs to s3.
             if (VanillaReferenceCreating.IsVanillaReferenceFingerprint(fingerprint)) return;
@@ -43,11 +44,11 @@ namespace Qiqqa.Synchronisation.PDFSync
             lock (fingerprints_to_put)
             {
                 // l1_clk.LockPerfTimerStop();
-                fingerprints_to_put.Add(new SyncQueueEntry { fingerprint = fingerprint, library = library });
+                fingerprints_to_put.Add(new SyncQueueEntry { fingerprint = fingerprint, web_library_detail = web_library_detail });
             }
         }
 
-        internal void QueueGet(string fingerprint, Library library)
+        internal void QueueGet(string fingerprint, WebLibraryDetail web_library_detail)
         {
             // We never fetch vanilla ref PDFs from S3.
             if (VanillaReferenceCreating.IsVanillaReferenceFingerprint(fingerprint)) return;
@@ -56,7 +57,7 @@ namespace Qiqqa.Synchronisation.PDFSync
             lock (fingerprints_to_get)
             {
                 // l1_clk.LockPerfTimerStop();
-                fingerprints_to_get.Add(new SyncQueueEntry { fingerprint = fingerprint, library = library });
+                fingerprints_to_get.Add(new SyncQueueEntry { fingerprint = fingerprint, web_library_detail = web_library_detail });
             }
         }
 
@@ -110,13 +111,13 @@ namespace Qiqqa.Synchronisation.PDFSync
                 try
                 {
                     // TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (sync_queue_entry.library.WebLibraryDetail.IsIntranetLibrary)
+                    if (sync_queue_entry.web_library_detail.IsIntranetLibrary)
                     {
-                        SyncQueues_Intranet.DaemonPut(sync_queue_entry.library, sync_queue_entry.fingerprint);
+                        SyncQueues_Intranet.DaemonPut(sync_queue_entry.web_library_detail, sync_queue_entry.fingerprint);
                     }
                     else
                     {
-                        throw new Exception(String.Format("Did not understand how to transfer PDFs for library {0}", sync_queue_entry.library.WebLibraryDetail.Title));
+                        throw new Exception(String.Format("Did not understand how to transfer PDFs for library {0}", sync_queue_entry.web_library_detail.Title));
                     }
                     // -----------------------------------------------------------------------------------------------------
 
@@ -160,13 +161,13 @@ namespace Qiqqa.Synchronisation.PDFSync
                 try
                 {
                     // TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (sync_queue_entry.library.WebLibraryDetail.IsIntranetLibrary)
+                    if (sync_queue_entry.web_library_detail.IsIntranetLibrary)
                     {
-                        SyncQueues_Intranet.DaemonGet(sync_queue_entry.library, sync_queue_entry.fingerprint);
+                        SyncQueues_Intranet.DaemonGet(sync_queue_entry.web_library_detail, sync_queue_entry.fingerprint);
                     }
                     else
                     {
-                        throw new Exception(String.Format("Did not understand how to transfer PDFs for library {0}", sync_queue_entry.library.WebLibraryDetail.Title));
+                        throw new Exception(String.Format("Did not understand how to transfer PDFs for library {0}", sync_queue_entry.web_library_detail.Title));
                     }
                     // -----------------------------------------------------------------------------------------------------
 

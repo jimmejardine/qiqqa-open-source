@@ -42,18 +42,18 @@ namespace Qiqqa.WebBrowsing
         private WebSearcherPreferenceControl web_searcher_preference_control;
         private WebBrowserControl wbc_browsing = null;
         private List<WebSearcherEntry> web_searcher_entries = new List<WebSearcherEntry>();
-        private Library current_library = null;
-        public Library CurrentLibrary
+        private WebLibraryDetail current_library = null;
+        public WebLibraryDetail CurrentLibrary
         {
             get
             {
-                Library lib = current_library;
+                WebLibraryDetail lib = current_library;
                 if (null == lib)
                 {
                     WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
                     if (null != web_library_detail)
                     {
-                        lib = web_library_detail.library;
+                        lib = web_library_detail;
                     }
                 }
                 return lib;
@@ -367,7 +367,7 @@ namespace Qiqqa.WebBrowsing
 
             string url = CurrentUri.AbsoluteUri;
 
-            Library lib = CurrentLibrary;
+            WebLibraryDetail lib = CurrentLibrary;
             if (null != lib)
             {
                 ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(lib, url);
@@ -569,7 +569,7 @@ namespace Qiqqa.WebBrowsing
                     , uris.Count
                     );
 
-                Library lib = CurrentLibrary;
+                WebLibraryDetail lib = CurrentLibrary;
                 if (null != lib)
                 {
                     foreach (Uri uri in uris)

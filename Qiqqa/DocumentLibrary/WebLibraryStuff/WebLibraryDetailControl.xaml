@@ -56,15 +56,17 @@
                                     </TextBlock>
                                     <local_gui:HyperlinkTextBlock
                                         Name="HyperlinkForget"
+                                        Padding="5,0"
                                         Text="Forget"
-                                        ToolTip="Forget this Intranet Library" Padding="5,0" />
+                                        ToolTip="Forget this Intranet Library" />
                                 </WrapPanel>
                                 <WrapPanel Name="PanelSetSyncPoint">
                                     <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                    <local_gui:HyperlinkTextBlock
                                         Name="HyperlinkSetSyncPoint"
+                                        Padding="5,0"
                                         Text="Change Sync Target"
                                         ToolTip="Assign the new Sync Point of this Intranet Library so you can share it with your colleagues. This will replace the existing Sync Point, if any." />
                                 </WrapPanel>
@@ -72,8 +74,9 @@
                                     <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                    <local_gui:HyperlinkTextBlock
                                         Name="HyperlinkLocateSyncPoint"
+                                        Padding="5,0"
                                         Text="Share Target"
                                         ToolTip="Locate the Sync Point of this Intranet Library so you can share it with your colleagues" />
                                 </WrapPanel>
@@ -81,8 +84,9 @@
                                     <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                    <local_gui:HyperlinkTextBlock
                                         Name="HyperlinkEdit"
+                                        Padding="5,0"
                                         Text="Edit"
                                         ToolTip="Edit this Library's details." />
                                 </WrapPanel>
@@ -90,8 +94,9 @@
                                     <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                    <local_gui:HyperlinkTextBlock
                                         Name="HyperlinkDelete"
+                                        Padding="5,0"
                                         Text="Delete"
                                         ToolTip="Delete this Library." />
                                 </WrapPanel>
@@ -99,13 +104,14 @@
                                     <TextBlock Padding="2,0">
                                         ·
                                     </TextBlock>
-                                    <local_gui:HyperlinkTextBlock Padding="5,0"
+                                    <local_gui:HyperlinkTextBlock
                                         Name="HyperlinkPurge"
+                                        Padding="5,0"
                                         Text="Purge deleted library"
                                         ToolTip="Purge this deleted library." />
                                 </WrapPanel>
                                 <TextBlock Padding="2,0">
-                                        ·
+                                    ·
                                 </TextBlock>
                             </StackPanel>
                         </StackPanel>

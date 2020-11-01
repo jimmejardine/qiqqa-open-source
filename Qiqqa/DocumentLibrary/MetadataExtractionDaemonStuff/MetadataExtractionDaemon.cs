@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities;
@@ -25,7 +26,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             public int documentsProcessedCount;
         }
 
-        public void DoMaintenance(Library library, Action callback_after_some_work_done)
+        public void DoMaintenance(WebLibraryDetail web_library_detail, Action callback_after_some_work_done)
         {
             Stopwatch clk = Stopwatch.StartNew();
 
@@ -74,7 +75,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                 }
 
                 // Check that we have something to do
-                List<PDFDocument> pdf_documents = library.PDFDocuments;
+                List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
                 stats.totalDocumentCount = pdf_documents.Count;
                 stats.currentdocumentIndex = 0;
                 stats.documentsProcessedCount = 0;
@@ -121,7 +122,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                     if (needs_processing != 0)
                     {
-                        if (DoSomeWork(library, pdf_document, stats))
+                        if (DoSomeWork(web_library_detail, pdf_document, stats))
                         {
                             stats.documentsProcessedCount++;
                         }
@@ -179,7 +180,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             }
         }
 
-        private bool DoSomeWork(Library library, PDFDocument pdf_document, RunningStatistics stats)
+        private bool DoSomeWork(WebLibraryDetail web_library_detail, PDFDocument pdf_document, RunningStatistics stats)
         {
             if (ShutdownableManager.Instance.IsShuttingDown)
             {

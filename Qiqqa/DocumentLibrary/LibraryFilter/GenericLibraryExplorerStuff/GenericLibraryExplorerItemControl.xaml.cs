@@ -76,7 +76,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         {
             if (null != item && null != item.OnItemPopup)
             {
-                item.OnItemPopup(item.library, item.tag);
+                item.OnItemPopup(item.web_library_detail, item.tag);
             }
 
             e.Handled = true;
@@ -86,7 +86,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         {
             if (null != item && null != item.OnItemDragOver)
             {
-                item.OnItemDragOver(item.library, item.tag, e);
+                item.OnItemDragOver(item.web_library_detail, item.tag, e);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         {
             if (null != item && null != item.OnItemDrop)
             {
-                item.OnItemDrop(item.library, item.tag, e);
+                item.OnItemDrop(item.web_library_detail, item.tag, e);
             }
         }
     }

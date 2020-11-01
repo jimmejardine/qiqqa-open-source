@@ -8,6 +8,7 @@ using Qiqqa.DocumentLibrary.LibraryFilter.AuthorExplorerStuff;
 using Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers;
 using Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff;
 using Qiqqa.DocumentLibrary.TagExplorerStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Syncfusion.Windows.Controls.Grid;
 using Utilities;
@@ -40,38 +41,38 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             ,"Theme"
         };
 
-        public static MultiMapSet<string, string> GenerateAxisMap(string axis_name, Library library, HashSet<string> parent_fingerprints)
+        public static MultiMapSet<string, string> GenerateAxisMap(string axis_name, WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
             switch (axis_name)
             {
-                case "Tag": return TagExplorerControl.GetNodeItems(library, parent_fingerprints);
-                case "Ratings": return RatingExplorerControl.GetNodeItems(library, parent_fingerprints);
-                case "ReadingStage": return ReadingStageExplorerControl.GetNodeItems(library, parent_fingerprints);
-                case "Author": return AuthorExplorerControl.GetNodeItems(library, parent_fingerprints);
-                case "Year": return YearExplorerControl.GetNodeItems(library, parent_fingerprints);
-                case "AutoTag": return AITagExplorerControl.GetNodeItems(library, parent_fingerprints);
-                case "Publication": return PublicationExplorerControl.GetNodeItems(library, parent_fingerprints);
-                case "Theme": return ThemeExplorerControl.GetNodeItems_STATIC(library, parent_fingerprints);
-                case "Type": return TypeExplorerControl.GetNodeItems(library, parent_fingerprints);
+                case "Tag": return TagExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
+                case "Ratings": return RatingExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
+                case "ReadingStage": return ReadingStageExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
+                case "Author": return AuthorExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
+                case "Year": return YearExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
+                case "AutoTag": return AITagExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
+                case "Publication": return PublicationExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
+                case "Theme": return ThemeExplorerControl.GetNodeItems_STATIC(web_library_detail, parent_fingerprints);
+                case "Type": return TypeExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
 
                 default:
                     Logging.Warn("Unknown pivot axis {0}", axis_name);
-                    return GenerateMap_None(library, parent_fingerprints);
+                    return GenerateMap_None(web_library_detail, parent_fingerprints);
             }
         }
 
-        private static MultiMapSet<string, string> GenerateMap_None(Library library, HashSet<string> parent_fingerprints)
+        private static MultiMapSet<string, string> GenerateMap_None(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
             List<PDFDocument> pdf_documents = null;
             if (null == parent_fingerprints)
             {
-                pdf_documents = library.PDFDocuments;
+                pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
             }
             else
             {
-                pdf_documents = library.GetDocumentByFingerprints(parent_fingerprints);
+                pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(parent_fingerprints);
             }
-            Logging.Debug特("LibraryPivotExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
+            Logging.Debug特("LibraryPivotExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, web_library_detail.Title);
 
             MultiMapSet<string, string> tags_with_fingerprints = new MultiMapSet<string, string>();
             foreach (PDFDocument pdf_document in pdf_documents)
@@ -143,7 +144,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
         public static class IdentifierImplementations
         {
-            public delegate void IdentifierImplementationDelegate(Library library, List<string> fingerprints, GridStyleInfo gsi);
+            public delegate void IdentifierImplementationDelegate(WebLibraryDetail web_library_detail, List<string> fingerprints, GridStyleInfo gsi);
 
             public static IdentifierImplementationDelegate GetIdentifierImplementation(string identifier_name)
             {
@@ -159,7 +160,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 }
             }
 
-            public static void Count(Library library, List<string> fingerprints, GridStyleInfo gsi)
+            public static void Count(WebLibraryDetail web_library_detail, List<string> fingerprints, GridStyleInfo gsi)
             {
                 if (null != fingerprints)
                 {
@@ -168,7 +169,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 }
             }
 
-            public static void Fingerprint(Library library, List<string> fingerprints, GridStyleInfo gsi)
+            public static void Fingerprint(WebLibraryDetail web_library_detail, List<string> fingerprints, GridStyleInfo gsi)
             {
                 if (null != fingerprints)
                 {
@@ -177,11 +178,11 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 }
             }
 
-            public static void BibTeXKey(Library library, List<string> fingerprints, GridStyleInfo gsi)
+            public static void BibTeXKey(WebLibraryDetail web_library_detail, List<string> fingerprints, GridStyleInfo gsi)
             {
                 if (null != fingerprints)
                 {
-                    List<PDFDocument> pdf_documents = library.GetDocumentByFingerprints(fingerprints);
+                    List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(fingerprints);
                     gsi.CellValue = String.Join(";", pdf_documents.Select(pdf_document => pdf_document.BibTexKey ?? ("?" + pdf_document.Fingerprint)));
                     gsi.CellValueType = typeof(string);
                 }
@@ -195,7 +196,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         {
             // TODO: REMOVE AFTER TESTING
             Library library = WebLibraryManager.Instance.Library_Guest;
-            while (!library.LibraryIsLoaded) 
+            while (!library.LibraryIsLoaded)
             {
                 Thread.Sleep(100);
             }
@@ -209,11 +210,11 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             sw.Height = 800;
             sw.Show();
         }
-        
+
         public static void Test2()
         {
             Library library = WebLibraryManager.Instance.Library_Guest;
-            while (!library.LibraryIsLoaded) 
+            while (!library.LibraryIsLoaded)
             {
                 Thread.Sleep(100);
             }

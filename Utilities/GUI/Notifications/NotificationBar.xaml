@@ -1,16 +1,16 @@
-<UserControl 
-    x:Class="Utilities.GUI.Notifications.NotificationBar" 
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local_conv="clr-namespace:Utilities.GUI.Converters" 
-    xmlns:Notifications="clr-namespace:Utilities.GUI.Notifications" 
-    mc:Ignorable="d" 
-    d:DesignHeight="300" 
-    d:DesignWidth="890"  
-    x:Name="Bar" 
-    Visibility="Collapsed">
+<UserControl
+    x:Class="Utilities.GUI.Notifications.NotificationBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Notifications="clr-namespace:Utilities.GUI.Notifications"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local_conv="clr-namespace:Utilities.GUI.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="Bar"
+    d:DesignHeight="300"
+    d:DesignWidth="890"
+    Visibility="Collapsed"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <local_conv:NullableToVisibilityConverter x:Key="NullToVisConverter" />
         <Notifications:NotificationTypeToGradientStopColour1Converter x:Key="NotificationTypeToColour1Converter" />
@@ -18,17 +18,64 @@
     </UserControl.Resources>
     <DockPanel>
         <DockPanel.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="{Binding Underlying, Converter={StaticResource NotificationTypeToColour1Converter}}" Offset="1" />
-                <GradientStop Color="{Binding Underlying, Converter={StaticResource NotificationTypeToColour2Converter}}" Offset="0" />
+            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Offset="1" Color="{Binding Underlying, Converter={StaticResource NotificationTypeToColour1Converter}}" />
+                <GradientStop Offset="0" Color="{Binding Underlying, Converter={StaticResource NotificationTypeToColour2Converter}}" />
             </LinearGradientBrush>
         </DockPanel.Background>
-        <Image DockPanel.Dock="Left" Name="NotificationImage" Source="{Binding ElementName=Bar, Path=ImageSource}" Visibility="{Binding ElementName=Bar, Path=ImageSource, Converter={StaticResource NullToVisConverter}}" HorizontalAlignment="Left" Width="24" Margin="5" />
-        <StackPanel Orientation="Horizontal" Height="34" Margin="5" DockPanel.Dock="Right">
-            <Button Name="Button2" Content="{Binding Path=Underlying.Button1.Text}" Margin="5" Width="100" FontSize="12" HorizontalAlignment="Right" Tag="{Binding Underlying.Button1.StuffToDoWhenPressed}" Visibility="{Binding Underlying.Button1, Converter={StaticResource NullToVisConverter}}" Click="Button_Click" />
-            <Button Name="Button1" Content="{Binding Path=Underlying.Button2.Text}" Margin="5" Width="100" FontSize="12" HorizontalAlignment="Right" Tag="{Binding Underlying.Button2.StuffToDoWhenPressed}" Visibility="{Binding Underlying.Button2, Converter={StaticResource NullToVisConverter}}" Click="Button_Click" />
-            <Image x:Name="CloseButton" Width="24" Height="24" HorizontalAlignment="Stretch" Margin="5" MouseLeftButtonUp="CloseButton_MouseLeftButtonUp" ToolTip="Close this notification" />
+        <Image
+            Name="NotificationImage"
+            Width="24"
+            Margin="5"
+            HorizontalAlignment="Left"
+            DockPanel.Dock="Left"
+            Source="{Binding ElementName=Bar, Path=ImageSource}"
+            Visibility="{Binding ElementName=Bar, Path=ImageSource, Converter={StaticResource NullToVisConverter}}" />
+        <StackPanel
+            Height="34"
+            Margin="5"
+            DockPanel.Dock="Right"
+            Orientation="Horizontal">
+            <Button
+                Name="Button2"
+                Width="100"
+                Margin="5"
+                HorizontalAlignment="Right"
+                Click="Button_Click"
+                Content="{Binding Path=Underlying.Button1.Text}"
+                FontSize="12"
+                Tag="{Binding Underlying.Button1.StuffToDoWhenPressed}"
+                Visibility="{Binding Underlying.Button1, Converter={StaticResource NullToVisConverter}}" />
+            <Button
+                Name="Button1"
+                Width="100"
+                Margin="5"
+                HorizontalAlignment="Right"
+                Click="Button_Click"
+                Content="{Binding Path=Underlying.Button2.Text}"
+                FontSize="12"
+                Tag="{Binding Underlying.Button2.StuffToDoWhenPressed}"
+                Visibility="{Binding Underlying.Button2, Converter={StaticResource NullToVisConverter}}" />
+            <Image
+                x:Name="CloseButton"
+                Width="24"
+                Height="24"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                MouseLeftButtonUp="CloseButton_MouseLeftButtonUp"
+                ToolTip="Close this notification" />
         </StackPanel>
-        <TextBlock Name="MainText" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Underlying.Text}" ToolTip="{Binding Path=Underlying.ToolTip}" Margin="5,0,5,0" FontSize="12" FontStyle="Normal" FontWeight="Medium" Height="Auto" TextWrapping="Wrap"/>
+        <TextBlock
+            Name="MainText"
+            Height="Auto"
+            Margin="5,0,5,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="12"
+            FontStyle="Normal"
+            FontWeight="Medium"
+            Text="{Binding Path=Underlying.Text}"
+            TextWrapping="Wrap"
+            ToolTip="{Binding Path=Underlying.ToolTip}" />
     </DockPanel>
 </UserControl>

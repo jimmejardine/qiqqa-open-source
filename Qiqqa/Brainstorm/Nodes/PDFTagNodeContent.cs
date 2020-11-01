@@ -13,22 +13,6 @@ namespace Qiqqa.Brainstorm.Nodes
         private string library_id;
         private string tag;
 
-        [NonSerialized]
-        private Library library = null;
-        public Library Library
-        {
-            get
-            {
-                if (null == library)
-                {
-                    library = WebLibraryManager.Instance.GetLibrary(library_id);
-                }
-
-                return library;
-            }
-        }
-
-
         public PDFTagNodeContent(string library_id, string tag)
         {
             this.library_id = library_id;
@@ -44,6 +28,8 @@ namespace Qiqqa.Brainstorm.Nodes
         #region  --- Binding properties ------------------------------------
 
         public string Tag => tag;
+
+        public string LibraryId => library_id;
 
         #endregion
 

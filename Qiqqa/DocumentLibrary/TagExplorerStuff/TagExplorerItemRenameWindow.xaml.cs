@@ -7,6 +7,7 @@ using System.Windows.Input;
 using icons;
 using Qiqqa.Common.GUI;
 using Qiqqa.Common.TagManagement;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities.GUI;
 
@@ -17,12 +18,12 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
     /// </summary>
     public partial class TagExplorerItemRenameWindow : StandardWindow
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
         private string tag;
 
-        public TagExplorerItemRenameWindow(Library library, string tag)
+        public TagExplorerItemRenameWindow(WebLibraryDetail web_library_detail, string tag)
         {
-            this.library = library;
+            this.web_library_detail = web_library_detail;
             this.tag = tag;
 
             InitializeComponent();
@@ -70,10 +71,10 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         private void RefreshSpans()
         {
             SetSpan(RegionOldTagName, tag);
-            SetSpan(RegionOldTagDocumentCount, "" + CountDocumentsWithTag(library, tag));
+            SetSpan(RegionOldTagDocumentCount, "" + CountDocumentsWithTag(web_library_detail, tag));
 
             string new_tag = TextNewTagName.Text;
-            SetSpan(RegionNewTagDocumentCount, "" + CountDocumentsWithTag(library, new_tag));
+            SetSpan(RegionNewTagDocumentCount, "" + CountDocumentsWithTag(web_library_detail, new_tag));
 
             if (String.IsNullOrEmpty(new_tag))
             {
@@ -104,7 +105,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             }
 
             // Rename all the tags in the documents
-            foreach (PDFDocument pdf_document in library.PDFDocuments)
+            foreach (PDFDocument pdf_document in web_library_detail.Xlibrary.PDFDocuments)
             {
                 // Rename the tags in the annotations
                 foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
@@ -143,10 +144,10 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             Close();
         }
 
-        private static int CountDocumentsWithTag(Library library, string search_tag)
+        private static int CountDocumentsWithTag(WebLibraryDetail web_library_detail, string search_tag)
         {
             int count = 0;
-            foreach (PDFDocument pdf_document in library.PDFDocuments)
+            foreach (PDFDocument pdf_document in web_library_detail.Xlibrary.PDFDocuments)
             {
                 foreach (string tag in TagTools.ConvertTagBundleToTags(pdf_document.Tags))
                 {
@@ -172,7 +173,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            library = null;
+            web_library_detail = null;
         }
     }
 }

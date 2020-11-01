@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
@@ -12,16 +13,16 @@ namespace Qiqqa.Synchronisation
 {
     internal class HistoricalSyncFile
     {
-        internal static string GetSyncDbFilename(Library library)
+        internal static string GetSyncDbFilename(WebLibraryDetail web_library_detail)
         {
-            return Path.GetFullPath(Path.Combine(library.LIBRARY_BASE_PATH, @"Qiqqa.sync_md5"));
+            return Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH, @"Qiqqa.sync_md5"));
         }
 
-        internal static Dictionary<string, string> GetHistoricalSyncFile(Library library)
+        internal static Dictionary<string, string> GetHistoricalSyncFile(WebLibraryDetail web_library_detail)
         {
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Loading sync history");
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Loading sync history");
 
-            Dictionary<string, string> historical_sync_file = (Dictionary<string, string>)SerializeFile.LoadSafely(GetSyncDbFilename(library));
+            Dictionary<string, string> historical_sync_file = (Dictionary<string, string>)SerializeFile.LoadSafely(GetSyncDbFilename(web_library_detail));
             if (null == historical_sync_file)
             {
                 Logging.Info("There is no sync history, so creating a new one");
@@ -31,10 +32,10 @@ namespace Qiqqa.Synchronisation
             return historical_sync_file;
         }
 
-        internal static void PutHistoricalSyncFile(Library library, Dictionary<string, string> historical_sync_file)
+        internal static void PutHistoricalSyncFile(WebLibraryDetail web_library_detail, Dictionary<string, string> historical_sync_file)
         {
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Saving sync history");
-            SerializeFile.SaveSafely(GetSyncDbFilename(library), historical_sync_file);
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Saving sync history");
+            SerializeFile.SaveSafely(GetSyncDbFilename(web_library_detail), historical_sync_file);
         }
     }
 }

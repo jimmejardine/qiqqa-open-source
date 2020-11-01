@@ -43,13 +43,13 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            Library library = WebLibraryManager.Instance.GetLibrary(manifest.Id);
-            if (null != library)
+            WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(manifest.Id);
+            if (null != web_library_detail)
             {
                 MessageBoxes.Info("You already have a version of this Bundle Library.  Please ensure you close all windows that use this library after the latest has been downloaded.");
             }
 
-            string library_directory = Library.GetLibraryBasePathForId(manifest.Id);
+            string library_directory = WebLibraryDetail.GetLibraryBasePathForId(manifest.Id);
             Directory.CreateDirectory(library_directory);
 
             // Unzip the bundle
@@ -68,7 +68,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             WebLibraryDetail new_web_library_detail = WebLibraryManager.Instance.UpdateKnownWebLibraryFromBundleLibraryManifest(manifest, suppress_flush_to_disk: false);
 
             WPFDoEvents.InvokeInUIThread(() => {
-                MainWindowServiceDispatcher.Instance.OpenLibrary(new_web_library_detail.library);
+                MainWindowServiceDispatcher.Instance.OpenLibrary(new_web_library_detail);
             });
         }
     }
