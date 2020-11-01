@@ -37,7 +37,7 @@
   - TODO: AutoSync et al should not yek about 'not knowing how to do this' when a library has no Sync Point set up, wheen it has ended up in the AutoSync set.
   - all libraries (except Bundles) are now read/write. This is the first step towards truly being able to work wwith and use your old commercial Qiqqa cloud libraries. (See the TODO above about being able to set/edit the Sync Point)
   - UI: removed some of the lingering bits from the Commercial era: Invite, Top Up, etc.
-  - DO NOT treat Guest library special any longer: this was another remnant of the Commercial Qiqqa Era, where the Guest library was not allowed to be included in the Sync and other behaviours of the Intranet and Cloud/Web Libraries. Today, I consider them all equal (except for Bundle libraries, of course)
+  - DO NOT treat Guest library as special any longer: this was another remnant of the Commercial Qiqqa Era, where the Guest library was not allowed to be included in the Sync and other behaviours of the Intranet and Cloud/Web Libraries. Today, I consider them all equal (except for Bundle libraries, of course)
 
 
 
