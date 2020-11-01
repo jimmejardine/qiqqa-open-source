@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Utilities.Misc;
@@ -10,9 +11,9 @@ namespace Qiqqa.Synchronisation.MetadataSync
 {
     internal class SynchronisationExecutor
     {
-        internal static void Sync(Library library, bool restricted_metadata_sync, bool is_readonly, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        internal static void Sync(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, bool is_readonly, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Performing metadata transfers");
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Performing metadata transfers");
 
             // For read only libraries, we need to overwrite any files that have been changed locally since the last sync
             if (is_readonly)
@@ -32,39 +33,39 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 }
             }
 
-            DoMerges(library, restricted_metadata_sync, historical_sync_file, synchronisation_action);
-            DoUploads(library, restricted_metadata_sync, historical_sync_file, synchronisation_action);
-            int download_count = DoDownloads(library, restricted_metadata_sync, historical_sync_file, synchronisation_action);
+            DoMerges(web_library_detail, restricted_metadata_sync, historical_sync_file, synchronisation_action);
+            DoUploads(web_library_detail, restricted_metadata_sync, historical_sync_file, synchronisation_action);
+            int download_count = DoDownloads(web_library_detail, restricted_metadata_sync, historical_sync_file, synchronisation_action);
 
             if (0 < download_count)
             {
-                DoNotifyLibraryOfChanges(library, historical_sync_file, synchronisation_action);
+                DoNotifyLibraryOfChanges(web_library_detail, historical_sync_file, synchronisation_action);
             }
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Finished metadata transfers");
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Finished metadata transfers");
         }
 
-        private static void DoMerges(Library library, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        private static void DoMerges(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
             // For now we are going to treat all conflicted files as downloads (i.e. server wins)
             synchronisation_action.states_to_download.AddRange(synchronisation_action.states_to_merge);
             synchronisation_action.states_to_merge.Clear();
         }
 
-        private static void DoUploads(Library library, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        private static void DoUploads(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
             int upload_count = 0;
 
-            StatusManager.Instance.ClearCancelled(StatusCodes.SYNC_META(library));
+            StatusManager.Instance.ClearCancelled(StatusCodes.SYNC_META(web_library_detail));
             foreach (SynchronisationState ss in synchronisation_action.states_to_upload)
             {
-                StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), String.Format("Uploading metadata to your Web/Intranet Library ({0} to go)", synchronisation_action.states_to_upload.Count - upload_count), upload_count, synchronisation_action.states_to_upload.Count, true);
+                StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), String.Format("Uploading metadata to your Web/Intranet Library ({0} to go)", synchronisation_action.states_to_upload.Count - upload_count), upload_count, synchronisation_action.states_to_upload.Count, true);
                 ++upload_count;
 
-                // Has the user cancelled?
-                if (StatusManager.Instance.IsCancelled(StatusCodes.SYNC_META(library)))
+                // Has the user canceled?
+                if (StatusManager.Instance.IsCancelled(StatusCodes.SYNC_META(web_library_detail)))
                 {
-                    Logging.Info("User has cancelled their metadata upload");
+                    Logging.Info("User has canceled their metadata upload");
                     break;
                 }
 
@@ -87,13 +88,13 @@ namespace Qiqqa.Synchronisation.MetadataSync
                     Logging.Info("+Uploading {0}", ss.filename);
 
                     // TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (library.WebLibraryDetail.IsIntranetLibrary)
+                    if (web_library_detail.IsIntranetLibrary)
                     {
-                        SynchronisationExecutor_Intranet.DoUpload(library, ss);
+                        SynchronisationExecutor_Intranet.DoUpload(web_library_detail, ss);
                     }
                     else
                     {
-                        throw new Exception(String.Format("Did not understand how to upload for library {0}", library.WebLibraryDetail.Title));
+                        throw new Exception(String.Format("Did not understand how to upload for library {0}", web_library_detail.Title));
                     }
                     // -----------------------------------------------------------------------------------------------------
 
@@ -103,24 +104,24 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 }
             }
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), String.Format("Uploaded {0} metadata to your Web/Intranet Library", upload_count));
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), String.Format("Uploaded {0} metadata to your Web/Intranet Library", upload_count));
         }
 
 
-        private static int DoDownloads(Library library, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        private static int DoDownloads(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
             int download_count = 0;
 
-            StatusManager.Instance.ClearCancelled(StatusCodes.SYNC_META(library));
+            StatusManager.Instance.ClearCancelled(StatusCodes.SYNC_META(web_library_detail));
             foreach (SynchronisationState ss in synchronisation_action.states_to_download)
             {
-                StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), String.Format("Downloading metadata from your Web/Intranet Library ({0} to go)", synchronisation_action.states_to_download.Count - download_count), download_count, synchronisation_action.states_to_download.Count, true);
+                StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), String.Format("Downloading metadata from your Web/Intranet Library ({0} to go)", synchronisation_action.states_to_download.Count - download_count), download_count, synchronisation_action.states_to_download.Count, true);
                 ++download_count;
 
-                // Has the user cancelled?
-                if (StatusManager.Instance.IsCancelled(StatusCodes.SYNC_META(library)))
+                // Has the user canceled?
+                if (StatusManager.Instance.IsCancelled(StatusCodes.SYNC_META(web_library_detail)))
                 {
-                    Logging.Info("User has cancelled their metadata download");
+                    Logging.Info("User has canceled their metadata download");
                     break;
                 }
 
@@ -131,13 +132,13 @@ namespace Qiqqa.Synchronisation.MetadataSync
                     StoredUserFile stored_user_file = null;
 
                     // TODO: Replace this with a pretty interface class ------------------------------------------------
-                    if (library.WebLibraryDetail.IsIntranetLibrary)
+                    if (web_library_detail.IsIntranetLibrary)
                     {
-                        stored_user_file = SynchronisationExecutor_Intranet.DoDownload(library, ss);
+                        stored_user_file = SynchronisationExecutor_Intranet.DoDownload(web_library_detail, ss);
                     }
                     else
                     {
-                        throw new Exception(String.Format("Did not understand how to download for library '{0}'", library.WebLibraryDetail.Title));
+                        throw new Exception(String.Format("Did not understand how to download for library '{0}'", web_library_detail.Title));
                     }
                     // -----------------------------------------------------------------------------------------------------
 
@@ -155,7 +156,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
                         }
 
                         Logging.Info("Copying content");
-                        library.LibraryDB.PutBlob(ss.fingerprint, ss.extension, stored_user_file.Content);
+                        web_library_detail.Xlibrary.LibraryDB.PutBlob(ss.fingerprint, ss.extension, stored_user_file.Content);
 
                         // Remember this MD5 for our sync clash detection
                         Logging.Info("Remembering md5");
@@ -164,18 +165,18 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem downloading one of your sync files: file '{0}' for library '{1}'", ss.filename, library.WebLibraryDetail.Title);
+                    Logging.Error(ex, "There was a problem downloading one of your sync files: file '{0}' for library '{1}'", ss.filename, web_library_detail.Title);
                 }
             }
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), String.Format("Downloaded {0} metadata from your Web/Intranet Library", download_count));
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), String.Format("Downloaded {0} metadata from your Web/Intranet Library", download_count));
 
             return download_count;
         }
 
-        private static void DoNotifyLibraryOfChanges(Library library, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        private static void DoNotifyLibraryOfChanges(WebLibraryDetail web_library_detail, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Notifying library of changes");
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Notifying library of changes");
 
             HashSet<string> fingerprints_that_have_changed = new HashSet<string>();
 
@@ -186,13 +187,13 @@ namespace Qiqqa.Synchronisation.MetadataSync
 
             foreach (string fingerprint in fingerprints_that_have_changed)
             {
-                library.NotifyLibraryThatDocumentHasChangedExternally(fingerprint);
+                web_library_detail.Xlibrary.NotifyLibraryThatDocumentHasChangedExternally(fingerprint, web_library_detail);
             }
 
             // Update grid
-            library.NotifyLibraryThatDocumentListHasChangedExternally();
+            web_library_detail.Xlibrary.NotifyLibraryThatDocumentListHasChangedExternally();
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Notified library of changes");
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Notified library of changes");
         }
     }
 }

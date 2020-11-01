@@ -43,19 +43,19 @@ namespace Qiqqa.DocumentLibrary
     /// </summary>
     public partial class LibraryControl : UserControl, IDualTabbedLayoutDragDrop
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
         private DragToLibraryManager dual_tab_drag_to_library_manager;
 
         private List<PDFDocument> pdf_documents = null;
 
-        public LibraryControl(Library library)
+        public LibraryControl(WebLibraryDetail web_library_detail)
         {
             Theme.Initialize();
 
             Logging.Debug("+LibraryControl()");
 
-            this.library = library;
-            dual_tab_drag_to_library_manager = new DragToLibraryManager(library);
+            this.web_library_detail = web_library_detail;
+            dual_tab_drag_to_library_manager = new DragToLibraryManager(web_library_detail);
 
             InitializeComponent();
 
@@ -200,10 +200,10 @@ namespace Qiqqa.DocumentLibrary
             ObjLibraryFilterControl.OnFilterChanged += ObjLibraryFilterOverviewControl.OnFilterChanged;
             ObjLibraryFilterControl.OnFilterChanged += ObjLibraryCatalogControl.OnFilterChanged;
 
-            ObjLibraryFilterControl.Library = library;
+            ObjLibraryFilterControl.LibraryRef = web_library_detail;
             ObjLibraryFilterControl.ResetFilters(true);
 
-            ObjLibraryCatalogControl.Library = library;
+            ObjLibraryCatalogControl.LibraryRef = web_library_detail;
 
             // Catch some keyboard commands
             KeyDown += LibraryControl_KeyDown;
@@ -211,7 +211,7 @@ namespace Qiqqa.DocumentLibrary
             if (!ADVANCED_MENUS) ButtonWebcast.Caption = "Tutorial\n";
             Webcasts.FormatWebcastButton(ButtonWebcast, Webcasts.LIBRARY);
 
-            // IF the library readonly?
+            // IF the library is read-only?
             ReflectReadOnlyStatus();
 
             Logging.Debug("-LibraryControl()");
@@ -219,37 +219,35 @@ namespace Qiqqa.DocumentLibrary
 
         private void ReflectReadOnlyStatus()
         {
-            ObjReadOnlyLibraryDescriptionBorder.Visibility = library.WebLibraryDetail.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+            ObjReadOnlyLibraryDescriptionBorder.Visibility = web_library_detail.IsReadOnlyLibrary ? Visibility.Visible : Visibility.Collapsed;
             ObjReadonlyExplain.Text = "";
 
-            if (library.WebLibraryDetail.IsWebLibrary)
-                ObjReadonlyExplain.Text = "If you wish to have write access, ask your library administrator to give you permission.";
-            else if (library.WebLibraryDetail.IsIntranetLibrary)
-                ObjReadonlyExplain.Text = "You need to upgrade to Premium+ to be able to write to this Intranet Library.";
-            else if (library.WebLibraryDetail.IsBundleLibrary)
+            if (web_library_detail.IsBundleLibrary)
+            {
                 ObjReadonlyExplain.Text = "This Bundle Library is automatically overwritten whenever the Bundle creator updates it online.";
+            }
         }
 
         private void ButtonBuildBundleLibrary_Click(object sender, RoutedEventArgs e)
         {
             LibraryBundleCreationControl lbcc = new LibraryBundleCreationControl();
-            lbcc.ReflectLibrary(library);
-            MainWindowServiceDispatcher.Instance.OpenControl("LibraryBundleCreationControl" + library.WebLibraryDetail.ShortWebId, LibraryBundleCreationControl.TITLE, lbcc, Icons.GetAppIcon(Icons.BuildBundleLibrary));
+            lbcc.ReflectLibrary(web_library_detail);
+            MainWindowServiceDispatcher.Instance.OpenControl("LibraryBundleCreationControl", LibraryBundleCreationControl.TITLE, lbcc, Icons.GetAppIcon(Icons.BuildBundleLibrary));
         }
 
         private void ButtonExportLinkedDocs_Click(object sender, RoutedEventArgs e)
         {
-            LinkedDocsAnnotationReportBuilder.BuildReport(library, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
+            LinkedDocsAnnotationReportBuilder.BuildReport(web_library_detail, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
         }
 
         private void ButtonExportAnnotationsCode_Click(object sender, RoutedEventArgs e)
         {
-            JSONAnnotationReportBuilder.BuildReport(library, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
+            JSONAnnotationReportBuilder.BuildReport(web_library_detail, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
         }
 
         private void ButtonExportCitationMatrix_Click(object sender, RoutedEventArgs e)
         {
-            CitationMatrixExport.Export(library, pdf_documents);
+            CitationMatrixExport.Export(web_library_detail, pdf_documents);
         }
 
         private void LibraryControl_KeyDown(object sender, KeyEventArgs e)
@@ -261,15 +259,15 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        public Library Library => library;
+        public WebLibraryDetail LibraryRef => web_library_detail;
 
         private void ButtonAddVanillaReference_Click(object sender, RoutedEventArgs e)
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                PDFDocument pdf_document = library.AddVanillaReferenceDocumentToLibrary(null, null, null, false, false);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.AddVanillaReferenceDocumentToLibrary(null, web_library_detail, null, null, false, false);
 
-                // Let's pop up the bibtex editor window for the new document
+                // Let's pop up the BibTeX editor window for the new document
                 MetadataBibTeXEditorControl editor = new MetadataBibTeXEditorControl();
                 editor.Show(pdf_document.Bindable);
             }
@@ -277,7 +275,7 @@ namespace Qiqqa.DocumentLibrary
 
         private void ButtonImportFromThirdParty_Click(object sender, RoutedEventArgs e)
         {
-            new ImportFromThirdParty(library).ShowDialog();
+            new ImportFromThirdParty(web_library_detail).ShowDialog();
         }
 
         private void ObjLibraryFilterControl_OnFilterChanged(LibraryFilterControl library_filter_control, List<PDFDocument> pdf_documents, Span descriptive_span, string filter_terms, Dictionary<string, double> search_scores, PDFDocument pdf_document_to_focus_on)
@@ -286,7 +284,7 @@ namespace Qiqqa.DocumentLibrary
 
             // Check if this library is empty
             int EMPTY_LIBRARY_THRESHOLD = 5;
-            if (library.PDFDocuments.Count > EMPTY_LIBRARY_THRESHOLD)
+            if (web_library_detail.Xlibrary.PDFDocuments.Count > EMPTY_LIBRARY_THRESHOLD)
             {
                 ObjLibraryEmptyDescriptionBorder.Visibility = Visibility.Collapsed;
             }
@@ -299,7 +297,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 int NUM_TO_CHECK = 10;
                 int total_without_bibtex = 0;
-                List<PDFDocument> pdf_document_to_check_for_bibtex = library.PDFDocuments;
+                List<PDFDocument> pdf_document_to_check_for_bibtex = web_library_detail.Xlibrary.PDFDocuments;
                 for (int i = 0; i < pdf_document_to_check_for_bibtex.Count && i < NUM_TO_CHECK; ++i)
                 {
                     if (!pdf_document_to_check_for_bibtex[i].Deleted && String.IsNullOrEmpty(pdf_document_to_check_for_bibtex[i].BibTex))
@@ -308,9 +306,9 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
 
-                // Set the visibility - must have a few documents, and more than 
+                // Set the visibility - must have a few documents, and more than
                 ObjNotMuchBibTeXDescriptionBorder.Visibility = Visibility.Collapsed;
-                if (library.PDFDocuments.Count > EMPTY_LIBRARY_THRESHOLD && pdf_document_to_check_for_bibtex.Count > 0)
+                if (web_library_detail.Xlibrary.PDFDocuments.Count > EMPTY_LIBRARY_THRESHOLD && pdf_document_to_check_for_bibtex.Count > 0)
                 {
                     if (total_without_bibtex / (double)pdf_document_to_check_for_bibtex.Count >= 0.5 || total_without_bibtex / (double)NUM_TO_CHECK >= 0.5)
                     {
@@ -329,24 +327,24 @@ namespace Qiqqa.DocumentLibrary
         private void ButtonExploreInBrainstorm_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ExploreInBrainstorm);
-            MainWindowServiceDispatcher.Instance.ExploreLibraryInBrainstorm(library);
+            MainWindowServiceDispatcher.Instance.ExploreLibraryInBrainstorm(web_library_detail);
         }
 
         private void ButtonExploreInPivot_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ExploreInPivot);
-            MainWindowServiceDispatcher.Instance.OpenPivot(library, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
+            MainWindowServiceDispatcher.Instance.OpenPivot(web_library_detail, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
         }
 
         private void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_Library);
-            MainWindowServiceDispatcher.Instance.OpenExpedition(library, null);
+            MainWindowServiceDispatcher.Instance.OpenExpedition(web_library_detail, null);
         }
 
         private void ButtonExportLibrary_Click(object sender, RoutedEventArgs e)
         {
-            LibraryExporter.Export(library, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
+            LibraryExporter.Export(web_library_detail, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
         }
 
         private void ButtonExportBibTex_Click(object sender, RoutedEventArgs e)
@@ -361,13 +359,13 @@ namespace Qiqqa.DocumentLibrary
 
         private void ButtonAnnotationsReport_Click(object sender, RoutedEventArgs e)
         {
-            MainWindowServiceDispatcher.Instance.GenerateAnnotationReport(library, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
+            MainWindowServiceDispatcher.Instance.GenerateAnnotationReport(web_library_detail, ObjLibraryCatalogControl.SelectedPDFDocumentsElseEverything);
         }
 
         private void ButtonGenerateReferences_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(library));
+            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(web_library_detail));
         }
 
         private void ButtonFindDuplicates_Click(object sender, RoutedEventArgs e)
@@ -375,14 +373,14 @@ namespace Qiqqa.DocumentLibrary
             //VisualGalleryControl.Test(library);
 
             FeatureTrackingManager.Instance.UseFeature(Features.Library_FindDuplicates);
-            MassDuplicateCheckingControl.FindDuplicatesForLibrary(library);
+            MassDuplicateCheckingControl.FindDuplicatesForLibrary(web_library_detail);
         }
 
         private void ButtonWatchFolder_Click(object sender, RoutedEventArgs e)
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                new FolderWatcherChooser(library).ShowDialog();
+                new FolderWatcherChooser(web_library_detail).ShowDialog();
             }
         }
 
@@ -398,7 +396,7 @@ namespace Qiqqa.DocumentLibrary
                 dlg.Title = "Select the PDF documents you wish to add to your document library";
                 if (dlg.ShowDialog() == true)
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(library, false, false, dlg.FileNames);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, false, dlg.FileNames);
                 }
             }
         }
@@ -408,25 +406,25 @@ namespace Qiqqa.DocumentLibrary
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
                 // First choose the source library
-                string message = String.Format("You are about to import a lot of PDFs into the library named '{0}'.  Please choose the library FROM WHICH you wish to import the PDFs.", library.WebLibraryDetail.Title);
-                WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary(message);
-                if (null != web_library_detail)
+                string message = String.Format("You are about to import a lot of PDFs into the library named '{0}'.  Please choose the library FROM WHICH you wish to import the PDFs.", web_library_detail.Title);
+                WebLibraryDetail picked_web_library_detail = WebLibraryPicker.PickWebLibrary(message);
+                if (null != picked_web_library_detail)
                 {
-                    if (web_library_detail == library.WebLibraryDetail)
+                    if (picked_web_library_detail == web_library_detail)
                     {
                         MessageBoxes.Error("You can not copy documents into the same library.");
                         return;
                     }
 
                     // Then check that they still want to do this
-                    string message2 = String.Format("You are about to copy ALL of the PDFs from the library named '{0}' into the library named '{1}'.  Are you sure you want to do this?", web_library_detail.Title, library.WebLibraryDetail.Title);
+                    string message2 = String.Format("You are about to copy ALL of the PDFs from the library named '{0}' into the library named '{1}'.  Are you sure you want to do this?", picked_web_library_detail.Title, web_library_detail.Title);
                     if (!MessageBoxes.AskQuestion(message2))
                     {
                         return;
                     }
 
                     // They are sure!
-                    ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(web_library_detail.library.PDFDocuments, library);
+                    ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(picked_web_library_detail.Xlibrary.PDFDocuments, web_library_detail);
                 }
             }
         }
@@ -435,7 +433,7 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                new ImportFromFolder(library).ShowDialog();
+                new ImportFromFolder(web_library_detail).ShowDialog();
             }
         }
 
@@ -443,11 +441,11 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                var root_folder = library.LIBRARY_DOCUMENTS_BASE_PATH;
+                var root_folder = web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH;
                 if (Directory.Exists(root_folder))
                 {
                     // do the import
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(library, root_folder, true, false, false, false);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, true, false, false, false);
                 }
             }
         }

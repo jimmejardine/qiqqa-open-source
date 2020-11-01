@@ -14,6 +14,7 @@ using Qiqqa.Common;
 using Qiqqa.Common.Common;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
@@ -24,6 +25,7 @@ using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
 using Utilities.OCR;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.AnnotationsReportBuilding
 {
@@ -91,13 +93,13 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
         }
 
-        internal static AnnotationReport BuildReport(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
+        internal static AnnotationReport BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             AnnotationReport annotation_report = new AnnotationReport();
             StandardFlowDocument flow_document = annotation_report.flow_document;
 
             // Create a list of all the work we need to do
-            List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(library, pdf_documents, annotation_report_options);
+            List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(web_library_detail, pdf_documents, annotation_report_options);
 
             // Now build the report
             PDFDocument last_pdf_document = null;
@@ -503,16 +505,22 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         private static void BackgroundRenderImages_BACKGROUND(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptions annotation_report_options)
         {
-            Thread.Sleep(annotation_report_options.InitialRenderDelayMilliseconds);
+            ShutdownableManager.Sleep(annotation_report_options.InitialRenderDelayMilliseconds);
 
             PDFDocument last_pdf_document = null;
             StatusManager.Instance.ClearCancelled("AnnotationReportBackground");
             for (int j = 0; j < annotation_works.Count; ++j)
             {
+                if (ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Error("Canceling creation of Annotation Report due to signaled application shutdown");
+                    StatusManager.Instance.SetCancelled("AnnotationReportBackground");
+                }
+
                 StatusManager.Instance.UpdateStatus("AnnotationReportBackground", "Building annotation report image", j, annotation_works.Count, true);
                 if (StatusManager.Instance.IsCancelled("AnnotationReportBackground"))
                 {
-                    Logging.Warn("User cancelled annotation report generation");
+                    Logging.Warn("User canceled annotation report generation");
                     break;
                 }
 
@@ -713,7 +721,7 @@ namespace Qiqqa.AnnotationsReportBuilding
         private static void OpenAnnotationWork(AnnotationWorkGenerator.AnnotationWork annotation_work)
         {
             string fingerprint = annotation_work.pdf_annotation.DocumentFingerprint;
-            PDFDocument pdf_document = annotation_work.library.GetDocumentByFingerprint(fingerprint);
+            PDFDocument pdf_document = annotation_work.web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
             if (null == pdf_document)
             {
                 Logging.Error("AsyncAnnotationReportBuilder: Cannot find document anymore for fingerprint {0}", fingerprint);
@@ -752,7 +760,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             arow.ShowTagOptions(library, pdf_documents, OnShowTagOptionsComplete);
         }
 
-        private static void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
+        private static void OnShowTagOptionsComplete(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             var annotation_report = BuildReport(library, pdf_documents, annotation_report_options);
             FlowDocumentScrollViewer viewer = new FlowDocumentScrollViewer();

@@ -7,6 +7,7 @@ using Qiqqa.Brainstorm.Connectors;
 using Qiqqa.Brainstorm.Nodes;
 using Utilities;
 using Utilities.Mathematics.Geometry;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.Brainstorm.SceneManager
 {
@@ -58,7 +59,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             Daemon daemon = (Daemon)arg;
             Logging.Debug特("AutoArranger Thread {0} has started", daemon.ManagedThreadId);
 
-            while (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            while (!ShutdownableManager.Instance.IsShuttingDown)
             {
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (thread_lock)

@@ -1,4 +1,4 @@
-﻿using Qiqqa.DocumentLibrary;
+﻿using Qiqqa.DocumentLibrary.WebLibraryStuff;
 
 namespace Qiqqa.Synchronisation
 {
@@ -6,9 +6,9 @@ namespace Qiqqa.Synchronisation
     {
         internal static readonly string SYNC_META_GLOBAL = "SYNC_META";
 
-        internal static string SYNC_META(Library library)
+        internal static string SYNC_META(WebLibraryDetail web_library_detail)
         {
-            return "SYNC_META:" + library.WebLibraryDetail.Id;
+            return "SYNC_META:" + web_library_detail.Id;
         }
 
         internal static readonly string SYNC_DATA = "SYNC_DATA";

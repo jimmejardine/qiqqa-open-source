@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using Newtonsoft.Json;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -27,13 +28,13 @@ namespace Qiqqa.AnnotationsReportBuilding
             public string text { get; set; }
         }
 
-        internal static void BuildReport(Library library, List<PDFDocument> pdf_documents)
+        internal static void BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_JSONAnnotationReport);
 
             AnnotationReportOptions annotation_report_options = new AnnotationReportOptions();
 
-            List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(library, pdf_documents, annotation_report_options);
+            List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(web_library_detail, pdf_documents, annotation_report_options);
 
             IEnumerable<AnnotationJSON> annotation_jsons = annotation_works.Select(annotation_work =>
                 new AnnotationJSON

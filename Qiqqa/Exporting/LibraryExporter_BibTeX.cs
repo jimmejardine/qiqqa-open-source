@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.BibTex;
@@ -17,7 +18,7 @@ namespace Qiqqa.Exporting
 {
     internal class LibraryExporter_BibTeX
     {
-        internal static void Export(Library library, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items, bool include_additional_fields)
+        internal static void Export(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items, bool include_additional_fields)
         {
             string filename = Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.bib"));
             ExportBibTeX(pdf_documents, filename, pdf_document_export_items, include_additional_fields);
@@ -70,7 +71,7 @@ namespace Qiqqa.Exporting
                         if (Constants.UNKNOWN_YEAR != year) bibtex = BibTexTools.SetYear(bibtex, year);
                     }
 
-                    // NB: The ADDITION of the filename and tags causes the bibtex to be reparsed and formatted, 
+                    // NB: The ADDITION of the filename and tags causes the bibtex to be reparsed and formatted,
                     // which currently loses all the nifty bibtex formatting language (e.g. double braces, etc)
                     //
                     // Once the bibtex parser is smarter, we can add this back in.  Or perhaps make it an option...
@@ -105,7 +106,7 @@ namespace Qiqqa.Exporting
                                 bibtex = BibTexTools.SetField(bibtex, "Tags", tags);
                             }
 
-                            HashSet<string> autotags_set = pdf_document.Library.AITagManager.AITags.GetTagsWithDocument(pdf_document.Fingerprint);
+                            HashSet<string> autotags_set = pdf_document.LibraryRef.Xlibrary.AITagManager.AITags.GetTagsWithDocument(pdf_document.Fingerprint);
                             string autotags = ArrayFormatter.ListElements(autotags_set.ToList(), ";");
                             if (!String.IsNullOrEmpty(autotags))
                             {
@@ -129,7 +130,6 @@ namespace Qiqqa.Exporting
                             }
                         }
                     }
-
 
                     // Append the bibtex
                     if (!String.IsNullOrEmpty(bibtex))

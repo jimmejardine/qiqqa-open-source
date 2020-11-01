@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using Qiqqa.Common.TagManagement;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
@@ -15,7 +16,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
     /// </summary>
     public partial class TagExplorerControl : UserControl
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
 
         public delegate void OnTagSelectionChangedDelegate(HashSet<string> fingerprints, Span descriptive_span);
         public event OnTagSelectionChangedDelegate OnTagSelectionChanged;
@@ -42,13 +43,13 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         // -----------------------------
 
-        public Library Library
+        public WebLibraryDetail LibraryRef
         {
-            get => library;
+            get => web_library_detail;
             set
             {
-                library = value;
-                TagExplorerTree.Library = value;
+                web_library_detail = value;
+                TagExplorerTree.LibraryRef = value;
             }
         }
 
@@ -59,23 +60,23 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         // -----------------------------
 
-        internal static MultiMapSet<string, string> GetNodeItems(Library library, HashSet<string> parent_fingerprints)
+        internal static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
             Logging.Info("+Getting node items for Tags");
 
             List<PDFDocument> pdf_documents = null;
             if (null == parent_fingerprints)
             {
-                pdf_documents = library.PDFDocuments;
+                pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
             }
             else
             {
-                pdf_documents = library.GetDocumentByFingerprints(parent_fingerprints);
+                pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(parent_fingerprints);
             }
-            Logging.Debug特("TagExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
+            Logging.Debug特("TagExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, web_library_detail.Title);
 
-            // Load all the annotations upfront so we dont have to go to the database for each PDF
-            Dictionary<string, byte[]> library_items_annotations_cache = library.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
+            // Load all the annotations upfront so we don't have to go to the database for each PDF
+            Dictionary<string, byte[]> library_items_annotations_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
 
             // Build up the map of PDFs associated with each tag
             MultiMapSet<string, string> tags_with_fingerprints = new MultiMapSet<string, string>();
@@ -88,7 +89,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                     has_tag = true;
                 }
 
-                // And check the annotations                
+                // And check the annotations
                 foreach (var pdf_annotation in pdf_document.GetAnnotations(library_items_annotations_cache))
                 {
                     if (!pdf_annotation.Deleted)
@@ -111,13 +112,13 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             return tags_with_fingerprints;
         }
 
-        private void OnItemPopup(Library library, string item_tag)
+        private void OnItemPopup(WebLibraryDetail web_library_detail, string item_tag)
         {
-            TagExplorerItemPopup popup = new TagExplorerItemPopup(library, item_tag);
+            TagExplorerItemPopup popup = new TagExplorerItemPopup(web_library_detail, item_tag);
             popup.Open();
         }
 
-        private void OnItemDragOver(Library library, string item_tag, DragEventArgs e)
+        private void OnItemDragOver(WebLibraryDetail web_library_detail, string item_tag, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
@@ -135,7 +136,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             e.Handled = true;
         }
 
-        private void OnItemDrop(Library library, string item_tag, DragEventArgs e)
+        private void OnItemDrop(WebLibraryDetail web_library_detail, string item_tag, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(PDFDocument)))
             {
@@ -170,7 +171,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         {
             Library library = Library.GuestInstance;
             TagExplorerControl tec = new TagExplorerControl();
-            tec.Library = library;
+            tec.LibraryRef = library;
 
             ControlHostingWindow w = new ControlHostingWindow("Tags", tec);
             w.Show();

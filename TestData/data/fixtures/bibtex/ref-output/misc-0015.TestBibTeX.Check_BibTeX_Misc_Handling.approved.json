@@ -1,0 +1,14 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "test-ticket1661",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "non-braking space: ~; accented characters: \\~n and \\~n; tilde operator: \\~"
+      }
+    }
+  ],
+  "Comments": []
+}

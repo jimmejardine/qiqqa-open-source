@@ -87,7 +87,7 @@
       "Warnings": [],
       "Fields": {
         "title": "A methodology for mining document-enriched heterogeneous information networks",
-        "author": "Gr\\vcar, Miha and Trdin, Nejc and Lavra\\vc, Nada",
+        "author": "Grčar, Miha and Trdin, Nejc and Lavrač, Nada",
         "journal": "The Computer Journal",
         "year": "2012",
         "publisher": "Br Computer Soc"
@@ -263,7 +263,7 @@
       "Warnings": [],
       "Fields": {
         "title": "Constrained k-means clustering with background knowledge",
-        "author": "Wagstaff, Kiri and Cardie, Claire and Rogers, Seth and Schrӧdl, Stefan",
+        "author": "Wagstaff, Kiri and Cardie, Claire and Rogers, Seth and Schrödl, Stefan",
         "booktitle": "Proceedings of the International Conference on Machine Learning",
         "year": "2001",
         "pages": "577--584",
@@ -338,7 +338,7 @@
         "title": "13th Conference on Artificial Intelligence in Medicine",
         "booktitle": "Artificial Intelligence in Mediclne",
         "year": "2011",
-        "editor": "Peleg, Mor and Lavra\\vc, Nada and Combi, Carlo",
+        "editor": "Peleg, Mor and Lavrač, Nada and Combi, Carlo",
         "publisher": "Springer"
       }
     },

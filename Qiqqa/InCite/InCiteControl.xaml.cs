@@ -34,7 +34,7 @@ namespace Qiqqa.InCite
     /// </summary>
     public partial class InCiteControl : UserControl
     {
-        private WebLibraryDetail web_library_detail = null;
+        private WebLibraryDetail default_library = null;
         private LibraryControl library_control = null;
 
         public InCiteControl()
@@ -271,7 +271,7 @@ namespace Qiqqa.InCite
 
         private void ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey(string reference_key)
         {
-            CSLProcessorBibTeXFinder.MatchingBibTeXRecord matching_bibtex_record = CSLProcessorBibTeXFinder.LocateBibTexForCitationItem(reference_key, web_library_detail.library);
+            CSLProcessorBibTeXFinder.MatchingBibTeXRecord matching_bibtex_record = CSLProcessorBibTeXFinder.LocateBibTexForCitationItem(reference_key, DefaultLibrary);
             if (null != matching_bibtex_record)
             {
                 MainWindowServiceDispatcher.Instance.OpenDocument(matching_bibtex_record.pdf_document);
@@ -339,7 +339,7 @@ namespace Qiqqa.InCite
 
             // Attempt to match the last known library
             string last_library_name = ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary;
-            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 if (last_library_name == web_library_detail.Title)
                 {
@@ -349,19 +349,15 @@ namespace Qiqqa.InCite
                 }
             }
 
-            // If we have not found a matching library, choose their most recent lib or fallback on guest
+            // If we have not found a matching library, choose their most recent lib (which will be a fallback on guest if that's the only or top one)
             if (!found_matching_library)
             {
-                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibrariesWithoutGuest;
+                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
                 WebLibraryManager.Instance.SortWebLibraryDetailsByLastAccessed(web_libary_details);
-                if (0 < web_libary_details.Count)
-                {
-                    ChooseNewLibrary(web_libary_details[0]);
-                }
-                else
-                {
-                    ChooseNewLibrary(WebLibraryManager.Instance.WebLibraryDetails_Guest);
-                }
+
+                ASSERT.Test(web_libary_details.Count > 0);
+
+                ChooseNewLibrary(web_libary_details[0]);
             }
         }
 
@@ -370,13 +366,13 @@ namespace Qiqqa.InCite
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseLibrary);
 
             // Pick a new library...
-            WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
-            if (null != web_library_detail)
+            WebLibraryDetail picked_web_library_detail = WebLibraryPicker.PickWebLibrary();
+            if (null != picked_web_library_detail)
             {
-                ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary = web_library_detail.Title;
+                ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary = picked_web_library_detail.Title;
                 ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.InCite_LastLibrary));
 
-                ChooseNewLibrary(web_library_detail);
+                ChooseNewLibrary(picked_web_library_detail);
             }
 
             e.Handled = true;
@@ -384,17 +380,16 @@ namespace Qiqqa.InCite
 
         private void ChooseNewLibrary(WebLibraryDetail web_library_detail)
         {
-            this.web_library_detail = null;
+            default_library = web_library_detail;
             library_control = null;
             TextLibraryForCitations.Text = "Click to choose a library.";
             ObjLibraryControlPlaceholderRegion.Children.Clear();
 
             if (null != web_library_detail)
             {
-                this.web_library_detail = web_library_detail;
                 TextLibraryForCitations.Text = web_library_detail.Title;
 
-                library_control = new LibraryControl(web_library_detail.library);
+                library_control = new LibraryControl(web_library_detail);
                 library_control.ObjToolBarTray.Visibility = Visibility.Collapsed;
 
                 HolderForSearchBox.Children.Clear();
@@ -600,14 +595,14 @@ namespace Qiqqa.InCite
                 // Now that we have the context, do the query
                 List<PDFDocument> context_pdf_documents = new List<PDFDocument>();
                 {
-                    WebLibraryDetail web_library_detail = this.web_library_detail;
+                    WebLibraryDetail web_library_detail = this.default_library;
                     if (null != web_library_detail)
                     {
                         string context_search_string = PolishContextForLucene(context);
                         context_search_string = context_search_string.Trim();
                         if (!String.IsNullOrEmpty(context_search_string))
                         {
-                            List<IndexResult> fingerprints = LibrarySearcher.FindAllFingerprintsMatchingQuery(web_library_detail.library, context_search_string);
+                            List<IndexResult> fingerprints = LibrarySearcher.FindAllFingerprintsMatchingQuery(web_library_detail, context_search_string);
                             if (null != fingerprints && 0 != fingerprints.Count)
                             {
                                 foreach (var fingerprint in fingerprints)
@@ -617,7 +612,7 @@ namespace Qiqqa.InCite
                                         break;
                                     }
 
-                                    PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(fingerprint.fingerprint);
+                                    PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint.fingerprint);
                                     if (null != pdf_document)
                                     {
                                         context_pdf_documents.Add(pdf_document);
@@ -639,7 +634,7 @@ namespace Qiqqa.InCite
 
         private void word_connector_ContextChanged_BACKGROUND_PopulateRecommendations(List<PDFDocument> context_pdf_documents)
         {
-            // Out with the old...            
+            // Out with the old...
             ObjRecommendedCitationsList.Children.Clear();
 
             // In with the new
@@ -805,11 +800,10 @@ namespace Qiqqa.InCite
             e.Handled = true;
         }
 
-        public Library DefaultLibrary
+        public WebLibraryDetail DefaultLibrary
         {
             get
             {
-                Library default_library = (null != web_library_detail) ? web_library_detail.library : null;
                 return default_library;
             }
         }

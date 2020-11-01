@@ -12,6 +12,8 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.DateTimeTools;
 using Utilities.GUI;
+using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.Common.MessageBoxControls
 {
@@ -22,9 +24,6 @@ namespace Qiqqa.Common.MessageBoxControls
     {
         private UnhandledExceptionMessageBox()
         {
-            // Collect all generations of memory.
-            GC.Collect();
-
             InitializeComponent();
 
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -37,44 +36,25 @@ namespace Qiqqa.Common.MessageBoxControls
 
         public static void DisplayException(Exception ex)
         {
-            // Collect all generations of memory.
-            GC.Collect();
-
             // When we're looking at an OutOfMem exception, there's nothing we can do but abort everything!
             if (ex is System.OutOfMemoryException)
             {
                 throw ex;
             }
 
-            // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                Logging.Error(ex, "Unhandled Exception Handler: detected Qiqqa shutting down.");
-            }
-
-            // Record this exception at server so that we know about it
-            {
-                string message = ex.Message;
-                string stack_trace = ex.StackTrace;
-                int MAX_CHARS = 512;
-                if (null != stack_trace && stack_trace.Length > MAX_CHARS)
-                {
-                    stack_trace = stack_trace.Substring(0, MAX_CHARS - 3) + "...";
-                }
-
-                FeatureTrackingManager.Instance.UseFeature(
-                    Features.Exception,
-                    "Ver", ClientVersion.CurrentVersion,
-                    "Message", message,
-                    "Stack", stack_trace
-                    );
-            }
+                // Collect all generations of memory.
+                GC.WaitForPendingFinalizers();
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+            });
 
             string useful_text_heading = "Something unexpected has happened, but it's okay. " + ex.Message;
             string useful_text_subheading = "You can continue working, but we would appreciate it if you would send us some feedback on what you were doing when this happened.";
 
-            //  should we display a better message
-            //  TODO: make this a bit neater
+            // should we display a better message
+            // TODO: make this a bit neater
             if (ex != null)
             {
                 //  very broad descriptions based on the exceptions we caught
@@ -93,33 +73,55 @@ namespace Qiqqa.Common.MessageBoxControls
                 useful_text_subheading = ute.body;
             }
 
-            // make sure we're not in the process of shutting down Qiqqa for then we won't have any live app window any more:
-            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            Logging.Error(ex, "Unhandled Exception Handler: {0} - {1}", useful_text_heading, useful_text_subheading);
+
+            // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
+                Logging.Error(ex, "Unhandled Exception Handler: detected Qiqqa shutting down.");
+            }
+            else
+            {
+                // Record this exception at server so that we know about it
+                {
+                    string message = ex.Message;
+                    string stack_trace = ex.StackTrace;
+                    int MAX_CHARS = 512;
+                    if (null != stack_trace && stack_trace.Length > MAX_CHARS)
+                    {
+                        stack_trace = stack_trace.Substring(0, MAX_CHARS - 3) + "...";
+                    }
+
+                    FeatureTrackingManager.Instance.UseFeature(
+                        Features.Exception,
+                        "Ver", ClientVersion.CurrentVersion,
+                        "Message", message,
+                        "Stack", stack_trace
+                        );
+                }
+
                 Display("Unexpected problem in Qiqqa!", useful_text_heading, useful_text_subheading, null, true, false, ex);
             }
-            Logging.Error(ex, "Unhandled Exception Handler: {0} - {1}", useful_text_heading, useful_text_subheading);
         }
 
         public static void DisplayInfo(string useful_text, string useful_text_subheading, bool display_faq_link, Exception ex)
         {
-            // Collect all generations of memory.
-            GC.Collect();
-
             // make sure we're not in the process of shutting down Qiqqa for then the next code chunk will cause a (recursive) CRASH:
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
                 Logging.Error(ex, "Unhandled Exception Handler: detected Qiqqa shutting down.");
             }
-
-            Display(
-                "Qiqqa Information",
-                useful_text,
-                useful_text_subheading,
-                "",
-                false,
-                display_faq_link,
-                ex);
+            else
+            {
+                Display(
+                    "Qiqqa Information",
+                    useful_text,
+                    useful_text_subheading,
+                    "",
+                    false,
+                    display_faq_link,
+                    ex);
+            }
         }
 
         private static void Display(string title, string useful_text_heading, string useful_text_subheading, string comments_label, bool display_exception_section, bool display_faq_link, Exception ex)
@@ -128,7 +130,7 @@ namespace Qiqqa.Common.MessageBoxControls
             {
                 Logging.Info(string.Format("About to display client stats: {0}", useful_text_heading), ex);
 
-                if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (!ShutdownableManager.Instance.IsShuttingDown)
                 {
                     WPFDoEvents.InvokeInUIThread(() =>
                     {

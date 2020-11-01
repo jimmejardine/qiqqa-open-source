@@ -1,17 +1,19 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers.ThemeExplorerControl"
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers.ThemeExplorerControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:local_explorer="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff"
->
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
     <DockPanel>
-        <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Padding="5" Name="TxtNoThemesMessage">
-            You have not yet generated any Themes for this Library.  You can do so using Qiqqa Expedition, which is accessible from the toolbar above, or you can
-            <Hyperlink Name="HypRunExpedition">
+        <TextBlock
+            Name="TxtNoThemesMessage"
+            Padding="5"
+            DockPanel.Dock="Top"
+            TextWrapping="Wrap">
+            You have not yet generated any Themes for this Library.  You can do so using Qiqqa Expedition, which is accessible from the toolbar above, or you can<Hyperlink Name="HypRunExpedition">
                 run Expedition now
             </Hyperlink>
-            .
-        </TextBlock>
+            .</TextBlock>
         <local_explorer:GenericLibraryExplorerControl x:Name="ThemeExplorerTree" />
     </DockPanel>
 </UserControl>

@@ -76,11 +76,13 @@ LIBRARY/CAP/SYNC_DETAILS:Sync Details
 LIBRARY/TIP/SYNC_DETAILS:Choose which libraries you wish to Full or Partial Sync.
 LIBRARY/CAP/VIEW_ONLINE:View Online
 LIBRARY/TIP/VIEW_ONLINE:View this web Library online.
-LIBRARY/CAP/EDIT_DELETE:Edit/Delete
-LIBRARY/TIP/EDIT_DELETE:Change this library's title, description, or delete it
+LIBRARY/CAP/EDIT:Edit
+LIBRARY/TIP/EDIT:Change this library's title, description
+LIBRARY/CAP/DELETE:Delete
+LIBRARY/TIP/DELETE:Delete this library
 LIBRARY/CAP/PUBLIC_STATUS:Change Public Status
 LIBRARY/TIP/PUBLIC_STATUS:Change this library's Public Status.
-LIBRARY/CAP/TOP_UP:Top Up 
+LIBRARY/CAP/TOP_UP:Top Up
 LIBRARY/TIP/TOP_UP:Top up this library for unlimited storage space.
 LIBRARY/CAP/INVITE:Invite & Share
 LIBRARY/TIP/INVITE:Invite friends and colleagues to participate in your library.

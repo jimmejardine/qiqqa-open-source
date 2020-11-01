@@ -15,10 +15,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
     /// </summary>
     public partial class FolderWatcherChooser : StandardWindow
     {
-        private Library _library;
-        public FolderWatcherChooser(Library library)
+        private WebLibraryDetail web_library_detail;
+        public FolderWatcherChooser(WebLibraryDetail library)
         {
-            _library = library;
+            web_library_detail = library;
 
             InitializeComponent();
 
@@ -37,7 +37,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             btnOk.Icon = Icons.GetAppIcon(Icons.Save);
             btnCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
 
-            TxtFolders.Text = _library.WebLibraryDetail.FolderToWatch;
+            TxtFolders.Text = web_library_detail.FolderToWatch;
             TxtFolders.TextChanged += TxtFolders_TextChanged;
         }
 
@@ -48,7 +48,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         private void CmdResetHistory_Click(object sender, RoutedEventArgs e)
         {
-            _library.FolderWatcherManager.ResetHistory();
+            web_library_detail.Xlibrary.FolderWatcherManager.ResetHistory();
             MessageBoxes.Info("Your folder watching history has been reset.");
         }
 
@@ -83,7 +83,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            _library.WebLibraryDetail.FolderToWatch = TxtFolders.Text;
+            web_library_detail.FolderToWatch = TxtFolders.Text;
             WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
 
             Close();
@@ -101,7 +101,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             // base.OnClosed() invokes this class' Closed() code, so we flipped the order of exec to reduce the number of surprises for yours truly.
             // This NULLing stuff is really the last rites of Dispose()-like so we stick it at the end here.
 
-            _library = null;
+            web_library_detail = null;
         }
     }
 }

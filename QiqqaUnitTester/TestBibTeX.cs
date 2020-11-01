@@ -271,6 +271,7 @@ namespace QiqqaUnitTester
         [DataRow("Better-BibTeX/import/space after citekey creates confusion #716.bib")]
         [DataRow("Better-BibTeX/import/support Local-Zo-Url-x field from BibDesk2Zotero_attachments #667.bib")]
         [DataRow("Better-BibTeX/import/zbb (quietly) chokes on this .bib #664.bib")]
+        [DataRow("BibTeX-bibliography-microsys.bib")]
         [DataRow("CrossTeX/comments.bib")]
         [DataRow("CrossTeX/diss.bib")]
         [DataRow("CrossTeX/sample-0001.bib")]
@@ -405,6 +406,8 @@ namespace QiqqaUnitTester
         [DataRow("concatenation-0001.bib")]
         [DataRow("concatenation-0002.bib")]
         [DataRow("issue-0072-b0rked-01.bib")]
+        [DataRow("issue-0201-b0rked-01.bib")]
+        [DataRow("issue-0201-b0rked-02.bib")]
         [DataRow("macros-0001.bib")]
         [DataRow("macros-0002.bib")]
         [DataRow("macros-0003.bib")]
@@ -418,6 +421,16 @@ namespace QiqqaUnitTester
         [DataRow("misc-0006.bib")]
         [DataRow("misc-0007.bib")]
         [DataRow("misc-0008.bib")]
+        [DataRow("misc-0009.bib")]
+        [DataRow("misc-0010.bib")]
+        [DataRow("misc-0011.bib")]
+        [DataRow("misc-0012.bib")]
+        [DataRow("misc-0013.bib")]
+        [DataRow("misc-0014.bib")]
+        [DataRow("misc-0015.bib")]
+        [DataRow("misc-0016.bib")]
+        [DataRow("misc-0017.bib")]
+        [DataRow("misc-0018.bib")]
         [DataRow("multiple-records-0001.bib")]
         [DataRow("non-ASCII-characters-0001.bib")]
         [DataRow("non-ASCII-characters-0002.bib")]
@@ -1331,6 +1344,26 @@ namespace QiqqaUnitTester
                 ApprovalTests.Approvals.GetReporter()
             );
         }
+		
+        [DataRow("issue-0201-b0rked-01.bib")]
+        [DataRow("issue-0201-b0rked-02.bib")]
+        [DataTestMethod]
+        public void Check_Issue0201(string bibtex_filepath)
+        {
+            string path = GetNormalizedPathToBibTeXTestFile(bibtex_filepath);
+            ASSERT.FileExists(path);
+
+            string data_in = GetTestFileContent(path);
+            BibTexParseResult rv = BibTexParser.Parse(data_in);
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(rv, Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_out, bibtex_filepath),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
 
         [DataRow("macros-0001.bib")]
         [DataRow("macros-0002.bib")]
@@ -1363,6 +1396,16 @@ namespace QiqqaUnitTester
         [DataRow("misc-0006.bib")]
         [DataRow("misc-0007.bib")]
         [DataRow("misc-0008.bib")]
+        [DataRow("misc-0009.bib")]
+        [DataRow("misc-0010.bib")]
+        [DataRow("misc-0011.bib")]
+        [DataRow("misc-0012.bib")]
+        [DataRow("misc-0013.bib")]
+        [DataRow("misc-0014.bib")]
+        [DataRow("misc-0015.bib")]
+        [DataRow("misc-0016.bib")]
+        [DataRow("misc-0017.bib")]
+        [DataRow("misc-0018.bib")]
         [DataTestMethod]
         public void Check_BibTeX_Misc_Handling(string bibtex_filepath)
         {
@@ -1516,6 +1559,25 @@ namespace QiqqaUnitTester
         [DataRow("whitespacing-0003.bib")]
         [DataTestMethod]
         public void Check_BibTeX_Whitespace_Handling(string bibtex_filepath)
+        {
+            string path = GetNormalizedPathToBibTeXTestFile(bibtex_filepath);
+            ASSERT.FileExists(path);
+
+            string data_in = GetTestFileContent(path);
+            BibTexParseResult rv = BibTexParser.Parse(data_in);
+
+            // Serialize the result to JSON for easier comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            string json_out = JsonConvert.SerializeObject(rv, Formatting.Indented).Replace("\r\n", "\n");
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_out, bibtex_filepath),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("BibTeX-bibliography-microsys.bib")]
+        [DataTestMethod]
+        public void Check_BibTeX_Handling_Of_Misc_Bib_Files(string bibtex_filepath)
         {
             string path = GetNormalizedPathToBibTeXTestFile(bibtex_filepath);
             ASSERT.FileExists(path);

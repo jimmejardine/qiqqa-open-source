@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 
 namespace Utilities.Shutdownable
@@ -91,6 +92,25 @@ namespace Utilities.Shutdownable
                 {
                     Logging.Error(ex, "There was a problem shutting down Shutdownable {0}", shutdown_delegate.Target);
                 }
+            }
+        }
+
+        /// <summary>
+        /// (utility function) Put anyone to sleep, but in a way that will end sooner if the app is exiting
+        /// </summary>
+        /// <param name="timeout_milliseconds"></param>
+        public static void Sleep(int timeout_milliseconds = 500)
+        {
+            // WARNING:
+            //
+            // this code is a near-duplicate of the Deamon.Sleep() code -- only here we don't check if the daemon is StillRunning...
+            //
+            int timeout_milliseconds_remaining = timeout_milliseconds;
+            while (!ShutdownableManager.Instance.IsShuttingDown && timeout_milliseconds_remaining > 0)
+            {
+                int sleep_time = Math.Min(timeout_milliseconds_remaining, 500);
+                timeout_milliseconds_remaining -= sleep_time;
+                Thread.Sleep(sleep_time);
             }
         }
     }

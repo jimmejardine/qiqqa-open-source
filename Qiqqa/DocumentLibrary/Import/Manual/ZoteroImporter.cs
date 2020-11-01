@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Strings;
@@ -14,12 +15,12 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
     {
         private readonly string _importBasePath;
 
-        public ZoteroImporter(Library library, string filename)
-            : base(library, filename)
+        public ZoteroImporter(WebLibraryDetail web_library_detail, string filename)
+            : base(web_library_detail, filename)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportFromZotero);
 
-            // For Zotero export, the files all live under \Files, 
+            // For Zotero export, the files all live under \Files,
             // e.g. if export is c:\temp\bla.bib, a file might be c:\temp\files\20\foo.pdf
             _importBasePath = Path.GetDirectoryName(filename);
         }
@@ -39,9 +40,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     if (entry.Item.ContainsField("file"))
                     {
                         #region Do some post processing on the file
-                        /* 
-                         * Samples: 
-                         * 
+                        /*
+                         * Samples:
+                         *
                          *  file = {sample.pdf:files/10/sample.pdf:application/pdf}
                          *  file = {Google Books Link:undefined:text/html}
                          *  file = {chris bishop - Google Scholar:files/21/scholar.html:text/html}
@@ -50,7 +51,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                          * file = {Analytics_www.qiqqa.com_20100531_(Qiqqa_utilisation).pdf:files/24/Analytics_www.qiqqa.com_20100531_(Qiqqa_utilisation).pdf:application/pdf;Namecheap.com - Checkout : Secure Payment:files/26/payment.html:text/html}
                          */
 
-                        // Since there can be multiple attachments, we take the first one with mime type application/pdf, with a valid file. 
+                        // Since there can be multiple attachments, we take the first one with mime type application/pdf, with a valid file.
                         entry.FileType = null; // Assume we've not found a workable attachment
 
                         string fileValue = entry.Item["file"];
@@ -65,7 +66,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                                 {
                                     string fn = match.Groups[2].Value;
                                     fn = fn.Replace("\\_", "_"); // Zotero escapes underscores. I get the feeling from http://www.citeulike.org/groupforum/1245 that others might not.
-                                    //fn = fn.Replace("/", "\\"); // Convert to windows slashes for directories. 
+                                    //fn = fn.Replace("/", "\\"); // Convert to windows slashes for directories.
 
                                     try
                                     {
@@ -93,13 +94,13 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     }
 
 
-                    // Parse notes. 
+                    // Parse notes.
                     string notes = entry.Item["annote"];
                     if (!String.IsNullOrEmpty(notes))
                     {
-                        //annote = {\textless}p{\textgreater}zotnotes1{\textless}/p{\textgreater}, 
+                        //annote = {\textless}p{\textgreater}zotnotes1{\textless}/p{\textgreater},
 
-                        // Turn back to pseudo html - we may want to support this format later. 
+                        // Turn back to pseudo html - we may want to support this format later.
                         notes = notes.Replace(@"{\textless}", "<").Replace(@"{\textgreater}", ">");
 
                         notes = notes.Replace("<p>", "\r");  //Some basic support

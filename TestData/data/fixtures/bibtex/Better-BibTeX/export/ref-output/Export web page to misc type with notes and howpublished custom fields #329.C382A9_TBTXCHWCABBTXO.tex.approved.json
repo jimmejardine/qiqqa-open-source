@@ -1,0 +1,42 @@
+﻿{
+  "Items": [
+    {
+      "Type": "misc",
+      "Key": "ntp.org_clock_2015",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "NTP.org",
+        "howpublished": "\\urlhttp://www.ntp.org/ntpfaq/NTP-s-sw-clocks-quality.htm",
+        "note": "(accessed 2015-02-13)",
+        "title": "Clock Quality",
+        "year": "2015"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "ntp.org_clock_2015-1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "NTP.org",
+        "howpublished": "\\urlhttp://www.ntp.org/ntpfaq/NTP-s-sw-clocks-quality.htm",
+        "title": "Clock Quality",
+        "year": "2015"
+      }
+    },
+    {
+      "Type": "misc",
+      "Key": "ntp.org_clock_2015-2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "NTP.org",
+        "howpublished": "\\urlhttp://www.ntp.org/ntpfaq/NTP-s-sw-clocks-quality.htm",
+        "title": "Clock Quality",
+        "year": "2015"
+      }
+    }
+  ],
+  "Comments": []
+}

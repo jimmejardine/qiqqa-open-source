@@ -1,5 +1,6 @@
 ﻿using System;
 using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -15,7 +16,7 @@ namespace Qiqqa.DocumentLibrary
         private static readonly Lazy<string> LoexManualFilename = new Lazy<string>(() => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"The Qiqqa Manual - LOEX.pdf")));
 
 
-        private static PDFDocument AddQiqqaManualToLibrary(Library library)
+        private static PDFDocument AddQiqqaManualToLibrary(WebLibraryDetail web_library_detail)
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = QiqqaManualFilename.Value;
@@ -29,12 +30,12 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new FilenameWithMetadataImport[] { fwmi });
+            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, true, true, new FilenameWithMetadataImport[] { fwmi });
 
             return pdf_document;
         }
 
-        private static PDFDocument AddLoexManualToLibrary(Library library)
+        private static PDFDocument AddLoexManualToLibrary(WebLibraryDetail web_library_detail)
         {
             FilenameWithMetadataImport fwmi = new FilenameWithMetadataImport();
             fwmi.filename = LoexManualFilename.Value;
@@ -51,15 +52,15 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(library, true, true, new FilenameWithMetadataImport[] { fwmi });
+            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, true, true, new FilenameWithMetadataImport[] { fwmi });
 
             return pdf_document;
         }
 
-        public static PDFDocument AddManualsToLibrary(Library library)
+        public static PDFDocument AddManualsToLibrary(WebLibraryDetail web_library_detail)
         {
-            AddLoexManualToLibrary(library);
-            return AddQiqqaManualToLibrary(library);
+            AddLoexManualToLibrary(web_library_detail);
+            return AddQiqqaManualToLibrary(web_library_detail);
         }
     }
 }

@@ -319,15 +319,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private NextJob GetNextJob()
         {
-            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (queue_lock)
+            // Check if OCR is disabled
+            if (!(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
+                || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
+                || !ConfigurationManager.IsEnabled("TextExtraction")))
             {
-                //l1_clk.LockPerfTimerStop();
-
-                // Check if OCR is disabled
-                if (!(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
-                    || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks))
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (queue_lock)
                 {
+                    //l1_clk.LockPerfTimerStop();
+
                     int ocr_count = job_queue_single.Count;
                     int textify_count = job_queue_group.Count;
                     double current_ratio = ocr_count / (textify_count + 1E-9);
@@ -483,11 +484,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     }
                 }
             }
-
-            // Check if OCR is disabled
-            if (ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
-                || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            else
             {
+                ASSERT.Test(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
+                    || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
+                    || !ConfigurationManager.IsEnabled("TextExtraction"));
+
                 int job_queue_group_count;
                 int job_queue_single_count;
                 GetJobCounts(out job_queue_group_count, out job_queue_single_count);
@@ -533,7 +535,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
             while (true)
             {
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning)
+                if (ShutdownableManager.Instance.IsShuttingDown || !StillRunning)
                 {
                     int job_queue_group_count;
                     int job_queue_single_count;
@@ -593,8 +595,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                         // The call above can take quite a while to complete, so check all abort/delay checks once again, just in case...:
                         if (false
-                            || Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning
-                            || clk_duration > 100
+                            || ShutdownableManager.Instance.IsShuttingDown || !StillRunning
+                            || clk_duration > 300
                             || Library.IsBusyAddingPDFs
                             || Library.IsBusyRegeneratingTags
                             || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
@@ -602,8 +604,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         {
                             Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/delay signals were detected: {1}/{2}/{3}/{4}/{5}.",
                                 clk_duration,
-                                (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
-                                clk_duration > 100 ? "+UI-wait+" : "-UI-",
+                                (ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
+                                clk_duration > 300 ? "+UI-wait+" : "-UI-",
                                 Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
                                 ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-",
                                 Library.IsBusyRegeneratingTags ? "+LibRegenerate+" : "-Regen-"
@@ -804,7 +806,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 //
                 // <handwave />
 
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Info("Breaking out of SINGLE Job processing for {0} due to application termination", next_job.job);
                     return;
@@ -871,7 +873,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     {
                         duration = clk.ElapsedMilliseconds;
 
-                        if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown && !StillRunning)
+                        if (!ShutdownableManager.Instance.IsShuttingDown && !StillRunning)
                         {
                             break;
                         }

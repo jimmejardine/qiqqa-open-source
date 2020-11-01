@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
 using Utilities.BibTex;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -13,8 +14,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
     {
         private string _pdfRootDir;
 
-        public EndNoteImporter(Library library, string exportFilename, string libraryDataDir)
-            : base(library, exportFilename)
+        public EndNoteImporter(WebLibraryDetail web_library_detail, string exportFilename, string libraryDataDir)
+            : base(web_library_detail, exportFilename)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportFromEndNote);
 
@@ -45,7 +46,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                             string test_filename = filename;
                             test_filename = test_filename.ToLower();
 
-                            // Looks like this: 
+                            // Looks like this:
                             // internal-pdf://2020827050-1893725446/2020827050.pdf
                             if (test_filename.StartsWith("internal-pdf://") && test_filename.EndsWith(".pdf"))
                             {
@@ -53,7 +54,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                                 break;
                             }
 
-                            //Or sometimes like this:
+                            // Or sometimes like this:
                             // file://F:\Manzotti\Stuff on Library\EL\MEL.Data\PDF\Bain - 2007 - The Southern Journal of Philosophy - Color Externalism and Switch Cases.pdf
                             if (test_filename.StartsWith("file://"))
                             {
@@ -99,7 +100,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
             if (endnote_text.Length > 0 && Entries.Count == 0)
             {
-                //Perhaps they tried to import the endnote library file, as opposed to export...
+                // Perhaps they tried to import the endnote library file, as opposed to export...
                 InputFileAppearsToBeWrongFormat = true;
             }
 

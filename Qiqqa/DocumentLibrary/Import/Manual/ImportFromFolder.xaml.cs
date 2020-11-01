@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Forms;
 using icons;
 using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Reflection;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -13,7 +14,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
     /// <summary>
-    /// Provides UI for importing documents from a folder. 
+    /// Provides UI for importing documents from a folder.
     /// </summary>
     public partial class ImportFromFolder
     {
@@ -83,16 +84,16 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             }
         }
 
-        private readonly Library library;
+        private readonly WebLibraryDetail web_library_detail;
         private readonly AugmentedBindable<Context> bindable;
 
-        public ImportFromFolder(Library library) : this(library, null)
+        public ImportFromFolder(WebLibraryDetail web_library_detail) : this(web_library_detail, null)
         {
         }
 
-        public ImportFromFolder(Library library, string folder_path)
+        public ImportFromFolder(WebLibraryDetail web_library_detail, string folder_path)
         {
-            this.library = library;
+            this.web_library_detail = web_library_detail;
 
             InitializeComponent();
 
@@ -146,7 +147,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 if (!Directory.Exists(root_folder)) return;
 
                 // do the import
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(library, root_folder, bindable.Underlying.RecurseSubfolders, bindable.Underlying.ImportTagsFromSubfolderNames, false, false);
+                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, bindable.Underlying.RecurseSubfolders, bindable.Underlying.ImportTagsFromSubfolderNames, false, false);
 
                 // remember settings for next time
                 bindable.Underlying.DefaultSelectedPath = root_folder;

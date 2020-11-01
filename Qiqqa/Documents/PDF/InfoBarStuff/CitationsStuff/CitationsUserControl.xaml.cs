@@ -5,6 +5,7 @@ using System.Windows.Input;
 using icons;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Qiqqa.UtilisationTracking;
 
@@ -30,7 +31,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
         internal static void PopulatePanelWithCitations(StackPanel panel, PDFDocument parent_pdf_document, List<Citation> citations, Feature feature, string prefix = "", bool should_add_none_indicator = true)
         {
             string fingerprint_parent = parent_pdf_document.Fingerprint;
-            Library library = parent_pdf_document.Library;
+            WebLibraryDetail web_library_detail = parent_pdf_document.LibraryRef;
 
             panel.Children.Clear();
 
@@ -46,7 +47,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
                     continue;
                 }
 
-                PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
 
                 if (null == pdf_document)
                 {

@@ -65,10 +65,10 @@ namespace Qiqqa.Brainstorm.Nodes
             ApplyTagsDistribution(ColourNodeBackground);
         }
 
-        internal void ColourNodeBackground(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution)
+        internal void ColourNodeBackground(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
             TextBorder.Opacity = 0.8;
-            TextBorder.Background = ThemeBrushes.GetBrushForDistribution(library, tags_distribution.Length, tags_distribution);
+            TextBorder.Background = ThemeBrushes.GetBrushForDistribution(web_library_detail, tags_distribution.Length, tags_distribution);
             if (ThemeBrushes.UNKNOWN_BRUSH == TextBorder.Background)
             {
                 TextBorder.Background = NodeThemes.background_brush;
@@ -83,7 +83,7 @@ namespace Qiqqa.Brainstorm.Nodes
             ApplyTagsDistribution(AddDocumentsInfluentialInDistribution);
         }
 
-        internal static void AddDocumentsInfluentialInDistribution(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution)
+        internal static void AddDocumentsInfluentialInDistribution(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
             Logging.Info("+Performing ThemedPageRank on {0} documents", eds.LDAAnalysis.NUM_DOCS);
 
@@ -108,14 +108,14 @@ namespace Qiqqa.Brainstorm.Nodes
                 biases[doc] = bias_num_squared / (Math.Sqrt(bias_den_doc) * Math.Sqrt(bias_den_tags));
             }
 
-            // Then build up a matrix FROM each document - 
+            // Then build up a matrix FROM each document -
             List<int>[] references_outbound = new List<int>[eds.LDAAnalysis.NUM_DOCS];
             for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
             {
                 references_outbound[doc] = new List<int>();
 
                 string fingerprint = eds.docs[doc];
-                PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
                 if (null == pdf_document)
                 {
                     Logging.Warn("ThemeExplorer::AddInInfluential: Cannot find document anymore for fingerprint {0}", fingerprint);
@@ -203,14 +203,14 @@ namespace Qiqqa.Brainstorm.Nodes
                 int doc_id = docs[doc];
                 string fingerprint = eds.docs[doc_id];
 
-                PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
                 if (null == pdf_document)
                 {
                     Logging.Warn("Couldn't find similar document with fingerprint {0}", fingerprint);
                 }
                 else
                 {
-                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
+                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
                     NodeControlAddingByKeyboard.AddChildToNodeControl(node_control_, content, false);
                 }
             }
@@ -224,7 +224,7 @@ namespace Qiqqa.Brainstorm.Nodes
             ApplyTagsDistribution(AddDocumentsSimilarToDistribution);
         }
 
-        internal static void AddDocumentsSimilarToDistribution(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution)
+        internal static void AddDocumentsSimilarToDistribution(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
             // Get the most similar PDFDocuments
             int[] doc_ids = LDAAnalysisTools.GetDocumentsSimilarToDistribution(eds.LDAAnalysis, tags_distribution);
@@ -234,14 +234,14 @@ namespace Qiqqa.Brainstorm.Nodes
                 int doc_id = doc_ids[i];
                 string fingerprint = eds.docs[doc_id];
 
-                PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
                 if (null == pdf_document)
                 {
                     Logging.Warn("Couldn't find similar document with fingerprint {0}", fingerprint);
                 }
                 else
                 {
-                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
+                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
                     NodeControlAddingByKeyboard.AddChildToNodeControl(node_control_, content, false);
                 }
             }
@@ -256,20 +256,20 @@ namespace Qiqqa.Brainstorm.Nodes
             string[] tags_array = tags.Split('\n');
 
             string library_fingerprint = theme_node_content.Underlying.library_fingerprint;
-            Library library = WebLibraryManager.Instance.GetLibrary(library_fingerprint);
-            if (null == library)
+            WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(library_fingerprint);
+            if (null == web_library_detail)
             {
                 Logging.Warn("Unable to locate library " + library_fingerprint);
                 return;
             }
 
-            if (null == library.ExpeditionManager || null == library.ExpeditionManager.ExpeditionDataSource)
+            if (null == web_library_detail.Xlibrary.ExpeditionManager || null == web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
             {
-                Logging.Warn("Expedition has not been run for library '{0}'.", library.WebLibraryDetail.Title);
+                Logging.Warn("Expedition has not been run for library '{0}'.", web_library_detail.Title);
                 return;
             }
 
-            ExpeditionDataSource eds = library.ExpeditionManager.ExpeditionDataSource;
+            ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
 
             float[] tags_distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
             int tags_distribution_denom = 0;
@@ -300,10 +300,10 @@ namespace Qiqqa.Brainstorm.Nodes
                 }
             }
 
-            distribution_use(node_control, library, eds, tags_distribution);
+            distribution_use(node_control, web_library_detail, eds, tags_distribution);
         }
 
-        private delegate void DistributionUseDelegate(NodeControl node_control_, Library library, ExpeditionDataSource eds, float[] tags_distribution);
+        private delegate void DistributionUseDelegate(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution);
 
     }
 }

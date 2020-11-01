@@ -1,0 +1,16 @@
+﻿{
+  "Items": [
+    {
+      "Type": "online",
+      "Key": "doe_test",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Doe, John",
+        "date": "2014-12-31/2015-01-01",
+        "title": "Test"
+      }
+    }
+  ],
+  "Comments": []
+}

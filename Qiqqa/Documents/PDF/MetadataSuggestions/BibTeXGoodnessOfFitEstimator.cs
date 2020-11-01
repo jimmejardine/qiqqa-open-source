@@ -13,9 +13,9 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
     {
         public static bool DoesBibTeXMatchDocument(BibTexItem bibtex_item, PDFDocument pdf_document, out PDFSearchResultSet search_result_set)
         {
-            try
+            if (bibtex_item != null)
             {
-                if (null != bibtex_item)
+                try
                 {
                     string authors_string = BibTexTools.GetAuthor(bibtex_item);
                     if (!String.IsNullOrEmpty(authors_string))
@@ -38,10 +38,10 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex);
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
+                }
             }
 
             search_result_set = new PDFSearchResultSet();

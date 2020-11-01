@@ -57,7 +57,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Web
                     // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
                     // *************************************************************************************************************
                     // Don't remember the web libraries - let them be discovered by this
-                    if ("UNKNOWN" == web_library_detail.LibraryType())
+                    if ("Legacy" == web_library_detail.LibraryType())
                     {
                         continue;
                     }

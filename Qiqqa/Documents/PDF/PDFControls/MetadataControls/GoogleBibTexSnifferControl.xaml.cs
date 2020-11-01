@@ -15,6 +15,7 @@ using Qiqqa.Common.GUI;
 using Qiqqa.Common.WebcastStuff;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.LibraryCatalog;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Qiqqa.Documents.PDF.Search;
 using Qiqqa.Localisation;
@@ -234,7 +235,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonUndoBibTexEdit_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
@@ -786,11 +787,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                 //    https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1130&context=cseconfwork
                 //
                 // hence we don't care about the exact extension '.pdf' but merely if it MIGHT be a PDF....
-                if (uri != "about:blank") 			// if (uri.Contains(".pdf"))
-                {
-                    // fetch the PDF!
-                    ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
-                }
+                //
+                // fetch the PDF, iff any!
+                ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
             }
             catch (Exception ex)
             {
@@ -972,27 +971,27 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             return (text.StartsWith("@") && text.EndsWith("}"));
         }
 
-        private Library CurrentLibrary
+        private WebLibraryDetail CurrentLibrary
         {
             get
             {
-                if (null != user_specified_pdf_document && null != user_specified_pdf_document.Library)
+                if (null != user_specified_pdf_document && null != user_specified_pdf_document.LibraryRef)
                 {
-                    return user_specified_pdf_document.Library;
+                    return user_specified_pdf_document.LibraryRef;
                 }
-                if (null != pdf_document_rendered && null != pdf_document_rendered.Library)
+                if (null != pdf_document_rendered && null != pdf_document_rendered.LibraryRef)
                 {
-                    return pdf_document_rendered.Library;
+                    return pdf_document_rendered.LibraryRef;
                 }
-                if (null != pdf_document && null != pdf_document.Library)
+                if (null != pdf_document && null != pdf_document.LibraryRef)
                 {
-                    return pdf_document.Library;
+                    return pdf_document.LibraryRef;
                 }
                 foreach (PDFDocument pdf in pdf_documents_total_pool)
                 {
-                    if (null != pdf && null != pdf.Library)
+                    if (null != pdf && null != pdf.LibraryRef)
                     {
-                        return pdf.Library;
+                        return pdf.LibraryRef;
                     }
                 }
                 return null;
@@ -1009,9 +1008,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             GoogleBibTexSnifferControl c = new GoogleBibTexSnifferControl();
             PDFDocument pdf_document = library.PDFDocuments[0];
-            //c.Show(pdf_document.Library, pdf_document, "test search term");
-            //c.Show(pdf_document.Library, pdf_document);
-            c.Show(pdf_document.Library.PDFDocuments);
+            //c.Show(pdf_document.LibraryRef, pdf_document, "test search term");
+            //c.Show(pdf_document.LibraryRef, pdf_document);
+            c.Show(pdf_document.LibraryRef.PDFDocuments);
         }
 #endif
 

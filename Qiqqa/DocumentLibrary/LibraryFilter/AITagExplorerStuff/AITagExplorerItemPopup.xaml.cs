@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.AITagsStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities.GUI;
 
@@ -13,13 +14,13 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
     /// </summary>
     public partial class AITagExplorerItemPopup : UserControl
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
         private string source_tag;
         private AugmentedPopup popup;
 
-        public AITagExplorerItemPopup(Library library, string source_tag)
+        public AITagExplorerItemPopup(WebLibraryDetail library, string source_tag)
         {
-            this.library = library;
+            web_library_detail = library;
             this.source_tag = source_tag;
 
             InitializeComponent();
@@ -36,7 +37,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
         {
             using (var c = popup.AutoCloser)
             {
-                MainWindowServiceDispatcher.Instance.ExploreAutoTagInBrainstorm(library.WebLibraryDetail.Id, source_tag);
+                MainWindowServiceDispatcher.Instance.ExploreAutoTagInBrainstorm(web_library_detail.Id, source_tag);
             }
         }
 
@@ -44,8 +45,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
         {
             using (var c = popup.AutoCloser)
             {
-                HashSet<string> fingerprints_with_autotag = library.AITagManager.AITags.GetDocumentsWithTag(source_tag);
-                List<PDFDocument> pdf_documents_with_autotag = library.GetDocumentByFingerprints(fingerprints_with_autotag);
+                HashSet<string> fingerprints_with_autotag = web_library_detail.Xlibrary.AITagManager.AITags.GetDocumentsWithTag(source_tag);
+                List<PDFDocument> pdf_documents_with_autotag = web_library_detail.Xlibrary.GetDocumentByFingerprints(fingerprints_with_autotag);
                 foreach (var pdf_document in pdf_documents_with_autotag)
                 {
                     pdf_document.AddTag(source_tag);
@@ -57,9 +58,9 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
         {
             using (var c = popup.AutoCloser)
             {
-                var list = library.BlackWhiteListManager.ReadList();
+                var list = web_library_detail.Xlibrary.BlackWhiteListManager.ReadList();
                 list.Add(new BlackWhiteListEntry(source_tag, BlackWhiteListEntry.ListType.Black));
-                library.BlackWhiteListManager.WriteList(list);
+                web_library_detail.Xlibrary.BlackWhiteListManager.WriteList(list);
             }
         }
 
@@ -67,9 +68,9 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
         {
             using (var c = popup.AutoCloser)
             {
-                var list = library.BlackWhiteListManager.ReadList();
+                var list = web_library_detail.Xlibrary.BlackWhiteListManager.ReadList();
                 list.Add(new BlackWhiteListEntry(source_tag, BlackWhiteListEntry.ListType.White));
-                library.BlackWhiteListManager.WriteList(list);
+                web_library_detail.Xlibrary.BlackWhiteListManager.WriteList(list);
             }
         }
 

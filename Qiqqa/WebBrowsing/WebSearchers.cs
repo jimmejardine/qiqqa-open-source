@@ -21,18 +21,18 @@ namespace Qiqqa.WebBrowsing
             (
                 new WebSearcher[]
                 {
-                    new WebSearcher(GOOGLE_US_KEY, "Google.com", "http://www.google.com/#q={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(GOOGLE_UK_KEY, "Google.co.uk", "http://www.google.co.uk/#q={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(SCHOLAR_KEY, "Google Scholar", "http://scholar.google.com/scholar?q={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(PUBMED_KEY, "PubMed", "http://www.ncbi.nlm.nih.gov/pubmed?term={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(PUBMEDXML_KEY, "PubMedXML", "http://www.ncbi.nlm.nih.gov/pubmed?report=xml&term={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(ARXIV_KEY, "arXiv", "http://search.arxiv.org:8081/?query={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(MSACADEMIC_KEY, "Microsoft Academic", "http://academic.research.microsoft.com/Search?query={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(JSTOR_KEY, "JSTOR", "http://www.jstor.org/action/doBasicSearch?Query={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(IEEEXPLORE_KEY, "IEEE Xplore", "http://ieeexplore.ieee.org/search/searchresult.jsp?queryText={0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(WIKIPEDIA_KEY, "Wikipedia", "http://en.wikipedia.org/wiki/{0}", WebSearcher.PopulateUrlTemplateDelegate_WikiEncode),
-                    new WebSearcher(SCIVERSE_KEY, "ScienceDirect", "https://www.elsevier.com/search-results?query={0}&labels=all", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
-                    new WebSearcher(DOI2BIB_KEY, "DOI2BIB", "https://www.doi2bib.org/bib/{0}", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(GOOGLE_US_KEY, "Google.com", "http://www.google.com/#q={0}", "http://www.google.com/", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(GOOGLE_UK_KEY, "Google.co.uk", "http://www.google.co.uk/#q={0}", "http://www.google.co.uk/", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(SCHOLAR_KEY, "Google Scholar", "http://scholar.google.com/scholar?q={0}", "http://scholar.google.com/scholar", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(PUBMED_KEY, "PubMed", "http://www.ncbi.nlm.nih.gov/pubmed?term={0}", "http://www.ncbi.nlm.nih.gov/pubmed", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(PUBMEDXML_KEY, "PubMedXML", "http://www.ncbi.nlm.nih.gov/pubmed?report=xml&term={0}", "http://www.ncbi.nlm.nih.gov/pubmed", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(ARXIV_KEY, "arXiv", "http://search.arxiv.org:8081/?query={0}", "http://search.arxiv.org:8081", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(MSACADEMIC_KEY, "Microsoft Academic", "http://academic.research.microsoft.com/Search?query={0}", "http://academic.research.microsoft.com/Search", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(JSTOR_KEY, "JSTOR", "http://www.jstor.org/action/doBasicSearch?Query={0}", "http://www.jstor.org/action/doBasicSearch", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(IEEEXPLORE_KEY, "IEEE Xplore", "http://ieeexplore.ieee.org/search/searchresult.jsp?queryText={0}", "http://ieeexplore.ieee.org/search/searchresult.jsp", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(WIKIPEDIA_KEY, "Wikipedia", "http://en.wikipedia.org/wiki/{0}", "http://en.wikipedia.org/wiki/", WebSearcher.PopulateUrlTemplateDelegate_WikiEncode),
+                    new WebSearcher(SCIVERSE_KEY, "ScienceDirect", "https://www.elsevier.com/search-results?query={0}&labels=all", "https://www.elsevier.com/search-results", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
+                    new WebSearcher(DOI2BIB_KEY, "DOI2BIB", "https://www.doi2bib.org/bib/{0}", "https://www.doi2bib.org/", WebSearcher.PopulateUrlTemplateDelegate_UrlEncode),
                 }
             );
 

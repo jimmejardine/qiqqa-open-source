@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.BibTex.Parsing;
@@ -15,7 +16,7 @@ namespace Qiqqa.Exporting
 {
     internal class LibraryExporter_BibTeXTabs
     {
-        internal static void Export(Library library, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        internal static void Export(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             Logging.Info("Exporting entries to BibTeXTAB separated");
 

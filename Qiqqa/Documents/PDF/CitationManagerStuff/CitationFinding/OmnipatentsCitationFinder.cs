@@ -21,7 +21,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
                 string patent_id = bibtex_item["patent_id"];
                 if (!String.IsNullOrEmpty(patent_id))
                 {
-                    foreach (PDFDocument pdf_document_other in pdf_document.Library.PDFDocuments)
+                    foreach (PDFDocument pdf_document_other in pdf_document.LibraryRef.Xlibrary.PDFDocuments)
                     {
                         // Let's not work on the same document
                         if (pdf_document.Fingerprint == pdf_document_other.Fingerprint)

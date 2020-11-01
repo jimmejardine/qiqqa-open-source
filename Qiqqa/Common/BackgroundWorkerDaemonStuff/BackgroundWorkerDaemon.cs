@@ -156,20 +156,18 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
-            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
-                Library library = x.library;
-
-                try
+                if (web_library_detail.IsBundleLibrary)
                 {
-                    if (library.WebLibraryDetail.IsBundleLibrary)
+                    try
                     {
-                        BundleLibraryUpdatedManifestChecker.Check(library);
+                        BundleLibraryUpdatedManifestChecker.Check(web_library_detail);
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, "Exception in BundleLibraryUpdatedManifestChecker.Check()");
+                    catch (Exception ex)
+                    {
+                        Logging.Warn(ex, "Exception in BundleLibraryUpdatedManifestChecker.Check()");
+                    }
                 }
             }
         }
@@ -209,22 +207,28 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                 return;
             }
 
-            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            if (!ConfigurationManager.IsEnabled("BuildSearchIndex"))
             {
-                Library library = x.library;
+                Logging.Debug特("DoMaintenance_Infrequent::IncrementalBuildIndex: Breaking out of processing loop due to BuildSearchIndex=false");
+                return;
+            }
 
-                if (!library.LibraryIsLoaded)
+            foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
+            {
+                Library library = web_library_detail.Xlibrary;
+
+                if (library == null || !library.LibraryIsLoaded)
                 {
                     continue;
                 }
 
                 try
                 {
-                    metadata_extraction_daemon.DoMaintenance(library, () =>
+                    metadata_extraction_daemon.DoMaintenance(web_library_detail, () =>
                     {
                         try
                         {
-                            library.LibraryIndex.IncrementalBuildIndex();
+                            library.LibraryIndex.IncrementalBuildIndex(web_library_detail);
                         }
                         catch (Exception ex)
                         {
@@ -237,6 +241,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     Logging.Error(ex, "Exception in metadata_extraction_daemon");
                 }
             }
+
             Logging.Debug特("DoMaintenance_Infrequent END");
         }
 
@@ -266,9 +271,15 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             }
 
             // Check if documents have changed
-            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
+            foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
             {
-                Library library = x.library;
+                Library library = web_library_detail.Xlibrary;
+
+                if (library == null || !library.LibraryIsLoaded)
+                {
+                    continue;
+                }
+
                 try
                 {
                     library.CheckForSignalThatDocumentsHaveChanged();

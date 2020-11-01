@@ -28,17 +28,19 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             // A little hack to make sure the legacies are updated...
 
             string json = pdf_document.GetAttributesAsJSON();
-            pdf_document.Library.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);
+            pdf_document.LibraryRef.Xlibrary.LibraryDB.PutString(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA, json);
             Logging.Debug("Update metadata DB for PDF document {1}: JSON =\n{0}", json, pdf_document.Fingerprint);
         }
 
 
         public static DictionaryBasedObject ReadFromStream(byte[] data)
         {
+            string json = null;
+            char a;
             try
             {
-                string json = Encoding.UTF8.GetString(data);
-                char a = (json.Length > 0 ? json[0] : (char)0);
+                json = Encoding.UTF8.GetString(data);
+                a = (json.Length > 0 ? json[0] : (char)0);
                 if ((char)0 != a)
                 {
                     Dictionary<string, object> attributes = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
@@ -51,7 +53,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "Failed to ReadFromStream, second attempt is to read using old binary format");
+                Logging.Error(ex, "Failed to ReadFromStream, second attempt is to read using old binary format.");
 
                 try
                 {
@@ -59,7 +61,20 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                 }
                 catch (Exception ex2)
                 {
-                    Logging.Error(ex2, "Failed second attempt, reading using old binary format");
+                    Logging.Error(ex2, "Failed second attempt, reading using old binary format. Giving it a last chance at redemption, assuming it's raw BibTeX. RAW data:\n{0}", json);
+
+                    // last chance at redemption for somewhat sane content:
+                    if (!String.IsNullOrEmpty(json) && json.Length > 10)
+                    {
+                        // store it as raw bibTeX.
+                        Dictionary<string, object> attributes = new Dictionary<string, object>();
+                        attributes.Add("BibTex", json);
+
+                        Logging.Warn("Last chance at redemption: Failing metadata record has been kept as RAW BibTeX record:\n{0}", json);
+
+                        return new DictionaryBasedObject(attributes);
+                    }
+
                     throw ex;
                 }
             }

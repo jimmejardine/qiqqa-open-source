@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.DateTimeTools;
@@ -14,15 +15,15 @@ namespace Qiqqa.DocumentLibrary.RecentlyReadStuff
 {
     public class RecentlyReadManager
     {
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        private TypedWeakReference<WebLibraryDetail> web_library_detail;
+        public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
-        public RecentlyReadManager(Library library)
+        public RecentlyReadManager(WebLibraryDetail web_library_detail)
         {
-            this.library = new TypedWeakReference<Library>(library);
+            this.web_library_detail = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
         }
 
-        public string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.recently_read"));
+        public string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.recently_read"));
 
         public void AddRecentlyRead(PDFDocument pdf_document)
         {

@@ -34,7 +34,8 @@ LIBRARY/CAP/ADD_REFERENCE:PDF'si bulunmayan Referans Ekle
 LIBRARY/CAP/ANNOTATION_REPORT:Not\nRaporu
 LIBRARY/CAP/BIBTEX_SNIFFER:BibTex\nKoklayıcısı
 LIBRARY/CAP/BUILD_BUNDLE_LIBRARY:Bohça kütüphanesi oluştur.
-LIBRARY/CAP/EDIT_DELETE:Düzenle/Sil
+LIBRARY/CAP/EDIT:Düzenle
+LIBRARY/CAP/DELETE:Sil
 LIBRARY/CAP/EXPLORE:Kütüphaneyi\nİncele
 LIBRARY/CAP/EXPORT_BIBTEX:Referansları BibTeX'e aktar
 LIBRARY/CAP/EXPORT_CITATION_MATRIX:Citation Matrix (Atıf Matriksi)'ni dışa aktar
@@ -61,7 +62,8 @@ LIBRARY/TIP/ANNOTATION_REPORT:Dökümanlarınıza eklediğiniz notları içeren 
 LIBRARY/TIP/BIBTEX_SNIFFER:Dökümanlarınızdaki eksik referans bilgilerini hızlıca bulmaya yardım etmek için BibTeX Koklayıcısını çalıştırır.
 LIBRARY/TIP/BRAINSTORM:Bu kütüphaneyi bir Beyin Fırtınası içinde incele.
 LIBRARY/TIP/BUILD_BUNDLE_LIBRARY:Bu kütüphane için bir bohça kütüphanesi oluştur.
-LIBRARY/TIP/EDIT_DELETE:Bu kütüphanenin isim ve açıklamasını değiştir veya sil.
+LIBRARY/TIP/EDIT:Bu kütüphanenin isim ve açıklamasını değiştir.
+LIBRARY/TIP/DELETE:Sil ve açıklamasını.
 LIBRARY/TIP/EXPEDITION:Bu kütüphaneyi Qiqqa Expedition ile incele.
 LIBRARY/TIP/EXPLORE:Okunacak ilginç şeyler bulmak için kütüphaneyi incele.
 LIBRARY/TIP/EXPORT_BIBTEX:Tüm BibTeX kayıtlarınızı BibTeX kelime işlemci ile kullanmak için dışa aktarır.\nEğer kütüphane filtresi kullanıyorsanız bu filtre BibTeX dışa aktarımında da geçerli olacak.

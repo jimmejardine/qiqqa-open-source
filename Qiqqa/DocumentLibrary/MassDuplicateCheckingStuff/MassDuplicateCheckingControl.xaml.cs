@@ -7,6 +7,7 @@ using icons;
 using Qiqqa.Common;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.LibraryCatalog;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff;
 using Utilities;
@@ -70,7 +71,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
             }
         }
 
-        public void FindDuplicates(Library library)
+        public void FindDuplicates(WebLibraryDetail web_library_detail)
         {
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (locker)
@@ -87,22 +88,22 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                 }
             }
 
-            SafeThreadPool.QueueUserWorkItem(o => FindDuplicates_BACKGROUND(library));
+            SafeThreadPool.QueueUserWorkItem(o => FindDuplicates_BACKGROUND(web_library_detail));
         }
 
-        private void FindDuplicates_BACKGROUND(Library library)
+        private void FindDuplicates_BACKGROUND(WebLibraryDetail web_library_detail)
         {
             try
             {
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    TxtLibraryName.Text = library.WebLibraryDetail.Title;
+                    TxtLibraryName.Text = web_library_detail.Title;
                     TreeDuplicates.Items.Clear();
                     TxtNoDuplicatesFound.Visibility = Visibility.Collapsed;
                 }
                 );
 
-                List<PDFDocument> pdf_documents = library.PDFDocuments;
+                List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
 
                 // Sort them by their titles
                 StatusManager.Instance.UpdateStatus("DuplicateChecking", "Sorting titles");
@@ -114,7 +115,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                 StatusManager.Instance.UpdateStatus("DuplicateChecking", "Caching titles");
                 DuplicateDetectionControl.TitleCombinedCache cache = new DuplicateDetectionControl.TitleCombinedCache(pdf_documents);
 
-                // Do the n^2                
+                // Do the n^2
                 bool have_duplicates = false;
                 StatusManager.Instance.ClearCancelled("DuplicateChecking");
                 for (int i = 0; i < pdf_documents.Count; ++i)
@@ -199,11 +200,11 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
             e.Handled = true;
         }
 
-        public static void FindDuplicatesForLibrary(Library library)
+        public static void FindDuplicatesForLibrary(WebLibraryDetail web_library_detail)
         {
             MassDuplicateCheckingControl control = new MassDuplicateCheckingControl();
             MainWindowServiceDispatcher.Instance.OpenUserControl("Find Duplicates", Icons.GetAppIcon(Icons.LibraryFindDuplicates), control);
-            control.FindDuplicates(library);
+            control.FindDuplicates(web_library_detail);
         }
     }
 }

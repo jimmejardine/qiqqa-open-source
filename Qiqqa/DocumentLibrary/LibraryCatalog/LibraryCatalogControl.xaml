@@ -1,14 +1,14 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogControl"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:sys="clr-namespace:System;assembly=mscorlib"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-  xmlns:local_library="clr-namespace:Qiqqa.DocumentLibrary.LibraryCatalog"
-  xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
-  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
->
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:local_library="clr-namespace:Qiqqa.DocumentLibrary.LibraryCatalog"
+    xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
         <DockPanel>
-            <!-- PDFDocument metadata controls  - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - -  - - - - - - - - - - - - -  -->
+            <!--  PDFDocument metadata controls  - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - -  - - - - - - - - - - - - -  -->
             <local_gui:CollapsibleRegion DockPanel.Dock="Right" VisibleEdge="Left">
                 <Grid Width="300">
                     <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" />
@@ -16,21 +16,28 @@
                     <local_library:MultipleDocumentsSelectedPanel x:Name="ObjMultipleDocumentsSelectedPanel" />
                 </Grid>
             </local_gui:CollapsibleRegion>
-            <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-            <ListView Name="ListPDFDocuments" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ItemsSource="{Binding}" AlternationCount="1" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+            <ListView
+                Name="ListPDFDocuments"
+                HorizontalContentAlignment="Stretch"
+                AlternationCount="1"
+                ItemsSource="{Binding}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                VirtualizingStackPanel.IsVirtualizing="True"
+                VirtualizingStackPanel.VirtualizationMode="Recycling">
                 <ListView.Style>
                     <Style>
                         <Style.Resources>
-                            <!-- *** TODO FIX THIS HACK WHEN WE KNOW HOW *** -->
-                            <!-- *** PREFERRABLY WE WANT THESE COLOURS IN OUR STYLE FILE *** -->
+                            <!--  *** TODO FIX THIS HACK WHEN WE KNOW HOW ***  -->
+                            <!--  *** PREFERRABLY WE WANT THESE COLOURS IN OUR STYLE FILE ***  -->
                             <LinearGradientBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Offset="0.0" Color="{StaticResource Background_Color_Blue_Dark}"/>
-                                <GradientStop Offset="0.1" Color="{StaticResource Background_Color_Blue_VeryDark}"/>
-                                <GradientStop Offset="0.9" Color="{StaticResource Background_Color_Blue_VeryDark}"/>
-                                <GradientStop Offset="1.0" Color="{StaticResource Background_Color_Blue_Dark}"/>
+                                <GradientStop Offset="0.0" Color="{StaticResource Background_Color_Blue_Dark}" />
+                                <GradientStop Offset="0.1" Color="{StaticResource Background_Color_Blue_VeryDark}" />
+                                <GradientStop Offset="0.9" Color="{StaticResource Background_Color_Blue_VeryDark}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource Background_Color_Blue_Dark}" />
                             </LinearGradientBrush>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                            <!-- ******************************************************-->
+                            <!--  ******************************************************  -->
                         </Style.Resources>
                     </Style>
                 </ListView.Style>

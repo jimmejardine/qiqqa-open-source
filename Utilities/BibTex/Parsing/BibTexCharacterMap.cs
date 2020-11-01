@@ -23,11 +23,11 @@ namespace Utilities.BibTex.Parsing
     {
         private static readonly string[] MAP = new string[]
         {
-            // Conversion of double-backslash `\\` back to `\` must, by necessity of not 
+            // Conversion of double-backslash `\\` back to `\` must, by necessity of not
             // causing corruption of the conversion process due to collision with other
             // backslash-escapes, happen as two-stage process, where we FIRST convert
             // double-backslash to a 'magic' Unicode NON-CHARACTER sequence and then,
-            // when we've reached the end of the process, pick up from thre and perform
+            // when we've reached the end of the process, pick up from there and perform
             // the second step.
             //
             // Since the forward conversion of 'literal' backslash to double backslash
@@ -358,22 +358,54 @@ namespace QiqqaUnitTester
     public class BibTexCharacterMapTester
     {
         // see also http://diacritics.typo.cz/index.php?id=1
-        private const string TestStringS1 = @"Großherr Schneider müßt être fâché! \ možete tõmmata zdravím můj příteli jak se máš být lepší to těžká řeč áéíóúàèëïöüĳ ÁÉÍÓÚÀÈËÏÖÜĲ patiënt, reünie, coördinatie. Modern fonts rarely contain an Ĳ/ĳ with a double acute, so today it's usually represented as ÍJ/íj. hè, blèren. dấu nặng. ḃ, ċ, ḋ, ḟ, ġ, ṁ, ṗ, ṡ and ṫ. the Ŀ or ŀ (Ldot, ldot) characters. e is ɛ while é is [e:] ő is [ø:] and ű is [y:] dấu hỏ. Háček is a Czech word meaning little hook. This mark goes by other names as well. In Slovak it is called mäkčeň (i.e. “softener” or “palatalization mark”), in Slovenian strešica (“little roof”), in Croatian, Serbian and Bosnian kvačica (also “small hook”), and hattu (“hat”) in Fennic languages. Icelandic capital Ð appears the same as the South Slavic/Vietnamese Ð, but its lower case counterpart is different: ð. French â, ê, î, ô, û. In Slovak, it is used with ô. In Esperanto, with ĉ, ĝ, ĥ, ĵ, and ŝ. In Welsh with â, ê, î, ô, û, ŵ, and ŷ. quốc ngữ. An acute can be added to ư to produce ứ, and a breve can be added to ơ to produce ờ. Naming b bê bò and p pê phở is to avoid confusion in some dialects or some contexts, the same for s sờ mạnh (nặng) and x xờ nhẹ, i i ngắn and y y dài. Nguyễn, Đình-Hoà. In Polish, the ogonek is used with ą and ę for denoting nasal vowels. It also indicates nasality in a number of Native North American languages, such as Cayuga: ę and ǫ, and Chipewyan: ą, ę, ɛ̨, į, ǫ, ų. In Lithuanian, it lengthtens ą, ę, į and ų. somewhere between ö and ō. In Vietnamese, the tilde (or dấu ngã). including Pe̍h-ōe-jī and the Taiwanese Romanization System. It is used above vowels to indicate a specific tone (called tone 8) : a̍ e̍ i̍ o̍ o̍͘ u̍. It is also used in the Standardized orthography of Congo-Kinshasa to indicate mid tone in some languages like Ngbaka Gbaya : a̍ e̍ ɛ̍ i̍ o̍ ɔ̍ u̍. (or dấu sắc)";
 
-        [TestMethod]
-        public void Test_Conversion_To_And_From_BibTeX_Text()
+        [DataRow("fixtures/TeXcharmap/test-0001.txt")]
+        [DataRow("fixtures/TeXcharmap/test-0002.txt")]
+        [DataTestMethod]
+        public void Test_Conversion_To_BibTeX_Text(string filepath)
         {
-            string s1 = TestStringS1;
+            string path = GetNormalizedPathToAnyTestDataTestFile(filepath);
+            ASSERT.FileExists(path);
+
+            string data_in = GetTestFileContent(path);
+            string s1 = data_in;
+            string s2 = BibTexCharacterMap.ASCIIToBibTex(s1);
+
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(s2, filepath),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("fixtures/TeXcharmap/test-0001.txt")]
+        [DataRow("fixtures/TeXcharmap/test-0002.txt")]
+        [DataTestMethod]
+        public void Test_Conversion_To_And_From_BibTeX_Text(string filepath)
+        {
+            string path = GetNormalizedPathToAnyTestDataTestFile(filepath);
+            ASSERT.FileExists(path);
+
+            string data_in = GetTestFileContent(path);
+            string s1 = data_in;
             string s2 = BibTexCharacterMap.ASCIIToBibTex(s1);
             string s3 = BibTexCharacterMap.BibTexToASCII(s2);
 
-            ASSERT.AreEqual(s1, s3);
+            //ASSERT.AreEqual(s1, s3);
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(s3, filepath),
+                ApprovalTests.Approvals.GetReporter()
+            );
         }
 
-        [TestMethod]
-        public void Test_SPEED()
+        [DataRow("fixtures/TeXcharmap/test-0001.txt")]
+        [DataTestMethod]
+        public void Test_SPEED(string filepath)
         {
-            string s1 = TestStringS1;
+            string path = GetNormalizedPathToAnyTestDataTestFile(filepath);
+            ASSERT.FileExists(path);
+
+            string data_in = GetTestFileContent(path);
+            string s1 = data_in;
             string s2 = BibTexCharacterMap.ASCIIToBibTex(s1);
             string s3 = BibTexCharacterMap.BibTexToASCII(s2);
 

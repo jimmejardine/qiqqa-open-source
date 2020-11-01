@@ -20,22 +20,22 @@ namespace Qiqqa.Expedition
 
             try
             {
-                if (null == pdf_document.Library.ExpeditionManager.ExpeditionDataSource)
+                if (null == pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource)
                 {
                     return results;
                 }
 
-                ExpeditionDataSource eds = pdf_document.Library.ExpeditionManager.ExpeditionDataSource;
+                ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
                 LDAAnalysis lda_analysis = eds.LDAAnalysis;
 
-                if (!pdf_document.Library.ExpeditionManager.ExpeditionDataSource.docs_index.ContainsKey(pdf_document.Fingerprint))
+                if (!pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index.ContainsKey(pdf_document.Fingerprint))
                 {
                     return results;
                 }
 
                 // Fill the similar papers
                 {
-                    int doc_id = pdf_document.Library.ExpeditionManager.ExpeditionDataSource.docs_index[pdf_document.Fingerprint];
+                    int doc_id = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index[pdf_document.Fingerprint];
                     TopicProbability[] topics = lda_analysis.DensityOfTopicsInDocsSorted[doc_id];
 
                     List<DocProbability> similar_docs = new List<DocProbability>();
@@ -63,7 +63,7 @@ namespace Qiqqa.Expedition
                     for (int i = 0; i < similar_docs.Count && i < NUM_OTHERS; ++i)
                     {
                         string fingerprint_to_look_for = eds.docs[similar_docs[i].doc];
-                        PDFDocument pdf_document_similar = pdf_document.Library.GetDocumentByFingerprint(fingerprint_to_look_for);
+                        PDFDocument pdf_document_similar = pdf_document.LibraryRef.Xlibrary.GetDocumentByFingerprint(fingerprint_to_look_for);
                         if (null == pdf_document_similar)
                         {
                             Logging.Warn("ExpeditionPaperSuggestions: Cannot find similar document anymore for fingerprint {0}", fingerprint_to_look_for);

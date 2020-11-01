@@ -36,7 +36,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             Logging.Info("Getting list of documents in Intranet Library {0}", base_path);
             string documents_path = GetLibraryDocumentsPath(base_path);
             List<string> results = DirectoryTools.GetSubFiles(documents_path, "pdf");
-            Logging.Info("Got list of documents ({0}) in Intranet Library {1}", results.Count, base_path);
+            Logging.Info("Got LOCAL list of documents ({0}) in Intranet Library {1}", results.Count, base_path);
             return results;
         }
 

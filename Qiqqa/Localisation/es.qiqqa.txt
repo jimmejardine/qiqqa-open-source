@@ -38,9 +38,10 @@ LIBRARY/CAP/ADD_REFERENCE:Agregar referencia no-PDF
 LIBRARY/CAP/ANNOTATION_REPORT:Reporte\nAnotación
 LIBRARY/CAP/BIBTEX_SNIFFER:BibTex\nHusmeador
 LIBRARY/CAP/BUILD_BUNDLE_LIBRARY:Construir Paquete de Bibliotecas
-LIBRARY/CAP/EDIT_DELETE:Editar/Borrar
+LIBRARY/CAP/EDIT:Editar
+LIBRARY/CAP/DELETE:Borrar
 LIBRARY/CAP/EXPLORE:Explorar\nBiblioteca
-LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE:Exportar Códigos de Anotaciones 
+LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE:Exportar Códigos de Anotaciones
 LIBRARY/CAP/EXPORT_BIBTEX:Exporta los registros BibTeX para usarlos con LaTeX.
 LIBRARY/CAP/EXPORT_CITATION_MATRIX:Exportar Matriz de Citas
 LIBRARY/CAP/EXPORT_LIBRARY:Exportar Biblioteca
@@ -68,7 +69,8 @@ LIBRARY/TIP/BIBTEX_AUTOFIND:Buscar por BibTeX en la base de datos BibTeX de Qiqq
 LIBRARY/TIP/BIBTEX_SNIFFER:Acelera el Husmeador BibTeX para ayudarlo a localizar rápidamente información omitida de referencias de tus documentos
 LIBRARY/TIP/BRAINSTORM:Explora esta Biblioteca en el Conceptualizador
 LIBRARY/TIP/BUILD_BUNDLE_LIBRARY:Crear un nuevo Paquete de Bibliotecas para esta Biblioteca.
-LIBRARY/TIP/EDIT_DELETE:Cambiar el título de esta biblioteca, descripción, o borrarla
+LIBRARY/TIP/EDIT:Cambiar el título de esta biblioteca, descripción
+LIBRARY/TIP/DELETE:Borrarla esta biblioteca
 LIBRARY/TIP/EXPEDITION:Explorar esta biblioteca usando Expedición de Qiqqa.
 LIBRARY/TIP/EXPLORE:Explora tu biblioteca y encuentra algo interesante para leer.
 LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE:Exportar sus Anotaciones en un formato que pueda ser usado por otros programas.

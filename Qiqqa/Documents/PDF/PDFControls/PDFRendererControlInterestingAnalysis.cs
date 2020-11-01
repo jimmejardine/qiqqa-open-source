@@ -9,6 +9,7 @@ using Utilities.Collections;
 using Utilities.Internet.GoogleScholar;
 using Utilities.Language;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -18,7 +19,12 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             pdf_reading_control.OnlineDatabaseLookupControl.PDFDocument = pdf_renderer_control_stats.pdf_document;
 
-            Thread.Sleep(1000);
+            ShutdownableManager.Sleep(1000);
+            if (ShutdownableManager.Instance.IsShuttingDown)
+            {
+                Logging.Error("Canceling DoInterestingAnalysis due to signaled application shutdown");
+                return;
+            }
 
             SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_DuplicatesAndCitations(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
             // Only bother Google Scholar with a query when we want to:
@@ -95,7 +101,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             // Populate the tag cloud
             try
             {
-                List<TagCloudEntry> tag_cloud_entries = PDFDocumentTagCloudBuilder.BuildTagCloud(pdf_renderer_control_stats.pdf_document.Library, pdf_renderer_control_stats.pdf_document);
+                List<TagCloudEntry> tag_cloud_entries = PDFDocumentTagCloudBuilder.BuildTagCloud(pdf_renderer_control_stats.pdf_document.LibraryRef, pdf_renderer_control_stats.pdf_document);
 
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {
@@ -115,7 +121,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             try
             {
                 List<NameTools.Name> authors = SimilarAuthors.GetAuthorsForPDFDocument(pdf_renderer_control_stats.pdf_document);
-                MultiMap<string, PDFDocument> authors_documents = SimilarAuthors.GetDocumentsBySameAuthors(pdf_renderer_control_stats.pdf_document.Library, pdf_renderer_control_stats.pdf_document, authors);
+                MultiMap<string, PDFDocument> authors_documents = SimilarAuthors.GetDocumentsBySameAuthors(pdf_renderer_control_stats.pdf_document.LibraryRef, pdf_renderer_control_stats.pdf_document, authors);
 
                 pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
                 {

@@ -1,11 +1,14 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers.TypeExplorerControl"
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers.TypeExplorerControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:local_explorer="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff"
->
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
     <DockPanel>
-        <local_gui:AugmentedClosableBorder DockPanel.Dock="Top" Padding="5"  Name="AugCBforTypeExplorer" >
+        <local_gui:AugmentedClosableBorder
+            Name="AugCBforTypeExplorer"
+            Padding="5"
+            DockPanel.Dock="Top">
             <TextBlock TextWrapping="Wrap">
                 If you have associated BibTeX with your PDFs, Qiqqa will automatically extract their BibTeX type.
             </TextBlock>

@@ -62,7 +62,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void ButtonUndoBibTeXEdit_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)

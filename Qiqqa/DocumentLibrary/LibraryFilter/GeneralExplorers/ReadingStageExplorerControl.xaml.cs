@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Documents;
 using Qiqqa.DocumentLibrary.TagExplorerStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
@@ -13,7 +14,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
     /// </summary>
     public partial class ReadingStageExplorerControl : UserControl
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
 
         public delegate void OnTagSelectionChangedDelegate(HashSet<string> fingerprints, Span descriptive_span);
         public event OnTagSelectionChangedDelegate OnTagSelectionChanged;
@@ -33,13 +34,13 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         // -----------------------------
 
-        public Library Library
+        public WebLibraryDetail LibraryRef
         {
-            get => library;
+            get => web_library_detail;
             set
             {
-                library = value;
-                TagExplorerTree.Library = value;
+                web_library_detail = value;
+                TagExplorerTree.LibraryRef = value;
             }
         }
 
@@ -50,18 +51,18 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         // -----------------------------
 
-        internal static MultiMapSet<string, string> GetNodeItems(Library library, HashSet<string> parent_fingerprints)
+        internal static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
             List<PDFDocument> pdf_documents = null;
             if (null == parent_fingerprints)
             {
-                pdf_documents = library.PDFDocuments;
+                pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
             }
             else
             {
-                pdf_documents = library.GetDocumentByFingerprints(parent_fingerprints);
+                pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(parent_fingerprints);
             }
-            Logging.Debug特("ReadingStageExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
+            Logging.Debug特("ReadingStageExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, web_library_detail.Title);
 
             MultiMapSet<string, string> tags_with_fingerprints = new MultiMapSet<string, string>();
             foreach (PDFDocument pdf_document in pdf_documents)
@@ -84,7 +85,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
         {
             Library library = Library.GuestInstance;
             TagExplorerControl tec = new TagExplorerControl();
-            tec.Library = library;
+            tec.LibraryRef = library;
 
             ControlHostingWindow w = new ControlHostingWindow("Tags", tec);
             w.Show();

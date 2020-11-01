@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Microsoft.Win32;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Utilities;
@@ -16,12 +17,12 @@ namespace Qiqqa.Exporting
     {
         private class FingerprintToBibTeXMap
         {
-            private Library library;
+            private WebLibraryDetail web_library_detail;
             private Dictionary<string, string> map;
 
-            public FingerprintToBibTeXMap(Library library)
+            public FingerprintToBibTeXMap(WebLibraryDetail web_library_detail)
             {
-                this.library = library;
+                this.web_library_detail = web_library_detail;
                 map = new Dictionary<string, string>();
             }
 
@@ -37,7 +38,7 @@ namespace Qiqqa.Exporting
                     return map[fingerprint];
                 }
 
-                PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
                 if (null != pdf_document)
                 {
                     string bibtex_key = pdf_document.BibTexKey;
@@ -55,9 +56,9 @@ namespace Qiqqa.Exporting
         }
 
 
-        internal static void Export(Library library, List<PDFDocument> pdf_documents)
+        internal static void Export(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
-            StatusManager.Instance.UpdateStatus("CitationMatrix", "Exporting Citation Maxtrix");
+            StatusManager.Instance.UpdateStatus("CitationMatrix", "Exporting Citation Matrix");
 
             // Ask the user what they want
             bool export_inbound_citations = MessageBoxes.AskQuestion("Do you want to follow one layer of INBOUND citations?");
@@ -78,7 +79,7 @@ namespace Qiqqa.Exporting
                 if (true != save_file_dialog.ShowDialog())
                 {
                     Logging.Info("User cancelled export of citation matrix.");
-                    StatusManager.Instance.UpdateStatus("CitationMatrix", "Cancelled export of Citation Maxtrix");
+                    StatusManager.Instance.UpdateStatus("CitationMatrix", "Cancelled export of Citation Matrix");
                     return;
                 }
             }
@@ -107,7 +108,7 @@ namespace Qiqqa.Exporting
             }
 
             // The bibtex mapper
-            FingerprintToBibTeXMap map = new FingerprintToBibTeXMap(library);
+            FingerprintToBibTeXMap map = new FingerprintToBibTeXMap(web_library_detail);
 
             // Build the result
             StatusManager.Instance.UpdateStatus("CitationMatrix", "Building Citation Matrix.");
@@ -128,7 +129,7 @@ namespace Qiqqa.Exporting
 
             foreach (var fingerprint in working_set_fingerprint)
             {
-                PDFDocument pdf_document = library.GetDocumentByFingerprint(fingerprint);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
                 if (null != pdf_document)
                 {
                     List<Citation> citations = pdf_document.PDFDocumentCitationManager.GetOutboundCitations();
@@ -142,7 +143,7 @@ namespace Qiqqa.Exporting
                 }
                 else
                 {
-                    Logging.Warn("While exporting cocitations, couldn't locate document {0} in library {1}.", fingerprint, library.WebLibraryDetail.Title);
+                    Logging.Warn("While exporting co-citations, couldn't locate document {0} in library {1}.", fingerprint, web_library_detail.Title);
                 }
             }
 
@@ -150,7 +151,7 @@ namespace Qiqqa.Exporting
             string target_filename = save_file_dialog.FileName;
             File.WriteAllText(target_filename, sb.ToString());
 
-            StatusManager.Instance.UpdateStatus("CitationMatrix", "Exported Citation Maxtrix");
+            StatusManager.Instance.UpdateStatus("CitationMatrix", "Exported Citation Matrix");
         }
     }
 }

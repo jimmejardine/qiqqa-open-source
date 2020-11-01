@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Alphaleonis.Win32.Filesystem;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.MessageBoxControls;
 using Qiqqa.DocumentLibrary;
@@ -21,7 +22,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
         {
             public bool suppress_already_in_progress_notification;
             public bool wants_user_intervention;
-            public List<Library> libraries_to_sync;
+            public List<WebLibraryDetail> libraries_to_sync;
             public bool sync_metadata;
             public bool sync_pdfs;
 
@@ -29,22 +30,22 @@ namespace Qiqqa.Synchronisation.BusinessLogic
              * This will prompt the user what to sync
              */
             public SyncRequest(bool wants_user_intervention, bool sync_metadata, bool sync_pdfs, bool suppress_already_in_progress_notification) :
-                this(wants_user_intervention, new List<Library>(), sync_metadata, sync_pdfs, suppress_already_in_progress_notification)
+                this(wants_user_intervention, new List<WebLibraryDetail>(), sync_metadata, sync_pdfs, suppress_already_in_progress_notification)
             {
             }
 
             /**
              * This will autotick just the specified library.
              */
-            public SyncRequest(bool wants_user_intervention, Library library, bool sync_metadata, bool sync_pdfs, bool suppress_already_in_progress_notification) :
-                this(wants_user_intervention, new List<Library>(new Library[] { library }), sync_metadata, sync_pdfs, suppress_already_in_progress_notification)
+            public SyncRequest(bool wants_user_intervention, WebLibraryDetail web_library_detail, bool sync_metadata, bool sync_pdfs, bool suppress_already_in_progress_notification) :
+                this(wants_user_intervention, new List<WebLibraryDetail>(new WebLibraryDetail[] { web_library_detail }), sync_metadata, sync_pdfs, suppress_already_in_progress_notification)
             {
             }
 
             /**
              * This will autotick just the specified libraries.
              */
-            public SyncRequest(bool wants_user_intervention, List<Library> libraries_to_sync, bool sync_metadata, bool sync_pdfs, bool suppress_already_in_progress_notification)
+            public SyncRequest(bool wants_user_intervention, List<WebLibraryDetail> libraries_to_sync, bool sync_metadata, bool sync_pdfs, bool suppress_already_in_progress_notification)
             {
                 this.wants_user_intervention = wants_user_intervention;
                 this.libraries_to_sync = libraries_to_sync;
@@ -100,7 +101,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 // file system load when you have any reasonably large libraries like I do.          [GHo]
                 //
                 // TODO: fetch and cache document filesizes in the background, so we can improve on the accuracy
-                // our numbers in a future call to this method.
+                // of our numbers in a future call to this method.
                 //
                 GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
                 WPFDoEvents.InvokeInUIThread(() =>
@@ -134,7 +135,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
                 // Build the initial knowledge of our libraries
                 StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META_GLOBAL, "Getting your library details");
-                List<WebLibraryDetail> web_library_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All;
+                List<WebLibraryDetail> web_library_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
                 foreach (WebLibraryDetail web_library_detail in web_library_details)
                 {
                     // Create the new LibrarySyncDetail
@@ -152,7 +153,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     {
                         LibrarySyncDetail library_sync_detail = global_sync_detail.library_sync_details[i];
                         StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META_GLOBAL, String.Format("Getting the local library details for {0}", library_sync_detail.web_library_detail.Title), i, global_sync_detail.library_sync_details.Count);
-                        library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail.library, tally_library_storage_size);
+                        library_sync_detail.local_library_sync_detail = GetLocalLibrarySyncDetail(library_sync_detail.web_library_detail, tally_library_storage_size);
                     }
                 }
 
@@ -163,40 +164,22 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     //  Eagerly sync metadata
                     LibrarySyncDetail.SyncDecision d = library_sync_detail.sync_decision = new LibrarySyncDetail.SyncDecision();
 
-                    // Never guests
-                    if (library_sync_detail.web_library_detail.IsLocalGuestLibrary)
-                    {
-                        d.can_sync = false;
-                        d.can_sync_metadata = false;
-                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
-                    }
-
-                    // Intranets are dependent on premium
-                    else if (library_sync_detail.web_library_detail.IsIntranetLibrary)
-                    {
-                        d.can_sync = true;
-                        d.can_sync_metadata = true;
-                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
-                    }
-
-                    // TODO: Web libs should be syncable, right?
-                    else if (library_sync_detail.web_library_detail.IsWebLibrary)
-                    {
-                        d.can_sync = true;
-                        d.can_sync_metadata = true;
-                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
-                    }
+                    // We do not care what type of (commercial) library this has been:
+                    // you are now free to choose and do as you like.
+                    //
+                    // Hence it should be possible for 'Guest' libraries (and everything else)
+                    // to be assigned a sync target directory or URI to sync your libraries anywhere.
+                    //
+                    // When you think about user access rights to your library, THAT SUBJECT
+                    // should be taken care of at the sync target itself: if you have
+                    // WRITE access, you should be able to update the library, period.
+                    d.can_sync = true;
+                    d.can_sync_metadata = true;
+                    d.is_readonly = false;
+                    //library_sync_detail.web_library_detail.IsReadOnly;
 
                     // Bundles can never sync
-                    else if (library_sync_detail.web_library_detail.IsBundleLibrary)
-                    {
-                        d.can_sync = false;
-                        d.can_sync_metadata = false;
-                        d.is_readonly = library_sync_detail.web_library_detail.IsReadOnly;
-                    }
-
-                    // Unknown library types
-                    else
+                    if (library_sync_detail.web_library_detail.IsReadOnlyLibrary)
                     {
                         d.can_sync = false;
                         d.can_sync_metadata = false;
@@ -214,13 +197,13 @@ namespace Qiqqa.Synchronisation.BusinessLogic
         }
 
 
-        private static LibrarySyncDetail.LocalLibrarySyncDetail GetLocalLibrarySyncDetail(Library library, bool tally_library_storage_size)
+        private static LibrarySyncDetail.LocalLibrarySyncDetail GetLocalLibrarySyncDetail(WebLibraryDetail web_library_detail, bool tally_library_storage_size)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             LibrarySyncDetail.LocalLibrarySyncDetail local_library_sync_detail = new LibrarySyncDetail.LocalLibrarySyncDetail();
 
-            List<PDFDocument> pdf_documents = library.PDFDocuments_IncludingDeleted;
+            List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments_IncludingDeleted;
 
             foreach (PDFDocument pdf_document in pdf_documents)
             {
@@ -243,10 +226,10 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     }
                     else
                     {
-                        // fake it: take about 10KB per document, unless we already determined (and cached) the document size before.
-                        // This spares us the large overhead of querying the file system for every document in the 
+                        // fake it: take about 100KB per document, unless we already determined (and cached) the document size before.
+                        // This spares us the large overhead of querying the file system for every document in the
                         // (possibly huge) library.
-                        local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes(uncached_document_storage_size_override: 10 * 1024);
+                        local_library_sync_detail.total_library_size += pdf_document.GetDocumentSizeInBytes(uncached_document_storage_size_override: 100 * 1024);
                     }
                 }
                 catch (Exception ex)
@@ -269,23 +252,36 @@ namespace Qiqqa.Synchronisation.BusinessLogic
             {
                 // Needed for passing to background thread...
                 SyncControlGridItem sync_control_grid_item = sync_control_grid_item_temp;
+                WebLibraryDetail web_library_detail = sync_control_grid_item.library_sync_detail.web_library_detail;
 
-                if (sync_control_grid_item.library_sync_detail.web_library_detail.library.sync_in_progress)
+                if (!web_library_detail.IsIntranetLibrary)
+                {
+                    string local_sync_db = HistoricalSyncFile.GetSyncDbFilename(web_library_detail);
+
+                    if (File.Exists(local_sync_db))
+                    {
+                        Logging.Warn("INTEGRITY CHECK 'CURIOSITY': library '{0}' has a Historical Sync file at '{1}', while at the same time seems to NOT HAVE a Sync Point a.k.a. Share Target set and thus cannot be synced. The presense of the Histrorical Sync File indicates that this library has had a Sync Point sometime in the past.", web_library_detail, local_sync_db);
+                    }
+
+                    Logging.Warn("SYNC IGNORE: library '{0}' has no Sync Point a.k.a. Share Target set and thus cannot be synced.", web_library_detail);
+                }
+
+                if (web_library_detail.Xlibrary.sync_in_progress)
                 {
                     if (!sync_control_grid_item_set.sync_request.suppress_already_in_progress_notification)
                     {
-                        MessageBoxes.Info("A sync operation is already in progress for library {0}.  Please wait for it to finish before trying to sync again.", sync_control_grid_item.library_sync_detail.web_library_detail.library.WebLibraryDetail.Title);
+                        MessageBoxes.Info("A sync operation is already in progress for library {0}.  Please wait for it to finish before trying to sync again.", web_library_detail.Title);
                     }
                     else
                     {
-                        Logging.Info("A sync operation is already in progress for library {0}.  This has been suppressed from the GUI.", sync_control_grid_item.library_sync_detail.web_library_detail.library.WebLibraryDetail.Title);
+                        Logging.Info("A sync operation is already in progress for library {0}.  This has been suppressed from the GUI.", web_library_detail.Title);
                     }
                 }
                 else
                 {
                     if (sync_control_grid_item.SyncMetadata || sync_control_grid_item.SyncDocuments)
                     {
-                        sync_control_grid_item.library_sync_detail.web_library_detail.library.sync_in_progress = true;
+                        web_library_detail.Xlibrary.sync_in_progress = true;
                         SafeThreadPool.QueueUserWorkItem(o => Sync_BACKGROUND(sync_control_grid_item));
                     }
                 }
@@ -294,70 +290,87 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
         private void Sync_BACKGROUND(SyncControlGridItem sync_control_grid_item)
         {
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(sync_control_grid_item.library_sync_detail.web_library_detail.library), String.Format("Starting sync of {0}", sync_control_grid_item.LibraryTitle));
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(sync_control_grid_item.library_sync_detail.web_library_detail), String.Format("Starting sync of {0}", sync_control_grid_item.LibraryTitle));
+
+            var sd = sync_control_grid_item.library_sync_detail;
+            bool done_anything = false;
 
             try
             {
                 if (sync_control_grid_item.SyncMetadata)
                 {
-                    if (sync_control_grid_item.library_sync_detail.sync_decision.can_sync)
+                    if (sd.sync_decision.can_sync)
                     {
-                        Logging.Info("Syncing metadata for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
-                        SynchronizeMetadata_INTERNAL_BACKGROUND(sync_control_grid_item.library_sync_detail.web_library_detail.library, false, sync_control_grid_item.IsReadOnly);
-                        SynchronizeDocuments_Upload_INTERNAL_BACKGROUND(sync_control_grid_item.library_sync_detail.web_library_detail.library, sync_control_grid_item.library_sync_detail.web_library_detail.library.PDFDocuments, sync_control_grid_item.IsReadOnly);
+                        Logging.Info("Syncing metadata for {0}", sd.web_library_detail.Title);
+                        SynchronizeMetadata_INTERNAL_BACKGROUND(sd.web_library_detail, false, sync_control_grid_item.IsReadOnly);
+                        SynchronizeDocuments_Upload_INTERNAL_BACKGROUND(sd.web_library_detail, sd.web_library_detail.Xlibrary.PDFDocuments, sync_control_grid_item.IsReadOnly);
+                        done_anything = true;
                     }
                     else
                     {
-                        Logging.Info("Partial syncing metadata for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
-                        SynchronizeMetadata_INTERNAL_BACKGROUND(sync_control_grid_item.library_sync_detail.web_library_detail.library, true, sync_control_grid_item.IsReadOnly);
+                        Logging.Info("Partial syncing metadata for {0}", sd.web_library_detail.Title);
+                        SynchronizeMetadata_INTERNAL_BACKGROUND(sd.web_library_detail, true, sync_control_grid_item.IsReadOnly);
+                        done_anything = true;
 
-                        Logging.Info("Not uploading documents for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
+                        Logging.Info("Not uploading documents for {0}", sd.web_library_detail.Title);
                     }
                 }
 
                 if (sync_control_grid_item.SyncDocuments)
                 {
-                    if (sync_control_grid_item.library_sync_detail.sync_decision.can_sync)
+                    if (sd.sync_decision.can_sync)
                     {
-                        Logging.Info("Downloading documents for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
-                        SynchronizeDocuments_Download_INTERNAL_BACKGROUND(sync_control_grid_item.library_sync_detail.web_library_detail.library, sync_control_grid_item.library_sync_detail.web_library_detail.library.PDFDocuments, sync_control_grid_item.IsReadOnly);
+                        Logging.Info("Downloading documents for {0}", sd.web_library_detail.Title);
+                        SynchronizeDocuments_Download_INTERNAL_BACKGROUND(sd.web_library_detail, sd.web_library_detail.Xlibrary.PDFDocuments, sync_control_grid_item.IsReadOnly);
+                        done_anything = true;
                     }
                     else
                     {
-                        Logging.Info("Not downloading documents for {0}", sync_control_grid_item.library_sync_detail.web_library_detail.Title);
+                        Logging.Info("Not downloading documents for {0}", sd.web_library_detail.Title);
                     }
+                }
+
+                // Indicate that we have synced
+                if (done_anything)
+                {
+                    var now = DateTime.UtcNow;
+
+                    sd.web_library_detail.LastSynced = now;
+
+                    string syncfilepath = HistoricalSyncFile.GetSyncDbFilename(sd.web_library_detail);
+                    File.SetCreationTimeUtc(syncfilepath, now);
+                    File.SetLastWriteTimeUtc(syncfilepath, now);
                 }
             }
             finally
             {
-                sync_control_grid_item.library_sync_detail.web_library_detail.library.sync_in_progress = false;
+                sd.web_library_detail.Xlibrary.sync_in_progress = false;
 
-                // Indicate that we have synced
-                sync_control_grid_item.library_sync_detail.web_library_detail.library.WebLibraryDetail.LastSynced = DateTime.UtcNow;
                 WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
             }
 
-            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(sync_control_grid_item.library_sync_detail.web_library_detail.library), String.Format("Finished sync of {0}", sync_control_grid_item.LibraryTitle));
+            StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(sd.web_library_detail), String.Format("Finished sync of {0}", sync_control_grid_item.LibraryTitle));
         }
 
-        private void SynchronizeMetadata_INTERNAL_BACKGROUND(Library library, bool restricted_metadata_sync, bool is_readonly)
+        private void SynchronizeMetadata_INTERNAL_BACKGROUND(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, bool is_readonly)
         {
-            Dictionary<string, string> historical_sync_file = HistoricalSyncFile.GetHistoricalSyncFile(library);
+            Dictionary<string, string> historical_sync_file = HistoricalSyncFile.GetHistoricalSyncFile(web_library_detail);
+
             try
             {
-                SynchronisationStates ss = SynchronisationStateBuilder.Build(library, historical_sync_file);
-                SynchronisationAction sa = SynchronisationActionBuilder.Build(library, ss);
-                SynchronisationExecutor.Sync(library, restricted_metadata_sync, is_readonly, historical_sync_file, sa);
+                SynchronisationStates ss = SynchronisationStateBuilder.Build(web_library_detail, historical_sync_file);
+                SynchronisationAction sa = SynchronisationActionBuilder.Build(web_library_detail, ss);
+                SynchronisationExecutor.Sync(web_library_detail, restricted_metadata_sync, is_readonly, historical_sync_file, sa);
             }
             catch (Exception ex)
             {
                 UnhandledExceptionMessageBox.DisplayException(ex);
             }
 
-            HistoricalSyncFile.PutHistoricalSyncFile(library, historical_sync_file);
+            HistoricalSyncFile.PutHistoricalSyncFile(web_library_detail, historical_sync_file);
         }
 
-        private void SynchronizeDocuments_Download_INTERNAL_BACKGROUND(Library library, List<PDFDocument> pdf_documents, bool is_readonly)
+        private void SynchronizeDocuments_Download_INTERNAL_BACKGROUND(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, bool is_readonly)
         {
             int total_downloads_requested = 0;
 
@@ -368,48 +381,48 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 if (pdf_document.IsVanillaReference) continue;
 
                 ++total_downloads_requested;
-                SyncQueues.Instance.QueueGet(pdf_document.Fingerprint, library);
+                SyncQueues.Instance.QueueGet(pdf_document.Fingerprint, web_library_detail);
             }
 
             Logging.Info("Queueing {0} PDF download requests.", total_downloads_requested);
         }
 
-        private void SynchronizeDocuments_Upload_INTERNAL_BACKGROUND(Library library, List<PDFDocument> pdf_documents, bool is_readonly)
+        private void SynchronizeDocuments_Upload_INTERNAL_BACKGROUND(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, bool is_readonly)
         {
             // TODO: Replace this with a pretty interface class ------------------------------------------------
             if (is_readonly)
             {
                 // Do nothing...
-                Logging.Info("Not queueing upload of PDFs for readonly library.");
+                Logging.Info("Not queueing upload of PDFs for read-only library '{0}'.", web_library_detail);
             }
-            else if (library.WebLibraryDetail.IsIntranetLibrary)
+            else if (web_library_detail.IsIntranetLibrary)
             {
-                SyncQueues_Intranet.QueueUploadOfMissingPDFs(library, pdf_documents);
+                SyncQueues_Intranet.QueueUploadOfMissingPDFs(web_library_detail, pdf_documents);
             }
             else
             {
-                throw new Exception(String.Format("Did not understand how to queue upload PDFs for library {0}", library.WebLibraryDetail.Title));
+                throw new Exception(String.Format("Did not understand how to queue upload PDFs for library {0}", web_library_detail.Title));
             }
             // -----------------------------------------------------------------------------------------------------
         }
 
-        public void QueuePut(Library library, string[] fingerprints)
+        public void QueuePut(WebLibraryDetail web_library_detail, string[] fingerprints)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncUploadSinglePDF);
 
             foreach (string fingerprint in fingerprints)
             {
-                SyncQueues.Instance.QueuePut(fingerprint, library);
+                SyncQueues.Instance.QueuePut(fingerprint, web_library_detail);
             }
         }
 
-        public void QueueGet(Library library, string[] fingerprints)
+        public void QueueGet(WebLibraryDetail web_library_detail, string[] fingerprints)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncDownloadSinglePDF);
 
             foreach (string fingerprint in fingerprints)
             {
-                SyncQueues.Instance.QueueGet(fingerprint, library);
+                SyncQueues.Instance.QueueGet(fingerprint, web_library_detail);
             }
         }
     }

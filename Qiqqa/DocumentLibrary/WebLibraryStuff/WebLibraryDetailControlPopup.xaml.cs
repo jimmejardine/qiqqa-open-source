@@ -22,8 +22,20 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             popup = new AugmentedPopup(this);
 
             MenuOpenLibrary.Click += MenuOpenLibrary_Click;
+            MenuDeleteLibrary.Click += MenuDeleteLibrary_Click;
+            MenuRenameLibrary.Click += MenuRenameLibrary_Click;
             MenuCustomiseIcon.Click += MenuCustomiseIcon_Click;
             MenuCustomiseBackground.Click += MenuCustomiseBackground_Click;
+        }
+
+        private void MenuRenameLibrary_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
+        }
+
+        private void MenuDeleteLibrary_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
         }
 
         private void MenuCustomiseBackground_Click(object sender, RoutedEventArgs e)

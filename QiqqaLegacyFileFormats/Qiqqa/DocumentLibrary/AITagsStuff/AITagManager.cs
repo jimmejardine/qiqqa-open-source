@@ -14,7 +14,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.AIT
     public class AITagManager
     {
         private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        public Library LibraryRef => library?.TypedTarget;
 
         private AITags current_ai_tags_record;
         private object in_progress_lock = new object();
@@ -43,7 +43,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.AIT
             }
         }
 
-        private string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
+        private string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.autotags"));
 
         public AITags AITags => current_ai_tags_record;
     }

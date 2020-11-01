@@ -94,8 +94,8 @@ namespace Utilities.Misc
                     }
                 }
             }
-            
-            // Produce a decent Perunage value for any progress status, even when 
+
+            // Produce a decent Perunage value for any progress status, even when
             // `total_update_count` is ZERO.
             public double UpdatePerunage
             {
@@ -154,7 +154,7 @@ namespace Utilities.Misc
             }
 
             // Do log the statuses (above) but stop updating the UI when we're shutting down:
-            if (!Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (!ShutdownableManager.Instance.IsShuttingDown)
             {
                 StatusEntry status_entry;
 

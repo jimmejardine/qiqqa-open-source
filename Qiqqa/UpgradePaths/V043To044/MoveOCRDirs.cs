@@ -1,4 +1,5 @@
 ﻿using System;
+using Qiqqa.Common.Configuration;
 using Qiqqa.UpgradePaths.V037To038;
 using Utilities;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -14,8 +15,8 @@ namespace Qiqqa.UpgradePaths.V043To044
         {
             try
             {
-                string OLD = Path.GetFullPath(Path.Combine(SQLiteUpgrade.BaseDirectoryForQiqqa, @"Temp"));
-                string NEW = Path.GetFullPath(Path.Combine(SQLiteUpgrade.BaseDirectoryForQiqqa, @"ocr"));
+                string OLD = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Temp"));
+                string NEW = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"ocr"));
 
                 if (!Directory.Exists(NEW))
                 {

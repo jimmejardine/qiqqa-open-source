@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using icons;
 using Qiqqa.Brainstorm.SceneManager;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 
@@ -46,12 +47,14 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_AutoTag_Documents);
 
-            HashSet<string> document_fingerprints = pdf_auto_tag_node_content.Library.AITagManager.AITags.GetDocumentsWithTag(pdf_auto_tag_node_content.Tag);
-            List<PDFDocument> pdf_documents = pdf_auto_tag_node_content.Library.GetDocumentByFingerprints(document_fingerprints);
+            WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(pdf_auto_tag_node_content.LibraryId);
+
+            HashSet<string> document_fingerprints = web_library_detail.Xlibrary.AITagManager.AITags.GetDocumentsWithTag(pdf_auto_tag_node_content.Tag);
+            List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(document_fingerprints);
 
             foreach (PDFDocument pdf_document in pdf_documents)
             {
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
+                PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
                 NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
             }
         }

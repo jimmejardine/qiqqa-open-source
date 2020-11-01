@@ -256,7 +256,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ObjHyperlinkGuestPreviewMoveDefault.Click += ObjHyperlinkGuestPreviewMoveDefault_Click;
             ObjHyperlinkGuestPreviewVanillaAttach.Click += ObjHyperlinkGuestPreviewVanillaAttach_Click;
 
-            ObjReadOnlyInfoBar.Visibility = pdf_document.Library.WebLibraryDetail.IsReadOnly ? Visibility.Visible : Visibility.Collapsed;
+            ObjReadOnlyInfoBar.Visibility = pdf_document.LibraryRef.IsReadOnlyLibrary ? Visibility.Visible : Visibility.Collapsed;
 
             DataContext = pdf_document.Bindable;
 
@@ -339,13 +339,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
 
                 FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_Document);
-                MainWindowServiceDispatcher.Instance.OpenExpedition(pdf_renderer_control_stats.pdf_document.Library, pdf_renderer_control_stats.pdf_document);
+                MainWindowServiceDispatcher.Instance.OpenExpedition(pdf_renderer_control_stats.pdf_document.LibraryRef, pdf_renderer_control_stats.pdf_document);
             }
         }
 
         private void ButtonOpenLibrary_Click(object sender, RoutedEventArgs e)
         {
-            MainWindowServiceDispatcher.Instance.OpenLibrary(pdf_renderer_control_stats.pdf_document.Library);
+            MainWindowServiceDispatcher.Instance.OpenLibrary(pdf_renderer_control_stats.pdf_document.LibraryRef);
         }
 
         #region IDisposable
@@ -907,7 +907,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             if (0 < web_library_details.Count)
             {
                 WebLibraryDetail web_library_detail = web_library_details[0];
-                if (WebLibraryManager.Instance.WebLibraryDetails_Guest != web_library_detail)
+                if (WebLibraryManager.Instance.Library_Guest != web_library_detail)
                 {
                     ObjHyperlinkGuestPreviewMoveDefault.Content = "Move to " + web_library_detail.Title;
                     ObjHyperlinkGuestPreviewMoveDefault.Tag = web_library_detail;
@@ -973,7 +973,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail.library, false);
+                PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail, false);
 
                 WPFDoEvents.InvokeInUIThread(() =>
                 {

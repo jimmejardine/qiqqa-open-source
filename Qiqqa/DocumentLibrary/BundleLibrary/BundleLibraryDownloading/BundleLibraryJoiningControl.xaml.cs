@@ -12,6 +12,7 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Internet;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
 {
@@ -71,6 +72,12 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
                 StatusManager.Instance.ClearCancelled(STATUS_TOKEN);
                 while (!download_async_tracker.DownloadComplete)
                 {
+                    if (ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Logging.Error("Canceling download of Bundle Library due to signaled application shutdown");
+                        StatusManager.Instance.SetCancelled(STATUS_TOKEN);
+                    }
+
                     if (StatusManager.Instance.IsCancelled(STATUS_TOKEN))
                     {
                         download_async_tracker.Cancel();
@@ -78,7 +85,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
                     }
 
                     StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Downloading Bundle Library...", download_async_tracker.ProgressPercentage, 100, true);
-                    Thread.Sleep(1000);
+
+                    ShutdownableManager.Sleep(3000);
                 }
 
                 // Check the reason for exiting

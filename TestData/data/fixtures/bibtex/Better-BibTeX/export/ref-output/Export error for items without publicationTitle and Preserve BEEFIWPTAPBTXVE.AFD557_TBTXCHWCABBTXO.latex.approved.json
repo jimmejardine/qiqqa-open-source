@@ -1,0 +1,17 @@
+﻿{
+  "Items": [
+    {
+      "Type": "book",
+      "Key": "Blandford2006",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Blandford, Roger D. and Thorne, Kip S.",
+        "date": "2006",
+        "publisher": "Caltech",
+        "title": "Applications of Classical Physics"
+      }
+    }
+  ],
+  "Comments": []
+}

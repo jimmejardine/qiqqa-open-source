@@ -38,7 +38,8 @@ LIBRARY/CAP/ADD_REFERENCE:Добавить не PDF ссылку
 LIBRARY/CAP/ANNOTATION_REPORT:Отчет по\nзаметкам
 LIBRARY/CAP/BIBTEX_SNIFFER:BibTex\nпоиск
 LIBRARY/CAP/BUILD_BUNDLE_LIBRARY:Собрать пакетную библиотеку
-LIBRARY/CAP/EDIT_DELETE:Редактировать/Удалить
+LIBRARY/CAP/EDIT:Редактировать
+LIBRARY/CAP/DELETE:Удалить
 LIBRARY/CAP/EXPLORE:Просмотр\nбиблиотеки
 LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE:Экспорт заметок в исх.коде
 LIBRARY/CAP/EXPORT_BIBTEX:Экспорт BibTex ссылок для использования в LaTeX
@@ -69,7 +70,8 @@ LIBRARY/TIP/BIBTEX_AUTOFIND:Поиск BibTeX по базе данных Qiqqa.
 LIBRARY/TIP/BIBTEX_SNIFFER:Позволяет быстро найти недостающие метаданные BibTex.
 LIBRARY/TIP/BRAINSTORM:Ознакомьтесь с текущей библиотекой в ​​мозговом штурме.
 LIBRARY/TIP/BUILD_BUNDLE_LIBRARY:Создать новую пакетную библиотеку для текущей библиотеки.
-LIBRARY/TIP/EDIT_DELETE:Изменить название или описание текущей библиотеки, или удалить ее
+LIBRARY/TIP/EDIT:Изменить название или описание текущей библиотеки
+LIBRARY/TIP/DELETE:удалить библиотеки
 LIBRARY/TIP/EXPEDITION:Запуск Исследования в текущей библиотеке.
 LIBRARY/TIP/EXPLORE:Узнайте больше о вашей библиотеке. Найдите что-то интересное.
 LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE:Экспорт заметок в формат, который может быть использован другими программами.

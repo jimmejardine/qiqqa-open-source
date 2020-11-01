@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Qiqqa.Common.GUI;
+using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
@@ -46,8 +47,9 @@ namespace Qiqqa.Common.DocumentPickerStuff
                 string query = ObjSearchFilter.Text;
                 if (!String.IsNullOrEmpty(query))
                 {
-                    HashSet<string> fingerprints = web_library_detail.library.GetDocumentFingerprintsWithKeyword(query);
-                    List<PDFDocument> pdf_documents = web_library_detail.library.GetDocumentByFingerprints(fingerprints);
+                    Library library = web_library_detail.Xlibrary;
+                    HashSet<string> fingerprints = library.GetDocumentFingerprintsWithKeyword(query);
+                    List<PDFDocument> pdf_documents = library.GetDocumentByFingerprints(fingerprints);
 
                     List<PDFDocument> pdf_documents_sorted = new List<PDFDocument>(pdf_documents.OrderBy(x => x.TitleCombined));
                     bool alternator = false;

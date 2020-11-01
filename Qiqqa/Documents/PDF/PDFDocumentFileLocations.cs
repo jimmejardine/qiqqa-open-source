@@ -1,5 +1,6 @@
 ﻿using System;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -16,10 +17,10 @@ namespace Qiqqa.Documents.PDF
         public static readonly string CITATIONS = "citations";
 
 
-        internal static string DocumentBasePath(Library library, string fingerprint)
+        internal static string DocumentBasePath(WebLibraryDetail web_library_detail, string fingerprint)
         {
             char folder_id = fingerprint[0];
-            return Path.GetFullPath(Path.Combine(library.LIBRARY_DOCUMENTS_BASE_PATH, String.Format(@"{0}", folder_id)));
+            return Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH, String.Format(@"{0}", folder_id)));
         }
 
         /// <summary>
@@ -28,9 +29,9 @@ namespace Qiqqa.Documents.PDF
         /// <param name="fingerprint"></param>
         /// <param name="file_type"></param>
         /// <returns></returns>
-        internal static string DocumentPath(Library library, string fingerprint, string file_type)
+        internal static string DocumentPath(WebLibraryDetail web_library_detail, string fingerprint, string file_type)
         {
-            return Path.GetFullPath(Path.Combine(DocumentBasePath(library, fingerprint), String.Format(@"{0}.{1}", fingerprint, file_type)));
+            return Path.GetFullPath(Path.Combine(DocumentBasePath(web_library_detail, fingerprint), String.Format(@"{0}.{1}", fingerprint, file_type)));
         }
     }
 }

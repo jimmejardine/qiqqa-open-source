@@ -32,16 +32,16 @@ namespace Qiqqa.Common
                     string library_id = parts[1];
                     string document_fingerprint = parts[2];
 
-                    Library library = WebLibraryManager.Instance.GetLibrary(library_id);
-                    if (null == library)
+                    WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(library_id);
+                    if (null == web_library_detail)
                     {
-                        throw new GenericException("Unknown library for qiqqa protocol open request: {0}", filename);
+                        throw new GenericException("Unknown library for Qiqqa protocol open request: {0}", filename);
                     }
 
-                    PDFDocument pdf_document = library.GetDocumentByFingerprint(document_fingerprint);
+                    PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(document_fingerprint);
                     if (null == pdf_document)
                     {
-                        throw new GenericException("Unknown document for qiqqa protocol open request: {0} @ fingerprint {1}", filename, document_fingerprint);
+                        throw new GenericException("Unknown document for Qiqqa protocol open request: {0} @ fingerprint {1}", filename, document_fingerprint);
                     }
 
                     MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
@@ -49,7 +49,7 @@ namespace Qiqqa.Common
 
                 else
                 {
-                    throw new GenericException("Unknown qiqqa protocol request: {0}", filename);
+                    throw new GenericException("Unknown Qiqqa protocol request: {0}", filename);
                 }
             }
             catch (Exception ex)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using IWshRuntimeLibrary;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Utilities.Language;
@@ -15,15 +16,15 @@ namespace Qiqqa.Exporting
 {
     internal class LibraryExporter_Directories
     {
-        internal static void Export(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        internal static void Export(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
-            Export_Directories_Titles(library, base_path, pdf_document_export_items);
-            Export_Directories_Authors(library, base_path, pdf_document_export_items);
-            Export_Directories_Tags(library, base_path, pdf_document_export_items);
-            Export_Directories_AutoTags(library, base_path, pdf_document_export_items);
+            Export_Directories_Titles(web_library_detail, base_path, pdf_document_export_items);
+            Export_Directories_Authors(web_library_detail, base_path, pdf_document_export_items);
+            Export_Directories_Tags(web_library_detail, base_path, pdf_document_export_items);
+            Export_Directories_AutoTags(web_library_detail, base_path, pdf_document_export_items);
         }
 
-        private static void Export_Directories_Titles(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        private static void Export_Directories_Titles(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             WshShell shell = new WshShell();
 
@@ -44,7 +45,7 @@ namespace Qiqqa.Exporting
             }
         }
 
-        private static void Export_Directories_Authors(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        private static void Export_Directories_Authors(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             WshShell shell = new WshShell();
 
@@ -71,7 +72,7 @@ namespace Qiqqa.Exporting
             }
         }
 
-        private static void Export_Directories_Tags(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        private static void Export_Directories_Tags(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             WshShell shell = new WshShell();
 
@@ -97,7 +98,7 @@ namespace Qiqqa.Exporting
             }
         }
 
-        private static void Export_Directories_AutoTags(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        private static void Export_Directories_AutoTags(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             WshShell shell = new WshShell();
 
@@ -108,7 +109,7 @@ namespace Qiqqa.Exporting
             {
                 try
                 {
-                    foreach (string tag in library.AITagManager.AITags.GetTagsWithDocument(item.pdf_document.Fingerprint))
+                    foreach (string tag in web_library_detail.Xlibrary.AITagManager.AITags.GetTagsWithDocument(item.pdf_document.Fingerprint))
                     {
                         string tag_base_path = Path.GetFullPath(Path.Combine(tags_base_path, FileTools.MakeSafeFilename(tag)));
                         Directory.CreateDirectory(tag_base_path);

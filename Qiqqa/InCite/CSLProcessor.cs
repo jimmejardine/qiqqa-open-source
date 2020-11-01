@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
@@ -26,7 +27,7 @@ namespace Qiqqa.InCite
 
         # region --- Snippets --------------------------------------------------------------------------------------------------------------
 
-        public static void GenerateRtfCitationSnippet(bool suppress_messages, List<PDFDocument> pdf_documents, string style_file, Library primary_library, CSLProcessorOutputConsumer.BibliographyReadyDelegate brd = null)
+        public static void GenerateRtfCitationSnippet(bool suppress_messages, List<PDFDocument> pdf_documents, string style_file, CSLProcessorOutputConsumer.BibliographyReadyDelegate brd)
         {
             if (null == brd) brd = GenerateRtfCitationSnippet_OnBibliographyReady;
 
@@ -34,7 +35,7 @@ namespace Qiqqa.InCite
             EnsureWorkingDirectoryIsPukka_WithCode();
             bool is_note_format;
             EnsureWorkingDirectoryIsPukka_WithStyle(style_file, out is_note_format);
-            string citations_javascript = EnsureWorkingDirectoryIsPukka_WithCitations_Snippet(suppress_messages, pdf_documents, primary_library);
+            string citations_javascript = EnsureWorkingDirectoryIsPukka_WithCitations_Snippet(suppress_messages, pdf_documents);
             CSLProcessorOutputConsumer csl_poc = new CSLProcessorOutputConsumer(BASE_PATH, citations_javascript, brd, null);
         }
 
@@ -44,7 +45,7 @@ namespace Qiqqa.InCite
             {
                 string snippet_rtf = ip.GetRtf();
 
-                // Set the clipbaord
+                // Set the clipboard
                 ClipboardTools.SetRtf(snippet_rtf);
                 StatusManager.Instance.UpdateStatus("InCiteCitationSnippet", String.Format("{0} citation(s) copied to the clipboard.", ip.bibliography.Count));
             }
@@ -71,7 +72,7 @@ namespace Qiqqa.InCite
 
         #endregion
 
-        public static void RefreshDocument(WordConnector word_connector, string style_file, Library primary_library)
+        public static void RefreshDocument(WordConnector word_connector, string style_file, WebLibraryDetail primary_library)
         {
             // Build up all the files we need to run the CSL processor
             StatusManager.Instance.UpdateStatus("InCite", "Building InCite code scripts", 1, 5);
@@ -175,7 +176,7 @@ namespace Qiqqa.InCite
             File.WriteAllText(style_filename, sb.ToString());
         }
 
-        private static string EnsureWorkingDirectoryIsPukka_WithCitations_Word(WordConnector word_connector, Library primary_library)
+        private static string EnsureWorkingDirectoryIsPukka_WithCitations_Word(WordConnector word_connector, WebLibraryDetail primary_library)
         {
             // Get all the citations from the word doc
             List<CitationCluster> citation_clusters = word_connector.GetAllCitationClustersFromCurrentDocument();
@@ -186,7 +187,7 @@ namespace Qiqqa.InCite
             return EnsureWorkingDirectoryIsPukka_WithCitations_Common(citation_clusters, primary_library);
         }
 
-        private static string EnsureWorkingDirectoryIsPukka_WithCitations_Snippet(bool suppress_messages, List<PDFDocument> pdf_documents, Library primary_library)
+        private static string EnsureWorkingDirectoryIsPukka_WithCitations_Snippet(bool suppress_messages, List<PDFDocument> pdf_documents)
         {
             List<PDFDocument> skipped_pdf_documents = new List<PDFDocument>();
 
@@ -198,7 +199,7 @@ namespace Qiqqa.InCite
                 if (!String.IsNullOrEmpty(bibtex_key))
                 {
                     CitationCluster cc = new CitationCluster();
-                    CitationItem ci = new CitationItem(bibtex_key, pdf_document.Library.WebLibraryDetail.Id);
+                    CitationItem ci = new CitationItem(bibtex_key, pdf_document.LibraryRef.Id);
                     cc.citation_items.Add(ci);
                     citation_clusters.Add(cc);
                 }
@@ -217,7 +218,7 @@ namespace Qiqqa.InCite
                 }
             }
 
-            return EnsureWorkingDirectoryIsPukka_WithCitations_Common(citation_clusters, primary_library);
+            return EnsureWorkingDirectoryIsPukka_WithCitations_Common(citation_clusters, null);
         }
 
         private static string EnsureWorkingDirectoryIsPukka_WithCitations_CSLEditor(string citation_javascript)
@@ -225,9 +226,9 @@ namespace Qiqqa.InCite
             return EnsureWorkingDirectoryIsPukka_WithCitations_Common_FileWrite(citation_javascript);
         }
 
-        private static string EnsureWorkingDirectoryIsPukka_WithCitations_Common(List<CitationCluster> citation_clusters, Library primary_library)
+        private static string EnsureWorkingDirectoryIsPukka_WithCitations_Common(List<CitationCluster> citation_clusters, WebLibraryDetail primary_library)
         {
-            // Get all the equivalent bibtexes from the libraries
+            // Get all the equivalent BibTeX records from the libraries
             Dictionary<string, CSLProcessorBibTeXFinder.MatchingBibTeXRecord> bitex_items = CSLProcessorBibTeXFinder.Find(citation_clusters, primary_library);
 
             // Get the uses of these citations
@@ -236,7 +237,7 @@ namespace Qiqqa.InCite
             // Get the abbreviations (if any)
             Dictionary<string, string> abbreviations = CSLProcessorTranslator_AbbreviationsManager.GetAbbreviations();
 
-            // Translate each bibtex into the corresponding csl javascript record
+            // Translate each BibTeX into the corresponding CSL JavaScript record
             string citation_init = CSLProcessorTranslator_BibTeXToJavaScript.Translate_INIT(bitex_items);
             string citation_database = CSLProcessorTranslator_BibTeXToJavaScript.Translate_DATABASE(bitex_items, abbreviations);
 

@@ -6,6 +6,7 @@ using System.Windows.Media;
 using Qiqqa.Common;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities.GUI;
@@ -23,7 +24,7 @@ namespace Qiqqa.Expedition
 
         public class TopicOverviewData
         {
-            public Library library;
+            public WebLibraryDetail web_library_detail;
             public int topic;
         }
 
@@ -54,8 +55,8 @@ namespace Qiqqa.Expedition
             }
 
             // Quick refs
-            ExpeditionDataSource eds = tod.library.ExpeditionManager.ExpeditionDataSource;
-            LDAAnalysis lda_analysis = tod.library.ExpeditionManager.ExpeditionDataSource.LDAAnalysis;
+            ExpeditionDataSource eds = tod.web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+            LDAAnalysis lda_analysis = tod.web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis;
 
             // First the terms header
             {
@@ -71,7 +72,7 @@ namespace Qiqqa.Expedition
 
                 for (int d = 0; d < NUM_DOCS && d < eds.docs.Count; ++d)
                 {
-                    PDFDocument pdf_document = tod.library.GetDocumentByFingerprint(eds.docs[lda_analysis.DensityOfDocsInTopicsSorted[tod.topic][d].doc]);
+                    PDFDocument pdf_document = tod.web_library_detail.Xlibrary.GetDocumentByFingerprint(eds.docs[lda_analysis.DensityOfDocsInTopicsSorted[tod.topic][d].doc]);
 
                     string doc_percentage = String.Format("{0:N0}%", 100 * lda_analysis.DensityOfDocsInTopicsSorted[tod.topic][d].prob);
 
@@ -109,7 +110,7 @@ namespace Qiqqa.Expedition
         {
             AugmentedButton button_brainstorm = sender as AugmentedButton;
             TopicOverviewData tod = button_brainstorm.Tag as TopicOverviewData;
-            MainWindowServiceDispatcher.Instance.ExploreTopicInBrainstorm(tod.library, tod.topic);
+            MainWindowServiceDispatcher.Instance.ExploreTopicInBrainstorm(tod.web_library_detail, tod.topic);
         }
 
         private void TopicDocumentPressed_MouseButtonEventHandler(object sender, MouseButtonEventArgs e)

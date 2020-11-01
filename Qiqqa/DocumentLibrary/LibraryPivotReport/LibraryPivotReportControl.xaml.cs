@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using icons;
 using Microsoft.Win32;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Syncfusion.Windows.Controls.Grid;
 using Utilities;
@@ -22,7 +23,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
     /// </summary>
     public partial class LibraryPivotReportControl : UserControl
     {
-        public Library Library { get; set; }
+        public WebLibraryDetail LibraryRef { get; set; }
         public List<PDFDocument> PDFDocuments { get; set; }
 
         private LibraryPivotReportBuilder.PivotResult last_pivot_result = null;
@@ -122,8 +123,8 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 }
             }
 
-            MultiMapSet<string, string> map_y_axis = LibraryPivotReportBuilder.GenerateAxisMap((string)ObjYAxis.SelectedItem, Library, parent_fingerprints);
-            MultiMapSet<string, string> map_x_axis = LibraryPivotReportBuilder.GenerateAxisMap((string)ObjXAxis.SelectedItem, Library, parent_fingerprints);
+            MultiMapSet<string, string> map_y_axis = LibraryPivotReportBuilder.GenerateAxisMap((string)ObjYAxis.SelectedItem, LibraryRef, parent_fingerprints);
+            MultiMapSet<string, string> map_x_axis = LibraryPivotReportBuilder.GenerateAxisMap((string)ObjXAxis.SelectedItem, LibraryRef, parent_fingerprints);
             LibraryPivotReportBuilder.IdentifierImplementations.IdentifierImplementationDelegate identifier_implementation = LibraryPivotReportBuilder.IdentifierImplementations.GetIdentifierImplementation((string)ObjIdentifier.SelectedItem);
 
             LibraryPivotReportBuilder.PivotResult pivot_result = LibraryPivotReportBuilder.GeneratePivot(map_y_axis, map_x_axis);
@@ -162,7 +163,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
                 for (int x = 0; x < pivot_result.x_keys.Count; ++x)
                 {
-                    identifier_implementation(Library, pivot_result.common_fingerprints[y, x], ObjGridControl.Model[y + 1, x + 1]);
+                    identifier_implementation(LibraryRef, pivot_result.common_fingerprints[y, x], ObjGridControl.Model[y + 1, x + 1]);
                 }
             }
             StatusManager.Instance.UpdateStatus("LibraryPivot", "Finished library pivot");

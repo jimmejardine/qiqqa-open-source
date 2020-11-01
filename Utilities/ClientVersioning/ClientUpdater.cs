@@ -73,7 +73,7 @@ namespace Utilities.ClientVersioning
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "Problem checking for new client version");
+                Logging.Error(ex, "Problem checking for new client version at URL: {0}", _clientVersionUrl);
             }
         }
 

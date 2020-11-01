@@ -1,0 +1,3 @@
+[submodule "MuPDF"]
+	path = MuPDF
+	url = git@github.com:GerHobbelt/mupdf.git

@@ -1,0 +1,198 @@
+% gleaned from https://github.com/retorquere/zotero-better-bibtex/issues/565
+
+@article{Mothe2019, publisher = {{MDPI} {AG}}, 
+author = {{Le Vayer}, Fran{\c c}ois de La Mothe}, 
+title = {Bla bla bla}, journal = {Forests} }
+
+@article{dM1, 
+author = {de’​ Medici, Lorenzo}, 
+title = {Bla bla bla 2} }
+
+@article{dM2, 
+author = {de’\mbox{}​ Medici, Lorenzo}, 
+title = {Bla bla bla 2} }
+
+@article{dM3, 
+author = {de’\hspace{0pt}​ Medici, Lorenzo}, 
+title = {Bla bla bla 2} }
+
+% \relax{}<SPACE> does not work, it has to be \relax<SPACE>
+@article{dM4, 
+author = {de’\relax{}​ Medici, Lorenzo}, 
+title = {Bla bla bla 2} }
+
+@article{dM5, 
+author = {de’\relax​ Medici, Lorenzo}, 
+title = {Bla bla bla 2} }
+
+% Hufflen (2006) recommends {\aftergroup\ignorespaces}<SPACE> instead (if that’s easier for BBT than \relax<SPACE>)
+@article{dM6, 
+author = {de’{\aftergroup\ignorespaces} Medici, Lorenzo}, 
+title = {Bla bla bla 2} }
+
+% A trick I sometimes see on TSE is to add (configurably of course) the non-particled last name as a no-op to force sorting, something like
+%
+% author = {\noop{Macedo}de Macedo, Agostinho José da Costa}
+
+@article{dM7, 
+author = {\noop{Macedo}de Macedo, Agostinho José da Costa}, 
+title = {Bla bla bla 2} }
+
+@article{dM8, 
+author = {du Puy de Clinchamps, {\relax Ph}ilippe}, 
+title = {Bla bla bla 2} }
+
+@article{dM9, 
+author = {{National Aeronautics and Space Administration}}, 
+title = {Bla bla bla 2} }
+
+@article{dM10, 
+author = {{'s-Gravesande}, Goverdus and {al-Hakim}, Tawfiq and {d'Alembert}, Jean le Rond}, 
+title = {Bla bla bla 2} }
+
+@article{dM11, 
+author = {el-Sadat, Anwar and {Ortega y Gasset}, Jos{\'e}}, 
+title = {Bla bla bla 2} }
+
+@article{dM12, 
+author = {de {La Salle}, Ren{\'e}-Robert Cavelier}, 
+title = {Bla bla bla 2} }
+
+@article{dM13, 
+author = {{La Follette}, Sr., Robert M.}, 
+title = {Bla bla bla 2} }
+
+@article{dM14, 
+author = {Medici, Lorenzo de'\hspace{0pt}}, 
+title = {Bla bla bla 2} }
+
+
+@book{CUDA, 
+   author = {{NVIDIA Corporation}}, 
+   title = {NVIDIA CUDA Compute Unified Device Architecture Programming Guide}, 
+   publisher = {NVIDIA Corporation}, 
+   year = {2007}
+}
+
+@article{dM15, 
+author = "{Barnes and Noble, Inc.}"
+,title = {Bla bla bla 2} }
+
+@article{dM15, 
+author = "{FCC H2020 Project}"
+,title = {Bla bla bla 2} }
+
+@book{hawking1988,
+      title     = "A Brief History of Time: From the {B}ig {B}ang to Black Holes",
+      author    = "Hawking, Stephen",
+      year      = 1988,
+      publisher = "Bantam",
+      address   = "London"
+    }
+
+% https://www.overleaf.com/learn/latex/Bibliography_management_with_natbib
+
+@article{einstein,
+    author =       "Albert Einstein",
+    title =        "{Zur Elektrodynamik bewegter K{\"o}rper}. ({German})
+        [{On} the electrodynamics of moving bodies]",
+    journal =      "Annalen der Physik",
+    volume =       "322",
+    number =       "10",
+    pages =        "891--921",
+    year =         "1905",
+    DOI =          "http://dx.doi.org/10.1002/andp.19053221004"
+}
+
+@book{latexcompanion,
+    author    = "Michel Goossens and Frank Mittelbach and Alexander Samarin",
+    title     = "The \LaTeX\ Companion",
+    year      = "1993",
+    publisher = "Addison-Wesley",
+    address   = "Reading, Massachusetts"
+}
+
+@misc{knuthwebsite,
+    author    = "Donald Knuth",
+    title     = "Knuth: Computers and Typesetting",
+    url       = "http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html"
+}
+
+@article{mrx05, 
+auTHor = "Mr. X", 
+Title = {Something Great}, 
+publisher = "nob" # "ody", 
+YEAR = 2005, 
+} 
+
+% http://www.bibtex.org/Format/
+
+It is important to know that abbreviations previously defined using the @string command can only be used in conjunction with other strings using the string concatenation.
+
+@string{btx = "{\textsc{Bib}\TeX}"} 
+
+@article{dM25, 
+author = "{FCC H2020 Project}",
+Title = btx # "ing"
+}
+
+For example, the following statements are equal:
+
+@article{dM26, 
+author = "{FCC H2020 Project}",
+Title = {{Bib}\TeX} 
+}
+
+@article{dM27, 
+author = "{FCC H2020 Project}",
+Title = "{Bib}\TeX" 
+}
+
+@article{dM28, 
+author = "{FCC H2020 Project}",
+Title = "{Bib}" # "\TeX" 
+}
+
+---
+
+@article{dM30, 
+author = "D[onald] E. Knuth",
+Title = "{Bib}" # "\TeX",
+month = jul # "~4,"
+}
+
+@article{dM31, 
+author = "\AA{ke} {Jos{\'{e}} {\'{E}douard} G{\"o}del" ,
+Title = "BibTeX"
+}
+
+@incollection{m85,
+   author={Maskin, Eric S.},
+   year={1985},
+   title={The theory of implementation in {N}ash equilibrium: a survey},
+   booktitle={Social Goals and Social Organization},
+   editor={Leonid Hurwicz and David Schmeidler and Hugo Sonnenschein},
+   pages={173-204},
+   publisher={Cambridge University Press},
+   address={Cambridge}
+}
+
+@inproceedings{ah2006,
+   author={Aggarwal, Gagan and Hartline, Jason D.},
+   year={2006},
+   title={Knapsack auctions},
+   booktitle={Proceedings of the 17th Annual ACM-SIAM Symposium on Discrete Algorithms},
+   pages={1083-1092},
+   publisher={Association for Computing Machinery},
+   address={New York}
+}
+
+@techreport{arrow48,
+  author = {Arrow, Kenneth J.},
+  title = {The possibility of a universal social welfare function},
+  institution = {RAND Corporation},
+  year = {1948},
+  number = {P-41},
+  type = {Report}
+}
+

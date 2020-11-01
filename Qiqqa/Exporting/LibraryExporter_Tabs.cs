@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
@@ -16,7 +17,7 @@ namespace Qiqqa.Exporting
 {
     internal class LibraryExporter_Tabs
     {
-        internal static void Export(Library library, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        internal static void Export(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             Logging.Info("Exporting entries to TAB separated");
 
@@ -67,7 +68,7 @@ namespace Qiqqa.Exporting
                 {
                     StatusManager.Instance.UpdateStatus("TabExport", String.Format("Exporting entry {0} of {1}", i, pdf_documents.Count), i, pdf_documents.Count);
 
-                    HashSet<string> autotags_set = pdf_document.Library.AITagManager.AITags.GetTagsWithDocument(pdf_document.Fingerprint);
+                    HashSet<string> autotags_set = pdf_document.LibraryRef.Xlibrary.AITagManager.AITags.GetTagsWithDocument(pdf_document.Fingerprint);
                     string autotags = ArrayFormatter.ListElements(autotags_set.ToList(), ";");
 
                     sb.AppendFormat(

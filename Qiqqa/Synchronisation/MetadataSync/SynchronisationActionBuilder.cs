@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities.Misc;
 
 namespace Qiqqa.Synchronisation.MetadataSync
 {
     internal class SynchronisationActionBuilder
     {
-        internal static SynchronisationAction Build(Library library, SynchronisationStates synchronisation_states)
+        internal static SynchronisationAction Build(WebLibraryDetail web_library_detail, SynchronisationStates synchronisation_states)
         {
             SynchronisationAction synchronisation_action = new SynchronisationAction();
 
@@ -21,11 +22,11 @@ namespace Qiqqa.Synchronisation.MetadataSync
                     || (0 == i % 500)
                     )
                 {
-                    StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(library), "Determining sync action", i, synchronisation_state_list.Count);
+                    StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Determining sync action", i, synchronisation_state_list.Count);
                 }
 
-                // NB: Ordering of these statements is important so dont reorder them!
-                
+                // NB: Ordering of these statements is important so don't reorder them!
+
                 // Not local, not remote: something dodgy in the history file, ignore it
                 if (null == synchronisation_state.md5_local && null == synchronisation_state.md5_remote)
                 {
@@ -62,7 +63,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
                     synchronisation_action.states_to_upload.Add(synchronisation_state);
                 }
 
-                // If local and remote dont match and neither match the previous value, we have a merge conflict
+                // If local and remote don't match and neither match the previous value, we have a merge conflict
                 else
                 {
                     synchronisation_action.states_to_merge.Add(synchronisation_state);

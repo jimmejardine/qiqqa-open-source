@@ -29,12 +29,12 @@ namespace Qiqqa.Brainstorm.Nodes
         private PDFDocumentNodeContent pdf_document_node_content;
 
         //
-        // Warning CA1001  Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates 
-        // members of the following IDisposable types: 'LibraryIndexHoverPopup'. 
-        // If 'PDFAnnotationNodeContentControl' has previously shipped, adding new members that implement 
+        // Warning CA1001  Implement IDisposable on 'PDFAnnotationNodeContentControl' because it creates
+        // members of the following IDisposable types: 'LibraryIndexHoverPopup'.
+        // If 'PDFAnnotationNodeContentControl' has previously shipped, adding new members that implement
         // IDisposable to this type is considered a breaking change to existing consumers.
         //
-        // Note from GHO: that object is already managed through the sequence of tooltip_open and tooltip_close 
+        // Note from GHO: that object is already managed through the sequence of tooltip_open and tooltip_close
         // handlers below and is currently not considered a memory leak risk for https://github.com/jimmejardine/qiqqa-open-source/issues/19
         // and there-abouts.
 
@@ -84,7 +84,7 @@ namespace Qiqqa.Brainstorm.Nodes
             List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(pdf_document_node_content.PDFDocument, 10);
             foreach (ExpeditionPaperSuggestions.Result result in results)
             {
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(result.pdf_document.Fingerprint, result.pdf_document.Library.WebLibraryDetail.Id);
+                PDFDocumentNodeContent content = new PDFDocumentNodeContent(result.pdf_document.Fingerprint, result.pdf_document.LibraryRef.Id);
                 NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
             }
         }
@@ -93,9 +93,9 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Similars);
 
-            if (null != pdf_document_node_content.PDFDocument.Library.ExpeditionManager)
+            if (null != pdf_document_node_content.PDFDocument.LibraryRef.Xlibrary.ExpeditionManager)
             {
-                ExpeditionDataSource eds = pdf_document_node_content.PDFDocument.Library.ExpeditionManager.ExpeditionDataSource;
+                ExpeditionDataSource eds = pdf_document_node_content.PDFDocument.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
                 if (null != eds)
                 {
                     if (eds.docs_index.ContainsKey(pdf_document_node_content.PDFDocument.Fingerprint))
@@ -109,7 +109,7 @@ namespace Qiqqa.Brainstorm.Nodes
                             distribution[topic_i] = density_of_topics_in_docs[doc_id, topic_i];
                         }
 
-                        ThemeNodeContentControl.AddDocumentsSimilarToDistribution(node_control, pdf_document_node_content.PDFDocument.Library, eds, distribution);
+                        ThemeNodeContentControl.AddDocumentsSimilarToDistribution(node_control, pdf_document_node_content.PDFDocument.LibraryRef, eds, distribution);
                     }
                 }
             }
@@ -121,9 +121,9 @@ namespace Qiqqa.Brainstorm.Nodes
 
             bool added_at_least_one_theme = false;
 
-            if (null != pdf_document_node_content.PDFDocument.Library.ExpeditionManager)
+            if (null != pdf_document_node_content.PDFDocument.LibraryRef.Xlibrary.ExpeditionManager)
             {
-                ExpeditionDataSource eds = pdf_document_node_content.PDFDocument.Library.ExpeditionManager.ExpeditionDataSource;
+                ExpeditionDataSource eds = pdf_document_node_content.PDFDocument.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
                 if (null != eds)
                 {
                     if (eds.docs_index.ContainsKey(pdf_document_node_content.PDFDocument.Fingerprint))
@@ -134,7 +134,7 @@ namespace Qiqqa.Brainstorm.Nodes
                         for (int t = 0; t < topics.Length && t < 5; ++t)
                         {
                             string topic_name = eds.GetDescriptionForTopic(topics[t].topic, include_topic_number: false, "\n");
-                            ThemeNodeContent tnc = new ThemeNodeContent(topic_name, pdf_document_node_content.PDFDocument.Library.WebLibraryDetail.Id);
+                            ThemeNodeContent tnc = new ThemeNodeContent(topic_name, pdf_document_node_content.PDFDocument.LibraryRef.Id);
                             NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, tnc, false);
 
                             added_at_least_one_theme = true;
@@ -157,7 +157,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
             foreach (var citation in citations)
             {
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(citation.fingerprint_outbound, pdf_document_node_content.PDFDocument.Library.WebLibraryDetail.Id);
+                PDFDocumentNodeContent content = new PDFDocumentNodeContent(citation.fingerprint_outbound, pdf_document_node_content.PDFDocument.LibraryRef.Id);
                 if (!content.PDFDocument.Deleted)
                 {
                     NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
@@ -174,7 +174,7 @@ namespace Qiqqa.Brainstorm.Nodes
             foreach (var citation in citations)
             {
                 // NB: We assube the citations are from the same library!!
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(citation.fingerprint_inbound, pdf_document_node_content.PDFDocument.Library.WebLibraryDetail.Id);
+                PDFDocumentNodeContent content = new PDFDocumentNodeContent(citation.fingerprint_inbound, pdf_document_node_content.PDFDocument.LibraryRef.Id);
                 if (!content.PDFDocument.Deleted)
                 {
                     NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
@@ -190,7 +190,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 if (!annotation.Deleted)
                 {
-                    PDFAnnotationNodeContent content = new PDFAnnotationNodeContent(pdf_document_node_content.PDFDocument.Library.WebLibraryDetail.Id, pdf_document_node_content.PDFDocument.Fingerprint, annotation.Guid.Value);
+                    PDFAnnotationNodeContent content = new PDFAnnotationNodeContent(pdf_document_node_content.PDFDocument.LibraryRef.Id, pdf_document_node_content.PDFDocument.Fingerprint, annotation.Guid.Value);
                     NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
                 }
             }
@@ -202,10 +202,10 @@ namespace Qiqqa.Brainstorm.Nodes
 
             PDFDocument pdf_document = pdf_document_node_content.PDFDocument;
 
-            HashSet<string> tags = pdf_document.Library.AITagManager.AITags.GetTagsWithDocument(pdf_document.Fingerprint);
+            HashSet<string> tags = pdf_document.LibraryRef.Xlibrary.AITagManager.AITags.GetTagsWithDocument(pdf_document.Fingerprint);
             foreach (string tag in tags)
             {
-                PDFAutoTagNodeContent pdf_auto_tag = new PDFAutoTagNodeContent(pdf_document.Library.WebLibraryDetail.Id, tag);
+                PDFAutoTagNodeContent pdf_auto_tag = new PDFAutoTagNodeContent(pdf_document.LibraryRef.Id, tag);
                 NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_auto_tag, false);
             }
         }
@@ -218,7 +218,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
             foreach (string tag in TagTools.ConvertTagBundleToTags(pdf_document.Tags))
             {
-                PDFTagNodeContent pdf_tag = new PDFTagNodeContent(pdf_document.Library.WebLibraryDetail.Id, tag);
+                PDFTagNodeContent pdf_tag = new PDFTagNodeContent(pdf_document.LibraryRef.Id, tag);
                 NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_tag, false);
             }
         }
@@ -242,7 +242,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 string first_names, last_name;
                 NameTools.SplitName_LEGACY(author_split, out first_names, out last_name);
                 string initial = String.IsNullOrEmpty(first_names) ? null : first_names.Substring(0, 1);
-                PDFAuthorNodeContent pdf_author = new PDFAuthorNodeContent(pdf_document.Library.WebLibraryDetail.Id, last_name, initial);
+                PDFAuthorNodeContent pdf_author = new PDFAuthorNodeContent(pdf_document.LibraryRef.Id, last_name, initial);
                 NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_author, false);
             }
         }

@@ -16,6 +16,7 @@ using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.LibraryFilter;
 using Qiqqa.DocumentLibrary.LibraryFilter.GenericLibraryExplorerStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
 using Syncfusion.Windows.Chart;
 using Utilities.Collections;
@@ -33,15 +34,15 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         public static readonly string YOU_CAN_FILTER_TOOLTIP = "\n\nYou can filter documents that contain them by clicking on one or more of the checkboxes to the left.\nIf you have selected 'AND' above, then a document must have all the items to be shown.\nIf you have selected 'OR', then a document must have any of the items to be shown.\nIf 'NOT' is selected, then the inverse of the filtered documents are shown.";
 
         private string description_title = "";
-        private Library library = null;
+        private WebLibraryDetail web_library_detail = null;
 
         public delegate void OnTagSelectionChangedDelegate(HashSet<string> fingerprints, Span descriptive_span);
         public event OnTagSelectionChangedDelegate OnTagSelectionChanged;
 
-        public delegate MultiMapSet<string, string> GetNodeItemsDelegate(Library library, HashSet<string> parent_fingerprints);
-        public delegate void OnItemPopupDelegate(Library library, string item_tag);
-        public delegate void OnItemDragOverDelegate(Library library, string item_tag, DragEventArgs e);
-        public delegate void OnItemDropDelegate(Library library, string item_tag, DragEventArgs e);
+        public delegate MultiMapSet<string, string> GetNodeItemsDelegate(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints);
+        public delegate void OnItemPopupDelegate(WebLibraryDetail web_library_detail, string item_tag);
+        public delegate void OnItemDragOverDelegate(WebLibraryDetail web_library_detail, string item_tag, DragEventArgs e);
+        public delegate void OnItemDropDelegate(WebLibraryDetail web_library_detail, string item_tag, DragEventArgs e);
 
         public GetNodeItemsDelegate GetNodeItems;
         public OnItemPopupDelegate OnItemPopup;
@@ -100,7 +101,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         {
             DateTime start_time = DateTime.Now;
 
-            MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(library, null);
+            MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(web_library_detail, null);
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("------------------------------------------------------------------------");
@@ -226,12 +227,12 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             set => description_title = value;
         }
 
-        public Library Library
+        public WebLibraryDetail LibraryRef
         {
-            get => library;
+            get => web_library_detail;
             set
             {
-                library = value;
+                web_library_detail = value;
                 Reset();
             }
         }
@@ -253,7 +254,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             bool exclusive = ObjBooleanAnd.IsChecked ?? true;
             bool is_negated = ObjBooleanNot.IsChecked ?? false;
 
-            MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(library, null);
+            MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(web_library_detail, null);
             MultiMapSet<string, string> tags_with_fingerprints = tags_with_fingerprints_ALL;
 
             // If this is exclusive mode, we want to constrain the list of items in the tree
@@ -274,7 +275,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                     }
                 }
 
-                tags_with_fingerprints = GetNodeItems(library, exclusive_fingerprints);
+                tags_with_fingerprints = GetNodeItems(web_library_detail, exclusive_fingerprints);
             }
 
             // Filter them by the user filter
@@ -330,7 +331,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 GenericLibraryExplorerItem item = new GenericLibraryExplorerItem
                 {
                     GenericLibraryExplorerControl = this,
-                    library = library,
+                    web_library_detail = web_library_detail,
 
                     tag = tag,
                     fingerprints = tags_with_fingerprints[tag],
@@ -382,7 +383,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             // Implement the NEGATION
             if (is_negated && 0 < fingerprints.Count)
             {
-                HashSet<string> negated_fingerprints = library.GetAllDocumentFingerprints();
+                HashSet<string> negated_fingerprints = web_library_detail.Xlibrary.GetAllDocumentFingerprints();
                 fingerprints = new HashSet<string>(negated_fingerprints.Except(fingerprints));
             }
 
@@ -460,7 +461,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
     }
 
 
-    #region --- Useful ancilliary classes ------------
+    #region --- Useful ancillary classes ------------
 
     public class ChartItem
     {

@@ -1,0 +1,226 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "Hagerup90",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Torben Hagerup",
+        "title": "Optimal parallel algorithms on planar graphs",
+        "journal": "ic2",
+        "volume": "84",
+        "pages": "71-96",
+        "year": "1990"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "Hagerup90a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Torben Hagerup",
+        "title": "Planar Depth-First Search in $O(łog n)$ Parallel Time",
+        "journal": "siamjc",
+        "volume": "19",
+        "pages": "678-704",
+        "year": "1990"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "HagerupKNR95",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Torben Hagerup and Jyrki Katajainen and Naomi Nishimura and Prabhakar Ragde",
+        "title": "Characterizations of $k$-Terminal Flow Networks and Computing Network Flows in Partial $k$-Trees",
+        "booktitle": "soda95",
+        "year": "1995",
+        "pages": "641-649"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "HalldorssonK02",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Magnús Halldόrsson and Guy Kortsarz",
+        "title": "Tools for Multicoloring with Applications to Planar Graphs and Partial\r\n$k$-Trees",
+        "journal": "ja",
+        "volume": "42",
+        "pages": "334-366",
+        "year": "2002"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "Han08",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Yijie Han",
+        "title": "A note of an $O(n^3 / łog n)$ time algorithm for all pairs shortest paths",
+        "journal": "ipl",
+        "volume": "105",
+        "year": "2008",
+        "pages": "114-116"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "HaoO94",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jianxiu Hao and James B. Orlin",
+        "title": "A faster algorithm for finding the minimum cut in a directed graph",
+        "journal": "ja",
+        "volume": "17",
+        "pages": "424-446",
+        "year": "1994"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "HeggernesV02",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Pinar Heggernes and Yngve Villanger",
+        "title": "Efficient implementation of a minimal triangulation algorithm",
+        "editor": "Rolf Möhring and Rajeev Raman",
+        "booktitle": "esa02",
+        "publisher": "lncs2461",
+        "year": "2002",
+        "pages": "550-561"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "HeggernesTV05",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Pinar Heggernes and Jan Arne Telle and Yngve Villanger",
+        "title": "Computing minimal triangulations in time $O(n^\\alpha łog n) = o(n^2.376)$",
+        "journal": "sjdm",
+        "volume": "19",
+        "year": "2005",
+        "pages": "900-913"
+      }
+    },
+    {
+      "Type": "inproceedings",
+      "Key": "HeggernesSTV05",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Pinar Heggernes and K. Suchan and I. Todinca and Yngve Villanger",
+        "title": "Minimal interval completions",
+        "booktitle": "esa05",
+        "year": "2005",
+        "publisher": "lncs3669",
+        "pages": "403-414"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "ShiloachV82",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Y. Shiloach and U. Vishkin",
+        "title": "An $O(n łog n )$ parallel connectivity algorithm",
+        "journal": "ja",
+        "year": "1982",
+        "pages": "57-67"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "Shimony94",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "S. E. Shimony",
+        "title": "Finding MAPs for belief networks is NP-hard",
+        "journal": "artint",
+        "volume": "68",
+        "pages": "399-410",
+        "year": "1994"
+      }
+    },
+    {
+      "Type": "unpublished",
+      "Key": "ShoikhetG97a",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Jeremy P. Spinrad",
+        "title": "Recognition of circle graphs",
+        "journal": "ja",
+        "volume": "16",
+        "year": "1994",
+        "pages": "264-282"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "Sprague94",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "A. P. Sprague",
+        "title": "An $O(n łog n)$ algorithm for the bandwidth of interval graphs",
+        "journal": "sjdm",
+        "volume": "7",
+        "year": "1994",
+        "pages": "213-220",
+        "school": "Fanstord University",
+        "type": "PhD Dissertation",
+        "address": "Department of French",
+        "month": "jun-aug",
+        "note": "This is a full PHDTHESIS entry"
+      }
+    },
+    {
+      "Type": "TECHREPORT",
+      "Key": "techreport-minimal",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Tom Terrific",
+        "title": "An $O(n łog n / \\! łogłog n)$ Sorting Algorithm",
+        "institution": "Fanstord University",
+        "year": "1988"
+      }
+    },
+    {
+      "Type": "TECHREPORT",
+      "Key": "techreport-full",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Tom Térrific",
+        "title": "An $O(n łog n / \\! łogłog n)$ Sorting Algorithm",
+        "institution": "Fanstord University",
+        "type": "Wishful Research Result",
+        "number": "7",
+        "address": "Computer Science Department, Fanstord, California",
+        "month": "oct",
+        "year": "1988",
+        "note": "This is a full TECHREPORT entry"
+      }
+    }
+  ],
+  "Comments": [
+    "% mathmode in bibtex",
+    "%Hagerup 1995",
+    "%Heggernes 2005",
+    "%Sho",
+    "%Spr"
+  ]
+}

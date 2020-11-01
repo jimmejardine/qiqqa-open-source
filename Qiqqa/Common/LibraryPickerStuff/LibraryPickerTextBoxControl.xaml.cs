@@ -36,7 +36,10 @@ namespace Qiqqa.Common.LibraryPickerStuff
             e.Handled = true;
         }
 
-        public WebLibraryDetail WebLibraryDetail { get; private set; }
+        public WebLibraryDetail WebLibraryDetail {
+            get;
+            private set;
+        }
 
         public void ChooseNewLibrary(WebLibraryDetail web_library_detail)
         {

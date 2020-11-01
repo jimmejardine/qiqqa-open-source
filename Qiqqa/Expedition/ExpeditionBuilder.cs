@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
@@ -31,7 +32,7 @@ namespace Qiqqa.Expedition
             return true;
         }
 
-        public static ExpeditionDataSource BuildExpeditionDataSource(Library library, int num_topics, bool add_autotags, bool add_tags, ExpeditionBuilderProgressUpdateDelegate progress_update_delegate)
+        public static ExpeditionDataSource BuildExpeditionDataSource(WebLibraryDetail web_library_detail, int num_topics, bool add_autotags, bool add_tags, ExpeditionBuilderProgressUpdateDelegate progress_update_delegate)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -39,10 +40,10 @@ namespace Qiqqa.Expedition
             ExpeditionDataSource data_source = new ExpeditionDataSource();
 
             data_source.date_created = DateTime.UtcNow;
-            
+
             try
             {
-                // Check that we have a progres update delegate
+                // Check that we have a progress update delegate
                 if (null == progress_update_delegate)
                 {
                     progress_update_delegate = DefaultExpeditionBuilderProgressUpdate;
@@ -50,8 +51,8 @@ namespace Qiqqa.Expedition
 
                 // What are the sources of data?
                 progress_update_delegate("Assembling tags");
-                HashSet<string> tags = BuildLibraryTagList(library, add_autotags, add_tags);
-                List<PDFDocument> pdf_documents = library.PDFDocumentsWithLocalFilePresent;
+                HashSet<string> tags = BuildLibraryTagList(web_library_detail, add_autotags, add_tags);
+                List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocumentsWithLocalFilePresent;
 
                 progress_update_delegate("Adding tags");
                 data_source.words = new List<string>();
@@ -88,8 +89,8 @@ namespace Qiqqa.Expedition
                             // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
                             // says:
                             //
-                            // Finally, if any exception is thrown in any of the iterations, all iterations are canceled 
-                            // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions 
+                            // Finally, if any exception is thrown in any of the iterations, all iterations are canceled
+                            // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions
                             // are properly propagated and never lost.
                             //
                             // --> We can thus easily use an exception to terminate/cancel all iterations of Parallel.For()!
@@ -133,8 +134,8 @@ namespace Qiqqa.Expedition
                     // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
                     // says:
                     //
-                    // Finally, if any exception is thrown in any of the iterations, all iterations are canceled 
-                    // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions 
+                    // Finally, if any exception is thrown in any of the iterations, all iterations are canceled
+                    // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions
                     // are properly propagated and never lost.
                     //
                     // --> We can thus easily use an exception to terminate/cancel all iterations of Parallel.For()!
@@ -154,8 +155,8 @@ namespace Qiqqa.Expedition
                         // Parallel.For() doc at https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/october/parallel-performance-optimize-managed-code-for-multi-core-machines
                         // says:
                         //
-                        // Finally, if any exception is thrown in any of the iterations, all iterations are canceled 
-                        // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions 
+                        // Finally, if any exception is thrown in any of the iterations, all iterations are canceled
+                        // and the first thrown exception is rethrown in the calling thread, ensuring that exceptions
                         // are properly propagated and never lost.
                         //
                         // --> We can thus easily use an exception to terminate/cancel all iterations of Parallel.For()!
@@ -167,7 +168,7 @@ namespace Qiqqa.Expedition
             catch (TaskCanceledException ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
-                // This exception should only occur when the user *canceled* the process and should therefor 
+                // This exception should only occur when the user *canceled* the process and should therefor
                 // *not* be propagated. Instead, we have to report an aborted result:
                 progress_update_delegate("Cancelled Expedition", 1, 1);
                 return null;
@@ -178,29 +179,29 @@ namespace Qiqqa.Expedition
             return data_source;
         }
 
-        private static HashSet<string> BuildLibraryTagList(Library library, bool add_autotags, bool add_tags)
+        private static HashSet<string> BuildLibraryTagList(WebLibraryDetail web_library_detail, bool add_autotags, bool add_tags)
         {
             HashSet<string> tags = new HashSet<string>();
 
             if (add_autotags)
             {
                 // Check that the AutoTags are not getting too old
-                if (null == library.AITagManager.AITags || library.AITagManager.AITags.IsGettingOld || library.AITagManager.AITags.HaveNoTags)
+                if (null == web_library_detail.Xlibrary.AITagManager.AITags || web_library_detail.Xlibrary.AITagManager.AITags.IsGettingOld || web_library_detail.Xlibrary.AITagManager.AITags.HaveNoTags)
                 {
-                    library.AITagManager.Regenerate();
+                    web_library_detail.Xlibrary.AITagManager.Regenerate();
                 }
 
                 // Add in the auto tags
-                if (null != library.AITagManager.AITags)
+                if (null != web_library_detail.Xlibrary.AITagManager.AITags)
                 {
-                    tags.UnionWith(library.AITagManager.AITags.GetAllTags());
+                    tags.UnionWith(web_library_detail.Xlibrary.AITagManager.AITags.GetAllTags());
                 }
             }
 
             // Add in the manually generated tags
             if (add_tags)
             {
-                foreach (PDFDocument pdf_document in library.PDFDocuments)
+                foreach (PDFDocument pdf_document in web_library_detail.Xlibrary.PDFDocuments)
                 {
                     HashSet<string> document_tags = TagTools.ConvertTagBundleToTags(pdf_document.Tags);
                     tags.UnionWith(document_tags);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
@@ -15,11 +16,11 @@ namespace Qiqqa.Synchronisation.PDFSync
 {
     internal class SyncQueues_Intranet
     {
-        internal static void DaemonPut(Library library, string fingerprint)
+        internal static void DaemonPut(WebLibraryDetail web_library_detail, string fingerprint)
         {
-            string filename_full = PDFDocumentFileLocations.DocumentPath(library, fingerprint, "pdf");
+            string filename_full = PDFDocumentFileLocations.DocumentPath(web_library_detail, fingerprint, "pdf");
             string filename_short = Path.GetFileName(filename_full);
-            string pdf_path = IntranetLibraryTools.GetLibraryPDFPath(library.WebLibraryDetail.IntranetPath, filename_short);
+            string pdf_path = IntranetLibraryTools.GetLibraryPDFPath(web_library_detail.IntranetPath, filename_short);
             DirectoryTools.CreateDirectory(Path.GetDirectoryName(pdf_path));
 
             Logging.Info("+Copying up {0}", fingerprint);
@@ -28,11 +29,11 @@ namespace Qiqqa.Synchronisation.PDFSync
         }
 
 
-        internal static void DaemonGet(Library library, string fingerprint)
+        internal static void DaemonGet(WebLibraryDetail web_library_detail, string fingerprint)
         {
-            string filename_full = PDFDocumentFileLocations.DocumentPath(library, fingerprint, "pdf");
+            string filename_full = PDFDocumentFileLocations.DocumentPath(web_library_detail, fingerprint, "pdf");
             string filename_short = Path.GetFileName(filename_full);
-            string pdf_path = IntranetLibraryTools.GetLibraryPDFPath(library.WebLibraryDetail.IntranetPath, filename_short);
+            string pdf_path = IntranetLibraryTools.GetLibraryPDFPath(web_library_detail.IntranetPath, filename_short);
             DirectoryTools.CreateDirectory(Path.GetDirectoryName(filename_full));
 
             Logging.Info("+Copying down {0}", fingerprint);
@@ -42,7 +43,7 @@ namespace Qiqqa.Synchronisation.PDFSync
             // Write the audit
             if (true)
             {
-                string audit_filename = IntranetLibraryTools.GetLibraryAuditFilename(library.WebLibraryDetail.IntranetPath);
+                string audit_filename = IntranetLibraryTools.GetLibraryAuditFilename(web_library_detail.IntranetPath);
                 string audit_directory = Path.GetDirectoryName(audit_filename);
 
                 if (Directory.Exists(audit_directory))
@@ -69,10 +70,10 @@ namespace Qiqqa.Synchronisation.PDFSync
             }
         }
 
-        internal static void QueueUploadOfMissingPDFs(Library library, List<PDFDocument> pdf_documents)
+        internal static void QueueUploadOfMissingPDFs(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
             // Get a list of all the documents in the Intranet library
-            List<string> existing_pdfs_full = IntranetLibraryTools.GetListOfDocumentsInLibrary(library.WebLibraryDetail.IntranetPath);
+            List<string> existing_pdfs_full = IntranetLibraryTools.GetListOfDocumentsInLibrary(web_library_detail.IntranetPath);
 
             HashSet<string> existing_pdfs = new HashSet<string>();
             foreach (string existing_pdf in existing_pdfs_full)
@@ -87,12 +88,12 @@ namespace Qiqqa.Synchronisation.PDFSync
                 // Try to upload all files that we have
                 if (!deleted && pdf_document.DocumentExists)
                 {
-                    string filename_full = PDFDocumentFileLocations.DocumentPath(library, pdf_document.Fingerprint, "pdf");
+                    string filename_full = PDFDocumentFileLocations.DocumentPath(web_library_detail, pdf_document.Fingerprint, "pdf");
                     string filename_short = Path.GetFileName(filename_full);
 
                     if (!existing_pdfs.Contains(filename_short))
                     {
-                        SyncQueues.Instance.QueuePut(pdf_document.Fingerprint, library);
+                        SyncQueues.Instance.QueuePut(pdf_document.Fingerprint, web_library_detail);
                     }
                 }
             }

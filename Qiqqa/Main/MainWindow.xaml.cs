@@ -19,6 +19,7 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Maintainable;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
@@ -34,6 +35,7 @@ namespace Qiqqa.Main
         public static readonly string TITLE_START_PAGE = "Home (F1)";
         private KeyboardHook keyboard_hook;
         private IPCServer ipc_server;
+        private int HourglassState;
 
         public MainWindow()
         {
@@ -43,6 +45,7 @@ namespace Qiqqa.Main
 
             InitializeComponent();
 
+            HourglassState = 2;
             WPFDoEvents.SetHourglassCursor();
 
             DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
@@ -95,8 +98,42 @@ namespace Qiqqa.Main
             //this.SourceInitialized += MainWindow_SourceInitialized;
             //this.StateChanged += MainWindow_StateChanged;
 
-            // Put this in a background thread
-            SafeThreadPool.QueueUserWorkItem(o => PostStartupWork());
+            WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
+        }
+
+        private void Instance_WebLibrariesChanged()
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            if (ShutdownableManager.Instance.IsShuttingDown)
+            {
+                Logging.Info("WebLibrariesChanged: Breaking out of UI update due to application termination");
+                return;
+            }
+
+            // NOTE:
+            // the code in PostStartupWork() depends on the completed loading of the libraries,
+            // hence it is executed only now instead of earlier in MainWindow()
+            PostStartupWork();
+
+            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            ResetHourglassWhenAllIsDone();
+        }
+
+        private void ResetHourglassWhenAllIsDone()
+        {
+            WPFDoEvents.InvokeInUIThread(() => {
+                HourglassState--;
+
+                if (HourglassState == 0)
+                {
+                    WPFDoEvents.ResetHourglassCursor();
+
+#if PROFILE_STARTUP_PHASE
+                    Environment.Exit(-2);    // testing & profiling only
+#endif
+                }
+            }, priority: DispatcherPriority.ContextIdle);
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -107,13 +144,7 @@ namespace Qiqqa.Main
             MaintainableManager.Instance.BumpHoldOffPendingLevel();
 
             // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
-            WPFDoEvents.InvokeInUIThread(() => {
-                WPFDoEvents.ResetHourglassCursor();
-
-#if false
-                Environment.Exit(-2);    // testing & profiling only
-#endif
-            }, priority: DispatcherPriority.ContextIdle);
+            ResetHourglassWhenAllIsDone();
         }
 
         private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
@@ -138,28 +169,24 @@ namespace Qiqqa.Main
             else
             {
                 // Open the most recently accessed web library
-                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibrariesWithoutGuest;
+                List<WebLibraryDetail> web_libary_details = WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries;
                 WebLibraryManager.Instance.SortWebLibraryDetailsByLastAccessed(web_libary_details);
-                if (0 < web_libary_details.Count)
-                {
-                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0].library));
-                }
 
                 // Also open guest under some circumstances
                 bool should_open_guest = false;
 
-                // No web libraries
-                if (0 == web_libary_details.Count)
-                {
-                    should_open_guest = true;
-                }
+                ASSERT.Test(web_libary_details.Count > 0);
+
                 // Web library is small compared to guest library
-                if (0 < web_libary_details.Count && WebLibraryManager.Instance.Library_Guest.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].library.PDFDocuments_IncludingDeleted_Count)
+                if (WebLibraryManager.Instance.Library_Guest.Xlibrary.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].Xlibrary.PDFDocuments_IncludingDeleted_Count)
                 {
                     should_open_guest = true;
                 }
 
-                if (should_open_guest)
+                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0]));
+
+                // don't open the guest library *twice* so check against `web_libary_details[0].library`
+                if (should_open_guest && web_libary_details[0] != WebLibraryManager.Instance.Library_Guest)
                 {
                     WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest));
                 }
@@ -366,7 +393,7 @@ namespace Qiqqa.Main
         {
             base.OnClosed(e);
 
-            // Dispose() does a few things that are also done in MainWindow_Closed(), which is invoked via base.OnClosed(), 
+            // Dispose() does a few things that are also done in MainWindow_Closed(), which is invoked via base.OnClosed(),
             // so we flipped the order of exec to reduce the number of surprises for yours truly.
             Dispose();
         }

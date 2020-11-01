@@ -8,6 +8,7 @@ using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Collections;
 using Utilities.Language;
@@ -20,7 +21,7 @@ namespace Qiqqa.Exporting
 {
     internal class LibraryExporter_HTML
     {
-        internal static void Export(Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        internal static void Export(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             StringBuilder html = new StringBuilder();
             html.AppendFormat("<html>\n");
@@ -31,10 +32,10 @@ namespace Qiqqa.Exporting
             html.AppendFormat(String.Format("<a href=\"{0}\"><image align=\"right\" src=\"Qiqqa.png\" border=\"0\"/></a>\n", WebsiteAccess.Url_QiqqaLibraryExportTrackReference));
             html.AppendFormat("<h1>Qiqqa Library Export</h1>\n");
 
-            Export_HTML_Titles(html, library, base_path, pdf_document_export_items);
-            Export_HTML_Authors(html, library, base_path, pdf_document_export_items);
-            Export_HTML_Tags(html, library, base_path, pdf_document_export_items);
-            Export_HTML_AutoTags(html, library, base_path, pdf_document_export_items);
+            Export_HTML_Titles(html, web_library_detail, base_path, pdf_document_export_items);
+            Export_HTML_Authors(html, web_library_detail, base_path, pdf_document_export_items);
+            Export_HTML_Tags(html, web_library_detail, base_path, pdf_document_export_items);
+            Export_HTML_AutoTags(html, web_library_detail, base_path, pdf_document_export_items);
 
             html.AppendFormat("</body>\n");
             html.AppendFormat("</html>\n");
@@ -79,7 +80,7 @@ namespace Qiqqa.Exporting
             }
         }
 
-        private static void Export_HTML_Titles(StringBuilder html, Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        private static void Export_HTML_Titles(StringBuilder html, WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             html.AppendFormat("<p/>\n");
             html.AppendFormat("<h2>{0}</h2>\n", "Titles");
@@ -117,7 +118,7 @@ namespace Qiqqa.Exporting
             html.AppendFormat("</ul>\n");
         }
 
-        private static void Export_HTML_Authors(StringBuilder html, Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        private static void Export_HTML_Authors(StringBuilder html, WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             MultiMap<string, PDFDocumentExportItem> items_sliced = new MultiMap<string, PDFDocumentExportItem>(false);
 
@@ -133,7 +134,7 @@ namespace Qiqqa.Exporting
             Export_HTML_XXX(html, "Authors", items_sliced);
         }
 
-        private static void Export_HTML_Tags(StringBuilder html, Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        private static void Export_HTML_Tags(StringBuilder html, WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             MultiMap<string, PDFDocumentExportItem> items_sliced = new MultiMap<string, PDFDocumentExportItem>(false);
 
@@ -148,13 +149,13 @@ namespace Qiqqa.Exporting
             Export_HTML_XXX(html, "Tags", items_sliced);
         }
 
-        private static void Export_HTML_AutoTags(StringBuilder html, Library library, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
+        private static void Export_HTML_AutoTags(StringBuilder html, WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
             MultiMap<string, PDFDocumentExportItem> items_sliced = new MultiMap<string, PDFDocumentExportItem>(false);
 
             foreach (var item in pdf_document_export_items.Values)
             {
-                foreach (string tag in library.AITagManager.AITags.GetTagsWithDocument(item.pdf_document.Fingerprint))
+                foreach (string tag in web_library_detail.Xlibrary.AITagManager.AITags.GetTagsWithDocument(item.pdf_document.Fingerprint))
                 {
                     items_sliced.Add(tag, item);
                 }

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities.Misc;
 
@@ -13,7 +14,7 @@ namespace Qiqqa.AnnotationsReportBuilding
     {
         public class AnnotationWork
         {
-            public Library library;
+            public WebLibraryDetail web_library_detail;
             public PDFDocument pdf_document;
             public PDFAnnotation pdf_annotation;
 
@@ -24,13 +25,13 @@ namespace Qiqqa.AnnotationsReportBuilding
             public Paragraph annotation_paragraph = null;
         }
 
-        public static List<AnnotationWork> GenerateAnnotationWorks(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
+        public static List<AnnotationWork> GenerateAnnotationWorks(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
             List<AnnotationWork> annotation_works = new List<AnnotationWork>();
 
             // The caches we will need...
-            Dictionary<string, byte[]> library_items_highlights_cache = library.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.HIGHLIGHTS);
-            Dictionary<string, byte[]> library_items_inks_cache = library.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.INKS);
+            Dictionary<string, byte[]> library_items_highlights_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.HIGHLIGHTS);
+            Dictionary<string, byte[]> library_items_inks_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.INKS);
 
             for (int j = 0; j < pdf_documents.Count; ++j)
             {
@@ -46,7 +47,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                 {
                     if (!String.IsNullOrEmpty(pdf_document.Comments) || !String.IsNullOrEmpty(pdf_document.Abstract))
                     {
-                        annotation_works.Add(new AnnotationWork { library = library, pdf_document = pdf_document, pdf_annotation = null });
+                        annotation_works.Add(new AnnotationWork { web_library_detail = web_library_detail, pdf_document = pdf_document, pdf_annotation = null });
                     }
                 }
 
@@ -108,7 +109,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                         }
                     }
 
-                    annotation_works.Add(new AnnotationWork { library = library, pdf_document = pdf_document, pdf_annotation = pdf_annotation });
+                    annotation_works.Add(new AnnotationWork { web_library_detail = web_library_detail, pdf_document = pdf_document, pdf_annotation = pdf_annotation });
                 }
             }
 

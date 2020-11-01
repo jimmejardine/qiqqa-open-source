@@ -16,6 +16,7 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -27,28 +28,14 @@ namespace Qiqqa.DocumentLibrary
     {
         public override string ToString()
         {
-            return String.Format("Library: {0}", WebLibraryDetail.Title);
+            throw new Exception("kaboom");
+            //return String.Format("Library: {0}", WebLibraryDetail.Title);
         }
 
         /// <summary>
         /// Use this singleton instance ONLY for testing purposes!
         /// </summary>
-        public static Library GuestInstance => WebLibraryManager.Instance.Library_Guest;
-
-        private TypedWeakReference<WebLibraryDetail> web_library_detail;
-        public WebLibraryDetail WebLibraryDetail
-        {
-            get
-            {
-                return web_library_detail?.TypedTarget;
-            }
-            set
-            {
-                ASSERT.Test(value != null);
-                ASSERT.Test(web_library_detail != null);
-                web_library_detail.TypedTarget = value;
-            }
-        }
+        public static WebLibraryDetail GuestInstance => WebLibraryManager.Instance.Library_Guest;
 
         private LibraryDB library_db;
         public LibraryDB LibraryDB => library_db;
@@ -166,7 +153,7 @@ namespace Qiqqa.DocumentLibrary
                     return (last_regen_counter > 0);
                 }
             }
-            set 
+            set
             {
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (last_regen_time_lock)
@@ -188,26 +175,24 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        public Library(WebLibraryDetail _web_library_detail)
+        public Library(WebLibraryDetail web_library_detail)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            this.web_library_detail = new TypedWeakReference<WebLibraryDetail>(_web_library_detail);
+            Logging.Info("Library basepath is at {0}", web_library_detail.LIBRARY_BASE_PATH);
+            Logging.Info("Library document basepath is at {0}", web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH);
 
-            Logging.Info("Library basepath is at {0}", LIBRARY_BASE_PATH);
-            Logging.Info("Library document basepath is at {0}", LIBRARY_DOCUMENTS_BASE_PATH);
+            Directory.CreateDirectory(web_library_detail.LIBRARY_BASE_PATH);
+            Directory.CreateDirectory(web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH);
 
-            Directory.CreateDirectory(LIBRARY_BASE_PATH);
-            Directory.CreateDirectory(LIBRARY_DOCUMENTS_BASE_PATH);
-
-            library_db = new LibraryDB(LIBRARY_BASE_PATH);
-            folder_watcher_manager = new FolderWatcherManager(this);
-            library_index = new LibraryIndex(this);
-            ai_tag_manager = new AITagManager(this);
-            recently_read_manager = new RecentlyReadManager(this);
-            blackwhite_list_manager = new BlackWhiteListManager(this);
-            password_manager = new PasswordManager(this);
-            expedition_manager = new ExpeditionManager(this);
+            library_db = new LibraryDB(web_library_detail.LIBRARY_BASE_PATH);
+            folder_watcher_manager = new FolderWatcherManager(web_library_detail);
+            library_index = new LibraryIndex(web_library_detail);
+            ai_tag_manager = new AITagManager(web_library_detail);
+            recently_read_manager = new RecentlyReadManager(web_library_detail);
+            blackwhite_list_manager = new BlackWhiteListManager(web_library_detail);
+            password_manager = new PasswordManager(web_library_detail);
+            expedition_manager = new ExpeditionManager(web_library_detail);
 
 #if false
             // Start loading the documents in the background...
@@ -220,11 +205,11 @@ namespace Qiqqa.DocumentLibrary
 #endif
         }
 
-        // NOTE: this function is executed ASYNCHRONOUSLY. 
-        // 
+        // NOTE: this function is executed ASYNCHRONOUSLY.
+        //
         // Once completed, an event will be fired to
         // help the main application update any relevant views.
-        public void BuildFromDocumentRepository()
+        public void BuildFromDocumentRepository(WebLibraryDetail web_library_detail)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -239,19 +224,20 @@ namespace Qiqqa.DocumentLibrary
                 // abort work when this library instance has already been Dispose()d in the main UI thread:
                 if (LibraryIsKilled)
                 {
-                    Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", WebLibraryDetail.Id);
+                    Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", web_library_detail.Id);
                     return;
                 }
 
                 Stopwatch clk = Stopwatch.StartNew();
                 long prev_clk = 0;
                 long elapsed = 0;
-                Logging.Debug特("+Build library from repository");
+                Logging.Debug特("+Build library {0} from repository", web_library_detail.Id);
                 List<LibraryDB.LibraryItem> library_items = library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
-                /* const */ int library_item_count = library_items.Count;
+                /* const */
+                int library_item_count = library_items.Count;
 
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_item_count, WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_item_count, web_library_detail.DescriptiveTitle);
                 prev_clk = elapsed;
 
                 // Get the annotations cache
@@ -260,17 +246,18 @@ namespace Qiqqa.DocumentLibrary
                 // abort work when this library instance has already been Dispose()d in the main UI thread:
                 if (LibraryIsKilled)
                 {
-                    Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", WebLibraryDetail.Id);
+                    Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", web_library_detail.Id);
                     return;
                 }
 
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_item_count, WebLibraryDetail.DescriptiveTitle);
-                
-                Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_item_count, LIBRARY_DOCUMENTS_BASE_PATH, WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_item_count, web_library_detail.DescriptiveTitle);
+
+                Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_item_count, web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH, web_library_detail.DescriptiveTitle);
 
                 long clk_bound = elapsed;
-                /* const */ int one_pct_point = library_item_count / 200; // one percent point is defined here as 0.5%
+                /* const */
+                int one_pct_point = library_item_count / 200; // one percent point is defined here as 0.5%
                 int next_i_bound = one_pct_point;
                 for (int i = 0; i < library_item_count; ++i)
                 {
@@ -280,8 +267,8 @@ namespace Qiqqa.DocumentLibrary
                     elapsed = clk.ElapsedMilliseconds;
                     if (clk_bound <= elapsed || i >= next_i_bound)
                     {
-                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}': {1} of {2} documents", WebLibraryDetail.DescriptiveTitle, i, library_item_count), i, library_item_count);
-                        Logging.Info("Library '{2}': Loaded {0}/{1} documents", i, library_item_count, WebLibraryDetail.DescriptiveTitle);
+                        StatusManager.Instance.UpdateStatus("LibraryInitialLoad", String.Format("Loading your library '{0}': {1} of {2} documents", web_library_detail.DescriptiveTitle, i, library_item_count), i, library_item_count);
+                        Logging.Info("Library '{2}': Loaded {0}/{1} documents", i, library_item_count, web_library_detail.DescriptiveTitle);
 
                         // update the bound which triggered this status update:
                         while (clk_bound <= elapsed)
@@ -300,39 +287,39 @@ namespace Qiqqa.DocumentLibrary
                     if (LibraryIsKilled)
                     {
                         // abort work when this library instance has already been Dispose()d in the main UI thread:
-                        Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", WebLibraryDetail.Id);
+                        Logging.Info("Building the library has been SKIPPED/ABORTED as the library {0} has already been killed.", web_library_detail.Id);
                         break;
                     }
 
-                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    if (ShutdownableManager.Instance.IsShuttingDown)
                     {
-                        Logging.Info("Library '{0}': Breaking out of PDF/Documents loading loop due to application termination", WebLibraryDetail.DescriptiveTitle);
+                        Logging.Info("Library '{0}': Breaking out of PDF/Documents loading loop due to application termination", web_library_detail.DescriptiveTitle);
                         break;
                     }
 
                     try
                     {
-                        LoadDocumentFromMetadata(library_item, library_items_annotations_cache, false);
+                        LoadDocumentFromMetadata(library_item, library_items_annotations_cache, web_library_detail, false);
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(ex, "Library '{1}': There was a problem loading document {0}", library_item, WebLibraryDetail.DescriptiveTitle);
+                        Logging.Error(ex, "Library '{1}': There was a problem loading document {0}", library_item, web_library_detail.DescriptiveTitle);
                     }
                 }
 
                 //StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
-                Logging.Debug特("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_item_count, WebLibraryDetail.DescriptiveTitle);
+                Logging.Debug特("-Build library '{2}' from repository -- time spent: {0} ms on {1} library records.", clk.ElapsedMilliseconds, library_item_count, web_library_detail.DescriptiveTitle);
             }
             catch (Exception ex)
             {
                 if (LibraryIsKilled)
                 {
-                    Logging.Warn(ex, "There was a failure while building the *KILLED* document library instance for library {0} ({1})", WebLibraryDetail.DescriptiveTitle, WebLibraryDetail.Id);
+                    Logging.Warn(ex, "There was a failure while building the *KILLED* document library instance for library {0} ({1})", web_library_detail.DescriptiveTitle, web_library_detail.Id);
                 }
                 else
                 {
-                    Logging.Error(ex, "There was a problem while building the document library {0} ({1})", WebLibraryDetail.DescriptiveTitle, WebLibraryDetail.Id);
+                    Logging.Error(ex, "There was a problem while building the document library {0} ({1})", web_library_detail.DescriptiveTitle, web_library_detail.Id);
                 }
             }
             finally
@@ -347,41 +334,39 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        public void LoadDocumentFromMetadata(LibraryDB.LibraryItem library_item, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache, bool notify_changed_pdf_document)
+        private void LoadDocumentFromMetadata(LibraryDB.LibraryItem library_item, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache, WebLibraryDetail web_library_detail, bool notify_changed_pdf_document)
         {
-            try
+            if (library_item.data == null)
             {
-                PDFDocument pdf_document = PDFDocument.LoadFromMetaData(this, library_item.data, library_items_annotations_cache);
-
-                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (pdf_documents_lock)
-                {
-                    //l1_clk.LockPerfTimerStop();
-                    if (LibraryIsKilled)
-                    {
-                        throw new Exception("Hacky backy internal error");
-                    }
-                    pdf_documents[pdf_document.Fingerprint] = pdf_document;
-                }
-
-                if (!pdf_document.Deleted)
-                {
-                    TagManager.Instance.ProcessDocument(pdf_document);
-                    ReadingStageManager.Instance.ProcessDocument(pdf_document);
-                }
-
-                if (notify_changed_pdf_document)
-                {
-                    SignalThatDocumentsHaveChanged(pdf_document);
-                }
-                else
-                {
-                    SignalThatDocumentsHaveChanged(null);
-                }
+                throw new Exception(String.Format("Skipping corrupted NULL record for ID {0}", library_item.ToString()));
             }
-            catch (Exception ex)
+
+            PDFDocument pdf_document = PDFDocument.LoadFromMetaData(web_library_detail, library_item.fingerprint, library_item.data, library_items_annotations_cache);
+
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (pdf_documents_lock)
             {
-                Logging.Error(ex, "Couldn't load document from {0}", library_item.fingerprint);
+                //l1_clk.LockPerfTimerStop();
+                if (LibraryIsKilled)
+                {
+                    throw new Exception("Hacky backy internal error");
+                }
+                pdf_documents[pdf_document.Fingerprint] = pdf_document;
+            }
+
+            if (!pdf_document.Deleted)
+            {
+                TagManager.Instance.ProcessDocument(pdf_document);
+                ReadingStageManager.Instance.ProcessDocument(pdf_document);
+            }
+
+            if (notify_changed_pdf_document)
+            {
+                SignalThatDocumentsHaveChanged(pdf_document);
+            }
+            else
+            {
+                SignalThatDocumentsHaveChanged(null);
             }
         }
 
@@ -395,7 +380,7 @@ namespace Qiqqa.DocumentLibrary
         /// <param name="tags"></param>
         /// <param name="suppressDialogs"></param>
         /// <returns></returns>
-        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, WebLibraryDetail web_library_detail, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -404,7 +389,7 @@ namespace Qiqqa.DocumentLibrary
                 StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
             }
 
-            PDFDocument pdf_document = AddNewDocumentToLibrary(filename, original_filename, suggested_download_source, bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
+            PDFDocument pdf_document = AddNewDocumentToLibrary(filename, web_library_detail, original_filename, suggested_download_source, bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
 
             if (!suppressDialogs)
             {
@@ -421,7 +406,7 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        private PDFDocument AddNewDocumentToLibrary(string filename, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        private PDFDocument AddNewDocumentToLibrary(string filename, WebLibraryDetail web_library_detail, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -435,7 +420,7 @@ namespace Qiqqa.DocumentLibrary
 
             if (String.IsNullOrEmpty(filename) || filename.EndsWith(".vanilla_reference"))
             {
-                return AddVanillaReferenceDocumentToLibrary(bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
+                return AddVanillaReferenceDocumentToLibrary(bibtex, web_library_detail, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
             }
 
             bool is_a_document_we_can_cope_with = false;
@@ -550,7 +535,7 @@ namespace Qiqqa.DocumentLibrary
             else
             {
                 // Create a new document
-                pdf_document = PDFDocument.CreateFromPDF(this, filename, fingerprint);
+                pdf_document = PDFDocument.CreateFromPDF(web_library_detail, filename, fingerprint);
                 //pdf_document.OriginalFileName = original_filename;
                 pdf_document.DownloadLocation = suggested_download_source;
                 pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.DownloadLocation));
@@ -587,11 +572,11 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        private PDFDocument AddNewDocumentToLibrary(PDFDocument pdf_document_template, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        private PDFDocument AddNewDocumentToLibrary(PDFDocument pdf_document_template, WebLibraryDetail web_library_detail, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs, suppress_signal_that_docs_have_changed);
+            PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, web_library_detail, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs, suppress_signal_that_docs_have_changed);
 
             return pdf_document;
         }
@@ -611,7 +596,7 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        public PDFDocument AddVanillaReferenceDocumentToLibrary(string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument AddVanillaReferenceDocumentToLibrary(string bibtex, WebLibraryDetail web_library_detail, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
         {
             string bibtex_after_key = GetBibTeXAfterKey(bibtex);
 
@@ -635,7 +620,7 @@ namespace Qiqqa.DocumentLibrary
             }
 
             // Not a dupe, so create
-            PDFDocument pdf_document = PDFDocument.CreateFromVanillaReference(this);
+            PDFDocument pdf_document = PDFDocument.CreateFromVanillaReference(web_library_detail);
             pdf_document.BibTex = bibtex;
             pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
             pdf_document.Comments = comments;
@@ -665,19 +650,19 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, bool suppress_dialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail, bool suppress_dialogs, bool suppress_signal_that_docs_have_changed)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} ({1}) into library", existing_pdf_document.TitleCombined, existing_pdf_document.Fingerprint));
 
             //  do a normal add (since stored separately)
-            var new_pdf_document = AddNewDocumentToLibrary(existing_pdf_document, suppress_dialogs, suppress_signal_that_docs_have_changed);
+            var new_pdf_document = AddNewDocumentToLibrary(existing_pdf_document, web_library_detail, suppress_dialogs, suppress_signal_that_docs_have_changed);
 
             // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch
             if (null == new_pdf_document)
             {
-                new_pdf_document = PDFDocument.CreateFromPDF(this, existing_pdf_document.DocumentPath, existing_pdf_document.Fingerprint);
+                new_pdf_document = PDFDocument.CreateFromPDF(web_library_detail, existing_pdf_document.DocumentPath, existing_pdf_document.Fingerprint);
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
@@ -687,7 +672,7 @@ namespace Qiqqa.DocumentLibrary
             }
             else
             {
-                Logging.Warn("TODO: MERGE metadata for existing document and document which was copied/moved into this library. Document: {0}, {1}", new_pdf_document.Fingerprint, new_pdf_document.Library.ToString());
+                Logging.Warn("TODO: MERGE metadata for existing document and document which was copied/moved into this library. Document: {0}, {1}", new_pdf_document.Fingerprint, new_pdf_document.LibraryRef.ToString());
             }
 
             // clone the metadata and switch libraries
@@ -860,7 +845,7 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                
+
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
@@ -886,7 +871,7 @@ namespace Qiqqa.DocumentLibrary
             get
             {
                 List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                
+
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_lock)
                 {
@@ -941,7 +926,7 @@ namespace Qiqqa.DocumentLibrary
             keyword = keyword.ToLower();
 
             HashSet<string> results = new HashSet<string>();
-            
+
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
             {
@@ -978,17 +963,17 @@ namespace Qiqqa.DocumentLibrary
             return results;
         }
 
-        internal void NotifyLibraryThatDocumentHasChangedExternally(string fingerprint)
+        internal void NotifyLibraryThatDocumentHasChangedExternally(string fingerprint, WebLibraryDetail web_library_detail)
         {
             Logging.Info("Library has been notified that {0} has changed", fingerprint);
             try
             {
                 LibraryDB.LibraryItem library_item = library_db.GetLibraryItem(fingerprint, PDFDocumentFileLocations.METADATA);
-                LoadDocumentFromMetadata(library_item, null, true);
+                LoadDocumentFromMetadata(library_item, null, web_library_detail, true);
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "We were told that something had changed, but could not find it on looking...");
+                Logging.Warn(ex, "Library '{0}': We were told that something had changed, but could not find it on looking...", web_library_detail.DescriptiveTitle);
             }
         }
 
@@ -999,7 +984,7 @@ namespace Qiqqa.DocumentLibrary
             SignalThatDocumentsHaveChanged(null);
         }
 
-#region --- Signaling that documents have been changed ------------------
+        #region --- Signaling that documents have been changed ------------------
 
         public class PDFDocumentEventArgs : EventArgs
         {
@@ -1085,38 +1070,9 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-#endregion
+        #endregion
 
-#region --- File locations ------------------------------------------------------------------------------------
-
-        public static string GetLibraryBasePathForId(string id)
-        {
-            return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, id));
-        }
-
-        public string LIBRARY_BASE_PATH => GetLibraryBasePathForId(WebLibraryDetail.Id);
-
-        public string LIBRARY_DOCUMENTS_BASE_PATH
-        {
-            get
-            {
-                string folder_override = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForPDFs;
-                if (!String.IsNullOrEmpty(folder_override))
-                {
-                    return Path.GetFullPath(folder_override + @"\");
-                }
-                else
-                {
-                    return Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"documents"));
-                }
-            }
-        }
-
-        public string LIBRARY_INDEX_BASE_PATH => Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"index"));
-
-#endregion
-
-#region --- IDisposable ------------------------------------------------------------------------
+        #region --- IDisposable ------------------------------------------------------------------------
 
         ~Library()
         {
@@ -1184,34 +1140,12 @@ namespace Qiqqa.DocumentLibrary
                 library_db = null;
             });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-#if true
-                web_library_detail = null;       // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
-#else
-                // cyclic reference as WebLibraryDetail instance reference us, so we MUST nil this one to break the cycle for the GC to work well.
-                //
-                // WARNING:
-                // The most obvious way (see above in `#if false` branch) would be to NULL the weblibdetail reference, but this will cause all sorts of extremely
-                // nasty crashes, including memory corruption, as this reference is accessed in Library background task(s) which might discover that the
-                // library at hand has been killed rather late.
-                //
-                // When those code chunks, e.g. *anything* inside `BuildFromDocumentRepository()`, crash on a NULL dereference of any of the other NULLed
-                // library members, the error resolution code highly depends on a *still working* web_library_detail reference/instance.
-                // To resolve the cyclic reference in there (as the web_lib_detail has a `Library` reference), we hack this by creating a *temporary*
-                // intermediate web_library_detail instance, which is a copy of the original *sans Library reference*.
-                // We DO NOT nuke the Library member in the original web_library_detail as that would cause all sorts of other harm since there's other
-                // code which depends on a certain valid lifetime of that instance and that code should dispose of the record once it is done using it...
-                //
-                // Cloning...
-                web_library_detail = web_library_detail?.CloneSansLibraryReference();
-#endif
-            });
+            var self = this;
 
             ++dispose_count;
         }
 
-#endregion
+        #endregion
 
     }
 }

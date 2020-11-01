@@ -8,6 +8,7 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 using LibraryDB = Qiqqa.DocumentLibrary.LibraryDB;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
+using Qiqqa.Common.Configuration;
 
 namespace Qiqqa.UpgradePaths.V037To038
 {
@@ -27,7 +28,7 @@ namespace Qiqqa.UpgradePaths.V037To038
         {
             Logging.Info("Upgrading from 037 to 038");
 
-            string base_directory_path = BaseDirectoryForQiqqa;
+            string base_directory_path = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
             if (Directory.Exists(base_directory_path))
             {
                 int info_library_count, info_item_count;
@@ -43,7 +44,7 @@ namespace Qiqqa.UpgradePaths.V037To038
                     string database_file = LibraryDB.GetLibraryDBPath(library_directory);
                     string database_syncref_file = IntranetLibraryTools.GetLibraryMetadataPath(library_directory);
 
-                    // make sure we skip S3DB internet DB sync directories and only 'go through the upgrade process 
+                    // make sure we skip S3DB internet DB sync directories and only go through the upgrade process
                     // when this looks like a viable (local) Qiqqa library:
                     if (!File.Exists(database_file) && Directory.Exists(documents_directory) && !File.Exists(database_syncref_file))
                     {
@@ -88,57 +89,5 @@ namespace Qiqqa.UpgradePaths.V037To038
 
             StatusManager.Instance.UpdateStatus("DBUpgrade", "Finished migrating libraries.");
         }
-
-        public static string BaseDirectoryForQiqqa
-        {
-            get
-            {
-                string base_directory_for_qiqqa = null;
-
-                if (null == base_directory_for_qiqqa)
-                {
-                    string override_path = LOCALRegistrySettings.Instance.Read(LOCALRegistrySettings.BaseDataDirectory);
-                    if (!String.IsNullOrEmpty(override_path))
-                    {
-                        override_path = override_path.Trim();
-                        if (!String.IsNullOrEmpty(override_path))
-                        {
-                            base_directory_for_qiqqa = Path.GetFullPath(override_path);
-
-                            // Check that the path is reasonable
-                            try
-                            {
-                                Directory.CreateDirectory(base_directory_for_qiqqa);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logging.Error(ex, "There was a problem creating the user-overridden base directory, so reverting to default");
-                                base_directory_for_qiqqa = null;
-                            }
-                        }
-                    }
-
-                    // If we get here, use the default path
-                    if (null == base_directory_for_qiqqa)
-                    {
-                        base_directory_for_qiqqa = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
-                    }
-                }
-
-                return base_directory_for_qiqqa;
-            }
-        }
-
-
-        private class LOCALRegistrySettings : QuantisleUserRegistry
-        {
-            public static LOCALRegistrySettings Instance = new LOCALRegistrySettings();
-            public static readonly string BaseDataDirectory = "BaseDataDirectory";
-            private LOCALRegistrySettings()
-                : base("Qiqqa")
-            {
-            }
-        }
-
     }
 }

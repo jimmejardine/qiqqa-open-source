@@ -120,7 +120,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             if (0 < pdf_documents.Count)
             {
                 PDFDocument pdf_document = pdf_documents[0];
-                MainWindowServiceDispatcher.Instance.OpenExpedition(pdf_document.Library, pdf_document);
+                MainWindowServiceDispatcher.Instance.OpenExpedition(pdf_document.LibraryRef, pdf_document);
             }
         }
 
@@ -133,7 +133,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             if (0 < pdf_documents.Count)
             {
                 PDFDocument pdf_document = pdf_documents[0];
-                MainWindowServiceDispatcher.Instance.OpenPivot(pdf_document.Library, pdf_documents);
+                MainWindowServiceDispatcher.Instance.OpenPivot(pdf_document.LibraryRef, pdf_documents);
             }
         }
 
@@ -145,7 +145,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             foreach (var pdf_document in pdf_documents)
             {
-                pdf_document.Library.LibraryIndex.ReIndexDocument(pdf_document);
+                pdf_document.LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(pdf_document);
             }
         }
 
@@ -157,7 +157,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             StringBuilder sb = new StringBuilder();
             sb.Append("qiqqa://open/");
-            sb.Append(pdf_documents[0].Library.WebLibraryDetail.Id);
+            sb.Append(pdf_documents[0].LibraryRef.Id);
             sb.Append("/");
             sb.Append(pdf_documents[0].Fingerprint);
 
@@ -389,7 +389,7 @@ SourceURL: {0}
             bool same_library = false;
             foreach (var pdf_document in pdf_documents)
             {
-                if (pdf_document.Library.WebLibraryDetail == web_library_detail)
+                if (pdf_document.LibraryRef == web_library_detail)
                 {
                     same_library = true;
                 }
@@ -407,11 +407,11 @@ SourceURL: {0}
             {
                 FeatureTrackingManager.Instance.UseFeature(feature);
 
-                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(pdf_documents, web_library_detail.library, delegate (PDFDocument target, PDFDocument source)
+                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(pdf_documents, web_library_detail, delegate (PDFDocument target, PDFDocument source)
                 {
                     if (delete_source_pdf_documents && null != target && null != source && target != source)
                     {
-                        source.Library.DeleteDocument(source);
+                        source.LibraryRef.Xlibrary.DeleteDocument(source);
                     }
                 });
             });
@@ -501,7 +501,7 @@ SourceURL: {0}
             {
                 foreach (var pdf_document in pdf_documents)
                 {
-                    pdf_document.Library.DeleteDocument(pdf_document);
+                    pdf_document.LibraryRef.Xlibrary.DeleteDocument(pdf_document);
                 }
             }
         }
@@ -510,7 +510,7 @@ SourceURL: {0}
         {
             popup.Close();
 
-            MainWindowServiceDispatcher.Instance.GenerateAnnotationReport(pdf_documents[0].Library, pdf_documents);
+            MainWindowServiceDispatcher.Instance.GenerateAnnotationReport(pdf_documents[0].LibraryRef, pdf_documents);
         }
 
         private void MenuCloudDownload_Click(object sender, RoutedEventArgs e)
@@ -524,7 +524,7 @@ SourceURL: {0}
                 fingerprints.Add(pdf_document.Fingerprint);
             }
 
-            LibrarySyncManager.Instance.QueueGet(pdf_documents[0].Library, fingerprints.ToArray());
+            LibrarySyncManager.Instance.QueueGet(pdf_documents[0].LibraryRef, fingerprints.ToArray());
         }
 
         private void MenuCloudUpload_Click(object sender, RoutedEventArgs e)
@@ -538,7 +538,7 @@ SourceURL: {0}
                 fingerprints.Add(pdf_document.Fingerprint);
             }
 
-            LibrarySyncManager.Instance.QueuePut(pdf_documents[0].Library, fingerprints.ToArray());
+            LibrarySyncManager.Instance.QueuePut(pdf_documents[0].LibraryRef, fingerprints.ToArray());
         }
 
         private void MenuOpen_Click(object sender, RoutedEventArgs e)

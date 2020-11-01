@@ -232,7 +232,7 @@
       "Warnings": [],
       "Fields": {
         "author": "A. Adachi and S. Iwata and T. Kasai",
-        "title": "Some combinatorial game problems require $\\Omega (n^k) $ time",
+        "title": "Some combinatorial game problems require $Ømega (n^k) $ time",
         "journal": "jacm",
         "volume": "31",
         "year": "1984",
@@ -634,7 +634,7 @@
       "Fields": {
         "author": "Jochen Alber and Britta Dorn and Rolf Niedermeier",
         "title": "A general data reduction scheme for domination in graphs",
-        "editor": "Jir\\'\\i Wiedermann and Gerard Tel and Jaroslav Pokorn\\'y and Mária Bieliková and Julius Stuller",
+        "editor": "Jir\\'\\i Wiedermann and Gerard Tel and Jaroslav Pokorný and Mária Bieliková and Julius Stuller",
         "booktitle": "sofsem06",
         "year": "2006",
         "publisher": "lncs3831",
@@ -1128,7 +1128,7 @@
       "Fields": {
         "author": "S. Arnborg and A. Proskurowski and D. Seese",
         "title": "Monadic second order logic, tree automata and forbidden minors",
-        "editor": "E. Bӧrger and H. Kleine Büning and M. M. Richter and W.  Schӧnfeld",
+        "editor": "E. Börger and H. Kleine Büning and M. M. Richter and W.  Schönfeld",
         "booktitle": "Proceedings 4th Workshop on Computer Science Logic, CSL'90",
         "publisher": "lncs533",
         "year": "1991",
@@ -1304,7 +1304,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "S. F. Assman and G. W. Peck and Maciej M. Sys\\lo and J. Zak",
+        "author": "S. F. Assman and G. W. Peck and Maciej M. Sysło and J. Zak",
         "title": "The bandwidth of caterpillars with hairs of length 1 and 2",
         "year": "1981",
         "journal": "sjadm",
@@ -2216,7 +2216,7 @@
       "Fields": {
         "author": "Anne Berry and Jean R. S. Blair and Pinar Heggernes",
         "title": "Maximum cardinality search for computing minimal triangulations",
-        "editor": "Lud\\uek Ku\\ucera",
+        "editor": "Ludĕk Ku\\ucera",
         "booktitle": "wg02",
         "publisher": "lncs2573",
         "year": "2002",
@@ -2766,8 +2766,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Andreas Bjӧrklund and Thore Husfeldt and Petteri Kaski and Mikko Koivisto",
-        "title": "Fourier meets Mӧbius: Fast subset convolution",
+        "author": "Andreas Björklund and Thore Husfeldt and Petteri Kaski and Mikko Koivisto",
+        "title": "Fourier meets Möbius: Fast subset convolution",
         "booktitle": "stoc07",
         "pages": "67-74",
         "year": "2007",
@@ -2780,7 +2780,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Andreas Bjӧrklund and Thore Husfeldt and Mikko Koivisto",
+        "author": "Andreas Björklund and Thore Husfeldt and Mikko Koivisto",
         "title": "Set Partitioning via Inclusion-Exclusion",
         "journal": "siamjc",
         "volume": "39",
@@ -2880,7 +2880,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "S. Bӧcker and S. Briesemeister and Q. B. A. Bui and A. Truss",
+        "author": "S. Böcker and S. Briesemeister and Q. B. A. Bui and A. Truss",
         "title": "Going weighted: parameterized algorithms for cluster editing",
         "journal": "tcs",
         "volume": "410",
@@ -2894,7 +2894,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Sebastian Bӧcker and Sebastian Briesemeister and Gunnar W. Klau",
+        "author": "Sebastian Böcker and Sebastian Briesemeister and Gunnar W. Klau",
         "title": "Exact algorithms for cluster editing: Evaluation and experiments",
         "note": "To appear in Algorithmica. Online publication: doi 10.1007/s00453-009-9339-7",
         "year": "2009"
@@ -2949,7 +2949,7 @@
       "Fields": {
         "author": "Hans L. Bodlaender",
         "title": "Dynamic programming algorithms on graphs with bounded tree-width",
-        "editor": "Timo Lepistӧ and Arto Salomaa",
+        "editor": "Timo Lepistö and Arto Salomaa",
         "booktitle": "icalp88",
         "publisher": "lncs317",
         "year": "1988",
@@ -3250,7 +3250,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Hans L. Bodlaender and Rolf H. Mӧhring",
+        "author": "Hans L. Bodlaender and Rolf H. Möhring",
         "title": "The pathwidth and treewidth of cographs",
         "journal": "sjdm",
         "volume": "6",
@@ -3366,7 +3366,7 @@
       "Fields": {
         "author": "Hans L. Bodlaender and Babette de Fluiter",
         "title": "Intervalizing $k$-Colored Graphs",
-        "editor": "Zoltán Fülӧp and Ferenc Gécseg",
+        "editor": "Zoltán Fülöp and Ferenc Gécseg",
         "booktitle": "icalp95",
         "publisher": "lncs944",
         "year": "1995",
@@ -3898,7 +3898,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Hans L. Bodlaender and Ton Kloks and Richard Tan and Jan van Leeuwen",
-        "title": "Approximations for $\\lambda$-colorings of graphs",
+        "title": "Approximations for $łambda$-colorings of graphs",
         "journal": "tcj",
         "volume": "47",
         "year": "2004",
@@ -4247,7 +4247,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Hans L. Bodlaender and Rodney G. Downey and Michael R. Fellows and Danny Hermelin",
-        "editor": "Luca Aceto and Ivan Damgård and Leslie Ann Goldberg and\r\nMagnús M. Halldórsson and Anna Ingólfsdóttir and Igor Walukuewics",
+        "editor": "Luca Aceto and Ivan Damgård and Leslie Ann Goldberg and\r\nMagnús M. Halldόrsson and Anna Ingόlfsdόttir and Igor Walukuewics",
         "title": "On Problems Without Polynomial Kernels (Extended Abstract)",
         "booktitle": "icalp08-1",
         "pages": "563-574",
@@ -4528,7 +4528,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Thomas Bӧhme and Ken-ichi Kawarabayashi and John Maharry and Bojan Mohar",
+        "author": "Thomas Böhme and Ken-ichi Kawarabayashi and John Maharry and Bojan Mohar",
         "title": "Linear connectivity forces large complete bipartite minors",
         "journal": "jctb",
         "volume": "99",
@@ -4747,7 +4747,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "E. Bӧrger",
+        "author": "E. Börger",
         "title": "Berechenbarkeit, Komplexität, Logik",
         "publisher": "Vieweg-Verlag",
         "address": "Wiesbaden",
@@ -5150,7 +5150,7 @@
       "Fields": {
         "author": "Andreas Brandsädt and Feodor F. Dragan and Hoàng-Oanh Le and Raffaele Mosca",
         "title": "New graph classes of bounded clique-width",
-        "editor": "Lud\\uek Ku\\ucera",
+        "editor": "Ludĕk Ku\\ucera",
         "booktitle": "wg02",
         "publisher": "lncs2573",
         "year": "2002",
@@ -5292,7 +5292,7 @@
       "Fields": {
         "author": "H. Broersma and Elias Dahlhaus and Ton Kloks",
         "title": "Algorithms for the treewidth and minimum fill-in of HHD-free graphs",
-        "editor": "Rolf H. Mӧhring",
+        "editor": "Rolf H. Möhring",
         "booktitle": "wg97",
         "publisher": "lncs1335",
         "pages": "109-117",
@@ -5307,7 +5307,7 @@
       "Fields": {
         "author": "Hajo Broersma and Ton Kloks and Dieter Kratsch and Haiko Müller",
         "title": "A generalization of AT-free graphs and a generic algorithm for solving treewidth, minimum fill-in, and vertex ranking",
-        "editor": "Juraj Hromkovic and Ondrej S\\'ykora",
+        "editor": "Juraj Hromkovic and Ondrej Sýkora",
         "booktitle": "wg98",
         "publisher": "lncs1517",
         "year": "1998",
@@ -5501,7 +5501,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Hermann Buer and Rolf H. Mӧhring",
+        "author": "Hermann Buer and Rolf H. Möhring",
         "title": "A fast algorithm for the decomposition of graphs and posets",
         "journal": "mor",
         "volume": "8",
@@ -5969,7 +5969,7 @@
       "Fields": {
         "author": "Kevin Cattell and Michael J. Dinneen and Michael R. Fellows",
         "title": "Obstructions to Within a Few Vertices or Edges of Acyclic",
-        "editor": "Selim G. Akl and Frank K. H. A. Dehne and Jӧrg-Rüdiger Sack and Nicola Santoro",
+        "editor": "Selim G. Akl and Frank K. H. A. Dehne and Jörg-Rüdiger Sack and Nicola Santoro",
         "booktitle": "wads95",
         "pages": "415-427",
         "publisher": "lncs955",
@@ -6123,7 +6123,7 @@
       "Warnings": [],
       "Fields": {
         "author": "R. Chandrasekharan and A. Tamir",
-        "title": "An $O((n \\log p)^2 )$  Algorithm for the Continuous\r\n$p$-Center Problem on a Tree",
+        "title": "An $O((n łog p)^2 )$  Algorithm for the Continuous\r\n$p$-Center Problem on a Tree",
         "journal": "sjadm",
         "volume": "1",
         "pages": "370-375",
@@ -6545,7 +6545,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Hubie Chen",
-        "editor": "Ramon López de Mántaras and Lorenza Saitta",
+        "editor": "Ramon Lόpez de Mántaras and Lorenza Saitta",
         "title": "Quantified Constraint Satisfaction and Bounded Treewidth",
         "booktitle": "ecai2004",
         "pages": "161-165",
@@ -7371,7 +7371,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Richard Cole and \\Lukasz Kowalik",
+        "author": "Richard Cole and Łukasz Kowalik",
         "title": "New linear-time algorithms for edge-coloring planar graphs",
         "journal": "alg",
         "volume": "50",
@@ -7761,7 +7761,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Derek G. Corneil and M. Habib and J. M. Lanlignel and Bruce Reed and Udi Rotics",
-        "title": "Polynomial time recognition of clique-width $\\leq 3$ graphs (Extended Abstract)",
+        "title": "Polynomial time recognition of clique-width $łeq 3$ graphs (Extended Abstract)",
         "editor": "Gaston H. Gonnet and Daniel Panario and Alfredo Viola",
         "booktitle": "latin00",
         "publisher": "lncs1776",
@@ -7803,7 +7803,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Derek G. Corneil and Ekkehard Kӧhler and Jean-Marc Lanlignel",
+        "author": "Derek G. Corneil and Ekkehard Köhler and Jean-Marc Lanlignel",
         "title": "On end-vertices of Lexicographic Breadth First Searches",
         "journal": "dam",
         "volume": "158",
@@ -8171,7 +8171,7 @@
       "Fields": {
         "author": "Bruno Courcelle and J. A. Makowsky and U. Rotics",
         "title": "Linear time solvable optimization problems on graphs of bounded clique width",
-        "editor": "Juraj Hromkovic and Ondrej S\\'ykora",
+        "editor": "Juraj Hromkovic and Ondrej Sýkora",
         "booktitle": "wg98",
         "publisher": "lncs1517",
         "year": "1998",
@@ -8340,7 +8340,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Marek Cygan and  \\Lukasz Kowalik and Mateusz Wykurz",
+        "author": "Marek Cygan and  Łukasz Kowalik and Mateusz Wykurz",
         "title": "Exponential-time approximation of weighted set cover",
         "journal": "ipl",
         "volume": "109",
@@ -8354,7 +8354,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Artur Czumaj and Magnús M. Halldórsson and Andrzej Lingas and Johan Nilsson",
+        "author": "Artur Czumaj and Magnús M. Halldόrsson and Andrzej Lingas and Johan Nilsson",
         "title": "Approximation algorithms for optimization problems in graphs with superlogarithmic treewidth",
         "journal": "ipl",
         "volume": "94",
@@ -8428,7 +8428,7 @@
       "Fields": {
         "author": "Elias Dahlhaus",
         "title": "Minimal elimination ordering inside a given chordal graph",
-        "editor": "Rolf H. Mӧhring",
+        "editor": "Rolf H. Möhring",
         "booktitle": "wg97",
         "pages": "132-143",
         "year": "1997",
@@ -8443,7 +8443,7 @@
       "Fields": {
         "author": "Elias Dahlhaus",
         "title": "Minimum fill-in and treewidth for graphs modularly decomposable into\r\nchordal graphs",
-        "editor": "Juraj Hromkovic and Ondrej S\\'ykora",
+        "editor": "Juraj Hromkovic and Ondrej Sýkora",
         "booktitle": "wg98",
         "pages": "351-358",
         "year": "1998",
@@ -8470,7 +8470,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "V. Dahlӧf and P. Johnsson and R. Beigel",
+        "author": "V. Dahlöf and P. Johnsson and R. Beigel",
         "title": "Algorithms for four variants of the exact satisfiability problem",
         "journal": "tcs",
         "volume": "320",
@@ -8840,7 +8840,7 @@
       "Fields": {
         "author": "Frank Dehne and Michael Fellows and Henning Fernau and Elena Prieto and Frances Rosamond",
         "title": "NONBLOCKER: Parameterized algorithms for minimum dominating set",
-        "editor": "Jir\\'\\i Wiedermann and Gerard Tel and Jaroslav Pokorn\\'y and Mária Bieliková and Julius Stuller",
+        "editor": "Jir\\'\\i Wiedermann and Gerard Tel and Jaroslav Pokorný and Mária Bieliková and Julius Stuller",
         "booktitle": "sofsem06",
         "year": "2006",
         "publisher": "lncs3831",
@@ -9252,7 +9252,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "J. D\\'\\iaz and M. J. Serna and J. Tóran",
+        "author": "J. D\\'\\iaz and M. J. Serna and J. Tόran",
         "title": "Parallel approximation schemes for problems on planar graphs",
         "booktitle": "esa93",
         "editor": "Thomas Lengauer",
@@ -9686,7 +9686,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Klaus Dohmen and André Pӧnitz and Peter Tittmann",
+        "author": "Klaus Dohmen and André Pönitz and Peter Tittmann",
         "title": "A new two-variable generalization of the chromatic polynomial",
         "journal": "dmtcs",
         "year": "2004",
@@ -9945,7 +9945,7 @@
         "title": "Fixed-Parameter Tractability and Completeness III: Some Structural\r\nAspects of the $W$ Hierarchy",
         "booktitle": "Complexity Theory",
         "year": "1993",
-        "editor": "K. Ambos-Spies and\r\nS. Homer and U. Schӧning",
+        "editor": "K. Ambos-Spies and\r\nS. Homer and U. Schöning",
         "publisher": "Cambridge University Press",
         "pages": "191-226"
       }
@@ -10254,7 +10254,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "V. Dujmovi\\'c and P. Morin and D. R. Wood",
+        "author": "V. Dujmović and P. Morin and D. R. Wood",
         "title": "Layout of graphs with bounded tree-width",
         "journal": "siamjc",
         "volume": "34",
@@ -10268,7 +10268,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "V. Dujmovi\\'c and D. R. Wood",
+        "author": "V. Dujmović and D. R. Wood",
         "title": "Stacks, queues and tracks: Layouts of graph subdivisions",
         "journal": "dmtcs",
         "volume": "7",
@@ -10282,7 +10282,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Vida Dujmovi\\'c and David R. Wood",
+        "author": "Vida Dujmović and David R. Wood",
         "title": "Graph treewidth and geometric thickness parameters",
         "editor": "Patrick Healy and Nikola S. Nikolov",
         "booktitle": "gd05",
@@ -10690,7 +10690,7 @@
         "title": "Characterization and Complexity of Boundary Graph Languages",
         "year": "1987",
         "note": "Manuscript",
-        "remark": "Among many other results, it is shown that for given $k$ and\r\n$d$, the set of all (connected) graphs of tree-width $\\leq k$ and degree\r\n$leq d$ is in LOG(CF)"
+        "remark": "Among many other results, it is shown that for given $k$ and\r\n$d$, the set of all (connected) graphs of tree-width $łeq k$ and degree\r\n$leq d$ is in LOG(CF)"
       }
     },
     {
@@ -10857,7 +10857,7 @@
       "Fields": {
         "author": "David Eppstein",
         "title": "Small maximal independent sets and faster exact graph coloring",
-        "editor": "Frank K. H. A. Dehne and Jӧrg-Rüdiger Sack and Roberto Tamassia",
+        "editor": "Frank K. H. A. Dehne and Jörg-Rüdiger Sack and Roberto Tamassia",
         "booktitle": "wads01",
         "publisher": "lncs2125",
         "year": "2001",
@@ -10898,7 +10898,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Paul Erdӧs and G. Szekeres",
+        "author": "Paul Erdös and G. Szekeres",
         "title": "A combinatorial problem in geometry",
         "journal": "Compos. Math.",
         "volume": "2",
@@ -10912,7 +10912,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Paul Erdӧs and Paul Kelly",
+        "author": "Paul Erdös and Paul Kelly",
         "title": "The minimal regular graph containing a given graph",
         "journal": "amm",
         "volume": "70",
@@ -10926,7 +10926,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Paul Erdӧs and L. Pósa",
+        "author": "Paul Erdös and L. Pόsa",
         "title": "On the independent circuits contained in a graph",
         "journal": "canjm",
         "volume": "17",
@@ -10940,7 +10940,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Paul Erdӧs and John Gimbel and Dieter Kratsch",
+        "author": "Paul Erdös and John Gimbel and Dieter Kratsch",
         "title": "Some extremal results in cochromatic and dichromatic theory",
         "year": "1991",
         "journal": "jgt",
@@ -10972,7 +10972,7 @@
       "Fields": {
         "author": "Wolfgang Espelage and Frank Gurski and Egon Wanke",
         "title": "Deciding clique-width for graphs of bounded treewidth",
-        "editor": "Frank K. H. A. Dehne and Jӧrg-Rüdiger Sack and Roberto Tamassia",
+        "editor": "Frank K. H. A. Dehne and Jörg-Rüdiger Sack and Roberto Tamassia",
         "year": "2001",
         "pages": "87-98",
         "booktitle": "wads01",
@@ -11312,7 +11312,7 @@
       "Fields": {
         "author": "U. Feige",
         "title": "Coping with the NP-hardness of the graph bandwidth problem",
-        "editor": "Magnús M. Halldórsson",
+        "editor": "Magnús M. Halldόrsson",
         "booktitle": "swat00",
         "publisher": "lncs1851",
         "year": "2000",
@@ -11378,7 +11378,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Michael R. Fellows and F. Hickling and Maciej M. Sys\\lo",
+        "author": "Michael R. Fellows and F. Hickling and Maciej M. Sysło",
         "title": "A Topological Parameterization and Hard Graph Problems",
         "year": "1987",
         "note": "Presented at Boca Raton, Florida. Final paper in preparation."
@@ -12175,7 +12175,7 @@
       "Warnings": [],
       "Fields": {
         "author": "J. Fiala and Ton Kloks and J. Kratochv\\'\\il",
-        "title": "Fixed-parameter complexity of $\\lambda$-labelings",
+        "title": "Fixed-parameter complexity of $łambda$-labelings",
         "journal": "dam",
         "volume": "113",
         "year": "2001",
@@ -12401,7 +12401,7 @@
       "Fields": {
         "author": "Babette de Fluiter and Hans L. Bodlaender",
         "title": "Parallel algorithms for treewidth two",
-        "editor": "Rolf H. Mӧhring",
+        "editor": "Rolf H. Möhring",
         "booktitle": "wg97",
         "year": "1997",
         "publisher": "lncs1335",
@@ -12414,7 +12414,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jӧrg Flum and M. Frick and Martin Grohe",
+        "author": "Jörg Flum and M. Frick and Martin Grohe",
         "title": "Query evaluation via tree-decomposition",
         "journal": "jacm",
         "volume": "49",
@@ -12428,7 +12428,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jӧrg Flum and Martin Grohe",
+        "author": "Jörg Flum and Martin Grohe",
         "title": "Parameterized Complexity Theory",
         "publisher": "Springer",
         "year": "2006"
@@ -12613,7 +12613,7 @@
       "Fields": {
         "author": "Fedor V. Fomin and Dieter Kratsch and Ioan Todinca",
         "title": "Exact (exponential) algorithms for treewidth and minimum fill-in",
-        "editor": "Josep D\\'\\iaz and Juhani Karhumäki and Arto Lepistӧ and Donald Sanella",
+        "editor": "Josep D\\'\\iaz and Juhani Karhumäki and Arto Lepistö and Donald Sanella",
         "booktitle": "icalp04",
         "publisher": "lncs3142",
         "pages": "568-580",
@@ -12686,7 +12686,7 @@
       "Fields": {
         "author": "Fedor V. Fomin and Dimitrios M. Thilikos",
         "title": "Fast parameterized algorithms for graphs on surfaces: Linear kernel and exponential speedup",
-        "editor": "Josep D\\'\\iaz and Juhani Karhumäki and Arto Lepistӧ and Donald Sanella",
+        "editor": "Josep D\\'\\iaz and Juhani Karhumäki and Arto Lepistö and Donald Sanella",
         "booktitle": "icalp04",
         "year": "2004",
         "publisher": "lncs3142",
@@ -12887,7 +12887,7 @@
       "Fields": {
         "author": "Fedor V. Fomin and Yngve Villanger",
         "title": "Treewidth computation and extremal combinatorics",
-        "editor": "Luca Aceto and Ivan Damgård and Leslie Ann Goldberg and\r\nMagnús M. Halldórsson and Anna Ingólfsdóttir and Igor Walukuewics",
+        "editor": "Luca Aceto and Ivan Damgård and Leslie Ann Goldberg and\r\nMagnús M. Halldόrsson and Anna Ingόlfsdόttir and Igor Walukuewics",
         "booktitle": "icalp08-1",
         "year": "2008",
         "publisher": "lncs5125",
@@ -13778,7 +13778,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Robert Ganian and Petr Hlin\\ven\\'y",
+        "author": "Robert Ganian and Petr Hliněný",
         "title": "On parse trees and Myhill-Nerode-type tools for handling graphs of bounded rank-width",
         "journal": "dam",
         "volume": "158",
@@ -13973,7 +13973,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "N. Garg and J. Kӧnemann",
+        "author": "N. Garg and J. Könemann",
         "title": "Faster and Simpler Algorithms for Multi-commodity Flow and\r\nOther Fractional Packing Problems",
         "booktitle": "focs98",
         "year": "1998",
@@ -14045,7 +14045,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "F\\uanic\\ua Gavril",
+        "author": "Fănică Gavril",
         "title": "Algorithms for minimum coloring, maximum clique, minimum\r\ncovering by cliques, and maximum independent set of a chordal graph",
         "journal": "siamjc",
         "volume": "1",
@@ -14059,7 +14059,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "F\\uanic\\ua Gavril",
+        "author": "Fănică Gavril",
         "title": "The intersection graphs of subtrees in trees are exactly\r\n         the chordal graphs",
         "journal": "jctb",
         "year": "1974",
@@ -14073,7 +14073,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "F\\uanic\\ua Gavril",
+        "author": "Fănică Gavril",
         "title": "An algorithm for testing chordiality of graphs",
         "journal": "ipl",
         "volume": "3",
@@ -14087,7 +14087,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "F\\uanic\\ua Gavril",
+        "author": "Fănică Gavril",
         "title": "A recognition algorithm for the intersection graphs of\r\ndirected paths in directed trees",
         "journal": "dm",
         "volume": "13",
@@ -14101,7 +14101,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "F\\uanic\\ua Gavril",
+        "author": "Fănică Gavril",
         "title": "A recognition algorithm for the intersection graphs of paths\r\n         in trees",
         "journal": "dm",
         "volume": "23",
@@ -14115,7 +14115,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "F\\uanic\\ua Gavril",
+        "author": "Fănică Gavril",
         "title": "A Graph Partition Problem Related to 2-CNFSAT",
         "year": "1988",
         "note": "Draft paper"
@@ -14127,7 +14127,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "F\\uanic\\ua Gavril",
+        "author": "Fănică Gavril",
         "title": "Minimum weight feedback vertex sets in circle graphs",
         "journal": "ipl",
         "volume": "107",
@@ -14534,7 +14534,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Omer Giménez and Petr Hlin\\ven\\'y and Marc Noy",
+        "author": "Omer Giménez and Petr Hliněný and Marc Noy",
         "title": "Computing the Tutte polynomial on graphs of bounded clique-width",
         "journal": "sjdm",
         "volume": "20",
@@ -14885,7 +14885,7 @@
       "Fields": {
         "author": "K. Yu. Gorbunov",
         "title": "An Estimate of the Tree-Width of a Graph Which has not a Given Planar Grid as a Minor",
-        "editor": "Juraj Hromkovic and Ondrej S\\'ykora",
+        "editor": "Juraj Hromkovic and Ondrej Sýkora",
         "booktitle": "wg98",
         "year": "1998",
         "pages": "372-383",
@@ -14969,7 +14969,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Georg Gottlob and Zoltán Miklós and Thomas Schwentick",
+        "author": "Georg Gottlob and Zoltán Miklόs and Thomas Schwentick",
         "title": "Generalized hypertree decompositions: NP-hardness and tractable variants",
         "journal": "jacm",
         "volume": "56",
@@ -15316,7 +15316,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "M. L. Grӧtschel and L. Lovasz and A. Schrijver",
+        "author": "M. L. Grötschel and L. Lovasz and A. Schrijver",
         "title": "Polynomial algorithms for perfect graphs",
         "journal": "adm",
         "volume": "21",
@@ -15375,7 +15375,7 @@
       "Fields": {
         "author": "Jiong Guo and Jens Gramm and Falk Hüffner and Rolf\r\nNiedermeier and Sebastian Wernicke",
         "title": "Improved fixed-parameter algorithms for two feedback set\r\nproblems",
-        "editor": "Frank K. H. A. Dehne and Alejandro López-Ortiz and\r\nJӧrg-Rüdinger Sack",
+        "editor": "Frank K. H. A. Dehne and Alejandro Lόpez-Ortiz and\r\nJörg-Rüdinger Sack",
         "booktitle": "wads05",
         "pages": "158-168",
         "publisher": "lncs3608",
@@ -15989,7 +15989,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Annegret Habel and Hans-Jӧrg Kreowski",
+        "author": "Annegret Habel and Hans-Jörg Kreowski",
         "title": "May we introduce to you: hyperedge replacement",
         "editor": "Hartmut Ehrig and Manfred Nagl and Grzegorz Rozenberg and Azriel Rosenfeld",
         "booktitle": "gragra86",
@@ -16004,7 +16004,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Annegret Habel and Hans-Jӧrg Kreowski",
+        "author": "Annegret Habel and Hans-Jörg Kreowski",
         "title": "Characteristics of Graph Languages generated by Edge Replacement",
         "journal": "tcs",
         "volume": "51",
@@ -16033,7 +16033,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Annegret Habel and Hans-Jӧrg Kreowski and W. Vogler",
+        "author": "Annegret Habel and Hans-Jörg Kreowski and W. Vogler",
         "title": "Metatheorems for decision problems on hyperedge-replacement graph languages",
         "journal": "ai",
         "volume": "26",
@@ -16047,7 +16047,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Annegret Habel and Hans-Jӧrg Kreowski",
+        "author": "Annegret Habel and Hans-Jörg Kreowski",
         "title": "Filtering hyperedge-replacement languages through compatible properties",
         "editor": "Manfred Nagl",
         "booktitle": "wg89",
@@ -16076,7 +16076,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Annegret Habel and Hans-Jӧrg Kreowski",
+        "author": "Annegret Habel and Hans-Jörg Kreowski",
         "title": "Collage Grammars",
         "booktitle": "lncs532",
         "pages": "411-429",
@@ -16089,7 +16089,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Annegret Habel and Hans-Jӧrg Kreowski and Stefan Taubenberger",
+        "author": "Annegret Habel and Hans-Jörg Kreowski and Stefan Taubenberger",
         "title": "Collage and Patterns Generated by Hyperedge Replacement",
         "year": "1992",
         "note": "Manuscript, to appear in Languages and Design 1992"
@@ -16101,7 +16101,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Michel Habib and Rolf H. Mӧhring",
+        "author": "Michel Habib and Rolf H. Möhring",
         "title": "On some complexity properties of N-free posets and posets with\r\nbounded decomposition diameter",
         "journal": "dm",
         "volume": "63",
@@ -16115,7 +16115,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Michel Habib and Rolf H. Mӧhring",
+        "author": "Michel Habib and Rolf H. Möhring",
         "title": "Treewidth of Cocomparability Graphs and a New Order-theoretic Parameter",
         "journal": "ORDER",
         "volume": "1",
@@ -16255,7 +16255,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Magnús M. Halldórsson and Jan Kratochvíl and Jan Arne Telle",
+        "author": "Magnús M. Halldόrsson and Jan Kratochvíl and Jan Arne Telle",
         "title": "Independent Sets with Domination Constraints",
         "journal": "dam",
         "volume": "99",
@@ -16269,7 +16269,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Magnús Halldórsson and Guy Kortsarz",
+        "author": "Magnús Halldόrsson and Guy Kortsarz",
         "title": "Tools for Multicoloring with Applications to Planar Graphs and Partial\r\n$k$-Trees",
         "journal": "ja",
         "volume": "42",
@@ -16590,7 +16590,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "S. M. Hedetniemi and A. Proskurowski and M. M. Sys\\lo",
+        "author": "S. M. Hedetniemi and A. Proskurowski and M. M. Sysło",
         "title": "Interior graphs of maximal outerplanar graphs",
         "journal": "jctb",
         "volume": "38",
@@ -16648,7 +16648,7 @@
       "Fields": {
         "author": "Pinar Heggernes and Yngve Villanger",
         "title": "Efficient implementation of a minimal triangulation algorithm",
-        "editor": "Rolf Mӧhring and Rajeev Raman",
+        "editor": "Rolf Möhring and Rajeev Raman",
         "booktitle": "esa02",
         "publisher": "lncs2461",
         "year": "2002",
@@ -16662,7 +16662,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Pinar Heggernes and Jan Arne Telle and Yngve Villanger",
-        "title": "Computing minimal triangulations in time $O(n^\\alpha \\log n) = o(n^2.376)$",
+        "title": "Computing minimal triangulations in time $O(n^\\alpha łog n) = o(n^2.376)$",
         "journal": "sjdm",
         "volume": "19",
         "year": "2005",
@@ -17052,7 +17052,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Hicks, Illya V. and Koster, Arie M. C. A. and Elif Koloto\\uglu",
+        "author": "Hicks, Illya V. and Koster, Arie M. C. A. and Elif Kolotoğlu",
         "title": "Branch and Tree Decomposition Techniques for Discrete Optimization",
         "booktitle": "TutORials 2005",
         "editor": "J. Cole Smith",
@@ -17083,7 +17083,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Bjӧrn Hiim",
+        "author": "Björn Hiim",
         "title": "Implementing and testing of algorithms for tree-like graphs",
         "school": "University of Bergen",
         "address": "Bergen, Norway",
@@ -17110,7 +17110,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y",
+        "author": "Petr Hliněný",
         "title": "On the excluded minors for matroids of branch-width tree",
         "journal": "ejc",
         "volume": "9",
@@ -17124,7 +17124,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y",
+        "author": "Petr Hliněný",
         "title": "Crossing-number critical graphs have bounded path-width",
         "journal": "jctb",
         "volume": "88",
@@ -17138,7 +17138,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y and G. Whittle",
+        "author": "Petr Hliněný and G. Whittle",
         "title": "Matroid Tree-width",
         "year": "2003",
         "address": "Ostrava, Czech Republic",
@@ -17152,7 +17152,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y",
+        "author": "Petr Hliněný",
         "title": "A parameterized algorithm for matroid branch-width",
         "journal": "siamjc",
         "volume": "35",
@@ -17166,7 +17166,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y",
+        "author": "Petr Hliněný",
         "title": "Branch-width, parse trees, and monadic second-order logic for matroids",
         "journal": "jctb",
         "volume": "96",
@@ -17180,7 +17180,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y",
+        "author": "Petr Hliněný",
         "title": "A parameterized algorithm for matroid branchwidth",
         "journal": "siamjc",
         "volume": "35",
@@ -17194,7 +17194,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y",
+        "author": "Petr Hliněný",
         "title": "Crossing number is hard for cubic graphs",
         "journal": "jctb",
         "volume": "96",
@@ -17208,7 +17208,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y",
+        "author": "Petr Hliněný",
         "title": "The Tutte polynomial for matroids of bounded branch-width",
         "journal": "cpc",
         "volume": "15",
@@ -17222,7 +17222,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y and Detlef Seese",
+        "author": "Petr Hliněný and Detlef Seese",
         "title": "Trees, grids, and MSO decidability: From graphs to matroids",
         "journal": "tcs",
         "volume": "351",
@@ -17236,7 +17236,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y and Geoff Whittle",
+        "author": "Petr Hliněný and Geoff Whittle",
         "title": "Matroid tree-width",
         "journal": "ejcom",
         "volume": "27",
@@ -17250,7 +17250,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y and Sang-il Oum",
+        "author": "Petr Hliněný and Sang-il Oum",
         "title": "Finding branch-decompositions and rank-decompositions",
         "journal": "siamjc",
         "volume": "38",
@@ -17264,7 +17264,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Hlin\\ven\\'y and Sang-il Oum and Detlef Seese and Georg Gottlob",
+        "author": "Petr Hliněný and Sang-il Oum and Detlef Seese and Georg Gottlob",
         "title": "Width parameters beyond tree-width and their applications",
         "journal": "tcj",
         "volume": "51",
@@ -17361,7 +17361,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Walter Hohberg",
-        "title": "Zerlegung von Graphen --- ein allgemeines, sequentielles und\r\nparalleles Lӧsungsverfahren für Graphprobleme",
+        "title": "Zerlegung von Graphen --- ein allgemeines, sequentielles und\r\nparalleles Lösungsverfahren für Graphprobleme",
         "school": "TH Darmstadt",
         "note": "Dissertation",
         "year": "1989"
@@ -17553,7 +17553,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "S. Hougardy and H. J. Prӧmel and A. Steger",
+        "author": "S. Hougardy and H. J. Prömel and A. Steger",
         "title": "Probabilistically checkable proofs and their consequences for\r\napproximation algorithms",
         "journal": "dm",
         "volume": "136",
@@ -17973,7 +17973,7 @@
       "Fields": {
         "author": "G. F. Italiano and A. Marchetti Spaccamela and U. Nanni",
         "title": "Dynamic data structures for series parallel digraphs",
-        "editor": "Frank K. H. A. Dehne and Jӧrg-Rüdiger Sach and Nicola Santoro",
+        "editor": "Frank K. H. A. Dehne and Jörg-Rüdiger Sach and Nicola Santoro",
         "booktitle": "wads89",
         "pages": "352-372",
         "year": "1989",
@@ -18065,7 +18065,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Andreas Jakoby and Maciej Li\\'skiewicz and Rüdiger Reischuk",
+        "author": "Andreas Jakoby and Maciej Liśkiewicz and Rüdiger Reischuk",
         "title": "Space efficient algorithms for directed series-parallel graphs",
         "journal": "ja",
         "volume": "60",
@@ -18530,7 +18530,7 @@
       "Fields": {
         "author": "Damon Kaller and A. Gupta and T. Shermer",
         "title": "Regular-factors in the complement of partial $k$-trees",
-        "editor": "Selim G. Akl and Frank K. H. A. Dehne and Jӧrg-Rüdiger Sack and Nicola Santoro",
+        "editor": "Selim G. Akl and Frank K. H. A. Dehne and Jörg-Rüdiger Sack and Nicola Santoro",
         "booktitle": "wads95",
         "publisher": "lncs955",
         "pages": "403-414",
@@ -18587,7 +18587,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Marcin Kami\\'nski and Vadim V. Lozin and Martin Milani\\vc",
+        "author": "Marcin Kamiński and Vadim V. Lozin and Martin Milanič",
         "title": "Recent developments on graphs of bounded clique-width",
         "journal": "dam",
         "volume": "157",
@@ -19250,7 +19250,7 @@
       "Warnings": [],
       "Fields": {
         "author": "G. Kirchhoff",
-        "title": "Über die Auflӧsung der Gleichugen, auf welche man bei der\r\nUntersuchung der Linearen Verteilung Galvanischer Strӧme geführt wird",
+        "title": "Über die Auflösung der Gleichugen, auf welche man bei der\r\nUntersuchung der Linearen Verteilung Galvanischer Ströme geführt wird",
         "journal": "Ann. Phys. Chem.",
         "volume": "71",
         "year": "1847",
@@ -19605,7 +19605,7 @@
       "Fields": {
         "author": "Ton Kloks and Dieter Kratsch and Haiko Müller",
         "title": "Asteroidal sets in graphs",
-        "editor": "Rolf H. Mӧhring",
+        "editor": "Rolf H. Möhring",
         "booktitle": "wg97",
         "publisher": "lncs1335",
         "year": "1997",
@@ -19717,7 +19717,7 @@
       "Fields": {
         "author": "Ton Kloks and C. M. Lee and Jim Liu",
         "title": "New algorithms for $k$-face cover, $k$-feedback vertex set, and $k$-disjoint cycles on plane and planar graphs",
-        "editor": "Lud\\uek Ku\\ucera",
+        "editor": "Ludĕk Ku\\ucera",
         "booktitle": "wg02",
         "publisher": "lncs2573",
         "year": "2002",
@@ -19773,7 +19773,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Joachim Kneis and Daniel Mӧlle and Stefan Richter and Peter Rossmanith",
+        "author": "Joachim Kneis and Daniel Mölle and Stefan Richter and Peter Rossmanith",
         "title": "On the parameterized complexity of exact satisfiability problems",
         "editor": "Joanna Jedrzejowicz and Andrzej Szepietowski",
         "booktitle": "mfcs05",
@@ -19788,7 +19788,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Joachim Kneis and Daniel Mӧlle and Stefan Richter and Peter Rossmanith",
+        "author": "Joachim Kneis and Daniel Mölle and Stefan Richter and Peter Rossmanith",
         "title": "Parameterized power domination complexity",
         "journal": "ipl",
         "volume": "98",
@@ -19802,7 +19802,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Joachim Kneis and Daniel Mӧlle and Stefan Richter and Peter Rossmanith",
+        "author": "Joachim Kneis and Daniel Mölle and Stefan Richter and Peter Rossmanith",
         "title": "Divide-and-Color",
         "editor": "Fedor V. Fomin",
         "booktitle": "wg06",
@@ -19874,7 +19874,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "D. Kӧnig",
+        "author": "D. König",
         "title": "Theorie der endlichen und unendlichen Graphen",
         "year": "1936",
         "publisher": "Akademische Verlagsgesellschaft",
@@ -20007,7 +20007,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Norbert Korte and Rolf H. Mӧhring",
+        "author": "Norbert Korte and Rolf H. Möhring",
         "title": "An incremental linear-time algorithm for recognizing interval\r\ngraphs",
         "journal": "siamjc",
         "volume": "18",
@@ -20166,7 +20166,7 @@
       "Fields": {
         "author": "Jan Kratochv\\'\\il and Zsolt Tusa",
         "title": "Rankings of directed graphs",
-        "editor": "Juraj Hromkovic and Ondrej S\\'ykora",
+        "editor": "Juraj Hromkovic and Ondrej Sýkora",
         "booktitle": "wg98",
         "publisher": "lncs1517",
         "year": "1998",
@@ -20345,7 +20345,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Stephan Kratsch and Magnus Wahlstrӧm",
+        "author": "Stephan Kratsch and Magnus Wahlström",
         "title": "Two edge modification problems without polynomial kernels",
         "year": "2009",
         "note": "In Proceedings IWPEC 2009"
@@ -20750,7 +20750,7 @@
       "Fields": {
         "author": "Clemens Lautemann",
         "title": "Efficient algorithms on context-free graph languages",
-        "editor": "Timo Lepistӧ and Arto Salomaa",
+        "editor": "Timo Lepistö and Arto Salomaa",
         "booktitle": "icalp88",
         "publisher": "lncs317",
         "pages": "362-378",
@@ -21133,7 +21133,7 @@
       "Fields": {
         "author": "Thomas Lengauer and Egon Wanke",
         "title": "Efficient analysis of graph properties on context-free graph languages",
-        "editor": "Timo Lepistӧ and Arto Salomaa",
+        "editor": "Timo Lepistö and Arto Salomaa",
         "booktitle": "icalp88",
         "publisher": "lncs317",
         "pages": "379-393",
@@ -21328,7 +21328,7 @@
         "author": "Andrzej Lingas",
         "title": "On Parallel Complexity of the Subgraph Isomorphism Problem",
         "number": "LITH-IDA-R-87-10",
-        "institution": "Linkӧping University",
+        "institution": "Linköping University",
         "year": "1987"
       }
     },
@@ -21350,9 +21350,9 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Andrzej Lingas and Maciej M. Sys\\lo",
+        "author": "Andrzej Lingas and Maciej M. Sysło",
         "title": "A polynomial-time algorithm for subgraph isomorphism of two-connected series-parallel graphs",
-        "editor": "Timo Lepistӧ and Arto Salomaa",
+        "editor": "Timo Lepistö and Arto Salomaa",
         "booktitle": "icalp88",
         "year": "1988",
         "pages": "394-409",
@@ -22369,7 +22369,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Dániel Marx and Ildikó Schlotter",
+        "author": "Dániel Marx and Ildikό Schlotter",
         "title": "Parameterized graph cleaning problems",
         "journal": "dam",
         "volume": "157",
@@ -22467,7 +22467,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Ji\\ur\\'\\i Matou\\vsek and Robin Thomas",
+        "author": "Ji\\ur\\'\\i Matoušek and Robin Thomas",
         "title": "Algorithms for finding tree-decompositions of graphs",
         "year": "1991",
         "journal": "ja",
@@ -22481,7 +22481,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Ji\\ur\\'\\i Matou\\vsek and Robin Thomas",
+        "author": "Ji\\ur\\'\\i Matoušek and Robin Thomas",
         "title": "On the Complexity of Finding Iso- and Other Morphisms for\r\nPartial $k$-Trees",
         "journal": "dm",
         "volume": "108",
@@ -22888,7 +22888,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "M. E. Messinger and R. J. Nowakowski and P. Pra\\lat",
+        "author": "M. E. Messinger and R. J. Nowakowski and P. Prałat",
         "title": "Cleaning a network with brushes",
         "journal": "tcs",
         "volume": "399",
@@ -23112,7 +23112,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Rolf H. Mӧhring and F. J. Radermacher",
+        "author": "Rolf H. Möhring and F. J. Radermacher",
         "title": "Substitution decomposition and connections with combinatorial\r\noptimization",
         "journal": "adm",
         "volume": "19",
@@ -23126,7 +23126,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Rolf H. Mӧhring",
+        "author": "Rolf H. Möhring",
         "title": "Algorithmic aspects of comparability graphs and interval graphs",
         "booktitle": "Graphs and Order",
         "editor": "I. Rival",
@@ -23142,7 +23142,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Rolf H. Mӧhring",
+        "author": "Rolf H. Möhring",
         "title": "Algorithmic aspects of the substitution decomposition in optimization\r\nover relations, set systems and boolean functions",
         "journal": "aor",
         "volume": "4",
@@ -23156,7 +23156,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Rolf H. Mӧhring",
+        "author": "Rolf H. Möhring",
         "title": "Computationally tractable classes of ordered sets",
         "booktitle": "Algorithms and Order",
         "editor": "I. Rival",
@@ -23171,10 +23171,10 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Rolf H. Mӧhring",
+        "author": "Rolf H. Möhring",
         "title": "Graph Problems Related to Gate Matrix Layout and PLA\r\nFolding",
         "booktitle": "Computational Graph Theory, Comuting Suppl. 7",
-        "editor": "E. Mayr and H. Noltemeier and M. Sys\\lo",
+        "editor": "E. Mayr and H. Noltemeier and M. Sysło",
         "publisher": "Springer Verlag",
         "pages": "17-51",
         "year": "1990"
@@ -23186,7 +23186,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Rolf H. Mӧhring",
+        "author": "Rolf H. Möhring",
         "title": "Triangulating graphs without asteroidal triples",
         "journal": "dam",
         "volume": "64",
@@ -23327,7 +23327,7 @@
       "Fields": {
         "author": "Shlomo Moran and Sagi Snir",
         "title": "Convex recolorings of strings and trees: Definitions, hardness results, and algorithms",
-        "editor": "Frank K. H. A. Dehne and Alejandro López-Ortiz and Jӧrg-Rüdinger Sack",
+        "editor": "Frank K. H. A. Dehne and Alejandro Lόpez-Ortiz and Jörg-Rüdinger Sack",
         "booktitle": "wads05",
         "publisher": "lncs3608",
         "year": "2005",
@@ -24677,7 +24677,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Ljubomir Perkovi\\'c and Bruce Reed",
+        "author": "Ljubomir Perković and Bruce Reed",
         "title": "An improved algorithm for finding tree decompositions of small width",
         "editor": "Peter Widmayer and Gabriele Neyer and Sephan Eidenbenz",
         "booktitle": "wg99",
@@ -24692,7 +24692,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Ljubomir Perkovi\\'c and Bruce Reed",
+        "author": "Ljubomir Perković and Bruce Reed",
         "title": "An improved algorithm for finding tree decompositions of small width",
         "journal": "ijfcs",
         "volume": "11",
@@ -24765,7 +24765,7 @@
       "Fields": {
         "author": "Jürgen Plehn and Bernd Voigt",
         "title": "Finding minimally weighted subgraphs",
-        "editor": "Rolf H. Mӧhring",
+        "editor": "Rolf H. Möhring",
         "booktitle": "wg90",
         "publisher": "lncs484",
         "year": "1991",
@@ -24906,7 +24906,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Andrzej Proskurowski and Maciej M. Sys\\lo",
+        "author": "Andrzej Proskurowski and Maciej M. Sysło",
         "title": "Minimum dominating cycles in outerplanar graphs",
         "journal": "ijcis",
         "volume": "10",
@@ -24934,7 +24934,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Andrzej Proskurowski and Maciej M. Sys\\lo",
+        "author": "Andrzej Proskurowski and Maciej M. Sysło",
         "title": "Efficient Vertex- and Edge-colorings of Outerplanar Graphs",
         "journal": "sjadm",
         "volume": "7",
@@ -24961,7 +24961,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Andrzej Proskurowski and Maciej M. Sys\\lo",
+        "author": "Andrzej Proskurowski and Maciej M. Sysło",
         "title": "Efficient Computations in Tree-like Graphs",
         "journal": "Comput. Suppl.",
         "volume": "7",
@@ -25347,7 +25347,7 @@
         "title": "Exact Algorithms for Minimum Dominating Set",
         "type": "Technical Report",
         "number": "zaik2005-501",
-        "institution": "Universität zu Kӧln, Cologne, Germany",
+        "institution": "Universität zu Köln, Cologne, Germany",
         "year": "2005"
       }
     },
@@ -25458,7 +25458,7 @@
       "Fields": {
         "author": "Igor Razgon and B. O'Sullivan",
         "title": "Almost $2$-SAT is Fixed-Parameter Tractable (Extended Abstract)",
-        "editor": "Luca Aceto and Ivan Damgård and Leslie Ann Goldberg and\r\nMagnús M. Halldórsson and Anna Ingólfsdóttir and Igor Walukuewics",
+        "editor": "Luca Aceto and Ivan Damgård and Leslie Ann Goldberg and\r\nMagnús M. Halldόrsson and Anna Ingόlfsdόttir and Igor Walukuewics",
         "booktitle": "icalp08-1",
         "year": "2008",
         "publisher": "lncs5125",
@@ -25650,7 +25650,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Tobias Riege and Jӧrg Rothe and Holger Spakowski and Masaki Yamamoto",
+        "author": "Tobias Riege and Jörg Rothe and Holger Spakowski and Masaki Yamamoto",
         "title": "An improved exact algorithm for the domatic number problem",
         "journal": "ipl",
         "volume": "101",
@@ -26231,7 +26231,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Hein Rӧhrig",
+        "author": "Hein Röhrig",
         "title": "Tree decomposition: A feasibility study",
         "school": "Max-Planck-Institut für Informatik",
         "address": "Saarbrücken, Germany",
@@ -26814,7 +26814,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Uwe Schӧning",
+        "author": "Uwe Schöning",
         "title": "Algorithmics in Exponential Time",
         "booktitle": "stacs05",
         "publisher": "lncs3404",
@@ -26828,7 +26828,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Uwe Schӧning",
+        "author": "Uwe Schöning",
         "title": "Smaller superconcentrators of density 28",
         "journal": "ipl",
         "volume": "28",
@@ -27355,7 +27355,7 @@
       "Warnings": [],
       "Fields": {
         "author": "M. Simonovits",
-        "title": "A new proof and generalizations of a theorem of Erdӧs and Pósa on graphs without $k+1$ independent circuits",
+        "title": "A new proof and generalizations of a theorem of Erdös and Pόsa on graphs without $k+1$ independent circuits",
         "journal": "Acta Mathematica Academiae Scientiarum Hungaricae",
         "volume": "18",
         "year": "1976",
@@ -27566,7 +27566,7 @@
       "Fields": {
         "author": "Hermann Stamm",
         "title": "On feedback problems in planar digraphs",
-        "editor": "Rolf Mӧhring",
+        "editor": "Rolf Möhring",
         "booktitle": "wg90",
         "publisher": "lncs484",
         "pages": "79-89",
@@ -27799,7 +27799,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Maciej M. Sys\\lo",
+        "author": "Maciej M. Sysło",
         "title": "Characterisations of outerplanar graphs",
         "journal": "dm",
         "volume": "26",
@@ -27813,7 +27813,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Maciej M. Sys\\lo",
+        "author": "Maciej M. Sysło",
         "title": "The subgraph isomorphism problem for outerplanar graphs",
         "journal": "tcs",
         "volume": "17",
@@ -27827,7 +27827,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Maciej M. Sys\\lo",
+        "author": "Maciej M. Sysło",
         "title": "A labeling algorithm to recognize a line graph and output its root graph",
         "journal": "ipl",
         "volume": "15",
@@ -27841,7 +27841,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Maciej M. Sys\\lo",
+        "author": "Maciej M. Sysło",
         "title": "NP-Complete Problems On Some Tree-Structured Graphs: A Review",
         "editor": "M. Nagl and J. Perl",
         "booktitle": "wg83",
@@ -27857,7 +27857,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Maciej M. Sys\\lo and Andrzej Proskurowski",
+        "author": "Maciej M. Sysło and Andrzej Proskurowski",
         "title": "On Halin graphs",
         "booktitle": "Graph Theory, Lagow, 1981",
         "publisher": "lncs1018",
@@ -27871,7 +27871,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Maciej M. Sys\\lo",
+        "author": "Maciej M. Sysło",
         "title": "Series-parallel graphs and depth-first search trees",
         "journal": "ieeetcs",
         "volume": "CAS-31",
@@ -27887,7 +27887,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Maciej M. Sys\\lo",
+        "author": "Maciej M. Sysło",
         "title": "On Some Generalizations of Outerplanar Graphs: Results and Open Problems",
         "editor": "G. Tinhofer and G. Schmidt",
         "booktitle": "wg86",
@@ -28197,7 +28197,7 @@
       "Fields": {
         "author": "Jan Telle and Andrzej Proskurowski",
         "title": "Practical algorithms on partial $k$-trees with an application to domination-like problems",
-        "editor": "Frank K. H. A. Dehne and Jӧrg-Rüdiger Sack and Nicola Santoro and Sue Whitesides",
+        "editor": "Frank K. H. A. Dehne and Jörg-Rüdiger Sack and Nicola Santoro and Sue Whitesides",
         "booktitle": "wads93",
         "publisher": "lncs709",
         "year": "1993",
@@ -28450,7 +28450,7 @@
       "Fields": {
         "author": "C. Thomassen",
         "title": "Embeddings and Minors",
-        "note": "Manuscript, to appear in Handbook of Combinatorics, ed. by R. L. Graham, M.\r\nGrӧtschel and L. Lovasz, North Holland",
+        "note": "Manuscript, to appear in Handbook of Combinatorics, ed. by R. L. Graham, M.\r\nGrötschel and L. Lovasz, North Holland",
         "year": "1987",
         "something": "Mat-Report No. 1987-10, pp. 1-63"
       }
@@ -30111,7 +30111,7 @@
       "Fields": {
         "key": "TreewidthLIB",
         "title": "TreewidthLIB",
-        "year": "2004-- \\ldots",
+        "year": "2004-- łdots",
         "url": "http://www.cs.uu.nl/people/hansb/treewidthlib",
         "howpublished": "http://www.cs.uu.nl/people/hansb/treewidthlib"
       }

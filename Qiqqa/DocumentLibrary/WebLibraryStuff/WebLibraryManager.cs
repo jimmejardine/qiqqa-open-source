@@ -11,6 +11,7 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -72,28 +73,33 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private WebLibraryManager()
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            // WARNING: this code is executed inside an Instance lock (lock_instance) and should therefor be both minimal and FAST:
+            // hence we push all the work to be done onto a worker thread for processing at a later time.
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            // Look for any web libraries that we know about
-            LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, only_load_those_libraries_which_are_actually_present: false);
+                // Look for any web libraries that we know about
+                LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, only_load_those_libraries_which_are_actually_present: false);
 
-            // *************************************************************************************************************
-            // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
-            // *************************************************************************************************************
-            AddLegacyWebLibrariesThatCanBeFoundOnDisk();
-            // *************************************************************************************************************
+                // *************************************************************************************************************
+                // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
+                // *************************************************************************************************************
+                AddLegacyWebLibrariesThatCanBeFoundOnDisk();
+                // *************************************************************************************************************
 
-            AddLocalGuestLibraryIfMissing();
+                AddLocalGuestLibraryIfMissing();
 
-            InitAllLoadedLibraries();
+                InitAllLoadedLibraries();
 
-            ImportManualsIntoLocalGuestLibraryIfMissing();
+                ImportManualsIntoLocalGuestLibraryIfMissing();
 
-            SaveKnownWebLibraries();
+                SaveKnownWebLibraries();
 
-            StatusManager.Instance.ClearStatus("LibraryInitialLoad");
+                StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
-            FireWebLibrariesChanged();
+                FireWebLibrariesChanged();
+            });
         }
 
         private void FireWebLibrariesChanged()
@@ -122,7 +128,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                  *   then add it to our list with the word '[LEGACY]' in front of it.
                  */
 
-                string base_directory_path = UpgradePaths.V037To038.SQLiteUpgrade.BaseDirectoryForQiqqa;
+                string base_directory_path = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
                 Logging.Info("Going to scan for web libraries at: {0}", base_directory_path);
                 if (Directory.Exists(base_directory_path))
                 {
@@ -198,8 +204,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                             new_web_library_detail.Id = library_id;
                             new_web_library_detail.Title = "Legacy Web Library - " + new_web_library_detail.Id;
-                            new_web_library_detail.IsReadOnly = false;
-                            // library: UNKNOWN type
+                            // library: Intranet/Local type
 
                             UpdateKnownWebLibrary(new_web_library_detail);
                         }
@@ -220,9 +225,18 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             foreach (var pair in web_library_details)
             {
-                var web_lib = pair.Value;
-                var library = web_lib.library;
-                library.BuildFromDocumentRepository();
+                WebLibraryDetail web_lib = pair.Value;
+                Library library = web_lib.Xlibrary;
+                ASSERT.Test(library == null);
+
+                if (ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Info("InitAllLoadedLibraries: Breaking out of library loading loop due to application termination");
+                    break;
+                }
+
+                library = web_lib.Xlibrary = new Library(web_lib);
+                library.BuildFromDocumentRepository(web_lib);
             }
         }
 
@@ -235,7 +249,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             // Check if we have an existing Guest library
             foreach (var pair in web_library_details)
             {
-                if (pair.Value.IsLocalGuestLibrary)
+                if (pair.Value.Id == "Guest")
                 {
                     guest_web_library_detail = pair.Value;
                     break;
@@ -250,8 +264,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 new_web_library_detail.Title = "Local Guest Library";
                 new_web_library_detail.Description = "This is the library that comes with your Qiqqa guest account.";
                 new_web_library_detail.Deleted = false;
-                new_web_library_detail.IsReadOnly = false;
-                new_web_library_detail.IsLocalGuestLibrary = true;
 
                 UpdateKnownWebLibrary(new_web_library_detail);
 
@@ -269,88 +281,62 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             // Import the Qiqqa manuals in the background, waiting until the library has loaded...
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                while (!guest_web_library_detail.library.LibraryIsLoaded)
+                while (!guest_web_library_detail.Xlibrary.LibraryIsLoaded)
                 {
-                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    if (ShutdownableManager.Instance.IsShuttingDown)
                     {
                         return;
                     }
                     Thread.Sleep(500);
                 }
 
-                QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail.library);
+                QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail);
             });
         }
 
-        public WebLibraryDetail WebLibraryDetails_Guest => guest_web_library_detail;
+        public WebLibraryDetail Library_Guest => guest_web_library_detail;
 
-        public Library Library_Guest => guest_web_library_detail.library;
+        // *************************************************************************************************************
 
-        public bool HaveOnlyLocalGuestLibrary()
+        public void UnloadAllLibraries()
         {
-            bool have_only_local_guest_library = true;
-            foreach (WebLibraryDetail wld in WebLibraryDetails_All_IncludingDeleted)
+            //WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+#if true
+            foreach (var pair in web_library_details)
             {
-                if (!wld.IsLocalGuestLibrary) have_only_local_guest_library = false;
-            }
-            return have_only_local_guest_library;
-        }
-
-        public bool HaveOnlyOneWebLibrary()
-        {
-            return 1 == WebLibraryDetails_WorkingWebLibraries.Count;
-        }
-
-
-        /// <summary>
-        /// Returns all working web libraries.  If the user has a web library, guest and deleted libraries are not in this list.
-        /// If they have only a guest library, then this list is empty...
-        /// </summary>
-        public List<WebLibraryDetail> WebLibraryDetails_WorkingWebLibrariesWithoutGuest
-        {
-            get
-            {
-                List<WebLibraryDetail> details = new List<WebLibraryDetail>();
-                foreach (WebLibraryDetail wld in WebLibraryDetails_All_IncludingDeleted)
+                WebLibraryDetail web_lib = pair.Value;
+                Library library = web_lib.Xlibrary;
+                if (library != null)
                 {
-                    if (!wld.Deleted && !wld.IsLocalGuestLibrary)
-                    {
-                        details.Add(wld);
-                    }
+                    web_lib.Xlibrary = null;
+                    library.Dispose();
                 }
-
-                return details;
             }
+#endif
+
+            // Allow the GC to collect these naturally.
+            // Only when there are still dependency cycles or other stuff active, would this
+            // nuking of the references to the libraries NOT help to release their memory.
+            web_library_details = new Dictionary<string, WebLibraryDetail>();
+            // DO NOT forget to also release the reference to the Guest library:
+            guest_web_library_detail = null;
+
+            GC.WaitForPendingFinalizers();
+            GC.Collect(100, GCCollectionMode.Forced, true, true);
+            Logging.Info("UnloadAllLibraries: Heap after forced GC compacting at the end: {0}", GC.GetTotalMemory(false));
         }
 
+        // *************************************************************************************************************
+
         /// <summary>
-        /// Returns all working web libraries.  If the user has a web library, guest and deleted libraries are not in this list.
-        /// If they have only a guest library, then it is in this list...
+        /// Returns all working web libraries, including the guest library.
         /// </summary>
         public List<WebLibraryDetail> WebLibraryDetails_WorkingWebLibraries
         {
             get
             {
-                List<WebLibraryDetail> details = WebLibraryDetails_WorkingWebLibrariesWithoutGuest;
-
-                // If they don't have any real libraries, throw in the guest library
-                if (0 == details.Count)
-                {
-                    details.Add(WebLibraryDetails_Guest);
-                }
-
-                return details;
-            }
-        }
-
-        /// <summary>
-        /// Returns all working web libraries, including the guest library.
-        /// </summary>
-        public List<WebLibraryDetail> WebLibraryDetails_WorkingWebLibraries_All
-        {
-            get
-            {
-                HashSet<WebLibraryDetail> details = new HashSet<WebLibraryDetail>();
+                List<WebLibraryDetail> details = new List<WebLibraryDetail>();
                 foreach (WebLibraryDetail wld in WebLibraryDetails_All_IncludingDeleted)
                 {
                     if (!wld.Deleted)
@@ -359,10 +345,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     }
                 }
 
-                // Always add the guest library
-                details.Add(WebLibraryDetails_Guest);
+                ASSERT.Test(details.Count > 0);
 
-                return new List<WebLibraryDetail>(details);
+                return details;
             }
         }
 
@@ -376,12 +361,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        public Library GetLibrary(string library_id)
+        public WebLibraryDetail GetLibrary(string library_id)
         {
             WebLibraryDetail web_library_detail;
             if (web_library_details.TryGetValue(library_id, out web_library_detail))
             {
-                return GetLibrary(web_library_detail);
+                return web_library_detail;
             }
             else
             {
@@ -389,9 +374,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        public Library GetLibrary(WebLibraryDetail web_library_detail)
+        public void WaitForLibraryToLoad(WebLibraryDetail web_library_detail, Action exec_after_load)
         {
-            return web_library_detail.library;
+            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            // TBD TBD TBD TBD TBD TBD
         }
 
         public void NotifyOfChangeToWebLibraryDetail()
@@ -418,15 +404,18 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 {
                     if (a == b) return 0;
 
-                    if (b.Deleted) return -1;
+                    // make sure sort criteria are consistent across the board or you'll get a BadComparer exception!
+                    // Hence we MUST compare (B && !A) before (A), not just simply, and faster, (B) then (A):
+
+                    if (b.Deleted && !a.Deleted) return -1;
                     if (a.Deleted) return +1;
 
-                    if (b.IsLocalGuestLibrary) return -1;
-                    if (a.IsLocalGuestLibrary) return +1;
+                    if (b.Id == "Guest" && a.Id != "Guest") return -1;
+                    if (a.Id == "Guest") return +1;
 
                     int pos_b = last_open_ordering.IndexOf(b.Id);
-                    if (-1 == pos_b) return -1;
                     int pos_a = last_open_ordering.IndexOf(a.Id);
+                    if (-1 == pos_b && -1 != pos_a) return -1;
                     if (-1 == pos_a) return +1;
 
                     return Sorting.Compare(pos_a, pos_b);
@@ -458,16 +447,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                             if (!new_web_library_detail.IsPurged)
                             {
-                                // Intranet libraries had their readonly flag set on the user's current premium status...
-                                if (new_web_library_detail.IsIntranetLibrary
-                                    || new_web_library_detail.IsLocalGuestLibrary
-                                    || new_web_library_detail.IsWebLibrary
-                                    || new_web_library_detail.IsBundleLibrary)
-                                {
-                                    new_web_library_detail.IsReadOnly = false;
-                                }
-
-                                string libdir_path = Library.GetLibraryBasePathForId(new_web_library_detail.Id);
+                                string libdir_path = WebLibraryDetail.GetLibraryBasePathForId(new_web_library_detail.Id);
                                 string libfile_path = LibraryDB.GetLibraryDBPath(libdir_path);
 
                                 if (File.Exists(libfile_path) || !only_load_those_libraries_which_are_actually_present)
@@ -516,16 +496,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 known_web_libraries_file.web_library_details = new List<WebLibraryDetail>();
                 foreach (WebLibraryDetail web_library_detail in web_library_details.Values)
                 {
-                    // *************************************************************************************************************
-                    // *** MIGRATION TO OPEN SOURCE CODE ***************************************************************************
-                    // *************************************************************************************************************
-                    // Don't remember the web libraries - let them be discovered by this
-                    if ("UNKNOWN" == web_library_detail.LibraryType())
-                    {
-                        continue;
-                    }
-                    // *************************************************************************************************************
-
                     known_web_libraries_file.web_library_details.Add(web_library_detail);
                 }
                 SerializeFile.ProtoSave<KnownWebLibrariesFile>(filename, known_web_libraries_file);
@@ -547,6 +517,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private static int PathsMixCollisionComparer(string a, string b)
         {
+            if (a == b)
+            {
+                return 0;
+            }
+
             // check which of them exists: that one wins
             if (Directory.Exists(a) || File.Exists(a))
             {
@@ -698,7 +673,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             return fresh;
         }
 
-        private static readonly DateTime DATE_ZERO = new DateTime(1990, 1, 1);   // no Qiqqa existed before this date
+        public static readonly DateTime DATE_ZERO = new DateTime(1990, 1, 1);   // no Qiqqa existed before this date
 
         private static DateTime? MixOldAndNew(DateTime? old, DateTime? fresh, string spec, ref int state)
         {
@@ -810,13 +785,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     int state = 0x00; // bit 0: prefer to use old, bit 1: prefer to use fresh, bit 2: used old, bit 3: used fresh, 0: don't know yet.
 
                     // if there's already an entry present, see if we should 'upgrade' the info or stick with what we have:
-                    DateTime? dt = MixOldAndNew(old.LastServerSyncNotificationDate, new_web_library_detail.LastServerSyncNotificationDate, new_web_library_detail.Id + "::" + nameof(old.LastServerSyncNotificationDate), ref state);
-                    old.LastServerSyncNotificationDate = dt ?? DATE_ZERO;
                     old.LastBundleManifestDownloadTimestampUTC = MixOldAndNew(old.LastBundleManifestDownloadTimestampUTC, new_web_library_detail.LastBundleManifestDownloadTimestampUTC, new_web_library_detail.Id + "::" + nameof(old.LastBundleManifestDownloadTimestampUTC), ref state);
                     old.LastBundleManifestIgnoreVersion = MixOldAndNew(old.LastBundleManifestIgnoreVersion, new_web_library_detail.LastBundleManifestIgnoreVersion, new_web_library_detail.Id + "::" + nameof(old.LastBundleManifestIgnoreVersion), ref state);
                     old.LastSynced = MixOldAndNew(old.LastSynced, new_web_library_detail.LastSynced, new_web_library_detail.Id + "::" + nameof(old.LastSynced), ref state);
                     old.IntranetPath = MixOldAndNew(old.IntranetPath, new_web_library_detail.IntranetPath, new_web_library_detail.Id + "::" + nameof(old.IntranetPath), ref state, PathsMixCollisionComparer);
-                    old.ShortWebId = MixOldAndNew(old.ShortWebId, new_web_library_detail.ShortWebId, new_web_library_detail.Id + "::" + nameof(old.ShortWebId), ref state);
                     old.FolderToWatch = MixOldAndNew(old.FolderToWatch, new_web_library_detail.FolderToWatch, new_web_library_detail.Id + "::" + nameof(old.FolderToWatch), ref state, PathsMixCollisionComparer);
                     old.Title = MixOldAndNew(old.Title, new_web_library_detail.Title, new_web_library_detail.Id + "::" + nameof(old.Title), ref state);
                     old.Description = MixOldAndNew(old.Description, new_web_library_detail.Description, new_web_library_detail.Id + "::" + nameof(old.Description), ref state);
@@ -826,31 +798,26 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     MixOldAndNew(old.LibraryType(), new_web_library_detail.LibraryType(), new_web_library_detail.Id + "::" + nameof(old.LibraryType), ref state);
                     old.Deleted = MixOldAndNew(old.Deleted, new_web_library_detail.Deleted, new_web_library_detail.Id + "::" + nameof(old.Deleted), ref state);
                     old.AutoSync = MixOldAndNew(old.AutoSync, new_web_library_detail.AutoSync, new_web_library_detail.Id + "::" + nameof(old.AutoSync), ref state);
-                    old.IsAdministrator = MixOldAndNew(old.IsAdministrator, new_web_library_detail.IsAdministrator, new_web_library_detail.Id + "::" + nameof(old.IsAdministrator), ref state);
                     /* old.IsBundleLibrary = */
                     MixOldAndNew(old.IsBundleLibrary, new_web_library_detail.IsBundleLibrary, new_web_library_detail.Id + "::" + nameof(old.IsBundleLibrary), ref state);
                     /* old.IsIntranetLibrary = */
                     MixOldAndNew(old.IsIntranetLibrary, new_web_library_detail.IsIntranetLibrary, new_web_library_detail.Id + "::" + nameof(old.IsIntranetLibrary), ref state);
                     /* old.IsWebLibrary = */
-                    MixOldAndNew(old.IsWebLibrary, new_web_library_detail.IsWebLibrary, new_web_library_detail.Id + "::" + nameof(old.IsWebLibrary), ref state);
-                    old.IsLocalGuestLibrary = MixOldAndNew(old.IsLocalGuestLibrary, new_web_library_detail.IsLocalGuestLibrary, new_web_library_detail.Id + "::" + nameof(old.IsLocalGuestLibrary), ref state);
-                    old.IsReadOnly = MixOldAndNew(old.IsReadOnly, new_web_library_detail.IsReadOnly, new_web_library_detail.Id + "::" + nameof(old.IsReadOnly), ref state);
 
-                    // fixup:
-                    if (old.LibraryType() != "UNKNOWN" && old.IsReadOnly)
-                    {
-                        // reset ReadOnly for everyone who is ex-Premium(Plus) for all their known libraries.
-                        old.IsReadOnly = false;
-                    }
-
+                    ASSERT.Test(old.Xlibrary == null);
+                    ASSERT.Test(new_web_library_detail.Xlibrary == null);
+#if false    // this code is not needed in the current use of the API as long as the ASSERTions above hold
                     old.library?.Dispose();
-
-                    old.library = new_web_library_detail.library;
+                    if (new_web_library_detail.library != null)
+                    {
+                        old.library = new_web_library_detail.library;
+                    }
                     // and update it's internal (cyclic) web_library_detail reference:
                     if (old.library != null)
                     {
                         old.library.WebLibraryDetail = old;
                     }
+#endif
 
                     if ((state & 0x0c) == 0x0c)
                     {
@@ -869,10 +836,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            if (null == new_web_library_detail.library)
-            {
-                new_web_library_detail.library = new Library(new_web_library_detail);
-            }
+            ASSERT.Test(new_web_library_detail.Xlibrary == null);
             web_library_details[new_web_library_detail.Id] = new_web_library_detail;
 
             if (!suppress_flush_to_disk)
@@ -899,7 +863,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             new_web_library_detail.Id = intranet_library_detail.Id;
             new_web_library_detail.Title = intranet_library_detail.Title;
             new_web_library_detail.Description = intranet_library_detail.Description;
-            new_web_library_detail.IsReadOnly = false;
             new_web_library_detail.Deleted = false;
 
             UpdateKnownWebLibrary(new_web_library_detail, suppress_flush_to_disk, extra_info_message_on_skip);
@@ -919,7 +882,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             new_web_library_detail.Id = manifest.Id;
             new_web_library_detail.Title = manifest.Title;
             new_web_library_detail.Description = manifest.Description;
-            new_web_library_detail.IsReadOnly = true;
             new_web_library_detail.Deleted = false;
 
             UpdateKnownWebLibrary(new_web_library_detail, suppress_flush_to_disk);

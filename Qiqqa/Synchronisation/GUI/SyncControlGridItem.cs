@@ -29,5 +29,7 @@ namespace Qiqqa.Synchronisation.GUI
         public string SizeLocalString => String.Format("{0:N1}", SizeLocal / (1024.0 * 1024.0));
 
         public long SizeLocal => library_sync_detail.local_library_sync_detail.total_library_size;
+
+        public string SyncTarget => library_sync_detail.web_library_detail?.IntranetPath ?? "(null)";
     }
 }

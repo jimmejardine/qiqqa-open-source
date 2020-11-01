@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Media;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.Common;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Qiqqa.Documents.PDF.DiskSerialisation;
@@ -33,7 +34,7 @@ namespace Qiqqa.Documents.PDF
 
         private PDFDocument_ThreadUnsafe doc;
 
-        public Library Library => doc.Library;
+        public WebLibraryDetail LibraryRef => doc.LibraryRef;
 
         public string GetAttributesAsJSON()
         {
@@ -43,16 +44,16 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        private PDFDocument(LockObject _lock, Library library)
+        private PDFDocument(LockObject _lock, WebLibraryDetail web_library_detail)
         {
             access_lock = _lock;
-            doc = new PDFDocument_ThreadUnsafe(library);
+            doc = new PDFDocument_ThreadUnsafe(web_library_detail);
         }
 
-        private PDFDocument(LockObject _lock, Library library, DictionaryBasedObject dictionary)
+        private PDFDocument(LockObject _lock, WebLibraryDetail web_library_detail, DictionaryBasedObject dictionary)
         {
             access_lock = _lock;
-            doc = new PDFDocument_ThreadUnsafe(library, dictionary);
+            doc = new PDFDocument_ThreadUnsafe(web_library_detail, dictionary);
         }
 
         public PDFRenderer PDFRenderer
@@ -131,7 +132,7 @@ namespace Qiqqa.Documents.PDF
         private void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             QueueToStorage();
-            Library.LibraryIndex.ReIndexDocument(this);
+            LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
         }
 
         public string Fingerprint
@@ -423,7 +424,7 @@ namespace Qiqqa.Documents.PDF
         /// - check the suggested year field (@xref YearSuggested)
         /// - if also else fails, return the UNKNOWN_YEAR value.
         ///
-        /// When setting this value, the first action in this prioirty list is executed, where the conditions pass:
+        /// When setting this value, the first action in this priority list is executed, where the conditions pass:
         ///
         /// - check if there's a non-empty (partial) BibTeX record: when there is, add/update the `year` field
         /// - update the manual-entry Year field (@xref Year)
@@ -942,7 +943,7 @@ namespace Qiqqa.Documents.PDF
         private void annotations_OnPDFAnnotationListChanged()
         {
             QueueToStorage();
-            Library.LibraryIndex.ReIndexDocument(this);
+            LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
         }
 
         public string GetAnnotationsAsJSON()
@@ -986,7 +987,7 @@ namespace Qiqqa.Documents.PDF
         private void highlights_OnPDFHighlightListChanged()
         {
             QueueToStorage();
-            Library.LibraryIndex.ReIndexDocument(this);
+            LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
         }
 
         public string GetHighlightsAsJSON()
@@ -1026,7 +1027,7 @@ namespace Qiqqa.Documents.PDF
         {
             Logging.Info("Document has changed inks");
             QueueToStorage();
-            Library.LibraryIndex.ReIndexDocument(this);
+            LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
         }
 
         public byte[] GetInksAsJSON()
@@ -1075,17 +1076,34 @@ namespace Qiqqa.Documents.PDF
         /// <param name="data"></param>
         /// <param name="library_items_annotations_cache"></param>
         /// <returns></returns>
-        public static PDFDocument LoadFromMetaData(Library library, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
+        public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, string fingerprint, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
         {
+            ASSERT.Test(!String.IsNullOrEmpty(fingerprint));
+
             DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
+
+            // Recover partially damaged record: if there's no fingerprint in the dictionary, add the given one:
+            string id = dictionary["Fingerprint"] as string;
+            if (String.IsNullOrEmpty(id))
+            {
+                dictionary["Fingerprint"] = fingerprint;
+            }
+
             LockObject _lock = new LockObject();
-            PDFDocument pdf_document = new PDFDocument(_lock, library, dictionary);
+            PDFDocument pdf_document = new PDFDocument(_lock, web_library_detail, dictionary);
+
+            // extra verification / sanity check: this will catch some very obscure DB corruption, or rather **manual editing**! ;-)
+            if (pdf_document.Fingerprint != fingerprint)
+            {
+                Logging.Warn("Sanity check: given fingerprint '{0}' does not match the fingerprint '{1}' obtained from the DB metadata record. Running with the fingerprint specified in the metadata record.", fingerprint, pdf_document.Fingerprint);
+            }
+
             // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
             pdf_document.doc.GetAnnotations(library_items_annotations_cache);
             return pdf_document;
         }
 
-        public static PDFDocument CreateFromPDF(Library library, string filename, string precalculated_fingerprint__can_be_null)
+        public static PDFDocument CreateFromPDF(WebLibraryDetail web_library_detail, string filename, string precalculated_fingerprint__can_be_null)
         {
             string fingerprint = precalculated_fingerprint__can_be_null;
             if (String.IsNullOrEmpty(fingerprint))
@@ -1094,7 +1112,7 @@ namespace Qiqqa.Documents.PDF
             }
 
             LockObject _lock = new LockObject();
-            PDFDocument pdf_document = new PDFDocument(_lock, library);
+            PDFDocument pdf_document = new PDFDocument(_lock, web_library_detail);
 
             // Store the most important information
             //
@@ -1108,7 +1126,7 @@ namespace Qiqqa.Documents.PDF
 
             pdf_document.doc.StoreAssociatedPDFInRepository(filename);
 
-            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.doc.Fingerprint, PDFDocumentFileLocations.METADATA);
+            List<LibraryDB.LibraryItem> library_items = web_library_detail.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.doc.Fingerprint, PDFDocumentFileLocations.METADATA);
             if (0 == library_items.Count)
             {
                 pdf_document.QueueToStorage();
@@ -1118,7 +1136,7 @@ namespace Qiqqa.Documents.PDF
                 try
                 {
                     LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(library, library_item.data, null);
+                    pdf_document = LoadFromMetaData(web_library_detail, pdf_document.doc.Fingerprint, library_item.data, null);
                 }
                 catch (Exception ex)
                 {
@@ -1133,10 +1151,10 @@ namespace Qiqqa.Documents.PDF
             return pdf_document;
         }
 
-        public static PDFDocument CreateFromVanillaReference(Library library)
+        public static PDFDocument CreateFromVanillaReference(WebLibraryDetail web_library_detail)
         {
             LockObject _lock = new LockObject();
-            PDFDocument pdf_document = new PDFDocument(_lock, library);
+            PDFDocument pdf_document = new PDFDocument(_lock, web_library_detail);
 
             // Store the most important information
             //
@@ -1148,7 +1166,7 @@ namespace Qiqqa.Documents.PDF
 
             Directory.CreateDirectory(pdf_document.DocumentBasePath);
 
-            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
+            List<LibraryDB.LibraryItem> library_items = web_library_detail.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
             if (0 == library_items.Count)
             {
                 pdf_document.QueueToStorage();
@@ -1158,7 +1176,7 @@ namespace Qiqqa.Documents.PDF
                 try
                 {
                     LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(library, library_item.data, null);
+                    pdf_document = LoadFromMetaData(web_library_detail, pdf_document.Fingerprint, library_item.data, null);
                 }
                 catch (Exception ex)
                 {
@@ -1192,7 +1210,7 @@ namespace Qiqqa.Documents.PDF
             // prevent deadlock due to possible incorrect use of this API:
             if (existing_pdf_document != this)
             {
-                Logging.Warn("TODO: CloneMetaData: MERGE metadata for existing document and document which was copied/moved into this library. Target Document: {0}, Source Document: {1}", this.Fingerprint, existing_pdf_document.Library);
+                Logging.Warn("TODO: CloneMetaData: MERGE metadata for existing document and document which was copied/moved into this library. Target Document: {0}, Source Document: {1}", this.Fingerprint, existing_pdf_document.LibraryRef);
 
                 lock (existing_pdf_document.access_lock)
                 {
@@ -1241,7 +1259,7 @@ namespace Qiqqa.Documents.PDF
 
         internal PDFDocument AssociatePDFWithVanillaReference(string pdf_filename)
         {
-            PDFDocument new_pdf_document = doc.AssociatePDFWithVanillaReference_Part1(pdf_filename);
+            PDFDocument new_pdf_document = doc.AssociatePDFWithVanillaReference_Part1(pdf_filename, LibraryRef);
 
             // Prevent nasty things when the API is used in unintended ways, where the current document already happens to have that file
             // associated with it:
@@ -1267,8 +1285,8 @@ namespace Qiqqa.Documents.PDF
                     QueueToStorage();
 
                     // Tell library to refresh
-                    Library.SignalThatDocumentsHaveChanged(this);
-                    new_pdf_document.Library.SignalThatDocumentsHaveChanged(new_pdf_document);
+                    LibraryRef.Xlibrary.SignalThatDocumentsHaveChanged(this);
+                    new_pdf_document.LibraryRef.Xlibrary.SignalThatDocumentsHaveChanged(new_pdf_document);
                 }
                 else
                 {
@@ -1283,7 +1301,7 @@ namespace Qiqqa.Documents.PDF
         {
             lock (access_lock)
             {
-                doc.Library.PasswordManager.AddPassword(doc, password);
+                doc.LibraryRef.Xlibrary.PasswordManager.AddPassword(doc, password);
             }
         }
 
@@ -1291,7 +1309,7 @@ namespace Qiqqa.Documents.PDF
         {
             lock (access_lock)
             {
-                doc.Library.PasswordManager.RemovePassword(doc);
+                doc.LibraryRef.Xlibrary.PasswordManager.RemovePassword(doc);
             }
         }
 
@@ -1299,7 +1317,7 @@ namespace Qiqqa.Documents.PDF
         {
             lock (access_lock)
             {
-                return doc.Library.PasswordManager.GetPassword(doc);
+                return doc.LibraryRef.Xlibrary.PasswordManager.GetPassword(doc);
             }
         }
     }

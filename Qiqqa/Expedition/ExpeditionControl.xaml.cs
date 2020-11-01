@@ -25,7 +25,7 @@ namespace Qiqqa.Expedition
     /// </summary>
     public partial class ExpeditionControl : UserControl
     {
-        private Library library = null;
+        private WebLibraryDetail web_library_detail = null;
 
         public ExpeditionControl()
         {
@@ -88,13 +88,13 @@ namespace Qiqqa.Expedition
 
         private void ButtonExportTopics_Click(object sender, RoutedEventArgs e)
         {
-            if (null != library.ExpeditionManager.ExpeditionDataSource)
+            if (null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
             {
-                ExpeditionDataSource eds = library.ExpeditionManager.ExpeditionDataSource;
-                LDAAnalysis lda_analysis = library.ExpeditionManager.ExpeditionDataSource.LDAAnalysis;
+                ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+                LDAAnalysis lda_analysis = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis;
 
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < library.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS; ++i)
+                for (int i = 0; i < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS; ++i)
                 {
                     string topic_description = eds.GetDescriptionForTopic(i);
                     sb.AppendFormat("{1}\r\n", i, topic_description);
@@ -112,9 +112,9 @@ namespace Qiqqa.Expedition
 
         private void ButtonRefreshTags_Click(object sender, RoutedEventArgs e)
         {
-            if (null != library)
+            if (null != web_library_detail)
             {
-                SafeThreadPool.QueueUserWorkItem(o => library.AITagManager.Regenerate());
+                SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.AITagManager.Regenerate());
             }
             else
             {
@@ -124,10 +124,10 @@ namespace Qiqqa.Expedition
 
         private void ButtonManageLists_Click(object sender, RoutedEventArgs e)
         {
-            if (null != library)
+            if (null != web_library_detail)
             {
                 BlackWhiteListEditorWindow w = new BlackWhiteListEditorWindow();
-                w.SetLibrary(library);
+                w.SetLibrary(web_library_detail);
                 w.Show();
             }
             else
@@ -168,9 +168,9 @@ namespace Qiqqa.Expedition
             }
         }
 
-        public void ChooseNewLibrary(WebLibraryDetail web_library_detail)
+        public void ChooseNewLibrary(WebLibraryDetail picked_web_library_detail)
         {
-            library = null;
+            web_library_detail = picked_web_library_detail;
             TextLibraryForExpedition.Text = "Click to choose a library.";
             ObjTopicListPanel.Children.Clear();
 
@@ -178,20 +178,19 @@ namespace Qiqqa.Expedition
 
             if (null != web_library_detail)
             {
-                library = web_library_detail.library;
                 TextLibraryForExpedition.Text = web_library_detail.Title;
 
-                int suggested_theme_count = library.ExpeditionManager.RecommendedThemeCount;
+                int suggested_theme_count = web_library_detail.Xlibrary.ExpeditionManager.RecommendedThemeCount;
                 TextExpeditionNumThemes.Text = "" + suggested_theme_count;
                 TextExpeditionNumThemes.ToolTip = "How many themes do you want in this Expedition?\n(" + suggested_theme_count + " suggested)";
 
-                if (null != library.ExpeditionManager.ExpeditionDataSource)
+                if (null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
                 {
-                    for (int i = 0; i < library.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS; ++i)
+                    for (int i = 0; i < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS; ++i)
                     {
                         TopicOverviewControl.TopicOverviewData tod = new TopicOverviewControl.TopicOverviewData
                         {
-                            library = library,
+                            web_library_detail = web_library_detail,
                             topic = i,
                         };
 
@@ -223,7 +222,7 @@ namespace Qiqqa.Expedition
 
         private void ButtonRefresh_Click(object sender, RoutedEventArgs e)
         {
-            if (null == library)
+            if (null == web_library_detail)
             {
                 MessageBoxes.Warn("You need to first choose a library against which to run Qiqqa Expedition.");
                 return;
@@ -234,7 +233,7 @@ namespace Qiqqa.Expedition
             bool add_tags = ObjAddTags.IsChecked ?? true;
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                library.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete);
+                web_library_detail.Xlibrary.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete);
             });
         }
 
@@ -245,22 +244,22 @@ namespace Qiqqa.Expedition
 
         private void OnRebuildExpeditionComplete_GUITHREAD()
         {
-            if (null != library)
+            if (null != web_library_detail)
             {
-                ChooseNewLibrary(library.WebLibraryDetail);
+                ChooseNewLibrary(web_library_detail);
                 GridVote.Visibility = Visibility.Visible;
             }
         }
 
         private void VoteDown_Click(object sender, RoutedEventArgs e)
         {
-            if (null != library.ExpeditionManager && null != library.ExpeditionManager.ExpeditionDataSource && null != library.ExpeditionManager.ExpeditionDataSource.docs)
+            if (null != web_library_detail.Xlibrary.ExpeditionManager && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs)
             {
                 FeatureTrackingManager.Instance.UseFeature(
                     Features.Vote_Expedition,
                     "Direction", "-1",
-                    "DocsCount", library.ExpeditionManager.ExpeditionDataSource.docs.Count,
-                    "WordsCount", library.ExpeditionManager.ExpeditionDataSource.words.Count
+                    "DocsCount", web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs.Count,
+                    "WordsCount", web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.words.Count
                 );
             }
             else
@@ -278,13 +277,13 @@ namespace Qiqqa.Expedition
 
         private void VoteUp_Click(object sender, RoutedEventArgs e)
         {
-            if (null != library.ExpeditionManager && null != library.ExpeditionManager.ExpeditionDataSource && null != library.ExpeditionManager.ExpeditionDataSource.docs)
+            if (null != web_library_detail.Xlibrary.ExpeditionManager && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs)
             {
                 FeatureTrackingManager.Instance.UseFeature(
                     Features.Vote_Expedition,
                     "Direction", "+1",
-                    "DocsCount", library.ExpeditionManager.ExpeditionDataSource.docs.Count,
-                    "WordsCount", library.ExpeditionManager.ExpeditionDataSource.words.Count
+                    "DocsCount", web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs.Count,
+                    "WordsCount", web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.words.Count
                 );
             }
             else
@@ -303,7 +302,7 @@ namespace Qiqqa.Expedition
         #region --- Test ------------------------------------------------------------------------
 
 #if TEST
-        public static void Test()        
+        public static void Test()
         {
             Library library = Library.GuestInstance;
             Thread.Sleep(1000);
@@ -311,7 +310,7 @@ namespace Qiqqa.Expedition
             ExpeditionControl ec = new ExpeditionControl();
             ec.ChooseNewLibrary(library.WebLibraryDetail);
 
-            ControlHostingWindow w = new ControlHostingWindow("Expedition", ec);            
+            ControlHostingWindow w = new ControlHostingWindow("Expedition", ec);
             w.Width = 800;
             w.Height= 600;
             w.Show();

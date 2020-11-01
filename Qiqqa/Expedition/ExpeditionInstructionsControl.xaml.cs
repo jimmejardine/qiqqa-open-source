@@ -34,20 +34,20 @@ namespace Qiqqa.Expedition
             }
             else
             {
-                if (null == web_library_detail.library.ExpeditionManager.ExpeditionDataSource)
+                if (null == web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
                 {
                     RegionNoExpedition.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     // Is this expedition getting old?
-                    if (web_library_detail.library.ExpeditionManager.IsStale)
+                    if (web_library_detail.Xlibrary.ExpeditionManager.IsStale)
                     {
                         RegionStaleExpedition.Visibility = Visibility.Visible;
                     }
 
                     // Is this expedition too small?
-                    if (web_library_detail.library.ExpeditionManager.ExpeditionDataSource.docs.Count < 20 || web_library_detail.library.ExpeditionManager.ExpeditionDataSource.words.Count < 5)
+                    if (web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs.Count < 20 || web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.words.Count < 5)
                     {
                         RegionExpeditionTooSmall.Visibility = Visibility.Visible;
                     }

@@ -194,9 +194,9 @@ namespace Qiqqa.Common.Configuration
 
         private void ButtonClearAutoSuggests_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
+            foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
             {
-                Library library = x.library;
+                Library library = web_library_detail.Xlibrary;
 
                 List<PDFDocument> pdf_documents = library.PDFDocuments_IncludingDeleted;
                 foreach (PDFDocument pdf_document in pdf_documents)
@@ -232,9 +232,9 @@ namespace Qiqqa.Common.Configuration
         {
             if (MessageBoxes.AskQuestion("Are you sure you wish to rebuild indices?\n\nYou should only need to do this if your indices have become corrupted by a tool like Dropbox, GoogleDrive or LiveDrive.  Please don't use them to try to sync Qiqqa's database."))
             {
-                foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
+                foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
                 {
-                    x.library.LibraryIndex.InvalidateIndex();
+                    web_library_detail.Xlibrary.LibraryIndex.InvalidateIndex();
                 }
 
                 MessageBoxes.Info("Please restart Qiqqa for your indices to be rebuilt.");
@@ -247,14 +247,14 @@ namespace Qiqqa.Common.Configuration
             HashSet<string> filenames_to_delete = new HashSet<string>();
 
             // Get all the active and deleted files
-            foreach (var x in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
+            foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
             {
-                Library library = x.library;
+                Library library = web_library_detail.Xlibrary;
 
                 List<PDFDocument> pdf_documents = library.PDFDocuments_IncludingDeleted;
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
-                    if (library.WebLibraryDetail.Deleted || pdf_document.Deleted)
+                    if (web_library_detail.Deleted || pdf_document.Deleted)
                     {
                         if (pdf_document.DocumentExists)
                         {
@@ -291,11 +291,15 @@ namespace Qiqqa.Common.Configuration
 
         private void ButtonGarbageCollect_Click(object sender, RoutedEventArgs e)
         {
-            Logging.Info("+Before Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(false));
-            GC.Collect();
-            //GC.WaitForPendingFinalizers();
-            GC.Collect();
-            Logging.Info("-After Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(true));
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                Logging.Info("+Before Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(false));
+                GC.WaitForPendingFinalizers();
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+                GC.WaitForPendingFinalizers();
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+                Logging.Info("-After Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(true));
+            });
         }
 
         private void ButtonOpenDataDirectory_Click(object sender, RoutedEventArgs e)

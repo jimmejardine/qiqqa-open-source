@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.MetadataSuggestions;
 using Utilities;
@@ -9,6 +11,7 @@ using Utilities.Collections;
 using Utilities.GUI;
 using Utilities.Mathematics;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 {
@@ -23,7 +26,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             public int documentsProcessedCount;
         }
 
-        public void DoMaintenance(Library library, Action callback_after_some_work_done)
+        public void DoMaintenance(WebLibraryDetail web_library_detail, Action callback_after_some_work_done)
         {
             Stopwatch clk = Stopwatch.StartNew();
 
@@ -53,7 +56,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                     return;
                 }
 
-                if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                if (ShutdownableManager.Instance.IsShuttingDown)
                 {
                     Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to application termination");
                     return;
@@ -65,8 +68,14 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
                     return;
                 }
 
+                if (!ConfigurationManager.IsEnabled("SuggestingMetadata"))
+                {
+                    Logging.Debug特("MetadataExtractionDaemon::DoMaintenance: Breaking out of outer processing loop due to SuggestingMetadata=false");
+                    return;
+                }
+
                 // Check that we have something to do
-                List<PDFDocument> pdf_documents = library.PDFDocuments;
+                List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
                 stats.totalDocumentCount = pdf_documents.Count;
                 stats.currentdocumentIndex = 0;
                 stats.documentsProcessedCount = 0;
@@ -105,7 +114,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                     // Previous check calls MAY take some serious time, hence we SHOULD check again whether
                     // the user decided to exit Qiqqa before we go on and do more time consuming work.
-                    if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+                    if (ShutdownableManager.Instance.IsShuttingDown)
                     {
                         Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to daemon termination");
                         return;
@@ -113,7 +122,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 
                     if (needs_processing != 0)
                     {
-                        if (DoSomeWork(library, pdf_document, stats))
+                        if (DoSomeWork(web_library_detail, pdf_document, stats))
                         {
                             stats.documentsProcessedCount++;
                         }
@@ -171,9 +180,9 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             }
         }
 
-        private bool DoSomeWork(Library library, PDFDocument pdf_document, RunningStatistics stats)
+        private bool DoSomeWork(WebLibraryDetail web_library_detail, PDFDocument pdf_document, RunningStatistics stats)
         {
-            if (Utilities.Shutdownable.ShutdownableManager.Instance.IsShuttingDown)
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
                 Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF processing loop due to daemon termination");
                 return false;

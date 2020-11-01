@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -12,12 +13,12 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 {
 
     /// <summary>
-    /// Contains core logic to handle file importing and return BibTeX entries 
+    /// Contains core logic to handle file importing and return BibTeX entries
     /// </summary>
     public abstract class FileImporter
     {
         protected List<BibTeXEntry> Entries;
-        protected readonly Library ImportLibrary;
+        protected readonly WebLibraryDetail ImportLibrary;
         public bool InputFileAppearsToBeWrongFormat { get; protected set; }
         protected string ExportFileName { get; private set; }
         private readonly string _exportDirectory;
@@ -25,22 +26,22 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         /// <summary>
         /// ctor is responsible for parsing the file
         /// </summary>
-        protected FileImporter(Library library, string fileName)
+        protected FileImporter(WebLibraryDetail web_library_detail, string fileName)
         {
             Entries = new List<BibTeXEntry>();
-            ImportLibrary = library;
+            ImportLibrary = web_library_detail;
             ExportFileName = fileName;
             _exportDirectory = Path.GetDirectoryName(fileName);
         }
 
         /// <summary>
-        /// This method is responsible for processing the contents. 
+        /// This method is responsible for processing the contents.
         /// </summary>
         /// <returns></returns>
         public abstract ParseFileResult GetResult();
 
         /// <summary>
-        /// Removes invalid files, calculates fingerprints, determines if vanilla, and checks if fingerprint already in library. 
+        /// Removes invalid files, calculates fingerprints, determines if vanilla, and checks if fingerprint already in library.
         /// </summary>
         protected ParseFileResult CreateFinalResult()
         {
@@ -82,7 +83,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                     }
                     else
                     {
-                        // If file could not be found, ensure it's blanked out so we don't try to import it. This is particularly import w.r.t filenames with funny characters, where the import will choke. 
+                        // If file could not be found, ensure it's blanked out so we don't try to import it. This is particularly import w.r.t filenames with funny characters, where the import will choke.
                         entry.Filename = entry.FileType = null;
                     }
 
@@ -92,8 +93,8 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 {
                     Logging.Error(ex);
 
-                    // TODO: log /status manager.  
-                    // Ignore problems with individual files. 
+                    // TODO: log /status manager.
+                    // Ignore problems with individual files.
                 }
             }
 
@@ -103,11 +104,11 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
             {
                 if (entry.IsVanilla)
                 {
-                    entry.ExistsInLibrary = ImportLibrary.DocumentExistsInLibraryWithBibTeX(entry.Id);
+                    entry.ExistsInLibrary = ImportLibrary.Xlibrary.DocumentExistsInLibraryWithBibTeX(entry.Id);
                 }
                 else
                 {
-                    entry.ExistsInLibrary = ImportLibrary.DocumentExistsInLibraryWithFingerprint(entry.Fingerprint);
+                    entry.ExistsInLibrary = ImportLibrary.Xlibrary.DocumentExistsInLibraryWithFingerprint(entry.Fingerprint);
                 }
             }
 

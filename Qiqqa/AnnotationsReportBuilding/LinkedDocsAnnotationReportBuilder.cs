@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -14,12 +15,12 @@ namespace Qiqqa.AnnotationsReportBuilding
     internal class LinkedDocsAnnotationReportBuilder
     {
         // Warning CA1812	'LinkedDocsAnnotationReportBuilder' is an internal class that is apparently never instantiated.
-        // If this class is intended to contain only static methods, consider adding a private constructor to prevent 
+        // If this class is intended to contain only static methods, consider adding a private constructor to prevent
         // the compiler from generating a default constructor.
         private LinkedDocsAnnotationReportBuilder()
         { }
 
-        internal static void BuildReport(Library library, List<PDFDocument> pdf_documents)
+        internal static void BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_LinkedDocsAnnotationReport);
 

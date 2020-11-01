@@ -1,5 +1,7 @@
 ﻿using System;
+using Alphaleonis.Win32.Filesystem;
 using ProtoBuf;
+using Qiqqa.Common.Configuration;
 using Utilities.Strings;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
@@ -31,9 +33,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         [ProtoMember(9)]
         public bool IsAdministrator { get; set; }
         [ProtoMember(14)]
-        public bool IsReadOnly { get; set; }
-
-        public bool IsWebLibrary => !String.IsNullOrEmpty(ShortWebId);
+        public bool IsReadOnly {
+            get;
+            set; }
+        // Bundles can never sync
+        public bool IsReadOnlyLibrary => IsBundleLibrary;
 
         /* Only valid for intranet libraries */
         [ProtoMember(13)]
@@ -56,10 +60,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         [ProtoMember(11)]
         public DateTime LastServerSyncNotificationDate { get; set; }
         [ProtoMember(12)]
-        public bool AutoSync { get; set; }
+        public bool AutoSync {
+            get;
+            set;
+        }
 
-        [NonSerialized]
-        public Library library;
+        public Library Xlibrary {
+            get;
+            set;
+        }
 
         public override string ToString()
         {
@@ -80,40 +89,44 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public string LibraryType()
         {
-            if (IsLocalGuestLibrary) return "Guest";
             if (IsIntranetLibrary) return "Intranet";
             if (IsBundleLibrary) return "Bundle";
-            if (IsWebLibrary) return "Web";
-            return "UNKNOWN";
+            return "Local";
         }
 
-#if false
-        // additional hacky API to assist the codebase while we weren't using TypedWeakReference object(s) for this:
+        // -----------------------------------------------------------------------
 
-        public WebLibraryDetail CloneSansLibraryReference()
+#region --- File locations ------------------------------------------------------------------------------------
+
+        public static string GetLibraryBasePathForId(string id)
         {
-            // only clone the important fields:
-            WebLibraryDetail rv = new WebLibraryDetail();
-            rv.Id = this.Id;
-            rv.Title = this.Title;
-            rv.Description = this.Description;
-            rv.Deleted = this.Deleted;
-            //LastSynced
-            //FolderToWatch 
-            rv.IsLocalGuestLibrary = this.IsLocalGuestLibrary;
-            //ShortWebId 
-            //IsAdministrator 
-            //IsReadOnly
-            //IntranetPath 
-            //BundleManifestJSON 
-            //LastBundleManifestDownloadTimestampUTC 
-            //LastBundleManifestIgnoreVersion 
-            rv.IsPurged = this.IsPurged;
-            //LastServerSyncNotificationDate 
-            rv.AutoSync = false;
-
-            return rv;
+            return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, id));
         }
-#endif
+
+        public string LIBRARY_BASE_PATH => GetLibraryBasePathForId(Id);
+
+        public string LIBRARY_DOCUMENTS_BASE_PATH
+        {
+            get
+            {
+                string folder_override = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForPDFs;
+                if (!String.IsNullOrEmpty(folder_override))
+                {
+                    return Path.GetFullPath(folder_override + @"\");
+                }
+                else
+                {
+                    return Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"documents"));
+                }
+            }
+        }
+
+        public string LIBRARY_INDEX_BASE_PATH => Path.GetFullPath(Path.Combine(LIBRARY_BASE_PATH, @"index"));
+
+        public string FILENAME_DOCUMENT_PROGRESS_LIST => Path.GetFullPath(Path.Combine(LIBRARY_INDEX_BASE_PATH, @"DocumentProgressList.dat"));
+
+
+        #endregion
+
     }
 }

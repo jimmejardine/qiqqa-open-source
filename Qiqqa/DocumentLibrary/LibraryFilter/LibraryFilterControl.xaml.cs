@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using icons;
 using Qiqqa.Common.Configuration;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -87,33 +88,33 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ObjPanelSearchByTag.Visibility = ConfigurationManager.Instance.NoviceVisibility;
         }
 
-        internal Library library = null;
-        public Library Library
+        internal WebLibraryDetail web_library_detail = null;
+        public WebLibraryDetail LibraryRef
         {
-            get => library;
+            get => web_library_detail;
             set
             {
-                if (null != library)
+                if (null != web_library_detail)
                 {
                     throw new Exception("Library can only be set once");
                 }
 
-                library = value;
+                web_library_detail = value;
 
                 // Set our child objects
-                ObjTagExplorerControl.Library = library;
-                ObjAITagExplorerControl.Library = library;
-                ObjAuthorExplorerControl.Library = library;
-                ObjPublicationExplorerControl.Library = library;
-                ObjReadingStageExplorerControl.Library = library;
-                ObjYearExplorerControl.Library = library;
-                ObjRatingExplorerControl.Library = library;
-                ObjThemeExplorerControl.Library = library;
-                ObjTypeExplorerControl.Library = library;
+                ObjTagExplorerControl.LibraryRef = web_library_detail;
+                ObjAITagExplorerControl.LibraryRef = web_library_detail;
+                ObjAuthorExplorerControl.LibraryRef = web_library_detail;
+                ObjPublicationExplorerControl.LibraryRef = web_library_detail;
+                ObjReadingStageExplorerControl.LibraryRef = web_library_detail;
+                ObjYearExplorerControl.LibraryRef = web_library_detail;
+                ObjRatingExplorerControl.LibraryRef = web_library_detail;
+                ObjThemeExplorerControl.LibraryRef = web_library_detail;
+                ObjTypeExplorerControl.LibraryRef = web_library_detail;
 
                 // WEAK EVENT HANDLER FOR: library.OnDocumentsChanged += Library_OnNewDocument;
-                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<Library, LibraryFilterControl>(
-                    library,
+                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, LibraryFilterControl>(
+                    web_library_detail,
                     registerWeakEvent,
                     deregisterWeakEvent,
                     this,
@@ -123,13 +124,13 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         }
 
 
-        private static void registerWeakEvent(Library sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
         {
-            sender.OnDocumentsChanged += eh;
+            sender.Xlibrary.OnDocumentsChanged += eh;
         }
-        private static void deregisterWeakEvent(Library sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        private static void deregisterWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
         {
-            sender.OnDocumentsChanged -= eh;
+            sender.Xlibrary.OnDocumentsChanged -= eh;
         }
         private static void forwardWeakEvent(LibraryFilterControl me, object event_sender, Library.PDFDocumentEventArgs args)
         {
@@ -155,15 +156,14 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 ObjTypeExplorerControl.Reset();
             }
 
-            ReviewParameters(reset_explorers);
+            ReviewParameters(explorers_are_reset: reset_explorers);
         }
 
         public void SearchLibrary(string query)
         {
             ResetFilters();
 
-            library_filter_control_search.SearchQuick.Text = query;
-            library_filter_control_search.ExecuteSearchQuick();
+            library_filter_control_search.ExecuteSearchQuick(query);
             ReviewParameters();
         }
 
@@ -181,9 +181,9 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         private void ReExecuteAllSearches(PDFDocument pdf_document_to_focus_on)
         {
-            library_filter_control_search.ExecuteSearchQuick();
+            library_filter_control_search.ExecuteSearchQuick(library_filter_control_search.SearchQuick.Text);
             ExecuteSearchTag();
-            ReviewParameters(pdf_document_to_focus_on, false);
+            ReviewParameters(pdf_document_to_focus_on);
         }
 
         #endregion ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -363,7 +363,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
                 string[] search_tags = terms.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                foreach (var pdf_document in library.PDFDocuments)
+                foreach (var pdf_document in web_library_detail.Xlibrary.PDFDocuments)
                 {
                     bool has_all_tags = true;
                     foreach (string search_tag in search_tags)
@@ -399,12 +399,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             SearchTag.Clear();
         }
 
-        internal void ReviewParameters(bool explorers_are_reset = false)
-        {
-            ReviewParameters(null, explorers_are_reset);
-        }
-
-        private void ReviewParameters(PDFDocument pdf_document_to_focus_on, bool explorers_are_reset)
+        internal void ReviewParameters(PDFDocument pdf_document_to_focus_on = null, bool explorers_are_reset = false)
         {
             HashSet<string> intersection = null;
             if (!explorers_are_reset)
@@ -508,16 +503,16 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             }
 
             List<PDFDocument> pdf_documents = null;
-            // If there are no filters, use all document            
+            // If there are no filters, use all document
             if (null == intersection)
             {
-                pdf_documents = library.PDFDocuments;
+                pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
             }
             else // Otherwise get the subset of documents
             {
-                pdf_documents = library.GetDocumentByFingerprints(intersection);
+                pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(intersection);
             }
-            Logging.Debug特("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, library.WebLibraryDetail.Title);
+            Logging.Debug特("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, web_library_detail.Title);
 
             if (!explorers_are_reset)
             {

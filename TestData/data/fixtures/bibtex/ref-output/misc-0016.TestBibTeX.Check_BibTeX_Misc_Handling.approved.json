@@ -1,0 +1,32 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "paper",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Loh, N. D. and Hampton, C. Y. and Martin, A. V. and Starodub, D. and\r\n     Sierra, R. G. and Barty, A. and Aquila, A. and Schulz, J. and Lomb, L. and\r\n     Steinbrener, J. and Shoeman, R. L. and Kassemeyer, S. and Bostedt, C. and Bozek,\r\n     J. and Epp, S. W. and Erk, B. and Hartmann, R. and Rolles, D. and Rudenko, A.\r\n     and Rudek, B. and Foucar, L. and Kimmel, N. and Weidenspointner, G. and Hauser,\r\n     G. and Holl, P. and Pedersoli, E. and Liang, M. and Hunter, M. M. and Gumprecht,\r\n     L. and Coppola, N. and Wunderer, C. and Graafsma, H. and Maia, F. R. N. C. and\r\n     Ekeberg, T. and Hantke, M. and Fleckenstein, H. and Hirsemann, H. and Nass, K.\r\n     and White, T. A. and Tobias, H. J. and Farquar, G. R. and Benner, W. H. and\r\n     Hau-Riege, S. P. and Reich, C. and Hartmann, A. and Soltau, H. and Marchesini,\r\n     S. and Bajt, S. and Barthelmess, M. and Bucksbaum, P. and Hodgson, K. O. and\r\n     Struder, L. and Ullrich, J. and Frank, M. and Schlichting, I. and Chapman, H.\r\n     N. and Bogan, M. J.",
+        "date": "2012-06-28/print",
+        "date-added": "2012-07-02 08:41:15 +0000",
+        "date-modified": "2012-07-02 08:41:15 +0000",
+        "day": "28",
+        "isbn": "0028-0836",
+        "journal": "Nature",
+        "l3": "http://www.nature.com/nature/journal/v486/n7404/abs/nature11222.html#supplementary-information",
+        "m3": "10.1038/nature11222",
+        "month": "06",
+        "number": "7404",
+        "pages": "513--517",
+        "publisher": "Nature Publishing Group, a division of Macmillan Publishers Limited.\r\n     All Rights Reserved.",
+        "title": "Fractal morphology, imaging and mass spectrometry of single aerosol\r\n     particles in flight",
+        "ty": "JOUR",
+        "url": "http://dx.doi.org/10.1038/nature11222",
+        "volume": "486",
+        "year": "2012",
+        "bdsk-url-1": "http://dx.doi.org/10.1038/nature11222"
+      }
+    }
+  ],
+  "Comments": []
+}

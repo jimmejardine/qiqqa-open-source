@@ -47,10 +47,10 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Author_Documents);
 
-            List<PDFDocument> pdf_documents = SimilarAuthors.GetDocumentsBySameAuthorsSurnameAndInitial(pdf_author_node_content.Library, pdf_author_node_content.Surname, pdf_author_node_content.Initial);
+            List<PDFDocument> pdf_documents = SimilarAuthors.GetDocumentsBySameAuthorsSurnameAndInitial(pdf_author_node_content.LibraryRef, pdf_author_node_content.Surname, pdf_author_node_content.Initial);
             foreach (PDFDocument pdf_document in pdf_documents)
             {
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
+                PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
                 NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
             }
         }

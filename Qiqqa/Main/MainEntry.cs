@@ -9,6 +9,7 @@ using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.Common.MessageBoxControls;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Main.IPC;
 using Qiqqa.Main.LoginStuff;
 using Qiqqa.UpgradePaths;
@@ -290,9 +291,40 @@ namespace Qiqqa.Main
             catch (Exception ex)
             {
                 Logging.Error(ex, "Exception caught at Main().  Disaster.");
+
+                SignalShutdown();
             }
 
             Logging.Info("-static Main()");
+
+            // When we get here and wait for the other threads to close off any business they're attending,
+            // we SHOULD have a nicely terminated application run and all the heap allocations left should
+            // be MEMORY LEAKS.
+            // BUT that's only going to be anywhere near TRUE when we make sure we discard the loaded
+            // libraries all properly like, etc.
+            // So that's what we're going to do next. And forced GC to kick the sluggish off the lot
+            // before we report.
+            GC.WaitForPendingFinalizers();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+            Logging.Info("-static Heap after forced GC compacting at the end: {0}", GC.GetTotalMemory(false));
+
+            // kick off all the libraries
+            WebLibraryManager.Instance.UnloadAllLibraries();
+
+            Logging.Info("Making sure all threads have completed or terminated...");
+
+            // give this a sane upper limit so the application cannot ever be 'stuck in the background' due to this:
+            int wait_time = 15000;
+            for (int min_rounds = 3; wait_time > 0 && (min_rounds > 0 || SafeThreadPool.RunningThreadCount > 0 || GC.GetTotalMemory(false) > 10000000L); min_rounds--)
+            {
+                GC.WaitForPendingFinalizers();
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+                Logging.Info("-static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): {0} Bytes, {1} tasks active", GC.GetTotalMemory(false), SafeThreadPool.RunningThreadCount);
+
+                Thread.Sleep(1000);
+                wait_time -= 1000;
+            }
+            Logging.Info("Last machine state observation before shutting down the log at the very end of the application run: Heap after forced GC compacting: {0} Bytes, {1} tasks active, {2} seconds overtime unused (more than zero for this one is good!)", GC.GetTotalMemory(false), SafeThreadPool.RunningThreadCount, wait_time / 1000);
 
             // This must be the last line the application executes, EVAR!
             Logging.ShutDown();
@@ -305,19 +337,23 @@ namespace Qiqqa.Main
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.ExceptionObject as Exception, true);
+            Exception ex = e.ExceptionObject as Exception;
+            bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+");   // "generic error happenedinGDI+."
+            RemarkOnException(ex, !obnoxious_but_not_fatal);
         }
 
         private static void application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.Exception, true);
+            Exception ex = e.Exception;
+            bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+");   // "generic error happenedinGDI+."
+            RemarkOnException(ex, !obnoxious_but_not_fatal);
             e.Handled = true;
         }
 
         private static void RemarkOnException(Exception ex, bool potentially_fatal)
         {
             Logging.Error(ex, "RemarkOnException.....");
-            if (null != Application.Current)
+            if (null != Application.Current && !ShutdownableManager.Instance.IsShuttingDown)
             {
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
@@ -347,7 +383,7 @@ namespace Qiqqa.Main
             if (potentially_fatal)
             {
                 // signal the application to shutdown as an unhandled exception is a grave issue and nothing will be guaranteed afterwards.
-                Utilities.Shutdownable.ShutdownableManager.Instance.Shutdown();
+                ShutdownableManager.Instance.Shutdown();
 
                 // and terminate the Windows Message Loop if it hasn't already (in my tests, Qiqqa was stuck in there without a window to receive messages from at this point...)
                 MainWindowServiceDispatcher.Instance.ShutdownQiqqa(true);

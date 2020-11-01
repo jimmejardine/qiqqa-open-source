@@ -11,10 +11,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             // First attempt to find it in the specified library
             if (null != library_fingerprint)
             {
-                Library library = WebLibraryManager.Instance.GetLibrary(library_fingerprint);
-                if (null != library)
+                WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(library_fingerprint);
+                if (null != web_library_detail)
                 {
-                    PDFDocument pdf_document = library.GetDocumentByFingerprint(document_fingerprint);
+                    PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(document_fingerprint);
                     if (null != pdf_document)
                     {
                         return pdf_document;
@@ -26,10 +26,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            // If we couldnt find it, then try in all the other libraries...
+            // If we couldn't find it, then try in all the other libraries...
             foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
-                PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(document_fingerprint);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(document_fingerprint);
                 if (null != pdf_document)
                 {
                     return pdf_document;
@@ -48,10 +48,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             // First attempt to find it in the specified library
             if (null != library_fingerprint)
             {
-                Library library = WebLibraryManager.Instance.GetLibrary(library_fingerprint);
-                if (null != library)
+                WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(library_fingerprint);
+                if (null != web_library_detail)
                 {
-                    PDFDocument pdf_document = library.GetDocumentByFingerprint(document_fingerprint);
+                    PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(document_fingerprint);
                     if (null != pdf_document)
                     {
                         PDFAnnotation pdf_annotation = pdf_document.GetAnnotationByGuid(annotation_guid);
@@ -65,10 +65,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            // If we couldnt find it, then try in all the other libraries...
+            // If we couldn't find it, then try in all the other libraries...
             foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
-                PDFDocument pdf_document = web_library_detail.library.GetDocumentByFingerprint(document_fingerprint);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(document_fingerprint);
                 if (null != pdf_document)
                 {
                     PDFAnnotation pdf_annotation = pdf_document.GetAnnotationByGuid(annotation_guid);

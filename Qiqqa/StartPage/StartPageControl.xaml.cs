@@ -108,7 +108,7 @@ namespace Qiqqa.StartPage
             WebLibraryDetail web_library_detail = WebLibraryPicker.PickWebLibrary();
             if (null != web_library_detail)
             {
-                MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail.library);
+                MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail);
             }
             e.Handled = true;
         }
@@ -186,7 +186,7 @@ namespace Qiqqa.StartPage
         private void ButtonNewManual_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
-            PDFDocument pdf_document = QiqqaManualTools.AddManualsToLibrary(WebLibraryManager.Instance.WebLibraryDetails_Guest.library);
+            PDFDocument pdf_document = QiqqaManualTools.AddManualsToLibrary(WebLibraryManager.Instance.Library_Guest);
             MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
         }
 

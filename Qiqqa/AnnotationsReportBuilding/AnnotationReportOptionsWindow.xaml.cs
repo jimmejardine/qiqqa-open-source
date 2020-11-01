@@ -8,6 +8,7 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities.GUI.Wizard;
 
@@ -56,7 +57,7 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         private void CmdGenerate_Click(object sender, RoutedEventArgs e)
         {
-            OnShowTagOptionsComplete(library, pdf_documents, GetAnnotationReportOptions());
+            OnShowTagOptionsComplete(web_library_detail, pdf_documents, GetAnnotationReportOptions());
             Close();
         }
 
@@ -72,15 +73,15 @@ namespace Qiqqa.AnnotationsReportBuilding
             ListTags.Focus();
         }
 
-        public delegate void OnShowTagOptionsCompleteDelegate(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options);
+        public delegate void OnShowTagOptionsCompleteDelegate(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options);
 
-        private Library library;
+        private WebLibraryDetail web_library_detail;
         private List<PDFDocument> pdf_documents;
         private OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete;
 
-        internal void ShowTagOptions(Library library_, List<PDFDocument> pdf_documents_, OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete_)
+        internal void ShowTagOptions(WebLibraryDetail library_, List<PDFDocument> pdf_documents_, OnShowTagOptionsCompleteDelegate OnShowTagOptionsComplete_)
         {
-            library = library_;
+            web_library_detail = library_;
             pdf_documents = pdf_documents_;
             OnShowTagOptionsComplete = OnShowTagOptionsComplete_;
 
@@ -189,7 +190,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             WizardDPs.ClearPointOfInterest(this);
             WizardDPs.ClearPointOfInterest(CmdGenerate);
 
-            library = null;
+            web_library_detail = null;
             pdf_documents.Clear();
             pdf_documents = null;
 

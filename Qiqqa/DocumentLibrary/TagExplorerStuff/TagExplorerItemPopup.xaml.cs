@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.Common;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.TagExplorerStuff
@@ -10,14 +11,14 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
     /// </summary>
     public partial class TagExplorerItemPopup : UserControl
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
         private string source_tag;
         private AugmentedPopup popup;
 
 
-        public TagExplorerItemPopup(Library library, string source_tag)
+        public TagExplorerItemPopup(WebLibraryDetail web_library_detail, string source_tag)
         {
-            this.library = library;
+            this.web_library_detail = web_library_detail;
             this.source_tag = source_tag;
 
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         {
             using (var c = popup.AutoCloser)
             {
-                MainWindowServiceDispatcher.Instance.ExploreTagInBrainstorm(library.WebLibraryDetail.Id, source_tag);
+                MainWindowServiceDispatcher.Instance.ExploreTagInBrainstorm(web_library_detail.Id, source_tag);
             }
         }
 
@@ -40,7 +41,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         {
             using (var c = popup.AutoCloser)
             {
-                TagExplorerItemRenameWindow dialog = new TagExplorerItemRenameWindow(library, source_tag);
+                TagExplorerItemRenameWindow dialog = new TagExplorerItemRenameWindow(web_library_detail, source_tag);
                 dialog.ShowDialog();
             }
         }

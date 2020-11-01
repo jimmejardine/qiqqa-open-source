@@ -17,7 +17,7 @@ namespace Qiqqa.InCite
         /**
          * Returns a map from citation reference_key -> PDFDocument
          */
-        internal static Dictionary<string, MatchingBibTeXRecord> Find(List<CitationCluster> citation_clusters, Library primary_library)
+        internal static Dictionary<string, MatchingBibTeXRecord> Find(List<CitationCluster> citation_clusters, WebLibraryDetail primary_library)
         {
             Dictionary<string, MatchingBibTeXRecord> bitex_items = new Dictionary<string, MatchingBibTeXRecord>();
 
@@ -37,7 +37,7 @@ namespace Qiqqa.InCite
         }
 
 
-        internal static MatchingBibTeXRecord LocateBibTexForCitationItem(string reference_key, Library primary_library)
+        internal static MatchingBibTeXRecord LocateBibTexForCitationItem(string reference_key, WebLibraryDetail primary_library)
         {
             // First try in the preferred library
             if (null != primary_library)
@@ -47,12 +47,12 @@ namespace Qiqqa.InCite
             }
 
             // Failing that, look in all libraries
-            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries_All)
+            foreach (WebLibraryDetail web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
                 // Don't repeat a search of the preferred library
-                if (primary_library != web_library_detail.library)
+                if (primary_library != web_library_detail)
                 {
-                    MatchingBibTeXRecord item = LocateBibTexForCitationItem_FOCUS(reference_key, web_library_detail.library);
+                    MatchingBibTeXRecord item = LocateBibTexForCitationItem_FOCUS(reference_key, web_library_detail);
                     if (null != item) return item;
                 }
             }
@@ -60,16 +60,19 @@ namespace Qiqqa.InCite
             return null;
         }
 
-        private static MatchingBibTeXRecord LocateBibTexForCitationItem_FOCUS(string reference_key, Library library)
+        private static MatchingBibTeXRecord LocateBibTexForCitationItem_FOCUS(string reference_key, WebLibraryDetail web_library_detail)
         {
-            foreach (PDFDocument pdf_document in library.PDFDocuments)
+            if (web_library_detail.Xlibrary != null)
             {
-                BibTexItem bibtex_item = pdf_document.BibTexItem;
-                if (null != bibtex_item)
+                foreach (PDFDocument pdf_document in web_library_detail.Xlibrary.PDFDocuments)
                 {
-                    if (bibtex_item.Key == reference_key)
+                    BibTexItem bibtex_item = pdf_document.BibTexItem;
+                    if (null != bibtex_item)
                     {
-                        return new MatchingBibTeXRecord { pdf_document = pdf_document, bibtex_item = bibtex_item };
+                        if (bibtex_item.Key == reference_key)
+                        {
+                            return new MatchingBibTeXRecord { pdf_document = pdf_document, bibtex_item = bibtex_item };
+                        }
                     }
                 }
             }

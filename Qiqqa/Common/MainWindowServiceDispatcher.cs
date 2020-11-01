@@ -42,7 +42,7 @@ using UserControl = System.Windows.Controls.UserControl;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 
 namespace Qiqqa.Common
 {
@@ -74,23 +74,25 @@ namespace Qiqqa.Common
             }
         }
 
-        public LibraryControl OpenLibrary(Library library)
+        public LibraryControl OpenLibrary(WebLibraryDetail web_library_detail)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            string window_key = "Library-" + library.WebLibraryDetail.Id;
+            string window_key = "Library-" + web_library_detail.Id;
+
+            Library library = web_library_detail.Xlibrary;
 
             LibraryControl existing_control = (LibraryControl)main_window.DockingManager.MakeActive(window_key);
             if (null != existing_control)
             {
-                Logging.Info("OpenLibrary: (ExistingControl) Library {0} has {1} documents loaded", library.WebLibraryDetail.Title, library.PDFDocuments_IncludingDeleted_Count);
+                Logging.Info("OpenLibrary: (ExistingControl) Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_IncludingDeleted_Count);
                 return existing_control;
             }
             else
             {
-                LibraryControl library_control = new LibraryControl(library);
-                main_window.DockingManager.AddContent(window_key, library.WebLibraryDetail.Title, Icons.GetAppIcon(Icons.ModuleDocumentLibrary), true, true, library_control);
-                Logging.Info("OpenLibrary: Library {0} has {1} documents loaded", library.WebLibraryDetail.Title, library.PDFDocuments_IncludingDeleted_Count);
+                LibraryControl library_control = new LibraryControl(web_library_detail);
+                main_window.DockingManager.AddContent(window_key, web_library_detail.Title, Icons.GetAppIcon(Icons.ModuleDocumentLibrary), true, true, library_control);
+                Logging.Info("OpenLibrary: Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_IncludingDeleted_Count);
                 return library_control;
             }
         }
@@ -117,19 +119,19 @@ namespace Qiqqa.Common
             PopupInCiteControl.Popup();
         }
 
-        public ExpeditionControl OpenExpedition(Library library)
+        public ExpeditionControl OpenExpedition(WebLibraryDetail web_library_detail)
         {
-            return OpenExpedition(library, null);
+            return OpenExpedition(web_library_detail, null);
         }
 
-        public ExpeditionControl OpenExpedition(Library library, PDFDocument pdf_document)
+        public ExpeditionControl OpenExpedition(WebLibraryDetail web_library_detail, PDFDocument pdf_document)
         {
             ExpeditionControl expedition_control = new ExpeditionControl();
 
             // Set the optional selections
-            if (null != library)
+            if (null != web_library_detail)
             {
-                expedition_control.ChooseNewLibrary(library.WebLibraryDetail);
+                expedition_control.ChooseNewLibrary(web_library_detail);
             }
             if (null != pdf_document)
             {
@@ -140,10 +142,10 @@ namespace Qiqqa.Common
             return expedition_control;
         }
 
-        internal LibraryPivotReportControl OpenPivot(Library library, List<PDFDocument> pdf_documents)
+        internal LibraryPivotReportControl OpenPivot(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
             LibraryPivotReportControl lprc = new LibraryPivotReportControl();
-            lprc.Library = library;
+            lprc.LibraryRef = web_library_detail;
             lprc.PDFDocuments = pdf_documents;
 
             main_window.DockingManager.AddContent("Pivot" + Guid.NewGuid(), "Pivot", Icons.GetAppIcon(Icons.LibraryPivot), true, true, lprc);
@@ -171,7 +173,7 @@ namespace Qiqqa.Common
             FeatureTrackingManager.Instance.UseFeature(
                 Features.Document_Open,
                 "DocumentFingerprint", pdf_document.Fingerprint,
-                "LibraryId", pdf_document.Library.WebLibraryDetail.Id
+                "LibraryId", pdf_document.LibraryRef.Id
             );
 
             // If the document doesn't exist, check if it has a url bibtex field.  If so, prompt to go there to find the doc
@@ -195,7 +197,7 @@ namespace Qiqqa.Common
             }
 
             // Mark as recently read
-            pdf_document.Library.RecentlyReadManager.AddRecentlyRead(pdf_document);
+            pdf_document.LibraryRef.Xlibrary.RecentlyReadManager.AddRecentlyRead(pdf_document);
 
             // Add to most recently used
             pdf_document.DateLastRead = DateTime.UtcNow;
@@ -273,17 +275,17 @@ namespace Qiqqa.Common
             return pdf_reading_control;
         }
 
-        public void GenerateAnnotationReport(Library library, List<PDFDocument> pdf_documents)
+        public void GenerateAnnotationReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_AnnotationReport);
 
             AnnotationReportOptionsWindow arow = new AnnotationReportOptionsWindow();
-            arow.ShowTagOptions(library, pdf_documents, OnShowTagOptionsComplete);
+            arow.ShowTagOptions(web_library_detail, pdf_documents, OnShowTagOptionsComplete);
         }
 
-        private void OnShowTagOptionsComplete(Library library, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
+        private void OnShowTagOptionsComplete(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
-            var annotation_report = AsyncAnnotationReportBuilder.BuildReport(library, pdf_documents, annotation_report_options);
+            var annotation_report = AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options);
             ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
             string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
             OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
@@ -407,9 +409,9 @@ namespace Qiqqa.Common
             }
         }
 
-        public void SearchLibrary(Library library, string query)
+        public void SearchLibrary(WebLibraryDetail web_library_detail, string query)
         {
-            LibraryControl library_control = OpenLibrary(library);
+            LibraryControl library_control = OpenLibrary(web_library_detail);
             library_control.SearchLibrary(query);
         }
 
@@ -478,7 +480,7 @@ namespace Qiqqa.Common
             List<object> contents = new List<object>();
             foreach (PDFDocument pdf_document in pdf_documents)
             {
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.Library.WebLibraryDetail.Id);
+                PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
                 contents.Add(content);
             }
             List<NodeControl> node_controls = brainstorm_control.SceneRenderingControl.AddNewNodeControlsInScreenCentre(contents);
@@ -525,13 +527,13 @@ namespace Qiqqa.Common
         }
 
 
-        internal void ExploreTopicInBrainstorm(Library library, int topic)
+        internal void ExploreTopicInBrainstorm(WebLibraryDetail web_library_detail, int topic)
         {
-            ExpeditionDataSource eds = library.ExpeditionManager.ExpeditionDataSource;
+            ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
             string topic_name = eds.GetDescriptionForTopic(topic, include_topic_number: false, "\n");
 
             BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
-            ThemeNodeContent tnc = new ThemeNodeContent(topic_name, library.WebLibraryDetail.Id);
+            ThemeNodeContent tnc = new ThemeNodeContent(topic_name, web_library_detail.Id);
             NodeControl node_control = brainstorm_control.SceneRenderingControl.AddNewNodeControlInScreenCentre(tnc);
             brainstorm_control.AutoArrange(true);
 
@@ -560,23 +562,23 @@ namespace Qiqqa.Common
         }
 
 
-        internal void ExploreLibraryInBrainstorm(Library library)
+        internal void ExploreLibraryInBrainstorm(WebLibraryDetail web_library_detail)
         {
             BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
 
             int WIDTH = 320;
             int HEIGHT = 240;
 
-            LibraryNodeContent content_library = new LibraryNodeContent(library.WebLibraryDetail.Title, library.WebLibraryDetail.Id);
+            LibraryNodeContent content_library = new LibraryNodeContent(web_library_detail.Title, web_library_detail.Id);
             NodeControl node_library = brainstorm_control.SceneRenderingControl.AddNewNodeControl(content_library, 0, 0, WIDTH, HEIGHT);
 
-            ExpeditionDataSource eds = library.ExpeditionManager.ExpeditionDataSource;
+            ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
             if (null != eds)
             {
                 for (int topic = 0; topic < eds.lda_sampler.NumTopics; ++topic)
                 {
                     string topic_name = eds.GetDescriptionForTopic(topic, include_topic_number: false, "\n");
-                    ThemeNodeContent tnc = new ThemeNodeContent(topic_name, library.WebLibraryDetail.Id);
+                    ThemeNodeContent tnc = new ThemeNodeContent(topic_name, web_library_detail.Id);
                     NodeControlAddingByKeyboard.AddChildToNodeControl(node_library, tnc);
                 }
             }
@@ -615,12 +617,7 @@ namespace Qiqqa.Common
             Instance.OpenUrlInBrowser(WebsiteAccess.Url_CSLAbout);
         }
 
-        internal void OpenControl(string type, string title, UserControl control)
-        {
-            OpenControl(type, title, control, null);
-        }
-
-        internal void OpenControl(string type, string title, UserControl control, BitmapImage icon)
+        internal void OpenControl(string type, string title, UserControl control, BitmapImage icon = null)
         {
             FeatureTrackingManager.Instance.UseFeature(
                 Features.Framework_OpenGenericControl,

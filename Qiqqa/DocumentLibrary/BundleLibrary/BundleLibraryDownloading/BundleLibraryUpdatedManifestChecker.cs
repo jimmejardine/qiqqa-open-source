@@ -13,28 +13,28 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 {
     internal class BundleLibraryUpdatedManifestChecker
     {
-        internal static void Check(Library library)
+        internal static void Check(WebLibraryDetail web_library_detail)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // We can operate only on bundle libs
-            if (!library.WebLibraryDetail.IsBundleLibrary)
+            if (!web_library_detail.IsBundleLibrary)
             {
                 return;
             }
 
             // Only check every hour
-            if (DateTime.UtcNow.Subtract(library.WebLibraryDetail.LastBundleManifestDownloadTimestampUTC ?? DateTime.MinValue).TotalMinutes < 60)
+            if (DateTime.UtcNow.Subtract(web_library_detail.LastBundleManifestDownloadTimestampUTC ?? DateTime.MinValue).TotalMinutes < 60)
             {
                 return;
             }
 
             // Flag that we are running this update check now
-            library.WebLibraryDetail.LastBundleManifestDownloadTimestampUTC = DateTime.UtcNow;
+            web_library_detail.LastBundleManifestDownloadTimestampUTC = DateTime.UtcNow;
             WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
 
             // Download the new manifest
-            BundleLibraryManifest manifest_existing = BundleLibraryManifest.FromJSON(library.WebLibraryDetail.BundleManifestJSON);
+            BundleLibraryManifest manifest_existing = BundleLibraryManifest.FromJSON(web_library_detail.BundleManifestJSON);
             string manifest_latest_url = manifest_existing.BaseUrl + @"/" + manifest_existing.Id + Common.EXT_BUNDLE_MANIFEST;
             using (MemoryStream ms = UrlDownloader.DownloadWithBlocking(manifest_latest_url))
             {
@@ -48,12 +48,12 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
                 }
 
                 // It is a version the user has chosen to ignore
-                if (library.WebLibraryDetail.LastBundleManifestIgnoreVersion == manifest_latest.Version)
+                if (web_library_detail.LastBundleManifestIgnoreVersion == manifest_latest.Version)
                 {
                     return;
                 }
 
-                BundleLibraryUpdateNotification blun = new BundleLibraryUpdateNotification(library, manifest_latest);
+                BundleLibraryUpdateNotification blun = new BundleLibraryUpdateNotification(web_library_detail, manifest_latest);
 
                 NotificationManager.Instance.AddPendingNotification(
                     new NotificationManager.Notification(
@@ -73,12 +73,12 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 
     internal class BundleLibraryUpdateNotification
     {
-        private Library library;
+        private WebLibraryDetail web_library_detail;
         private BundleLibraryManifest manifest_latest;
 
-        public BundleLibraryUpdateNotification(Library library, BundleLibraryManifest manifest_latest)
+        public BundleLibraryUpdateNotification(WebLibraryDetail web_library_detail, BundleLibraryManifest manifest_latest)
         {
-            this.library = library;
+            this.web_library_detail = web_library_detail;
             this.manifest_latest = manifest_latest;
         }
 
@@ -93,7 +93,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 
         public void NoThanks(object obj)
         {
-            library.WebLibraryDetail.LastBundleManifestIgnoreVersion = manifest_latest.Version;
+            web_library_detail.LastBundleManifestIgnoreVersion = manifest_latest.Version;
             WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
         }
     }

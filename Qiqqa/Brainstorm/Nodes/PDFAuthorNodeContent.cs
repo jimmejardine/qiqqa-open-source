@@ -14,19 +14,18 @@ namespace Qiqqa.Brainstorm.Nodes
         private string surname;
         private string initial;
 
-
         [NonSerialized]
-        private Library library = null;
-        public Library Library
+        private WebLibraryDetail web_library_detail = null;
+        public WebLibraryDetail LibraryRef
         {
             get
             {
-                if (null == library)
+                if (null == web_library_detail)
                 {
-                    library = WebLibraryManager.Instance.GetLibrary(library_id);
+                    web_library_detail = WebLibraryManager.Instance.GetLibrary(library_id);
                 }
 
-                return library;
+                return web_library_detail;
             }
         }
 

@@ -79,15 +79,15 @@ namespace Utilities.GUI
 
         public static bool AskQuestion(string msg)
         {
-            return AskErrorQuestion(msg, false);
+            return AskErrorQuestion(false, msg);
         }
 
         public static bool AskQuestion(string msg, params object[] args)
         {
-            return AskErrorQuestion(msg, false, args);
+            return AskErrorQuestion(false, msg, args);
         }
 
-        public static bool AskErrorQuestion(string message, bool isError)
+        public static bool AskErrorQuestion(bool isError, string message)
         {
             DialogResult dialog_result = DialogResult.Yes;
             WPFDoEvents.InvokeInUIThread(() =>
@@ -98,7 +98,7 @@ namespace Utilities.GUI
             return (dialog_result == DialogResult.Yes);
         }
 
-        public static bool AskErrorQuestion(string msg, bool isError, params object[] args)
+        public static bool AskErrorQuestion(bool isError, string msg, params object[] args)
         {
             string message = String.Format(msg, args);
             DialogResult dialog_result = DialogResult.Yes;

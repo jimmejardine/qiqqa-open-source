@@ -78,10 +78,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ObjTitlePanel.MouseLeave += ObjTitlePanel_MouseLeave;
             ObjTitlePanel.ToolTip = "Click to open this library.";
 
-            HyperlinkViewOnline.OnClick += HyperlinkViewOnline_OnClick;
-            HyperlinkInviteAndShare.OnClick += HyperlinkInviteAndShare_OnClick;
-            HyperlinkEditDelete.OnClick += HyperlinkEditDelete_OnClick;
-            HyperlinkTopUp.OnClick += HyperlinkTopUp_OnClick;
+            HyperlinkEdit.OnClick += HyperlinkEdit_OnClick;
+            HyperlinkDelete.OnClick += HyperlinkDelete_OnClick;
             HyperlinkPurge.OnClick += HyperlinkPurge_OnClick;
             HyperlinkForget.OnClick += HyperlinkForget_OnClick;
             HyperlinkLocateSyncPoint.OnClick += HyperlinkLocateSyncPoint_OnClick;
@@ -244,49 +242,29 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 if (!String.IsNullOrEmpty(web_library_detail.IntranetPath))
                 {
-                    MessageBoxes.Warn("The Intranet Library Sync Point directory name is now on your Clipboard so you can paste it into an email to your colleagues so that they can join the Intranet Library.\n\nPlease note that this Sync Point is used to synchronize your Intranet Library with others in your organisation.  Please do not modify its contents in any way.\n\n" + web_library_detail.IntranetPath);
                     ClipboardTools.SetText(web_library_detail.IntranetPath);
+                    MessageBoxes.Warn("The Intranet Library Sync Point directory name is now on your Clipboard so you can paste it into an email to your colleagues so that they can join the Intranet Library.\n\nPlease note that this Sync Point is used to synchronize your Intranet Library with others in your organisation.  Please do not modify its contents in any way.\n\n" + web_library_detail.IntranetPath);
                 }
             }
             e.Handled = true;
         }
 
-        private void HyperlinkViewOnline_OnClick(object sender, MouseButtonEventArgs e)
+        private void HyperlinkEdit_OnClick(object sender, MouseButtonEventArgs e)
         {
             WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
-                WebsiteAccess.OpenWebLibrary(web_library_detail.ShortWebId);
+                MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
             }
             e.Handled = true;
         }
 
-        private void HyperlinkInviteAndShare_OnClick(object sender, MouseButtonEventArgs e)
+        private void HyperlinkDelete_OnClick(object sender, MouseButtonEventArgs e)
         {
             WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
-                WebsiteAccess.InviteFriendsToWebLibrary(web_library_detail.ShortWebId);
-            }
-            e.Handled = true;
-        }
-
-        private void HyperlinkEditDelete_OnClick(object sender, MouseButtonEventArgs e)
-        {
-            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail)
-            {
-                WebsiteAccess.EditOrDeleteLibrary(web_library_detail.ShortWebId);
-            }
-            e.Handled = true;
-        }
-
-        private void HyperlinkTopUp_OnClick(object sender, MouseButtonEventArgs e)
-        {
-            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail)
-            {
-                WebsiteAccess.TopUpWebLibrary(web_library_detail.ShortWebId);
+                MessageBoxes.Error("Sorry!\n\nMethod has not been implemented yet!");
             }
             e.Handled = true;
         }
@@ -298,30 +276,30 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Store the web library details
             web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail)
+            if (null != web_library_detail && null != web_library_detail)
             {
-                // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;                
-                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<Library, WebLibraryDetailControl>(
-                    web_library_detail.library,
+                // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;
+                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, WebLibraryDetailControl>(
+                    web_library_detail,
                     registerWeakEvent,
                     deregisterWeakEvent,
                     this,
                     forwardWeakEvent
                 );
 
-                drag_to_library_manager.DefaultLibrary = web_library_detail.library;
+                drag_to_library_manager.DefaultLibrary = web_library_detail;
             }
 
             UpdateLibraryStatistics();
         }
 
-        private static void registerWeakEvent(Library sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
         {
-            sender.OnDocumentsChanged += eh;
+            sender.Xlibrary.OnDocumentsChanged += eh;
         }
-        private static void deregisterWeakEvent(Library sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        private static void deregisterWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
         {
-            sender.OnDocumentsChanged -= eh;
+            sender.Xlibrary.OnDocumentsChanged -= eh;
         }
         private static void forwardWeakEvent(WebLibraryDetailControl me, object event_sender, Library.PDFDocumentEventArgs args)
         {
@@ -351,17 +329,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ObjCarousel.Visibility = Visibility.Collapsed;
             ObjEmptyLibraryGrid.Visibility = Visibility.Collapsed;
 
-            if (null == web_library_detail || !web_library_detail.library.LibraryIsLoaded)
+            if (null == web_library_detail || web_library_detail.Xlibrary == null || !web_library_detail.Xlibrary.LibraryIsLoaded)
             {
                 return;
             }
 
-            bool library_is_empty = (null == web_library_detail || 0 == web_library_detail.library.PDFDocuments_IncludingDeleted_Count);
+            bool library_is_empty = (0 == web_library_detail.Xlibrary.PDFDocuments_IncludingDeleted_Count);
 
             if (!concise_view)
             {
                 // Visibility of the empty lib msg
-                if (library_is_empty || web_library_detail.IsLocalGuestLibrary && 1 >= web_library_detail.library.PDFDocuments_IncludingDeleted_Count)
+                if (library_is_empty || ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
                 {
                     ObjEmptyLibraryGrid.Visibility = Visibility.Visible;
                 }
@@ -396,10 +374,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             const int WEEK_HISTORY = 4 * 3;
             DateTime NOW = DateTime.UtcNow;
 
-            // Get the buckets for the past few weeks of READING                    
+            // Get the buckets for the past few weeks of READING
             CountingDictionary<DateTime> date_buckets_read = new CountingDictionary<DateTime>();
+            if (web_library_detail.Xlibrary != null)
             {
-                List<DateTime> recently_reads = web_library_detail.library.RecentlyReadManager.GetRecentlyReadDates();
+                List<DateTime> recently_reads = web_library_detail.Xlibrary.RecentlyReadManager.GetRecentlyReadDates();
                 foreach (DateTime recently_read in recently_reads)
                 {
                     for (int week = 1; week < WEEK_HISTORY; ++week)
@@ -416,8 +395,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Get the buckets for the past few weeks of ADDING
             CountingDictionary<DateTime> date_buckets_added = new CountingDictionary<DateTime>();
+            if (web_library_detail.Xlibrary != null)
             {
-                foreach (PDFDocument pdf_document in web_library_detail.library.PDFDocuments)
+                foreach (PDFDocument pdf_document in web_library_detail.Xlibrary.PDFDocuments)
                 {
                     for (int week = 1; week < WEEK_HISTORY; ++week)
                     {
@@ -493,94 +473,43 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void UpdateLibraryStatistics_Stats_Background_CoverFlow()
         {
-
             // The list of recommended items
             DocumentDisplayWorkManager ddwm = new DocumentDisplayWorkManager();
+
+            if (web_library_detail.Xlibrary == null)
             {
+                return;
+            }
+
+            {
+                int ITEMS_IN_LIST = 5;
+
+                // Upcoming reading is:
+                //  interrupted
+                //  top priority
+                //  read again
+                //  recently added and no status
+
+                List<PDFDocument> pdf_documents_all = web_library_detail.Xlibrary.PDFDocuments;
+                pdf_documents_all.Sort(PDFDocumentListSorters.DateAddedToDatabase);
+
+                foreach (string reading_stage in new string[] { Choices.ReadingStages_INTERRUPTED, Choices.ReadingStages_TOP_PRIORITY, Choices.ReadingStages_READ_AGAIN })
                 {
-                    int ITEMS_IN_LIST = 5;
-
-                    // Upcoming reading is:
-                    //  interrupted
-                    //  top priority
-                    //  read again
-                    //  recently added and no status
-
-                    List<PDFDocument> pdf_documents_all = web_library_detail.library.PDFDocuments;
-                    pdf_documents_all.Sort(PDFDocumentListSorters.DateAddedToDatabase);
-
-                    foreach (string reading_stage in new string[] { Choices.ReadingStages_INTERRUPTED, Choices.ReadingStages_TOP_PRIORITY, Choices.ReadingStages_READ_AGAIN })
+                    foreach (PDFDocument pdf_document in pdf_documents_all)
                     {
-                        foreach (PDFDocument pdf_document in pdf_documents_all)
+                        if (!pdf_document.DocumentExists)
                         {
-                            if (!pdf_document.DocumentExists)
-                            {
-                                continue;
-                            }
-
-                            if (pdf_document.ReadingStage == reading_stage)
-                            {
-
-                                if (!ddwm.ContainsPDFDocument(pdf_document))
-                                {
-                                    ddwm.AddDocumentDisplayWork(DocumentDisplayWork.StarburstColor.Pink, reading_stage, pdf_document);
-
-                                    if (ddwm.Count >= ITEMS_IN_LIST)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
+                            continue;
                         }
-                    }
-                }
 
-                {
-                    int ITEMS_IN_LIST = 3;
-
-                    // Recently added
-                    {
-                        List<PDFDocument> pdf_documents = web_library_detail.library.PDFDocuments;
-                        pdf_documents.Sort(PDFDocumentListSorters.DateAddedToDatabase);
-
-                        int num_added = 0;
-                        foreach (PDFDocument pdf_document in pdf_documents)
+                        if (pdf_document.ReadingStage == reading_stage)
                         {
-                            if (!pdf_document.DocumentExists)
-                            {
-                                continue;
-                            }
 
                             if (!ddwm.ContainsPDFDocument(pdf_document))
                             {
-                                ddwm.AddDocumentDisplayWork(DocumentDisplayWork.StarburstColor.Green, "Added Recently", pdf_document);
+                                ddwm.AddDocumentDisplayWork(DocumentDisplayWork.StarburstColor.Pink, reading_stage, pdf_document);
 
-                                if (++num_added >= ITEMS_IN_LIST)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    // Recently read
-                    {
-                        List<PDFDocument> pdf_documents = web_library_detail.library.PDFDocuments;
-                        pdf_documents.Sort(PDFDocumentListSorters.DateLastRead);
-
-                        int num_added = 0;
-                        foreach (PDFDocument pdf_document in pdf_documents)
-                        {
-                            if (!pdf_document.DocumentExists)
-                            {
-                                continue;
-                            }
-
-                            if (!ddwm.ContainsPDFDocument(pdf_document))
-                            {
-                                ddwm.AddDocumentDisplayWork(DocumentDisplayWork.StarburstColor.Blue, "Read Recently", pdf_document);
-
-                                if (++num_added >= ITEMS_IN_LIST)
+                                if (ddwm.Count >= ITEMS_IN_LIST)
                                 {
                                     break;
                                 }
@@ -588,110 +517,164 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         }
                     }
                 }
+            }
 
+            {
+                int ITEMS_IN_LIST = 3;
 
-                // And fill the placeholders
-                WPFDoEvents.InvokeInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws));
-
-                // Now render each document
-                using (Font font = new Font("Times New Roman", 11.0f))
+                // Recently added
                 {
-                    using (StringFormat string_format = new StringFormat
+                    List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
+                    pdf_documents.Sort(PDFDocumentListSorters.DateAddedToDatabase);
+
+                    int num_added = 0;
+                    foreach (PDFDocument pdf_document in pdf_documents)
                     {
-                        Alignment = StringAlignment.Center,
-                        LineAlignment = StringAlignment.Center
-                    })
-                    {
-                        var color_matrix = new ColorMatrix();
-                        color_matrix.Matrix33 = 0.9f;
-                        using (var image_attributes = new ImageAttributes())
+                        if (!pdf_document.DocumentExists)
                         {
-                            image_attributes.SetColorMatrix(color_matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+                            continue;
+                        }
 
-                            foreach (DocumentDisplayWork ddw in ddwm.ddws)
+                        if (!ddwm.ContainsPDFDocument(pdf_document))
+                        {
+                            ddwm.AddDocumentDisplayWork(DocumentDisplayWork.StarburstColor.Green, "Added Recently", pdf_document);
+
+                            if (++num_added >= ITEMS_IN_LIST)
                             {
-                                try
-                                {
-                                    using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE)))
-                                    {
-                                        Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
-                                        page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
+                                break;
+                            }
+                        }
+                    }
+                }
 
-                                        using (Graphics g = Graphics.FromImage(page_bitmap))
+                // Recently read
+                {
+                    List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
+                    pdf_documents.Sort(PDFDocumentListSorters.DateLastRead);
+
+                    int num_added = 0;
+                    foreach (PDFDocument pdf_document in pdf_documents)
+                    {
+                        if (!pdf_document.DocumentExists)
+                        {
+                            continue;
+                        }
+
+                        if (!ddwm.ContainsPDFDocument(pdf_document))
+                        {
+                            ddwm.AddDocumentDisplayWork(DocumentDisplayWork.StarburstColor.Blue, "Read Recently", pdf_document);
+
+                            if (++num_added >= ITEMS_IN_LIST)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            // And fill the placeholders
+            WPFDoEvents.InvokeInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws));
+
+            // Now render each document
+            using (Font font = new Font("Times New Roman", 11.0f))
+            {
+                using (StringFormat string_format = new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                })
+                {
+                    var color_matrix = new ColorMatrix();
+                    color_matrix.Matrix33 = 0.9f;
+                    using (var image_attributes = new ImageAttributes())
+                    {
+                        image_attributes.SetColorMatrix(color_matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                        foreach (DocumentDisplayWork ddw in ddwm.ddws)
+                        {
+                            try
+                            {
+                                using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE)))
+                                {
+                                    Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
+                                    page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
+
+                                    using (Graphics g = Graphics.FromImage(page_bitmap))
+                                    {
+                                        int CENTER = 60;
+                                        int RADIUS = 60;
+
                                         {
-                                            int CENTER = 60;
-                                            int RADIUS = 60;
-
+                                            BitmapImage starburst_bi = null;
+                                            switch (ddw.starburst_color)
                                             {
-                                                BitmapImage starburst_bi = null;
-                                                switch (ddw.starburst_color)
-                                                {
-                                                    case DocumentDisplayWork.StarburstColor.Blue:
-                                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
-                                                        break;
-                                                    case DocumentDisplayWork.StarburstColor.Green:
-                                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
-                                                        break;
-                                                    case DocumentDisplayWork.StarburstColor.Pink:
-                                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
-                                                        break;
-                                                    default:
-                                                        starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
-                                                        break;
-                                                }
-
-                                                Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi);
-                                                g.SmoothingMode = SmoothingMode.AntiAlias;
-                                                g.DrawImage(
-                                                    starburst_image,
-                                                    new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
-                                                    0,
-                                                    0,
-                                                    starburst_image.Width,
-                                                    starburst_image.Height,
-                                                    GraphicsUnit.Pixel,
-                                                    image_attributes
-                                                );
+                                                case DocumentDisplayWork.StarburstColor.Blue:
+                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
+                                                    break;
+                                                case DocumentDisplayWork.StarburstColor.Green:
+                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
+                                                    break;
+                                                case DocumentDisplayWork.StarburstColor.Pink:
+                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
+                                                    break;
+                                                default:
+                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
+                                                    break;
                                             }
 
-                                            using (Matrix mat = new Matrix())
-                                            {
-                                                mat.RotateAt(-50, new PointF(CENTER / 2, CENTER / 2));
-                                                g.Transform = mat;
-
-                                                string wrapped_caption = ddw.starburst_caption;
-                                                wrapped_caption = wrapped_caption.ToLower();
-                                                wrapped_caption = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(wrapped_caption);
-                                                wrapped_caption = wrapped_caption.Replace(" ", "\n");
-                                                g.DrawString(wrapped_caption, font, Brushes.Black, new PointF(CENTER / 2, CENTER / 2), string_format);
-                                            }
+                                            Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi);
+                                            g.SmoothingMode = SmoothingMode.AntiAlias;
+                                            g.DrawImage(
+                                                starburst_image,
+                                                new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
+                                                0,
+                                                0,
+                                                starburst_image.Width,
+                                                starburst_image.Height,
+                                                GraphicsUnit.Pixel,
+                                                image_attributes
+                                            );
                                         }
 
-                                        BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
+                                        using (Matrix mat = new Matrix())
+                                        {
+                                            mat.RotateAt(-50, new PointF(CENTER / 2, CENTER / 2));
+                                            g.Transform = mat;
 
-                                        ddw.page_bitmap_source = page_bitmap_source;
+                                            string wrapped_caption = ddw.starburst_caption;
+                                            wrapped_caption = wrapped_caption.ToLower();
+                                            wrapped_caption = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(wrapped_caption);
+                                            wrapped_caption = wrapped_caption.Replace(" ", "\n");
+                                            g.DrawString(wrapped_caption, font, Brushes.Black, new PointF(CENTER / 2, CENTER / 2), string_format);
+                                        }
                                     }
 
-                                    WPFDoEvents.InvokeInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw));
+                                    BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
+
+                                    ddw.page_bitmap_source = page_bitmap_source;
                                 }
-                                catch (Exception ex)
-                                {
-                                    Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
-                                }
+
+                                WPFDoEvents.InvokeInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw));
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
                             }
                         }
                     }
                 }
+            }
 
-                if (0 == ddwm.ddws.Count)
+            if (0 == ddwm.ddws.Count)
+            {
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
-                    WPFDoEvents.InvokeAsyncInUIThread(() =>
-                    {
-                        ButtonCoverFlow.IsChecked = false;
-                        UpdateLibraryStatistics();
-                    }
-                    );
+                    ButtonCoverFlow.IsChecked = false;
+                    UpdateLibraryStatistics();
                 }
+                );
             }
         }
 
@@ -741,7 +724,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     fe = (FrameworkElement)ObjCarousel.SelectedValue;
                 }
 
-                // If that doesnt work, then try any item in the carousel
+                // If that doesn't work, then try any item in the carousel
                 if (null == fe)
                 {
                     if (0 < ObjCarousel.Items.Count)
@@ -780,13 +763,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             TextLibraryCount.Text = "";
 
-            PanelForHyperlinks.Visibility = Visibility.Collapsed;
+            PanelForHyperlinks.Visibility = Visibility.Visible;
             PanelForget.Visibility = Visibility.Collapsed;
+            PanelSetSyncPoint.Visibility = Visibility.Collapsed;
             PanelLocateSyncPoint.Visibility = Visibility.Collapsed;
-            PanelViewOnline.Visibility = Visibility.Collapsed;
-            PanelInviteAndShare.Visibility = Visibility.Collapsed;
-            PanelEditDelete.Visibility = Visibility.Collapsed;
-            PanelTopUp.Visibility = Visibility.Collapsed;
+            PanelEdit.Visibility = Visibility.Collapsed;
+            PanelDelete.Visibility = Visibility.Collapsed;
             PanelPurge.Visibility = Visibility.Collapsed;
 
             ButtonAutoSync.Visibility = Visibility.Collapsed;
@@ -794,17 +776,19 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             if (null != web_library_detail)
             {
-                TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.library.PDFDocuments_IncludingDeleted_Count);
-
-                //TextLibraryCount.Text =
-                //    String.Format(
-                //    " ({0} documents, last synced on {1})",
-                //    web_library_detail.library.PDFDocuments.Count,
-                //    web_library_detail.LastSynced.HasValue ? web_library_detail.LastSynced.Value.ToString() : "Never"
-                //    );
+                if (!web_library_detail.IsIntranetLibrary)
+                {
+                    TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.Xlibrary?.PDFDocuments_IncludingDeleted_Count ?? 0);
+                }
+                else
+                {
+                    TextLibraryCount.Text = String.Format("{0} document(s) in this library, {1}",
+                        web_library_detail.Xlibrary?.PDFDocuments_IncludingDeleted_Count ?? 0,
+                        web_library_detail.LastSynced.HasValue ? $"last synced on {web_library_detail.LastSynced.Value.ToString()}" : @"has never been synced yet");
+                }
 
                 // The wizard stuff
-                if (web_library_detail.IsLocalGuestLibrary)
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
                 {
                     WizardDPs.SetPointOfInterest(ButtonIcon, "GuestLibraryOpenButton");
                     WizardDPs.SetPointOfInterest(TxtTitle, "GuestLibraryTitle");
@@ -816,20 +800,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     ButtonIcon.Width = 64;
                     ButtonIcon.Height = 64;
 
-                    if (web_library_detail.IsWebLibrary)
+                    if (web_library_detail.IsIntranetLibrary)
                     {
                         ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeWeb);
-                        ButtonIcon.ToolTip = "This is a Web Library.\nYou can sync it via the cloud to access it online or on your other devices.";
-                    }
-                    else if (web_library_detail.IsIntranetLibrary)
-                    {
-                        ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeIntranet);
-                        ButtonIcon.ToolTip = "This is an Intranet Library.\nYou can sync it via your Intranet to share with colleagues and across your company computers.";
-                    }
-                    else if (web_library_detail.IsLocalGuestLibrary)
-                    {
-                        ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeGuest);
-                        ButtonIcon.ToolTip = "This is a Guest Library.\nIts contents remain local to this computer and can not be synced.";
+                        //ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeIntranet);
+                        ButtonIcon.ToolTip = "This is an Intranet Library.\nYou can sync it via your Intranet to share with colleagues and across your company computers. Alternatively you can sync to a folder in Cloud Storage such as DropBox, Google Drive or Microsoft OneDrive and anyone with access to that shared folder can sync with your library.";
                     }
                     else if (web_library_detail.IsBundleLibrary)
                     {
@@ -838,8 +813,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     }
                     else
                     {
-                        ButtonIcon.Source = null;
-                        ButtonIcon.ToolTip = null;
+                        ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeGuest);
+                        ButtonIcon.ToolTip = "This is a local Library.\nIts contents are local to this computer. When you assign this library a Sync Point, it can be synchronized with that backup location and possibly shared with other people and machines.";
                     }
                 }
 
@@ -878,58 +853,49 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     }
                 }
 
-
                 // The autosync stuff
-                if (web_library_detail.IsWebLibrary || web_library_detail.IsIntranetLibrary)
+                if (web_library_detail.IsIntranetLibrary)
                 {
                     ButtonAutoSync.Visibility = Visibility.Visible;
                     ButtonAutoSync.IsChecked = web_library_detail.AutoSync;
                 }
 
                 // The readonly stuff
-                if (web_library_detail.IsReadOnly)
+                if (web_library_detail.IsReadOnlyLibrary)
                 {
                     ButtonReadOnly.Visibility = Visibility.Visible;
                 }
 
                 // The hyperlinks panel
-                if (web_library_detail.IsWebLibrary)
+                PanelEdit.Visibility = Visibility.Visible;
+                PanelDelete.Visibility = Visibility.Visible;
+                PanelForget.Visibility = Visibility.Visible;
+                //PanelSetSyncPoint.Visibility = Visibility.Visible;
+                //PanelLocateSyncPoint.Visibility = Visibility.Visible;
+                PanelEdit.Visibility = Visibility.Visible;
+                PanelDelete.Visibility = Visibility.Visible;
+                //PanelPurge.Visibility = Visibility.Visible;
+
+                if (web_library_detail.Deleted)
                 {
-                    PanelForHyperlinks.Visibility = Visibility.Visible;
-
-                    PanelViewOnline.Visibility = Visibility.Visible;
-                    PanelTopUp.Visibility = Visibility.Visible;
-
-                    if (web_library_detail.IsAdministrator)
-                    {
-                        PanelInviteAndShare.Visibility = Visibility.Visible;
-                        PanelEditDelete.Visibility = Visibility.Visible;
-                    }
-
-                    if (web_library_detail.Deleted)
-                    {
-                        PanelPurge.Visibility = Visibility.Visible;
-                    }
+                    PanelPurge.Visibility = Visibility.Visible;
                 }
 
                 if (web_library_detail.IsIntranetLibrary)
                 {
-                    PanelForHyperlinks.Visibility = Visibility.Visible;
-                    PanelForget.Visibility = Visibility.Visible;
                     PanelLocateSyncPoint.Visibility = Visibility.Visible;
                 }
 
-                if (web_library_detail.IsBundleLibrary)
+                if (!web_library_detail.IsReadOnlyLibrary)
                 {
-                    PanelForHyperlinks.Visibility = Visibility.Visible;
-                    PanelForget.Visibility = Visibility.Visible;
+                    PanelSetSyncPoint.Visibility = Visibility.Visible;
                 }
             }
         }
 
-        private string CustomIconFilename => Path.GetFullPath(Path.Combine(web_library_detail.library.LIBRARY_BASE_PATH, @"Qiqqa.library_custom_icon.png"));
+        private string CustomIconFilename => Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_icon.png"));
 
-        private string CustomBackgroundFilename => Path.GetFullPath(Path.Combine(web_library_detail.library.LIBRARY_BASE_PATH, @"Qiqqa.library_custom_background.jpg"));
+        private string CustomBackgroundFilename => Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_background.jpg"));
 
         internal void CustomiseBackground()
         {
@@ -975,7 +941,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
-    #region --- Useful ancilliary classes ------------
+    #region --- Useful ancillary classes ------------
 
     public class ChartItem
     {

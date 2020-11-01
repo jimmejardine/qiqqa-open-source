@@ -25,7 +25,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.AnnotationsReportBu
         }
 
 #if false
-        internal static void BuildReport(Library library, List<PDFDocument> pdf_documents)
+        internal static void BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
             AnnotationReportOptions annotation_report_options = new AnnotationReportOptions();
 

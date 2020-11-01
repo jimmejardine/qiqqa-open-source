@@ -1,0 +1,78 @@
+% http://timmurphy.org/2011/02/15/using-an-organisation-name-as-an-author-in-bibtex/
+
+@article{rba00,
+author = "{Reserve Bank of Australia}",
+title = {Linear-time algorithms for partial $k$-tree complements},
+journal = alg, volume = 27, year = 2000, pages = {254-274}}
+
+@misc{united_nations_kyoto_1998,
+title = {Kyoto Protocol to the United Nations Framework Convention on Climate Change},
+url = {http://unfccc.int/kyoto_protocol/items/2830.php},
+author = {{United Nations}},
+year = {1998},
+file = {kpeng.pdf:/Users/justin/Zotero/storage/D5JXTRCZ/kpeng.pdf:application/pdf}
+}
+
+% Three opening braces or rather two opening braces within the outer set of braces seem 
+% to be the only problem regarding biblatex according to my tests 
+% (i.e. '{Doe, John and {{Some} Company}}' will issue will cause biblatex to issue 
+% an error and stop. The biblatex issue "is mostly because biber does lots of tricky 
+% things with generating initials and this is a tradeoff with edge cases like this", 
+% according to Philip Kime, one of the authors of biblatex. 
+% So there seems to be a good reason why excess braces do not work with biblatex/biber. 
+% (Though your fix should make it work with biblatex now, as far as I understand).
+%
+% It's probably best though not to look to much at what works with biblatex/biber or 
+% not, but what is correct according to the standard or what works in most cases. 
+% I am not sure whether the bibtex standard defines how many braces are allowed, but 
+% it is my understanding that '{{National DNA Database}}' should render just the same 
+% as '{{National {DNA} Database}}'. Thus two pairs of braces are enough for all ends 
+% an purposes and any additional set is redundant!? So two pairs is the most robust 
+% solution.
+%
+% https://forums.zotero.org/discussion/19721/bibtex-export-for-corporate-authors-single-name-only/
+
+
+
+% Contrary to what you say, multi-level bracing is not only allowed in 'bibtex', 
+% but (sometimes) explicitly encouraged. See:
+%
+% ftp://ftp.tex.ac.uk/tex-archive/biblio/bibtex/contrib/doc/btxFAQ.pdf
+% http://tug.ctan.org/tex-archive/info/bibtex/tamethebeast/
+%
+% We do use multi-level bracing for TeX entity preservation (as is encouraged for 'bibtex' 
+% users) & this will apparently cause biblatex to fail occasionally. From my perspective, 
+% biblatex will need to be fixed, either way.
+%
+% Of course, we also use multi-level bracing in many cases where it is permitted, but 
+% probably not encouraged. We emit valid, though (as PLK correctly notes) messy bibtex. 
+% We should probably clean some of that up.
+%
+% I suspect we can avoid using the per-word case-preservation if the entire field has 
+% already been brace protected. But I want to think about it & point out why the issue 
+% is not as trivial as it might seem & also point out why brace reduction after-the-fact 
+% is not the correct approach.
+
+% source: https://forums.zotero.org/discussion/15095/
+%
+@article{Hudson1939,
+author = {{\bibcorporate{Hudson Motor Car Company}}},
+journal = {Popular Mechanics},
+title = {The Ride of Your Life Waits for You},
+number = {5},
+pages = {5A},
+volume = {72},
+year = {1939},
+date-added = {2010-10-16 01:27:15 -0400},
+date-modified = {2010-10-21 15:02:11 -0400},
+uri = {papers://38198467-8124-4565-A531-32C96C398156/Paper/p220},
+read = {Yes},
+rating = {0}
+}
+
+% Note: \bibcorporate is only used by the apa styles. This enables you to disable 
+% the display of corporate authors completely (or, through override, change how they 
+% are styled). 
+% See http://www.ctan.org/tex-archive/biblio/bibtex/contrib/apacite/apacite.pdf
+
+
