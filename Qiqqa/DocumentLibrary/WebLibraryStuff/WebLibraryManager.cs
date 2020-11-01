@@ -302,7 +302,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             //WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-#if false
+#if true
             foreach (var pair in web_library_details)
             {
                 WebLibraryDetail web_lib = pair.Value;
@@ -314,6 +314,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 #endif
+
             // Allow the GC to collect these naturally.
             // Only when there are still dependency cycles or other stuff active, would this
             // nuking of the references to the libraries NOT help to release their memory.
@@ -422,7 +423,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             );
         }
 
-#region --- Known web library management -------------------------------------------------------------------------------------------------------------------------
+        #region --- Known web library management -------------------------------------------------------------------------------------------------------------------------
 
         public static string KNOWN_WEB_LIBRARIES_FILENAME => Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForUser, @"Qiqqa.known_web_libraries"));
 
@@ -907,6 +908,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             Logging.Info("-Forgetting {1} Library from {0}", web_library_detail.Title, web_library_detail.LibraryType());
         }
 
-#endregion
+        #endregion
     }
 }
