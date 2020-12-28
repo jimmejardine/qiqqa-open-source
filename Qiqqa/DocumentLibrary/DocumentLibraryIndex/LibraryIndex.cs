@@ -713,36 +713,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             return did_some_work;
         }
 
-#if false
-        public int NumberOfIndexedPDFDocuments
-        {
-            get
-            {
-                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (pdf_documents_in_library_lock)
-                {
-                    //l1_clk.LockPerfTimerStop();
-                    return pdf_documents_in_library.Count;
-                }
-            }
-        }
-
-        public int PagesPending
-        {
-            get
-            {
-                int numerator_documents = 0;
-                int denominator_documents = 0;
-                int pages_so_far = 0;
-                int pages_to_go = 0;
-
-                GetStatusCounts(out numerator_documents, out denominator_documents, out pages_so_far, out pages_to_go);
-
-                return pages_to_go;
-            }
-        }
-#endif
-
 #region --- Test ------------------------------------------------------------------------
 
 #if TEST

@@ -859,7 +859,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
             new_web_library_detail.IntranetPath = intranet_path;
-            //new_web_library_detail.IsIntranetLibrary = true;
             new_web_library_detail.Id = intranet_library_detail.Id;
             new_web_library_detail.Title = intranet_library_detail.Title;
             new_web_library_detail.Description = intranet_library_detail.Description;
