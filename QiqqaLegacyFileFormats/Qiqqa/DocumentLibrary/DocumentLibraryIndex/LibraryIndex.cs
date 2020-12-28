@@ -50,36 +50,59 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Doc
             }
         }
 
-        public LibraryIndex(Library library)
+        public LibraryIndex(WebLibraryDetail web_library_detail)
         {
             this.library = new TypedWeakReference<Library>(library);
 
             // postpone INIT phase...
         }
 
-        private void Init()
+        private void Init(WebLibraryDetail web_library_detail)
         {
+            // have we been here before?
+            if (LibraryIndexIsLoaded)
+            {
+                return;
+            }
+
+            // Utilities.LockPerfTimer l5_clk = Utilities.LockPerfChecker.Start();
             lock (libraryIndexInit_is_pending_lock)
             {
-                Logging.Info("Try to load a historical progress file: {0}", FILENAME_DOCUMENT_PROGRESS_LIST);
+                // l5_clk.LockPerfTimerStop();
+
+                //Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
+                lock (pdf_documents_in_library_lock)
+                {
+                    lock (word_index_manager_lock)
+                    {
+                        //l4_clk.LockPerfTimerStop();
+                        if (null != pdf_documents_in_library && null != word_index_manager)
+                        {
+                            Logging.Warn("LibraryIndex has already been initialized.");
+                            return;
+                        }
+                    }
+                }
+
+                Logging.Info("Try to load a historical progress file: {0}", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                 try
                 {
-                    if (File.Exists(FILENAME_DOCUMENT_PROGRESS_LIST))
+                    if (File.Exists(web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST))
                     {
                         Stopwatch clk = Stopwatch.StartNew();
-                        Logging.Info("+Loading historical progress file: {0}", FILENAME_DOCUMENT_PROGRESS_LIST);
+                        Logging.Info("+Loading historical progress file: {0}", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                         //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                         lock (pdf_documents_in_library_lock)
                         {
                             //l1_clk.LockPerfTimerStop();
-                            pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(FILENAME_DOCUMENT_PROGRESS_LIST);
+                            pdf_documents_in_library = (Dictionary<string, PDFDocumentInLibrary>)SerializeFile.LoadSafely(web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                         }
-                        Logging.Info("-Loaded historical progress file: {0} (time spent: {1} ms)", FILENAME_DOCUMENT_PROGRESS_LIST, clk.ElapsedMilliseconds);
+                        Logging.Info("-Loaded historical progress file: {0} (time spent: {1} ms)", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST, clk.ElapsedMilliseconds);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", FILENAME_DOCUMENT_PROGRESS_LIST);
+                    Logging.Error(ex, "FAILED to load historical progress file \"{0}\". Will start indexing afresh.", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                     //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                     lock (pdf_documents_in_library_lock)
                     {
@@ -95,10 +118,20 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Doc
                     //l3_clk.LockPerfTimerStop();
                     if (null == pdf_documents_in_library)
                     {
-                        Logging.Warn("Cound not find any indexing progress, so starting from scratch.");
+                        Logging.Warn("Could not find any indexing progress, so starting from scratch.");
                         pdf_documents_in_library = new Dictionary<string, PDFDocumentInLibrary>();
                     }
                 }
+
+                // Utilities.LockPerfTimer l6_clk = Utilities.LockPerfChecker.Start();
+                lock (word_index_manager_lock)
+                {
+                    // l6_clk.LockPerfTimerStop();
+                    word_index_manager = new LuceneIndex(web_library_detail.LIBRARY_INDEX_BASE_PATH);
+                    word_index_manager.WriteMasterList();
+                }
+
+                LibraryIndexIsLoaded = true;
             }
         }
 
