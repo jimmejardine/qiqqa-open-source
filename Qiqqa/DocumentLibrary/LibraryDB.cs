@@ -188,7 +188,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 Logging.Error(ex, "LibraryDB::PutBLOB: Database I/O failure for DB '{0}'.", library_path);
                 LibraryDB.FurtherDiagnoseDBProblem(ex, null, library_path);
-                throw ex;
+                throw;
             }
         }
 
@@ -411,7 +411,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 Logging.Error(ex, "LibraryDB::GetLibraryItems: Database I/O failure for DB '{0}'.", library_path);
                 LibraryDB.FurtherDiagnoseDBProblem(ex, database_corruption, library_path);
-                throw ex;
+                throw;
             }
 
             if (database_corruption.Count > 0)

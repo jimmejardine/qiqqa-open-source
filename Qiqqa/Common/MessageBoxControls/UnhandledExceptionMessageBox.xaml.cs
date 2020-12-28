@@ -42,7 +42,7 @@ namespace Qiqqa.Common.MessageBoxControls
             // When we're looking at an OutOfMem exception, there's nothing we can do but abort everything!
             if (ex is System.OutOfMemoryException)
             {
-                throw ex;
+                throw new OutOfMemoryException("Out of memory", ex);
             }
 
             // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
