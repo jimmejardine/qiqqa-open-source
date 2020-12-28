@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2019 Jay Berkenbilt
+// Copyright (c) 2005-2020 Jay Berkenbilt
 //
 // This file is part of qpdf.
 //
@@ -29,60 +29,21 @@
 #include <limits>
 #include <sstream>
 #include <cassert>
+#include <locale>
+#include <type_traits>
 
 // This namespace provides safe integer conversion that detects
 // overflows. It uses short, cryptic names for brevity.
 
 namespace QIntC // QIntC = qpdf Integer Conversion
 {
-    // Create templates to get the unsigned version of integer types.
-    // With C++11, we could use std::make_unsigned, but qpdf, at least
-    // for now, supports pre-c++11 compilers.
+    // to_u is here for backward-compatibility from before we required
+    // C++-11.
     template <typename T>
     class to_u
     {
-    };
-
-    template <>
-    class to_u<char>
-    {
       public:
-        typedef unsigned char type;
-    };
-
-    template <>
-    class to_u<signed char>
-    {
-      public:
-        typedef unsigned char type;
-    };
-
-    template <>
-    class to_u<short>
-    {
-      public:
-        typedef unsigned short type;
-    };
-
-    template <>
-    class to_u<int>
-    {
-      public:
-        typedef unsigned int type;
-    };
-
-    template <>
-    class to_u<long>
-    {
-      public:
-        typedef unsigned long type;
-    };
-
-    template <>
-    class to_u<long long>
-    {
-      public:
-        typedef unsigned long long type;
+        typedef typename std::make_unsigned<T>::type type;
     };
 
     // Basic IntConverter class, which converts an integer from the
@@ -107,6 +68,7 @@ namespace QIntC // QIntC = qpdf Integer Conversion
             if (i > std::numeric_limits<To>::max())
             {
                 std::ostringstream msg;
+                msg.imbue(std::locale::classic());
                 msg << "integer out of range converting " << i
                     << " from a "
                     << sizeof(From) << "-byte unsigned type to a "
@@ -128,6 +90,7 @@ namespace QIntC // QIntC = qpdf Integer Conversion
                 (i > std::numeric_limits<To>::max()))
             {
                 std::ostringstream msg;
+                msg.imbue(std::locale::classic());
                 msg << "integer out of range converting " << i
                     << " from a "
                     << sizeof(From) << "-byte signed type to a "
@@ -147,11 +110,11 @@ namespace QIntC // QIntC = qpdf Integer Conversion
             // From is signed, and To is unsigned. If i > 0, it's safe to
             // convert it to the corresponding unsigned type and to
             // compare with To's max.
-            typename to_u<From>::type ii =
-                static_cast<typename to_u<From>::type>(i);
+            auto ii = static_cast<typename to_u<From>::type>(i);
             if ((i < 0) || (ii > std::numeric_limits<To>::max()))
             {
                 std::ostringstream msg;
+                msg.imbue(std::locale::classic());
                 msg << "integer out of range converting " << i
                     << " from a "
                     << sizeof(From) << "-byte signed type to a "
@@ -170,12 +133,12 @@ namespace QIntC // QIntC = qpdf Integer Conversion
         {
             // From is unsigned, and to is signed. Convert To's max to the
             // unsigned version of To and compare i against that.
-            typename to_u<To>::type maxval =
-                static_cast<typename to_u<To>::type>(
-                    std::numeric_limits<To>::max());
+            auto maxval = static_cast<typename to_u<To>::type>(
+                std::numeric_limits<To>::max());
             if (i > maxval)
             {
                 std::ostringstream msg;
+                msg.imbue(std::locale::classic());
                 msg << "integer out of range converting " << i
                     << " from a "
                     << sizeof(From) << "-byte unsigned type to a "
@@ -258,6 +221,34 @@ namespace QIntC // QIntC = qpdf Integer Conversion
     unsigned long long to_ulonglong(T const& i)
     {
         return IntConverter<T, unsigned long long>::convert(i);
+    }
+
+    template <typename T>
+    void range_check(T const& cur, T const& delta)
+    {
+        if ((delta > 0) != (cur > 0))
+        {
+            return;
+        }
+
+        if ((delta > 0) &&
+            ((std::numeric_limits<T>::max() - cur) < delta))
+        {
+            std::ostringstream msg;
+            msg.imbue(std::locale::classic());
+            msg << "adding " << delta << " to " << cur
+                << " would cause an integer overflow";
+            throw std::range_error(msg.str());
+        }
+        else if ((delta < 0) &&
+            ((std::numeric_limits<T>::min() - cur) > delta))
+        {
+            std::ostringstream msg;
+            msg.imbue(std::locale::classic());
+            msg << "adding " << delta << " to " << cur
+                << " would cause an integer underflow";
+            throw std::range_error(msg.str());
+        }
     }
 };
 

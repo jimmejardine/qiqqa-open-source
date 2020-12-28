@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2019 Jay Berkenbilt
+// Copyright (c) 2005-2020 Jay Berkenbilt
 //
 // This file is part of qpdf.
 //
@@ -51,8 +51,8 @@ class FileInputSource: public InputSource
     virtual void unreadCh(char ch);
 
   private:
-    FileInputSource(FileInputSource const&);
-    FileInputSource& operator=(FileInputSource const&);
+    FileInputSource(FileInputSource const&) = delete;
+    FileInputSource& operator=(FileInputSource const&) = delete;
 
     class Members
     {

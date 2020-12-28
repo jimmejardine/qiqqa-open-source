@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2019 Jay Berkenbilt
+// Copyright (c) 2005-2020 Jay Berkenbilt
 //
 // This file is part of qpdf.
 //
@@ -83,6 +83,12 @@ class QPDF_DLL_CLASS InputSource
     virtual void seek(qpdf_offset_t offset, int whence) = 0;
     virtual void rewind() = 0;
     virtual size_t read(char* buffer, size_t length) = 0;
+
+    // Note: you can only unread the character you just read. The
+    // specific character is ignored by some implementations, and the
+    // implementation doesn't check this. Use of unreadCh is
+    // semantically equivalent to seek(-1, SEEK_CUR) but is much more
+    // efficient.
     virtual void unreadCh(char ch) = 0;
 
   protected:

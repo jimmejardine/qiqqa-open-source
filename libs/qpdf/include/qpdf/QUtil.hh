@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2019 Jay Berkenbilt
+// Copyright (c) 2005-2020 Jay Berkenbilt
 //
 // This file is part of qpdf.
 //
@@ -29,6 +29,7 @@
 #include <list>
 #include <vector>
 #include <stdexcept>
+#include <functional>
 #include <stdio.h>
 #include <time.h>
 
@@ -90,8 +91,9 @@ namespace QUtil
     QPDF_DLL
     int os_wrapper(std::string const& description, int status);
 
-    // If the open fails, throws std::runtime_error.  Otherwise, the
-    // FILE* is returned.
+    // If the open fails, throws std::runtime_error. Otherwise, the
+    // FILE* is returned. The filename should be UTF-8 encoded, even
+    // on Windows. It will be converted as needed on Windows.
     QPDF_DLL
     FILE* safe_fopen(char const* filename, char const* mode);
 
@@ -261,42 +263,25 @@ namespace QUtil
     QPDF_DLL
     std::vector<std::string> possible_repaired_encodings(std::string);
 
-    // If secure random number generation is supported on your
-    // platform and qpdf was not compiled with insecure random number
-    // generation, this returns a cryptographically secure random
-    // number.  Otherwise it falls back to random from stdlib and
-    // calls srandom automatically the first time it is called.
+    // Return a cryptographically secure random number.
     QPDF_DLL
     long random();
 
-    // Wrapper around srandom from stdlib.  Seeds the standard library
-    // weak random number generator, which is not used if secure
-    // random number generation is being used.  You never need to call
-    // this method as it is called automatically if needed.
-    QPDF_DLL
-    void srandom(unsigned int seed);
-
-    // Initialize a buffer with random bytes.  By default, qpdf tries
-    // to use a secure random number source.  It can be configured at
-    // compile time to use an insecure random number source (from
-    // stdlib).  You can also call setRandomDataProvider with a
-    // RandomDataProvider, in which case this method will get its
-    // random bytes from that.
-
+    // Initialize a buffer with cryptographically secure random bytes.
     QPDF_DLL
     void initializeWithRandomBytes(unsigned char* data, size_t len);
 
-    // Supply a random data provider.  If not supplied, depending on
-    // compile time options, qpdf will either use the operating
-    // system's secure random number source or an insecure random
-    // source from stdlib.  The caller is responsible for managing the
-    // memory for the RandomDataProvider.  This method modifies a
-    // static variable.  If you are providing your own random data
-    // provider, you should call this at the beginning of your program
-    // before creating any QPDF objects.  Passing a null to this
-    // method will reset the library back to whichever of the built-in
-    // random data handlers is appropriate based on how qpdf was
-    // compiled.
+    // Supply a random data provider. Starting in qpdf 10.0.0, qpdf
+    // uses the crypto provider as its source of random numbers. If
+    // you are using the native crypto provider, then qpdf will either
+    // use the operating system's secure random number source or, only
+    // if enabled at build time, an insecure random source from
+    // stdlib. The caller is responsible for managing the memory for
+    // the RandomDataProvider. This method modifies a static variable.
+    // If you are providing your own random data provider, you should
+    // call this at the beginning of your program before creating any
+    // QPDF objects. Passing a null to this method will reset the
+    // library back to its default random data provider.
     QPDF_DLL
     void setRandomDataProvider(RandomDataProvider*);
 
@@ -308,10 +293,23 @@ namespace QUtil
     QPDF_DLL
     RandomDataProvider* getRandomDataProvider();
 
+    // Filename is UTF-8 encoded, even on Windows, as described in the
+    // comments for safe_fopen.
     QPDF_DLL
-    std::list<std::string> read_lines_from_file(char const* filename);
+    std::list<std::string> read_lines_from_file(
+        char const* filename, bool preserve_eol = false);
     QPDF_DLL
-    std::list<std::string> read_lines_from_file(std::istream&);
+    std::list<std::string> read_lines_from_file(
+        std::istream&, bool preserve_eol = false);
+    QPDF_DLL
+    std::list<std::string> read_lines_from_file(
+        FILE*, bool preserve_eol = false);
+    QPDF_DLL
+    void read_lines_from_file(
+        std::function<bool(char&)> next_char,
+        std::list<std::string>& lines,
+        bool preserve_eol = false);
+
     QPDF_DLL
     void read_file_into_memory(
         char const* filename, PointerHolder<char>& file_buf, size_t& size);
@@ -341,6 +339,21 @@ namespace QUtil
     // command-line tool. May throw std::runtime_error.
     QPDF_DLL
     std::vector<int> parse_numrange(char const* range, int max);
+
+#ifndef QPDF_NO_WCHAR_T
+    // If you are building qpdf on a stripped down system that doesn't
+    // have wchar_t, such as may be the case in some embedded
+    // environments, you may define QPDF_NO_WCHAR_T in your build.
+    // This symbol is never defined automatically. Search for wchar_t
+    // in qpdf's top-level README.md file for details.
+
+    // Take an argv array consisting of wchar_t, as when wmain is
+    // invoked, convert all UTF-16 encoded strings to UTF-8, and call
+    // another main.
+    QPDF_DLL
+    int call_main_from_wmain(int argc, wchar_t* argv[],
+                             std::function<int(int, char*[])> realmain);
+#endif // QPDF_NO_WCHAR_T
 };
 
 #endif // QUTIL_HH
