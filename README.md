@@ -67,7 +67,7 @@ Other documentation material is being added as we go; the sources for that are a
 
 ## Qiqqa Collaborators & Developers Wanted
  
-If you are interested in contributing towards better Qiqqa, please contact @jimmejardine or @GerHobbelt.
+If you are interested in contributing towards better Qiqqa, please contact [@jimmejardine](https://github.com/jimmejardine) or [GerHobbelt](https://github.com/GerHobbelt).
 
 
 ### For Developers: Building Qiqqa From Source
@@ -79,7 +79,7 @@ It needs some technical experience. See the [DEVELOPER-INFO](DEVELOPER-INFO.md) 
 
 # WARNING NOTICE for Commercial Qiqqa users with a user account and Web Libraries
 
-> (I previously tried v79 and both account and guest library. I also have web account)
+## 🆘 ❓ I previously used v79 and both an account and guest library. I also have web account.
 
 Note this from the qiqqa.com commercial website (emphasis mine):
 
@@ -103,5 +103,16 @@ Then, once you re-installed v82, it will discover your local Web Library copy ag
 
 Do note that the *name* of the library as shown in v82 might be [UUID-like](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format) gobbledigook instead of the proper title you gave it back in the day of Commercial Qiqqa and v79. The contents should be available untrammeled though.
 
+
+## 🆘 ❓ After several years I returned to research; I have an older Qiqqa library which I would like restored. Can you help?
+
+(Very) probably we can. 
+
+While folks have emailed me ([GerHobbelt](https://github.com/GerHobbelt)) directly, the more prudent approach would be to [*file an issue* as mentioned in the 'Need help?' section further above](https://github.com/jimmejardine/qiqqa-open-source/issues) as email may easily inadvertedly get lost or regrettably go unread and 'disappear' in the torrent of email I receive daily. GitHub issues are here and will *stay* here, enabling me (*and others*) to respond when we have time. Issues *do not disappear* in a overflowing bucket.
+
+I'm not discouraging you from emailing me, but rather suggesting that there may be *two ways about this* rather than only *one*: you could email me *and* file an issue requesting help! 
+> Of course, email conversations are a tad more private, so that's up to you to decide. 
+> In the EU we now have a law giving us "[*the right to be forgotten on the Internet*](https://en.wikipedia.org/wiki/Right_to_be_forgotten)" but frankly, I'm not counting on it and never have assumed as much since the day I encountered "writing" and computers 40+ years ago. Your data is perhaps *perishable* at the most inconvenient of times, but when you *want* it to be *vamoosed*, you can bet your bottom it's clinging to a wall some place. 😉  
+> *The point being?* It's up to you to consider and decide on the amount and level of privacy of your Qiqqa data and act and communicate accordingly at all times.
 
 
