@@ -51,7 +51,7 @@ Enjoy Qiqqa and take care!
 
 ### Miscellaneous Notes
 
-* > **DO NOTE** that the v82 releases are prereleases, only lightly tested and may include grave bugs. Backup your library before testing these, even if you like living on the edge...
+* > **DO NOTE** that the v82 releases are prereleases, *some* of which are only lightly tested and may include bugs. Backup your library before testing these, even if you like living on the edge...
   >
   > *@GerHobbelt has joined the team and keeps the bleeding edge rolling. For recent changes see  [closed bugs list](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed).*
 
