@@ -79,7 +79,7 @@ It needs some technical experience. See the [DEVELOPER-INFO](DEVELOPER-INFO.md) 
 
 # WARNING NOTICE for Commercial Qiqqa users with a user account and Web Libraries
 
-## 🆘 ❓ I previously used v79 and both an account and guest library. I also have web account.
+## 🆘 ❓ I previously used v79 with one or more libraries. I also have a web account.
 
 Note this from the qiqqa.com commercial website (emphasis mine):
 
