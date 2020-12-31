@@ -108,7 +108,7 @@ Do note that the *name* of the library as shown in v82 might be [UUID-like](http
 
 (Very) probably we can. 
 
-While folks have emailed me ([GerHobbelt](https://github.com/GerHobbelt)) directly, the more prudent approach would be to [*file an issue* as mentioned in the 'Need help?' section further above](https://github.com/jimmejardine/qiqqa-open-source/issues) as email may easily inadvertedly get lost or regrettably go unread and 'disappear' in the torrent of email I receive daily. GitHub issues are here and will *stay* here, enabling me (*and others*) to respond when we have time. Issues *do not disappear* in a overflowing bucket.
+While folks have emailed me ([GerHobbelt](https://github.com/GerHobbelt)) directly, the more prudent approach would be to [*file an issue* as mentioned in the 'Need help?' section further above](https://github.com/jimmejardine/qiqqa-open-source/issues) as email may easily inadvertedly get lost or regrettably go unread and 'disappear' in the torrent of email I receive daily. GitHub issues are here and will *stay* here, enabling me (*and others*) to respond when we have time. Issues *do not disappear* in an overflowing bucket.
 
 I'm not discouraging you from emailing me, but rather suggesting that there may be *two ways about this* rather than only *one*: you could email me *and* file an issue requesting help! 
 > Of course, email conversations are a tad more private, so that's up to you to decide. 
