@@ -23,6 +23,11 @@ It's a Windows setup executable, which can be installed over your existing Qiqqa
 > For release notes see [CHANGELOG](../../blob/master/CHANGELOG.md).
 
 
+### What about these different releases? Which one should I use?
+
+See the notes [here](https://github.com/jimmejardine/qiqqa-open-source/issues/280#issuecomment-752056946-permalink). If you feel unsure about it all, then the conversation at [#282<sup>Which version should I be installing as I move from "old Qiqqa" to open source?</sup>](https://github.com/jimmejardine/qiqqa-open-source/issues/282) might be useful for you as well.
+
+
 ### Need help?
 
 *   [This document describes how to install Qiqqa using the setup executable](https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Installing%20Qiqqa%20-%20Updating%20Qiqqa.md).
