@@ -32,7 +32,7 @@ See the notes [here](https://github.com/jimmejardine/qiqqa-open-source/issues/28
 
 *   [This document describes how to install Qiqqa using the setup executable](https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Installing%20Qiqqa%20-%20Updating%20Qiqqa.md).
 *   [This document lists a few issues you may encounter while installing and how to solve them](https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Problems%20with%20running%20the%20installer%20on%20your%20Microsoft%20Windows%20machine.md).
-*   File an issue asking your question on github at [https://github.com/jimmejardine/qiqqa-open-source/issues](https://github.com/jimmejardine/qiqqa-open-source/issues)
+*   Ask your question on github at [https://github.com/jimmejardine/qiqqa-open-source/issues](https://github.com/jimmejardine/qiqqa-open-source/issues) by "*filing an issue*": there's nothing to it, just click the green "**New Issue**" button at the top-right corner there. 😄
 
 
 ### Notifications of new releases
