@@ -425,7 +425,7 @@ namespace Qiqqa.DocumentLibrary
                                 if (!String.IsNullOrEmpty(content_type))
                                 {
                                     ContentType ct = new ContentType(content_type);
-                                    content_type = ct.MediaType.ToLower(CultureInfo.CurrentCulture);
+                                    content_type = ct.MediaType.ToLower();
                                 }
                                 else
                                 {

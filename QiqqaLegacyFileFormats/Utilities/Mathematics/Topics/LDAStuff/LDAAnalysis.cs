@@ -113,8 +113,10 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                         Logging.Info("-Generating density_of_words_in_topics");
                     }
                 }
-                catch (System.OutOfMemoryException ex)
+                catch (Exception ex)
                 {
+                    Logging.Error(ex, "Internal LDAAnalysis error.");
+
                     // terminate app
                     throw;
                 }
@@ -151,8 +153,10 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                         Logging.Info("-Generating density_of_topics_in_documents");
                     }
                 }
-                catch (System.OutOfMemoryException ex)
+                catch (Exception ex)
                 {
+                    Logging.Error(ex, "Internal LDAAnalysis error.");
+
                     // terminate app
                     throw;
                 }
@@ -195,8 +199,10 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                         Logging.Info("+Generating pseudo_density_of_topics_in_words");
                     }
                 }
-                catch (System.OutOfMemoryException ex)
+                catch (Exception ex)
                 {
+                    Logging.Error(ex, "Internal LDAAnalysis error.");
+
                     // terminate app
                     throw;
                 }
@@ -228,8 +234,10 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                             Array.Sort(density_of_words_in_topics_sorted[topic]);
                         }
                     }
-                    catch (System.OutOfMemoryException ex)
+                    catch (Exception ex)
                     {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
                         // terminate app
                         throw;
                     }
@@ -264,8 +272,10 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                             Array.Sort(density_of_docs_in_topics_sorted[topic]);
                         }
                     }
-                    catch (System.OutOfMemoryException ex)
+                    catch (Exception ex)
                     {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
                         // terminate app
                         throw;
                     }
@@ -351,8 +361,10 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
 
                 return local_density_of_topics_in_docs_sorted;
             }
-            catch (System.OutOfMemoryException ex)
+            catch (Exception ex)
             {
+                Logging.Error(ex, "Internal LDAAnalysis error.");
+
                 // terminate app
                 throw;
             }
@@ -415,8 +427,10 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                             Array.Sort(density_of_topics_in_docs_scaled_sorted[doc]);
                         }
                     }
-                    catch (System.OutOfMemoryException ex)
+                    catch (Exception ex)
                     {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
                         // terminate app
                         throw;
                     }

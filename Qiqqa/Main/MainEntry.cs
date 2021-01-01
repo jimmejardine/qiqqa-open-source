@@ -180,19 +180,52 @@ namespace Qiqqa.Main
         {
             // Create the application object
             application = new Application();
-            application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            application.ShutdownMode = ShutdownMode.OnLastWindowClose;
             application.Exit += Application_Exit;
             application.Activated += Application_Activated;
             application.LoadCompleted += Application_LoadCompleted;
             application.Startup += Application_Startup;
+            application.SessionEnding += Application_SessionEnding;
 
             // All the exception handling
             application.DispatcherUnhandledException += application_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             SafeThreadPool.UnhandledException += SafeThreadPool_UnhandledException;
 
+            Process proc = Process.GetCurrentProcess();
+            //     Occurs each time an application writes a line to its redirected System.Diagnostics.Process.StandardOutput/StandardError
+            proc.ErrorDataReceived += Proc_ErrorDataReceived;
+            proc.OutputDataReceived += Proc_OutputDataReceived;
+            //     Occurs when a process exits.
+            proc.Exited += Proc_Exited;
+            proc.EnableRaisingEvents = true;
+
             // Start the FPS measurer
             { var init = WPFFrameRate.Instance; }
+        }
+
+        private static void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
+        {
+            Logging.Warn($"---Application::SessionEnding: {e.ReasonSessionEnding}");
+
+            SignalShutdown($"Windows Session ending: {e.ReasonSessionEnding}");
+        }
+
+        private static void Proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Logging.Warn($"---Application::StdErr:\n{e.Data}");
+        }
+
+        private static void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Logging.Warn($"---Application::StdOut:\n{e.Data}");
+        }
+
+        private static void Proc_Exited(object sender, EventArgs e)
+        {
+            Logging.Info("---Application/Process::Exit invoked");
+
+            SignalShutdown("Main Application/Process::Exit event");
         }
 
         private static void Application_Startup(object sender, StartupEventArgs e)
@@ -212,7 +245,9 @@ namespace Qiqqa.Main
 
         private static void Application_Exit(object sender, ExitEventArgs e)
         {
-            Logging.Info("---Application_Exit");
+            Logging.Info("---Application::Exit - user (probably) closed main/last open window.");
+
+            SignalShutdown("Main Application::Exit event - user (probably) closed main/last open window.");
         }
 
         private static void DoUpgrades()
@@ -249,15 +284,30 @@ namespace Qiqqa.Main
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
         }
 
-        public static void SignalShutdown()
+        public static void SignalShutdown(string reason)
         {
-            ShutdownableManager.Instance.Shutdown();
+            ShutdownableManager.Instance.Shutdown(reason);
         }
 
         public static void ShowLoginDialog()
         {
             LoginWindow login_window = new LoginWindow();
             login_window.ChooseLogin();
+        }
+
+        private static int log_close_down_counter = 2;  // 2: once at end of main, plus once at (hopefully) end of threadpool queue.
+
+        public static void CloseLogFile(object o)
+        {
+            ComputerStatistics.ReportMemoryStatus($"Status at termination end stage {3 - log_close_down_counter}");
+
+            // only close the log when this function has been called TWICE:
+            log_close_down_counter--;
+            if (log_close_down_counter == 0)
+            {
+                // This must be the last line the application executes, EVAR!
+                Logging.ShutDown();
+            }
         }
 
         [STAThread]
@@ -277,22 +327,24 @@ namespace Qiqqa.Main
                 // the time to login Dialog is visible (and usable by the user), are
                 // indeed ready.
 
+                Exception has_ex = null;
                 try
                 {
                     application.Run();
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "Exception caught at Main() application.Run().  Disaster.");
+                    has_ex = ex;
+                    Logging.Error(ex, "Exception caught at Main() Application::Run().  Disaster.");
                 }
 
-                SignalShutdown();
+                SignalShutdown(has_ex != null ? $"Exception caught in Main Application::Run() function: {has_ex}" : "Main Application::Run() has terminated.");
             }
             catch (Exception ex)
             {
                 Logging.Error(ex, "Exception caught at Main().  Disaster.");
 
-                SignalShutdown();
+                SignalShutdown($"Exception caught in Main Application function: {ex}");
             }
 
             Logging.Info("-static Main()");
@@ -304,41 +356,53 @@ namespace Qiqqa.Main
             // libraries all properly like, etc.
             // So that's what we're going to do next. And forced GC to kick the sluggish off the lot
             // before we report.
-            GC.WaitForPendingFinalizers();
-            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
-            Logging.Info("-static Heap after forced GC compacting at the end: {0}", GC.GetTotalMemory(false));
+            Logging.Info("Unloading all user libraries...");
 
             // kick off all the libraries
             WebLibraryManager.Instance.UnloadAllLibraries();
 
+            SafeThreadPool.QueueUserWorkItem(CloseLogFile, skip_task_at_app_shutdown: false);
+
             Logging.Info("Making sure all threads have completed or terminated...");
 
             // give this a sane upper limit so the application cannot ever be 'stuck in the background' due to this:
-            int wait_time = 15000;
-            for (int min_rounds = 3; wait_time > 0 && (min_rounds > 0 || SafeThreadPool.RunningThreadCount > 0 || GC.GetTotalMemory(false) > 10000000L); min_rounds--)
+            int wait_time = 5000;
+            for (int min_rounds = 3; 
+                wait_time > 0 && 
+                (
+                    min_rounds > 0 || 
+                    SafeThreadPool.RunningThreadCount > 0 || 
+                    GC.GetTotalMemory(false) > 10000000L ||
+                    ComputerStatistics.GetTotalRunningThreadCount() > 0
+                ); 
+                min_rounds--)
             {
                 GC.WaitForPendingFinalizers();
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
-                Logging.Info("-static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): {0} Bytes, {1} tasks active", GC.GetTotalMemory(false), SafeThreadPool.RunningThreadCount);
+                Logging.Info($"-static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): {GC.GetTotalMemory(false)} Bytes, {SafeThreadPool.RunningThreadCount} tasks active, {ComputerStatistics.GetTotalRunningThreadCount()} threads running");
 
                 Thread.Sleep(1000);
                 wait_time -= 1000;
             }
-            Logging.Info("Last machine state observation before shutting down the log at the very end of the application run: Heap after forced GC compacting: {0} Bytes, {1} tasks active, {2} seconds overtime unused (more than zero for this one is good!)", GC.GetTotalMemory(false), SafeThreadPool.RunningThreadCount, wait_time / 1000);
+            Logging.Info($"Last machine state observation before shutting down the log at the very end of the application run: Heap after forced GC compacting: {GC.GetTotalMemory(false)} Bytes, {SafeThreadPool.RunningThreadCount} tasks active, {ComputerStatistics.GetTotalRunningThreadCount()} threads running, {wait_time / 1000} seconds overtime unused (more than zero for this one is good!)");
 
-            // This must be the last line the application executes, EVAR!
-            Logging.ShutDown();
+            CloseLogFile(null);
         }
 
         private static void SafeThreadPool_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.ExceptionObject as Exception, false);
+            RemarkOnException(e.ExceptionObject as Exception, potentially_fatal: false);
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
-            bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+");   // "generic error happenedinGDI+."
+            bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+") // "generic error happenedinGDI+."
+                || ex.Message.Contains("while rasterising");            // SORAX: Error while rasterising page 24 at 456.6737dpi of 'G:\\Qiqqa\\base\\INTRANET_A863F89A-6729-49FD-9DDE-AEA03E698867\\documents\\1\\17C861BF0298B776E7A199D0F09C9BFF5E7037.pdf'
+            if (ex is NotImplementedException)
+            {
+                obnoxious_but_not_fatal = true;   // Reports about stuff that's not yet implemented are harmless
+            }
             RemarkOnException(ex, !obnoxious_but_not_fatal);
         }
 
@@ -346,6 +410,10 @@ namespace Qiqqa.Main
         {
             Exception ex = e.Exception;
             bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+");   // "generic error happenedinGDI+."
+            if (ex is NotImplementedException)
+            {
+                obnoxious_but_not_fatal = true;   // Reports about stuff that's not yet implemented are harmless
+            }
             RemarkOnException(ex, !obnoxious_but_not_fatal);
             e.Handled = true;
         }
@@ -353,7 +421,7 @@ namespace Qiqqa.Main
         private static void RemarkOnException(Exception ex, bool potentially_fatal)
         {
             Logging.Error(ex, "RemarkOnException.....");
-            if (null != Application.Current && !ShutdownableManager.Instance.IsShuttingDown)
+            if (!ShutdownableManager.Instance.IsShuttingDown)
             {
                 WPFDoEvents.InvokeInUIThread(() =>
                 {
@@ -383,10 +451,10 @@ namespace Qiqqa.Main
             if (potentially_fatal)
             {
                 // signal the application to shutdown as an unhandled exception is a grave issue and nothing will be guaranteed afterwards.
-                ShutdownableManager.Instance.Shutdown();
+                ShutdownableManager.Instance.Shutdown($"Exception received in top level error handler: {ex}");
 
                 // and terminate the Windows Message Loop if it hasn't already (in my tests, Qiqqa was stuck in there without a window to receive messages from at this point...)
-                MainWindowServiceDispatcher.Instance.ShutdownQiqqa(true);
+                MainWindowServiceDispatcher.Instance.ShutdownQiqqa(suppress_exit_warning: true);
             }
         }
 

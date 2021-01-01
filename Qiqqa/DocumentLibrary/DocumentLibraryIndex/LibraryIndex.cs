@@ -188,11 +188,11 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 }
             });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                //this.word_index_manager = null;
-                //web_library_detail = null;
-            });
+            //WPFDoEvents.SafeExec(() =>
+            //{
+            //    //this.word_index_manager = null;
+            //    //web_library_detail = null;
+            //});
 
             WPFDoEvents.SafeExec(() =>
             {

@@ -44,7 +44,7 @@ namespace Utilities.Misc
         {
             string value = Read(key);
             if (null == key) return false;
-            value = value.ToLower(CultureInfo.CurrentCulture);
+            value = value.ToLower();
             if (0 == value.CompareTo("y")) return true;
             if (0 == value.CompareTo("t")) return true;
             if (0 == value.CompareTo("yes")) return true;

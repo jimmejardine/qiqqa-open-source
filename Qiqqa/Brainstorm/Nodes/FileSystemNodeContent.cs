@@ -16,7 +16,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public bool MatchesKeyword(string keyword)
         {
-            return (null != path) && path.ToLower(CultureInfo.CurrentCulture).Contains(keyword);
+            return (null != path) && path.ToLower().Contains(keyword);
         }
     }
 }

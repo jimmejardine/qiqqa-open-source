@@ -419,6 +419,7 @@ namespace Qiqqa.Common
         {
             if (main_window != null)
             {
+                Logging.Error("Forcibly shutting down Qiqqa");
                 main_window.suppress_exit_warning = suppress_exit_warning;
                 main_window.Close();
             }

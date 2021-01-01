@@ -32,7 +32,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public bool MatchesKeyword(string keyword)
         {
-            return (null != icon_path) && icon_path.ToLower(CultureInfo.CurrentCulture).Contains(keyword);
+            return (null != icon_path) && icon_path.ToLower().Contains(keyword);
         }
     }
 }

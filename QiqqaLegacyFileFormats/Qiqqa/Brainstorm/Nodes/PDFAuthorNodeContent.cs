@@ -36,8 +36,8 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Brainstorm.Nodes
 
         public bool MatchesKeyword(string keyword)
         {
-            if ((null != surname) && surname.ToLower(CultureInfo.CurrentCulture).Contains(keyword)) return true;
-            if ((null != initial) && initial.ToLower(CultureInfo.CurrentCulture).Contains(keyword)) return true;
+            if ((null != surname) && surname.ToLower().Contains(keyword)) return true;
+            if ((null != initial) && initial.ToLower().Contains(keyword)) return true;
             return false;
         }
 
