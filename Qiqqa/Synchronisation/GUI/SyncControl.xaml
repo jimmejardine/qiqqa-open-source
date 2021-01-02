@@ -143,11 +143,24 @@
                                                 SortMemberPath="SizeLocal" />
                                             <DataGridTextColumn
                                                 Width="Auto"
-                                                MinWidth="100"
+                                                MinWidth="250"
                                                 Binding="{Binding Path=SyncTarget, Mode=OneWay}"
                                                 Foreground="Black"
                                                 Header="Sync Target Path"
                                                 SortMemberPath="SyncTarget" />
+                                            <DataGridTemplateColumn
+                                                Width="Auto"
+                                                MinWidth="50"
+                                                Header="..."
+                                                >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button 
+                                                            IsEnabled="{Binding Path=MayEditSyncTarget}"
+                                                            HorizontalAlignment="Center" Name="btnBrowse" Content="Browse" Click="btnBrowseSyncPath_Click" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Paragraph>

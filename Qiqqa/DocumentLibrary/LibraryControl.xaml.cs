@@ -455,6 +455,10 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
+#if DEBUG
+                if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
                 OpenFileDialog dlg = new OpenFileDialog();
                 dlg.CheckFileExists = true;
                 dlg.CheckPathExists = true;

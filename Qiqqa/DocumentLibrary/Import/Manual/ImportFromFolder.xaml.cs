@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Forms;
 using icons;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
@@ -113,24 +113,27 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private void FolderLocationButton_Click(object sender, RoutedEventArgs e)
         {
-            using (FolderBrowserDialog dlg = new FolderBrowserDialog
+            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
             {
-                Description = "Please select a folder.  All the PDFs in the folder will be added to your document library.",
-                ShowNewFolderButton = false
-            })
-            {
+                dialog.IsFolderPicker = true;
+                dialog.Title = "Please select a folder.  All the PDFs in the folder will be added to your document library.";
+
                 string default_folder = bindable.Underlying.DefaultSelectedPath;
                 if (default_folder != null)
                 {
-                    dlg.SelectedPath = default_folder;
+                    dialog.DefaultDirectory = default_folder;
                 }
 
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    bindable.Underlying.SelectedPath = dlg.SelectedPath;
+                    bindable.Underlying.SelectedPath = dialog.FileName;
                     bindable.NotifyPropertyChanged(nameof(bindable.Underlying.SelectedPath));
+                    Logging.Debug特("User selected import folder path: " + bindable.Underlying.SelectedPath);
                 }
-                Logging.Debug特("User selected import folder path: " + bindable.Underlying.SelectedPath);
+                else
+                {
+                    Logging.Debug特("User canceled directory selection. Import folder path: " + bindable.Underlying.SelectedPath);
+                }
             }
         }
 

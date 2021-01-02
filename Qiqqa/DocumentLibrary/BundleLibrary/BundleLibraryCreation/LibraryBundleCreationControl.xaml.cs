@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using icons;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
@@ -53,13 +52,14 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         private void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
         {
-            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
-            {
-                dialog.Description = "Please select the folder into which the two Library Bundle files should be placed.";
-                DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK)
+            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            { 
+                dialog.IsFolderPicker = true;
+                dialog.Title = "Please select the folder into which the two Library Bundle files should be placed.";
+                CommonFileDialogResult result = dialog.ShowDialog();
+                if (result == CommonFileDialogResult.Ok)
                 {
-                    CreateBundle(dialog.SelectedPath.ToString());
+                    CreateBundle(dialog.FileName);
                 }
                 else
                 {

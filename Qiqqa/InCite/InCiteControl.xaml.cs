@@ -185,6 +185,10 @@ namespace Qiqqa.InCite
 
         private void ButtonCustomAbbreviationsFilename_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Text files|*.txt" + "|" + "All files|*.*";
             dialog.CheckFileExists = true;
@@ -204,6 +208,10 @@ namespace Qiqqa.InCite
 
         private void ButtonLaunchWord_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             // Check if the user wants to override their version of Word.
             if (KeyboardTools.IsCTRLDown())
             {
@@ -480,6 +488,10 @@ namespace Qiqqa.InCite
 
         private void TextStyleFilename_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseOwnCSL);
 
             ChooseCSLFile(CSLFileSource.TEXTBOX);
@@ -488,6 +500,10 @@ namespace Qiqqa.InCite
 
         private void ButtonCSLStandard_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseStandardCSL);
 
             ChooseCSLFile(CSLFileSource.STANDARD);
