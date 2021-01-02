@@ -275,6 +275,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void ImportManualsIntoLocalGuestLibraryIfMissing()
         {
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Import the Qiqqa manuals in the background, waiting until the library has loaded...
@@ -803,8 +807,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     MixOldAndNew(old.IsIntranetLibrary, new_web_library_detail.IsIntranetLibrary, new_web_library_detail.Id + "::" + nameof(old.IsIntranetLibrary), ref state);
                     /* old.IsWebLibrary = */
 
-                    ASSERT.Test(old.Xlibrary == null);
-                    ASSERT.Test(new_web_library_detail.Xlibrary == null);
+                    ASSERT.Test(old.Xlibrary != null ? new_web_library_detail.Xlibrary == null : true);
 #if false    // this code is not needed in the current use of the API as long as the ASSERTions above hold
                     old.library?.Dispose();
                     if (new_web_library_detail.library != null)
@@ -835,7 +838,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            ASSERT.Test(new_web_library_detail.Xlibrary == null);
+            //ASSERT.Test(new_web_library_detail.Xlibrary == null);
             web_library_details[new_web_library_detail.Id] = new_web_library_detail;
 
             if (!suppress_flush_to_disk)
