@@ -226,15 +226,24 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 WebLibraryDetail web_lib = pair.Value;
                 Library library = web_lib.Xlibrary;
-                ASSERT.Test(library == null);
-
-                if (ShutdownableManager.Instance.IsShuttingDown)
+                // only set up a Library instance when there isn't already one.
+                // `library` may already have been set up in a previous call to this API
+                // at application start; *this* call therefor MUST be due to the user
+                // CREATING or JOINING another Intranet Library then!
+                if (library == null)
                 {
-                    Logging.Info("InitAllLoadedLibraries: Breaking out of library loading loop due to application termination");
-                    break;
-                }
+                    if (ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Logging.Info("InitAllLoadedLibraries: Breaking out of library loading loop due to application termination");
+                        break;
+                    }
 
-                library = web_lib.Xlibrary = new Library(web_lib);
+                    library = web_lib.Xlibrary = new Library(web_lib);
+                }
+                else
+                {
+                    Logging.Info($"InitAllLoadedLibraries: Initializing the local library for library Id: '{web_lib.Id}', Title: '{web_lib.Title}'");
+                }
                 library.BuildFromDocumentRepository(web_lib);
             }
         }
