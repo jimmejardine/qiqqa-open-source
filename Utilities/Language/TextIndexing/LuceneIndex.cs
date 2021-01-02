@@ -252,7 +252,6 @@ namespace Utilities.Language.TextIndexing
                         {
                             Lucene.Net.Search.Hit hit = (Lucene.Net.Search.Hit)i.Current;
                             string fingerprint = hit.Get("fingerprint");
-                            string page = hit.Get("page");
 
                             if (!fingerprints_already_seen.Contains(fingerprint))
                             {
@@ -377,45 +376,6 @@ namespace Utilities.Language.TextIndexing
             catch (Exception ex)
             {
                 Logging.Warn(ex, $"GetDocumentsWithWord: There was a problem opening the index file for searching (path: '{LIBRARY_INDEX_BASE_PATH}', keyword: '{keyword}')");
-            }
-
-            return fingerprints;
-        }
-
-        public List<string> GetDocumentsSimilarToDocument(string document_filename)
-        {
-            List<string> fingerprints = new List<string>();
-            Lucene.Net.Search.Query query = null;
-
-            try
-            {
-                using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
-                {
-                    using (IndexSearcher index_searcher = new IndexSearcher(index_reader))
-                    {
-                        LuceneMoreLikeThis mlt = new LuceneMoreLikeThis(index_reader);
-                        mlt.SetFieldNames(new string[] { "content" });
-                        mlt.SetMinTermFreq(0);
-
-                        query = mlt.Like(new StreamReader(document_filename));
-                        Lucene.Net.Search.Hits hits = index_searcher.Search(query);
-                        var i = hits.Iterator();
-                        while (i.MoveNext())
-                        {
-                            Lucene.Net.Search.Hit hit = (Lucene.Net.Search.Hit)i.Current;
-                            string fingerprint = hit.Get("fingerprint");
-                            fingerprints.Add(fingerprint);
-                        }
-
-                        // Close the index
-                        index_searcher.Close();
-                    }
-                    index_reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logging.Warn(ex, $"GetDocumentsSimilarToDocument: There was a problem opening the index file for searching (path: '{LIBRARY_INDEX_BASE_PATH}', document: '{document_filename}' -> query: '{query}')");
             }
 
             return fingerprints;
