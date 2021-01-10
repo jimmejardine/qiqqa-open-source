@@ -4,3 +4,9 @@
 [submodule "Lucene.NET"]
 	path = Lucene.NET
 	url = git@github.com:GerHobbelt/lucenenet.git
+[submodule "Qiqqa.Build/Packaging/InnoDependencyInstaller"]
+	path = Qiqqa.Build/Packaging/InnoDependencyInstaller
+	url = git@github.com:GerHobbelt/InnoDependencyInstaller.git
+[submodule "Qiqqa.Build/Packaging/dotnet-deployment-tools"]
+	path = Qiqqa.Build/Packaging/dotnet-deployment-tools
+	url = git@github.com:GerHobbelt/deployment-tools.git
