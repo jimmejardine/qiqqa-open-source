@@ -490,5 +490,38 @@ namespace Qiqqa.Common.Configuration
         }
 
 #endregion
+
+        public static Dictionary<string, string> GetCurrentConfigInfos()
+        {
+            Dictionary<string, string> rv = new Dictionary<string, string>();
+
+            rv.Add("IsInitialized", $"{IsInitialized}");
+            rv.Add("Internal: ARGV", string.Join(" ", Environment.GetCommandLineArgs()));
+            rv.Add("Internal: Registry App Key Base", RegistrySettings.Instance.AppKeyDescription());
+            rv.Add("Internal: Registry BaseDir Key", RegistrySettings.BaseDataDirectory);
+            rv.Add("Internal: Registry Override Path", RegistrySettings.Instance.Read(RegistrySettings.BaseDataDirectory));
+            rv.Add("Internal: Default Path", Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa")));
+
+            if (IsInitialized)
+            {
+                ConfigurationManager cfg = ConfigurationManager.Instance;
+
+                rv.Add("StartupDirectoryForQiqqa", cfg.StartupDirectoryForQiqqa);
+                rv.Add("BaseDirectoryForQiqqa", cfg.BaseDirectoryForQiqqa);
+                rv.Add("BaseDirectoryForUser", cfg.BaseDirectoryForUser);
+                rv.Add("ConfigFilenameForUser", cfg.ConfigFilenameForUser);
+                rv.Add("SearchHistoryFilename", cfg.SearchHistoryFilename);
+                rv.Add("Program7ZIP", cfg.Program7ZIP);
+                rv.Add("ProgramHTMLToPDF", cfg.ProgramHTMLToPDF);
+                rv.Add("DeveloperTestSettingsFilename", cfg.DeveloperTestSettingsFilename);
+                rv.Add("IsGuest", $"{cfg.IsGuest}");
+                rv.Add("NoviceVisibility", $"{cfg.NoviceVisibility}");
+                rv.Add("SearchHistory", string.Join("\n", cfg.SearchHistory));
+
+                rv.Add("Configuration Record", string.Join("\n", cfg.ConfigurationRecord.GetCurrentConfigInfos()));
+            }
+
+            return rv;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Deployment.Application;
 using System.Diagnostics;
 using System.Globalization;
@@ -114,7 +115,7 @@ namespace Utilities
             }
         }
 
-        public static string GetCommonStatistics()
+        public static string GetCommonStatistics(Dictionary<string, string> extraInfos)
         {
             StringBuilder sb = new StringBuilder();
             CLRInfo inf = GetCLRInfo();
@@ -164,12 +165,36 @@ namespace Utilities
                 sb.AppendFormat("Application is not network deployed.\r\n");
             }
 
+            if (extraInfos.Count > 0)
+            {
+                sb.AppendFormat("EXTRA CONFIG INFO:\r\n");
+
+                foreach (var v in extraInfos)
+                {
+                    string k = $"{v.Key}:";
+                    string d = v.Value;
+                    if (!d.Contains("\n"))
+                    {
+                        sb.Append($"{k.PadRight(22, ' ')} {v.Value}\r\n");
+                    }
+                    else
+                    {
+                        sb.Append($"{k}:\r\n");
+                        var a = d.Split("\n".ToCharArray());
+                        foreach (string l in a)
+                        {
+                            sb.Append($"        {l}\r\n");
+                        }
+                    }
+                }
+            }
+
             return sb.ToString();
         }
 
-        public static void LogCommonStatistics()
+        public static void LogCommonStatistics(Dictionary<string, string> extraInfos)
         {
-            Logging.Info(GetCommonStatistics());
+            Logging.Info(GetCommonStatistics(extraInfos));
         }
 
         // Taken from https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed
@@ -401,7 +426,7 @@ namespace Utilities
                 Process proc = Process.GetCurrentProcess();
                 ProcessThreadCollection mythreads = proc.Threads;
 
-                Logging.Info($@"{header_suffix}: 
+                Logging.Info($@"{header_suffix}:
 ------------------------------------------------------------------------------
 Total number of running threads: .......................... {GetTotalRunningThreadCount()}
 Number of threads pending in the threadpool: .............. {SafeThreadPool.RunningThreadCount}

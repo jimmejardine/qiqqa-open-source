@@ -237,7 +237,7 @@ namespace Qiqqa.Common.MessageBoxControls
 
         private void PopulateMachineStats()
         {
-            TextMachineStats.Text = ComputerStatistics.GetCommonStatistics();
+            TextMachineStats.Text = ComputerStatistics.GetCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
         }
 
         private string FaqUrl => WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq);

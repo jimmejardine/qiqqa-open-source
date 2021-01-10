@@ -173,7 +173,7 @@ namespace Qiqqa.Main
                 Logging.Error(ex, "Unknown exception while checking for single app instance.  Continuing as normal so there could be several Qiqqas running.");
             }
 
-            ComputerStatistics.LogCommonStatistics();
+            ComputerStatistics.LogCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
         }
 
         private static void DoApplicationCreate()
@@ -367,14 +367,14 @@ namespace Qiqqa.Main
 
             // give this a sane upper limit so the application cannot ever be 'stuck in the background' due to this:
             int wait_time = 5000;
-            for (int min_rounds = 3; 
-                wait_time > 0 && 
+            for (int min_rounds = 3;
+                wait_time > 0 &&
                 (
-                    min_rounds > 0 || 
-                    SafeThreadPool.RunningThreadCount > 0 || 
+                    min_rounds > 0 ||
+                    SafeThreadPool.RunningThreadCount > 0 ||
                     GC.GetTotalMemory(false) > 10000000L ||
                     ComputerStatistics.GetTotalRunningThreadCount() > 0
-                ); 
+                );
                 min_rounds--)
             {
                 GC.WaitForPendingFinalizers();

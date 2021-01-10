@@ -19,6 +19,14 @@ namespace Utilities.Misc
             return Registry.CurrentUser.CreateSubKey("Software").CreateSubKey(company_name).CreateSubKey(app_name);
         }
 
+        public string AppKeyDescription()
+        {
+            using (RegistryKey app_key = GetAppKey())
+            {
+                return app_key.ToString();
+            }
+        }
+
         public void Write(string key, string data)
         {
             using (RegistryKey app_key = GetAppKey())
