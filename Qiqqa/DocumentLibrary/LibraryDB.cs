@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Text;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -32,9 +33,9 @@ namespace Qiqqa.DocumentLibrary
         private string base_path;
         private string library_path;
 
-        public LibraryDB(string base_path)
+        public LibraryDB(WebLibraryDetail web_library_detail)
         {
-            this.base_path = base_path;
+            base_path = web_library_detail.LIBRARY_BASE_PATH;
             library_path = LibraryDB.GetLibraryDBPath(base_path);
             string db_syncref_path = IntranetLibraryTools.GetLibraryMetadataPath(base_path);
 
@@ -46,7 +47,7 @@ namespace Qiqqa.DocumentLibrary
             }
             if (!File.Exists(library_path))
             {
-                Logging.Warn("Library db does not exist so copying the template to {0}", library_path);
+                Logging.Warn($"Library db for '{web_library_detail.Id}' does not exist so copying the template to '{library_path}'");
                 string library_template_path = LibraryDB.GetLibraryDBTemplatePath();
                 File.Copy(library_template_path, library_path);
             }

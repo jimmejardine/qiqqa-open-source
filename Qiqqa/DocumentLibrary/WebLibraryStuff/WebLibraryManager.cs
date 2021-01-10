@@ -468,12 +468,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                 }
                                 else
                                 {
-                                    Logging.Info("Not loading library {0} with Id {1} as it does not exist on disk.", new_web_library_detail.Title, new_web_library_detail.Id);
+                                    Logging.Info("Not loading library {0} with Id {1} as it does not exist on disk. (library file path: {2})", new_web_library_detail.Title, new_web_library_detail.Id, libfile_path);
                                 }
                             }
                             else
                             {
-                                Logging.Info("Not loading purged library {0} with id {1}", new_web_library_detail.Title, new_web_library_detail.Id);
+                                Logging.Info("Not loading purged library {0} with id {1}.", new_web_library_detail.Title, new_web_library_detail.Id);
                             }
                         }
                     }
