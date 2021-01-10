@@ -271,8 +271,6 @@
     <Compile Include="BibTex\PubMedXMLToBibTex.cs" />
     <Compile Include="BibTex\RisToBibTeX.cs" />
     <Compile Include="ClientVersion.cs" />
-    <Compile Include="ClientVersioning\ClientVersionInformation.cs" />
-    <Compile Include="ClientVersioning\ClientUpdater.cs" />
     <Compile Include="ClipboardTools.cs" />
     <Compile Include="Collections\ArrayFormatter.cs">
       <SubType>Code</SubType>

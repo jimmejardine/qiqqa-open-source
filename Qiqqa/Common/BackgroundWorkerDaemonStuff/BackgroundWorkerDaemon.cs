@@ -13,7 +13,6 @@ using Qiqqa.Main;
 using Qiqqa.Marketing;
 using Qiqqa.Synchronisation.PDFSync;
 using Utilities;
-using Utilities.ClientVersioning;
 using Utilities.Maintainable;
 
 namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
