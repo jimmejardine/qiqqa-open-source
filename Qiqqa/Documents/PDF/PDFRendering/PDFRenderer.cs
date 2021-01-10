@@ -59,7 +59,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// Returns 0 when
         /// - page count has not been calculated yet (pending action)
         /// - or PDF is damaged so badly that no page count can be determined.
-        /// 
+        ///
         /// Otherwise returns the number of pages in the PDF document.
         /// </summary>
         public int PageCount => pdf_render_file_layer.PageCount;
@@ -119,12 +119,27 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// <returns></returns>
         public WordList GetOCRText(int page, bool queue_for_ocr = true)
         {
+            if (page > PageCount || page < 1)
+            {
+                // dump stacktrace with this one so we know who instigated this out-of-bounds request.
+                //
+                // Boundary issue was discovered during customer log file analysis (log files courtesy of Chris Hicks)
+                try
+                {
+                    throw new ArgumentException($"INTERNAL ERROR: requesting page text for page {page} which lies outside the detected document page range 1..{PageCount}");
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
+                }
+            }
+
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (texts_lock)
             {
                 //l1_clk.LockPerfTimerStop();
 
-                // First check our cache                
+                // First check our cache
                 {
                     TypedWeakReference<WordList> word_list_weak;
                     texts.TryGetValue(page, out word_list_weak);
