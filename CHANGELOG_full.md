@@ -1,5 +1,5 @@
 
-# v82pre release: v82.0.7579.33985 (UNPUBLISHED)
+# v83pre release: v83.0.7649-30836 (UNPUBLISHED)
 
 > ## Note
 >
@@ -19,6 +19,20 @@
 2021-01-10
 ----------
 
+			
+* (18f18fbd) updated the 'superclean' script to not nuke any important binaries while erasing all compiler outputs.
+			
+* (4f741076) updated developer info txt & ignore the current .NET SDK and RunTime installers in the /libs/ directory.
+			
+* (f5b0113e) make sure the CHANGELOG files are included in the install/setup build.
+			
+* (8bab97f3) nant: add license and update README. Nant is up-to-date (0.92 release)
+			
+* (1e020866) moved ClientVersioning code from Utilities to Qiqqa itself as it uses Qiqqa specific means.
+			
+* (3ecf5781) make sure we skip the Lucene.NET submodule/project directory for Qiqqa version bumping/syncing like we already did the MuPDF library for the same reason: that lib has its own version.
+			
+* (e2ea6828) first part of change to show the current CHANGELOG when clicking the vNN button in bottom left corner. (#174)
 			
 * (a90cfee0) slight improvement of the log output & unification of the constructor interface of classes using WebLibraryDetail info.
 			

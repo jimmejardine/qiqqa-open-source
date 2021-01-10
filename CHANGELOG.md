@@ -1,5 +1,5 @@
 
-# v82pre release: v82.0.7579.33985 (UNPUBLISHED)
+# v83pre release: v83.0.7649-30836 (UNPUBLISHED)
 
 > ## Note
 >
@@ -19,6 +19,10 @@
 2021-01-10
 ----------
 
+			
+* (f5b0113e) make sure the CHANGELOG files are included in the install/setup build.
+			
+* (e2ea6828) first part of change to show the current CHANGELOG when clicking the vNN button in bottom left corner. (#174)
 			
 * (a90cfee0) slight improvement of the log output for diagnostic purposes.
 			
