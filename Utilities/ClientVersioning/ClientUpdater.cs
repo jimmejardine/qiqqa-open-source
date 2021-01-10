@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Net;
-using System.Windows;
+using System.Text;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Internet;
 using Utilities.Misc;
+using Qiqqa.Common.Configuration;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.ClientVersioning
 {
@@ -190,11 +194,22 @@ namespace Utilities.ClientVersioning
         {
             try
             {
-                string release_notes = _latestClientVersionInformation.ReleaseNotes;
-                if (string.IsNullOrEmpty(release_notes))
+                string release_notes;
+
+                if (_latestClientVersionInformation != null)
                 {
-                    Logging.Warn("No release notes from server, nothing to do");
-                    return;
+                    release_notes = _latestClientVersionInformation.ReleaseNotes;
+                    if (string.IsNullOrEmpty(release_notes))
+                    {
+                        Logging.Warn("No release notes from server, nothing to do");
+                        return;
+                    }
+                }
+                else
+                {
+                    const string ChangelogFilename = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"CHANGELOG.md"));
+
+                    release_notes = File.ReadAllText(ChangelogFilename, Encoding.UTF8);
                 }
                 release_notes = release_notes.Trim();
 
