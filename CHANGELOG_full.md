@@ -42,7 +42,7 @@
 ----------
 
 			
-* (89347134) preliminary support for https://github.com/jimmejardine/qiqqa-open-source/issues/268 : the Create/Join code did exist, but ASSERT checks would fail, at least in BEDUG BUILDs, before the library would be set up properly before.
+* (89347134) Sync Libraries / Libraries are not read-only: preliminary support for https://github.com/jimmejardine/qiqqa-open-source/issues/268 : the Create/Join code did exist, but ASSERT checks would fail, at least in BEDUG BUILDs, before the library would be set up properly before.
   
   Problems still to solve:
   
