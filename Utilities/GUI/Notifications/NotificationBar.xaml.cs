@@ -26,6 +26,10 @@ namespace Utilities.GUI.Notifications
 
             //  register for new events from the NotificationManager, don't bother deregistering since this will live for the life of the app
             NotificationManager.Instance.NewNotificationFired += Instance_NewNotificationFired;
+
+            // set up a fake binding for the time we don't have a real binding yet:
+            DataContext = new AugmentedBindable<NotificationManager.Notification>(new NotificationManager.Notification("", "", NotificationManager.NotificationType.Info, ""));
+            Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -40,11 +44,7 @@ namespace Utilities.GUI.Notifications
 
         private void DisplayNotification(NotificationManager.Notification notification)
         {
-            if (!CheckAccess())
-            {
-                WPFDoEvents.InvokeInUIThread(() => DisplayNotification(notification));
-                return;
-            }
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             ImageSource = string.IsNullOrEmpty(notification.ImageName) ? null : Icons.GetAppIcon(notification.ImageName);
             DataContext = new AugmentedBindable<NotificationManager.Notification>(notification);
@@ -56,7 +56,7 @@ namespace Utilities.GUI.Notifications
         /// </summary>
         private void Instance_NewNotificationFired(NotificationManager.Notification notification)
         {
-            DisplayNotification(notification);
+            WPFDoEvents.InvokeInUIThread(() => DisplayNotification(notification));
         }
 
         private void CloseButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
