@@ -41,20 +41,21 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        public static void Init()
-        {
-            // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-            lock (instance_lock)
-            {
-                // l2_clk.LockPerfTimerStop();
+        // NOTE: we assume access to a bool is atomic: 
+        // write and read can occur simulataneously in multiple threads. 
+        // When it's not atomic, no harm done -- we wait until the bugger turns FALSE.
+        private volatile bool holdoffUntilKicked;        
 
-                if (__instance != null)
-                {
-                    throw new Exception("WebLibraryManager.Init() MUST be the first call to anything WebLibraryManager, before anything else done with/to that class/object!");
-                }
-                WebLibraryManager __unused_return_value__ = WebLibraryManager.Instance;
-                ASSERT.Test(__unused_return_value__ != null, "Internal error");
-            }
+        // Making sure the WebLibraryManager is alive and kicking, if it hasn't already been instantiated previously.
+        //
+        // IFF it has been instatiated *before*, that's not a problem, but *we* know there's a possibility the UPGRADE
+        // process is still running then, so we'll have to wait until all upgrade activities have completed before
+        // we kick off our own activities.
+        // That's what this `Kick()` API is good for: it's the signal to this WebLibraryManager that we're off to the races finally!
+        public void Kick()
+        {
+            // kick the instance off the waiting stand:
+            holdoffUntilKicked = false;
         }
 
         [Conditional("DEBUG")]
@@ -72,11 +73,26 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private WebLibraryManager()
         {
+            holdoffUntilKicked = true;
+
             // WARNING: this code is executed inside an Instance lock (lock_instance) and should therefor be both minimal and FAST:
             // hence we push all the work to be done onto a worker thread for processing at a later time.
             SafeThreadPool.QueueUserWorkItem(o =>
             {
                 WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+                // Whoa! wait until we get *kicked*, for otherwise we MAY try to access libraries which are still
+                // in the process of being *upgraded* via DoUpgrade()!
+                Logging.Info("Waiting for the UPGRADE startup process to finish.");
+                while (holdoffUntilKicked)
+                {
+                    if (ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        return;
+                    }
+                    Thread.Sleep(250);
+                }
+                Logging.Info("Done waiting for the UPGRADE startup process to finish: going to load the libraries...");
 
                 // Look for any web libraries that we know about
                 LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, only_load_those_libraries_which_are_actually_present: false);
@@ -97,6 +113,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
+                // Fire the 'all done' event which signals the UI that the libraries have finally been loaded:
                 FireWebLibrariesChanged();
             });
         }

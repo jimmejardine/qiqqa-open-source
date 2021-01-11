@@ -50,11 +50,12 @@ namespace Qiqqa.Main
 
                 SafeThreadPool.QueueUserWorkItem(o =>
                 {
-                    DoUpgrades();
+                    //DoUpgrades();  -- delay doing updates until we have had the 'login' dialog where we show and possibly *change* the base directory!
+
 #if false 									// set to true for testing the UI behaviour wile this takes a long time to 'run':
                     Thread.Sleep(15000);
 #endif
-                    DoPostUpgrade();
+                    DoPostInit();
                 });
             }
             catch (Exception ex)
@@ -250,13 +251,15 @@ namespace Qiqqa.Main
             SignalShutdown("Main Application::Exit event - user (probably) closed main/last open window.");
         }
 
+#if false
         private static void DoUpgrades()
         {
             // Perform any upgrade paths that we must
             UpgradeManager.RunUpgrades();
         }
+#endif
 
-        private static void DoPostUpgrade()
+        private static void DoPostInit()
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -272,16 +275,18 @@ namespace Qiqqa.Main
                 ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(3600000));
             });
 
-            // Make sure the data directories exist...
-            if (!Directory.Exists(ConfigurationManager.Instance.BaseDirectoryForUser))
-            {
-                Directory.CreateDirectory(ConfigurationManager.Instance.BaseDirectoryForUser);
-            }
-
             // and kick off the Login Dialog to start the application proper:
             WPFDoEvents.InvokeAsyncInUIThread(() => ShowLoginDialog());
 
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
+        }
+
+        private static void DoPostUpgrade()
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            // Make sure the data directories exist...
+            Directory.CreateDirectory(ConfigurationManager.Instance.BaseDirectoryForUser);
         }
 
         public static void SignalShutdown(string reason)
@@ -460,7 +465,7 @@ namespace Qiqqa.Main
 
 #if CEFSHARP
 
-        #region CEFsharp setup helpers
+#region CEFsharp setup helpers
 
         // CEFsharp setup code as per https://github.com/cefsharp/CefSharp/issues/1714:
 
@@ -501,7 +506,7 @@ namespace Qiqqa.Main
             return null;
         }
 
-        #endregion CEFsharp setup helpers
+#endregion CEFsharp setup helpers
 
 #endif
 
