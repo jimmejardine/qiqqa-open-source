@@ -21,6 +21,7 @@ using Qiqqa.Documents.PDF.Search;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Shaders.Negative;
+using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page
 {
@@ -145,7 +146,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 Effect = dse;
             }
 
-            PopulateNeededLayers();
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                PopulateNeededLayers();
+            });
         }
 
         #region --- Page layer on-demand creation -------------------
@@ -254,6 +258,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         private void PopulateNeededLayers()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             if (PDFAnnotationLayer.IsLayerNeeded(pdf_renderer_control_stats, page))
             {
                 var a = CanvasAnnotation;

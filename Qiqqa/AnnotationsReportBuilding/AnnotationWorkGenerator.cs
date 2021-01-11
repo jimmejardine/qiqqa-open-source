@@ -6,6 +6,7 @@ using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.AnnotationsReportBuilding
@@ -27,6 +28,8 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         public static List<AnnotationWork> GenerateAnnotationWorks(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
+            //WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             List<AnnotationWork> annotation_works = new List<AnnotationWork>();
 
             // The caches we will need...

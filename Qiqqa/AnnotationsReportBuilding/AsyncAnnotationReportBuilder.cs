@@ -95,6 +95,8 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         internal static AnnotationReport BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
+            //WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             AnnotationReport annotation_report = new AnnotationReport();
             StandardFlowDocument flow_document = annotation_report.flow_document;
 

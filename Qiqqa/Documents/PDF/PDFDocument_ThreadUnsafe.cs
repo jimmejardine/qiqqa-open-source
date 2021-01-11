@@ -875,6 +875,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             if (null == highlights)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 highlights = new PDFHightlightList();
                 PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
 #if false
@@ -913,6 +915,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             if (null == inks)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 inks = new PDFInkList();
                 PDFInkSerializer.ReadFromDisk(this, inks, library_items_inks_cache);
 #if false
