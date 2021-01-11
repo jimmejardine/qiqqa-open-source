@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Grid>
         <!-- For the main stuff -->
-        <DockPanel Visibility="{Binding TermsAndConditionsAccepted, Converter={StaticResource BooleanToVisibilityConverter}}" >
+        <DockPanel>
             <local_gui:AugmentedToolBarTray DockPanel.Dock="Top" >
                 <DockPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">

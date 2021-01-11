@@ -13,16 +13,12 @@ namespace Utilities.Reflection
         private Type underlying_type;
         private PropertyDependencies property_dependencies;
 
-        public AugmentedBindable(T underlying, PropertyDependencies property_dependencies)
+        public AugmentedBindable(T underlying, PropertyDependencies property_dependencies = null)
         {
             this.underlying = underlying;
             this.property_dependencies = property_dependencies;
 
             underlying_type = underlying.GetType();
-        }
-
-        public AugmentedBindable(T underlying) : this(underlying, null)
-        {
         }
 
         public T Underlying => underlying;
@@ -168,9 +164,9 @@ namespace Utilities.Reflection
             }
         }
 
-#endregion
+        #endregion
 
-#region --- ICustomTypeDescriptor - interesting ---------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------
 
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
@@ -253,10 +249,6 @@ namespace Utilities.Reflection
             }
         }
 
-#endregion
-
-#region --- ICustomTypeDescriptor - boring ---------------------------------------------------------
-
         public AttributeCollection GetAttributes()
         {
             return TypeDescriptor.GetAttributes(underlying, true);
@@ -306,8 +298,6 @@ namespace Utilities.Reflection
         {
             return underlying_type;
         }
-
-#endregion
 
         // ---------------------------------------------------------------------------------------------------
 

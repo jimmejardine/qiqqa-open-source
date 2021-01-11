@@ -29,7 +29,7 @@ namespace Utilities.GUI.Notifications
         }
 
         /// <summary>
-        /// Need to do this until can load the images from the xaml :(
+        /// Need to do this until we can load the images from the xaml :(
         /// </summary>
         public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(NotificationBar));
         public ImageSource ImageSource
