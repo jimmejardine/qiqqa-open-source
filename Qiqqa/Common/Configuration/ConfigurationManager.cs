@@ -19,6 +19,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
+using System.Text;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -489,7 +490,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-#endregion
+        #endregion
 
         public static Dictionary<string, string> GetCurrentConfigInfos()
         {
@@ -518,7 +519,15 @@ namespace Qiqqa.Common.Configuration
                 rv.Add("NoviceVisibility", $"{cfg.NoviceVisibility}");
                 rv.Add("SearchHistory", string.Join("\n", cfg.SearchHistory));
 
-                rv.Add("Configuration Record", string.Join("\n", cfg.ConfigurationRecord.GetCurrentConfigInfos()));
+                StringBuilder s = new StringBuilder();
+                foreach (var rec in cfg.ConfigurationRecord.GetCurrentConfigInfos())
+                {
+                    string k = $"{rec.Key}:";
+                    string v = rec.Value;
+
+                    s.Append($"{k.PadRight(30, ' ')} {v}\n");
+                }
+                rv.Add("Configuration Record", s.ToString().TrimEnd());
             }
 
             return rv;

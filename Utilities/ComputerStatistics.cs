@@ -175,7 +175,7 @@ namespace Utilities
                     string d = v.Value;
                     if (!d.Contains("\n"))
                     {
-                        sb.Append($"{k.PadRight(30, ' ')} {v.Value}\r\n");
+                        sb.Append($"{k.PadRight(33, ' ')} {v.Value}\r\n");
                     }
                     else
                     {
