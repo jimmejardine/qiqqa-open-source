@@ -272,18 +272,11 @@ namespace Qiqqa.Common.Configuration
             return ua;
         }
 
-        public bool GoogleScholar_DoExtraBackgroundQueries
-        {
-            get => (this["GoogleScholar_DoExtraBackgroundQueries"] as bool?) ?? false;
-            set => this["GoogleScholar_DoExtraBackgroundQueries"] = value;
-        }
-
         public string Proxy_EZProxy
         {
             get => this["Proxy_EZProxy"] as string;
             set => this["Proxy_EZProxy"] = value;
         }
-
 
 #endregion
 
@@ -481,6 +474,12 @@ namespace Qiqqa.Common.Configuration
             set => this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value;
         }
 
+        public bool GoogleScholar_DoExtraBackgroundQueries
+        {
+            get => (this["GoogleScholar_DoExtraBackgroundQueries"] as bool?) ?? false;
+            set => this["GoogleScholar_DoExtraBackgroundQueries"] = value;
+        }
+
         [NonSerialized]
         private bool? disable_all_background;
         public bool DisableAllBackgroundTasks
@@ -530,7 +529,7 @@ namespace Qiqqa.Common.Configuration
             Dictionary<string, string> rv = new Dictionary<string, string>();
 
             rv.Add("Account_Username", Account_Username);
-            rv.Add("Account_Password", "".PadRight(Account_Password.Length, '*'));  // protect password from being dumped in logfiles, etc. by printing stars
+            rv.Add("Account_Password", "".PadRight(Account_Password?.Length ?? 0, '*'));  // protect password from being dumped in logfiles, etc. by printing stars
             rv.Add("Account_Nickname", Account_Nickname);
             rv.Add("Feedback_UtilisationInfo", $"{Feedback_UtilisationInfo}");
             rv.Add("System_NumOCRProcesses", $"{System_NumOCRProcesses}");
@@ -557,7 +556,7 @@ namespace Qiqqa.Common.Configuration
             rv.Add("Proxy_Hostname", Proxy_Hostname);
             rv.Add("Proxy_Port", $"{Proxy_Port}");
             rv.Add("Proxy_Username", Proxy_Username);
-            rv.Add("Proxy_Password", "".PadRight(Proxy_Password.Length, '*'));  // protect password from being dumped in logfiles, etc. by printing stars
+            rv.Add("Proxy_Password", "".PadRight(Proxy_Password?.Length ?? 0, '*'));  // protect password from being dumped in logfiles, etc. by printing stars
             rv.Add("Web_UserAgentOverride", Web_UserAgentOverride);
             rv.Add("GetWebUserAgent", GetWebUserAgent());
             rv.Add("GoogleScholar_DoExtraBackgroundQueries", $"{GoogleScholar_DoExtraBackgroundQueries}");
