@@ -23,6 +23,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
         public PDFInkLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
@@ -167,12 +169,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             {
                 if (0 == dispose_count)
                 {
-                    ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
-                    ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
-                    ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
-                    ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
+                    if (null != ObjInkCanvas)
+                    {
+                        ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
+                        ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
+                        ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
+                        ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
 
-                    ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
+                        ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
+                    }
                 }
             }, must_exec_in_UI_thread: true);
 
