@@ -1,9 +1,6 @@
 [submodule "MuPDF"]
 	path = MuPDF
 	url = git@github.com:GerHobbelt/mupdf.git
-[submodule "Lucene.NET"]
-	path = Lucene.NET
-	url = git@github.com:GerHobbelt/lucenenet.git
 [submodule "Qiqqa.Build/Packaging/InnoDependencyInstaller"]
 	path = Qiqqa.Build/Packaging/InnoDependencyInstaller
 	url = git@github.com:GerHobbelt/InnoDependencyInstaller.git
