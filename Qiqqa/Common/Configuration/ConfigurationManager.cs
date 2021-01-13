@@ -64,7 +64,7 @@ namespace Qiqqa.Common.Configuration
         private readonly Lazy<string> __startupDirectoryForQiqqa = new Lazy<string>(() => UnitTestDetector.StartupDirectoryForQiqqa);
         public string StartupDirectoryForQiqqa => __startupDirectoryForQiqqa.Value;
 
-        private readonly Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
+        private Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
         {
             // Command-line parameters override the Registry:
             string[] args = Environment.GetCommandLineArgs();
@@ -138,9 +138,30 @@ namespace Qiqqa.Common.Configuration
             // If we get here, use the default path
             return Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
         });
+        private bool __BaseDirectoryForQiqqaIsFixedFromNowOn = false;
+        public bool BaseDirectoryForQiqqaIsFixedFromNowOn
+        {
+            get => __BaseDirectoryForQiqqaIsFixedFromNowOn;
+            set
+            {
+                __BaseDirectoryForQiqqaIsFixedFromNowOn = true; // doesn't matter what you set 'value' to: we only can turn this lock ON and then it's DONE.
+            }
+        }
         public string BaseDirectoryForQiqqa
         {
-            get => __BaseDirectoryForQiqqa.Value;
+            get 
+            {
+                return __BaseDirectoryForQiqqa.Value;
+            }
+            set
+            {
+                if (BaseDirectoryForQiqqaIsFixedFromNowOn)
+                {
+                    throw new AccessViolationException($"Internal Error: Rewriting Qiqqa Base Path to '{value}' after it was locked for writing is indicative of erroneous use of the setter, i.e. setter is useed too late in the game!");
+                }
+                __BaseDirectoryForQiqqa = new Lazy<string>(() => Path.GetFullPath(value));
+                RegistrySettings.Instance.Write(RegistrySettings.BaseDataDirectory, value);
+            }
         }
 
         public string BaseDirectoryForUser

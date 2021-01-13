@@ -426,6 +426,7 @@ namespace Qiqqa.Main
         private static void RemarkOnException(Exception ex, bool potentially_fatal)
         {
             Logging.Error(ex, "RemarkOnException.....");
+
             if (!ShutdownableManager.Instance.IsShuttingDown)
             {
                 WPFDoEvents.InvokeInUIThread(() =>
@@ -441,11 +442,26 @@ namespace Qiqqa.Main
             try
             {
                 Logging.Error(ex, "RemarkOnException_GUI_THREAD...");
-                UnhandledExceptionMessageBox.DisplayException(ex);
+
+                // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
+                    // Collect all generations of memory.
+                    GC.WaitForPendingFinalizers();
+                    GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+                });
+
+                bool isGDIfailureInXULrunner = ex.Message.Contains("A generic error occurred in GDI+");
                 const int EACCESS = unchecked((int)0x80004005);
-                if (ex.Message.Contains("A generic error occurred in GDI+") || ex.HResult == EACCESS)
+                if (isGDIfailureInXULrunner || ex.HResult == EACCESS)
                 {
                     potentially_fatal = false;
+                }
+
+                // do NOT display GDI+ errors as they are merely obnoxious and unresolvable anyway:
+                if (!isGDIfailureInXULrunner)
+                {
+                    UnhandledExceptionMessageBox.DisplayException(ex);
                 }
             }
             catch (Exception ex2)

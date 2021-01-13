@@ -1,56 +1,100 @@
 <commongui:StandardWindow
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:configgui="clr-namespace:Qiqqa.Common.Configuration"
-  
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-  mc:Ignorable="d" 
-  x:Class="Qiqqa.Main.LoginStuff.LoginWindow"
-  
-  SizeToContent="Height"
-  Width="400"
-  ShowInTaskbar="True"
-  ResizeMode="NoResize"
-  WindowStartupLocation="CenterScreen"
-  Icon="/Qiqqa;component/Qiqqa.ico"
->
-    <local_gui:AugmentedBorder Margin="10"  >
+    x:Class="Qiqqa.Main.LoginStuff.LoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    xmlns:configgui="clr-namespace:Qiqqa.Common.Configuration"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="400"
+    Icon="/Qiqqa;component/Qiqqa.ico"
+    ResizeMode="NoResize"
+    ShowInTaskbar="True"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <local_gui:AugmentedBorder Margin="10">
         <StackPanel>
-            <Image Width="211" MinHeight="50" x:Name="ImageQiqqaLogo" Margin="0,10,0,0" HorizontalAlignment="Center" />
-            <local_gui:AugmentedBorder Margin="10" >
+            <Image
+                x:Name="ImageQiqqaLogo"
+                Width="211"
+                MinHeight="50"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center" />
+            <local_gui:AugmentedBorder Margin="10">
                 <StackPanel Margin="10">
-                    <Button x:Name="ButtonGuest" Height="50" Content="Start Qiqqa (ESC)"/>
+                    <Button
+                        x:Name="ButtonGuest"
+                        Height="50"
+                        Content="Start Qiqqa (ESC)" />
                 </StackPanel>
             </local_gui:AugmentedBorder>
-            <local_gui:AugmentedInfoBarItemControl Margin="10" Header="Backup/Restore" Collapsed="false">
+            <local_gui:AugmentedInfoBarItemControl
+                Margin="10"
+                Collapsed="false"
+                Header="Qiqqa Base Path">
+                <StackPanel Margin="5">
+                    <TextBlock
+                        Margin="5,5,5,10"
+                        VerticalAlignment="Center"
+                        TextWrapping="Wrap">
+                        <Run Text="Your Qiqqa Databases are located at:" />
+                    </TextBlock>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        VerticalAlignment="Center"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="NoWrap">
+                        <Run
+                            x:Name="ObjQiqqaDatabaseLocation"
+                            FontWeight="Bold"
+                            Text="..."
+                            ToolTip="..." />
+                    </TextBlock>
+                    <DockPanel Margin="5">
+                        <Button
+                            x:Name="ButtonChangeBasePath"
+                            Height="20"
+                            Content="Change this path" />
+                    </DockPanel>
+                </StackPanel>
+            </local_gui:AugmentedInfoBarItemControl>
+            <local_gui:AugmentedInfoBarItemControl
+                Margin="10"
+                Collapsed="false"
+                Header="Backup/Restore">
                 <StackPanel>
                     <DockPanel Margin="5">
-                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
-                            <Run Text="Your Qiqqa Database is located at "/>
-                            <Run FontWeight="Bold" x:Name="ObjQiqqaDatabaseLocation"/>
-                            <Run Text="."/>
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonBackup"
+                            Width="100"
+                            Height="100"
+                            Margin="5,5,20,5"
+                            DockPanel.Dock="Left" />
+                        <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
+                            <Run Text="Press the Backup Button to backup your Qiqqa database to a .qiqqa_backup file. You can then transfer this file to safe storage or to a new computer to restore later." />
                         </TextBlock>
                     </DockPanel>
                     <DockPanel Margin="5">
-                        <local_gui:AugmentedButton DockPanel.Dock="Left" Width="100" Height="100" Margin="5,5,20,5" x:Name="ButtonBackup" />
-                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
-                            <Run Text="Press the Backup Button to backup your Qiqqa database to a .qiqqa_backup file. You can then transfer this file to safe storage or to a new computer to restore later."/>
-                        </TextBlock>
-                    </DockPanel>
-                    <DockPanel Margin="5">
-                        <local_gui:AugmentedButton DockPanel.Dock="Left" Width="100" Height="100" Margin="5,5,20,5" x:Name="ButtonRestore" />
-                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
-                            <Run Text="Press the Restore Button to restore a previous .qiqqa_backup file. Please note that this will overwrite your existing Qiqqa Database, so you may first want to do a Backup of your current Qiqqa Database..."/>
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonRestore"
+                            Width="100"
+                            Height="100"
+                            Margin="5,5,20,5"
+                            DockPanel.Dock="Left" />
+                        <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
+                            <Run Text="Press the Restore Button to restore a previous .qiqqa_backup file. Please note that this will overwrite your existing Qiqqa Database, so you may first want to do a Backup of your current Qiqqa Database..." />
                         </TextBlock>
                     </DockPanel>
                 </StackPanel>
             </local_gui:AugmentedInfoBarItemControl>
-            <local_gui:AugmentedBorder Margin="5,10,5,5" x:Name="ProgressInfoWrapper" >
+            <local_gui:AugmentedBorder x:Name="ProgressInfoWrapper" Margin="5,10,5,5">
                 <StackPanel>
-                    <TextBlock x:Name="ProgressInfo" TextWrapping="Wrap" VerticalAlignment="Center">
+                    <TextBlock
+                        x:Name="ProgressInfo"
+                        VerticalAlignment="Center"
+                        TextWrapping="Wrap">
                         ...
                     </TextBlock>
                 </StackPanel>
