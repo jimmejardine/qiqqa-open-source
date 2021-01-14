@@ -21,10 +21,10 @@
                     </StackPanel>
                 </local_gui:AugmentedBorder>
                 <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonRefresh" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonRefresh" />
                 <local_gui:AugmentedSpacer />
                 <DockPanel>
-                    <StackPanel Orientation="Horizontal" Name="ObjParametersPanel">
+                    <StackPanel Orientation="Horizontal" x:Name="ObjParametersPanel">
                         <local_gui:AugmentedBorder>
                             <StackPanel VerticalAlignment="Center">
                                 <TextBlock>
@@ -47,12 +47,12 @@
                     </StackPanel>
                 </DockPanel>
                 <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonRefreshTags" />
-                <local_gui:AugmentedToolBarButton Name="ButtonManageLists" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonRefreshTags" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonManageLists" />
                 <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonExportTopics" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonExportTopics" />
                 <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton Name="ButtonWebcast" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonWebcast" />
             </StackPanel>
         </local_gui:AugmentedToolBarTray>
         <!-- END: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -91,7 +91,7 @@
                 </DockPanel>
             </local_gui:CollapsibleRegion>
             <local_gui:CollapsibleRegion Name="GridRIGHT" DockPanel.Dock="Right" VisibleEdge="Left">
-                <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" Width="220"/>
+                <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" Width="220"  MinWidth="220" />
             </local_gui:CollapsibleRegion>
             <local:DocumentOverviewControl x:Name="ObjDocumentOverviewControl" />
         </DockPanel>

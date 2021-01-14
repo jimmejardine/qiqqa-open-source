@@ -40,8 +40,8 @@
                     <local_gui:AugmentedSpacer />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonPrint"/>
                     <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast_Themes" />
-                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast_Intro" />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonWebcast_Themes" />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonWebcast_Intro" />
                     <local_gui:AugmentedSpacer />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonHelp"/>
                     <local_gui:AugmentedSpacer />

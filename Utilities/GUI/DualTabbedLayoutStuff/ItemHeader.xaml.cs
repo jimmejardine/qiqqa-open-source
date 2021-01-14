@@ -100,12 +100,12 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageFloating.ToolTip = ImageFloating.Caption = "Move pane to a floating window";
             ImageClose.ToolTip = ImageClose.Caption = "Close pane";
 
-            ImageLeft.CaptionDock =
-            ImageBottom.CaptionDock =
-            ImageRight.CaptionDock =
-            ImageFloating.CaptionDock =
-            ImageClose.CaptionDock =
-                Dock.Right;
+            ImageLeft.CaptionDock = Dock.Right;
+            ImageBottom.CaptionDock = Dock.Right;
+            ImageRight.CaptionDock = Dock.Right;
+            ImageFloating.CaptionDock = Dock.Right;
+            ImageClose.CaptionDock = Dock.Right;
+
 
             ImageLeft.Click += ImageLeft_MouseDown;
             ImageBottom.Click += ImageBottom_MouseDown;

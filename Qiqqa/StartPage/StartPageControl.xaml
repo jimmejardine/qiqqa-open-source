@@ -27,36 +27,36 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <local_gui:AugmentedToolBarButton Grid.Column="0" Name="ButtonLibraries" />
+                        <local_gui:AugmentedToolBarButton Grid.Column="0" x:Name="ButtonLibraries" />
                         <local_gui:AugmentedToolBarPopup x:Name="ButtonLibrariesPopup">
                             <StackPanel>
-                                <local_gui:AugmentedToolBarButton Name="ButtonOpenLibrary" CaptionDock="Right" />
-                                <local_gui:AugmentedToolBarButton Name="ButtonSync" CaptionDock="Right" />
-                                <local_gui:AugmentedToolBarButton Name="ButtonCreateIntranetLibrary" CaptionDock="Right" />
-                                <local_gui:AugmentedToolBarButton Name="ButtonJoinBundleLibrary" CaptionDock="Right" />
+                                <local_gui:AugmentedToolBarButton x:Name="ButtonOpenLibrary" CaptionDock="Right" />
+                                <local_gui:AugmentedToolBarButton x:Name="ButtonSync" CaptionDock="Right" />
+                                <local_gui:AugmentedToolBarButton x:Name="ButtonCreateIntranetLibrary" CaptionDock="Right" />
+                                <local_gui:AugmentedToolBarButton x:Name="ButtonJoinBundleLibrary" CaptionDock="Right" />
                             </StackPanel>
                         </local_gui:AugmentedToolBarPopup>
-                        <local_gui:AugmentedToolBarButton Name="ButtonInCite"/>
-                        <local_gui:AugmentedToolBarButton Name="ButtonExpedition"/>
-                        <local_gui:AugmentedToolBarButton Name="ButtonNewBrainstorm"/>
-                        <local_gui:AugmentedToolBarButton Name="ButtonNewBrowser"/>
-                        <local_gui:AugmentedToolBarButton Name="ButtonTools" />
+                        <local_gui:AugmentedToolBarButton x:Name="ButtonInCite"/>
+                        <local_gui:AugmentedToolBarButton x:Name="ButtonExpedition"/>
+                        <local_gui:AugmentedToolBarButton x:Name="ButtonNewBrainstorm"/>
+                        <local_gui:AugmentedToolBarButton x:Name="ButtonNewBrowser"/>
+                        <local_gui:AugmentedToolBarButton x:Name="ButtonTools" />
                         <local_gui:AugmentedToolBarPopup x:Name="ButtonToolsPopup">
                             <StackPanel>
                                 <local_gui:AugmentedToolBarButton x:Name="ButtonDocumentConvert" CaptionDock="Right" />
                                 <local_gui:AugmentedToggleButton x:Name="ButtonToggleOCR" IsChecked="{Binding Library_OCRDisabled}" CaptionDock="Right" />
                                 <local_gui:AugmentedToolBarButton x:Name="ButtonTranslate" CaptionDock="Right" />
                                 <local_gui:AugmentedToolBarButton x:Name="ButtonBackupRestore" CaptionDock="Right" />
-                                <local_gui:AugmentedToolBarButton Name="ButtonNewConfig" CaptionDock="Right" />
+                                <local_gui:AugmentedToolBarButton x:Name="ButtonNewConfig" CaptionDock="Right" />
                             </StackPanel>
                         </local_gui:AugmentedToolBarPopup>
-                        <local_gui:AugmentedToolBarButton Name="ButtonExpertMode" />
-                        <local_gui:AugmentedToolBarButton Name="ButtonHelp" />
+                        <local_gui:AugmentedToolBarButton x:Name="ButtonExpertMode" />
+                        <local_gui:AugmentedToolBarButton x:Name="ButtonHelp" />
                         <local_gui:AugmentedToolBarPopup x:Name="ButtonHelpPopup">
                             <StackPanel>
-                                <local_gui:AugmentedToolBarButton Name="ButtonNewManual" CaptionDock="Right" />
-                                <local_gui:AugmentedToolBarButton Name="ButtonWelcomeWizard" CaptionDock="Right" />
-                                <local_gui:AugmentedToolBarButton Name="ButtonNewHelp" CaptionDock="Right" />
+                                <local_gui:AugmentedToolBarButton x:Name="ButtonNewManual" CaptionDock="Right" />
+                                <local_gui:AugmentedToolBarButton x:Name="ButtonWelcomeWizard" CaptionDock="Right" />
+                                <local_gui:AugmentedToolBarButton x:Name="ButtonNewHelp" CaptionDock="Right" />
                                 <local_gui:AugmentedToolBarButton x:Name="ButtonNewAbout" CaptionDock="Right" />
                                 <local_gui:AugmentedToolBarButton x:Name="ButtonZipLogs" CaptionDock="Right" />
                             </StackPanel>
