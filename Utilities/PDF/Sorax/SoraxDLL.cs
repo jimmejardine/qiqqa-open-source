@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if SORAX_ANTIQUE
+
+using System;
 using System.Runtime.InteropServices;
 
 namespace Utilities.PDF.Sorax
@@ -74,3 +76,5 @@ namespace Utilities.PDF.Sorax
         internal static extern bool DeleteDC(IntPtr HDC_HDC);
     }
 }
+
+#endif

@@ -6,7 +6,9 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.OCR;
+#if SORAX_ANTIQUE
 using Utilities.PDF.Sorax;
+#endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -31,7 +33,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
         public event OnPageTextAvailableDelegate OnPageTextAvailable;
 
+#if SORAX_ANTIQUE
         private SoraxPDFRenderer sorax_pdf_renderer;
+#endif
 
         public PDFRenderer(string pdf_filename, string pdf_user_password, string pdf_owner_password)
             : this(null, pdf_filename, pdf_user_password, pdf_owner_password)
@@ -46,7 +50,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             document_fingerprint = precomputed_document_fingerprint ?? StreamFingerprint.FromFile(this.pdf_filename);
 
             pdf_render_file_layer = new PDFRendererFileLayer(document_fingerprint, pdf_filename);
+#if SORAX_ANTIQUE
             sorax_pdf_renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password, pdf_owner_password);
+#endif
         }
 
         public string PDFFilename => pdf_filename;
@@ -89,15 +95,23 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// <returns></returns>
         internal byte[] GetPageByHeightAsImage(int page, double height)
         {
+#if SORAX_ANTIQUE
             return sorax_pdf_renderer.GetPageByHeightAsImage(page, height);
+#else
+            return new byte[] { };
+#endif
         }
 
         internal byte[] GetPageByDPIAsImage(int page, float dpi)
         {
+#if SORAX_ANTIQUE
             return sorax_pdf_renderer.GetPageByDPIAsImage(page, dpi);
+#else
+            return new byte[] { };
+#endif
         }
 
-        public void CauseAllPDFPagesToBeOCRed()
+            public void CauseAllPDFPagesToBeOCRed()
         {
             // jobqueue this one too - saves us one PDF access + parse action inline when invoked in the UI thread by OpenDocument()
             int pgcount = PageCount;
@@ -372,7 +386,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             Logging.Info("Flushing the cached page renderings for {0}", document_fingerprint);
 
+#if SORAX_ANTIQUE
             sorax_pdf_renderer.Flush();
+#endif        
         }
 
         public void FlushCachedTexts()

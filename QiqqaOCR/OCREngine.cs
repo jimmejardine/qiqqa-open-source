@@ -9,7 +9,9 @@ using tessnet2;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
+#if SORAX_ANTIQUE
 using Utilities.PDF.Sorax;
+#endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -237,6 +239,7 @@ namespace QiqqaOCR
         public static WordList DoOCR(string pdf_filename, int page_number)
         {
             Logging.Info("+Rendering page {1} for PDF file {0}", pdf_filename, page_number);
+#if SORAX_ANTIQUE
             SoraxPDFRenderer renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password, pdf_user_password);
             using (MemoryStream ms = new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200)))
             {
@@ -372,6 +375,9 @@ namespace QiqqaOCR
                     return word_list;
                 }
             }
+#else
+            return new WordList();
+#endif
         }
 
         private static void DrawRectangleOutline(Graphics g, Pen baseColorPen, Rectangle rect)

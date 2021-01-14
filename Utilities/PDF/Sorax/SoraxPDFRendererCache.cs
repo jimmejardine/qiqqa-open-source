@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#if SORAX_ANTIQUE
+
+using System.Collections.Generic;
 
 namespace Utilities.PDF.Sorax
 {
@@ -69,3 +71,5 @@ namespace Utilities.PDF.Sorax
         }
     }
 }
+
+#endif

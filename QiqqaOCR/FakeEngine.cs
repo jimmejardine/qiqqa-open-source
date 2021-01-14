@@ -9,7 +9,9 @@ using tessnet2;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
+#if SORAX_ANTIQUE
 using Utilities.PDF.Sorax;
+#endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;

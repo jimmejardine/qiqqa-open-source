@@ -1,4 +1,6 @@
-﻿namespace Utilities.PDF.Sorax
+﻿#if SORAX_ANTIQUE
+
+namespace Utilities.PDF.Sorax
 {
     public class SoraxPDFRenderer
     {
@@ -49,3 +51,5 @@
         }
     }
 }
+
+#endif

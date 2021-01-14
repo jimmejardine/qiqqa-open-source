@@ -3,7 +3,9 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Utilities;
 using Utilities.PDF;
+#if SORAX_ANTIQUE
 using Utilities.PDF.Sorax;
+#endif
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
@@ -36,6 +38,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return pages;
         }
 
+#if SORAX_ANTIQUE
         private static int CountPDFPages_Sorax(string filename)
         {
             try
@@ -51,6 +54,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 return 0;
             }
         }
+#endif
 
         private static int CountPDFPages_Jimme_MEGA(string filename)
         {
