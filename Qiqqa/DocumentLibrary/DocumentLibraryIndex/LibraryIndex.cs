@@ -579,6 +579,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                 sb_tags.AppendLine(tag);
                             }
 
+#if LUCENE_ANTIQUE
                             // Utilities.LockPerfTimer l6_clk = Utilities.LockPerfChecker.Start();
                             lock (word_index_manager_lock)
                             {
@@ -586,6 +587,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                                 word_index_manager.AddDocumentMetadata(pdf_document.Deleted, pdf_document.Fingerprint, pdf_document.TitleCombined, pdf_document.AuthorsCombined, pdf_document.YearCombined, pdf_document.Comments, sb_tags.ToString(), sb_annotations.ToString(), pdf_document.BibTex, pdf_document.BibTexItem);
                             }
+#endif
 
                             pdf_document_in_library.metadata_already_indexed = true;
                         }
@@ -653,6 +655,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                             }
                                         }
 
+#if LUCENE_ANTIQUE
                                         // Utilities.LockPerfTimer l7_clk = Utilities.LockPerfChecker.Start();
                                         lock (word_index_manager_lock)
                                         {
@@ -661,6 +664,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                             // Index it
                                             word_index_manager.AddDocumentPage(pdf_document.Deleted, pdf_document_in_library.fingerprint, page, sb.ToString());
                                         }
+#endif
 
                                         // Indicate that we have managed to index this page
                                         if (null == pdf_document_in_library.pages_already_indexed)

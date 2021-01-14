@@ -20,9 +20,11 @@
 using System;
 using System.Collections;
 using System.IO;
+#if LUCENE_ANTIQUE
 using Lucene.Net.Analysis;
 using Lucene.Net.Index;
 using Lucene.Net.Search;
+#endif
 
 namespace Utilities.Language.TextIndexing
 {
@@ -40,6 +42,7 @@ namespace Utilities.Language.TextIndexing
         {
         }
 
+#if LUCENE_ANTIQUE
         /// <summary> Simple similarity query generators.
         /// Takes every unique word and forms a boolean query where all words are optional.
         /// After you get this you'll use to to query your {@link IndexSearcher} for similar docs.
@@ -116,7 +119,8 @@ namespace Utilities.Language.TextIndexing
             }
             return tmp;
         }
+#endif
     }
 }
 
- #endif
+#endif

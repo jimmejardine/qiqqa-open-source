@@ -6,18 +6,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+#if LUCENE_ANTIQUE
 using Lucene.Net.Analysis;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
+#endif
 using Utilities.Files;
 using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+#if LUCENE_ANTIQUE
 using Version = Lucene.Net.Util.Version;
-
+#endif
 
 namespace Utilities.Language.TextIndexing
 {
@@ -25,9 +28,11 @@ namespace Utilities.Language.TextIndexing
     {
         private static readonly string INDEX_VERSION = "4.0";
         private string LIBRARY_INDEX_BASE_PATH;
+#if LUCENE_ANTIQUE
         private Analyzer analyzer;
         private object index_writer_lock = new object();
         private IndexWriter index_writer = null;
+#endif
 
         public LuceneIndex(string LIBRARY_INDEX_BASE_PATH)
         {
@@ -46,8 +51,10 @@ namespace Utilities.Language.TextIndexing
                 File.Delete(LuceneWriteLockFilename);
             }
 
+#if LUCENE_ANTIQUE
             // Create our common parts
             analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_29, new Hashtable());
+#endif
         }
 
         ~LuceneIndex()
@@ -68,6 +75,7 @@ namespace Utilities.Language.TextIndexing
         {
             Logging.Debug("LuceneIndex::Dispose({0}) @{1}", disposing, dispose_count);
 
+#if LUCENE_ANTIQUE
             WPFDoEvents.SafeExec(() =>
             {
                 if (dispose_count == 0)
@@ -93,22 +101,26 @@ namespace Utilities.Language.TextIndexing
                     index_writer = null;
                 }
             });
+#endif
 
             ++dispose_count;
         }
 
         public void WriteMasterList()
         {
+#if LUCENE_ANTIQUE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (index_writer_lock)
             {
                 // l1_clk.LockPerfTimerStop();
                 FlushIndexWriter_LOCK();
             }
+#endif
         }
 
         private void FlushIndexWriter_LOCK()
         {
+#if LUCENE_ANTIQUE
             Stopwatch clk = Stopwatch.StartNew();
 
             Logging.Info("+Flushing a lucene IndexWriter");
@@ -121,8 +133,10 @@ namespace Utilities.Language.TextIndexing
                 index_writer = null;
             }
             Logging.Info("-Flushing a lucene IndexWriter (time spent: {0} ms)", clk.ElapsedMilliseconds);
+#endif
         }
 
+#if LUCENE_ANTIQUE
         private static void AddDocumentMetadata_SB(Document document, StringBuilder sb, string field_name, string field_value)
         {
             if (!String.IsNullOrEmpty(field_value))
@@ -220,6 +234,7 @@ namespace Utilities.Language.TextIndexing
                 }
             }
         }
+#endif
 
         public int GetDocumentCountForKeyword(string keyword)
         {
@@ -238,6 +253,7 @@ namespace Utilities.Language.TextIndexing
 
             try
             {
+#if LUCENE_ANTIQUE
                 using (Lucene.Net.Index.IndexReader index_reader = Lucene.Net.Index.IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                 {
                     using (Lucene.Net.Search.IndexSearcher index_searcher = new Lucene.Net.Search.IndexSearcher(index_reader))
@@ -267,6 +283,7 @@ namespace Utilities.Language.TextIndexing
                     }
                     index_reader.Close();
                 }
+#endif
             }
             catch (Exception ex)
             {
@@ -283,6 +300,7 @@ namespace Utilities.Language.TextIndexing
 
             try
             {
+#if LUCENE_ANTIQUE
                 using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
                 {
                     using (IndexSearcher index_searcher = new IndexSearcher(index_reader))
@@ -324,6 +342,7 @@ namespace Utilities.Language.TextIndexing
                     }
                     index_reader.Close();
                 }
+#endif
             }
             catch (Exception ex)
             {
@@ -342,6 +361,7 @@ namespace Utilities.Language.TextIndexing
                 keyword = ReasonableWord.MakeReasonableWord(keyword);
                 if (null != keyword)
                 {
+#if LUCENE_ANTIQUE
                     ////Do a quick check for whether there are actually any segments files, otherwise we throw many exceptions in the IndexReader.Open in a very tight loop.
                     ////Added by Nik to cope with some exception...will uncomment this when i know what the problem is...
                     //var segments_files = Directory.GetFiles(LIBRARY_INDEX_BASE_PATH, "segments*", SearchOption.AllDirectories);
@@ -371,6 +391,7 @@ namespace Utilities.Language.TextIndexing
                         }
                         index_reader.Close();
                     }
+#endif
                 }
             }
             catch (Exception ex)
