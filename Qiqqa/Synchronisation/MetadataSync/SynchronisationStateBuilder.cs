@@ -63,7 +63,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
 
         private static void BuildFromLocal(WebLibraryDetail web_library_detail, ref SynchronisationStates synchronisation_states)
         {
-            List<LibraryDB.LibraryItem> library_items = web_library_detail.Xlibrary.LibraryDB.GetLibraryItems(null, null);
+            List<LibraryDB.LibraryItem> library_items = web_library_detail.Xlibrary.LibraryDB.GetLibraryItems(null);
             foreach (LibraryDB.LibraryItem library_item in library_items)
             {
                 string short_filename = library_item.ToFileNameFormat();

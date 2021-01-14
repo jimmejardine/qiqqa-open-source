@@ -8,6 +8,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
@@ -25,7 +26,8 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
             else
             {
-                List<LibraryDB.LibraryItem> library_items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.HIGHLIGHTS);
+                List<LibraryDB.LibraryItem> library_items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(PDFDocumentFileLocations.HIGHLIGHTS, new List<string>() { pdf_document.Fingerprint });
+                ASSERT.Test(library_items.Count < 2);
                 if (0 < library_items.Count)
                 {
                     highlights_data = library_items[0].data;

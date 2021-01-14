@@ -829,12 +829,12 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         [NonSerialized]
         private PDFAnnotationList annotations = null;
 
-        public PDFAnnotationList GetAnnotations(Dictionary<string, byte[]> library_items_annotations_cache = null)
+        public PDFAnnotationList GetAnnotations()
         {
             if (null == annotations)
             {
                 annotations = new PDFAnnotationList();
-                PDFAnnotationSerializer.ReadFromDisk(this, ref annotations, library_items_annotations_cache);
+                PDFAnnotationSerializer.ReadFromDisk(this, ref annotations);
 #if false
                 annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
 #endif
@@ -909,16 +909,16 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         [NonSerialized]
         private PDFInkList inks = null;
-        public PDFInkList Inks => GetInks(null);
+        public PDFInkList Inks => GetInks();
 
-        internal PDFInkList GetInks(Dictionary<string, byte[]> library_items_inks_cache)
+        internal PDFInkList GetInks()
         {
             if (null == inks)
             {
                 WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
                 inks = new PDFInkList();
-                PDFInkSerializer.ReadFromDisk(this, inks, library_items_inks_cache);
+                PDFInkSerializer.ReadFromDisk(this, inks);
 #if false
                 inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
 #endif
@@ -1157,7 +1157,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             dictionary["Year"] = pdf_document_template.dictionary["Year"];
             dictionary["YearSuggested"] = pdf_document_template.dictionary["YearSuggested"];
 
-            annotations = (PDFAnnotationList)pdf_document_template.GetAnnotations(null).Clone();
+            annotations = (PDFAnnotationList)pdf_document_template.GetAnnotations().Clone();
             highlights = (PDFHightlightList)pdf_document_template.Highlights.Clone();
             inks = (PDFInkList)pdf_document_template.Inks.Clone();
         }
@@ -1213,7 +1213,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         internal PDFAnnotation GetAnnotationByGuid(Guid guid)
         {
-            foreach (PDFAnnotation pdf_annotation in GetAnnotations(null))
+            foreach (PDFAnnotation pdf_annotation in GetAnnotations())
             {
                 if (pdf_annotation.Guid == guid)
                 {

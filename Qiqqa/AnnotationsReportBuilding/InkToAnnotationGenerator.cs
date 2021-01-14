@@ -15,13 +15,13 @@ namespace Qiqqa.AnnotationsReportBuilding
         private InkToAnnotationGenerator()
         { }
 
-        internal static List<PDFAnnotation> GenerateAnnotations(PDFDocument pdf_document, Dictionary<string, byte[]> library_items_inks_cache)
+        internal static List<PDFAnnotation> GenerateAnnotations(PDFDocument pdf_document)
         {
             List<PDFAnnotation> annotations = new List<PDFAnnotation>();
 
             if (pdf_document.DocumentExists)
             {
-                PDFInkList ink_list = pdf_document.GetInks(library_items_inks_cache);
+                PDFInkList ink_list = pdf_document.GetInks();
                 foreach (int page in ink_list.GetAffectedPages())
                 {
                     annotations.AddRange(GenerateAnnotations(pdf_document, page, ink_list));
