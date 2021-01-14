@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if XULRUNNER_GECKO_ANTIQUE
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -65,3 +67,5 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         public static string InstallationDirectory => __InstallationDirectory.Value;
     }
 }
+
+#endif

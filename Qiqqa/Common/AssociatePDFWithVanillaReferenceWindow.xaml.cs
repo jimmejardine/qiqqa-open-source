@@ -7,7 +7,9 @@ using Microsoft.Win32;
 using Qiqqa.Common.GUI;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
+#if XULRUNNER_GECKO_ANTIQUE
 using Qiqqa.WebBrowsing.GeckoStuff;
+#endif
 using Utilities.Misc;
 
 namespace Qiqqa.Common
@@ -52,8 +54,11 @@ namespace Qiqqa.Common
 
         private void CmdWeb_Click(object sender, RoutedEventArgs e)
         {
+#if XULRUNNER_GECKO_ANTIQUE
             PDFInterceptor.Instance.PotentialAttachmentPDFDocument = pdf_document;
             MainWindowServiceDispatcher.Instance.SearchWeb(pdf_document.TitleCombined);
+#endif
+
             Close();
         }
 

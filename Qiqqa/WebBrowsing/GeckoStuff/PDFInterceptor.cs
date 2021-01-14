@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if XULRUNNER_GECKO_ANTIQUE
+
+using System;
 using System.IO;
 using System.Net;
 using System.Windows;
@@ -180,3 +182,5 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         }
     }
 }
+
+#endif

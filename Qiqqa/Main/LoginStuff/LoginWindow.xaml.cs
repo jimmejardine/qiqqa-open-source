@@ -12,7 +12,9 @@ using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UpgradePaths;
 using Qiqqa.UtilisationTracking;
+#if XULRUNNER_GECKO_ANTIQUE
 using Qiqqa.WebBrowsing.GeckoStuff;
+#endif
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
@@ -188,6 +190,7 @@ namespace Qiqqa.Main.LoginStuff
 
             ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
 
+#if XULRUNNER_GECKO_ANTIQUE
             // Initialise the web browser
             try
             {
@@ -201,6 +204,7 @@ namespace Qiqqa.Main.LoginStuff
             {
                 Logging.Error(ex, "Problem initialising GeckoFX.");
             }
+#endif
 
             Logging.Info("Log the config+stats again now that we are sure to have loaded the working configuration:");
             ComputerStatistics.LogCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());

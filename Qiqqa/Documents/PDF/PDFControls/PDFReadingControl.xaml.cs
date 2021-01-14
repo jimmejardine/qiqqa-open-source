@@ -22,7 +22,9 @@ using Qiqqa.Exporting;
 using Qiqqa.InCite;
 using Qiqqa.Localisation;
 using Qiqqa.UtilisationTracking;
+#if XULRUNNER_GECKO_ANTIQUE
 using Qiqqa.WebBrowsing.GeckoStuff;
+#endif
 using Utilities;
 using Utilities.Collections;
 using Utilities.GUI;
@@ -365,7 +367,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             MainWindowServiceDispatcher.Instance.OpenLibrary(pdf_renderer_control_stats.pdf_document.LibraryRef);
         }
 
-        #region IDisposable
+#region IDisposable
 
         ~PDFReadingControl()
         {
@@ -407,7 +409,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ++dispose_count;
         }
 
-        #endregion
+#endregion
 
         private void pdf_renderer_control_OperationModeChanged(PDFRendererControl.OperationMode operation_mode)
         {
@@ -560,7 +562,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        #region --- Mouse operation mode --------------------------------------------------------------------------------------------------------
+#region --- Mouse operation mode --------------------------------------------------------------------------------------------------------
 
         private void ButtonTextSentenceSelect_Click(object sender, RoutedEventArgs e)
         {
@@ -716,9 +718,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             pdf_renderer_control.SelectPage(page);
         }
 
-        #endregion
+#endregion
 
-        #region --- Page navigation --------------------------------------------------------------------------------------------------------
+#region --- Page navigation --------------------------------------------------------------------------------------------------------
 
         private void ButtonPreviousPage_Click(object sender, RoutedEventArgs e)
         {
@@ -730,7 +732,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             pdf_renderer_control.MoveSelectedPageDelta(+1);
         }
 
-        #endregion
+#endregion
 
         private void Button1Up_Click(object sender, RoutedEventArgs e)
         {
@@ -784,7 +786,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             e.Handled = true;
         }
 
-        #region --- Export-to-text ------------------------------------------------------------------------------------------------------------------------------------------
+#region --- Export-to-text ------------------------------------------------------------------------------------------------------------------------------------------
 
         private void ButtonExportToText_Click(object sender, RoutedEventArgs e)
         {
@@ -793,9 +795,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             e.Handled = true;
         }
 
-        #endregion
+#endregion
 
-        #region --- Speed read and text-to-speech ------------------------------------------------------------------------------------------------------------------------------------------
+#region --- Speed read and text-to-speech ------------------------------------------------------------------------------------------------------------------------------------------
 
         private void GetCombinedWordsList(List<string> words, List<int> page_word_offsets, int single_page_only = -1)
         {
@@ -878,9 +880,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Full screen mode -------------------------------------------------------------------------------------------------------------
+#region --- Full screen mode -------------------------------------------------------------------------------------------------------------
 
         private void ToggleFullScreen()
         {
@@ -910,7 +912,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ReevaluateFullScreen();
         }
 
-        #endregion
+#endregion
 
         internal void EnableGuestMoveNotification(PDFDocument potential_attachment_pdf_document = null)
         {
@@ -970,8 +972,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     source_pdf_document.Bindable.NotifyPropertyChanged(nameof(source_pdf_document.Deleted));
                 }
 
+#if XULRUNNER_GECKO_ANTIQUE
                 // Forget the target attachment
                 PDFInterceptor.Instance.PotentialAttachmentPDFDocument = null;
+#endif
             }
         }
 

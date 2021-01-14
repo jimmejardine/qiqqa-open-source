@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Windows;
+#if XULRUNNER_GECKO_ANTIQUE
 using Qiqqa.WebBrowsing.GeckoStuff;
+#endif
 using Utilities;
 using Utilities.Files;
 using Utilities.Internet;
@@ -312,7 +314,9 @@ namespace Qiqqa.Common.Configuration
                     SaveConfigurationRecord();
                 }, skip_task_at_app_shutdown: true);
 
+#if XULRUNNER_GECKO_ANTIQUE
                 GeckoManager.SetupProxyAndUserAgent(false);
+#endif
             }
             else
             {
@@ -511,7 +515,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #endregion
+#endregion
 
         public static Dictionary<string, string> GetCurrentConfigInfos()
         {
