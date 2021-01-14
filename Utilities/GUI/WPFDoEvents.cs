@@ -153,19 +153,36 @@ namespace Utilities.GUI
             });
         }
 
+        private static SynchronizationContext _syncContext;
+
         public static bool CurrentThreadIsUIThread()
         {
-            if (Application.Current?.Dispatcher.CheckAccess() ?? false)
+            Thread t = Thread.CurrentThread;
+            ApartmentState state = t?.GetApartmentState() ?? ApartmentState.Unknown;
+            bool pooled = t?.IsThreadPoolThread ?? false;
+            bool bg = t?.IsBackground ?? false;
+            string n = t?.Name ?? "???";
+            bool nct = (Application.Current == null);
+            bool isMainDispatcher = (System.Windows.Threading.Dispatcher.CurrentDispatcher == Application.Current?.Dispatcher);
+            bool isUI = (!pooled && !bg && state == ApartmentState.STA);
+            bool acc = Application.Current?.Dispatcher.CheckAccess() ?? false;
+
+            if (state == ApartmentState.Unknown || (nct && !ShutdownableManager.Instance.IsShuttingDown) || (!isMainDispatcher && isUI) || acc != isUI)
+            {
+                Logging.Warn("Running in odd context.");
+            }
+
+            if (acc)
             {
                 // https://stackoverflow.com/questions/10448987/dispatcher-currentdispatcher-vs-application-current-dispatcher
-                if (System.Windows.Threading.Dispatcher.CurrentDispatcher != Application.Current?.Dispatcher)
+                if (!isMainDispatcher || !isUI)
                 {
-                    Logging.Error(new Exception("Unexpected results"), "woops");
+                    Logging.Error(new Exception("Unexpected results"), $"woops @ {state}/{pooled}/{bg}/{ (Application.Current == null)  } /{ !(pooled || bg || state != ApartmentState.STA) }");
                     return false;
                 }
                 return true;
             }
-            return Application.Current == null;
+            return isUI;
         }
 
         public static void InvokeInUIThread(Action action, Dispatcher override_dispatcher = null, DispatcherPriority priority = DispatcherPriority.Normal)
@@ -185,11 +202,50 @@ namespace Utilities.GUI
                 }
                 else if (!CurrentThreadIsUIThread())
                 {
-                    Application.Current.Dispatcher.Invoke(action, priority);
+                    if (Application.Current != null)
+                    {
+                        Application.Current.Dispatcher.Invoke(action, priority);
+                    }
+                    else
+                    {
+                        // Pray to the Big Kahuna; we're probably shutting down and don't know / cannot know any more if we're in UI thread or other.
+                        //
+                        // Fire off and pray...
+                        if (_syncContext != null)
+                        {
+                            _syncContext.Send(o =>
+                            {
+                                try
+                                {
+                                    action.Invoke();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logging.Error("InvokeInUIThread::syncContext:SEND: Error occurred.");
+                                }
+                            }, null);
+                        }
+                        else
+                        {
+                            try
+                            {
+                                action.Invoke();
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Error("InvokeInUIThread::finalFallback: Error occurred.");
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    action.Invoke();
+                // we assume this ctor is called from the UI thread!
+                //
+                // (keep the current context around for when Application.Current starts to fail and we still need access to the UI thread during shutdown.)
+                _syncContext = SynchronizationContext.Current;
+
+                action.Invoke();
                 }
             }
             catch (Exception ex)
@@ -206,7 +262,27 @@ namespace Utilities.GUI
             }
             else
             {
-                throw new Exception("no known GUI thread to invoke async to...");
+                // Pray to the Big Kahuna; we're probably shutting down and don't know / cannot know any more if we're in UI thread or other.
+                //
+                // Fire off and pray...
+                if (_syncContext != null)
+                {
+                    _syncContext.Post(o =>
+                    {
+                        try
+                        {
+                            action.Invoke();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error("InvokeInUIThread::syncContext:POST: Error occurred.");
+                        }
+                    }, null);
+                }
+                else
+                {
+                    throw new Exception("no known GUI thread to invoke async to...");
+                }
             }
         }
 
