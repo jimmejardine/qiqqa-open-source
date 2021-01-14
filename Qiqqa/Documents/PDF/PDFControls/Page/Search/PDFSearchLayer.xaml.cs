@@ -33,6 +33,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
             Background = Brushes.Transparent;
 
             SizeChanged += PDFSearchLayer_SizeChanged;
+
+            this.Unloaded += PDFSearchLayer_Unloaded;
+        }
+
+        private void PDFSearchLayer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Dispose();
         }
 
         private void PDFSearchLayer_SizeChanged(object sender, SizeChangedEventArgs e)

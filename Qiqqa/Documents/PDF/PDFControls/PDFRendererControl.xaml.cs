@@ -64,6 +64,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public PDFRendererControl(PDFDocument pdf_document, bool remember_last_read_page, ZoomType force_zoom_type)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             Theme.Initialize();
 
             InitializeComponent();

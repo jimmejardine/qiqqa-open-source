@@ -29,6 +29,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         public PDFHighlightLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
@@ -54,6 +56,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             CurrentColourNumber = 0;
 
             Loaded += PDFHighlightLayer_Loaded;
+            this.Unloaded += PDFHighlightLayer_Unloaded;
+        }
+
+        private void PDFHighlightLayer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Dispose();
         }
 
         private void PDFHighlightLayer_Loaded(object sender, RoutedEventArgs e)
@@ -61,9 +69,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             ObjHighlightRenderer.RebuildVisual(pdf_renderer_control_stats.pdf_document, page);
         }
 
-        public static bool IsLayerNeeded(PDFRendererControlStats pdf_renderer_control_stats, int page)
+        public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
         {
-            return pdf_renderer_control_stats.pdf_document.Highlights.GetHighlightsForPage(page).Count > 0;
+            return pdf_document.Highlights.GetHighlightsForPage(page).Count > 0;
         }
 
         private void PDFHighlightLayer_SizeChanged(object sender, SizeChangedEventArgs e)

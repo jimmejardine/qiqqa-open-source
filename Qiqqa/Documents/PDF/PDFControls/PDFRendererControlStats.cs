@@ -190,7 +190,5 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 Logging.Error(ex, "Problem calculating start_page_offset");
             }
         }
-
-
     }
 }

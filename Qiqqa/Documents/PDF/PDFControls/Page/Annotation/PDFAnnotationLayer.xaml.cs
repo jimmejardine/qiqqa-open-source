@@ -24,6 +24,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         public PDFAnnotationLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
@@ -61,11 +63,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                     }
                 }
             }
+
+            this.Unloaded += PDFAnnotationLayer_Unloaded;
         }
 
-        public static bool IsLayerNeeded(PDFRendererControlStats pdf_renderer_control_stats, int page)
+        private void PDFAnnotationLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            foreach (PDFAnnotation pdf_annotation in pdf_renderer_control_stats.pdf_document.GetAnnotations())
+            this.Dispose();
+        }
+
+        public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
+        {
+            foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
             {
                 if (pdf_annotation.Page == page)
                 {

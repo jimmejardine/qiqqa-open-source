@@ -24,6 +24,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         public PDFCameraLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
@@ -34,6 +36,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             drag_area_tracker = new DragAreaTracker(this);
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
+
+            this.Unloaded += PDFCameraLayer_Unloaded;
+        }
+
+        private void PDFCameraLayer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Dispose();
         }
 
         private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)

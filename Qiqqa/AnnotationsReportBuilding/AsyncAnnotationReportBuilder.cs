@@ -93,357 +93,364 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
         }
 
-        internal static AnnotationReport BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
-        {
-            //WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+        internal delegate void BuildReportCallback(AsyncAnnotationReportBuilder.AnnotationReport annotation_report);
 
-            AnnotationReport annotation_report = new AnnotationReport();
-            StandardFlowDocument flow_document = annotation_report.flow_document;
+        internal static void BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options, BuildReportCallback cb)
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Create a list of all the work we need to do
             List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(web_library_detail, pdf_documents, annotation_report_options);
 
-            // Now build the report
-            PDFDocument last_pdf_document = null;
-            for (int j = 0; j < annotation_works.Count; ++j)
+            // WARNING: Due to the UI types used next, we need to run that bunch in the UI thread or WPF will barf a hairball later and you'll be sorry!
+
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                StatusManager.Instance.UpdateStatus("AnnotationReport", "Building annotation report", j, annotation_works.Count);
-                AnnotationWorkGenerator.AnnotationWork annotation_work = annotation_works[j];
-                PDFDocument pdf_document = annotation_work.pdf_document;
-                PDFAnnotation pdf_annotation = annotation_work.pdf_annotation;
+                AnnotationReport annotation_report = new AnnotationReport();
+                StandardFlowDocument flow_document = annotation_report.flow_document;
 
-                // If this is a new PDFDocument, print out the header
-                if (last_pdf_document != pdf_document)
+                // Now build the report
+                PDFDocument last_pdf_document = null;
+                for (int j = 0; j < annotation_works.Count; ++j)
                 {
-                    last_pdf_document = pdf_document;
-                    Logging.Info("Processing {0}", pdf_document.Fingerprint);
+                    StatusManager.Instance.UpdateStatus("AnnotationReport", "Building annotation report", j, annotation_works.Count);
+                    AnnotationWorkGenerator.AnnotationWork annotation_work = annotation_works[j];
+                    PDFDocument pdf_document = annotation_work.pdf_document;
+                    PDFAnnotation pdf_annotation = annotation_work.pdf_annotation;
 
-                    if (!annotation_report_options.SuppressPDFDocumentHeader)
+                    // If this is a new PDFDocument, print out the header
+                    if (last_pdf_document != pdf_document)
                     {
-                        Span bold_title = new Span();
-                        bold_title.FontSize = 30;
-                        bold_title.FontFamily = ThemeTextStyles.FontFamily_Header;
-                        bold_title.Inlines.Add(new LineBreak());
+                        last_pdf_document = pdf_document;
+                        Logging.Info("Processing {0}", pdf_document.Fingerprint);
 
-                        if (!String.IsNullOrEmpty(pdf_document.TitleCombined))
+                        if (!annotation_report_options.SuppressPDFDocumentHeader)
                         {
-                            bold_title.Inlines.Add(pdf_document.TitleCombined);
+                            Span bold_title = new Span();
+                            bold_title.FontSize = 30;
+                            bold_title.FontFamily = ThemeTextStyles.FontFamily_Header;
                             bold_title.Inlines.Add(new LineBreak());
-                        }
-                        Span bold = new Span();
-                        bold.FontSize = 16;
-                        if (!String.IsNullOrEmpty(pdf_document.YearCombined))
-                        {
-                            bold.Inlines.Add(pdf_document.YearCombined);
-                            bold.Inlines.Add(" · ");
-                        }
-                        if (!String.IsNullOrEmpty(pdf_document.AuthorsCombined))
-                        {
-                            bold.Inlines.Add(pdf_document.AuthorsCombined);
-                        }
-                        if (!String.IsNullOrEmpty(pdf_document.Publication))
-                        {
-                            Italic italic = new Italic();
-                            italic.Inlines.Add(pdf_document.Publication);
-                            bold.Inlines.Add(new LineBreak());
-                            bold.Inlines.Add(italic);
-                        }
-                        if (!String.IsNullOrEmpty(pdf_document.Tags))
-                        {
-                            bold.Inlines.Add(new LineBreak());
 
-                            Run run = new Run();
-                            run.Text = "[" + pdf_document.Tags + "]";
-                            bold.Inlines.Add(run);
-                        }
-                        bold.Inlines.Add(new LineBreak());
-
-                        {
-                            bold.Inlines.Add(new LineBreak());
-
-                            Span click_options = new Span();
+                            if (!String.IsNullOrEmpty(pdf_document.TitleCombined))
                             {
+                                bold_title.Inlines.Add(pdf_document.TitleCombined);
+                                bold_title.Inlines.Add(new LineBreak());
+                            }
+                            Span bold = new Span();
+                            bold.FontSize = 16;
+                            if (!String.IsNullOrEmpty(pdf_document.YearCombined))
+                            {
+                                bold.Inlines.Add(pdf_document.YearCombined);
+                                bold.Inlines.Add(" · ");
+                            }
+                            if (!String.IsNullOrEmpty(pdf_document.AuthorsCombined))
+                            {
+                                bold.Inlines.Add(pdf_document.AuthorsCombined);
+                            }
+                            if (!String.IsNullOrEmpty(pdf_document.Publication))
+                            {
+                                Italic italic = new Italic();
+                                italic.Inlines.Add(pdf_document.Publication);
+                                bold.Inlines.Add(new LineBreak());
+                                bold.Inlines.Add(italic);
+                            }
+                            if (!String.IsNullOrEmpty(pdf_document.Tags))
+                            {
+                                bold.Inlines.Add(new LineBreak());
+
+                                Run run = new Run();
+                                run.Text = "[" + pdf_document.Tags + "]";
+                                bold.Inlines.Add(run);
+                            }
+                            bold.Inlines.Add(new LineBreak());
+
+                            {
+                                bold.Inlines.Add(new LineBreak());
+
+                                Span click_options = new Span();
+                                {
+                                    {
+                                        Run run = new Run(" Open ");
+                                        run.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                                        run.Foreground = Brushes.White;
+                                        run.Cursor = Cursors.Hand;
+                                        run.Tag = pdf_document;
+                                        run.MouseDown += run_Open_MouseDown;
+                                        click_options.Inlines.Add(run);
+                                    }
+                                    click_options.Inlines.Add(new Run(" "));
+                                    {
+                                        Run run = new Run(" Cite (Author, Date) ");
+                                        run.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                                        run.Foreground = Brushes.White;
+                                        run.Cursor = Cursors.Hand;
+                                        run.Tag = pdf_document;
+                                        run.MouseDown += run_Cite_MouseDown_Together;
+                                        click_options.Inlines.Add(run);
+                                    }
+                                    click_options.Inlines.Add(new Run(" "));
+                                    {
+                                        Run run = new Run(" [Cite Author (Date)] ");
+                                        run.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                                        run.Foreground = Brushes.White;
+                                        run.Cursor = Cursors.Hand;
+                                        run.Tag = pdf_document;
+                                        run.MouseDown += run_Cite_MouseDown_Separate;
+                                        click_options.Inlines.Add(run);
+                                    }
+                                    click_options.Inlines.Add(new LineBreak());
+
+                                    bold.Inlines.Add(click_options);
+                                    annotation_report.AddClickOption(click_options);
+                                }
+                            }
+
+                            Paragraph paragraph_header = new Paragraph();
+                            paragraph_header.Inlines.Add(bold_title);
+                            paragraph_header.Inlines.Add(bold);
+
+                            Section section_header = new Section();
+                            section_header.Background = ThemeColours.Background_Brush_Blue_VeryVeryDarkToWhite;
+                            if (Colors.Transparent != pdf_document.Color)
+                            {
+                                section_header.Background = new SolidColorBrush(pdf_document.Color);
+                            }
+                            section_header.Blocks.Add(paragraph_header);
+
+                            flow_document.Blocks.Add(new Paragraph(new LineBreak()));
+                            flow_document.Blocks.Add(section_header);
+                            //flow_document.Blocks.Add(new Paragraph(new LineBreak()));
+
+                            bool have_document_details = false;
+
+                            // Add the paper comment if we need to
+                            if (annotation_report_options.IncludeComments)
+                            {
+                                string comment_text = pdf_document.Comments;
+                                if (!String.IsNullOrEmpty(comment_text))
+                                {
+                                    have_document_details = true;
+
+                                    flow_document.Blocks.Add(new Paragraph(new Run("●")));
+                                    {
+                                        Paragraph paragraph = new Paragraph();
+                                        {
+                                            Bold header = new Bold();
+                                            header.Inlines.Add("Comments: ");
+                                            paragraph.Inlines.Add(header);
+                                        }
+                                        {
+                                            Italic italic = new Italic();
+                                            italic.Inlines.Add(comment_text);
+                                            paragraph.Inlines.Add(italic);
+                                        }
+                                        flow_document.Blocks.Add(paragraph);
+                                    }
+                                }
+                            }
+                            if (annotation_report_options.IncludeAbstract)
+                            {
+                                string abstract_text = pdf_document.Abstract;
+                                if (PDFAbstractExtraction.CANT_LOCATE != abstract_text)
+                                {
+                                    have_document_details = true;
+
+                                    flow_document.Blocks.Add(new Paragraph(new Run("●")));
+                                    {
+                                        Paragraph paragraph = new Paragraph();
+                                        {
+                                            Bold header = new Bold();
+                                            header.Inlines.Add("Abstract: ");
+                                            paragraph.Inlines.Add(header);
+                                        }
+                                        {
+                                            Italic italic = new Italic();
+                                            italic.Inlines.Add(abstract_text);
+                                            paragraph.Inlines.Add(italic);
+                                        }
+                                        flow_document.Blocks.Add(paragraph);
+                                    }
+                                }
+                            }
+
+                            if (have_document_details)
+                            {
+                                flow_document.Blocks.Add(new Paragraph(new Run("●")));
+                            }
+                        }
+                    }
+
+                    // Print out the annotation
+                    if (null != pdf_annotation)
+                    {
+                        // First the header
+                        {
+                            //flow_document.Blocks.Add(new Paragraph(new Run(" ● ")));
+
+                            Paragraph paragraph = new Paragraph();
+                            paragraph.Inlines.Add(new LineBreak());
+
+                            {
+                                Bold coloured_blob = new Bold();
+                                coloured_blob.Foreground = new SolidColorBrush(pdf_annotation.Color);
+                                coloured_blob.Inlines.Add(" ■ ");
+                                paragraph.Inlines.Add(coloured_blob);
+                            }
+
+                            {
+                                Span italic = new Span();
+                                italic.FontSize = 16;
+                                string annotation_header = String.Format("Page {0}", pdf_annotation.Page);
+                                italic.Inlines.Add(annotation_header);
+                                //Underline underline = new Underline(italic);
+                                paragraph.Inlines.Add(italic);
+                            }
+
+                            {
+                                Bold coloured_blob = new Bold();
+                                coloured_blob.Foreground = new SolidColorBrush(pdf_annotation.Color);
+                                coloured_blob.Inlines.Add(" ■ ");
+                                paragraph.Inlines.Add(coloured_blob);
+                            }
+
+                            paragraph.Inlines.Add(new LineBreak());
+
+                            // List the tags for this annotation
+                            if (!annotation_report_options.SuppressPDFAnnotationTags)
+                            {
+                                if (!String.IsNullOrEmpty(pdf_annotation.Tags))
+                                {
+                                    paragraph.Inlines.Add(" [" + pdf_annotation.Tags.Replace(";", "; ") + "] ");
+
+                                    paragraph.Inlines.Add(new LineBreak());
+                                }
+                            }
+
+                            bool is_not_synthetic_annotation = (null == pdf_annotation.Tags || (!pdf_annotation.Tags.Contains(HighlightToAnnotationGenerator.HIGHLIGHTS_TAG) && !pdf_annotation.Tags.Contains(InkToAnnotationGenerator.INKS_TAG)));
+
+                            {
+                                paragraph.Inlines.Add(new LineBreak());
+
+                                Span click_options = new Span();
                                 {
                                     Run run = new Run(" Open ");
-                                    run.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                                    run.Background = ThemeColours.Background_Brush_Blue_VeryDark;
                                     run.Foreground = Brushes.White;
                                     run.Cursor = Cursors.Hand;
-                                    run.Tag = pdf_document;
-                                    run.MouseDown += run_Open_MouseDown;
+                                    run.Tag = annotation_work;
+                                    run.MouseDown += run_AnnotationOpen_MouseDown;
                                     click_options.Inlines.Add(run);
                                 }
-                                click_options.Inlines.Add(new Run(" "));
+
+                                if (is_not_synthetic_annotation)
                                 {
+                                    click_options.Inlines.Add(new Run(" "));
+                                    Run run = new Run(" Edit ");
+                                    run.Background = ThemeColours.Background_Brush_Blue_VeryDark;
+                                    run.Foreground = Brushes.White;
+                                    run.Cursor = Cursors.Hand;
+                                    run.Tag = pdf_annotation;
+                                    run.MouseDown += run_AnnotationEdit_MouseDown;
+                                    click_options.Inlines.Add(run);
+                                }
+
+                                {
+                                    click_options.Inlines.Add(new Run(" "));
                                     Run run = new Run(" Cite (Author, Date) ");
-                                    run.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                                    run.Background = ThemeColours.Background_Brush_Blue_VeryDark;
                                     run.Foreground = Brushes.White;
                                     run.Cursor = Cursors.Hand;
                                     run.Tag = pdf_document;
                                     run.MouseDown += run_Cite_MouseDown_Together;
                                     click_options.Inlines.Add(run);
                                 }
-                                click_options.Inlines.Add(new Run(" "));
+
                                 {
-                                    Run run = new Run(" [Cite Author (Date)] ");
-                                    run.Background = ThemeColours.Background_Brush_Blue_VeryVeryDark;
+                                    click_options.Inlines.Add(new Run(" "));
+                                    Run run = new Run(" Cite Author (Date) ");
+                                    run.Background = ThemeColours.Background_Brush_Blue_VeryDark;
                                     run.Foreground = Brushes.White;
                                     run.Cursor = Cursors.Hand;
                                     run.Tag = pdf_document;
                                     run.MouseDown += run_Cite_MouseDown_Separate;
                                     click_options.Inlines.Add(run);
                                 }
+
                                 click_options.Inlines.Add(new LineBreak());
 
-                                bold.Inlines.Add(click_options);
+                                paragraph.Inlines.Add(click_options);
                                 annotation_report.AddClickOption(click_options);
                             }
-                        }
-
-                        Paragraph paragraph_header = new Paragraph();
-                        paragraph_header.Inlines.Add(bold_title);
-                        paragraph_header.Inlines.Add(bold);
-
-                        Section section_header = new Section();
-                        section_header.Background = ThemeColours.Background_Brush_Blue_VeryVeryDarkToWhite;
-                        if (Colors.Transparent != pdf_document.Color)
-                        {
-                            section_header.Background = new SolidColorBrush(pdf_document.Color);
-                        }
-                        section_header.Blocks.Add(paragraph_header);
-
-                        flow_document.Blocks.Add(new Paragraph(new LineBreak()));
-                        flow_document.Blocks.Add(section_header);
-                        //flow_document.Blocks.Add(new Paragraph(new LineBreak()));
-
-                        bool have_document_details = false;
-
-                        // Add the paper comment if we need to
-                        if (annotation_report_options.IncludeComments)
-                        {
-                            string comment_text = pdf_document.Comments;
-                            if (!String.IsNullOrEmpty(comment_text))
-                            {
-                                have_document_details = true;
-
-                                flow_document.Blocks.Add(new Paragraph(new Run("●")));
-                                {
-                                    Paragraph paragraph = new Paragraph();
-                                    {
-                                        Bold header = new Bold();
-                                        header.Inlines.Add("Comments: ");
-                                        paragraph.Inlines.Add(header);
-                                    }
-                                    {
-                                        Italic italic = new Italic();
-                                        italic.Inlines.Add(comment_text);
-                                        paragraph.Inlines.Add(italic);
-                                    }
-                                    flow_document.Blocks.Add(paragraph);
-                                }
-                            }
-                        }
-                        if (annotation_report_options.IncludeAbstract)
-                        {
-                            string abstract_text = pdf_document.Abstract;
-                            if (PDFAbstractExtraction.CANT_LOCATE != abstract_text)
-                            {
-                                have_document_details = true;
-
-                                flow_document.Blocks.Add(new Paragraph(new Run("●")));
-                                {
-                                    Paragraph paragraph = new Paragraph();
-                                    {
-                                        Bold header = new Bold();
-                                        header.Inlines.Add("Abstract: ");
-                                        paragraph.Inlines.Add(header);
-                                    }
-                                    {
-                                        Italic italic = new Italic();
-                                        italic.Inlines.Add(abstract_text);
-                                        paragraph.Inlines.Add(italic);
-                                    }
-                                    flow_document.Blocks.Add(paragraph);
-                                }
-                            }
-                        }
-
-                        if (have_document_details)
-                        {
-                            flow_document.Blocks.Add(new Paragraph(new Run("●")));
-                        }
-                    }
-                }
-
-                // Print out the annotation
-                if (null != pdf_annotation)
-                {
-                    // First the header
-                    {
-                        //flow_document.Blocks.Add(new Paragraph(new Run(" ● ")));
-
-                        Paragraph paragraph = new Paragraph();
-                        paragraph.Inlines.Add(new LineBreak());
-
-                        {
-                            Bold coloured_blob = new Bold();
-                            coloured_blob.Foreground = new SolidColorBrush(pdf_annotation.Color);
-                            coloured_blob.Inlines.Add(" ■ ");
-                            paragraph.Inlines.Add(coloured_blob);
-                        }
-
-                        {
-                            Span italic = new Span();
-                            italic.FontSize = 16;
-                            string annotation_header = String.Format("Page {0}", pdf_annotation.Page);
-                            italic.Inlines.Add(annotation_header);
-                            //Underline underline = new Underline(italic);
-                            paragraph.Inlines.Add(italic);
-                        }
-
-                        {
-                            Bold coloured_blob = new Bold();
-                            coloured_blob.Foreground = new SolidColorBrush(pdf_annotation.Color);
-                            coloured_blob.Inlines.Add(" ■ ");
-                            paragraph.Inlines.Add(coloured_blob);
-                        }
-
-                        paragraph.Inlines.Add(new LineBreak());
-
-                        // List the tags for this annotation
-                        if (!annotation_report_options.SuppressPDFAnnotationTags)
-                        {
-                            if (!String.IsNullOrEmpty(pdf_annotation.Tags))
-                            {
-                                paragraph.Inlines.Add(" [" + pdf_annotation.Tags.Replace(";", "; ") + "] ");
-
-                                paragraph.Inlines.Add(new LineBreak());
-                            }
-                        }
-
-                        bool is_not_synthetic_annotation = (null == pdf_annotation.Tags || (!pdf_annotation.Tags.Contains(HighlightToAnnotationGenerator.HIGHLIGHTS_TAG) && !pdf_annotation.Tags.Contains(InkToAnnotationGenerator.INKS_TAG)));
-
-                        {
-                            paragraph.Inlines.Add(new LineBreak());
-
-                            Span click_options = new Span();
-                            {
-                                Run run = new Run(" Open ");
-                                run.Background = ThemeColours.Background_Brush_Blue_VeryDark;
-                                run.Foreground = Brushes.White;
-                                run.Cursor = Cursors.Hand;
-                                run.Tag = annotation_work;
-                                run.MouseDown += run_AnnotationOpen_MouseDown;
-                                click_options.Inlines.Add(run);
-                            }
-
-                            if (is_not_synthetic_annotation)
-                            {
-                                click_options.Inlines.Add(new Run(" "));
-                                Run run = new Run(" Edit ");
-                                run.Background = ThemeColours.Background_Brush_Blue_VeryDark;
-                                run.Foreground = Brushes.White;
-                                run.Cursor = Cursors.Hand;
-                                run.Tag = pdf_annotation;
-                                run.MouseDown += run_AnnotationEdit_MouseDown;
-                                click_options.Inlines.Add(run);
-                            }
 
                             {
-                                click_options.Inlines.Add(new Run(" "));
-                                Run run = new Run(" Cite (Author, Date) ");
-                                run.Background = ThemeColours.Background_Brush_Blue_VeryDark;
-                                run.Foreground = Brushes.White;
-                                run.Cursor = Cursors.Hand;
-                                run.Tag = pdf_document;
-                                run.MouseDown += run_Cite_MouseDown_Together;
-                                click_options.Inlines.Add(run);
+                                Run run = new Run("Waiting for processing...");
+                                run.Foreground = Brushes.Red;
+                                paragraph.Inlines.Add(run);
+                                annotation_work.processing_error = run;
                             }
 
-                            {
-                                click_options.Inlines.Add(new Run(" "));
-                                Run run = new Run(" Cite Author (Date) ");
-                                run.Background = ThemeColours.Background_Brush_Blue_VeryDark;
-                                run.Foreground = Brushes.White;
-                                run.Cursor = Cursors.Hand;
-                                run.Tag = pdf_document;
-                                run.MouseDown += run_Cite_MouseDown_Separate;
-                                click_options.Inlines.Add(run);
-                            }
-
-                            click_options.Inlines.Add(new LineBreak());
-
-                            paragraph.Inlines.Add(click_options);
-                            annotation_report.AddClickOption(click_options);
-                        }
-
-                        {
-                            Run run = new Run("Waiting for processing...");
-                            run.Foreground = Brushes.Red;
-                            paragraph.Inlines.Add(run);
-                            annotation_work.processing_error = run;
-                        }
-
-                        paragraph.Background = ThemeColours.Background_Brush_Blue_DarkToWhite;
-                        flow_document.Blocks.Add(paragraph);
-                    }
-
-                    if (!String.IsNullOrEmpty(pdf_annotation.Text))
-                    {
-                        Paragraph paragraph = new Paragraph();
-                        paragraph.Inlines.Add(pdf_annotation.Text);
-                        flow_document.Blocks.Add(paragraph);
-                    }
-
-                    {
-                        // Prepare for some annotation image
-                        if ((!annotation_report_options.ObeySuppressedImages || !pdf_annotation.AnnotationReportSuppressImage) && !annotation_report_options.SuppressAllImages)
-                        {
-                            Image image = new Image();
-                            MouseWheelDisabler.DisableMouseWheelForControl(image);
-                            image.Source = Icons.GetAppIcon(Icons.AnnotationReportImageWaiting);
-                            BlockUIContainer image_container = new BlockUIContainer(image);
-                            Figure floater = new Figure(image_container);
-                            floater.HorizontalAnchor = FigureHorizontalAnchor.PageCenter;
-                            floater.WrapDirection = WrapDirection.None;
-                            floater.Width = new FigureLength(64);
-
-                            floater.Cursor = Cursors.Hand;
-                            floater.Tag = annotation_work;
-                            floater.MouseDown += Floater_MouseDown;
-
-                            Paragraph paragraph = new Paragraph();
-                            paragraph.Inlines.Add(floater);
-
-                            annotation_work.report_image = image;
-                            annotation_work.report_floater = floater;
-
+                            paragraph.Background = ThemeColours.Background_Brush_Blue_DarkToWhite;
                             flow_document.Blocks.Add(paragraph);
                         }
 
-                        // Prepare for some annotation text
-                        if ((!annotation_report_options.ObeySuppressedText || !pdf_annotation.AnnotationReportSuppressText) && !annotation_report_options.SuppressAllText)
+                        if (!String.IsNullOrEmpty(pdf_annotation.Text))
                         {
                             Paragraph paragraph = new Paragraph();
-                            annotation_work.annotation_paragraph = paragraph;
+                            paragraph.Inlines.Add(pdf_annotation.Text);
                             flow_document.Blocks.Add(paragraph);
                         }
+
+                        {
+                            // Prepare for some annotation image
+                            if ((!annotation_report_options.ObeySuppressedImages || !pdf_annotation.AnnotationReportSuppressImage) && !annotation_report_options.SuppressAllImages)
+                            {
+                                Image image = new Image();
+                                MouseWheelDisabler.DisableMouseWheelForControl(image);
+                                image.Source = Icons.GetAppIcon(Icons.AnnotationReportImageWaiting);
+                                BlockUIContainer image_container = new BlockUIContainer(image);
+                                Figure floater = new Figure(image_container);
+                                floater.HorizontalAnchor = FigureHorizontalAnchor.PageCenter;
+                                floater.WrapDirection = WrapDirection.None;
+                                floater.Width = new FigureLength(64);
+
+                                floater.Cursor = Cursors.Hand;
+                                floater.Tag = annotation_work;
+                                floater.MouseDown += Floater_MouseDown;
+
+                                Paragraph paragraph = new Paragraph();
+                                paragraph.Inlines.Add(floater);
+
+                                annotation_work.report_image = image;
+                                annotation_work.report_floater = floater;
+
+                                flow_document.Blocks.Add(paragraph);
+                            }
+
+                            // Prepare for some annotation text
+                            if ((!annotation_report_options.ObeySuppressedText || !pdf_annotation.AnnotationReportSuppressText) && !annotation_report_options.SuppressAllText)
+                            {
+                                Paragraph paragraph = new Paragraph();
+                                annotation_work.annotation_paragraph = paragraph;
+                                flow_document.Blocks.Add(paragraph);
+                            }
+                        }
+                    }
+
+                    // Add another paragraph to separate nicely
+                    {
+                        Paragraph paragraph = new Paragraph();
+                        flow_document.Blocks.Add(paragraph);
                     }
                 }
 
-                // Add another paragraph to separate nicely
-                {
-                    Paragraph paragraph = new Paragraph();
-                    flow_document.Blocks.Add(paragraph);
-                }
-            }
+                // Render the images in the background
+                BackgroundRenderImages(flow_document, annotation_works, annotation_report_options);
 
-            // Render the images in the background
-            BackgroundRenderImages(flow_document, annotation_works, annotation_report_options);
+                // Finito!
+                StatusManager.Instance.ClearStatus("AnnotationReport");
 
-            // Finito!
-            StatusManager.Instance.ClearStatus("AnnotationReport");
-
-            return annotation_report;
+                cb(annotation_report);
+            });
         }
 
         private static void run_AnnotationOpen_MouseDown(object sender, MouseButtonEventArgs e)

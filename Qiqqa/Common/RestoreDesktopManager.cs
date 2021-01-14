@@ -98,7 +98,17 @@ namespace Qiqqa.Common
                                     }
                                     else
                                     {
-                                        WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document));
+                                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                                        {
+                                            try
+                                            {
+                                                MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                Logging.Error(ex, "RestoreDesktop: Error occurred while attempting to restore the view (tab) for document fingerprint {0}, library Id {1}", document_fingerprint, library_id);
+                                            }
+                                        });
                                     }
                                 }
                             }

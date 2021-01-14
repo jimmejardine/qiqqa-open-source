@@ -18,14 +18,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
     /// </summary>
     public partial class PDFInkLayer : PageLayer, IDisposable
     {
-        private PDFRendererControlStats pdf_renderer_control_stats;
+        private PDFDocument pdf_document;
         private int page;
 
-        public PDFInkLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
+        public PDFInkLayer(PDFDocument pdf_document, int page)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
+            this.pdf_document = pdf_document;
             this.page = page;
 
             InitializeComponent();
@@ -41,14 +41,21 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
             ObjInkCanvas.RequestBringIntoView += ObjInkCanvas_RequestBringIntoView;
 
-            RebuildInks(page, pdf_renderer_control_stats.pdf_document.Inks);
+            RebuildInks(page, pdf_document.Inks);
 
             RaiseInkChange(InkCanvasEditingMode.Ink);
+
+            this.Unloaded += PDFInkLayer_Unloaded;
         }
 
-        public static bool IsLayerNeeded(PDFRendererControlStats pdf_renderer_control_stats, int page)
+        private void PDFInkLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            StrokeCollection stroke_collection = pdf_renderer_control_stats.pdf_document.Inks.GetInkStrokeCollection(page);
+            this.Dispose();
+        }
+
+        public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
+        {
+            StrokeCollection stroke_collection = pdf_document.Inks.GetInkStrokeCollection(page);
             return (null != stroke_collection);
         }
 
@@ -115,7 +122,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             {
                 ObjInkCanvas.Strokes.Save(ms, true);
                 byte[] ink_blob = ms.ToArray();
-                pdf_renderer_control_stats.pdf_document.Inks.AddPageInkBlob(page, ink_blob);
+                pdf_document.Inks.AddPageInkBlob(page, ink_blob);
             }
         }
 
@@ -204,7 +211,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             WPFDoEvents.SafeExec(() =>
             {
                 // Clear the references for sanity's sake
-                pdf_renderer_control_stats = null;
+                pdf_document = null;
             });
 
             WPFDoEvents.SafeExec(() =>

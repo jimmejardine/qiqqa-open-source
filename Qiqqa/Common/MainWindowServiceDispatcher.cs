@@ -285,10 +285,12 @@ namespace Qiqqa.Common
 
         private void OnShowTagOptionsComplete(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
-            var annotation_report = AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options);
-            ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
-            string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
-            OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
+            AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report) 
+            {
+                ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
+                string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
+                OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
+            });
         }
 
         public void OpenNewWindow(string header, BitmapImage icon, bool can_close, bool can_floating, FrameworkElement content)

@@ -23,6 +23,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
 
         public PDFHandLayer(PDFRendererControlStats pdf_renderer_control_stats, int page, PDFRendererControl pdf_renderer_control)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
             this.pdf_renderer_control = pdf_renderer_control;
@@ -45,6 +47,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             MouseDown += PDFHandLayer_MouseDown;
             MouseUp += PDFHandLayer_MouseUp;
             MouseMove += PDFHandLayer_MouseMove;
+
+            this.Unloaded += PDFHandLayer_Unloaded;
+        }
+
+        private void PDFHandLayer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Dispose();
         }
 
         private void PDFHandLayer_MouseUp(object sender, MouseButtonEventArgs e)

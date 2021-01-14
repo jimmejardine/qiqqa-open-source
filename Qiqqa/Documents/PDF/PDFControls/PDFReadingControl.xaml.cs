@@ -46,6 +46,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public PDFReadingControl(PDFDocument pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             InitializeComponent();
 
             Unloaded += PDFReadingControl_Unloaded;

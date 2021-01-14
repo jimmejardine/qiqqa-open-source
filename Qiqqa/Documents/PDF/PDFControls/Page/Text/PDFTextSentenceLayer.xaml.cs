@@ -25,6 +25,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
         public PDFTextSentenceLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
@@ -50,6 +52,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
             RequestBringIntoView += PDFTextSentenceLayer_RequestBringIntoView;
 
             text_layer_selection_mode = TextLayerSelectionMode.Sentence;
+
+            this.Unloaded += PDFTextSentenceLayer_Unloaded;
+        }
+
+        private void PDFTextSentenceLayer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Dispose();
         }
 
         private void PDFTextSentenceLayer_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
@@ -171,7 +180,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         {
             ClearChildren();
 
-            WordList words = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
+            WordList words = pdf_renderer_control_stats?.pdf_document?.PDFRenderer.GetOCRText(page);
             if (null == words)
             {
                 Children.Add(new OCRNotAvailableControl());

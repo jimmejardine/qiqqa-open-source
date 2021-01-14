@@ -72,8 +72,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 BuildPopupFromOCR build_popup_from_ocr = new BuildPopupFromOCR(this);
                 build_popup_from_ocr.BuildMenu();
             }
+
+            this.Unloaded += JumpToSectionPopup_Unloaded;
         }
 
+        private void JumpToSectionPopup_Unloaded(object sender, RoutedEventArgs e)
+        {
+            pdf_reading_control = null;
+            pdf_render_control = null;
+            pdf_renderer_control_stats = null;
+            popup = null;
+        }
 
         public void Open()
         {

@@ -68,6 +68,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             ObjTagEditorControl.TagFeature_Remove = Features.Document_RemoveAnnotationTag;
 
             ReColor();
+
+            this.Unloaded += PDFAnnotationItem_Unloaded;
+        }
+
+        private void PDFAnnotationItem_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Dispose();
         }
 
         private void ObjTagEditorControl_LostFocus(object sender, RoutedEventArgs e)
