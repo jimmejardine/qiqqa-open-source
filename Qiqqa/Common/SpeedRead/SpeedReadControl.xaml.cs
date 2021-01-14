@@ -241,7 +241,7 @@ namespace Qiqqa.Common.SpeedRead
                     int current_position = 0;
                     int current_maximum = 0;
                     // Interrogate the GUI
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                         {
                             current_position = (int)SliderLocation.Value;
                             current_maximum = (int)SliderLocation.Maximum;
@@ -268,7 +268,7 @@ namespace Qiqqa.Common.SpeedRead
 
                         ++current_position;
 
-                        WPFDoEvents.InvokeInUIThread(() =>
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {
                                 SliderLocation.Value = current_position;
                                 TextCurrentWord.Text = current_word;
@@ -280,7 +280,7 @@ namespace Qiqqa.Common.SpeedRead
                     }
                     else
                     {
-                        WPFDoEvents.InvokeInUIThread(() =>
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {
                                 TogglePlayPause(force_stop: true);
                             }
