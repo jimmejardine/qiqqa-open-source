@@ -13,7 +13,6 @@ using Qiqqa.Main;
 using Qiqqa.Marketing;
 using Qiqqa.Synchronisation.PDFSync;
 using Utilities;
-using Utilities.ClientVersioning;
 using Utilities.Maintainable;
 
 namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
@@ -106,6 +105,8 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
         {
             if (null == ClientUpdater.Instance)
             {
+                Logging.Warn("TODO: Checking for updates: check the github releases page(s) and report back to the user there's an update available.");
+
                 try
                 {
                     ClientUpdater.Init("Qiqqa",

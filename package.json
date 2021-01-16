@@ -1,6 +1,6 @@
 {
   "name": "qiqqa",
-  "version": "82.0.7579-33985",
+  "version": "83.0.7655-37537",
   "description": "Qiqqa: The essential free research and reference manager. Search for, read and annotate your PDFs. Then review your work, write up and create bibliographies instantly.",
   "main": "Qiqqa.Build/info.js",
   "directories": {
@@ -46,11 +46,11 @@
     "@gerhobbelt/nomnom": "1.8.4-30",
     "@gerhobbelt/xml-beautifier": "1.0.2-1",
     "glob": "7.1.6",
-    "globby": "11.0.1",
+    "globby": "11.0.2",
     "jsdom": "^16.4.0",
     "moment": "2.29.1",
-    "prettier": "2.1.2",
+    "prettier": "2.2.1",
     "prettier-cli": "0.1.0",
-    "semver": "7.3.2"
+    "semver": "7.3.4"
   }
 }

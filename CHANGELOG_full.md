@@ -1,4 +1,137 @@
 
+# v83pre release: v83.0.7649-30836 (UNPUBLISHED)
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+
+
+
+
+
+
+
+
+2021-01-10
+----------
+
+			
+* (18f18fbd) updated the 'superclean' script to not nuke any important binaries while erasing all compiler outputs.
+			
+* (4f741076) updated developer info txt & ignore the current .NET SDK and RunTime installers in the /libs/ directory.
+			
+* (f5b0113e) make sure the CHANGELOG files are included in the install/setup build.
+			
+* (8bab97f3) nant: add license and update README. Nant is up-to-date (0.92 release)
+			
+* (1e020866) moved ClientVersioning code from Utilities to Qiqqa itself as it uses Qiqqa specific means.
+			
+* (3ecf5781) make sure we skip the Lucene.NET submodule/project directory for Qiqqa version bumping/syncing like we already did the MuPDF library for the same reason: that lib has its own version.
+			
+* (e2ea6828) first part of change to show the current CHANGELOG when clicking the vNN button in bottom left corner. (#174)
+			
+* (a90cfee0) slight improvement of the log output & unification of the constructor interface of classes using WebLibraryDetail info.
+			
+* (311d6872) diagnostics output extended as part of work on https://github.com/jimmejardine/qiqqa-open-source/issues/288 : we need to see what the configured and internal paths used are for various bits inside Qiqqa.
+			
+* (55f328ba) added GetOCRText boundary check to at least help discover *why* & *when* exactly these out-of-bounds requests occur - as this was discovered in customer log files during problem analysis of https://github.com/jimmejardine/qiqqa-open-source/issues/283
+			
+
+
+
+2021-01-03
+----------
+
+			
+* (2a2803ed) anticipating the future: future Qiqqa will use SHA256 instead of the old *semi*-SHA1 (*semi* because Qiqqa's SHA1-based fingerprinting of PDF documents is buggered: many zero nibbles in the hash are discarded, hence far more risk of hash collision in (very) large collections.)
+			
+
+
+
+2021-01-02
+----------
+
+			
+* (89347134) Sync Libraries / Libraries are not read-only: preliminary support for https://github.com/jimmejardine/qiqqa-open-source/issues/268 : the Create/Join code did exist, but ASSERT checks would fail, at least in BEDUG BUILDs, before the library would be set up properly before.
+  
+  Problems still to solve:
+  
+  - joining a sync path which is already used by another of your libraries: collision!
+  - joining a sync path where the library ID is the same as one of your already existing ones, because
+    + this was EITHER an old sync directory for that lib once
+    + OR the sync path happens to have the same Id/whatever because someone else created it (or you've been messing around with sync paths and testing Qiqqa, @GerHobbelt ;-) )
+  - give some user grokkable feedback when you JOIN but DO NOT see the change, because it somehow decides that one is already in your library list. This is now happening silently.
+  - might want to ASK if that was intentional before overwriting another library's sync path or changing the library name through CREATE and then editing the title + description in there.
+			
+* (e7812e54) Fix a couple of failing assertions now that we're testing IntranetLibrary synchronization in debug mode.
+			
+* (18751f89) 
+  - replaced all user-unfriendly Directory Selector dialogs with proper Windows Selector dialogs set to pick directories. (Added required NuGet packages for this)
+  - couple of 'In Visual Studio Design Mode' checks to prevent crashes/messageboxes popping up in there.
+  - added 'Browse the change Sync Target directory' feature in the Sync Libraries dialog.
+    + also added the required extra background work to ensure that a plain vanilla *local* library gets turned into a proper Intranet Library once the user hits the Sync button: the sync metadata is (re-)written in the library's local storage to ensure Qiqqa will recall this change on subsequent runs.
+    + Do note that BUNDLE Libraries CANNOT be converted to Intranet libraries.
+			
+* (efb18352) removed all unused LuceneNET code.
+			
+
+
+
+2021-01-01
+----------
+
+			
+* (65b20be4) update all NuGet packages
+			
+* (e3da81e5) 
+  - worked on #281 / #280: SORAX is again one of the culprits it seems.
+    Added memory status report code to dump into the logging as the GC output is not reliable when we want to know how much memory was actually used at the peak, when the OutOfMemory exception happened.
+  - lots of CultureInfo.CurrentCulture params are not necessary and only make the code harder to read. Removed where MSVC2019 doesn't yak about these any more.
+  - added *reason* message for logging lines which report when Qiqqa is being shut down. This should help diagnose #280 / #281 as well.
+  - tweaked the exit process to track and report the total number of threads running as well as only the SafeThreadPool
+  - document comments for several routines re LDA and AutoTag creation. Finally understanding how it's done. The LDA is *not* used for creating the AutoTags but only to find the *commonly shared* tags when running in Expedition.
+    The BuzzwordGenerator is the AutoTag generator (in combination with some other code) and is using some plain basic heuristics. autoTags are extracted from the *document title* only, which explains the lousy AutoTag performance I got with the latest lib, as that one has very few PDFs which pass through OCR unscathed.
+			
+
+
+
+2020-12-31
+----------
+
+			
+* (3050e4a0..540a0e2d) Update README.md
+			
+			
+
+
+
+2020-12-28
+----------
+
+			
+* (aa7d03ab) make executing background Google Scholar checks an *option* -- which should be DISABLED by default as Scholar accesses are pretty costly: catcha issues, etc.
+			
+* (ed13008b) other classes should reference the WebLibraryDetail instance, not the Library instance. (cyclic reference issues galore)
+			
+* (0afca2ff) message language typo fix
+			
+* (cbbca0f5) rename WebLibraryDetail attributes which were only relevant back in the day of Commercial Qiqqa. This should uncover any lingering use of the buggers pretty darn quickly.
+			
+* (f484785f) update `qpdf` tool to 10.0.4
+			
+* (672ab4cd) 
+  - when rethrowing exceptions, do it so the original stacktrace is kept intact: use `throw;` instead of `throw ex;`
+  - re-introduce the exception catching blocks in LDA 'keyword extraction' logic, which will easily run out of memory for larger libraries / files.
+			
+
+
+
+
+
 # v82pre release: v82.0.7579.33985 (UNPUBLISHED)
 
 > ## Note

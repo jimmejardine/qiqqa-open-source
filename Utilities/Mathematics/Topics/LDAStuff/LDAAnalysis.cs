@@ -91,8 +91,8 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             {
                 if (null == _density_of_words_in_topics)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         Logging.Info("+Generating density_of_words_in_topics");
                         _density_of_words_in_topics = new float[lda.NUM_TOPICS, lda.NUM_WORDS];
 
@@ -111,12 +111,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                         });
 
                         Logging.Info("-Generating density_of_words_in_topics");
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return _density_of_words_in_topics;
@@ -130,8 +132,8 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             {
                 if (null == _density_of_topics_in_documents)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         Logging.Info("+Generating density_of_topics_in_documents");
                         _density_of_topics_in_documents = new float[lda.NUM_DOCS, lda.NUM_TOPICS];
 
@@ -149,12 +151,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                             }
                         });
                         Logging.Info("-Generating density_of_topics_in_documents");
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return _density_of_topics_in_documents;
@@ -168,8 +172,8 @@ namespace Utilities.Mathematics.Topics.LDAStuff
             {
                 if (null == _pseudo_density_of_topics_in_words)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         Logging.Info("+Generating pseudo_density_of_topics_in_words");
                         _pseudo_density_of_topics_in_words = new float[lda.NUM_WORDS, lda.NUM_TOPICS];
                         for (int word = 0; word < lda.NUM_WORDS; ++word)
@@ -193,12 +197,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                         }
 
                         Logging.Info("+Generating pseudo_density_of_topics_in_words");
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return _pseudo_density_of_topics_in_words;
@@ -214,8 +220,8 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 // Build this if we need to
                 if (null == density_of_words_in_topics_sorted)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         // Work out the sorted ranks
                         density_of_words_in_topics_sorted = new WordProbability[lda.NUM_TOPICS][];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -227,12 +233,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                             }
                             Array.Sort(density_of_words_in_topics_sorted[topic]);
                         }
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return density_of_words_in_topics_sorted;
@@ -250,8 +258,8 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 // Build this if we need to
                 if (null == density_of_docs_in_topics_sorted)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         // Work out the sorted ranks
                         density_of_docs_in_topics_sorted = new DocProbability[lda.NUM_TOPICS][];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -263,12 +271,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                             }
                             Array.Sort(density_of_docs_in_topics_sorted[topic]);
                         }
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return density_of_docs_in_topics_sorted;
@@ -315,8 +325,8 @@ namespace Utilities.Mathematics.Topics.LDAStuff
 
         private TopicProbability[][] CalculateDensityOfTopicsInDocsSorted(int max_topics_to_retain)
         {
-            //try
-            //{
+            try
+            {
                 TopicProbability[][] local_density_of_topics_in_docs_sorted = new TopicProbability[lda.NUM_DOCS][];
 
                 // How many topics will we remember for each doc?
@@ -350,12 +360,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 });
 
                 return local_density_of_topics_in_docs_sorted;
-            //}
-            //catch (System.OutOfMemoryException ex)
-            //{
-            //    // terminate app
-            //    throw;
-            //}
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                // terminate app
+                throw;
+            }
         }
 
         private TopicProbability[][] density_of_topics_in_docs_scaled_sorted; // [doc][topic]
@@ -369,8 +381,8 @@ namespace Utilities.Mathematics.Topics.LDAStuff
                 // Build this if we need to
                 if (null == density_of_topics_in_docs_scaled_sorted)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         // This hold how much each topic is used in all the documents
                         double[] total_density_of_topics_in_docs = new double[lda.NUM_TOPICS];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -414,12 +426,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
 
                             Array.Sort(density_of_topics_in_docs_scaled_sorted[doc]);
                         }
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return density_of_topics_in_docs_scaled_sorted;

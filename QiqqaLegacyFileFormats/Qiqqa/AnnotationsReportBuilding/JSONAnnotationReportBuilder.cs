@@ -24,12 +24,14 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.AnnotationsReportBu
             public string text { get; set; }
         }
 
-#if false
+#if SAMPLE_LOAD_CODE
         internal static void BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_JSONAnnotationReport);
+
             AnnotationReportOptions annotation_report_options = new AnnotationReportOptions();
 
-            List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(library, pdf_documents, annotation_report_options);
+            List<AnnotationWorkGenerator.AnnotationWork> annotation_works = AnnotationWorkGenerator.GenerateAnnotationWorks(web_library_detail, pdf_documents, annotation_report_options);
 
             IEnumerable<AnnotationJSON> annotation_jsons = annotation_works.Select(annotation_work =>
                 new AnnotationJSON

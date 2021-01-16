@@ -13,11 +13,11 @@
                 </local_gui:AugmentedButton.LayoutTransform>
             </local_gui:AugmentedButton>
         </DockPanel>
-        <local_gui:AugmentedToolBarButton DockPanel.Dock="Right" Name="ButtonThemeSwatch" Width="24"/>
+        <local_gui:AugmentedToolBarButton DockPanel.Dock="Right" x:Name="ButtonThemeSwatch" Width="24"/>
         <DockPanel DockPanel.Dock="Bottom" Name="ObjLookInsidePanel">
             <local_search:SearchResultsListControl MaxHeight="200" x:Name="ListSearchDetails" />
         </DockPanel>
-        <local_gui:AugmentedToolBarButton Margin="0 3 0 3" DockPanel.Dock="Left" Name="ButtonOpen" />
+        <local_gui:AugmentedToolBarButton Margin="0 3 0 3" DockPanel.Dock="Left" x:Name="ButtonOpen" />
         <StackPanel>
             <DockPanel Margin="3" >
                 <TextBlock DockPanel.Dock="Right" Text="{Binding YearCombined}" ToolTip="{Binding YearCombined}" TextTrimming="CharacterEllipsis" />

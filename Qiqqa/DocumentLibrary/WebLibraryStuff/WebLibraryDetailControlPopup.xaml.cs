@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -41,6 +42,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private void MenuCustomiseBackground_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             web_library_detail_control.CustomiseBackground();
             e.Handled = true;
         }
@@ -48,6 +53,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private void MenuCustomiseIcon_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             web_library_detail_control.CustomiseIcon();
             e.Handled = true;
         }

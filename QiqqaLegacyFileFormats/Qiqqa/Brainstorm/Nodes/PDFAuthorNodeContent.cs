@@ -10,20 +10,19 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Brainstorm.Nodes
         private string surname;
         private string initial;
 
-
 #if false
         [NonSerialized]
-        private Library library = null;
-        public Library Library
+        private WebLibraryDetail web_library_detail = null;
+        public WebLibraryDetail LibraryRef
         {
             get
             {
-                if (null == library)
+                if (null == web_library_detail)
                 {
-                    library = WebLibraryManager.Instance.GetLibrary(library_id);
+                    web_library_detail = WebLibraryManager.Instance.GetLibrary(library_id);
                 }
 
-                return library;
+                return web_library_detail;
             }
         }
 #endif
@@ -37,12 +36,12 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Brainstorm.Nodes
 
         public bool MatchesKeyword(string keyword)
         {
-            if ((null != surname) && surname.ToLower(CultureInfo.CurrentCulture).Contains(keyword)) return true;
-            if ((null != initial) && initial.ToLower(CultureInfo.CurrentCulture).Contains(keyword)) return true;
+            if ((null != surname) && surname.ToLower().Contains(keyword)) return true;
+            if ((null != initial) && initial.ToLower().Contains(keyword)) return true;
             return false;
         }
 
-#region  --- Binding properties ------------------------------------
+        #region  --- Binding properties ------------------------------------
 
         public string Surname => surname;
 
@@ -62,8 +61,9 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Brainstorm.Nodes
                 }
             }
         }
-        
-#endregion
+
+
+        #endregion
 
         public override bool Equals(object obj)
         {

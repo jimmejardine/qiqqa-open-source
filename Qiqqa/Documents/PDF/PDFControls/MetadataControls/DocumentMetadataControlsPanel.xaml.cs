@@ -18,6 +18,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             InitializeComponent();
 
+            Unloaded += DocumentMetadataControlsPanel_Unloaded;
+
             ObjTabs.Children.Clear();
             ObjTabs.AddContent("Properties", "Properties", null, false, false, TabMetadata);
             ObjTabs.AddContent("Annotations", "Annotations", null, false, false, TabUserData);
@@ -28,6 +30,20 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             DataContextChanged += DocumentMetadataControlsPanel_DataContextChanged;
 
             ReevaluateDataContext();
+        }
+
+        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
+        // Which says:
+        //
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
+        // or a UserControl, it may not be called as expected.
+        private void DocumentMetadataControlsPanel_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // TODO: ditch the pdf renders in the GridPreview children list...
+            DataContextChanged -= DocumentMetadataControlsPanel_DataContextChanged;
+            DataContext = null;
         }
 
         private void HyperlinkRestore_Click(object sender, RoutedEventArgs e)

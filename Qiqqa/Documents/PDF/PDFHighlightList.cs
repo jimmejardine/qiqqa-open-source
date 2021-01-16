@@ -10,9 +10,6 @@ namespace Qiqqa.Documents.PDF
     {
         private Dictionary<int, HashSet<PDFHighlight>> highlights = new Dictionary<int, HashSet<PDFHighlight>>();
 
-        public delegate void OnPDFHighlightListChangedDelegate();
-        public event OnPDFHighlightListChangedDelegate OnPDFHighlightListChanged;
-
         private void RemoveHighlight_Internal(PDFHighlight highlight)
         {
             int count_before = highlights.Count;
@@ -36,7 +33,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        private void AddHighlight_Internal(PDFHighlight highlight)
+        private bool AddHighlight_Internal(PDFHighlight highlight)
         {
             HashSet<PDFHighlight> highlights_for_page;
             if (!highlights.TryGetValue(highlight.Page, out highlights_for_page))
@@ -46,25 +43,17 @@ namespace Qiqqa.Documents.PDF
             }
 
             highlights_for_page.Add(highlight);
+            return true;
         }
 
-        public void AddUpdatedHighlight(PDFHighlight highlight)
+        public bool __AddUpdatedHighlight(PDFHighlight highlight)
         {
-            AddHighlight_Internal(highlight);
-
-            OnPDFHighlightListChanged?.Invoke();
+            return AddHighlight_Internal(highlight);
         }
 
-        public void RemoveUpdatedHighlight(PDFHighlight highlight)
+        public void __RemoveUpdatedHighlight(PDFHighlight highlight)
         {
             RemoveHighlight_Internal(highlight);
-
-            OnPDFHighlightListChanged?.Invoke();
-        }
-
-        private void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            OnPDFHighlightListChanged?.Invoke();
         }
 
         public int Count
@@ -121,7 +110,7 @@ namespace Qiqqa.Documents.PDF
             {
                 foreach (var highlight in highlights_for_page)
                 {
-                    clone.AddUpdatedHighlight((PDFHighlight)highlight.Clone());
+                    clone.__AddUpdatedHighlight((PDFHighlight)highlight.Clone());
                 }
             }
             return clone;

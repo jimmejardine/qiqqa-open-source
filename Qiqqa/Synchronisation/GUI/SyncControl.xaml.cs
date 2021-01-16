@@ -1,9 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using icons;
+using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.Synchronisation.BusinessLogic;
@@ -46,6 +49,47 @@ namespace Qiqqa.Synchronisation.GUI
             ButtonCancel.Icon = Icons.GetAppIcon(Icons.Cancel);
             ButtonCancel.Caption = "Cancel sync";
             ButtonCancel.Click += ButtonCancel_Click;
+        }
+
+        private void btnBrowseSyncPath_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SyncControlGridItem dataRowView = (SyncControlGridItem)((Button)e.Source).DataContext;
+
+                string id = dataRowView.Id;
+                foreach (SyncControlGridItem item in sync_control_grid_item_set.grid_items)
+                {
+                    if (item.Id == id)
+                    {
+                        // turn this lib into an IntranetLibrary with a new path?
+                        //
+                        // https://stackoverflow.com/questions/11624298/how-to-use-openfiledialog-to-select-a-folder/41511598#answer-41511598
+                        using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+                        {
+                            dialog.InitialDirectory = item.SyncTarget;
+                            dialog.IsFolderPicker = true;
+                            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                            {
+                                try
+                                {
+                                    item.SyncTarget = dialog.FileName;
+                                    GridLibraryGrid.Items.Refresh();
+                                }
+                                catch (NotImplementedException ex)
+                                {
+                                    MessageBoxes.Warn(ex.Message);
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
         private void GRIDCHECKBOX_Checked(object sender, RoutedEventArgs e)

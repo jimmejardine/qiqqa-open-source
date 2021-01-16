@@ -33,6 +33,8 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Files
             }
             catch (Exception ex)
             {
+                Logging.Error(ex, $"LoadRedundant: failed to load '{filename}'. Checking if there's a redundant copy.");
+
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))
@@ -43,7 +45,7 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Files
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -177,6 +179,8 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Files
             }
             catch (Exception ex)
             {
+                Logging.Error(ex, $"TextLoad: failed to load '{filename}'. Checking if there's a redundant copy.");
+
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))
@@ -187,7 +191,7 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Files
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -246,6 +250,8 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Files
             }
             catch (Exception ex)
             {
+                Logging.Error(ex, $"ProtoLoad: failed to load '{filename}'. Checking if there's a redundant copy.");
+
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))
@@ -256,7 +262,7 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Files
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }

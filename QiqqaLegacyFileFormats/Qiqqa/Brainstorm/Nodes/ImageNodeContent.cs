@@ -56,7 +56,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Brainstorm.Nodes
 
         internal static bool IsSupportedImagePath(string filename)
         {
-            string extension = Path.GetExtension(filename.ToLower(CultureInfo.CurrentCulture));
+            string extension = Path.GetExtension(filename.ToLower());
 
             if (0 == extension.CompareTo(".jpg")) return true;
             if (0 == extension.CompareTo(".png")) return true;

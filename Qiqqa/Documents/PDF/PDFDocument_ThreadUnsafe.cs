@@ -46,6 +46,9 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
+        [NonSerialized]
+        internal bool dirtyNeedsReindexing = false;
+
         public string GetAttributesAsJSON()
         {
             string json = JsonConvert.SerializeObject(dictionary.Attributes, Formatting.Indented);
@@ -829,15 +832,15 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         [NonSerialized]
         private PDFAnnotationList annotations = null;
 
-        public PDFAnnotationList GetAnnotations(Dictionary<string, byte[]> library_items_annotations_cache = null)
+        public PDFAnnotationList GetAnnotations()
         {
             if (null == annotations)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 annotations = new PDFAnnotationList();
-                PDFAnnotationSerializer.ReadFromDisk(this, ref annotations, library_items_annotations_cache);
-#if false
-                annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
-#endif
+                PDFAnnotationSerializer.ReadFromDisk(this);
+                dirtyNeedsReindexing = true;
             }
 
             return annotations;
@@ -867,6 +870,14 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return json;
         }
 
+        public void AddUpdatedAnnotation(PDFAnnotation annotation)
+        {
+            if (annotations.__AddUpdatedAnnotation(annotation))
+            {
+                dirtyNeedsReindexing = true;
+            }
+        }
+
         [NonSerialized]
         private PDFHightlightList highlights = null;
         public PDFHightlightList Highlights => GetHighlights(null);
@@ -875,12 +886,11 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             if (null == highlights)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 highlights = new PDFHightlightList();
                 PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
-#if false
-                highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
-#endif
-                return highlights;
+                dirtyNeedsReindexing = true;
             }
 
             return highlights;
@@ -905,19 +915,33 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return json;
         }
 
+        public void AddUpdatedHighlight(PDFHighlight highlight)
+        {
+            if (highlights.__AddUpdatedHighlight(highlight))
+            {
+                dirtyNeedsReindexing = true;
+            }
+        }
+
+        public void RemoveUpdatedHighlight(PDFHighlight highlight)
+        {
+            highlights.__RemoveUpdatedHighlight(highlight);
+            dirtyNeedsReindexing = true;
+        }
+
         [NonSerialized]
         private PDFInkList inks = null;
-        public PDFInkList Inks => GetInks(null);
+        public PDFInkList Inks => GetInks();
 
-        internal PDFInkList GetInks(Dictionary<string, byte[]> library_items_inks_cache)
+        internal PDFInkList GetInks()
         {
             if (null == inks)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 inks = new PDFInkList();
-                PDFInkSerializer.ReadFromDisk(this, inks, library_items_inks_cache);
-#if false
-                inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
-#endif
+                PDFInkSerializer.ReadFromDisk(this, inks);
+                dirtyNeedsReindexing = true;
             }
 
             return inks;
@@ -942,6 +966,14 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
             }
             return data;
+        }
+
+        public void AddPageInkBlob(int page, byte[] page_ink_blob)
+        {
+            if (inks.__AddPageInkBlob(page, page_ink_blob))
+            {
+                dirtyNeedsReindexing = true;
+            }
         }
 
         #endregion -------------------------------------------------------------------------------------------------
@@ -1153,7 +1185,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             dictionary["Year"] = pdf_document_template.dictionary["Year"];
             dictionary["YearSuggested"] = pdf_document_template.dictionary["YearSuggested"];
 
-            annotations = (PDFAnnotationList)pdf_document_template.GetAnnotations(null).Clone();
+            annotations = (PDFAnnotationList)pdf_document_template.GetAnnotations().Clone();
             highlights = (PDFHightlightList)pdf_document_template.Highlights.Clone();
             inks = (PDFInkList)pdf_document_template.Inks.Clone();
         }
@@ -1184,12 +1216,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             annotations = null;
             highlights = null;
             inks = null;
-#else
-#if false
-            annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
-            highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
-            inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
-#endif
 #endif
         }
 
@@ -1209,7 +1235,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         internal PDFAnnotation GetAnnotationByGuid(Guid guid)
         {
-            foreach (PDFAnnotation pdf_annotation in GetAnnotations(null))
+            foreach (PDFAnnotation pdf_annotation in GetAnnotations())
             {
                 if (pdf_annotation.Guid == guid)
                 {

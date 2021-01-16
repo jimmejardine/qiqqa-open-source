@@ -7,10 +7,14 @@
 ### Required tools
 
 - OS: Windows 10
+- .NET 4.8, .NET 5.0 and .NET Core 3.1
 - [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) with `.NET desktop development` workload.
-- [git](https://git-scm.com/downloads) or [git for Windows](https://gitforwindows.org/)
-- bash (comes as part of git packages)
-- `node` (NodeJS) & `npm` (NodeJS Package Manager) —— preferrably installed via [nvm](https://github.com/coreybutler/nvm-windows)
+  + install the .NET SDK for .NET 4.8, .NET 5.0 and .NET Core 3.1, as available here: https://dotnet.microsoft.com/download
+    
+    You'll need all three of 'em as many projects are compiled to all three targets and this spares you from build errors due to missing target environments.
+- [**git**](https://git-scm.com/downloads) or [**git for Windows**](https://gitforwindows.org/)
+- `bash` (comes as part of git packages)
+- `node` (NodeJS) & `npm` (NodeJS Package Manager) —— preferrably installed via [**nvm for windows**](https://github.com/coreybutler/nvm-windows)
 
 
 ### Suggested tools
@@ -89,4 +93,4 @@ There are several scripts which help to prepare the release.
 
   > If you run this script and restart Visual Studio afterwards, you **must** re-configure Visual Studio configuration. See that the active "Solution" is "Release+SETUP" and in dialog from menu `Build` > `Configuration Manager` for solutions nameed "Debug" and "Release" two projects "ClickOnceUninstaller" and "QiqqaPackager" would be unchecked.
 
-- `./build_installer.sh` : the alternative to building the Qiqqa.Packager project and the older way to build a Qiqqa `setup.exe` installer. *Obsolete.*
+- `./build_installer.sh` : the alternative to building the Qiqqa.Packager project and the older way to build a Qiqqa `setup.exe` installer.

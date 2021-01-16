@@ -34,8 +34,8 @@
                     <local_gui:AugmentedToolBarButton x:Name="ButtonZoomOut" Margin="3" />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonZoomIn"/>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonPrint" Margin="3" />
-                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast_Themes"  Margin="3" />
-                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast_Intro" />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonWebcast_Themes"  Margin="3" />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonWebcast_Intro" />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonHelp" Margin="3" />
                 </StackPanel>
             </DockPanel>

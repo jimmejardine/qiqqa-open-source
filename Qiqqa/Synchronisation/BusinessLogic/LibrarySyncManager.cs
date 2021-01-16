@@ -4,6 +4,7 @@ using Alphaleonis.Win32.Filesystem;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.MessageBoxControls;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Synchronisation.GUI;
@@ -297,6 +298,8 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             try
             {
+                IntranetLibraryDetail.EnsureIntranetLibraryExists(sync_control_grid_item.library_sync_detail.web_library_detail);
+
                 if (sync_control_grid_item.SyncMetadata)
                 {
                     if (sd.sync_decision.can_sync)
@@ -341,6 +344,10 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     File.SetCreationTimeUtc(syncfilepath, now);
                     File.SetLastWriteTimeUtc(syncfilepath, now);
                 }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "There was a problem while trying to connect to this Intranet Library?  Are you sure you have permission to access this folder?  Your Network or System Administrator can grant you this permission.\n\nThe detailed error message is:\n" + ex.Message);
             }
             finally
             {

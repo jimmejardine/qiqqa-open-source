@@ -90,19 +90,22 @@ namespace Qiqqa.AnnotationsReportBuilding
         {
             Logging.Debug("ReportViewerControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // Get rid of managed resources
-                ObjDocumentViewer.Document?.Blocks.Clear();
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Get rid of managed resources
+                    ObjDocumentViewer.Document?.Blocks.Clear();
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjDocumentViewer.Document = null;
-                annotation_report = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ObjDocumentViewer.Document = null;
+                    annotation_report = null;
+                });
+
+                ++dispose_count;
             });
-
-            ++dispose_count;
         }
 
         #endregion

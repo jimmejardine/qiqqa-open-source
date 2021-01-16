@@ -266,6 +266,12 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Common.Configuratio
             return ua;
         }
 
+        public bool GoogleScholar_DoExtraBackgroundQueries
+        {
+            get => (this["GoogleScholar_DoExtraBackgroundQueries"] as bool?) ?? false;
+            set => this["GoogleScholar_DoExtraBackgroundQueries"] = value;
+        }
+
         public string Proxy_EZProxy
         {
             get => this["Proxy_EZProxy"] as string;

@@ -6,7 +6,7 @@
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
     <DockPanel>
         <local_gui:AugmentedClosableBorder
-            Name="TxtWarningNeverGenerated"
+            x:Name="TxtWarningNeverGenerated"
             Padding="5"
             DockPanel.Dock="Top">
             <TextBlock TextWrapping="Wrap">
@@ -14,7 +14,7 @@
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
         <local_gui:AugmentedClosableBorder
-            Name="TxtWarningGettingOld"
+            x:Name="TxtWarningGettingOld"
             Padding="5"
             DockPanel.Dock="Top">
             <TextBlock TextWrapping="Wrap">
@@ -22,7 +22,7 @@
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
         <local_gui:AugmentedClosableBorder
-            Name="TxtWarningNoAutoTags"
+            x:Name="TxtWarningNoAutoTags"
             Padding="5"
             DockPanel.Dock="Top">
             <TextBlock TextWrapping="Wrap">
@@ -30,7 +30,7 @@
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
         <local_gui:AugmentedClosableBorder
-            Name="GridVote"
+            x:Name="GridVote"
             Padding="5"
             DockPanel.Dock="Bottom">
             <Grid>
@@ -66,12 +66,12 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <local_gui:AugmentedButton
-                Name="ButtonRefreshTags"
+                x:Name="ButtonRefreshTags"
                 Grid.Column="0"
                 MinHeight="20"
                 DockPanel.Dock="Top" />
             <local_gui:AugmentedButton
-                Name="ButtonManageLists"
+                x:Name="ButtonManageLists"
                 Grid.Column="1"
                 MinHeight="20"
                 DockPanel.Dock="Top" />

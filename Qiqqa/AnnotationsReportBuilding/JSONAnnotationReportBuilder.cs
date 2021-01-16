@@ -6,6 +6,7 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
+using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -30,6 +31,8 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         internal static void BuildReport(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Library_JSONAnnotationReport);
 
             AnnotationReportOptions annotation_report_options = new AnnotationReportOptions();

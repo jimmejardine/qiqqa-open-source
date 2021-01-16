@@ -16,6 +16,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -63,9 +64,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public PDFRendererControl(PDFDocument pdf_document, bool remember_last_read_page, ZoomType force_zoom_type)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             Theme.Initialize();
 
             InitializeComponent();
+
+            Unloaded += PDFRendererControl_Unloaded;
 
             pdf_renderer_control_stats = new PDFRendererControlStats(this, pdf_document);
             this.remember_last_read_page = remember_last_read_page;
@@ -133,6 +138,18 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ScrollPages.Focus();
 
             Logging.Info("-Setting initial viewport");
+        }
+
+        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
+        // Which says:
+        //
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
+        // or a UserControl, it may not be called as expected.
+        private void PDFRendererControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            //Dispose();
         }
 
         private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -362,39 +379,57 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    pdf_renderer_control_stats?.pdf_document.QueueToStorage();
-
-                    // Get rid of managed resources
-                    List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
-                    foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
+                    if (dispose_count == 0)
                     {
-                        children.Add(child);
-                    }
-
-                    ObjPagesPanel.Children.Clear();
-
-                    foreach (PDFRendererPageControl child in children)
-                    {
-                        WPFDoEvents.SafeExec(() =>
+                        if (!ShutdownableManager.Instance.IsShuttingDown)
                         {
-                            child.Dispose();
-                        });
+                            pdf_renderer_control_stats?.pdf_document.QueueToStorage();
+                        }
                     }
+                });
 
-                    pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
-                }
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
+                        foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
+                        {
+                            children.Add(child);
+                        }
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                pdf_renderer_control_stats = null;
+                        ObjPagesPanel.Children.Clear();
+
+                        foreach (PDFRendererPageControl child in children)
+                        {
+                            WPFDoEvents.SafeExec(() =>
+                            {
+                                child.Dispose();
+                            });
+                        }
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (dispose_count == 0)
+                    {
+                        pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    pdf_renderer_control_stats = null;
+                });
+
+                ++dispose_count;
             });
-
-            ++dispose_count;
         }
 
         #endregion

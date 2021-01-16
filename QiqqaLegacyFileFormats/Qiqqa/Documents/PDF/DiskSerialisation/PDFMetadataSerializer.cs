@@ -51,7 +51,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Documents.PDF.DiskS
                 catch (Exception ex2)
                 {
                     Logging.Error(ex2, "Failed second attempt, reading using old binary format");
-                    throw ex;
+                    throw;
                 }
             }
         }

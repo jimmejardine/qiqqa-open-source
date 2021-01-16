@@ -1,6 +1,6 @@
 # QPDF
 
-Current version: qpdf-9.1.0-bin-msvc32
+Current version: qpdf-10.0.4-bin-msvc32
 
 Fetch latest qpdf from https://github.com/qpdf/qpdf/releases
 

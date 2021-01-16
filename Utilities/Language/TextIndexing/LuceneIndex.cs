@@ -31,6 +31,8 @@ namespace Utilities.Language.TextIndexing
 
         public LuceneIndex(string LIBRARY_INDEX_BASE_PATH)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             this.LIBRARY_INDEX_BASE_PATH = LIBRARY_INDEX_BASE_PATH;
 
             CheckIndexVersion();
@@ -252,7 +254,6 @@ namespace Utilities.Language.TextIndexing
                         {
                             Lucene.Net.Search.Hit hit = (Lucene.Net.Search.Hit)i.Current;
                             string fingerprint = hit.Get("fingerprint");
-                            string page = hit.Get("page");
 
                             if (!fingerprints_already_seen.Contains(fingerprint))
                             {
@@ -271,7 +272,7 @@ namespace Utilities.Language.TextIndexing
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "GetDocumentsWithQuery: There was a problem opening the index file for searching.");
+                Logging.Error(ex, $"GetDocumentsWithQuery: There was a problem opening the index file for searching (path: '{LIBRARY_INDEX_BASE_PATH}', query: '{query}')");
             }
 
             return fingerprints;
@@ -290,13 +291,13 @@ namespace Utilities.Language.TextIndexing
                     {
                         QueryParser query_parser = new QueryParser(Version.LUCENE_29, "content", analyzer);
 
-                        Query query_object = query_parser.Parse(query);
+                        Lucene.Net.Search.Query query_object = query_parser.Parse(query);
                         Lucene.Net.Search.Hits hits = index_searcher.Search(query_object);
 
                         var i = hits.Iterator();
                         while (i.MoveNext())
                         {
-                            Hit hit = (Hit)i.Current;
+                            Lucene.Net.Search.Hit hit = (Lucene.Net.Search.Hit)i.Current;
                             string fingerprint = hit.Get("fingerprint");
                             int page = Convert.ToInt32(hit.Get("page"));
                             double score = hit.GetScore();
@@ -328,7 +329,7 @@ namespace Utilities.Language.TextIndexing
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "GetDocumentPagesWithQuery: There was a problem opening the index file for searching.");
+                Logging.Warn(ex, $"GetDocumentPagesWithQuery: There was a problem opening the index file for searching (path: '{LIBRARY_INDEX_BASE_PATH}', query: '{query}')");
             }
 
             return results;
@@ -356,13 +357,13 @@ namespace Utilities.Language.TextIndexing
                     {
                         using (IndexSearcher index_searcher = new IndexSearcher(index_reader))
                         {
-                            TermQuery term_query = new TermQuery(new Term("content", keyword));
-                            Hits hits = index_searcher.Search(term_query);
+                            Lucene.Net.Search.TermQuery term_query = new Lucene.Net.Search.TermQuery(new Term("content", keyword));
+                            Lucene.Net.Search.Hits hits = index_searcher.Search(term_query);
 
                             var i = hits.Iterator();
                             while (i.MoveNext())
                             {
-                                Hit hit = (Hit)i.Current;
+                                Lucene.Net.Search.Hit hit = (Lucene.Net.Search.Hit)i.Current;
                                 string fingerprint = hit.Get("fingerprint");
                                 fingerprints.Add(fingerprint);
                             }
@@ -376,45 +377,7 @@ namespace Utilities.Language.TextIndexing
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "GetDocumentsWithWord: There was a problem opening the index file for searching.");
-            }
-
-            return fingerprints;
-        }
-
-        public List<string> GetDocumentsSimilarToDocument(string document_filename)
-        {
-            List<string> fingerprints = new List<string>();
-
-            try
-            {
-                using (IndexReader index_reader = IndexReader.Open(LIBRARY_INDEX_BASE_PATH, true))
-                {
-                    using (IndexSearcher index_searcher = new IndexSearcher(index_reader))
-                    {
-                        LuceneMoreLikeThis mlt = new LuceneMoreLikeThis(index_reader);
-                        mlt.SetFieldNames(new string[] { "content" });
-                        mlt.SetMinTermFreq(0);
-
-                        Query query = mlt.Like(new StreamReader(document_filename));
-                        Hits hits = index_searcher.Search(query);
-                        var i = hits.Iterator();
-                        while (i.MoveNext())
-                        {
-                            Hit hit = (Hit)i.Current;
-                            string fingerprint = hit.Get("fingerprint");
-                            fingerprints.Add(fingerprint);
-                        }
-
-                        // Close the index
-                        index_searcher.Close();
-                    }
-                    index_reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logging.Warn(ex, "GetDocumentsSimilarToDocument: There was a problem opening the index file for searching.");
+                Logging.Warn(ex, $"GetDocumentsWithWord: There was a problem opening the index file for searching (path: '{LIBRARY_INDEX_BASE_PATH}', keyword: '{keyword}')");
             }
 
             return fingerprints;
@@ -428,7 +391,7 @@ namespace Utilities.Language.TextIndexing
 
         public void InvalidateIndex()
         {
-            Logging.Warn("Invalidating Lucene index at {0}", LIBRARY_INDEX_BASE_PATH);
+            Logging.Warn($"Invalidating Lucene index at '{LIBRARY_INDEX_BASE_PATH}' => nuking file '{VersionFilename}'.");
             FileTools.Delete(VersionFilename);
         }
 
@@ -446,7 +409,7 @@ namespace Utilities.Language.TextIndexing
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem while trying to check the index version");
+                Logging.Error(ex, $"There was a problem while trying to check the index version (path: '{LIBRARY_INDEX_BASE_PATH}')");
             }
 
             if (0 != String.Compare(version, INDEX_VERSION))
@@ -458,7 +421,7 @@ namespace Utilities.Language.TextIndexing
 
         private void DeleteIndex()
         {
-            Logging.Info("Deleting the index at path '{0}'", LIBRARY_INDEX_BASE_PATH);
+            Logging.Info($"Deleting the index at path '{LIBRARY_INDEX_BASE_PATH}'");
             Utilities.Files.DirectoryTools.DeleteDirectory(LIBRARY_INDEX_BASE_PATH, true);
         }
     }

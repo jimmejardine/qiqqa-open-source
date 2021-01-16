@@ -19,6 +19,8 @@ namespace Utilities.GUI
 
         public BackgroundFader(UserControl control, Color color_focussed, Color color_unfocussed)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.control = control;
             this.color_focussed = color_focussed;
             this.color_unfocussed = color_unfocussed;
@@ -59,25 +61,28 @@ namespace Utilities.GUI
         {
             Logging.Debug("BackgroundFader::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources / get rid of cyclic references:
-                    if (null != control)
+                    if (dispose_count == 0)
                     {
-                        control.MouseEnter -= DocumentNodeContentControl_MouseEnter;
-                        control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
+                        // Get rid of managed resources / get rid of cyclic references:
+                        if (null != control)
+                        {
+                            control.MouseEnter -= DocumentNodeContentControl_MouseEnter;
+                            control.MouseLeave -= DocumentNodeContentControl_MouseLeave;
+                        }
                     }
-                }
-            });
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                control = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    control = null;
+                });
 
-            ++dispose_count;
+                ++dispose_count;
+            });
         }
 
         #endregion

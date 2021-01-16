@@ -71,7 +71,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             double largest_height = double.MinValue;
             int largest_page = 0;
 
-            string section_lower = section.ToLower(CultureInfo.CurrentCulture);
+            string section_lower = section.ToLower();
 
             for (int page = 1; page <= popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
@@ -81,7 +81,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                     for (int i = 0; i < word_list.Count; ++i)
                     {
                         Word word = word_list[i];
-                        if (word.Text.ToLower(CultureInfo.CurrentCulture).Contains(section_lower))
+                        if (word.Text.ToLower().Contains(section_lower))
                         {
                             if (largest_height < word.Height)
                             {
@@ -111,7 +111,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
         private void AddItemChild_Front_OLD(WordList[] word_lists, string section)
         {
-            string section_lower = section.ToLower(CultureInfo.CurrentCulture);
+            string section_lower = section.ToLower();
 
             for (int page = 1; page <= popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
@@ -121,7 +121,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                     for (int i = 0; i < word_list.Count; ++i)
                     {
                         Word word = word_list[i];
-                        if (word.Text.ToLower(CultureInfo.CurrentCulture).Contains(section_lower))
+                        if (word.Text.ToLower().Contains(section_lower))
                         {
                             popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, section, page));
                             return;
@@ -133,7 +133,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
         private void AddItemChild_Rear_OLD(WordList[] word_lists, string section)
         {
-            string section_lower = section.ToLower(CultureInfo.CurrentCulture);
+            string section_lower = section.ToLower();
 
             for (int page = popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; page >= 1; --page)
             {
@@ -143,7 +143,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                     for (int i = word_list.Count - 1; i >= 0; --i)
                     {
                         Word word = word_list[i];
-                        if (word.Text.ToLower(CultureInfo.CurrentCulture).Contains(section_lower))
+                        if (word.Text.ToLower().Contains(section_lower))
                         {
                             popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, section, page));
                             return;

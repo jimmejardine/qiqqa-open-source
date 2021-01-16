@@ -90,7 +90,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 }
 
                 // And check the annotations
-                foreach (var pdf_annotation in pdf_document.GetAnnotations(library_items_annotations_cache))
+                foreach (var pdf_annotation in pdf_document.GetAnnotations())
                 {
                     if (!pdf_annotation.Deleted)
                     {

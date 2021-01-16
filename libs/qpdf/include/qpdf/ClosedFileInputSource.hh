@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2019 Jay Berkenbilt
+// Copyright (c) 2005-2020 Jay Berkenbilt
 //
 // This file is part of qpdf.
 //
@@ -63,8 +63,8 @@ class ClosedFileInputSource: public InputSource
     void stayOpen(bool);
 
   private:
-    ClosedFileInputSource(ClosedFileInputSource const&);
-    ClosedFileInputSource& operator=(ClosedFileInputSource const&);
+    ClosedFileInputSource(ClosedFileInputSource const&) = delete;
+    ClosedFileInputSource& operator=(ClosedFileInputSource const&) = delete;
 
     void before();
     void after();

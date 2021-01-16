@@ -27,7 +27,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Brainstorm.Nodes
 
         public bool MatchesKeyword(string keyword)
         {
-            return (null != text) && text.ToLower(CultureInfo.CurrentCulture).Contains(keyword);
+            return (null != text) && text.ToLower().Contains(keyword);
         }
     }
 }

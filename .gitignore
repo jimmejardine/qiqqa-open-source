@@ -33,6 +33,7 @@ desktop.ini
 
 # experimental dev work
 /libs/3rdparty/mupdf/mupdf/
+/libs/3rdparty/SOLR/
 
 /docs-src/_meta/HTML standards and designs/
 /docs-src/_meta/layouts/

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.Documents.PDF.PDFRendering;
 using Qiqqa.UtilisationTracking;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Printing
@@ -11,6 +12,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
     {
         public static void Print(PDFDocument pdf_document, PDFRenderer pdf_renderer, string description)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Document_Print);
 
             PrintDialog print_dialog = new PrintDialog();

@@ -26,7 +26,6 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Documents.PDF.DiskS
                     }
                 }
 
-
                 if (null != inks_data)
                 {
                     Dictionary<int, byte[]> page_ink_blobs = SerializeFile.ProtoLoadFromByteArray<Dictionary<int, byte[]>>(inks_data);

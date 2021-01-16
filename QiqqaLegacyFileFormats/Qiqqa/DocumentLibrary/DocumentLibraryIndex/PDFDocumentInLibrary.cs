@@ -26,7 +26,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibraryInde
         public DateTime last_indexed;
 
         /// <summary>
-        /// Has the metadata been indexed - if no, then it will be reindexed...
+        /// Has the metadata been indexed - if no, then it will be re-indexed...
         /// </summary>
         public bool metadata_already_indexed;
     }

@@ -46,7 +46,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public PDFReadingControl(PDFDocument pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             InitializeComponent();
+
+            Unloaded += PDFReadingControl_Unloaded;
 
             GoogleScholarSideBar.Visibility = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries ? Visibility.Visible : Visibility.Collapsed;
 
@@ -268,6 +272,19 @@ namespace Qiqqa.Documents.PDF.PDFControls
             Loaded += PDFReadingControl_Loaded;
         }
 
+        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
+        // Which says:
+        //
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
+        // or a UserControl, it may not be called as expected.
+        private void PDFReadingControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // TODO: kill the pdf renderer
+            //throw new NotImplementedException();
+        }
+
         private void PDFReadingControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
@@ -368,26 +385,29 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             Logging.Debug("PDFReadingControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources
-                    PDFRendererControlArea.Children.Clear();
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        PDFRendererControlArea.Children.Clear();
 
-                    pdf_renderer_control?.Dispose();
+                        pdf_renderer_control?.Dispose();
 
-                    pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
-                }
-            }, must_exec_in_UI_thread: true);
+                        pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                pdf_renderer_control = null;
-                pdf_renderer_control_stats = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    pdf_renderer_control = null;
+                    pdf_renderer_control_stats = null;
+                });
+
+                ++dispose_count;
             });
-
-            ++dispose_count;
         }
 
         #endregion

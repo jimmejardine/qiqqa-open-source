@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2019 Jay Berkenbilt
+// Copyright (c) 2005-2020 Jay Berkenbilt
 //
 // This file is part of qpdf.
 //
@@ -54,8 +54,6 @@ class BufferInputSource: public InputSource
     virtual void unreadCh(char ch);
 
   private:
-    static void range_check(qpdf_offset_t cur, qpdf_offset_t delta);
-
     class Members
     {
         friend class BufferInputSource;

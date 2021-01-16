@@ -52,7 +52,7 @@
             </syncfusion:Chart>
         </local_gui:CollapsibleRegion>
         <DockPanel DockPanel.Dock="Bottom" Margin="0,5,0,0">
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdExport" Margin="3,0,0,0"/>
+            <local_gui:AugmentedButton DockPanel.Dock="Right" x:Name="CmdExport" Margin="3,0,0,0"/>
             <local_gui:AugmentedSearchBox Name="TxtSearchTermsFilter" EmptyTextPrompt="Enter keywords to filter the above list (e.g. smi;king)" ToolTip="Enter keywords here and press ENTER to filter the above list to show only those that contain these keywords (separate multiple words with a semicolon).  Then select from the list above to filter your library."/>
         </DockPanel>
         <Grid DockPanel.Dock="Top" Name="ObjBoolean">

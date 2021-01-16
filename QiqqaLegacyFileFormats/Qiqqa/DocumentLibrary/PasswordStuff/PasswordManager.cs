@@ -12,15 +12,15 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary.Pas
 
     public class PasswordManager
     {
-        private TypedWeakReference<Library> library;
-        public Library Library => library?.TypedTarget;
+        private TypedWeakReference<WebLibraryDetail> web_library_detail;
+        public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
-        public PasswordManager(Library library)
+        public PasswordManager(WebLibraryDetail web_library_detail)
         {
-            this.library = new TypedWeakReference<Library>(library);
+            this.web_library_detail = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
         }
 
-        public string Filename_Store => Path.GetFullPath(Path.Combine(Library.LIBRARY_BASE_PATH, @"Qiqqa.pwds"));
+        public string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.pwds"));
 
         private Dictionary<string, string> _passwords = null;
 

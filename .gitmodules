@@ -1,3 +1,9 @@
 [submodule "MuPDF"]
 	path = MuPDF
 	url = git@github.com:GerHobbelt/mupdf.git
+[submodule "Qiqqa.Build/Packaging/InnoDependencyInstaller"]
+	path = Qiqqa.Build/Packaging/InnoDependencyInstaller
+	url = git@github.com:GerHobbelt/InnoDependencyInstaller.git
+[submodule "Qiqqa.Build/Packaging/dotnet-deployment-tools"]
+	path = Qiqqa.Build/Packaging/dotnet-deployment-tools
+	url = git@github.com:GerHobbelt/deployment-tools.git

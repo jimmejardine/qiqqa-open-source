@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Text;
+using Newtonsoft.Json;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
+using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.DiskSerialisation;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Strings;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -32,9 +37,9 @@ namespace Qiqqa.DocumentLibrary
         private string base_path;
         private string library_path;
 
-        public LibraryDB(string base_path)
+        public LibraryDB(WebLibraryDetail web_library_detail)
         {
-            this.base_path = base_path;
+            base_path = web_library_detail.LIBRARY_BASE_PATH;
             library_path = LibraryDB.GetLibraryDBPath(base_path);
             string db_syncref_path = IntranetLibraryTools.GetLibraryMetadataPath(base_path);
 
@@ -46,7 +51,7 @@ namespace Qiqqa.DocumentLibrary
             }
             if (!File.Exists(library_path))
             {
-                Logging.Warn("Library db does not exist so copying the template to {0}", library_path);
+                Logging.Warn($"Library db for '{web_library_detail.Id}' does not exist so copying the template to '{library_path}'");
                 string library_template_path = LibraryDB.GetLibraryDBTemplatePath();
                 File.Copy(library_template_path, library_path);
             }
@@ -90,6 +95,34 @@ namespace Qiqqa.DocumentLibrary
                 else
                 {
                     return String.Format(" AND {0}=@{0}", key);
+                }
+            }
+            return "";
+        }
+
+        // For those queries where you want to ask:
+        //     SELECT * FROM table WHERE (a=[0] OR a=[1] OR a=[2] OR ...) and xyz...
+        private string turnArgumentSetIntoQueryPart(string key, List<string> values)
+        {
+            if (values != null && values.Count > 0)
+            {
+                List<string> qp = new List<string>();
+                foreach (string v in values)
+                {
+                    if (!String.IsNullOrWhiteSpace(v))
+                    {
+                        string value = v
+                            .Replace('*', '%')
+                            .Replace('?', '_')
+                            // and for query safety:
+                            .Replace('\'', '_');
+                        qp.Add(String.Format("{0}='{1}'", key, value));
+                    }
+                }
+                if (qp.Count > 0)
+                {
+                    string or_expr = String.Join(" OR ", qp);
+                    return $" AND ( {or_expr } )";
                 }
             }
             return "";
@@ -188,7 +221,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 Logging.Error(ex, "LibraryDB::PutBLOB: Database I/O failure for DB '{0}'.", library_path);
                 LibraryDB.FurtherDiagnoseDBProblem(ex, null, library_path);
-                throw ex;
+                throw;
             }
         }
 
@@ -208,25 +241,35 @@ namespace Qiqqa.DocumentLibrary
             {
                 return string.Format("{0}.{1}", fingerprint, extension);
             }
-        }
 
-        public LibraryItem GetLibraryItem(string fingerprint, string extension)
-        {
-            List<LibraryItem> items = GetLibraryItems(fingerprint, extension);
-
-            if (0 == items.Count)
+            public string MetadataAsString()
             {
-                throw new Exception(String.Format("We were expecting one item matching {0}.{1} but found none.", fingerprint, extension));
-            }
-            if (1 != items.Count)
-            {
-                throw new Exception(String.Format("We were expecting only one item matching {0}.{1}", fingerprint, extension));
-            }
+                // keep the unrecognized data around so we may fix it later...
+                string str = null;
+                try
+                {
+                    try
+                    {
+                        DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
 
-            return items[0];
-        }
+                        str = JsonConvert.SerializeObject(dictionary.Attributes, Formatting.Indented);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
 
-        public Dictionary<string, byte[]> GetLibraryItemsAsCache(string extension)
+                        str = StringTools.HumanReadableASCIIAndHexStr(data);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
+                }
+                return str;
+            }
+		}
+
+        public Dictionary<string, byte[]> GetLibraryItemsAsCache(string extension, List<string> fingerprints = null)
         {
             // Make sure we are selecting only one type from the database...
             if (null == extension)
@@ -234,15 +277,14 @@ namespace Qiqqa.DocumentLibrary
                 throw new Exception("Can not build cache off a non-specialised extension");
             }
 
-            List<LibraryItem> library_items_annotations = GetLibraryItems(null, extension);
+            List<LibraryItem> library_items_annotations = GetLibraryItems(extension, fingerprints);
             Dictionary<string, byte[]> library_items_annotations_cache = new Dictionary<string, byte[]>();
             library_items_annotations.ForEach(o => library_items_annotations_cache.Add(o.fingerprint, o.data));
 
             return library_items_annotations_cache;
         }
 
-
-        public List<LibraryItem> GetLibraryItems(string fingerprint, string extension, int MaxRecordCount = 0)
+        public List<LibraryItem> GetLibraryItems(string extension, List<string> fingerprints = null, int MaxRecordCount = 0)
         {
             List<LibraryItem> results = new List<LibraryItem>();
             List<Exception> database_corruption = new List<Exception>();
@@ -256,7 +298,7 @@ namespace Qiqqa.DocumentLibrary
                         connection.Open();
 
                         string command_string = "SELECT fingerprint, extension, md5, data FROM LibraryItem WHERE 1=1 ";
-                        command_string += turnArgumentIntoQueryPart("fingerprint", fingerprint);
+                        command_string += turnArgumentSetIntoQueryPart("fingerprint", fingerprints);
                         command_string += turnArgumentIntoQueryPart("extension", extension);
                         if (MaxRecordCount > 0)
                         {
@@ -266,7 +308,7 @@ namespace Qiqqa.DocumentLibrary
 
                         using (var command = new SQLiteCommand(command_string, connection))
                         {
-                            turnArgumentIntoQueryParameter(command, "fingerprint", fingerprint);
+                            //turnArgumentIntoQueryParameter(command, "fingerprint", fingerprint);
                             turnArgumentIntoQueryParameter(command, "extension", extension);
                             if (MaxRecordCount > 0)
                             {
@@ -313,6 +355,7 @@ namespace Qiqqa.DocumentLibrary
                                         continue;
                                     }
 
+                                    if (true)
                                     {
                                         Exception ex2 = null;
 
@@ -411,7 +454,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 Logging.Error(ex, "LibraryDB::GetLibraryItems: Database I/O failure for DB '{0}'.", library_path);
                 LibraryDB.FurtherDiagnoseDBProblem(ex, database_corruption, library_path);
-                throw ex;
+                throw;
             }
 
             if (database_corruption.Count > 0)

@@ -18,12 +18,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
     /// </summary>
     public partial class PDFInkLayer : PageLayer, IDisposable
     {
-        private PDFRendererControlStats pdf_renderer_control_stats;
+        private PDFDocument pdf_document;
         private int page;
 
-        public PDFInkLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
+        public PDFInkLayer(PDFDocument pdf_document, int page)
         {
-            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+            this.pdf_document = pdf_document;
             this.page = page;
 
             InitializeComponent();
@@ -39,14 +41,21 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
             ObjInkCanvas.RequestBringIntoView += ObjInkCanvas_RequestBringIntoView;
 
-            RebuildInks(page, pdf_renderer_control_stats.pdf_document.Inks);
+            RebuildInks(page, pdf_document.Inks);
 
             RaiseInkChange(InkCanvasEditingMode.Ink);
+
+            this.Unloaded += PDFInkLayer_Unloaded;
         }
 
-        public static bool IsLayerNeeded(PDFRendererControlStats pdf_renderer_control_stats, int page)
+        private void PDFInkLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            StrokeCollection stroke_collection = pdf_renderer_control_stats.pdf_document.Inks.GetInkStrokeCollection(page);
+            this.Dispose();
+        }
+
+        public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
+        {
+            StrokeCollection stroke_collection = pdf_document.Inks.GetInkStrokeCollection(page);
             return (null != stroke_collection);
         }
 
@@ -113,7 +122,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             {
                 ObjInkCanvas.Strokes.Save(ms, true);
                 byte[] ink_blob = ms.ToArray();
-                pdf_renderer_control_stats.pdf_document.Inks.AddPageInkBlob(page, ink_blob);
+                pdf_document.AddPageInkBlob(page, ink_blob);
             }
         }
 
@@ -163,53 +172,59 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
         {
             Logging.Debug("PDFInkLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (0 == dispose_count)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
-                    ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
-                    ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
-                    ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
-
-                    ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
-                }
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (dispose_count == 0)
-                {
-                    foreach (var el in Children)
+                    if (0 == dispose_count)
                     {
-                        IDisposable node = el as IDisposable;
-                        if (null != node)
+                        if (null != ObjInkCanvas)
                         {
-                            node.Dispose();
+                            ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
+                            ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
+                            ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
+                            ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
+
+                            ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
                         }
                     }
-                }
-            }, must_exec_in_UI_thread: true);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                Children.Clear();
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (dispose_count == 0)
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                pdf_renderer_control_stats = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    Children.Clear();
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    pdf_document = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
+
+                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
-
-            ++dispose_count;
-
-            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

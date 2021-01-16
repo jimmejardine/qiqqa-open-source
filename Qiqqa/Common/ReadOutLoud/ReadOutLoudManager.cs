@@ -127,24 +127,27 @@ namespace Qiqqa.Common.ReadOutLoud
         {
             Logging.Debug("ReadOutLoudManager::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources
-                    speech_synthesizer?.Dispose();
-                }
-                speech_synthesizer = null;
-            });
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        speech_synthesizer?.Dispose();
+                    }
+                    speech_synthesizer = null;
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                current_prompt = null;
-                last_words?.Clear();
-                last_words = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    current_prompt = null;
+                    last_words?.Clear();
+                    last_words = null;
+                });
 
-            ++dispose_count;
+                ++dispose_count;
+            });
         }
 
         #endregion

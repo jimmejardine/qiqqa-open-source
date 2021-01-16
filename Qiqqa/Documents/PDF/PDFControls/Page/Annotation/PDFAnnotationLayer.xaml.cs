@@ -24,6 +24,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         public PDFAnnotationLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
@@ -61,11 +63,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                     }
                 }
             }
+
+            this.Unloaded += PDFAnnotationLayer_Unloaded;
         }
 
-        public static bool IsLayerNeeded(PDFRendererControlStats pdf_renderer_control_stats, int page)
+        private void PDFAnnotationLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            foreach (PDFAnnotation pdf_annotation in pdf_renderer_control_stats.pdf_document.GetAnnotations())
+            this.Dispose();
+        }
+
+        public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
+        {
+            foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
             {
                 if (pdf_annotation.Page == page)
                 {
@@ -94,7 +103,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             pdf_annotation.Width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
             pdf_annotation.Height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
 
-            pdf_renderer_control_stats.pdf_document.GetAnnotations().AddUpdatedAnnotation(pdf_annotation);
+            pdf_renderer_control_stats.pdf_document.AddUpdatedAnnotation(pdf_annotation);
 
             PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation, pdf_renderer_control_stats);
             pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
@@ -146,51 +155,54 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
         {
             Logging.Debug("PDFAnnotationLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                foreach (var el in Children)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    IDisposable node = el as IDisposable;
-                    if (null != node)
+                    foreach (var el in Children)
                     {
-                        node.Dispose();
+                        IDisposable node = el as IDisposable;
+                        if (null != node)
+                        {
+                            node.Dispose();
+                        }
                     }
-                }
-            }, must_exec_in_UI_thread: true);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                Children.Clear();
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                WizardDPs.ClearPointOfInterest(this);
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (drag_area_tracker != null)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                }
-            }, must_exec_in_UI_thread: true);
+                    Children.Clear();
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                pdf_renderer_control_stats = null;
-                drag_area_tracker = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    WizardDPs.ClearPointOfInterest(this);
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (drag_area_tracker != null)
+                    {
+                        drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    pdf_renderer_control_stats = null;
+                    drag_area_tracker = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
+
+                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
-
-            ++dispose_count;
-
-            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

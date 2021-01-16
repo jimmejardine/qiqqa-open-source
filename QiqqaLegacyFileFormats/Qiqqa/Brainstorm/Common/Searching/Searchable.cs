@@ -2,7 +2,7 @@
 {
     public interface ISearchable
     {
-#if false
+#if SAMPLE_LOAD_CODE
         bool MatchesKeyword(string keyword);
 #endif
     }

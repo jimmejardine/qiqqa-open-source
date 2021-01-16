@@ -11,10 +11,11 @@
 
 # Blow away NuPkg cache
 rm -rf packages
+rm -rf node_modules
 
 # Nuke anything that's part of the MSVS build process
-find . -maxdepth 2 -type d  -iname obj -exec rm -rf "{}" +
-find . -maxdepth 2 -type d  -iname bin -exec rm -rf "{}" +
+find . -maxdepth 5 -type d  -iname obj -a ! -ipath './libs/*' -a ! -ipath './Qiqqa.Build/nant/*' -a ! -ipath '*openjpeg/src/bin'                                   -exec rm -rf "{}" +
+find . -maxdepth 5 -type d  -iname bin -a ! -ipath './libs/*' -a ! -ipath './Qiqqa.Build/nant/*' -a ! -ipath '*openjpeg/src/bin' -a ! -ipath '*research*'          -exec rm -rf "{}" +
 
 # and nuke the MSVS local config cache
-rm -rf .vs
+find . -maxdepth 5 -type d  -iname '.vs'                         -exec rm -rf "{}" +

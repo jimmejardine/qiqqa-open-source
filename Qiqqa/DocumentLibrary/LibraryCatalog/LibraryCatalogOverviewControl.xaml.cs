@@ -15,6 +15,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Wizard;
+using Utilities.Misc;
 using Utilities.Reflection;
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
@@ -261,7 +262,20 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             // Populate the linked documents
             PDFDocument pdf_document = PDFDocumentBindable.Underlying;
-            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
+
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+                var links = pdf_document.PDFDocumentCitationManager.GetLinkedDocuments();
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                    CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, links, Features.LinkedDocument_Library_OpenDoc, " » ", false);
+                });
+            });
         }
 
         private void ButtonSearchInside_Click(object sender, RoutedEventArgs e)
@@ -373,57 +387,60 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             Logging.Debug("LibraryCatalogOverviewControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources / get rid of cyclic references:
-                    library_index_hover_popup?.Dispose();
-                }
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources / get rid of cyclic references:
+                        library_index_hover_popup?.Dispose();
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+                    if (dispose_count == 0)
+                    {
+                        WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (dispose_count == 0)
+                    {
+                        WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
+
+                    ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
+                    ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
+
+                    ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+
+                    DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    library_index_hover_popup = null;
+                    drag_drop_helper = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-                if (dispose_count == 0)
-                {
-                    WizardDPs.ClearPointOfInterest(PanelSearchScore);
-                }
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (dispose_count == 0)
-                {
-                    WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
-                }
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
-
-                ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
-                ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
-
-                ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
-
-                DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                library_index_hover_popup = null;
-                drag_drop_helper = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion

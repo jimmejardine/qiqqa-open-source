@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2019 Jay Berkenbilt
+// Copyright (c) 2005-2020 Jay Berkenbilt
 //
 // This file is part of qpdf.
 //
@@ -393,8 +393,8 @@ class QPDF
                                        std::string const& Perms);
 
       private:
-        EncryptionData(EncryptionData const&);
-        EncryptionData& operator=(EncryptionData const&);
+        EncryptionData(EncryptionData const&) = delete;
+        EncryptionData& operator=(EncryptionData const&) = delete;
 
 	int V;
 	int R;
@@ -813,8 +813,9 @@ class QPDF
         virtual ~CopiedStreamDataProvider()
         {
         }
-	virtual void provideStreamData(int objid, int generation,
-				       Pipeline* pipeline);
+	virtual bool provideStreamData(
+            int objid, int generation, Pipeline* pipeline,
+            bool suppress_warnings, bool will_retry) override;
         void registerForeignStream(QPDFObjGen const& local_og,
                                    QPDFObjectHandle foreign_stream);
         void registerForeignStream(QPDFObjGen const& local_og,
@@ -909,9 +910,7 @@ class QPDF
                         bool will_retry);
     bool pipeForeignStreamData(
         PointerHolder<ForeignStreamData>,
-        Pipeline*,
-        int encode_flags,
-        qpdf_stream_decode_level_e decode_level);
+        Pipeline*, bool suppress_warnings, bool will_retry);
     static bool pipeStreamData(PointerHolder<QPDF::EncryptionParameters> encp,
                                PointerHolder<InputSource> file,
                                QPDF& qpdf_for_warning,
@@ -1342,7 +1341,8 @@ class QPDF
         std::set<QPDFObjGen>& visited);
     void updateObjectMaps(ObjUser const& ou, QPDFObjectHandle oh);
     void updateObjectMapsInternal(ObjUser const& ou, QPDFObjectHandle oh,
-				  std::set<QPDFObjGen>& visited, bool top);
+				  std::set<QPDFObjGen>& visited, bool top,
+                                  int depth);
     void filterCompressedObjects(std::map<int, int> const& object_stream_data);
 
     // Type conversion helper methods
@@ -1403,6 +1403,7 @@ class QPDF
         bool immediate_copy_from;
         bool in_parse;
         bool parsed;
+        std::set<int> resolved_object_streams;
 
         // Linearization data
         qpdf_offset_t first_xref_item_offset; // actual value from file

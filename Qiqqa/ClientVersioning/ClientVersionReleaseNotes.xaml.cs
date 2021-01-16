@@ -2,7 +2,6 @@
 using System.Windows;
 using icons;
 using Utilities;
-using Utilities.ClientVersioning;
 
 namespace Qiqqa.ClientVersioning
 {

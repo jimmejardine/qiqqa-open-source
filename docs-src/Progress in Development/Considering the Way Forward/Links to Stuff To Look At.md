@@ -718,8 +718,10 @@ https://github.com/Ir1d/PKUScholar
 Uses `scholarly` package: https://github.com/Ir1d/PKUScholar/blob/master/crawler/crawler.py
 
 
-## leyiwang/nlp_research: The Research Spider for Anthology. This toolkit can automatically grab the papers information by given keywords in title. You can set the search params: the conference, publication date and the keywords in title . Then it will automatically save these papers' title, authors, download link, Google Scholar cited number and abstracts information in a Excel file.
+## leyiwang/nlp_research: The Research Spider for Anthology. 
 https://github.com/leyiwang/nlp_research
+
+This toolkit can automatically grab the papers information by given keywords in title. You can set the search params: the conference, publication date and the keywords in title . Then it will automatically save these papers' title, authors, download link, Google Scholar cited number and abstracts information in a Excel file.
 
 ### Analysis Notes
 

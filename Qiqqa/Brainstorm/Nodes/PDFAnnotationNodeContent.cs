@@ -61,7 +61,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
         public bool MatchesKeyword(string keyword)
         {
-            return (null != PDFAnnotation.Underlying.Text) && PDFAnnotation.Underlying.Text.ToLower(CultureInfo.CurrentCulture).Contains(keyword);
+            return (null != PDFAnnotation.Underlying.Text) && PDFAnnotation.Underlying.Text.ToLower().Contains(keyword);
         }
     }
 }

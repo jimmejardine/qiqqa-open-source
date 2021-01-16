@@ -23,6 +23,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
 
         public PDFHandLayer(PDFRendererControlStats pdf_renderer_control_stats, int page, PDFRendererControl pdf_renderer_control)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
             this.pdf_renderer_control = pdf_renderer_control;
@@ -45,6 +47,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             MouseDown += PDFHandLayer_MouseDown;
             MouseUp += PDFHandLayer_MouseUp;
             MouseMove += PDFHandLayer_MouseMove;
+
+            this.Unloaded += PDFHandLayer_Unloaded;
+        }
+
+        private void PDFHandLayer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Dispose();
         }
 
         private void PDFHandLayer_MouseUp(object sender, MouseButtonEventArgs e)
@@ -106,50 +115,53 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
         {
             Logging.Debug("PDFHandLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (0 == dispose_count)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-                    foreach (var el in Children)
+                    if (0 == dispose_count)
                     {
-                        IDisposable node = el as IDisposable;
-                        if (null != node)
+                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                        foreach (var el in Children)
                         {
-                            node.Dispose();
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
                         }
                     }
-                }
-            }, must_exec_in_UI_thread: true);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                Children.Clear();
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    Children.Clear();
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                MouseDown -= PDFHandLayer_MouseDown;
-                MouseUp -= PDFHandLayer_MouseUp;
-                MouseMove -= PDFHandLayer_MouseMove;
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    MouseDown -= PDFHandLayer_MouseDown;
+                    MouseUp -= PDFHandLayer_MouseUp;
+                    MouseMove -= PDFHandLayer_MouseMove;
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                pdf_renderer_control_stats = null;
-                pdf_renderer_control = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    pdf_renderer_control_stats = null;
+                    pdf_renderer_control = null;
+                });
+
+                ++dispose_count;
+
+                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
             });
-
-            ++dispose_count;
-
-            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

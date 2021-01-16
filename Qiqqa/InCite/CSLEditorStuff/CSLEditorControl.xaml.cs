@@ -13,6 +13,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities.BibTex.Parsing;
 using Utilities.Files;
 using Utilities.GUI.DualTabbedLayoutStuff;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -153,6 +154,10 @@ namespace Qiqqa.InCite.CSLEditorStuff
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             OpenFileDialog open_file_dialog = new OpenFileDialog();
             open_file_dialog.AddExtension = true;
             open_file_dialog.CheckPathExists = true;

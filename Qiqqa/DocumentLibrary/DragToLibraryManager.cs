@@ -116,6 +116,10 @@ namespace Qiqqa.DocumentLibrary
             }
 #endif
 
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);

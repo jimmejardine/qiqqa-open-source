@@ -19,6 +19,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
+using System.Text;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -63,7 +64,7 @@ namespace Qiqqa.Common.Configuration
         private readonly Lazy<string> __startupDirectoryForQiqqa = new Lazy<string>(() => UnitTestDetector.StartupDirectoryForQiqqa);
         public string StartupDirectoryForQiqqa => __startupDirectoryForQiqqa.Value;
 
-        private readonly Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
+        private Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
         {
             // Command-line parameters override the Registry:
             string[] args = Environment.GetCommandLineArgs();
@@ -137,9 +138,30 @@ namespace Qiqqa.Common.Configuration
             // If we get here, use the default path
             return Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
         });
+        private bool __BaseDirectoryForQiqqaIsFixedFromNowOn = false;
+        public bool BaseDirectoryForQiqqaIsFixedFromNowOn
+        {
+            get => __BaseDirectoryForQiqqaIsFixedFromNowOn;
+            set
+            {
+                __BaseDirectoryForQiqqaIsFixedFromNowOn = true; // doesn't matter what you set 'value' to: we only can turn this lock ON and then it's DONE.
+            }
+        }
         public string BaseDirectoryForQiqqa
         {
-            get => __BaseDirectoryForQiqqa.Value;
+            get 
+            {
+                return __BaseDirectoryForQiqqa.Value;
+            }
+            set
+            {
+                if (BaseDirectoryForQiqqaIsFixedFromNowOn)
+                {
+                    throw new AccessViolationException($"Internal Error: Rewriting Qiqqa Base Path to '{value}' after it was locked for writing is indicative of erroneous use of the setter, i.e. setter is useed too late in the game!");
+                }
+                __BaseDirectoryForQiqqa = new Lazy<string>(() => Path.GetFullPath(value));
+                RegistrySettings.Instance.Write(RegistrySettings.BaseDataDirectory, value);
+            }
         }
 
         public string BaseDirectoryForUser
@@ -489,6 +511,47 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-#endregion
+        #endregion
+
+        public static Dictionary<string, string> GetCurrentConfigInfos()
+        {
+            Dictionary<string, string> rv = new Dictionary<string, string>();
+
+            rv.Add("IsInitialized", $"{IsInitialized}");
+            rv.Add("Internal: ARGV", string.Join(" ", Environment.GetCommandLineArgs()));
+            rv.Add("Internal: Registry App Key Base", RegistrySettings.Instance.AppKeyDescription());
+            rv.Add("Internal: Registry BaseDir Key", RegistrySettings.BaseDataDirectory);
+            rv.Add("Internal: Registry Override Path", RegistrySettings.Instance.Read(RegistrySettings.BaseDataDirectory));
+            rv.Add("Internal: Default Path", Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa")));
+
+            if (IsInitialized)
+            {
+                ConfigurationManager cfg = ConfigurationManager.Instance;
+
+                rv.Add("StartupDirectoryForQiqqa", cfg.StartupDirectoryForQiqqa);
+                rv.Add("BaseDirectoryForQiqqa", cfg.BaseDirectoryForQiqqa);
+                rv.Add("BaseDirectoryForUser", cfg.BaseDirectoryForUser);
+                rv.Add("ConfigFilenameForUser", cfg.ConfigFilenameForUser);
+                rv.Add("SearchHistoryFilename", cfg.SearchHistoryFilename);
+                rv.Add("Program7ZIP", cfg.Program7ZIP);
+                rv.Add("ProgramHTMLToPDF", cfg.ProgramHTMLToPDF);
+                rv.Add("DeveloperTestSettingsFilename", cfg.DeveloperTestSettingsFilename);
+                rv.Add("IsGuest", $"{cfg.IsGuest}");
+                rv.Add("NoviceVisibility", $"{cfg.NoviceVisibility}");
+                rv.Add("SearchHistory", string.Join("\n", cfg.SearchHistory));
+
+                StringBuilder s = new StringBuilder();
+                foreach (var rec in cfg.ConfigurationRecord.GetCurrentConfigInfos())
+                {
+                    string k = $"{rec.Key}:";
+                    string v = rec.Value;
+
+                    s.Append($"{k.PadRight(30, ' ')} {v}\n");
+                }
+                rv.Add("Configuration Record", s.ToString().TrimEnd());
+            }
+
+            return rv;
+        }
     }
 }

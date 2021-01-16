@@ -113,10 +113,12 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                         Logging.Info("-Generating density_of_words_in_topics");
                     }
                 }
-                catch (System.OutOfMemoryException ex)
+                catch (Exception ex)
                 {
+                    Logging.Error(ex, "Internal LDAAnalysis error.");
+
                     // terminate app
-                    throw ex;
+                    throw;
                 }
 
                 return _density_of_words_in_topics;
@@ -151,10 +153,12 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                         Logging.Info("-Generating density_of_topics_in_documents");
                     }
                 }
-                catch (System.OutOfMemoryException ex)
+                catch (Exception ex)
                 {
+                    Logging.Error(ex, "Internal LDAAnalysis error.");
+
                     // terminate app
-                    throw ex;
+                    throw;
                 }
 
                 return _density_of_topics_in_documents;
@@ -195,10 +199,12 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                         Logging.Info("+Generating pseudo_density_of_topics_in_words");
                     }
                 }
-                catch (System.OutOfMemoryException ex)
+                catch (Exception ex)
                 {
+                    Logging.Error(ex, "Internal LDAAnalysis error.");
+
                     // terminate app
-                    throw ex;
+                    throw;
                 }
 
                 return _pseudo_density_of_topics_in_words;
@@ -214,8 +220,8 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                 // Build this if we need to
                 if (null == density_of_words_in_topics_sorted)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         // Work out the sorted ranks
                         density_of_words_in_topics_sorted = new WordProbability[lda.NUM_TOPICS][];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -227,12 +233,14 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                             }
                             Array.Sort(density_of_words_in_topics_sorted[topic]);
                         }
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw ex;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return density_of_words_in_topics_sorted;
@@ -250,8 +258,8 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                 // Build this if we need to
                 if (null == density_of_docs_in_topics_sorted)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         // Work out the sorted ranks
                         density_of_docs_in_topics_sorted = new DocProbability[lda.NUM_TOPICS][];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -263,12 +271,14 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                             }
                             Array.Sort(density_of_docs_in_topics_sorted[topic]);
                         }
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw ex;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return density_of_docs_in_topics_sorted;
@@ -315,8 +325,8 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
 
         private TopicProbability[][] CalculateDensityOfTopicsInDocsSorted(int max_topics_to_retain)
         {
-            //try
-            //{
+            try
+            {
                 TopicProbability[][] local_density_of_topics_in_docs_sorted = new TopicProbability[lda.NUM_DOCS][];
 
                 // How many topics will we remember for each doc?
@@ -350,12 +360,14 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                 });
 
                 return local_density_of_topics_in_docs_sorted;
-            //}
-            //catch (System.OutOfMemoryException ex)
-            //{
-            //    // terminate app
-            //    throw ex;
-            //}
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                // terminate app
+                throw;
+            }
         }
 
         private TopicProbability[][] density_of_topics_in_docs_scaled_sorted; // [doc][topic]
@@ -369,8 +381,8 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
                 // Build this if we need to
                 if (null == density_of_topics_in_docs_scaled_sorted)
                 {
-                    //try
-                    //{
+                    try
+                    {
                         // This hold how much each topic is used in all the documents
                         double[] total_density_of_topics_in_docs = new double[lda.NUM_TOPICS];
                         for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
@@ -414,12 +426,14 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Mathematics.Top
 
                             Array.Sort(density_of_topics_in_docs_scaled_sorted[doc]);
                         }
-                    //}
-                    //catch (System.OutOfMemoryException ex)
-                    //{
-                    //    // terminate app
-                    //    throw ex;
-                    //}
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Internal LDAAnalysis error.");
+
+                        // terminate app
+                        throw;
+                    }
                 }
 
                 return density_of_topics_in_docs_scaled_sorted;

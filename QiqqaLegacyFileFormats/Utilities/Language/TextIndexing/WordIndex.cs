@@ -89,7 +89,7 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Language.TextIn
                 // Create the new wiwi
                 wiwi = new WordInWordIndex(word, word_in_word_indexes.Count);
 
-                // Add to our lookups                
+                // Add to our lookups
                 word_in_word_indexes.Add(wiwi);
                 word_in_word_index_lookups[wiwi.Word] = wiwi;
             }
@@ -410,7 +410,7 @@ namespace QiqqaLegacyFileFormats          // namespace Utilities.Language.TextIn
                 else
                 {
                     // If we have created the directory before, then there must be some other problem
-                    throw ex;
+                    throw;
                 }
             }
         }

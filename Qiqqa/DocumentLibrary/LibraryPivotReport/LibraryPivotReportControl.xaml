@@ -9,9 +9,9 @@
         <!-- BEGIN: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
-                <local_gui:AugmentedToolBarButton Name="ButtonRegenerate" />
-                <local_gui:AugmentedToolBarButton Name="ButtonExportExcel"  Margin="3" />
-                <local_gui:AugmentedToolBarButton Name="ButtonExportPDF" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonRegenerate" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonExportExcel"  Margin="3" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonExportPDF" />
             </StackPanel>
         </local_gui:AugmentedToolBarTray>
         <!-- END: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
