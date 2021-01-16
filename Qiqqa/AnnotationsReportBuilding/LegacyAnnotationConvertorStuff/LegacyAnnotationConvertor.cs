@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if SYNCFUSION_ANTIQUE
+
+using System;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
 using Syncfusion.Pdf;
@@ -219,7 +221,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
             Logging.Debug特("-Getting legacy annotations from {0}", pdf_filename);
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -235,6 +237,8 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
         }
 #endif
 
-        #endregion
+#endregion
     }
 }
+
+#endif

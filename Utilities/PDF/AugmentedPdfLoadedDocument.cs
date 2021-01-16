@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if SYNCFUSION_ANTIQUE
+
+using System;
 using System.Windows.Threading;
 using Syncfusion.Pdf.Parsing;
 using Utilities.GUI;
@@ -18,7 +20,7 @@ namespace Utilities.PDF
             Logging.Debug("+AugmentedPdfLoadedDocument::constructor: {0}", filename);
         }
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~AugmentedPdfLoadedDocument()
         {
@@ -54,7 +56,9 @@ namespace Utilities.PDF
             ++dispose_count;
         }
 
-        #endregion
+#endregion
 
     }
 }
+
+#endif

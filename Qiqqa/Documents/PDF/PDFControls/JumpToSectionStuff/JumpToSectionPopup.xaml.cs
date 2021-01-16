@@ -60,11 +60,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 Children.Add(tb);
             }
 
+#if SYNCFUSION_ANTIQUE
             // First try from the PDF
             {
                 BuildPopupFromPDF build_popup_from_pdf = new BuildPopupFromPDF(this);
                 build_popup_from_pdf.BuildMenu();
             }
+#endif
 
             // If there are not enough bookmarks, go the OCR route
             if (pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount < 100)

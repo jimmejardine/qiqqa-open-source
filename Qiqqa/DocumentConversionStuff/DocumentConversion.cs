@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#if SYNCFUSION_ANTIQUE
+
+using System.Collections.Generic;
 using Syncfusion.DocIO.DLS;
 using Syncfusion.DocToPDFConverter;
 using Syncfusion.Pdf;
@@ -97,3 +99,5 @@ namespace Qiqqa.DocumentConversionStuff
         }
     }
 }
+
+#endif

@@ -18,7 +18,9 @@ using Qiqqa.DocumentLibrary.LibraryFilter;
 using Qiqqa.DocumentLibrary.LibraryFilter.GenericLibraryExplorerStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
+#if SYNCFUSION_ANTIQUE
 using Syncfusion.Windows.Chart;
+#endif
 using Utilities.Collections;
 using Utilities.Files;
 using Utilities.GUI;
@@ -91,7 +93,9 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
             AllowDrop = true;
 
+#if SYNCFUSION_ANTIQUE
             ObjSeries.MouseClick += ObjSeries_MouseClick;
+#endif
 
             // Start with the chart collapsed
             Loaded += GenericLibraryExplorerControl_Loaded;
@@ -151,7 +155,9 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void GenericLibraryExplorerControl_Loaded(object sender, RoutedEventArgs e)
         {
+#if SYNCFUSION_ANTIQUE
             ObjChartRegion.Collapse();
+#endif
         }
 
         private void ObjSort_Click(object sender, RoutedEventArgs e)
@@ -349,8 +355,10 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             // Bind baby bind - tag list
             TreeSearchTerms.DataContext = displayed_items;
 
+#if SYNCFUSION_ANTIQUE
             // Populate the chart
             PopulateChart(tags_with_fingerprints);
+#endif
 
             // Then we have to list the associated documents
             HashSet<string> fingerprints = new HashSet<string>();
@@ -413,7 +421,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }
 
-        #region --- Charting methods ------------------------------------------------------------------------------------------------------------------
+#if SYNCFUSION_ANTIQUE
 
         private void PopulateChart(MultiMapSet<string, string> tags_with_fingerprints)
         {
@@ -456,12 +464,12 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             ToggleSelectItem(chart_item.Caption, KeyboardTools.IsCTRLDown() || KeyboardTools.IsShiftDown());
         }
 
-        #endregion
+#endif
 
     }
 
 
-    #region --- Useful ancillary classes ------------
+#if SYNCFUSION_ANTIQUE
 
     public class ChartItem
     {
@@ -491,5 +499,5 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
         }
     }
 
-    #endregion
+#endif
 }

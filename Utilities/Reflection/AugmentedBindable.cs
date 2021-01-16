@@ -230,12 +230,14 @@ namespace Utilities.Reflection
 
             public override void SetValue(object component, object value)
             {
+#if SYNCFUSION_ANTIQUE
                 // This is a horrible hack because I can't work out why the syncfusion grid CancelEdits a row if you type something over a null value...
                 if (null == value)
                 {
                     Logging.Warn("Ignoring null SetValue - remember to check with Syncfusion");
                     return;
                 }
+#endif
 
                 AugmentedBindable<T> c = ((AugmentedBindable<T>)component);
 

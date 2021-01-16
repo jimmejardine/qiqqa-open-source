@@ -5,7 +5,9 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+#if SYNCFUSION_ANTIQUE
 using Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff;
+#endif
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
@@ -47,7 +49,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             MenuDelete.Click += MenuDelete_Click;
             MenuUseFilenameAsTitle.Click += MenuUseFilenameAsTitle_Click;
             MenuUseDirectoriesAsTags.Click += MenuUseDirectoriesAsTags_Click;
+#if SYNCFUSION_ANTIQUE
             MenuUseKeywordsAsTags.Click += MenuUseKeywordsAsTags_Click;
+#endif
             MenuCopyBibTeXKey.Click += MenuCopyBibTeXKey_Click;
             MenuCopyQiqqaURI.Click += MenuCopyQiqqaURI_Click;
             MenuInCite_Word.Click += MenuInCite_Word_Click;
@@ -57,7 +61,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             MenuCopyToAnotherLibrary.Click += MenuCopyToAnotherLibrary_Click;
             MenuMoveToAnotherLibrary.Click += MenuMoveToAnotherLibrary_Click;
             MenuConvertLegacyAnnotations.Click += MenuConvertLegacyAnnotations_Click;
+#if SYNCFUSION_ANTIQUE
             MenuForgetLegacyAnnotations.Click += MenuForgetLegacyAnnotations_Click;
+#endif
             MenuExploreInBrainstorm.Click += MenuExploreInBrainstorm_Click;
             MenuExploreInExpedition.Click += MenuExploreInExpedition_Click;
             MenuExploreInPivot.Click += MenuExploreInPivot_Click;
@@ -226,6 +232,7 @@ SourceURL: {0}
 
             int imported_count = 0;
 
+#if SYNCFUSION_ANTIQUE
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportLegacyAnnotations);
             foreach (var pdf_document in pdf_documents)
             {
@@ -238,10 +245,14 @@ SourceURL: {0}
                     Logging.Error(ex, "Error while importing legacy annotations.");
                 }
             }
+#else
+            throw new Exception("Not implemented");
+#endif
 
             MessageBoxes.Info(imported_count + " legacy annotations imported.");
         }
 
+#if SYNCFUSION_ANTIQUE
         private void MenuForgetLegacyAnnotations_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
@@ -261,6 +272,7 @@ SourceURL: {0}
 
             MessageBoxes.Info("Legacy annotations removed.");
         }
+#endif
 
         private void MenuForceOCR_Click(object sender, RoutedEventArgs e)
         {
@@ -417,6 +429,7 @@ SourceURL: {0}
             });
         }
 
+#if SYNCFUSION_ANTIQUE
         private void MenuUseKeywordsAsTags_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
@@ -435,6 +448,7 @@ SourceURL: {0}
                 }
             }
         }
+#endif
 
         private void MenuUseDirectoriesAsTags_Click(object sender, RoutedEventArgs e)
         {

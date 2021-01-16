@@ -10,7 +10,9 @@ using Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff;
 using Qiqqa.DocumentLibrary.TagExplorerStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
+#if SYNCFUSION_ANTIQUE
 using Syncfusion.Windows.Controls.Grid;
+#endif
 using Utilities;
 using Utilities.Collections;
 using Utilities.GUI;
@@ -142,6 +144,8 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             ,"BibTeXKey"
         };
 
+#if SYNCFUSION_ANTIQUE
+
         public static class IdentifierImplementations
         {
             public delegate void IdentifierImplementationDelegate(WebLibraryDetail web_library_detail, List<string> fingerprints, GridStyleInfo gsi);
@@ -189,7 +193,9 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             }
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#endif
+
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -237,6 +243,6 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         }
 #endif
 
-        #endregion
+#endregion
     }
 }

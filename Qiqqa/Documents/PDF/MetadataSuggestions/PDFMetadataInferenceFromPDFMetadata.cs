@@ -1,5 +1,7 @@
 ﻿using System;
+#if SYNCFUSION_ANTIQUE
 using Syncfusion.Pdf;
+#endif
 using Utilities;
 using Utilities.PDF;
 
@@ -24,6 +26,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             pdf_document.AutoSuggested_PDFMetadata = true;
             pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AutoSuggested_PDFMetadata));
 
+#if SYNCFUSION_ANTIQUE
             using (AugmentedPdfLoadedDocument doc = new AugmentedPdfLoadedDocument(pdf_document.DocumentPath))
             {
                 if (String.IsNullOrEmpty(pdf_document.TitleSuggested))
@@ -59,10 +62,14 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     }
                 }
             }
+#else
+            throw new Exception("Not implemented");
+#endif
 
             return true;
         }
 
+#if SYNCFUSION_ANTIQUE
         private static DateTime GetSafeDocumentYear(PdfDocumentInformation doc_info)
         {
             try
@@ -74,5 +81,6 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                 return DateTime.MinValue;
             }
         }
+#endif
     }
 }

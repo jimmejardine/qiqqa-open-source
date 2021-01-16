@@ -1,5 +1,7 @@
 ﻿using System;
+#if SYNCFUSION_ANTIQUE
 using Syncfusion.Pdf.Interactive;
+#endif
 using Utilities;
 using Utilities.PDF;
 
@@ -14,6 +16,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             this.popup = popup;
         }
 
+#if SYNCFUSION_ANTIQUE
         internal void BuildMenu()
         {
             try
@@ -83,6 +86,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 GenerateBookmarks(doc, bookmark, depth + 1);
             }
         }
+#endif
     }
 }
 

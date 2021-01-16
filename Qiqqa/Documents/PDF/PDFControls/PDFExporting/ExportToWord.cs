@@ -9,7 +9,9 @@ using Qiqqa.AnnotationsReportBuilding;
 using Qiqqa.Common;
 using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
+#if SYNCFUSION_ANTIQUE
 using Syncfusion.Pdf;
+#endif
 using Utilities;
 using Utilities.Images;
 using Utilities.Misc;
@@ -24,6 +26,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
     /// </summary>
     internal class ExportToWord
     {
+#if SYNCFUSION_ANTIQUE
         public static StandardFlowDocument DoExport(PDFDocument pdf_document)
         {
             StandardFlowDocument flow_document = new StandardFlowDocument();
@@ -160,6 +163,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
             string title = String.Format("Text export of PDF titled '{0}'", pdf_document.TitleCombined);
             MainWindowServiceDispatcher.Instance.OpenNewWindow(title, Icons.GetAppIcon(Icons.ExportToText), true, true, report_view_control);
         }
+#endif
     }
 }
 

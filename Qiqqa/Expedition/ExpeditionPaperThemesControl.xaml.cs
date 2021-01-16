@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if SYNCFUSION_ANTIQUE
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
@@ -140,3 +142,5 @@ namespace Qiqqa.Expedition
         }
     }
 }
+
+#endif

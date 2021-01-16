@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using Microsoft.Win32;
 using Qiqqa.Common.Configuration;
-using Syncfusion.XlsIO.Implementation.PivotAnalysis;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;

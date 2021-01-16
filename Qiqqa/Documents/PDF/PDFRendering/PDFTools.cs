@@ -23,12 +23,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 }
             Logging.Debug("-CountPDFPages #1 = Sorax :: {0} : {1}", filename, pages);
 #endif
+#if SYNCFUSION_ANTIQUE
             if (0 == pages)
             {
                 pages = CountPDFPages_Syncfusion(filename);
             }
             Logging.Debug("-CountPDFPages #2 = Syncfusion :: {0} : {1}", filename, pages);
-
+#endif
             if (0 == pages)
             {
                 pages = CountPDFPages_Jimme_MEGA(filename);
@@ -75,6 +76,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
+#if SYNCFUSION_ANTIQUE
+
         private static int CountPDFPages_Syncfusion(string filename)
         {
             try
@@ -93,5 +96,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 return 0;
             }
         }
+
+#endif
+    
     }
 }

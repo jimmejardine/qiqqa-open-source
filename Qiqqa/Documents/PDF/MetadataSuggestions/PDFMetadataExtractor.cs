@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if SYNCFUSION_ANTIQUE
+
+using System;
 using Utilities.PDF;
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
@@ -24,3 +26,5 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
         }
     }
 }
+
+#endif

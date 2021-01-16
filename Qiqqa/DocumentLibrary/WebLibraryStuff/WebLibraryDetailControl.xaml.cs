@@ -18,7 +18,9 @@ using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.Common;
 using Qiqqa.Documents.PDF;
+#if SYNCFUSION_ANTIQUE
 using Syncfusion.Windows.Chart;
+#endif
 using Utilities;
 using Utilities.Collections;
 using Utilities.DateTimeTools;
@@ -105,6 +107,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ButtonCoverFlow.Click += ButtonCoverFlow_Click;
             ButtonCoverFlow.ToolTip = "Click here to view recommended reading for this library.";
 
+#if SYNCFUSION_ANTIQUE
             ObjChartArea.Header = "Your weekly activity";
             ObjChartArea.PrimaryAxis.AxisVisibility = Visibility.Collapsed;
             ObjChartArea.MouseDown += ObjChartArea_MouseDown;
@@ -114,6 +117,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ObjCarousel.MouseDoubleClick += ObjCarousel_MouseDoubleClick;
             ObjCarousel.ToolTip = "Double-click to open this suggested document.\n\nFor your convenience, this region will also show any documents whose reading stage you set to:\n'Top Priority', 'Read Again' or 'Interrupted'.";
             ObjCarousel.Height = PREVIEW_IMAGE_HEIGHT;
+#endif
 
             if (open_cover_flow)
             {
@@ -166,17 +170,20 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void ObjChartArea_MouseDown(object sender, MouseButtonEventArgs e)
         {
+#if SYNCFUSION_ANTIQUE
             if (ObjCarousel.Items.Count > 0)
             {
                 ObjCarousel.SelectedIndex = (ObjCarousel.SelectedIndex + 1) % ObjCarousel.Items.Count;
             }
-
+#endif
             e.Handled = true;
         }
 
         private void ObjCarousel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+#if SYNCFUSION_ANTIQUE
             ObjCarousel.RadiusX = ObjCarousel.ActualWidth * 0.5 * 0.8;
+#endif
         }
 
         private void Button_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -325,8 +332,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private void UpdateLibraryStatistics_Stats()
         {
             // Reset all
+#if SYNCFUSION_ANTIQUE
             ChartReading.Visibility = Visibility.Collapsed;
             ObjCarousel.Visibility = Visibility.Collapsed;
+#endif
             ObjEmptyLibraryGrid.Visibility = Visibility.Collapsed;
 
             if (null == web_library_detail || web_library_detail.Xlibrary == null || !web_library_detail.Xlibrary.LibraryIsLoaded)
@@ -347,7 +356,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 // Visibility of the graphs
                 if (!library_is_empty && (ButtonCharts.IsChecked ?? false))
                 {
+#if SYNCFUSION_ANTIQUE
                     ChartReading.Visibility = Visibility.Visible;
+#endif
                     if (!have_generated_charts)
                     {
                         have_generated_charts = true;
@@ -358,7 +369,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 // Visibility of the coverflow
                 if (!library_is_empty && (ButtonCoverFlow.IsChecked ?? false))
                 {
+#if SYNCFUSION_ANTIQUE
                     ObjCarousel.Visibility = Visibility.Visible;
+#endif
                     if (!have_generated_cover_flow)
                     {
                         have_generated_cover_flow = true;
@@ -411,6 +424,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
+#if SYNCFUSION_ANTIQUE
             // Plot the pretty pretty
             List<ChartItem> chart_items_read = new List<ChartItem>();
             List<ChartItem> chart_items_added = new List<ChartItem>();
@@ -425,6 +439,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
 
             WPFDoEvents.InvokeAsyncInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added));
+#endif
         }
 
         private class DocumentDisplayWork
@@ -713,6 +728,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
                 WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
+#if SYNCFUSION_ANTIQUE
             ObjCarousel.Items.Clear();
 
             foreach (DocumentDisplayWork ddw in ddws)
@@ -737,6 +753,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 ObjCarousel.SelectedIndex = 0;
             }
+#endif
         }
 
         private void UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(DocumentDisplayWork ddw)
@@ -751,6 +768,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
                 WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
+#if SYNCFUSION_ANTIQUE
                 if (0 < ObjCarousel.Items.Count && 0 <= ObjCarousel.SelectedIndex)
             {
                 FrameworkElement fe = null;
@@ -776,9 +794,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     MainWindowServiceDispatcher.Instance.OpenDocument(ddw.pdf_document);
                 }
             }
+#endif
 
             e.Handled = true;
         }
+
+#if SYNCFUSION_ANTIQUE
 
         private void UpdateLibraryStatistics_Stats_Background_GUI(List<ChartItem> chart_items_read, List<ChartItem> chart_items_added)
         {
@@ -797,6 +818,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 ObjSeriesAdded.DataSource = chart_items_added;
             }
         }
+
+#endif
 
         private void UpdateLibraryStatistics_Headers()
         {
@@ -982,7 +1005,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
-    #region --- Useful ancillary classes ------------
+#if SYNCFUSION_ANTIQUE
 
     public class ChartItem
     {
@@ -1012,5 +1035,5 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
     }
 
-    #endregion
+#endif
 }

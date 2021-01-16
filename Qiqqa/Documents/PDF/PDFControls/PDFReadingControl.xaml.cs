@@ -790,8 +790,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonExportToText_Click(object sender, RoutedEventArgs e)
         {
+#if SYNCFUSION_ANTIQUE
             //ExportToText.ExportToTextAndLaunch(this.pdf_renderer_control_stats.pdf_document);
             ExportToWord.ExportToTextAndLaunch(pdf_renderer_control_stats.pdf_document);
+#endif
             e.Handled = true;
         }
 

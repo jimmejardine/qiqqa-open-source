@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if SYNCFUSION_ANTIQUE
+
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -104,7 +106,7 @@ namespace Qiqqa.DocumentConversionStuff
             }
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -114,6 +116,8 @@ namespace Qiqqa.DocumentConversionStuff
             w.Show();
         }
 #endif
-        #endregion
+#endregion
     }
 }
+
+#endif

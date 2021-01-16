@@ -7,8 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using icons;
 using Qiqqa.UtilisationTracking;
+#if SYNCFUSION_ANTIQUE
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
+#endif
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -70,7 +72,7 @@ namespace Qiqqa.AnnotationsReportBuilding
         }
 #endif
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~ReportViewerControl()
         {
@@ -105,7 +107,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             ++dispose_count;
         }
 
-        #endregion
+#endregion
 
         private string SaveToRTF()
         {
@@ -133,6 +135,7 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         private void ButtonToPDF_Click(object sender, RoutedEventArgs e)
         {
+#if SYNCFUSION_ANTIQUE
             string filename_pdf = TempFile.GenerateTempFilename("pdf");
 
             using (PdfDocument doc = new PdfDocument())
@@ -157,6 +160,9 @@ namespace Qiqqa.AnnotationsReportBuilding
             }
 
             Process.Start(filename_pdf);
+#else
+            throw new Exception("Not implemented");
+#endif
         }
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)

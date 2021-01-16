@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Qiqqa.DocumentLibrary.WebLibraryStuff"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
-    xmlns:syncfusion="http://schemas.syncfusion.com/wpf">
+    >
     <local_gui:AugmentedBorder>
         <StackPanel x:Name="ButtonMain">
             <Grid Name="ObjTitlePanel">
@@ -128,78 +128,6 @@
                     </commongui:StandardFlowDocument>
                 </local_gui:NonScrollingFlowDocumentScrollViewer>
             </Grid>
-            <syncfusion:Chart Name="ChartReading" Height="200">
-                <syncfusion:Chart.Resources>
-                    <local:ToolTipConverter x:Key="ToolTipConverter" />
-                    <DataTemplate x:Key="DataPointTemplate">
-                        <Canvas>
-                            <Grid
-                                Canvas.Left="{Binding X}"
-                                Canvas.Top="{Binding Y}"
-                                Width="{Binding Width}"
-                                Height="{Binding Height}">
-                                <Border
-                                    Width="{Binding Width}"
-                                    Height="{Binding Height}"
-                                    VerticalAlignment="Bottom"
-                                    ToolTipService.InitialShowDelay="100"
-                                    ToolTipService.ToolTip="{Binding Converter={StaticResource ToolTipConverter}}">
-                                    <Border.Style>
-                                        <Style TargetType="{x:Type Border}">
-                                            <Setter Property="BorderThickness" Value="1" />
-                                            <Setter Property="BorderBrush" Value="Black" />
-                                            <Setter Property="Background" Value="{Binding Interior}" />
-                                            <Style.Triggers>
-                                                <DataTrigger Value="True">
-                                                    <DataTrigger.Binding>
-                                                        <Binding Path="Highlighted" />
-                                                    </DataTrigger.Binding>
-                                                    <Setter Property="Background" Value="{StaticResource Background_Brush_Blue_Dark}" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
-                            </Grid>
-                        </Canvas>
-                    </DataTemplate>
-                </syncfusion:Chart.Resources>
-                <syncfusion:ChartArea Name="ObjChartArea" Background="Transparent">
-                    <syncfusion:ChartArea.SecondaryAxis>
-                        <syncfusion:ChartAxis AxisVisibility="Collapsed" />
-                    </syncfusion:ChartArea.SecondaryAxis>
-                    <syncfusion:ChartSeries
-                        Name="ObjSeriesAdded"
-                        Interior="{StaticResource Background_Brush_Blue_VeryVeryDark}"
-                        Template="{StaticResource DataPointTemplate}"
-                        Type="Column">
-                        <syncfusion:ChartSeries.YAxis>
-                            <syncfusion:ChartAxis
-                                AxisVisibility="Collapsed"
-                                OpposedPosition="False"
-                                Orientation="Vertical" />
-                        </syncfusion:ChartSeries.YAxis>
-                    </syncfusion:ChartSeries>
-                    <syncfusion:ChartSeries
-                        Name="ObjSeriesRead"
-                        Interior="{StaticResource Background_Brush_Blue_VeryDark}"
-                        Template="{StaticResource DataPointTemplate}"
-                        Type="Column">
-                        <syncfusion:ChartSeries.YAxis>
-                            <syncfusion:ChartAxis
-                                AxisVisibility="Collapsed"
-                                OpposedPosition="False"
-                                Orientation="Vertical" />
-                        </syncfusion:ChartSeries.YAxis>
-                    </syncfusion:ChartSeries>
-                </syncfusion:ChartArea>
-            </syncfusion:Chart>
-            <syncfusion:Carousel
-                Name="ObjCarousel"
-                OpacityFraction="0.75"
-                RadiusY="0"
-                RotationSpeed="75"
-                ScaleFraction="0.6" />
         </StackPanel>
     </local_gui:AugmentedBorder>
 </DockPanel>

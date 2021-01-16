@@ -431,6 +431,7 @@ namespace Qiqqa.DocumentLibrary
             }
             else
             {
+#if SYNCFUSION_ANTIQUE
                 if (DocumentConversion.CanConvert(filename))
                 {
                     string filename_before_conversion = filename;
@@ -441,6 +442,9 @@ namespace Qiqqa.DocumentLibrary
                         filename = filename_after_conversion;
                     }
                 }
+#else
+                throw new Exception("Not implemented");
+#endif
             }
 
             if (!is_a_document_we_can_cope_with)
@@ -1004,7 +1008,7 @@ namespace Qiqqa.DocumentLibrary
             SignalThatDocumentsHaveChanged(null);
         }
 
-        #region --- Signaling that documents have been changed ------------------
+#region --- Signaling that documents have been changed ------------------
 
         public class PDFDocumentEventArgs : EventArgs
         {
@@ -1090,9 +1094,9 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~Library()
         {
@@ -1165,7 +1169,7 @@ namespace Qiqqa.DocumentLibrary
             ++dispose_count;
         }
 
-        #endregion
+#endregion
 
     }
 }

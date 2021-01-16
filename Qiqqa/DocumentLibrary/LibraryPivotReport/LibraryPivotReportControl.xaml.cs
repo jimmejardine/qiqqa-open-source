@@ -9,7 +9,9 @@ using icons;
 using Microsoft.Win32;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
+#if SYNCFUSION_ANTIQUE
 using Syncfusion.Windows.Controls.Grid;
+#endif
 using Utilities;
 using Utilities.Collections;
 using Utilities.GUI;
@@ -27,7 +29,9 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         public List<PDFDocument> PDFDocuments { get; set; }
 
         private LibraryPivotReportBuilder.PivotResult last_pivot_result = null;
+#if SYNCFUSION_ANTIQUE
         private GridControl last_ObjGridControl = null;
+#endif
 
         public LibraryPivotReportControl()
         {
@@ -51,12 +55,12 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
         private void ButtonExportExcel_Click(object sender, RoutedEventArgs e)
         {
+#if SYNCFUSION_ANTIQUE
             if (null == last_ObjGridControl)
             {
                 MessageBoxes.Error("Please regenerate your Pivot before trying to export it.");
                 return;
             }
-
 
             SaveFileDialog save_file_dialog = new SaveFileDialog();
             save_file_dialog.AddExtension = true;
@@ -73,8 +77,12 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 string target_filename = save_file_dialog.FileName;
                 ExportToExcel(target_filename);
             }
+#else
+            throw new Exception("Not implemented");
+#endif
         }
 
+#if SYNCFUSION_ANTIQUE
 
         private void ExportToExcel(string filename)
         {
@@ -97,6 +105,8 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             File.WriteAllText(filename, sb.ToString());
             Process.Start(filename);
         }
+
+#endif
 
         private void ButtonRegenerate_Click(object sender, RoutedEventArgs e)
         {
@@ -125,6 +135,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
             MultiMapSet<string, string> map_y_axis = LibraryPivotReportBuilder.GenerateAxisMap((string)ObjYAxis.SelectedItem, LibraryRef, parent_fingerprints);
             MultiMapSet<string, string> map_x_axis = LibraryPivotReportBuilder.GenerateAxisMap((string)ObjXAxis.SelectedItem, LibraryRef, parent_fingerprints);
+#if SYNCFUSION_ANTIQUE
             LibraryPivotReportBuilder.IdentifierImplementations.IdentifierImplementationDelegate identifier_implementation = LibraryPivotReportBuilder.IdentifierImplementations.GetIdentifierImplementation((string)ObjIdentifier.SelectedItem);
 
             LibraryPivotReportBuilder.PivotResult pivot_result = LibraryPivotReportBuilder.GeneratePivot(map_y_axis, map_x_axis);
@@ -224,6 +235,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             // Store the results for the toolbar buttons
             last_pivot_result = pivot_result;
             last_ObjGridControl = ObjGridControl;
+#endif
         }
     }
 }
