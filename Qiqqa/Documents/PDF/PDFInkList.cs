@@ -39,9 +39,10 @@ namespace Qiqqa.Documents.PDF
             return null;
         }
 
-        internal void __AddPageInkBlob(int page, byte[] page_ink_blob)
+        internal bool __AddPageInkBlob(int page, byte[] page_ink_blob)
         {
             page_ink_blobs[page] = page_ink_blob;
+            return true;
         }
 
         /// <summary>

@@ -131,8 +131,7 @@ namespace Qiqqa.Documents.PDF
 
         private void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            QueueToStorage();
-            LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
+            ReprocessDocumentIfDirty();
         }
 
         public string Fingerprint
@@ -946,10 +945,23 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        private void annotations_OnPDFAnnotationListChanged()
+        public void ReprocessDocumentIfDirty()
         {
-            QueueToStorage();
-            LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
+            bool dirty;
+
+            lock (access_lock)
+            {
+                dirty = doc.dirtyNeedsReindexing;
+
+                // RESET dirty flag until next check: we will reindex then only when it's gotten dirty *again*!
+                doc.dirtyNeedsReindexing = false;
+            }
+
+            if (dirty)
+            {
+                QueueToStorage();
+                LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
+            }
         }
 
         public string GetAnnotationsAsJSON()

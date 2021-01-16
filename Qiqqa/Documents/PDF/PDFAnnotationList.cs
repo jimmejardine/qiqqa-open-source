@@ -20,12 +20,14 @@ namespace Qiqqa.Documents.PDF
             this.annotations = annotations;
         }
 
-        public void __AddUpdatedAnnotation(PDFAnnotation annotation)
+        public bool __AddUpdatedAnnotation(PDFAnnotation annotation)
         {
             if (!annotations.Contains(annotation))
             {
                 annotations.Add(annotation);
+                return true;
             }
+            return false;
         }
 
         public int Count => annotations.Count;

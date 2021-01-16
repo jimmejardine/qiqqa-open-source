@@ -46,6 +46,9 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
+        [NonSerialized]
+        internal bool dirtyNeedsReindexing = false;
+
         public string GetAttributesAsJSON()
         {
             string json = JsonConvert.SerializeObject(dictionary.Attributes, Formatting.Indented);
@@ -833,8 +836,11 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             if (null == annotations)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 annotations = new PDFAnnotationList();
                 PDFAnnotationSerializer.ReadFromDisk(this);
+                dirtyNeedsReindexing = true;
             }
 
             return annotations;
@@ -866,7 +872,10 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public void AddUpdatedAnnotation(PDFAnnotation annotation)
         {
-                annotations.__AddUpdatedAnnotation(annotation);
+            if (annotations.__AddUpdatedAnnotation(annotation))
+            {
+                dirtyNeedsReindexing = true;
+            }
         }
 
         [NonSerialized]
@@ -881,7 +890,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 highlights = new PDFHightlightList();
                 PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
-                return highlights;
+                dirtyNeedsReindexing = true;
             }
 
             return highlights;
@@ -908,12 +917,16 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public void AddUpdatedHighlight(PDFHighlight highlight)
         {
-            highlights.__AddUpdatedHighlight(highlight);
+            if (highlights.__AddUpdatedHighlight(highlight))
+            {
+                dirtyNeedsReindexing = true;
+            }
         }
 
         public void RemoveUpdatedHighlight(PDFHighlight highlight)
         {
             highlights.__RemoveUpdatedHighlight(highlight);
+            dirtyNeedsReindexing = true;
         }
 
         [NonSerialized]
@@ -928,6 +941,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 inks = new PDFInkList();
                 PDFInkSerializer.ReadFromDisk(this, inks);
+                dirtyNeedsReindexing = true;
             }
 
             return inks;
@@ -956,7 +970,10 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public void AddPageInkBlob(int page, byte[] page_ink_blob)
         {
-            inks.__AddPageInkBlob(page, page_ink_blob);
+            if (inks.__AddPageInkBlob(page, page_ink_blob))
+            {
+                dirtyNeedsReindexing = true;
+            }
         }
 
         #endregion -------------------------------------------------------------------------------------------------
