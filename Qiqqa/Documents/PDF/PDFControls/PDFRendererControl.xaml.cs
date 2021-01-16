@@ -379,54 +379,57 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    if (!ShutdownableManager.Instance.IsShuttingDown)
+                    if (dispose_count == 0)
                     {
-                        pdf_renderer_control_stats?.pdf_document.QueueToStorage();
-                    }
-                }
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (dispose_count == 0)
-                {
-                    // Get rid of managed resources
-                    List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
-                    foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
-                    {
-                        children.Add(child);
-                    }
-
-                    ObjPagesPanel.Children.Clear();
-
-                    foreach (PDFRendererPageControl child in children)
-                    {
-                        WPFDoEvents.SafeExec(() =>
+                        if (!ShutdownableManager.Instance.IsShuttingDown)
                         {
-                            child.Dispose();
-                        });
+                            pdf_renderer_control_stats?.pdf_document.QueueToStorage();
+                        }
                     }
-                }
-            }, must_exec_in_UI_thread: true);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
-                }
-            }, must_exec_in_UI_thread: true);
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
+                        foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
+                        {
+                            children.Add(child);
+                        }
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                pdf_renderer_control_stats = null;
+                        ObjPagesPanel.Children.Clear();
+
+                        foreach (PDFRendererPageControl child in children)
+                        {
+                            WPFDoEvents.SafeExec(() =>
+                            {
+                                child.Dispose();
+                            });
+                        }
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (dispose_count == 0)
+                    {
+                        pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    pdf_renderer_control_stats = null;
+                });
+
+                ++dispose_count;
             });
-
-            ++dispose_count;
         }
 
         #endregion

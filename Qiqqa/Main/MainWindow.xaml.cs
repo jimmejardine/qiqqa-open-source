@@ -358,28 +358,31 @@ namespace Qiqqa.Main
         {
             Logging.Debug("MainWindow::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    ipc_server?.Stop();
-                }
-            }, must_exec_in_UI_thread: true);
+                    if (dispose_count == 0)
+                    {
+                        ipc_server?.Stop();
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjStartPage = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ObjStartPage = null;
 
-                keyboard_hook = null;
-                ipc_server = null;
+                    keyboard_hook = null;
+                    ipc_server = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
-
-            ++dispose_count;
         }
 
 #endregion

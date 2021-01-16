@@ -1160,8 +1160,6 @@ namespace Qiqqa.DocumentLibrary
                 library_db = null;
             });
 
-            var self = this;
-
             ++dispose_count;
         }
 

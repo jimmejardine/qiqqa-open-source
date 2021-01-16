@@ -6,6 +6,11 @@ The regular 'base path', i.e. the base directory where all Qiqqa libraries are s
 
 You can override this 'base path' by specifying another base path on the commandline.
 
+> ### Extra since v83
+>
+> Since v83 you can also click the 'Change this path' button in the startup dialog and point Qiqqa at another base directory, 
+> which is then persisted by Qiqqa, i.e. Qiqqa will keep using the new directory in subsequent runs -- until you change it again.
+
 
 
 
@@ -53,12 +58,24 @@ Here's an example which lists all supported settings:
 //
 // Lines can be commented out at will.
 {
-    LoadKnownWebLibraries: false,
-    AddLegacyWebLibrariesThatCanBeFoundOnDisk: false,
-    SaveKnownWebLibraries: false,
-    DoInterestingAnalysis_GoogleScholar: false,
+	LoadKnownWebLibraries: true,
+	AddLegacyWebLibrariesThatCanBeFoundOnDisk: true,
+	SaveKnownWebLibraries: true,
+	DoInterestingAnalysis_GoogleScholar: false,
+
+	FolderWatcher: true,
+	TextExtraction: true,           // when false: this kills the mupdf based text extraction and OCR tasks
+	SuggestingMetadata: true,       // when false: this kills the metadata (Title, Author, etc.) suggesting from extracted text
+	BuildSearchIndex: true,         // when false: this kills the Lucene-based search index build/update process
 }
 ```
+
+
+
+
+#### Defaults
+
+Note that all settings in this file are assumed to be `true` by default, i.e. anything you don't mentionexplicitly in there is assumed to be `true`.
 
 
 
@@ -80,7 +97,16 @@ Set to `true` to **enable** Qiqqa's default behaviour.
 
 ####    `AddLegacyWebLibrariesThatCanBeFoundOnDisk`
 
-TBD
+Normally, Qiqqa will scan the base directory for any subdirectories (one level deep only!) containing a Qiqqa library, i.e. a `Qiqqa.library` database -- and hopefully more stuff, like *documents*.
+
+When this option is set to `false`, the scanning behaviour is **skipped**, thus producing a very *bare* library list in your Qiqqa Home page: you may expect only the `Guest` library to show up, or, when `LoadKnownWebLibraries` is `true`, the list of libraries remembered in that internal configuration file, i.e. the library list as persisted by the previous Qiqqa run (which had `SaveKnownWebLibraries` set to `true`).
+
+Handy when your libraries are giving you headaches and you want to run Qiqqa on a minimal/reduced set.
+
+Auto-discovery is back as soon as you set this flag to `true` again and restart Qiqqa -- after all, auto-discovery of libraries only happens at the *start*.
+
+
+
 
 
 
@@ -107,3 +133,38 @@ Hence the smart move here is to kill those background scrapes as they don't add 
 
 :::
 
+
+
+
+
+
+
+####    `FolderWatcher`
+
+Set to `false` to **disable** Qiqqa's default behaviour where it will perform a background *scrape* in Google Scholar for every PDF document you open / have opened in Qiqqa.
+
+
+
+
+
+
+
+####    `TextExtraction`
+
+when false: this kills the mupdf based text extraction and OCR tasks
+
+
+
+
+
+####    `SuggestingMetadata`
+
+when false: this kills the metadata (Title, Author, etc.) suggesting from extracted text
+
+
+
+
+
+####    `BuildSearchIndex`
+
+when false: this kills the Lucene-based search index build/update process

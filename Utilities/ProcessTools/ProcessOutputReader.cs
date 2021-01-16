@@ -16,6 +16,8 @@ namespace Utilities.ProcessTools
 
         public ProcessOutputReader(Process process, bool stdout_is_binary = false)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             this.process = process;
             this.StdOutIsBinary = stdout_is_binary;
 

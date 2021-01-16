@@ -309,44 +309,38 @@ namespace Utilities.GUI
             }
         }
 
-        public static void SafeExec(Action f, Dispatcher override_dispatcher = null, bool must_exec_in_UI_thread = false)
+        public static string StackTrace
         {
-            if ((!must_exec_in_UI_thread && override_dispatcher == null) || CurrentThreadIsUIThread())
+            get
             {
-                // exec in same thread:
-                try
-                {
-                    f();
-                }
-                catch (Exception ex)
-                {
-                    // NOTE: when you set a debugger breakpoint here, it should only be hit
-                    // AFTER the Logging singleton instance has shut down:
-                    // it's okay when we're *that far* into the application termination phase.
-                    if (!Logging.HasShutDown)
-                    {
-                        Logging.Error(ex, "Failed safe-exec in same thread.");
-                    }
-                }
+                return LogAssist.AppendStackTrace(null, "SafeExec");
             }
-            else
-            {
-                string trace = LogAssist.AppendStackTrace(null, "SafeExec");
+        }
 
-                WPFDoEvents.InvokeInUIThread(() =>
+        public static void SafeExec(Action f, string trace = null)
+        {
+            // exec in same thread:
+            try
+            {
+                f();
+            }
+            catch (Exception ex)
+            {
+                // NOTE: when you set a debugger breakpoint here, it should only be hit
+                // AFTER the Logging singleton instance has shut down:
+                // it's okay when we're *that far* into the application termination phase.
+                if (!Logging.HasShutDown)
                 {
-                    try
+                    if (!String.IsNullOrEmpty(trace))
                     {
-                        f();
+                        trace = $" -- Invoker call trace:\n{trace}";
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        if (!Logging.HasShutDown)
-                        {
-                            Logging.Error(ex, "Failed safe-exec in UI thread.\n  Invoker call trace:\n{0}", trace);
-                        }
+                        trace = "";
                     }
-                }, override_dispatcher);
+                    Logging.Error(ex, $"Failed safe-exec.{trace}");
+                }
             }
         }
     }

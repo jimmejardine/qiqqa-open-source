@@ -364,6 +364,8 @@ namespace Qiqqa.Common
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public WebBrowserHostControl OpenWebBrowser()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             const string window_key = "WebBrowser";
 
             WebBrowserHostControl existing_control = (WebBrowserHostControl)main_window.DockingManager.MakeActive(window_key);

@@ -162,41 +162,44 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
         {
             Logging.Debug("PDFSearchLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    foreach (var el in Children)
+                    if (dispose_count == 0)
                     {
-                        IDisposable node = el as IDisposable;
-                        if (null != node)
+                        foreach (var el in Children)
                         {
-                            node.Dispose();
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
                         }
                     }
-                }
-            }, must_exec_in_UI_thread: true);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                Children.Clear();
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    Children.Clear();
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            }, Dispatcher);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                pdf_renderer_control_stats = null;
-                search_result_set = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    pdf_renderer_control_stats = null;
+                    search_result_set = null;
+                });
+
+                ++dispose_count;
+
+                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
             });
-
-            ++dispose_count;
-
-            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

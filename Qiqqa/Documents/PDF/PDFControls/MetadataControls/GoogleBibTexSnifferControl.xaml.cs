@@ -1061,72 +1061,75 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             Logging.Debug("GoogleBibTexSnifferControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources / get rid of cyclic references:
-                    pdf_documents_total_pool?.Clear();
-                    pdf_documents_search_pool?.Clear();
-                }
-            });
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources / get rid of cyclic references:
+                        pdf_documents_total_pool?.Clear();
+                        pdf_documents_search_pool?.Clear();
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
-
-                ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
-                ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
-
-                ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    pdf_renderer_control?.Dispose();
-                    ObjBibTeXEditorControl?.Dispose();
-                }
+                    search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
+
+                    ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
+                    ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
+
+                    ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (dispose_count == 0)
+                    {
+                        pdf_renderer_control?.Dispose();
+                        ObjBibTeXEditorControl?.Dispose();
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ObjSearchOptionsPanel.DataContext = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ButtonWizard.DataContext = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    search_options_bindable = null;
+
+                    user_specified_pdf_document = null;
+                    pdf_documents_total_pool = null;
+
+                    pdf_documents_search_pool = null;
+
+                    pdf_document = null;
+
+                    pdf_document_rendered = null;
+                    pdf_renderer_control = null;
+
+                    search_options = null;
+                    search_options_bindable = null;
+
+                    ObjBibTeXEditorControl = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjSearchOptionsPanel.DataContext = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                ButtonWizard.DataContext = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                search_options_bindable = null;
-
-                user_specified_pdf_document = null;
-                pdf_documents_total_pool = null;
-
-                pdf_documents_search_pool = null;
-
-                pdf_document = null;
-
-                pdf_document_rendered = null;
-                pdf_renderer_control = null;
-
-                search_options = null;
-                search_options_bindable = null;
-
-                ObjBibTeXEditorControl = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion

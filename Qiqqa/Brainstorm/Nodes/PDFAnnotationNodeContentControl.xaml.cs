@@ -139,25 +139,28 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("PDFAnnotationNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    library_index_hover_popup?.Dispose();
+                    if (dispose_count == 0)
+                    {
+                        library_index_hover_popup?.Dispose();
 
-                    ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
-                    ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
-                }
+                        ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
+                        ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    pdf_annotation_node_content = null;
+                    library_index_hover_popup = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                pdf_annotation_node_content = null;
-                library_index_hover_popup = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion
