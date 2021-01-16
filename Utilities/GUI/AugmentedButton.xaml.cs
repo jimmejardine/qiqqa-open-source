@@ -54,14 +54,25 @@ namespace Utilities.GUI
             // When in Designer mode, show a bit of stuff or the thing looks weird:
             if (Runtime.IsRunningInVisualStudioDesigner)
             {
-                Caption = "Sample in DesignMode";
-                Icon = Icons.GetAppIcon(Icons.SaveAs);
+                if (String.IsNullOrWhiteSpace(Caption))
+                {
+                    Caption = "Sample in DesignMode";
+                }
+                if (Icon == null || Icon.Width < 1 || Icon.Height < 1)
+                {
+                    Icon = Icons.GetAppIcon(Icons.SaveAs);
+                }
             }
 #endif
         }
 
         public bool CenteredMode
         {
+            // Visual Studio b0rks in Designer when this one doesn't have a get method:
+            get
+            {
+                return TextCaption.HorizontalAlignment == HorizontalAlignment.Center;
+            }
             set
             {
                 if (value)
