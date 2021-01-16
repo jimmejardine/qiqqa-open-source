@@ -935,6 +935,7 @@ namespace Qiqqa.Documents.PDF
                 annotations = doc.GetAnnotations();
             }
 
+            // TODO: WeakEventManager
             annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
 
             return annotations;
