@@ -326,6 +326,7 @@ namespace Qiqqa.DocumentLibrary
                                         continue;
                                     }
 
+                                    if (false)
                                     {
                                         Exception ex2 = null;
 
