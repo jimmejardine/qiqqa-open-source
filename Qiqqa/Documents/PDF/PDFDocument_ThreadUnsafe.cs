@@ -834,10 +834,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             if (null == annotations)
             {
                 annotations = new PDFAnnotationList();
-                PDFAnnotationSerializer.ReadFromDisk(this, ref annotations);
-#if false
-                annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
-#endif
+                PDFAnnotationSerializer.ReadFromDisk(this);
             }
 
             return annotations;
@@ -867,6 +864,11 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return json;
         }
 
+        public void AddUpdatedAnnotation(PDFAnnotation annotation)
+        {
+                annotations.__AddUpdatedAnnotation(annotation);
+        }
+
         [NonSerialized]
         private PDFHightlightList highlights = null;
         public PDFHightlightList Highlights => GetHighlights(null);
@@ -879,9 +881,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 highlights = new PDFHightlightList();
                 PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
-#if false
-                highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
-#endif
                 return highlights;
             }
 
@@ -907,6 +906,16 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return json;
         }
 
+        public void AddUpdatedHighlight(PDFHighlight highlight)
+        {
+            highlights.__AddUpdatedHighlight(highlight);
+        }
+
+        public void RemoveUpdatedHighlight(PDFHighlight highlight)
+        {
+            highlights.__RemoveUpdatedHighlight(highlight);
+        }
+
         [NonSerialized]
         private PDFInkList inks = null;
         public PDFInkList Inks => GetInks();
@@ -919,9 +928,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 inks = new PDFInkList();
                 PDFInkSerializer.ReadFromDisk(this, inks);
-#if false
-                inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
-#endif
             }
 
             return inks;
@@ -946,6 +952,11 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
             }
             return data;
+        }
+
+        public void AddPageInkBlob(int page, byte[] page_ink_blob)
+        {
+            inks.__AddPageInkBlob(page, page_ink_blob);
         }
 
         #endregion -------------------------------------------------------------------------------------------------
@@ -1188,12 +1199,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             annotations = null;
             highlights = null;
             inks = null;
-#else
-#if false
-            annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
-            highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
-            inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
-#endif
 #endif
         }
 

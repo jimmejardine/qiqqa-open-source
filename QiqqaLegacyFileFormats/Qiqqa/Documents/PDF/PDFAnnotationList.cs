@@ -10,10 +10,10 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Documents.PDF
     {
         private readonly List<PDFAnnotation> annotations;
 
-        public delegate void OnPDFAnnotationListChangedDelegate();
-        // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument registering on this change event:
-        // PDFDocument -> Annotations -> OnPDFAnnotationListChanged -> PDFDocument
-        public event OnPDFAnnotationListChangedDelegate OnPDFAnnotationListChanged;
+        // public delegate void OnPDFAnnotationListChangedDelegate();
+        // // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument registering on this change event:
+        // // PDFDocument -> Annotations -> OnPDFAnnotationListChanged -> PDFDocument
+        // public event OnPDFAnnotationListChangedDelegate OnPDFAnnotationListChanged;
 
         public PDFAnnotationList()
         {

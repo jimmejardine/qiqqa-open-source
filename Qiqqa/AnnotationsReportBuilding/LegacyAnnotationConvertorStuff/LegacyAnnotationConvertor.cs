@@ -65,7 +65,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                                 if (null == matching_existing_pdf_annotation)
                                 {
                                     // Add it to the PDFDocument
-                                    pdf_document.GetAnnotations().AddUpdatedAnnotation(pdf_annotation);
+                                    pdf_document.AddUpdatedAnnotation(pdf_annotation);
                                     imported_count++;
                                 }
                                 else

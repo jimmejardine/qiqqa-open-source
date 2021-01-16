@@ -9,9 +9,6 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Documents.PDF
     {
         private Dictionary<int, HashSet<PDFHighlight>> highlights = new Dictionary<int, HashSet<PDFHighlight>>();
 
-        public delegate void OnPDFHighlightListChangedDelegate();
-        public event OnPDFHighlightListChangedDelegate OnPDFHighlightListChanged;
-
         private void RemoveHighlight_Internal(PDFHighlight highlight)
         {
             int count_before = highlights.Count;
@@ -50,20 +47,11 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Documents.PDF
         public void AddUpdatedHighlight(PDFHighlight highlight)
         {
             AddHighlight_Internal(highlight);
-
-            OnPDFHighlightListChanged?.Invoke();
         }
 
         public void RemoveUpdatedHighlight(PDFHighlight highlight)
         {
             RemoveHighlight_Internal(highlight);
-
-            OnPDFHighlightListChanged?.Invoke();
-        }
-
-        private void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            OnPDFHighlightListChanged?.Invoke();
         }
 
         public int Count

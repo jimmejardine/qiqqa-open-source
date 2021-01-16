@@ -935,10 +935,15 @@ namespace Qiqqa.Documents.PDF
                 annotations = doc.GetAnnotations();
             }
 
-            // TODO: WeakEventManager
-            annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
-
             return annotations;
+        }
+
+        public void AddUpdatedAnnotation(PDFAnnotation annotation)
+        {
+            lock (access_lock)
+            {
+                doc.AddUpdatedAnnotation(annotation);
+            }
         }
 
         private void annotations_OnPDFAnnotationListChanged()
@@ -978,17 +983,9 @@ namespace Qiqqa.Documents.PDF
             lock (access_lock)
             {
                 highlights = doc.GetHighlights(library_items_highlights_cache);
-
-                highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
             }
 
             return highlights;
-        }
-
-        private void highlights_OnPDFHighlightListChanged()
-        {
-            QueueToStorage();
-            LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
         }
 
         public string GetHighlightsAsJSON()
@@ -996,6 +993,22 @@ namespace Qiqqa.Documents.PDF
             lock (access_lock)
             {
                 return doc.GetHighlightsAsJSON();
+            }
+        }
+
+        public void AddUpdatedHighlight(PDFHighlight highlight)
+        {
+            lock (access_lock)
+            {
+                doc.AddUpdatedHighlight(highlight);
+            }
+        }
+
+        public void RemoveUpdatedHighlight(PDFHighlight highlight)
+        {
+            lock (access_lock)
+            {
+                doc.RemoveUpdatedHighlight(highlight);
             }
         }
 
@@ -1017,18 +1030,9 @@ namespace Qiqqa.Documents.PDF
             lock (access_lock)
             {
                 inks = doc.GetInks();
-
-                inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
             }
 
             return inks;
-        }
-
-        private void inks_OnPDFInkListChanged()
-        {
-            Logging.Info("Document has changed inks");
-            QueueToStorage();
-            LibraryRef.Xlibrary.LibraryIndex.ReIndexDocument(this);
         }
 
         public byte[] GetInksAsJSON()
@@ -1036,6 +1040,14 @@ namespace Qiqqa.Documents.PDF
             lock (access_lock)
             {
                 return doc.GetInksAsJSON();
+            }
+        }
+
+        public void AddPageInkBlob(int page, byte[] page_ink_blob)
+        {
+            lock (access_lock)
+            {
+                doc.AddPageInkBlob(page, page_ink_blob);
             }
         }
 
@@ -1100,7 +1112,7 @@ namespace Qiqqa.Documents.PDF
             }
 
             // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
-            pdf_document.doc.GetAnnotations();
+            _ = pdf_document.doc.GetAnnotations();
             return pdf_document;
         }
 
@@ -1123,7 +1135,7 @@ namespace Qiqqa.Documents.PDF
             pdf_document.doc.DateAddedToDatabase = DateTime.UtcNow;
             pdf_document.doc.DateLastModified = DateTime.UtcNow;
 
-            Directory.CreateDirectory(pdf_document.DocumentBasePath);
+            Directory.CreateDirectory(pdf_document.doc.DocumentBasePath);
 
             pdf_document.doc.StoreAssociatedPDFInRepository(filename);
 
@@ -1135,14 +1147,17 @@ namespace Qiqqa.Documents.PDF
             }
             else
             {
+                LibraryDB.LibraryItem library_item = null;
+
                 try
                 {
-                    LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(web_library_detail, pdf_document.doc.Fingerprint, library_item.data);
+                    library_item = library_items[0];
+                    pdf_document = LoadFromMetaData(web_library_detail, pdf_document.Fingerprint, library_item.data);
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
+                    // keep the unrecognized data around so we may fix it later...
+                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (document fingerprint: {0}, data: {1})", pdf_document.Fingerprint, library_item?.MetadataAsString() ?? "???");
 
                     // TODO: WARNING: overwriting old (possibly corrupted) records like this can loose you old/corrupted/unsupported metadata content!
                     pdf_document.QueueToStorage();
@@ -1161,10 +1176,10 @@ namespace Qiqqa.Documents.PDF
             // Store the most important information
             //
             // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
-            pdf_document.FileType = Constants.VanillaReferenceFileType;
-            pdf_document.Fingerprint = VanillaReferenceCreating.CreateVanillaReferenceFingerprint();
-            pdf_document.DateAddedToDatabase = DateTime.UtcNow;
-            pdf_document.DateLastModified = DateTime.UtcNow;
+            pdf_document.doc.FileType = Constants.VanillaReferenceFileType;
+            pdf_document.doc.Fingerprint = VanillaReferenceCreating.CreateVanillaReferenceFingerprint();
+            pdf_document.doc.DateAddedToDatabase = DateTime.UtcNow;
+            pdf_document.doc.DateLastModified = DateTime.UtcNow;
 
             Directory.CreateDirectory(pdf_document.DocumentBasePath);
 
@@ -1176,14 +1191,15 @@ namespace Qiqqa.Documents.PDF
             }
             else
             {
+                LibraryDB.LibraryItem library_item = null;
                 try
                 {
-                    LibraryDB.LibraryItem library_item = library_items[0];
+                    library_item = library_items[0];
                     pdf_document = LoadFromMetaData(web_library_detail, pdf_document.Fingerprint, library_item.data);
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it!");
+                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (document fingerprint: {0}, data: {1})", pdf_document.Fingerprint, library_item?.MetadataAsString() ?? "???");
 
                     // TODO: WARNING: overwriting old (possibly corrupted) records like this can loose you old/corrupted/unsupported metadata content!
                     pdf_document.QueueToStorage();
@@ -1222,10 +1238,6 @@ namespace Qiqqa.Documents.PDF
                         bindable = null;
 
                         doc.CloneMetaData(existing_pdf_document.doc);
-
-                        doc.GetAnnotations().OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
-                        doc.Highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
-                        doc.Inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
 
                         // Copy the citations
                         PDFDocumentCitationManager.CloneFrom(existing_pdf_document.PDFDocumentCitationManager);

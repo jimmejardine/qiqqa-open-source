@@ -123,7 +123,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
                 foreach (Word word in selected_words)
                 {
                     PDFHighlight pdf_highlight = new PDFHighlight(page, word, CurrentColourNumber);
-                    pdf_renderer_control_stats.pdf_document.Highlights.AddUpdatedHighlight(pdf_highlight);
+                    pdf_renderer_control_stats.pdf_document.AddUpdatedHighlight(pdf_highlight);
                 }
             }
 
@@ -151,7 +151,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
                 foreach (PDFHighlight pdf_highlight in highlights_to_delete)
                 {
-                    pdf_renderer_control_stats.pdf_document.Highlights.RemoveUpdatedHighlight(pdf_highlight);
+                    pdf_renderer_control_stats.pdf_document.RemoveUpdatedHighlight(pdf_highlight);
                 }
             }
 

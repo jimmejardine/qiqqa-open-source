@@ -122,7 +122,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             {
                 ObjInkCanvas.Strokes.Save(ms, true);
                 byte[] ink_blob = ms.ToArray();
-                pdf_document.Inks.AddPageInkBlob(page, ink_blob);
+                pdf_document.AddPageInkBlob(page, ink_blob);
             }
         }
 

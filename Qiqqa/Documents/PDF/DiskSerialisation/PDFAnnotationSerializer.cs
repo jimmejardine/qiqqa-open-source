@@ -25,7 +25,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
         }
 
-        internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document, ref PDFAnnotationList annotations)
+        internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
             byte[] annotations_data = null;
 
@@ -55,7 +55,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                     foreach (DictionaryBasedObject annotation_dictionary in annotation_dictionaries)
                     {
                         PDFAnnotation pdf_annotation = new PDFAnnotation(annotation_dictionary, false);
-                        annotations.AddUpdatedAnnotation(pdf_annotation);
+                        pdf_document.AddUpdatedAnnotation(pdf_annotation);
                     }
                 }
             }

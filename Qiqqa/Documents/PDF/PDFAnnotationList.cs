@@ -10,11 +10,6 @@ namespace Qiqqa.Documents.PDF
     {
         private readonly List<PDFAnnotation> annotations;
 
-        public delegate void OnPDFAnnotationListChangedDelegate();
-        // TODO: has a cyclic link in the GC to PDFDocument due to PDFDocument registering on this change event:
-        // PDFDocument -> Annotations -> OnPDFAnnotationListChanged -> PDFDocument
-        public event OnPDFAnnotationListChangedDelegate OnPDFAnnotationListChanged;
-
         public PDFAnnotationList()
         {
             annotations = new List<PDFAnnotation>();
@@ -25,20 +20,12 @@ namespace Qiqqa.Documents.PDF
             this.annotations = annotations;
         }
 
-        public void AddUpdatedAnnotation(PDFAnnotation annotation)
+        public void __AddUpdatedAnnotation(PDFAnnotation annotation)
         {
             if (!annotations.Contains(annotation))
             {
                 annotations.Add(annotation);
-                annotation.Bindable.PropertyChanged += Bindable_PropertyChanged;
             }
-
-            OnPDFAnnotationListChanged?.Invoke();
-        }
-
-        private void Bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            OnPDFAnnotationListChanged?.Invoke();
         }
 
         public int Count => annotations.Count;
@@ -61,7 +48,7 @@ namespace Qiqqa.Documents.PDF
             var clone = new PDFAnnotationList();
             foreach (var annotation in annotations)
             {
-                clone.AddUpdatedAnnotation((PDFAnnotation)annotation.Clone());
+                clone.__AddUpdatedAnnotation((PDFAnnotation)annotation.Clone());
             }
             return clone;
         }

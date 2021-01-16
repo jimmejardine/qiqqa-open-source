@@ -103,7 +103,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             pdf_annotation.Width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
             pdf_annotation.Height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
 
-            pdf_renderer_control_stats.pdf_document.GetAnnotations().AddUpdatedAnnotation(pdf_annotation);
+            pdf_renderer_control_stats.pdf_document.AddUpdatedAnnotation(pdf_annotation);
 
             PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation, pdf_renderer_control_stats);
             pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
