@@ -114,7 +114,7 @@ Ask your question on github at https://github.com/jimmejardine/qiqqa-open-source
  
 ### Tip: you can also search the issue tracker to see if someone already asked the same question.
 
-When you find an issue which addresses your problem, see if the discussion there is a sufficient answer. When it is not and the issue is flagged as **_closed_**, **please file an NEW issue**. You may mention the the existing issue by pasting a link to it in your text (or for github-savvy folks: enter the issue number prefixed with a hash, e.g. `#284`; github issue preview would show that one as: [#284](https://github.com/jimmejardine/qiqqa-open-source/issues/284)).
+When you find an issue which addresses your problem, see if the discussion there is a sufficient answer. When it is not and the issue is flagged as **_closed_**, **please file an NEW issue**. You may mention the existing issue by pasting a link to it in your text (or for github-savvy folks: enter the issue number prefixed with a hash, e.g. `#284`; github issue preview would show that one as: [#284](https://github.com/jimmejardine/qiqqa-open-source/issues/284)).
 
 ## 🆘 ❓ After several years I returned to research; I have an older Qiqqa library which I would like restored. Can you help?
 
