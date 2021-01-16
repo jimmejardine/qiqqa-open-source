@@ -104,6 +104,18 @@ Then, once you re-installed v82, it will discover your local Web Library copy ag
 Do note that the *name* of the library as shown in v82 might be [UUID-like](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format) gobbledigook instead of the proper title you gave it back in the day of Commercial Qiqqa and v79. The contents should be available untrammeled though.
 
 
+## 🆘 ❓ Got a question?
+
+Ask your question on github at https://github.com/jimmejardine/qiqqa-open-source/issues by "filing an issue": there's nothing to it, just click the green "New Issue" button at the top-right corner there. 😄
+
+> While Google might still list search hits pointing at a Qiqqa forum at getsatisfaction.com, [that one is **defunct** since Q2 2020](https://github.com/jimmejardine/qiqqa-open-source/issues/218). 
+> 
+> No matter, you can ask your questions in [the "issue tracker" mentioned above](https://github.com/jimmejardine/qiqqa-open-source/issues); creating a github account is easy and free.
+ 
+### Tip: you can also search the issue tracker to see if someone already asked the same question.
+
+When you find an issue which addresses your problem, see if the discussion there is a sufficient answer. When it is not and the issue is flagged as **_closed_**, **please file an NEW issue**. You may mention the the existing issue by pasting a link to it in your text (or for github-savvy folks: enter the issue number prefixed with a hash, e.g. `#284`; github issue preview would show that one as: [#284](https://github.com/jimmejardine/qiqqa-open-source/issues/284)).
+
 ## 🆘 ❓ After several years I returned to research; I have an older Qiqqa library which I would like restored. Can you help?
 
 (Very) probably we can. 
