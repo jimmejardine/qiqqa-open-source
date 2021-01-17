@@ -11,7 +11,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
 {
     internal class SynchronisationExecutor
     {
-        internal static void Sync(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, bool is_readonly, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        internal static void Sync(WebLibraryDetail web_library_detail, bool is_readonly, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
             StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Performing metadata transfers");
 
@@ -33,9 +33,9 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 }
             }
 
-            DoMerges(web_library_detail, restricted_metadata_sync, historical_sync_file, synchronisation_action);
-            DoUploads(web_library_detail, restricted_metadata_sync, historical_sync_file, synchronisation_action);
-            int download_count = DoDownloads(web_library_detail, restricted_metadata_sync, historical_sync_file, synchronisation_action);
+            DoMerges(web_library_detail, historical_sync_file, synchronisation_action);
+            DoUploads(web_library_detail, historical_sync_file, synchronisation_action);
+            int download_count = DoDownloads(web_library_detail, historical_sync_file, synchronisation_action);
 
             if (0 < download_count)
             {
@@ -45,14 +45,14 @@ namespace Qiqqa.Synchronisation.MetadataSync
             StatusManager.Instance.UpdateStatus(StatusCodes.SYNC_META(web_library_detail), "Finished metadata transfers");
         }
 
-        private static void DoMerges(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        private static void DoMerges(WebLibraryDetail web_library_detail, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
             // For now we are going to treat all conflicted files as downloads (i.e. server wins)
             synchronisation_action.states_to_download.AddRange(synchronisation_action.states_to_merge);
             synchronisation_action.states_to_merge.Clear();
         }
 
-        private static void DoUploads(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        private static void DoUploads(WebLibraryDetail web_library_detail, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
             int upload_count = 0;
 
@@ -67,20 +67,6 @@ namespace Qiqqa.Synchronisation.MetadataSync
                 {
                     Logging.Info("User has canceled their metadata upload");
                     break;
-                }
-
-                // Only do some filetypes if we are in restricted sync (e.g. they haven't paid for a while)
-                {
-                    if (restricted_metadata_sync)
-                    {
-                        string extension = ss.extension;
-                        extension = extension.ToLower();
-                        if (!SynchronisationFileTypes.extensions_restricted_sync.Contains(extension))
-                        {
-                            Logging.Info("Not syncing {0} because we are on restricted sync", ss.filename);
-                            continue;
-                        }
-                    }
                 }
 
                 // Upload the file
@@ -108,7 +94,7 @@ namespace Qiqqa.Synchronisation.MetadataSync
         }
 
 
-        private static int DoDownloads(WebLibraryDetail web_library_detail, bool restricted_metadata_sync, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
+        private static int DoDownloads(WebLibraryDetail web_library_detail, Dictionary<string, string> historical_sync_file, SynchronisationAction synchronisation_action)
         {
             int download_count = 0;
 

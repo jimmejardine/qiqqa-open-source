@@ -421,7 +421,7 @@ namespace Qiqqa.DocumentLibrary
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncMetadata);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(false, web_library_detail, true, false, false));
+                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(wants_user_intervention: false, web_library_detail, suppress_already_in_progress_notification: false));
             }
         }
 
@@ -430,7 +430,7 @@ namespace Qiqqa.DocumentLibrary
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncMetadataAndPDFs);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(false, web_library_detail, true, true, false));
+                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(wants_user_intervention: false, web_library_detail, suppress_already_in_progress_notification: false));
             }
         }
 
@@ -439,7 +439,7 @@ namespace Qiqqa.DocumentLibrary
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncDetails);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(true, web_library_detail, true, true, false));
+                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(wants_user_intervention: true, web_library_detail, suppress_already_in_progress_notification: false));
             }
         }
 

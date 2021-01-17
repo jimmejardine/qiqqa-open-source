@@ -63,31 +63,15 @@
                                             <DataGridTemplateColumn
                                                 Width="Auto"
                                                 MinWidth="50"
-                                                Header="Partial&#x0a;Sync"
-                                                SortMemberPath="SyncMetadata">
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <CheckBox
-                                                            HorizontalAlignment="Center"
-                                                            Checked="GRIDCHECKBOX_Checked"
-                                                            IsChecked="{Binding Path=SyncMetadata}"
-                                                            IsEnabled="{Binding Path=CanSyncMetadata}"
-                                                            Unchecked="GRIDCHECKBOX_Checked" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTemplateColumn
-                                                Width="Auto"
-                                                MinWidth="50"
                                                 Header="Full&#x0a;Sync"
-                                                SortMemberPath="SyncPDFs">
+                                                SortMemberPath="SyncLibrary">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <CheckBox
                                                             HorizontalAlignment="Center"
                                                             Checked="GRIDCHECKBOX_Checked"
-                                                            IsChecked="{Binding Path=SyncDocuments}"
-                                                            IsEnabled="{Binding Path=CanSyncDocuments}"
+                                                            IsChecked="{Binding Path=SyncLibrary}"
+                                                            IsEnabled="{Binding Path=CanSyncLibrary}"
                                                             Unchecked="GRIDCHECKBOX_Checked" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -107,12 +91,12 @@
                                                 Width="Auto"
                                                 MinWidth="50"
                                                 Header="Can&#x0a;Sync?"
-                                                SortMemberPath="CanSync">
+                                                SortMemberPath="CanSyncLibrary">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <CheckBox
                                                             HorizontalAlignment="Center"
-                                                            IsChecked="{Binding Path=CanSyncDocuments, Mode=OneWay}"
+                                                            IsChecked="{Binding Path=CanSyncLibrary, Mode=OneWay}"
                                                             IsEnabled="False" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>

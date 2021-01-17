@@ -10,29 +10,6 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.DocumentLibrary
 {
     public class LibraryDB
     {
-
-#if SAMPLE_LOAD_CODE
-
-        private string base_path;
-        private string library_path;
-
-        public LibraryDB(string base_path)
-        {
-            this.base_path = base_path;
-            library_path = LibraryDB.GetLibraryDBPath(base_path);
-        }
-
-        internal static string GetLibraryDBPath(string base_path)
-        {
-            return Path.GetFullPath(Path.Combine(base_path, @"Qiqqa.library"));
-        }
-
-        internal static string GetLibraryDBTemplatePath()
-        {
-            return Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.StartupDirectoryForQiqqa, @"DocumentLibrary/Library.Template.s3db"));
-        }
-
-#endif
         
         public class LibraryItem
         {

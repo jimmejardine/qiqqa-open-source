@@ -31,6 +31,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Synchronisation.Bus
         public class SyncDecision
         {
             public bool can_sync;
+            [Obsolete("A remnant of Commercial Qiqqa where this was fiddled with based on your payment status. Keep for backwards compatibility in serialization.", error: true)]
             public bool can_sync_metadata;
 
             public bool is_readonly;
