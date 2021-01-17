@@ -38,12 +38,10 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ListPDFDocuments.IsVisibleChanged += ListPDFDocuments_IsVisibleChanged;
             ReconsiderPDFDocumentDetail();
 
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner)
             {
                 //DataContext = dummy;
             }
-#endif
         }
 
         private void ListPDFDocuments_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

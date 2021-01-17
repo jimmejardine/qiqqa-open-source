@@ -59,9 +59,7 @@ namespace Qiqqa.Common
 
         private void CmdLocal_Click(object sender, RoutedEventArgs e)
         {
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             OpenFileDialog open_file_dialog = new OpenFileDialog();
             open_file_dialog.CheckFileExists = true;

@@ -70,12 +70,10 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             DataContextChanged += LibraryCatalogOverviewControl_DataContextChanged;
 
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner)
             {
 				//...
             }
-#endif
         }
 
         private void ButtonThemeSwatch_Click(object sender, RoutedEventArgs e)

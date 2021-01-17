@@ -78,7 +78,6 @@ namespace Utilities
 
         private static readonly Lazy<string> _StartupDirectoryForQiqqa = new Lazy<string>(() =>
         {
-#if DEBUG
             // Are we looking at this dialog in the Visual Studio Designer?
             if (Runtime.IsRunningInVisualStudioDesigner)
             {
@@ -86,7 +85,6 @@ namespace Utilities
                 string basedir = Path.GetFullPath(loc);
                 return basedir;
             }
-#endif
 
             // are we certain already or do we want to collect more datums still?
             if (_runningFromNUnitHeuristic <= -50 || _runningFromNUnitHeuristic >= 50)

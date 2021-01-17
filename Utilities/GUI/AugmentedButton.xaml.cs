@@ -53,7 +53,6 @@ namespace Utilities.GUI
                 cachedDefaultFontSize = 12;
             }
 
-#if DEBUG
             // When in Designer mode, show a bit of stuff or the thing looks weird:
             if (Runtime.IsRunningInVisualStudioDesigner && false)
             {
@@ -66,7 +65,6 @@ namespace Utilities.GUI
                     ImageIcon.Source = Icons.GetAppIcon(Icons.SaveAs);
                 }
             }
-#endif
         }
 
         public bool CenteredMode
