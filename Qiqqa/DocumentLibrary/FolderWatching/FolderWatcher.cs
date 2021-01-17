@@ -281,6 +281,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 return;
             }
 
+            Stopwatch breathing_time = Stopwatch.StartNew();
+
             Logging.Debug("FolderWatcher BEGIN");
 
             // To recover from a fatal library failure and re-indexing attempt for very large libraries,
@@ -450,9 +452,11 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                     // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
                     WPFDoEvents.WaitForUIThreadActivityDone();
+
+                    watch_stats.index_processing_clock.Restart();
                 }
 
-                Logging.Debug("FolderWatcher End-Of-Round");
+                Logging.Debug("FolderWatcher End-Of-Round ({0} ms)", clk.ElapsedMilliseconds);
             }
 
             Logging.Debug("FolderWatcher END");

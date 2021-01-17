@@ -82,6 +82,7 @@ namespace Qiqqa.DocumentLibrary
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             Stopwatch clk = Stopwatch.StartNew();
+            Stopwatch breathing_time = Stopwatch.StartNew();
 
             // Notify if there is just a single doc
             suppress_notifications = suppress_notifications || (filename_with_metadata_imports.Length > 1);
@@ -158,14 +159,16 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
 
-                if (clk.ElapsedMilliseconds >= FolderWatcher.MAX_SECONDS_PER_ITERATION)
+                if (breathing_time.ElapsedMilliseconds >= FolderWatcher.MAX_SECONDS_PER_ITERATION)
                 {
-                    Logging.Info("AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", clk.ElapsedMilliseconds / 1E3);
+                    Logging.Info("AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", breathing_time.ElapsedMilliseconds / 1E3);
 
                     ShutdownableManager.Sleep(FolderWatcher.SECONDS_TO_RELAX_PER_ITERATION);
 
                     // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
                     WPFDoEvents.WaitForUIThreadActivityDone();
+
+                    breathing_time.Restart();
                 }
             }
 
