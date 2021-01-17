@@ -597,18 +597,19 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         }
 
                         // The call above can take quite a while to complete, so check all abort/delay checks once again, just in case...:
-                        if (false
-                            || ShutdownableManager.Instance.IsShuttingDown || !StillRunning
-                            || clk_duration > 300
-                            || Library.IsBusyAddingPDFs
-                            || Library.IsBusyRegeneratingTags
-                            || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
-                            )
+                        bool aborting_or_busy_elsewhere = (
+                            ShutdownableManager.Instance.IsShuttingDown || !StillRunning ||
+                             Library.IsBusyAddingPDFs ||
+                             Library.IsBusyRegeneratingTags ||
+                             ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
+                            );
+                        bool cpu_load_too_high_for_UI_responsiveness = (clk_duration > 300);
+                        if (aborting_or_busy_elsewhere || cpu_load_too_high_for_UI_responsiveness)
                         {
                             Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/delay signals were detected: {1}/{2}/{3}/{4}/{5}.",
                                 clk_duration,
                                 (ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
-                                clk_duration > 300 ? "+UI-wait+" : "-UI-",
+                                cpu_load_too_high_for_UI_responsiveness ? "+UI-wait+" : "-UI-",
                                 Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
                                 ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-",
                                 Library.IsBusyRegeneratingTags ? "+LibRegenerate+" : "-Regen-"
@@ -623,6 +624,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             {
                                 QueueJobSingle(next_job.job);
                             }
+
+                            // reduce CPU load by snoozing for a bit.
+                            if (cpu_load_too_high_for_UI_responsiveness)
+                            {
+                                daemon.Sleep(1000);
+                            }
+
                             continue;
                         }
                         else

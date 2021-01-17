@@ -249,7 +249,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     // l1_clk.LockPerfTimerStop();
 
-                    word_index_manager.WriteMasterList();
+                    word_index_manager?.WriteMasterList();
                 }
 
                 //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
@@ -584,7 +584,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                             {
                                 // l6_clk.LockPerfTimerStop();
 
-                                word_index_manager.AddDocumentMetadata(pdf_document.Deleted, pdf_document.Fingerprint, pdf_document.TitleCombined, pdf_document.AuthorsCombined, pdf_document.YearCombined, pdf_document.Comments, sb_tags.ToString(), sb_annotations.ToString(), pdf_document.BibTex, pdf_document.BibTexItem);
+                                word_index_manager?.AddDocumentMetadata(pdf_document.Deleted, pdf_document.Fingerprint, pdf_document.TitleCombined, pdf_document.AuthorsCombined, pdf_document.YearCombined, pdf_document.Comments, sb_tags.ToString(), sb_annotations.ToString(), pdf_document.BibTex, pdf_document.BibTexItem);
                             }
 
                             pdf_document_in_library.metadata_already_indexed = true;
@@ -659,7 +659,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                             // l7_clk.LockPerfTimerStop();
 
                                             // Index it
-                                            word_index_manager.AddDocumentPage(pdf_document.Deleted, pdf_document_in_library.fingerprint, page, sb.ToString());
+                                            word_index_manager?.AddDocumentPage(pdf_document.Deleted, pdf_document_in_library.fingerprint, page, sb.ToString());
                                         }
 
                                         // Indicate that we have managed to index this page
