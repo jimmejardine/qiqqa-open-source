@@ -3,11 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI"
     >
-    <DockPanel x:Name="ObjPanel" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+    <DockPanel x:Name="ObjPanel"  Background="Transparent">
         <Grid x:Name="PanelPopupPanel" DockPanel.Dock="Right" Width="20" Margin="1,0,0,0" >
             <Image x:Name="ImagePopupIndicator" Width="8" Height="8"/>
         </Grid>
         <Image x:Name="ImageIcon" Width="32" Height="32" Visibility="Collapsed" />
-        <TextBlock x:Name="TextCaption" Visibility="Collapsed" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0" MinWidth="25" ></TextBlock>
+        <TextBlock x:Name="TextCaption" Visibility="Collapsed" TextWrapping="Wrap" Margin="5,0" MinWidth="25" />
+        <Grid Name="GridFiller" />
     </DockPanel>
 </Button>

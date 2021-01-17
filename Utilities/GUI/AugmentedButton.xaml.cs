@@ -31,6 +31,9 @@ namespace Utilities.GUI
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
 
+            TextCaption.HorizontalAlignment = HorizontalAlignment.Stretch;
+            TextCaption.VerticalAlignment = VerticalAlignment.Stretch;
+
             RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             IsEnabledChanged += AugmentedButton_IsEnabledChanged;
@@ -58,9 +61,9 @@ namespace Utilities.GUI
                 {
                     Caption = "Sample in DesignMode";
                 }
-                if (Icon == null || Icon.Width < 1 || Icon.Height < 1)
+                if (ImageIcon == null || ImageIcon.Source == null || ImageIcon.Width < 1 || ImageIcon.Height < 1)
                 {
-                    Icon = Icons.GetAppIcon(Icons.SaveAs);
+                    ImageIcon.Source = Icons.GetAppIcon(Icons.SaveAs);
                 }
             }
 #endif
