@@ -22,38 +22,36 @@
             </DockPanel>
         </local_gui:AugmentedPadder>
         <local_gui:AugmentedPadder >
-            <StackPanel>
-                <TextBlock>
+            <StackPanel Margin="0,12,0,-4">
+                <TextBlock >
                     <Bold>
                         Folders to watch
                     </Bold>
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap">
+                <TextBlock TextWrapping="Wrap" Margin="0,3">
                     List separate folders on a new line.  To optionally add tags to PDFs imported from a folder, add the tags after the folder name, separated by semi-colons.
                 </TextBlock>
                 <DockPanel>
                     <TextBox Height="100" Name="TxtFolders" AcceptsReturn="True">
                     </TextBox>
                 </DockPanel>
-                <TextBlock />
-                <TextBlock>
+                <TextBlock Margin="0,20,0,0">
                     <Bold>
                         Add folder
                     </Bold>
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap">
+                <TextBlock TextWrapping="Wrap" Margin="0,3">
                     Click here to select folders to add to the list of watched folders.
                 </TextBlock>
                 <local_gui:AugmentedButton Grid.Column="1" x:Name="CmdAddFolder">
                     Add Another Folder
                 </local_gui:AugmentedButton>
-                <TextBlock />
-                <TextBlock>
+                <TextBlock Margin="0,20,0,0">
                     <Bold>
                         Clear watch history
                     </Bold>
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap">
+                <TextBlock TextWrapping="Wrap" Margin="0,3">
                     Qiqqa keeps track of files you have imported in the past so they are not imported again.  To reset this list, click this button.
                 </TextBlock>
                 <local_gui:AugmentedButton Grid.Column="1" x:Name="CmdResetHistory">

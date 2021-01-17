@@ -1,42 +1,59 @@
-<UserControl x:Class="Qiqqa.Common.Configuration.ProxySettingsControl"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
->
+<UserControl
+    x:Class="Qiqqa.Common.Configuration.ProxySettingsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
     <DockPanel Width="350">
-        <CheckBox DockPanel.Dock="Top" IsChecked="{Binding Proxy_UseProxy}" Name="CheckUseProxy">
+        <CheckBox
+            Name="CheckUseProxy"
+            DockPanel.Dock="Top"
+            IsChecked="{Binding Proxy_UseProxy}">
             Use an Internet proxy?
         </CheckBox>
         <local_gui:AugmentedBorder>
             <StackPanel Name="GridProxyDetails">
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200*"/>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="200*"/>
+                        <ColumnDefinition Width="200*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="200*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0">
                         Hostname:
                     </TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Proxy_Hostname}"/>
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="{Binding Proxy_Hostname}" />
                     <TextBlock Grid.Row="0" Grid.Column="2">
                         Port:
                     </TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Proxy_Port}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" >
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Text="{Binding Proxy_Port}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0">
                         Username:
                     </TextBlock>
-                    <TextBox Grid.Row="3" Grid.Column="0" Name="ObjUserName" Text="{Binding Proxy_Username}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="2" >
+                    <TextBox
+                        Name="ObjUserName"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Text="{Binding Proxy_Username}" />
+                    <TextBlock Grid.Row="2" Grid.Column="2">
                         Password:
                     </TextBlock>
-                    <local_gui:BindablePasswordBox Grid.Row="3" Grid.Column="2" Name="ObjPassword" Password="{Binding Proxy_Password}"/>
+                    <local_gui:BindablePasswordBox
+                        Name="ObjPassword"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Password="{Binding Proxy_Password}" />
                 </Grid>
                 <TextBlock>
                     <Hyperlink Name="ObjHyperLink_UseDefaultCredentials">

@@ -9,7 +9,7 @@
         <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
             <DockPanel HorizontalAlignment="Right">
                 <local_gui:AugmentedButton x:Name="btnCancel" Click="BtnCancel_OnClick" MinHeight="20" />
-                <local_gui:AugmentedButton x:Name="btnImport" Click="BtnImport_OnClick" IsEnabled="{Binding IsSelectedFileValid}" MinHeight="20"  Margin="3" />
+                <local_gui:AugmentedButton x:Name="btnImport" Click="BtnImport_OnClick" IsEnabled="{Binding IsSelectedFileValid}" MinHeight="20"  Margin="12,0,0,0" />
             </DockPanel>
         </local_gui:AugmentedPadder>
         <local_gui:AugmentedPadder >

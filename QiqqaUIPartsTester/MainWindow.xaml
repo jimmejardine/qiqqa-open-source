@@ -1,17 +1,21 @@
 <Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QiqqaUIPartsTester"
-        xmlns:GUI="clr-namespace:Utilities.GUI;assembly=Utilities" xmlns:DualTabbedLayoutStuff="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities" x:Class="QiqqaUIPartsTester.MainWindow"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel >
+    x:Class="QiqqaUIPartsTester.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:DualTabbedLayoutStuff="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
+    xmlns:GUI="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QiqqaUIPartsTester"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <StackPanel>
         <TextBlock Margin="10" FontSize="16">
             Click on UI test to execute (or select via commandline)
         </TextBlock>
-        <StackPanel Orientation="Horizontal" >
+        <StackPanel Orientation="Horizontal">
             <Button Margin="3">
                 Unhandled Exception MessageBox
             </Button>
@@ -25,7 +29,7 @@
                 TBD
             </Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" >
+        <StackPanel Orientation="Horizontal">
             <Button Margin="3">
                 Background Task keeps Message Pump Going on App Exit/Quit
             </Button>
@@ -39,16 +43,14 @@
                 TBD
             </Button>
         </StackPanel>
-        <Border BorderBrush="Black" BorderThickness="1" >
+        <Border BorderBrush="Black" BorderThickness="1">
             <StackPanel>
-                <StackPanel Orientation="Horizontal" >
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="3" FontSize="12">
-                        Web browser
-                        <Span FontSize="20">
+                        Web browser<Span FontSize="20">
                             ≅
                         </Span>
-                        Web Sniffer for BibTeX and PDF:
-                    </TextBlock>
+                        Web Sniffer for BibTeX and PDF:</TextBlock>
                     <Button Margin="3">
                         Embedded Browser
                     </Button>
@@ -56,7 +58,7 @@
                         Embedded Browser: pick up clicked PDFs, BibTeX, XML, etc. content
                     </Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" >
+                <StackPanel Orientation="Horizontal">
                     <Button Margin="3">
                         TBD
                     </Button>
@@ -76,7 +78,7 @@
                         TBD
                     </Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" >
+                <StackPanel Orientation="Horizontal">
                     <Button Margin="3">
                         TBD
                     </Button>
@@ -98,7 +100,7 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-        <StackPanel Orientation="Horizontal" >
+        <StackPanel Orientation="Horizontal">
             <Button Margin="3">
                 TBD
             </Button>
@@ -112,7 +114,7 @@
                 TBD
             </Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" >
+        <StackPanel Orientation="Horizontal">
             <Button Margin="3">
                 TBD
             </Button>
