@@ -73,7 +73,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 #if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner)
             {
-                if (PDFDocumentBindable == null || true)
                 {
                     PDFDocument fake_doc = PDFDocument.CreateFakeForDesigner();
                     fake_doc.BibTex = "@booklet{fubar42, title={The Qiqqa Sample for Desginer View}, author={The Qiqqa Team and Hobbelt, Ger}, year={2013}}";

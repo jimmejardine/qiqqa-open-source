@@ -1,13 +1,14 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.MultipleDocumentsSelectedPanel"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-  xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
-xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.MultipleDocumentsSelectedPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
     xmlns:tag="clr-namespace:Qiqqa.Common.TagManagement"
-              Height="1420" MinWidth="186"
-  >
+    Height="1420"
+    MinWidth="186">
     <ScrollViewer>
         <StackPanel>
             <local_gui:NonScrollingFlowDocumentScrollViewer>
@@ -30,81 +31,135 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
                     </Paragraph>
                 </commongui:StandardFlowDocument>
             </local_gui:NonScrollingFlowDocumentScrollViewer>
-            <local_gui:AugmentedInfoBarItemControl Header="Tags - Add Multiple" ToolTip="Add tags to many documents simultaneously." Collapsed="False">
+            <local_gui:AugmentedInfoBarItemControl
+                Collapsed="False"
+                Header="Tags - Add Multiple"
+                ToolTip="Add tags to many documents simultaneously.">
                 <StackPanel>
-                    <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" x:Name="ObjTagsAddEditorControl" />
-                    <Grid Margin="3" >
+                    <tag:TagEditorControl x:Name="ObjTagsAddEditorControl" TagsBundle="{Binding Tags, Mode=TwoWay}" />
+                    <Grid Margin="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <local_gui:AugmentedButton x:Name="ButtonResetTagsAdd" Grid.Column="0" MinHeight="20" >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonResetTagsAdd"
+                            Grid.Column="0"
+                            MinHeight="20">
                             Reset
                         </local_gui:AugmentedButton>
-                        <local_gui:AugmentedButton x:Name="ButtonApplyTagsAdd" Grid.Column="1" MinHeight="20" >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonApplyTagsAdd"
+                            Grid.Column="1"
+                            MinHeight="20">
                             Apply
                         </local_gui:AugmentedButton>
                     </Grid>
                 </StackPanel>
             </local_gui:AugmentedInfoBarItemControl>
-            <local_gui:AugmentedInfoBarItemControl Header="Tags - Remove Multiple" ToolTip="Remove tags from many documents simultaneously." Collapsed="False">
+            <local_gui:AugmentedInfoBarItemControl
+                Collapsed="False"
+                Header="Tags - Remove Multiple"
+                ToolTip="Remove tags from many documents simultaneously.">
                 <StackPanel>
-                    <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" x:Name="ObjTagsRemoveEditorControl" />
-                    <Grid Margin="3" >
+                    <tag:TagEditorControl x:Name="ObjTagsRemoveEditorControl" TagsBundle="{Binding Tags, Mode=TwoWay}" />
+                    <Grid Margin="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <local_gui:AugmentedButton x:Name="ButtonResetTagsRemove" Grid.Column="0" MinHeight="20" >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonResetTagsRemove"
+                            Grid.Column="0"
+                            MinHeight="20">
                             Reset
                         </local_gui:AugmentedButton>
-                        <local_gui:AugmentedButton x:Name="ButtonApplyTagsRemove" Grid.Column="1" MinHeight="20" >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonApplyTagsRemove"
+                            Grid.Column="1"
+                            MinHeight="20">
                             Apply
                         </local_gui:AugmentedButton>
                     </Grid>
                 </StackPanel>
             </local_gui:AugmentedInfoBarItemControl>
-            <local_gui:AugmentedInfoBarItemControl Header="Review - Edit Multiple" ToolTip="Update the review details of many documents simultaneously." Collapsed="False">
+            <local_gui:AugmentedInfoBarItemControl
+                Collapsed="False"
+                Header="Review - Edit Multiple"
+                ToolTip="Update the review details of many documents simultaneously.">
                 <StackPanel>
                     <local_metadata:UserReviewControl x:Name="ObjUserReviewControl" />
-                    <Grid Margin="3" >
+                    <Grid Margin="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <local_gui:AugmentedButton x:Name="ButtonResetReview" Grid.Column="0" MinHeight="20" >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonResetReview"
+                            Grid.Column="0"
+                            MinHeight="20">
                             Reset
                         </local_gui:AugmentedButton>
-                        <local_gui:AugmentedButton x:Name="ButtonApplyReview" Grid.Column="1" MinHeight="20" >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonApplyReview"
+                            Grid.Column="1"
+                            MinHeight="20">
                             Apply
                         </local_gui:AugmentedButton>
                     </Grid>
                 </StackPanel>
             </local_gui:AugmentedInfoBarItemControl>
-            <local_gui:AugmentedInfoBarItemControl Header="Reference Details - Edit Multiple" ToolTip="Update the reference details of many documents simultaneously."  Collapsed="False">
+            <local_gui:AugmentedInfoBarItemControl
+                Collapsed="False"
+                Header="Reference Details - Edit Multiple"
+                ToolTip="Update the reference details of many documents simultaneously.">
                 <StackPanel>
-                    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" MinHeight="200" />
-                    <Grid Margin="3" >
+                    <local_bibtex:BibTeXEditorControl
+                        x:Name="ObjBibTeXEditorControl"
+                        MinHeight="200"
+                        BibTeX="{Binding BibTex, Mode=TwoWay}"
+                        ForceHideNoBibTeXInstructions="True" />
+                    <Grid Margin="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <local_gui:AugmentedButton x:Name="ButtonResetBibTeX" Grid.Column="0" MinHeight="20" AutoScaleText="true"  >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonResetBibTeX"
+                            Grid.Column="0"
+                            MinHeight="20"
+                            AutoScaleText="true">
                             Reset
                         </local_gui:AugmentedButton>
-                        <local_gui:AugmentedButton x:Name="ButtonToggleBibTeX" Grid.Column="1" MinHeight="20" AutoScaleText="true"  >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonToggleBibTeX"
+                            Grid.Column="1"
+                            MinHeight="20"
+                            AutoScaleText="true">
                             Toggle
                         </local_gui:AugmentedButton>
-                        <local_gui:AugmentedButton x:Name="ButtonAckBibTeXParseErrors" Grid.Column="2" MinHeight="20" AutoScaleText="true"  >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonAckBibTeXParseErrors"
+                            Grid.Column="2"
+                            MinHeight="20"
+                            AutoScaleText="true">
                             Parse Errors
                         </local_gui:AugmentedButton>
-                        <local_gui:AugmentedButton x:Name="ButtonUndoBibTeXEdit" Grid.Column="3" MinHeight="20" AutoScaleText="true"  >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonUndoBibTeXEdit"
+                            Grid.Column="3"
+                            MinHeight="20"
+                            AutoScaleText="true">
                             Undo
                         </local_gui:AugmentedButton>
-                        <local_gui:AugmentedButton x:Name="ButtonApplyBibTeX" Grid.Column="4" MinHeight="20"  AutoScaleText="true" >
+                        <local_gui:AugmentedButton
+                            x:Name="ButtonApplyBibTeX"
+                            Grid.Column="4"
+                            MinHeight="20"
+                            AutoScaleText="true">
                             Apply
                         </local_gui:AugmentedButton>
                     </Grid>

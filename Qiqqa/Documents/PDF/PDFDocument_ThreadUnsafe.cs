@@ -1255,7 +1255,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
 
             // Create the new PDF document
-            PDFDocument new_pdf_document = LibraryRef.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, web_library_detail, pdf_filename, pdf_filename, null, null, null, false, true);
+            PDFDocument new_pdf_document = LibraryRef.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, web_library_detail, pdf_filename, pdf_filename, null, null, null, false);
 
             return new_pdf_document;
         }
