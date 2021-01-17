@@ -450,9 +450,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                     watch_stats.daemon.Sleep(SECONDS_TO_RELAX_PER_ITERATION);
 
-                    // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                    WPFDoEvents.WaitForUIThreadActivityDone();
-
                     watch_stats.index_processing_clock.Restart();
                 }
 
@@ -524,8 +521,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             if (watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION)
             {
-                // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                WPFDoEvents.WaitForUIThreadActivityDone();
+                watch_stats.daemon.Sleep(SECONDS_TO_RELAX_PER_ITERATION);
 
                 // reset:
                 watch_stats.index_processing_clock.Restart();

@@ -17,6 +17,7 @@ namespace Utilities.GUI
     /// </summary>
     public static class WPFDoEvents
     {
+#if false
         private static void DoEvents()
         {
             if (!ShutdownableManager.Instance.IsShuttingDown
@@ -65,13 +66,17 @@ namespace Utilities.GUI
                 Thread.Yield();
             }
         }
+#endif
 
+#if false
         internal static object ExitFrame(object f)
         {
             ((DispatcherFrame)f).Continue = false;
             return null;
         }
+#endif
 
+#if false
         //private static object DoEvents_lock = new object();
 
         public static void WaitForUIThreadActivityDone()
@@ -113,8 +118,9 @@ namespace Utilities.GUI
             }
             Logging.Debug("-WaitForUIThreadActivityDone end (time spent: {0} ms)", clk.ElapsedMilliseconds);
         }
+#endif
 
-        #region Forced Repaint of UI
+        // Forced Repaint of UI
 
         // as per: https://stackoverflow.com/questions/2886532/in-c-how-do-you-send-a-refresh-repaint-message-to-a-wpf-grid-or-canvas
 
@@ -129,7 +135,6 @@ namespace Utilities.GUI
             uiElement.Dispatcher.Invoke(DispatcherPriority.Render, repaint_done);
         }
 
-        #endregion
 
         public static void SetHourglassCursor()
         {

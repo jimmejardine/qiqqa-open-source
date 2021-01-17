@@ -588,7 +588,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             Stopwatch clk = Stopwatch.StartNew();
 
                             // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                            WPFDoEvents.WaitForUIThreadActivityDone();
+                            WPFDoEvents.InvokeInUIThread(() =>
+                            {
+                                // do nothing.
+                            });
 
                             clk_duration = clk.ElapsedMilliseconds;
                         }

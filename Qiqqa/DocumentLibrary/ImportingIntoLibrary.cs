@@ -165,9 +165,6 @@ namespace Qiqqa.DocumentLibrary
 
                     ShutdownableManager.Sleep(FolderWatcher.SECONDS_TO_RELAX_PER_ITERATION);
 
-                    // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                    WPFDoEvents.WaitForUIThreadActivityDone();
-
                     breathing_time.Restart();
                 }
             }
