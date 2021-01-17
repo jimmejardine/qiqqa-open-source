@@ -35,11 +35,10 @@
         <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
         <ScrollViewer>
             <StackPanel>
-                <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedBorder Name="RegionLibraryGrid">
+                <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                <local_gui:AugmentedBorder Name="RegionLibraryGrid" Margin="3" >
                     <DockPanel>
-                        <!--  The grid - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+                        <!-- The grid - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
                         <local_gui:NonScrollingFlowDocumentScrollViewer Name="ObjSurroundingScrollViewer">
                             <commongui:StandardFlowDocument>
                                 <Paragraph>
@@ -168,9 +167,8 @@
                         </local_gui:NonScrollingFlowDocumentScrollViewer>
                     </DockPanel>
                 </local_gui:AugmentedBorder>
-                <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedBorder>
+                <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                <local_gui:AugmentedBorder Margin="3" >
                     <local_gui:NonScrollingFlowDocumentScrollViewer>
                         <commongui:StandardFlowDocument>
                             <Paragraph>
@@ -181,9 +179,8 @@
                         </commongui:StandardFlowDocument>
                     </local_gui:NonScrollingFlowDocumentScrollViewer>
                 </local_gui:AugmentedBorder>
-                <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedBorder Name="RegionOverview" Visibility="{Binding SyncTermsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}">
+                <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                <local_gui:AugmentedBorder Name="RegionOverview" Visibility="{Binding SyncTermsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}" Margin="3" >
                     <local_gui:NonScrollingFlowDocumentScrollViewer>
                         <commongui:StandardFlowDocument>
                             <Paragraph>

@@ -60,7 +60,6 @@
                     MinHeight="20" />
             </Grid>
         </local_gui:AugmentedClosableBorder>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -77,7 +76,6 @@
                 MinHeight="20"
                 DockPanel.Dock="Top" />
         </Grid>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
-        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree" />
+        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree"  Margin="3" />
     </DockPanel>
 </UserControl>

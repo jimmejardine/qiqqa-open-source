@@ -24,8 +24,7 @@
                 <TextBlock Text="{Binding TitleCombinedTrimmed}" ToolTip="{Binding TitleCombined}" TextWrapping="Wrap" FontWeight="Bold" Name="TxtTitle"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding YearCombined}" ToolTip="{Binding YearCombined}" TextWrapping="Wrap"/>
-                    <local_gui:AugmentedSpacer />
-                    <TextBlock Text="{Binding AuthorsCombinedTrimmed}" ToolTip="{Binding AuthorsCombined}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding AuthorsCombinedTrimmed}" ToolTip="{Binding AuthorsCombined}" TextWrapping="Wrap" Margin="3" />
                 </StackPanel>
                 <TextBlock Text="{Binding Publication}" TextWrapping="Wrap" FontStyle="Italic"/>
             </StackPanel>

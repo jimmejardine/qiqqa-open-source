@@ -11,10 +11,8 @@
                         <TextBlock>
                             Page:
                         </TextBlock>
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock Name="TextPage" Text="{Binding Page}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock Name="TextText" Text="{Binding Text}" TextWrapping="Wrap" MaxWidth="200" />
+                        <TextBlock Name="TextPage" Text="{Binding Page}"  Margin="3" />
+                        <TextBlock Name="TextText" Text="{Binding Text}" TextWrapping="Wrap" MaxWidth="200"  Margin="3" />
                     </StackPanel>
                 </Border>
             </StackPanel>

@@ -152,7 +152,6 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         {
             using (popup.AutoCloser)
             {
-
                 item.WantsRight();
             }
         }

@@ -8,8 +8,7 @@
         <StackPanel>
             <local_gui:AugmentedButton x:Name="ButtonDraw"/>
             <wpfext:ColorPicker Width="40" Name="ObjColorPicker" />
-            <local_gui:AugmentedSpacer />
-            <local_gui:AugmentedButton x:Name="ButtonStrokeErase"/>
+            <local_gui:AugmentedButton x:Name="ButtonStrokeErase" Margin="3" />
             <local_gui:AugmentedButton x:Name="ButtonPointErase"/>
             <local_gui:AugmentedButton x:Name="ButtonSelect"/>
         </StackPanel>

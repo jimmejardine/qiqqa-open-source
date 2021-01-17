@@ -33,8 +33,7 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
             <local_gui:AugmentedInfoBarItemControl Header="Tags - Add Multiple" ToolTip="Add tags to many documents simultaneously." Collapsed="False">
                 <StackPanel>
                     <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" x:Name="ObjTagsAddEditorControl" />
-                    <local_gui:AugmentedSpacer />
-                    <Grid>
+                    <Grid Margin="3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -51,8 +50,7 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
             <local_gui:AugmentedInfoBarItemControl Header="Tags - Remove Multiple" ToolTip="Remove tags from many documents simultaneously." Collapsed="False">
                 <StackPanel>
                     <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" x:Name="ObjTagsRemoveEditorControl" />
-                    <local_gui:AugmentedSpacer />
-                    <Grid>
+                    <Grid Margin="3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -69,8 +67,7 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
             <local_gui:AugmentedInfoBarItemControl Header="Review - Edit Multiple" ToolTip="Update the review details of many documents simultaneously." Collapsed="False">
                 <StackPanel>
                     <local_metadata:UserReviewControl x:Name="ObjUserReviewControl" />
-                    <local_gui:AugmentedSpacer />
-                    <Grid>
+                    <Grid Margin="3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -87,8 +84,7 @@ xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
             <local_gui:AugmentedInfoBarItemControl Header="Reference Details - Edit Multiple" ToolTip="Update the reference details of many documents simultaneously."  Collapsed="False">
                 <StackPanel>
                     <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" MinHeight="200" />
-                    <local_gui:AugmentedSpacer />
-                    <Grid>
+                    <Grid Margin="3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>

@@ -28,9 +28,7 @@
                 Summary
             </local_gui:AugmentedButton>
         </Grid>
-        <local_gui:AugmentedSpacer />
-        <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="230"/>
-        <local_gui:AugmentedSpacer />
+        <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="230" Margin="3" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>

@@ -9,8 +9,7 @@
         <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
             <DockPanel HorizontalAlignment="Right">
                 <local_gui:AugmentedButton x:Name="btnCancel" Click="BtnCancel_OnClick" MinHeight="20" />
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedButton x:Name="btnImport" Click="BtnImport_OnClick" IsEnabled="{Binding IsSelectedFileValid}" MinHeight="20" />
+                <local_gui:AugmentedButton x:Name="btnImport" Click="BtnImport_OnClick" IsEnabled="{Binding IsSelectedFileValid}" MinHeight="20"  Margin="3" />
             </DockPanel>
         </local_gui:AugmentedPadder>
         <local_gui:AugmentedPadder >
@@ -25,15 +24,13 @@
                     </local_gui:AugmentedButton>
                     <TextBox x:Name="folderLocationTextBox" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=SelectedPath}" ToolTip="{Binding Path=SelectedPath}"/>
                 </DockPanel>
-                <local_gui:AugmentedSpacer />
-                <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Margin="3"
                   IsChecked="{Binding RecurseSubfolders}"
                   ToolTip="Import PDF's from all subfolders?"
                   VerticalAlignment="Center">
                     Include subfolders
                 </CheckBox>
-                <local_gui:AugmentedSpacer />
-                <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  Margin="3"
                   IsChecked="{Binding ImportTagsFromSubfolderNames}"
                   ToolTip="Should each subfolder name be automatically added as a document tag?"
                   Visibility="Visible"

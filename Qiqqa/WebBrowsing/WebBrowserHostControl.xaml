@@ -10,11 +10,9 @@
         <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <local_gui:AugmentedToolBarButton x:Name="ButtonNewBrowser" MinWidth="15" />
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton x:Name="ButtonBack" MinWidth="15" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonBack" MinWidth="15"  Margin="3" />
                 <local_gui:AugmentedToolBarButton x:Name="ButtonForward" MinWidth="15" />
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedBorder>
+                <local_gui:AugmentedBorder Margin="3" >
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Name="TxtWebAddress">
                             Web Address:
@@ -22,8 +20,7 @@
                         <local_gui:AugmentedSearchBox Name="TextBoxUrl" Width="200"/>
                     </StackPanel>
                 </local_gui:AugmentedBorder>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedBorder>
+                <local_gui:AugmentedBorder Margin="3" >
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Name="TxtSearchTheWeb">
                             Search the Web:
@@ -31,8 +28,7 @@
                         <local_gui:AugmentedSearchBox Name="TextBoxGoogleScholar" Width="200"/>
                     </StackPanel>
                 </local_gui:AugmentedBorder>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton x:Name="ButtonEZProxy" MinWidth="15" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonEZProxy" MinWidth="15"  Margin="3" />
                 <local_gui:AugmentedToolBarButton x:Name="ButtonPrint" MinWidth="15" />
                 <local_gui:AugmentedToolBarButton x:Name="ButtonGrabWebPage" MinWidth="25" />
                 <local_gui:AugmentedToolBarButton x:Name="ButtonGrabPDFs" MinWidth="25" />

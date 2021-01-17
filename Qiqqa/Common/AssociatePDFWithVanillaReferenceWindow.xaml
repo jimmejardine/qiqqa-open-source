@@ -15,15 +15,12 @@
                 <local_gui:AugmentedButton Name="CmdWeb" DockPanel.Dock="Right" MinHeight="20" >
                     Web
                 </local_gui:AugmentedButton>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="CmdLocal" DockPanel.Dock="Right" MinHeight="20" >
+                <local_gui:AugmentedButton Name="CmdLocal" DockPanel.Dock="Right" MinHeight="20"  Margin="3"  >
                     Local
                 </local_gui:AugmentedButton>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="CmdCancel" DockPanel.Dock="Right" MinHeight="20" >
+                <local_gui:AugmentedButton Name="CmdCancel" DockPanel.Dock="Right" MinHeight="20"  Margin="3" >
                     Cancel
                 </local_gui:AugmentedButton>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
             </DockPanel>
         </local_gui:AugmentedPadder>
         <Grid>

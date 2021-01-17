@@ -5,15 +5,13 @@
 >
     <DockPanel>
         <StackPanel  DockPanel.Dock="Left" Orientation="Horizontal">
-            <Image Name="ImageIcon"/>
-            <local_gui:AugmentedSpacer />
+            <Image Name="ImageIcon" Margin="3" />
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-            <local_gui:AugmentedSpacer />
-            <Image Name="ImageClose"/>
+            <Image Name="ImageClose" Margin="3" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Name="TextHeader" />
+            <TextBlock Name="TextHeader"  Margin="3" />
         </StackPanel>
     </DockPanel>
 </UserControl>

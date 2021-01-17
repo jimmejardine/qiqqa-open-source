@@ -13,10 +13,8 @@
                 <local_gui:AugmentedToolBarButton x:Name="ButtonOpen"/>
                 <local_gui:AugmentedToolBarButton x:Name="ButtonSave"/>
                 <local_gui:AugmentedToolBarButton x:Name="ButtonSaveAs"/>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton x:Name="ButtonRefresh"/>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedToolBarButton x:Name="ButtonHelp"/>
+                <local_gui:AugmentedToolBarButton Name="ButtonRefresh" Margin="3" />
+                <local_gui:AugmentedToolBarButton Name="ButtonHelp" Margin="3" />
             </StackPanel>
         </local_gui:AugmentedToolBarTray>
         <Grid>
