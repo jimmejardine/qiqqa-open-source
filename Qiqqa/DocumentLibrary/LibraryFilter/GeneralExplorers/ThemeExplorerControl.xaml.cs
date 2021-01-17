@@ -9,6 +9,7 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Expedition;
 using Utilities;
 using Utilities.Collections;
+using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 {
@@ -61,27 +62,17 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         // -----------------------------
 
-        private MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
+        private void UpdateVisibility(bool has_themes)
         {
-            MultiMapSet<string, string> results = GetNodeItems_STATIC(web_library_detail, parent_fingerprints);
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            // Show the no themes message
-            {
-                bool have_topics =
-                    true
-                    && null != web_library_detail.Xlibrary.ExpeditionManager
-                    && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource
-                    && 0 < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS
-                    ;
-
-                TxtNoThemesMessage.Visibility = 0 == results.Count ? Visibility.Visible : Visibility.Collapsed;
-            }
-
-            return results;
+            TxtNoThemesMessage.Visibility = !has_themes ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public static MultiMapSet<string, string> GetNodeItems_STATIC(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
+        public static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             MultiMapSet<string, string> results = new MultiMapSet<string, string>();
 
             try

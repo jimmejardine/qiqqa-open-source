@@ -55,7 +55,7 @@ namespace Utilities.GUI
 
 #if DEBUG
             // When in Designer mode, show a bit of stuff or the thing looks weird:
-            if (Runtime.IsRunningInVisualStudioDesigner)
+            if (Runtime.IsRunningInVisualStudioDesigner && false)
             {
                 if (String.IsNullOrWhiteSpace(Caption))
                 {

@@ -92,7 +92,7 @@ namespace Qiqqa.InCite
                     // First set the used citations
                     List<PDFDocument> pdf_documents = new List<PDFDocument>();
                     used_citations.ForEach(o => pdf_documents.Add(o.pdf_document));
-                    ObjUsedCitationsCatalog.SetPDFDocuments(pdf_documents, null);
+                    ObjUsedCitationsCatalog.SetPDFDocuments(pdf_documents);
 
                     // Then set the missing citations
                     ObjMissingCitationsList.Children.Clear();

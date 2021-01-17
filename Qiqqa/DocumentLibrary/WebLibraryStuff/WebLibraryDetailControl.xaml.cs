@@ -276,7 +276,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Store the web library details
             web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail && null != web_library_detail)
+            if (null != web_library_detail)
             {
                 // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;
                 WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, WebLibraryDetailControl>(
@@ -370,6 +370,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void UpdateLibraryStatistics_Stats_Background_Charts()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // The chart of the recently read and the recently added...
             const int WEEK_HISTORY = 4 * 3;
             DateTime NOW = DateTime.UtcNow;
@@ -411,20 +413,23 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            // Plot the pretty pretty
-            List<ChartItem> chart_items_read = new List<ChartItem>();
-            List<ChartItem> chart_items_added = new List<ChartItem>();
-            for (int week = 1; week < WEEK_HISTORY; ++week)
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
-                DateTime cutoff = NOW.AddDays(-7 * week);
-                int num_read = date_buckets_read.GetCount(cutoff);
-                int num_added = date_buckets_added.GetCount(cutoff);
+                // Plot the pretty pretty
+                List<ChartItem> chart_items_read = new List<ChartItem>();
+                List<ChartItem> chart_items_added = new List<ChartItem>();
+                for (int week = 1; week < WEEK_HISTORY; ++week)
+                {
+                    DateTime cutoff = NOW.AddDays(-7 * week);
+                    int num_read = date_buckets_read.GetCount(cutoff);
+                    int num_added = date_buckets_added.GetCount(cutoff);
 
-                chart_items_read.Add(new ChartItem { Title = "Read", Timestamp = cutoff, Count = num_read });
-                chart_items_added.Add(new ChartItem { Title = "Added", Timestamp = cutoff, Count = num_added });
-            }
+                    chart_items_read.Add(new ChartItem { Title = "Read", Timestamp = cutoff, Count = num_read });
+                    chart_items_added.Add(new ChartItem { Title = "Added", Timestamp = cutoff, Count = num_added });
+                }
 
-            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added));
+                UpdateLibraryStatistics_Stats_Background_GUI(chart_items_read, chart_items_added);
+            });
         }
 
         private class DocumentDisplayWork
@@ -473,13 +478,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void UpdateLibraryStatistics_Stats_Background_CoverFlow()
         {
-            // The list of recommended items
-            DocumentDisplayWorkManager ddwm = new DocumentDisplayWorkManager();
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             if (web_library_detail.Xlibrary == null)
             {
                 return;
             }
+
+            List<PDFDocument> pdf_documents_all = web_library_detail.Xlibrary.PDFDocuments;
+
+            // The list of recommended items
+            DocumentDisplayWorkManager ddwm = new DocumentDisplayWorkManager();
 
             {
                 int ITEMS_IN_LIST = 5;
@@ -490,7 +499,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 //  read again
                 //  recently added and no status
 
-                List<PDFDocument> pdf_documents_all = web_library_detail.Xlibrary.PDFDocuments;
                 pdf_documents_all.Sort(PDFDocumentListSorters.DateAddedToDatabase);
 
                 foreach (string reading_stage in new string[] { Choices.ReadingStages_INTERRUPTED, Choices.ReadingStages_TOP_PRIORITY, Choices.ReadingStages_READ_AGAIN })
@@ -504,7 +512,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                         if (pdf_document.ReadingStage == reading_stage)
                         {
-
                             if (!ddwm.ContainsPDFDocument(pdf_document))
                             {
                                 ddwm.AddDocumentDisplayWork(DocumentDisplayWork.StarburstColor.Pink, reading_stage, pdf_document);
@@ -524,11 +531,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 // Recently added
                 {
-                    List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
-                    pdf_documents.Sort(PDFDocumentListSorters.DateAddedToDatabase);
+                    pdf_documents_all.Sort(PDFDocumentListSorters.DateAddedToDatabase);
 
                     int num_added = 0;
-                    foreach (PDFDocument pdf_document in pdf_documents)
+                    foreach (PDFDocument pdf_document in pdf_documents_all)
                     {
                         if (!pdf_document.DocumentExists)
                         {
@@ -549,11 +555,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 // Recently read
                 {
-                    List<PDFDocument> pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
-                    pdf_documents.Sort(PDFDocumentListSorters.DateLastRead);
+                    pdf_documents_all.Sort(PDFDocumentListSorters.DateLastRead);
 
                     int num_added = 0;
-                    foreach (PDFDocument pdf_document in pdf_documents)
+                    foreach (PDFDocument pdf_document in pdf_documents_all)
                     {
                         if (!pdf_document.DocumentExists)
                         {
@@ -581,14 +586,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 {
                     UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws);
 
-                    SafeThreadPool.QueueUserWorkItem(o =>
-                    {
                         try
                         {
-                            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                            // Now render each document
-                            using (Font font = new Font("Times New Roman", 11.0f))
+                        // Now render each document
+                        using (Font font = new Font("Times New Roman", 11.0f))
                             {
                                 using (StringFormat string_format = new StringFormat
                                 {
@@ -666,8 +669,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                                     ddw.page_bitmap_source = page_bitmap_source;
                                                 }
 
-                                                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                                                {
                                                     try
                                                     {
                                                         UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
@@ -675,12 +676,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                                     catch (Exception ex)
                                                     {
                                                         Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
+                                                throw;
                                                     }
-                                                });
                                             }
                                             catch (Exception ex)
                                             {
                                                 Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
+                                            throw;
                                             }
                                         }
                                     }
@@ -691,7 +693,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         {
                             Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
                         }
-                    });
                 }
                 catch (Exception ex)
                 {
@@ -700,18 +701,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 if (0 == ddwm.ddws.Count)
                 {
-                    WPFDoEvents.InvokeAsyncInUIThread(() =>
-                    {
                         ButtonCoverFlow.IsChecked = false;
                         UpdateLibraryStatistics();
-                    });
                 }
             });
         }
 
         private void UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(List<DocumentDisplayWork> ddws)
         {
-                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             ObjCarousel.Items.Clear();
 
@@ -741,17 +739,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(DocumentDisplayWork ddw)
         {
-                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                ddw.image.Source = ddw.page_bitmap_source;
+            ddw.image.Source = ddw.page_bitmap_source;
             ddw.border.Visibility = Visibility.Visible;
         }
 
         private void ObjCarousel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                if (0 < ObjCarousel.Items.Count && 0 <= ObjCarousel.SelectedIndex)
+            if (0 < ObjCarousel.Items.Count && 0 <= ObjCarousel.SelectedIndex)
             {
                 FrameworkElement fe = null;
 
@@ -782,10 +780,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void UpdateLibraryStatistics_Stats_Background_GUI(List<ChartItem> chart_items_read, List<ChartItem> chart_items_added)
         {
-                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                {
-                    ObjSeriesRead.Name = "Read";
+            {
+                ObjSeriesRead.Name = "Read";
                 ObjSeriesRead.BindingPathX = "Timestamp";
                 ObjSeriesRead.BindingPathsY = new string[] { "Count" };
                 ObjSeriesRead.DataSource = chart_items_read;
@@ -800,9 +798,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void UpdateLibraryStatistics_Headers()
         {
-                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                TextLibraryCount.Text = "";
+            TextLibraryCount.Text = "";
 
             PanelForHyperlinks.Visibility = Visibility.Visible;
             PanelForget.Visibility = Visibility.Collapsed;

@@ -59,6 +59,8 @@ namespace Qiqqa.DocumentLibrary
 
         public static PDFDocument AddNewPDFDocumentsToLibrary_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, bool suppress_signal_that_docs_have_changed, params string[] filenames)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FilenameWithMetadataImport[] filename_with_metadata_imports = new FilenameWithMetadataImport[filenames.Length];
             for (int i = 0; i < filenames.Length; ++i)
             {

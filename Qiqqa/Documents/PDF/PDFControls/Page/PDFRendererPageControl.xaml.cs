@@ -598,6 +598,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         private void RefreshPage_INTERNAL_SLOW()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             while (true)
             {
                 // Get the next piece of work

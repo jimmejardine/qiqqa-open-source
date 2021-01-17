@@ -69,6 +69,30 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             MouseLeave += LibraryCatalogOverviewControl_MouseLeave;
 
             DataContextChanged += LibraryCatalogOverviewControl_DataContextChanged;
+
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner)
+            {
+                if (PDFDocumentBindable == null || true)
+                {
+                    PDFDocument fake_doc = PDFDocument.CreateFakeForDesigner();
+                    fake_doc.BibTex = "@booklet{fubar42, title={The Qiqqa Sample for Desginer View}, author={The Qiqqa Team and Hobbelt, Ger}, year={2013}}";
+
+                    fake_doc.Comments = "comments";
+                    fake_doc.YearCombined = "2021";
+                    //fake_doc.TitleCombined = "Sample for Designer View";
+                    //fake_doc.AuthorsCombined = "Ger Hobbelt";
+                    fake_doc.Publication = "Moir Brandts Honk";
+                    fake_doc.Tags = "bloo, blub";
+                    fake_doc.ReadingStage = "mid-way";
+                    fake_doc.Rating = "Superb";
+                    //fake_doc.Id = "foobar42";
+
+                    AugmentedBindable<PDFDocument> dummy = new AugmentedBindable<PDFDocument>(fake_doc);
+                    DataContext = dummy;
+                }
+            }
+#endif
         }
 
         private void ButtonThemeSwatch_Click(object sender, RoutedEventArgs e)
@@ -98,26 +122,28 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             c.Background = ThemeColours.Background_Brush_Blue_LightToDark;
         }
 
-        private LibraryCatalogControl _library_catalog_control;
+        private WeakReference<LibraryCatalogControl> _library_catalog_control = new WeakReference<LibraryCatalogControl>(null);
         private LibraryCatalogControl LibraryCatalogControl
         {
             get
             {
                 try
                 {
-                    if (null == _library_catalog_control)
+                    LibraryCatalogControl rv = null;
+                    if (!_library_catalog_control.TryGetTarget(out rv) || rv == null)
                     {
-                        _library_catalog_control = GUITools.GetParentControl<LibraryCatalogControl>(this);
+                        rv = GUITools.GetParentControl<LibraryCatalogControl>(this);
+                        _library_catalog_control.SetTarget(rv);
                     }
+                    return rv;
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Warn(ex, "There was a problem while trying to detemine the parent of the library catalog overview control");
-                    _library_catalog_control = null;
+                    _library_catalog_control.SetTarget(null);
                 }
 
-                return _library_catalog_control;
+                return null;
             }
         }
 
