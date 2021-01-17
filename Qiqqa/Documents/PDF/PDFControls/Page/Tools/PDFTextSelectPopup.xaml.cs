@@ -77,31 +77,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
         private void MenuItemBibTexSet_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 GoogleBibTexSnifferControl sniffer = new GoogleBibTexSnifferControl();
                 sniffer.Show(pdf_document, selected_text);
-            }
         }
 
         private void MenuItemWebsiteDictionary_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_WebsiteDictionary);
 
                 MainWindowServiceDispatcher.Instance.SearchDictionary(selected_text);
-            }
         }
 
         private void MenuItemTagSet_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextToTag);
 
                 pdf_document.AddTag(selected_text);
-            }
         }
 
         public void Open()
@@ -111,8 +102,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
         private void MenuItemTitleSet_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextToMetadata);
 
                 if (null != pdf_document.Title && pdf_document.Title.Length > 0 && 0 != pdf_document.Title.CompareTo(pdf_document.DownloadLocation))
@@ -125,57 +114,42 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
                 pdf_document.TitleCombined = selected_text;
                 pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.TitleCombined));
-            }
         }
 
         private void MenuItemYearSet_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextToMetadata);
 
                 pdf_document.YearCombined = selected_text;
                 pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.YearCombined));
-            }
         }
 
         private void MenuItemAbstractSet_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_SetAbstract);
 
                 pdf_document.Abstract = selected_text;
                 pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Abstract));
-            }
         }
 
         private void MenuItemAbstractClear_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_ClearAbstract);
 
                 pdf_document.Abstract = null;
                 pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Abstract));
-            }
         }
 
         private void MenuItemAuthorSet_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextToMetadata);
 
                 pdf_document.AuthorsCombined = selected_text;
                 pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AuthorsCombined));
-            }
         }
 
         private void MenuItemAuthorAppend_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextToMetadata);
 
                 string authors = pdf_document.AuthorsCombined;
@@ -192,51 +166,38 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
                 pdf_document.AuthorsCombined = authors;
                 pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.AuthorsCombined));
-            }
         }
 
         private void MenuItemSearchInternet_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_SearchInternet);
 
                 MainWindowServiceDispatcher.Instance.SearchWeb(selected_text);
-            }
         }
 
         private void MenuItemSearchLibrary_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_SearchLibrary);
 
                 MainWindowServiceDispatcher.Instance.SearchLibrary(pdf_document.LibraryRef, selected_text);
-            }
         }
 
         private void MenuItemCopy_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_CopyText);
 
                 try
                 {
                     ClipboardTools.SetText(selected_text);
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was a problem copying text to the clipboard.");
                 }
-            }
         }
 
         private void MenuItemSpeedRead_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_TextSelectSpeedRead);
 
                 try
@@ -244,14 +205,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
                     SpeedReadControl src = MainWindowServiceDispatcher.Instance.OpenSpeedRead();
                     src.UseText(selected_text);
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was a problem speed reading.");
                 }
-            }
         }
-
-
     }
 }

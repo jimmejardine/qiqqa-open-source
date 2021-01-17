@@ -35,9 +35,6 @@ namespace Utilities.GUI
 
             IsEnabledChanged += AugmentedButton_IsEnabledChanged;
 
-            ImagePopupIndicator.Source = Icons.GetAppIcon(Icons.AugmentedButtonDown);
-            PanelPopupPanel.Visibility = Visibility.Collapsed;
-
             // Initialise
             Icon = null;
             CaptionDock = Dock.Bottom;
@@ -58,9 +55,9 @@ namespace Utilities.GUI
                 {
                     Caption = "Sample in DesignMode";
                 }
-                if (Icon == null || Icon.Width < 1 || Icon.Height < 1)
+                if (ImageIcon == null || ImageIcon.Source == null || ImageIcon.Width < 1 || ImageIcon.Height < 1)
                 {
-                    Icon = Icons.GetAppIcon(Icons.SaveAs);
+                    ImageIcon.Source = Icons.GetAppIcon(Icons.SaveAs);
                 }
             }
 #endif
@@ -237,26 +234,6 @@ namespace Utilities.GUI
         {
             get => _AutoScaleText;
             set => _AutoScaleText = value;
-        }
-
-        private Popup attached_popup = null;
-        public void AttachPopup(Popup popup)
-        {
-            PanelPopupPanel.Visibility = Visibility.Visible;
-            attached_popup = popup;
-            Click += AugmentedButtonPopup_Click;
-        }
-
-        private void AugmentedButtonPopup_Click(object sender, RoutedEventArgs e)
-        {
-            if (null != attached_popup)
-            {
-                attached_popup.PlacementTarget = this;
-                attached_popup.MinWidth = 300;
-                attached_popup.StaysOpen = false;
-                attached_popup.IsOpen = true;
-                e.Handled = true;
-            }
         }
 
         private void Button_SizeChanged(object sender, SizeChangedEventArgs e)

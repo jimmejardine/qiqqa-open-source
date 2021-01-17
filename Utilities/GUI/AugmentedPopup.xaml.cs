@@ -37,8 +37,6 @@ namespace Utilities.GUI
             ObjBorder.Child = background;
         }
 
-        public AugmentedPopupAutoCloser AutoCloser => new AugmentedPopupAutoCloser(this);
-
         public void Close()
         {
             IsOpen = false;

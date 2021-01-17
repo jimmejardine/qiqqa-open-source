@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using icons;
 using Qiqqa.Common.Configuration;
@@ -30,6 +31,15 @@ namespace Qiqqa.Common.WebcastStuff
             ButtonWebcast.Click += ButtonWebcast_Click;
         }
 
+        public static void FormatWebcastMenuItem(MenuItem ButtonWebcast, Image ButtonWebcastIcon, TextBlock ButtonWebcastText, Webcast webcast)
+        {
+            ButtonWebcastIcon.Source = Icons.GetAppIcon(Icons.Webcast);
+            ButtonWebcast.ToolTip = webcast.description;
+            ButtonWebcastText.Text = webcast.title;
+            ButtonWebcast.Tag = webcast;
+            ButtonWebcast.Click += MenuItemWebcast_Click;
+        }
+
         public static void FormatWebcaseHyperlink(Hyperlink hyperlink, Webcast webcast)
         {
             hyperlink.Inlines.Add(webcast.title);
@@ -49,6 +59,13 @@ namespace Qiqqa.Common.WebcastStuff
         private static void ButtonWebcast_Click(object sender, RoutedEventArgs e)
         {
             FrameworkElement fe = sender as FrameworkElement;
+            Webcast webcast = fe.Tag as Webcast;
+            OpenWebcast(webcast);
+        }
+
+        private static void MenuItemWebcast_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem fe = sender as MenuItem;
             Webcast webcast = fe.Tag as Webcast;
             OpenWebcast(webcast);
         }

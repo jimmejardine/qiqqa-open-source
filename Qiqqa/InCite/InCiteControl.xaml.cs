@@ -80,8 +80,6 @@ namespace Qiqqa.InCite
             ButtonRefresh.ToolTip = LocalisationManager.Get("INCITE/TIP/REFORMAT");
             ButtonRefresh.Click += ButtonRefresh_Click;
 
-
-            ButtonEditCSL.AttachPopup(ButtonEditCSLPopup);
             ButtonEditCSL.Icon = Icons.GetAppIcon(Icons.InCiteEditCSL);
             if (!ADVANCED_MENUS) ButtonEditCSL.Caption = LocalisationManager.Get("INCITE/CAP/CSL_OPTIONS");
 
@@ -105,8 +103,6 @@ namespace Qiqqa.InCite
             ButtonEditCSL_Internal.Caption = "Open Qiqqa CSL Editor (Advanced)";
             ButtonEditCSL_Internal.ToolTip = LocalisationManager.Get("INCITE/TIP/CSL_EDIT");
 
-
-            ButtonTools.AttachPopup(ButtonToolsPopup);
             ButtonTools.Icon = Icons.GetAppIcon(Icons.ModuleConfiguration);
             if (!ADVANCED_MENUS) ButtonTools.Caption = LocalisationManager.Get("INCITE/CAP/TOOLS");
 

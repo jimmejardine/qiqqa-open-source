@@ -290,18 +290,6 @@ namespace icons
         public static readonly string Warning2 = "Warning2";
         public static readonly string Window = "Window";
 
-        #region LexLens only
-
-        public const string lexlens_logo = "lexlens_logo";
-        public const string lexlens_back = "lexlens_back";
-        public const string lexlens_dock = "lexlens_dock";
-        public const string lexlens_eye = "lexlens_eye";
-        public const string lexlens_search = "lexlens_search";
-        public const string lexlens_search_down = "lexlens_search_down";
-        public const string lexlens_search_up = "lexlens_search_up";
-
-        #endregion
-
 
         public static BitmapImage GetAppIcon(string icon, string extension = "png")
         {

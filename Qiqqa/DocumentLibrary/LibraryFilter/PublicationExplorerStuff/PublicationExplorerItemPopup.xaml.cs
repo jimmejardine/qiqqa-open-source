@@ -28,11 +28,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
 
         private void MenuRenamePublication_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 PublicationExplorerItemRenameWindow dialog = new PublicationExplorerItemRenameWindow(web_library_detail, source_tag);
                 dialog.ShowDialog();
-            }
         }
 
         public void Open()

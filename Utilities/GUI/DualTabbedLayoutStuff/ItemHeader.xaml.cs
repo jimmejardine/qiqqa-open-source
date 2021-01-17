@@ -126,43 +126,27 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         private void ImageClose_Click(object sender, RoutedEventArgs e)
         {
-            using (popup.AutoCloser)
-            {
                 item.WantsClose();
-            }
         }
 
         private void ImageLeft_MouseDown(object sender, RoutedEventArgs e)
         {
-            using (popup.AutoCloser)
-            {
                 item.WantsLeft();
-            }
         }
 
         private void ImageBottom_MouseDown(object sender, RoutedEventArgs e)
         {
-            using (popup.AutoCloser)
-            {
                 item.WantsBottom();
-            }
         }
 
         private void ImageRight_MouseDown(object sender, RoutedEventArgs e)
         {
-            using (popup.AutoCloser)
-            {
-
-                item.WantsRight();
-            }
+               item.WantsRight();
         }
 
         private void ImageFloating_MouseDown(object sender, RoutedEventArgs e)
         {
-            using (popup.AutoCloser)
-            {
                 item.WantsFloating();
-            }
         }
 
         public override string ToString()

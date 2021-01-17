@@ -31,19 +31,13 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void MenuExploreTag_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 MainWindowServiceDispatcher.Instance.ExploreTagInBrainstorm(web_library_detail.Id, source_tag);
-            }
         }
 
         private void MenuRenameTag_Click(object sender, RoutedEventArgs e)
         {
-            using (var c = popup.AutoCloser)
-            {
                 TagExplorerItemRenameWindow dialog = new TagExplorerItemRenameWindow(web_library_detail, source_tag);
                 dialog.ShowDialog();
-            }
         }
 
         public void Open()

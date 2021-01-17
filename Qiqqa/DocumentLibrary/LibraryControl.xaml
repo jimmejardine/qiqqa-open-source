@@ -18,43 +18,286 @@
                     <local_library_filter:LibraryFilterControl_Search x:Name="ObjLibraryFilterControl_Search" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonAddPDF" />
-                    <local_gui:AugmentedToolBarPopup x:Name="ButtonAddPDFPopup">
-                        <StackPanel>
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonAddVanillaReference" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonAddDocuments" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonAddDocumentsFromFolder" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonWatchFolder" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonImportFromThirdParty" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonAddDocumentsFromLibrary" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonAddMissingDocumentsFromSelf" CaptionDock="Right" />
-                        </StackPanel>
-                    </local_gui:AugmentedToolBarPopup>
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonBibTexSniffer"  Margin="3" />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonAnnotationsReport" />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonExplore" />
-                    <local_gui:AugmentedToolBarPopup x:Name="ButtonExplorePopup">
-                        <StackPanel>
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExpedition" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExploreInBrainstorm" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExploreInPivot" CaptionDock="Right" />
-                        </StackPanel>
-                    </local_gui:AugmentedToolBarPopup>
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonGenerateReferences" />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonFindDuplicates" />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonExport"  Margin="3" />
-                    <local_gui:AugmentedToolBarPopup x:Name="ButtonExportPopup">
-                        <StackPanel>
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExportLibrary" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExportBibTex" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExportWord2007" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExportCitationMatrix" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExportLinkedDocs" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonExportAnnotationsCode" CaptionDock="Right" />
-                            <local_gui:AugmentedToolBarButton x:Name="ButtonBuildBundleLibrary" CaptionDock="Right" />
-                        </StackPanel>
-                    </local_gui:AugmentedToolBarPopup>
-                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast"  Margin="3" />
+                    <Menu>
+                        <MenuItem x:Name="ButtonAddPDF">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image
+                                        x:Name="ButtonAddPDFIcon"
+                                        Width="32"
+                                        Height="32" />
+                                    <TextBlock x:Name="ButtonAddPDFText" />
+                                </StackPanel>
+                            </MenuItem.Header>
+
+                            <MenuItem x:Name="ButtonAddVanillaReference">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonAddVanillaReferenceIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonAddVanillaReferenceText" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonAddDocuments">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonAddDocumentsIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonAddDocumentsText" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonAddDocumentsFromFolder">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonAddDocumentsFromFolderIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonAddDocumentsFromFolderText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonWatchFolder">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonWatchFolderIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonWatchFolderText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonImportFromThirdParty">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonImportFromThirdPartyIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonImportFromThirdPartyText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonAddDocumentsFromLibrary">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonAddDocumentsFromLibraryIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonAddDocumentsFromLibraryText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonAddMissingDocumentsFromSelf">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonAddMissingDocumentsFromSelfIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonAddMissingDocumentsFromSelfText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem x:Name="ButtonBibTexSniffer">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image
+                                        x:Name="ButtonBibTexSnifferIcon"
+                                        Width="32"
+                                        Height="32" />
+                                    <TextBlock x:Name="ButtonBibTexSnifferText" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem x:Name="ButtonAnnotationsReport">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image
+                                        x:Name="ButtonAnnotationsReportIcon"
+                                        Width="32"
+                                        Height="32" />
+                                    <TextBlock x:Name="ButtonAnnotationsReportText" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem x:Name="ButtonExplore">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image
+                                        x:Name="ButtonExploreIcon"
+                                        Width="32"
+                                        Height="32" />
+                                    <TextBlock x:Name="ButtonExploreText" />
+                                </StackPanel>
+                            </MenuItem.Header>
+
+                            <MenuItem x:Name="ButtonExpedition">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExpeditionIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExpeditionText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonExploreInBrainstorm">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExploreInBrainstormIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExploreInBrainstormText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonExploreInPivot">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExploreInPivotIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExploreInPivotText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem x:Name="ButtonGenerateReferences">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image
+                                        x:Name="ButtonGenerateReferencesIcon"
+                                        Width="32"
+                                        Height="32" />
+                                    <TextBlock x:Name="ButtonGenerateReferencesText" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem x:Name="ButtonFindDuplicates">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image
+                                        x:Name="ButtonFindDuplicatesIcon"
+                                        Width="32"
+                                        Height="32" />
+                                    <TextBlock x:Name="ButtonFindDuplicatesText" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem x:Name="ButtonExport">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image
+                                        x:Name="ButtonExportIcon"
+                                        Width="32"
+                                        Height="32" />
+                                    <TextBlock x:Name="ButtonExportText" />
+                                </StackPanel>
+                            </MenuItem.Header>
+
+                            <MenuItem x:Name="ButtonExportLibrary">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExportLibraryIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExportLibraryText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonExportBibTex">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExportBibTexIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExportBibTexText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonExportWord2007">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExportWord2007Icon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExportWord2007Text" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonExportCitationMatrix">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExportCitationMatrixIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExportCitationMatrixText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonExportLinkedDocs">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExportLinkedDocsIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExportLinkedDocsText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonExportAnnotationsCode">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonExportAnnotationsCodeIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonExportAnnotationsCodeText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="ButtonBuildBundleLibrary">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            x:Name="ButtonBuildBundleLibraryIcon"
+                                            Width="32"
+                                            Height="32" />
+                                        <TextBlock x:Name="ButtonBuildBundleLibraryText" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem Name="ButtonWebcast">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image
+                                        Name="ButtonWebcastIcon"
+                                        Width="32"
+                                        Height="32" />
+                                    <TextBlock Name="ButtonWebcastText" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </Menu>
                 </StackPanel>
             </DockPanel>
         </local_gui:AugmentedToolBarTray>
@@ -63,7 +306,10 @@
             <local_library_filter:LibraryFilterControl x:Name="ObjLibraryFilterControl" Width="250" />
         </local_gui:CollapsibleRegion>
         <DockPanel>
-            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjLibraryEmptyDescriptionBorder" Margin="0,3,0,0">
+            <local_gui:AugmentedClosableBorder
+                Name="ObjLibraryEmptyDescriptionBorder"
+                Margin="0,3,0,0"
+                DockPanel.Dock="Bottom">
                 <Grid>
                     <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
                         <commongui:StandardFlowDocument x:Name="ObjLibraryEmptyDescriptionText">
@@ -112,25 +358,30 @@
                     </FlowDocumentScrollViewer>
                 </Grid>
             </local_gui:AugmentedClosableBorder>
-            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjReadOnlyLibraryDescriptionBorder" Margin="0,3,0,0">
+            <local_gui:AugmentedClosableBorder
+                Name="ObjReadOnlyLibraryDescriptionBorder"
+                Margin="0,3,0,0"
+                DockPanel.Dock="Bottom">
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
                     <commongui:StandardFlowDocument>
                         <Paragraph>
                             You have only read-only access to this library.
-                            Any additions or annotations you make may be lost when you next sync.
-                            <Run Name="ObjReadonlyExplain" />
+                            Any additions or annotations you make may be lost when you next sync.<Run Name="ObjReadonlyExplain" />
                         </Paragraph>
                     </commongui:StandardFlowDocument>
                 </FlowDocumentScrollViewer>
             </local_gui:AugmentedClosableBorder>
-            <local_gui:AugmentedClosableBorder DockPanel.Dock="Bottom" Name="ObjNotMuchBibTeXDescriptionBorder" Margin="0,3,0,0">
+            <local_gui:AugmentedClosableBorder
+                Name="ObjNotMuchBibTeXDescriptionBorder"
+                Margin="0,3,0,0"
+                DockPanel.Dock="Bottom">
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled">
                     <commongui:StandardFlowDocument>
                         <Paragraph>
-                                <Floater
-                                    Width="90"
-                                    Padding="0"
-                                    HorizontalAlignment="Right">
+                            <Floater
+                                Width="90"
+                                Padding="0"
+                                HorizontalAlignment="Right">
                                 <BlockUIContainer>
                                     <Image Name="ImageLibraryMissingBibTeX" VerticalAlignment="Top" />
                                 </BlockUIContainer>

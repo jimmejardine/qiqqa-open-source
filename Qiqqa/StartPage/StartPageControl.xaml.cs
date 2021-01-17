@@ -41,11 +41,6 @@ namespace Qiqqa.StartPage
                 ButtonExpertMode.Caption = "";
             }
 
-            // Connect the dropdowns
-            ButtonLibraries.AttachPopup(ButtonLibrariesPopup);
-            ButtonTools.AttachPopup(ButtonToolsPopup);
-            ButtonHelp.AttachPopup(ButtonHelpPopup);
-
             // Then the buttons
             ButtonSync.Visibility = ConfigurationManager.Instance.NoviceVisibility;
             ButtonJoinBundleLibrary.Visibility = ConfigurationManager.Instance.NoviceVisibility;

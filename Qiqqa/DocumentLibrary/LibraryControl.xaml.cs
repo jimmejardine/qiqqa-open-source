@@ -66,127 +66,123 @@ namespace Qiqqa.DocumentLibrary
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
 
-            // Connect the dropdowns
-            ButtonAddPDF.AttachPopup(ButtonAddPDFPopup);
-            ButtonAddPDF.Icon = Icons.GetAppIcon(Icons.DocumentsAddToLibrary);
-            if (!ADVANCED_MENUS) ButtonAddPDF.Caption = LocalisationManager.Get("LIBRARY/CAP/POPUP_ADD_DOCUMENTS");
+            ButtonAddPDFIcon.Source = Icons.GetAppIcon(Icons.DocumentsAddToLibrary);
+            if (!ADVANCED_MENUS) ButtonAddPDFText.Text = LocalisationManager.Get("LIBRARY/CAP/POPUP_ADD_DOCUMENTS");
             ButtonAddPDF.ToolTip = LocalisationManager.Get("LIBRARY/TIP/POPUP_ADD_DOCUMENTS");
 
             // Then the menus
-            ButtonAddVanillaReference.Icon = Icons.GetAppIcon(Icons.New);
-            ButtonAddVanillaReference.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_REFERENCE");
+            ButtonAddVanillaReferenceIcon.Source = Icons.GetAppIcon(Icons.New);
+            ButtonAddVanillaReferenceText.Text = LocalisationManager.Get("LIBRARY/CAP/ADD_REFERENCE");
             ButtonAddVanillaReference.ToolTip = LocalisationManager.Get("LIBRARY/TIP/ADD_REFERENCE");
             ButtonAddVanillaReference.Click += ButtonAddVanillaReference_Click;
 
-            ButtonAnnotationsReport.Icon = Icons.GetAppIcon(Icons.LibraryAnnotationsReport);
-            if (!ADVANCED_MENUS) ButtonAnnotationsReport.Caption = LocalisationManager.Get("LIBRARY/CAP/ANNOTATION_REPORT");
+            ButtonAnnotationsReportIcon.Source = Icons.GetAppIcon(Icons.LibraryAnnotationsReport);
+            if (!ADVANCED_MENUS) ButtonAnnotationsReportText.Text = LocalisationManager.Get("LIBRARY/CAP/ANNOTATION_REPORT");
             ButtonAnnotationsReport.ToolTip = LocalisationManager.Get("LIBRARY/TIP/ANNOTATION_REPORT");
             ButtonAnnotationsReport.Click += ButtonAnnotationsReport_Click;
             WizardDPs.SetPointOfInterest(ButtonAnnotationsReport, "LibraryAnnotationReportButton");
 
             ButtonGenerateReferences.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonGenerateReferences.Icon = Icons.GetAppIcon(Icons.LibraryGenerateReferences);
-            if (!ADVANCED_MENUS) ButtonGenerateReferences.Caption = LocalisationManager.Get("LIBRARY/CAP/FIND_REFERENCES");
+            ButtonGenerateReferencesIcon.Source = Icons.GetAppIcon(Icons.LibraryGenerateReferences);
+            if (!ADVANCED_MENUS) ButtonGenerateReferencesText.Text = LocalisationManager.Get("LIBRARY/CAP/FIND_REFERENCES");
             ButtonGenerateReferences.ToolTip = LocalisationManager.Get("LIBRARY/TIP/FIND_REFERENCES");
             ButtonGenerateReferences.Click += ButtonGenerateReferences_Click;
 
             ButtonFindDuplicates.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonFindDuplicates.Icon = Icons.GetAppIcon(Icons.LibraryFindDuplicates);
-            if (!ADVANCED_MENUS) ButtonFindDuplicates.Caption = LocalisationManager.Get("LIBRARY/CAP/FIND_DUPLICATES");
+            ButtonFindDuplicatesIcon.Source = Icons.GetAppIcon(Icons.LibraryFindDuplicates);
+            if (!ADVANCED_MENUS) ButtonFindDuplicatesText.Text = LocalisationManager.Get("LIBRARY/CAP/FIND_DUPLICATES");
             ButtonFindDuplicates.ToolTip = LocalisationManager.Get("LIBRARY/TIP/FIND_DUPLICATES");
             ButtonFindDuplicates.Click += ButtonFindDuplicates_Click;
 
-            ButtonBibTexSniffer.Icon = Icons.GetAppIcon(Icons.BibTexSniffer);
-            if (!ADVANCED_MENUS) ButtonBibTexSniffer.Caption = LocalisationManager.Get("LIBRARY/CAP/BIBTEX_SNIFFER");
+            ButtonBibTexSnifferIcon.Source = Icons.GetAppIcon(Icons.BibTexSniffer);
+            if (!ADVANCED_MENUS) ButtonBibTexSnifferText.Text = LocalisationManager.Get("LIBRARY/CAP/BIBTEX_SNIFFER");
             ButtonBibTexSniffer.ToolTip = LocalisationManager.Get("LIBRARY/TIP/BIBTEX_SNIFFER");
             ButtonBibTexSniffer.Click += ButtonBibTexSniffer_Click;
 
-            ButtonExplore.AttachPopup(ButtonExplorePopup);
-            ButtonExplore.Icon = Icons.GetAppIcon(Icons.Explore);
-            if (!ADVANCED_MENUS) ButtonExplore.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPLORE");
+            ButtonExploreIcon.Source = Icons.GetAppIcon(Icons.Explore);
+            if (!ADVANCED_MENUS) ButtonExploreText.Text = LocalisationManager.Get("LIBRARY/CAP/EXPLORE");
             ButtonExplore.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPLORE");
             ButtonExplore.Visibility = ConfigurationManager.Instance.NoviceVisibility;
 
-            ButtonExpedition.Icon = Icons.GetAppIcon(Icons.ModuleExpedition);
-            ButtonExpedition.Caption = LocalisationManager.Get("LIBRARY/TIP/EXPEDITION");
+            ButtonExpeditionIcon.Source = Icons.GetAppIcon(Icons.ModuleExpedition);
+            ButtonExpeditionText.Text = LocalisationManager.Get("LIBRARY/TIP/EXPEDITION");
             ButtonExpedition.Click += ButtonExpedition_Click;
 
-            ButtonExploreInBrainstorm.Icon = Icons.GetAppIcon(Icons.ModuleBrainstorm);
-            ButtonExploreInBrainstorm.Caption = LocalisationManager.Get("LIBRARY/TIP/BRAINSTORM");
+            ButtonExploreInBrainstormIcon.Source = Icons.GetAppIcon(Icons.ModuleBrainstorm);
+            ButtonExploreInBrainstormText.Text = LocalisationManager.Get("LIBRARY/TIP/BRAINSTORM");
             ButtonExploreInBrainstorm.Click += ButtonExploreInBrainstorm_Click;
 
-            ButtonExploreInPivot.Icon = Icons.GetAppIcon(Icons.LibraryPivot);
-            ButtonExploreInPivot.Caption = LocalisationManager.Get("LIBRARY/TIP/PIVOT");
+            ButtonExploreInPivotIcon.Source = Icons.GetAppIcon(Icons.LibraryPivot);
+            ButtonExploreInPivotText.Text = LocalisationManager.Get("LIBRARY/TIP/PIVOT");
             ButtonExploreInPivot.Click += ButtonExploreInPivot_Click;
 
-            ButtonExport.AttachPopup(ButtonExportPopup);
-            ButtonExport.Icon = Icons.GetAppIcon(Icons.LibraryExport);
-            if (!ADVANCED_MENUS) ButtonExport.Caption = LocalisationManager.Get("LIBRARY/CAP/POPUP_EXPORT");
+            ButtonExportIcon.Source = Icons.GetAppIcon(Icons.LibraryExport);
+            if (!ADVANCED_MENUS) ButtonExportText.Text = LocalisationManager.Get("LIBRARY/CAP/POPUP_EXPORT");
             ButtonExport.ToolTip = LocalisationManager.Get("LIBRARY/TIP/POPUP_EXPORT");
             ButtonExport.Visibility = ConfigurationManager.Instance.NoviceVisibility;
 
-            ButtonExportLibrary.Icon = Icons.GetAppIcon(Icons.LibraryExport);
-            ButtonExportLibrary.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LIBRARY");
+            ButtonExportLibraryIcon.Source = Icons.GetAppIcon(Icons.LibraryExport);
+            ButtonExportLibraryText.Text = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LIBRARY");
             ButtonExportLibrary.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_LIBRARY");
             ButtonExportLibrary.Click += ButtonExportLibrary_Click;
 
-            ButtonExportBibTex.Icon = Icons.GetAppIcon(Icons.ExportBibTex);
-            ButtonExportBibTex.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_BIBTEX");
+            ButtonExportBibTexIcon.Source = Icons.GetAppIcon(Icons.ExportBibTex);
+            ButtonExportBibTexText.Text = LocalisationManager.Get("LIBRARY/CAP/EXPORT_BIBTEX");
             ButtonExportBibTex.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_BIBTEX");
             ButtonExportBibTex.Click += ButtonExportBibTex_Click;
 
-            ButtonExportWord2007.Icon = Icons.GetAppIcon(Icons.ExportWord2007);
-            ButtonExportWord2007.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_WORD");
+            ButtonExportWord2007Icon.Source = Icons.GetAppIcon(Icons.ExportWord2007);
+            ButtonExportWord2007Text.Text = LocalisationManager.Get("LIBRARY/CAP/EXPORT_WORD");
             ButtonExportWord2007.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_WORD");
             ButtonExportWord2007.Click += ButtonExportWord2007_Click;
 
-            ButtonExportCitationMatrix.Icon = Icons.GetAppIcon(Icons.ExportCitationMatrix);
-            ButtonExportCitationMatrix.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_CITATION_MATRIX");
+            ButtonExportCitationMatrixIcon.Source = Icons.GetAppIcon(Icons.ExportCitationMatrix);
+            ButtonExportCitationMatrixText.Text = LocalisationManager.Get("LIBRARY/CAP/EXPORT_CITATION_MATRIX");
             ButtonExportCitationMatrix.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_CITATION_MATRIX");
             ButtonExportCitationMatrix.Click += ButtonExportCitationMatrix_Click;
 
-            ButtonExportLinkedDocs.Icon = Icons.GetAppIcon(Icons.ExportCitationMatrix);
-            ButtonExportLinkedDocs.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LINKED_DOCS");
+            ButtonExportLinkedDocsIcon.Source = Icons.GetAppIcon(Icons.ExportCitationMatrix);
+            ButtonExportLinkedDocsText.Text = LocalisationManager.Get("LIBRARY/CAP/EXPORT_LINKED_DOCS");
             ButtonExportLinkedDocs.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_LINKED_DOCS");
             ButtonExportLinkedDocs.Click += ButtonExportLinkedDocs_Click;
 
-            ButtonBuildBundleLibrary.Icon = Icons.GetAppIcon(Icons.BuildBundleLibrary);
-            ButtonBuildBundleLibrary.Caption = LocalisationManager.Get("LIBRARY/CAP/BUILD_BUNDLE_LIBRARY");
+            ButtonBuildBundleLibraryIcon.Source = Icons.GetAppIcon(Icons.BuildBundleLibrary);
+            ButtonBuildBundleLibraryText.Text = LocalisationManager.Get("LIBRARY/CAP/BUILD_BUNDLE_LIBRARY");
             ButtonBuildBundleLibrary.ToolTip = LocalisationManager.Get("LIBRARY/TIP/BUILD_BUNDLE_LIBRARY");
             ButtonBuildBundleLibrary.Click += ButtonBuildBundleLibrary_Click;
 
-            ButtonExportAnnotationsCode.Icon = Icons.GetAppIcon(Icons.ExportBibTex);
-            ButtonExportAnnotationsCode.Caption = LocalisationManager.Get("LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE");
+            ButtonExportAnnotationsCodeIcon.Source = Icons.GetAppIcon(Icons.ExportBibTex);
+            ButtonExportAnnotationsCodeText.Text = LocalisationManager.Get("LIBRARY/CAP/EXPORT_ANNOTATIONS_CODE");
             ButtonExportAnnotationsCode.ToolTip = LocalisationManager.Get("LIBRARY/TIP/EXPORT_ANNOTATIONS_CODE");
             ButtonExportAnnotationsCode.Click += ButtonExportAnnotationsCode_Click;
 
-            ButtonAddDocuments.Icon = Icons.GetAppIcon(Icons.DocumentsAddToLibrary);
-            ButtonAddDocuments.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_DOCUMENTS");
+            ButtonAddDocumentsIcon.Source = Icons.GetAppIcon(Icons.DocumentsAddToLibrary);
+            ButtonAddDocumentsText.Text = LocalisationManager.Get("LIBRARY/CAP/ADD_DOCUMENTS");
             ButtonAddDocuments.ToolTip = LocalisationManager.Get("LIBRARY/TIP/ADD_DOCUMENTS");
             ButtonAddDocuments.Click += ButtonAddDocuments_Click;
 
-            ButtonAddDocumentsFromFolder.Icon = Icons.GetAppIcon(Icons.DocumentsAddToLibraryFromFolder);
-            ButtonAddDocumentsFromFolder.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_FOLDER");
+            ButtonAddDocumentsFromFolderIcon.Source = Icons.GetAppIcon(Icons.DocumentsAddToLibraryFromFolder);
+            ButtonAddDocumentsFromFolderText.Text = LocalisationManager.Get("LIBRARY/CAP/ADD_FOLDER");
             ButtonAddDocumentsFromFolder.ToolTip = LocalisationManager.Get("LIBRARY/TIP/ADD_FOLDER");
             ButtonAddDocumentsFromFolder.Click += ButtonAddDocumentsFromFolder_Click;
 
-            ButtonAddDocumentsFromLibrary.Icon = Icons.GetAppIcon(Icons.DocumentsAddToLibraryFromLibrary);
-            ButtonAddDocumentsFromLibrary.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_LIBRARY");
+            ButtonAddDocumentsFromLibraryIcon.Source = Icons.GetAppIcon(Icons.DocumentsAddToLibraryFromLibrary);
+            ButtonAddDocumentsFromLibraryText.Text = LocalisationManager.Get("LIBRARY/CAP/ADD_LIBRARY");
             ButtonAddDocumentsFromLibrary.ToolTip = LocalisationManager.Get("LIBRARY/TIP/ADD_LIBRARY");
             ButtonAddDocumentsFromLibrary.Click += ButtonAddDocumentsFromLibrary_Click;
 
-            ButtonWatchFolder.Icon = Icons.GetAppIcon(Icons.DocumentsWatchFolder);
-            ButtonWatchFolder.Caption = LocalisationManager.Get("LIBRARY/CAP/WATCH_FOLDER");
+            ButtonWatchFolderIcon.Source = Icons.GetAppIcon(Icons.DocumentsWatchFolder);
+            ButtonWatchFolderText.Text = LocalisationManager.Get("LIBRARY/CAP/WATCH_FOLDER");
             ButtonWatchFolder.ToolTip = LocalisationManager.Get("LIBRARY/TIP/WATCH_FOLDER");
             ButtonWatchFolder.Click += ButtonWatchFolder_Click;
 
-            ButtonImportFromThirdParty.Icon = Icons.GetAppIcon(Icons.DocumentsImportFromThirdParty);
-            ButtonImportFromThirdParty.Caption = LocalisationManager.Get("LIBRARY/CAP/ADD_IMPORT");
+            ButtonImportFromThirdPartyIcon.Source = Icons.GetAppIcon(Icons.DocumentsImportFromThirdParty);
+            ButtonImportFromThirdPartyText.Text = LocalisationManager.Get("LIBRARY/CAP/ADD_IMPORT");
             ButtonImportFromThirdParty.ToolTip = LocalisationManager.Get("LIBRARY/TIP/ADD_IMPORT");
             ButtonImportFromThirdParty.Click += ButtonImportFromThirdParty_Click;
 
-            ButtonAddMissingDocumentsFromSelf.Icon = Icons.GetAppIcon(Icons.DocumentsAddMissingFromSelf);
-            ButtonAddMissingDocumentsFromSelf.Caption = "Recover unregistered PDFs in this library";
+            ButtonAddMissingDocumentsFromSelfIcon.Source = Icons.GetAppIcon(Icons.DocumentsAddMissingFromSelf);
+            ButtonAddMissingDocumentsFromSelfText.Text = "Recover unregistered PDFs in this library";
             ButtonAddMissingDocumentsFromSelf.ToolTip = "This is a live library recovery/restoration operation: inspect the current library's storage and re-register all PDFs in there, which have not been registered in the library already.";
             ButtonAddMissingDocumentsFromSelf.Click += ButtonAddMissingDocumentsFromSelf_Click;
 
@@ -208,8 +204,8 @@ namespace Qiqqa.DocumentLibrary
             // Catch some keyboard commands
             KeyDown += LibraryControl_KeyDown;
 
-            if (!ADVANCED_MENUS) ButtonWebcast.Caption = "Tutorial\n";
-            Webcasts.FormatWebcastButton(ButtonWebcast, Webcasts.LIBRARY);
+            if (!ADVANCED_MENUS) ButtonWebcastText.Text = "Tutorial\n";
+            Webcasts.FormatWebcastMenuItem(ButtonWebcast, ButtonWebcastIcon, ButtonWebcastText, Webcasts.LIBRARY);
 
             // IF the library is read-only?
             ReflectReadOnlyStatus();
@@ -263,14 +259,11 @@ namespace Qiqqa.DocumentLibrary
 
         private void ButtonAddVanillaReference_Click(object sender, RoutedEventArgs e)
         {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
-            {
                 PDFDocument pdf_document = web_library_detail.Xlibrary.AddVanillaReferenceDocumentToLibrary(null, web_library_detail, null, null, false, false);
 
                 // Let's pop up the BibTeX editor window for the new document
                 MetadataBibTeXEditorControl editor = new MetadataBibTeXEditorControl();
                 editor.Show(pdf_document.Bindable);
-            }
         }
 
         private void ButtonImportFromThirdParty_Click(object sender, RoutedEventArgs e)
@@ -378,16 +371,11 @@ namespace Qiqqa.DocumentLibrary
 
         private void ButtonWatchFolder_Click(object sender, RoutedEventArgs e)
         {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
-            {
                 new FolderWatcherChooser(web_library_detail).ShowDialog();
-            }
         }
 
         private void ButtonAddDocuments_Click(object sender, RoutedEventArgs e)
         {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
-            {
 #if DEBUG
                 if (Runtime.IsRunningInVisualStudioDesigner) return;
 #endif
@@ -402,13 +390,10 @@ namespace Qiqqa.DocumentLibrary
                 {
                     ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, false, dlg.FileNames);
                 }
-            }
         }
 
         private void ButtonAddDocumentsFromLibrary_Click(object sender, RoutedEventArgs e)
         {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
-            {
                 // First choose the source library
                 string message = String.Format("You are about to import a lot of PDFs into the library named '{0}'.  Please choose the library FROM WHICH you wish to import the PDFs.", web_library_detail.Title);
                 WebLibraryDetail picked_web_library_detail = WebLibraryPicker.PickWebLibrary(message);
@@ -430,28 +415,21 @@ namespace Qiqqa.DocumentLibrary
                     // They are sure!
                     ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(picked_web_library_detail.Xlibrary.PDFDocuments, web_library_detail);
                 }
-            }
         }
 
         private void ButtonAddDocumentsFromFolder_Click(object sender, RoutedEventArgs e)
         {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
-            {
                 new ImportFromFolder(web_library_detail).ShowDialog();
-            }
         }
 
         private void ButtonAddMissingDocumentsFromSelf_Click(object sender, RoutedEventArgs e)
         {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
-            {
                 var root_folder = web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH;
                 if (Directory.Exists(root_folder))
                 {
                     // do the import
                     ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, true, false, false, false);
                 }
-            }
         }
 
         #region --- Test ------------------------------------------------------------------------

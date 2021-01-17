@@ -97,7 +97,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ButtonInk.Click += ButtonInk_Click;
 
             ButtonExplore.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonExplore.AttachPopup(ButtonExplorePopup);
             ButtonExplore.Icon = Icons.GetAppIcon(Icons.Explore);
             ButtonExplore.ToolTip = LocalisationManager.Get("PDF/TIP/EXPLORE");
 
@@ -109,7 +108,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ButtonExploreInBrainstorm.Caption = LocalisationManager.Get("PDF/TIP/BRAINSTORM");
             ButtonExploreInBrainstorm.Click += ButtonExploreInBrainstorm_Click;
 
-            ButtonInCite.AttachPopup(ButtonInCitePopup);
             ButtonInCite.Icon = Icons.GetAppIcon(Icons.ModuleInCite);
             ButtonInCite.ToolTip = LocalisationManager.Get("PDF/TIP/INCITE");
 
@@ -133,7 +131,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ButtonFullScreen.ToolTip = LocalisationManager.Get("PDF/TIP/FULL_SCREEN");
             ButtonFullScreen.Click += ButtonFullScreen_Click;
 
-            ButtonZoom.AttachPopup(ButtonZoomPopup);
             ButtonZoom.Icon = Icons.GetAppIcon(Icons.ZoomIn);
             ButtonZoom.ToolTip = LocalisationManager.Get("PDF/TIP/ZOOM");
 
@@ -170,7 +167,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ButtonZoomOut.Click += ButtonZoomOut_Click;
 
             ButtonMisc.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-            ButtonMisc.AttachPopup(ButtonMiscPopup);
             ButtonMisc.Icon = Icons.GetAppIcon(Icons.DocumentMisc);
             ButtonMisc.ToolTip = LocalisationManager.Get("PDF/TIP/MISC");
 
@@ -610,11 +606,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonExploreInBrainstorm_Click(object sender, RoutedEventArgs e)
         {
-            using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonExplorePopup))
-            {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_ExploreDocumentInBrainstorm);
                 MainWindowServiceDispatcher.Instance.ExploreDocumentInBrainstorm(pdf_renderer_control_stats.pdf_document);
-            }
         }
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
