@@ -155,6 +155,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
                 PopulateNeededLayers();
             });
+
+            Unloaded += PDFRendererPageControl_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
+        }
+
+        private void PDFRendererPageControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
         }
 
         #region --- Page layer on-demand creation -------------------

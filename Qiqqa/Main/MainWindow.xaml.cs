@@ -127,6 +127,13 @@ namespace Qiqqa.Main
             CleanUp();
         }
 
+        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
+        // Which says:
+        //
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
+        // or a UserControl, it may not be called as expected.
         private void MainWindow_Unloaded(object sender, RoutedEventArgs e)
         {
             Logging.Info("x");

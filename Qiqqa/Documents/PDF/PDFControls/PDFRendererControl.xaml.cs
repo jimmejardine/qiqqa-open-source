@@ -155,7 +155,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         // or a UserControl, it may not be called as expected.
         private void PDFRendererControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();
+            Dispose();   
         }
 
         private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)

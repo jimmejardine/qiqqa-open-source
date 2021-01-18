@@ -53,10 +53,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         private void CleanUp()
         { 
             // TODO: ditch the pdf renders in the GridPreview children list...
-            DataContextChanged -= DocumentMetadataControlsPanel_DataContextChanged;
+            //DataContextChanged -= DocumentMetadataControlsPanel_DataContextChanged;
             DataContext = null;
 
             ObjTabs.Children.Clear();
+            GridPreview.Children.Clear();
 
             Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
