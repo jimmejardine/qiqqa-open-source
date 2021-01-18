@@ -314,7 +314,7 @@ namespace Qiqqa.Main
 
             FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
 
-            Application.Current.Shutdown();
+            Application.Current?.Shutdown();
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
