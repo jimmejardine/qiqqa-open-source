@@ -7,14 +7,14 @@ namespace Utilities.PDF.Sorax
         private class SoraxPDFRendererCacheEntry
         {
             public int page;
-            public double height;
+            public int height;
             public byte[] image;
         }
 
         private static readonly int CACHE_SIZE = 3;
         private List<SoraxPDFRendererCacheEntry> cache_entries = new List<SoraxPDFRendererCacheEntry>();
 
-        public void Put(int page, double height, byte[] image)
+        public void Put(int page, int height, byte[] image)
         {
             // Nothing to do if we have the Image, except perhaps store the latest version
             SoraxPDFRendererCacheEntry cache_entry = GetCacheEntry(page, height);
@@ -35,7 +35,7 @@ namespace Utilities.PDF.Sorax
             }
         }
 
-        public byte[] Get(int page, double height)
+        public byte[] Get(int page, int height)
         {
             SoraxPDFRendererCacheEntry cache_entry = GetCacheEntry(page, height);
             if (null != cache_entry)
@@ -48,12 +48,39 @@ namespace Utilities.PDF.Sorax
             }
         }
 
-        private SoraxPDFRendererCacheEntry GetCacheEntry(int page, double height)
+        public byte[] GetNextOneBetter(int page, int height)
+        {
+            SoraxPDFRendererCacheEntry cache_entry = GetBetterCacheEntry(page, height);
+            if (null != cache_entry)
+            {
+                return cache_entry.image;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private SoraxPDFRendererCacheEntry GetCacheEntry(int page, int height)
         {
             for (int i = 0; i < cache_entries.Count; ++i)
             {
                 SoraxPDFRendererCacheEntry cache_entry = cache_entries[i];
                 if (cache_entry.page == page && cache_entry.height == height)
+                {
+                    return cache_entry;
+                }
+            }
+
+            return null;
+        }
+
+        private SoraxPDFRendererCacheEntry GetBetterCacheEntry(int page, int height)
+        {
+            for (int i = 0; i < cache_entries.Count; ++i)
+            {
+                SoraxPDFRendererCacheEntry cache_entry = cache_entries[i];
+                if (cache_entry.page == page && cache_entry.height >= height)
                 {
                     return cache_entry;
                 }

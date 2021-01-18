@@ -27,7 +27,7 @@ namespace Utilities.PDF.Sorax
             throw new ApplicationException("Not supported yet");
         }
 
-        public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, double height, double width)
+        public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, int height, int width)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -35,14 +35,14 @@ namespace Utilities.PDF.Sorax
         }
 
 
-        public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, float dpi)
+        public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, int dpi)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi, 0, 0);
         }
 
-        private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, string pdf_owner_password, int page, float dpi, double height, double width)
+        private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, string pdf_owner_password, int page, int dpi, int height, int width)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -51,7 +51,7 @@ namespace Utilities.PDF.Sorax
                 // sample command (PNG written to stdout for page #2, width and height are limiting/reducing, dpi-resolution is driving):
                 //
                 //      mudraw -q -o - -F png -r 600 -w 1920 -h 1280 G:\Qiqqa\evil\Guest\documents\1\1A9760F3917A107AC46E6E292B9C839364F09E73.pdf  2
-                var img = MuPDFRenderer.RenderPDFPageAsByteArray(filename, page, (int)Math.Round(dpi), (int)Math.Round(height), (int)Math.Round(width), pdf_owner_password, ProcessPriorityClass.BelowNormal);
+                var img = MuPDFRenderer.RenderPDFPageAsByteArray(filename, page, dpi, height, width, pdf_owner_password, ProcessPriorityClass.BelowNormal);
 
                 return img;
             }

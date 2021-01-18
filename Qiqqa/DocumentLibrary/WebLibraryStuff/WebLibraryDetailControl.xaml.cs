@@ -608,7 +608,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                         {
                                             try
                                             {
-                                                using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE, PREVIEW_IMAGE_WIDTH / PREVIEW_IMAGE_PERCENTAGE)))
+                                                using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, (int)Math.Round(PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE), (int)Math.Round(PREVIEW_IMAGE_WIDTH / PREVIEW_IMAGE_PERCENTAGE))))
                                                 {
                                                     Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
                                                     page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);

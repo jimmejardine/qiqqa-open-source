@@ -7,7 +7,7 @@ namespace Qiqqa.Documents.PDF
 {
     internal class PDFAnnotationToImageRenderer
     {
-        public static Image RenderAnnotation(PDFDocument pdf_document, PDFAnnotation pdf_annotation, float dpi)
+        public static Image RenderAnnotation(PDFDocument pdf_document, PDFAnnotation pdf_annotation, int dpi)
         {
             using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByDPIAsImage(pdf_annotation.Page, dpi)))
             {

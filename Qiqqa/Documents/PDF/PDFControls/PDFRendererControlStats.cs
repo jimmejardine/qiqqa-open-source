@@ -48,14 +48,14 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         #region --- Background rendering of resized page images ------------------------------------------------------------------------------------------------------------------------
 
-        public delegate void ResizedPageImageItemCallbackDelegate(BitmapSource image_page, double requested_height, double requested_width);
+        public delegate void ResizedPageImageItemCallbackDelegate(BitmapSource image_page, int requested_height, int requested_width);
 
         private class ResizedPageImageItemRequest
         {
             internal int page;
             internal PDFRendererPageControl page_control;
-            internal double height;
-            internal double width;
+            internal int height;
+            internal int width;
             internal ResizedPageImageItemCallbackDelegate callback;
         }
 
@@ -63,7 +63,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         private List<int> resized_page_image_item_request_orders = new List<int>();
         private int num_resized_page_image_item_thread_running = 0;
 
-        public void GetResizedPageImage(PDFRendererPageControl page_control, int page, double height, double width, ResizedPageImageItemCallbackDelegate callback)
+        public void GetResizedPageImage(PDFRendererPageControl page_control, int page, int height, int width, ResizedPageImageItemCallbackDelegate callback)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 

@@ -72,8 +72,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         private class CurrentlyShowingImageClass
         {
             public BitmapSource Image;
-            public double requested_height;
-            public double requested_width;
+            public int requested_height;
+            public int requested_width;
         }
 
         private CurrentlyShowingImageClass _currently_showing_image = null;
@@ -504,7 +504,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             RefreshPage(null, 0, 0);
         }
 
-        private void RefreshPage_ResizedImageCallback(BitmapSource requested_image_rescale, double requested_height, double requested_width)
+        private void RefreshPage_ResizedImageCallback(BitmapSource requested_image_rescale, int requested_height, int requested_width)
         {
             RefreshPage(requested_image_rescale, requested_height, requested_width);
         }
@@ -512,8 +512,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         private class PendingRefreshWork
         {
             public BitmapSource requested_image_rescale;
-            public double requested_height;
-            public double requested_width;
+            public int requested_height;
+            public int requested_width;
         }
 
         private object pending_refresh_work_lock = new object();
@@ -527,11 +527,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         /// Any previous queued refresh is ignored.  If another refresh is busy running, then the most recently received request is queued.
         /// </summary>
         /// <param name="requested_image_rescale">The suggested image to use, if null then will be requested asynchronously.</param>
-        private void RefreshPage(BitmapSource requested_image_rescale, double requested_height, double requested_width)
+        private void RefreshPage(BitmapSource requested_image_rescale, int requested_height, int requested_width)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height };
+            PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height, requested_width = requested_width };
 
             // cache the document fingerprint for the occasion where the RefreshPage_*() methods invoked/dispatched
             // below happen to encounter a Disposed()-just-now state of affairs for this Control instance, where
@@ -588,8 +588,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 {
                     if (page_is_in_view)
                     {
-                        double desired_rescaled_image_height = remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
-                        double desired_rescaled_image_width = remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
+                        int desired_rescaled_image_height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
+                        int desired_rescaled_image_width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
                         if (null != CurrentlyShowingImage && (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width))
                         {
                             ImagePage_HIDDEN.Stretch = Stretch.None;
@@ -605,8 +605,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     // has just been Dispose()d! 
                     //
                     // When that happens, we're okay with FAILURE here...
-                    Height = (int)(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
-                    Width = (int)(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
+                    Height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
+                    Width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
                 }
                 catch (Exception ex)
                 {
@@ -656,16 +656,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     if (!page_is_in_view && null != pdf_renderer_control_stats)
                     {
                         CurrentlyShowingImage = null;
-                        Height = (int)(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
-                        Width = (int)(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
+                        Height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
+                        Width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
                         continue;
                     }
 
                     if (page_is_in_view)
                     {
                         // Work out the size of the image we would like to have
-                        double desired_rescaled_image_height = remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
-                        double desired_rescaled_image_width = remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
+                        int desired_rescaled_image_height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
+                        int desired_rescaled_image_width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
 
                         // Is the current image not good enough?  Then perhaps use a provided one
                         if (null == CurrentlyShowingImage || (CurrentlyShowingImage.requested_height != desired_rescaled_image_height && CurrentlyShowingImage.requested_width != desired_rescaled_image_width))
@@ -717,8 +717,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                             pdf_renderer_control_stats.largest_page_image_width = Math.Max(pdf_renderer_control_stats.largest_page_image_width, remembered_image_width);
                             pdf_renderer_control_stats.largest_page_image_height = Math.Max(pdf_renderer_control_stats.largest_page_image_height, remembered_image_height);
 
-                            Height = (int)(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
-                            Width = (int)(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
+                            Height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
+                            Width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
                         }
                     }
                 }
