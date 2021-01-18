@@ -34,7 +34,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
             SizeChanged += PDFSearchLayer_SizeChanged;
 
-            Unloaded += PDFSearchLayer_Unloaded;
+            //Unloaded += PDFSearchLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

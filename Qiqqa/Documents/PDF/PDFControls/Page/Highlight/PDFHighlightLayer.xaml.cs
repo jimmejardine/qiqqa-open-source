@@ -56,7 +56,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             CurrentColourNumber = 0;
 
             Loaded += PDFHighlightLayer_Loaded;
-            Unloaded += PDFHighlightLayer_Unloaded;
+            //Unloaded += PDFHighlightLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

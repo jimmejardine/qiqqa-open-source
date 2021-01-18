@@ -53,7 +53,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             text_layer_selection_mode = TextLayerSelectionMode.Sentence;
 
-            Unloaded += PDFTextSentenceLayer_Unloaded;
+            //Unloaded += PDFTextSentenceLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

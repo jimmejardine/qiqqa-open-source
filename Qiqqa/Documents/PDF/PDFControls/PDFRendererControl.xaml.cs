@@ -70,7 +70,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             InitializeComponent();
 
-            Unloaded += PDFRendererControl_Unloaded;
+            //Unloaded += PDFRendererControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             pdf_renderer_control_stats = new PDFRendererControlStats(this, pdf_document);

@@ -69,7 +69,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
             ReColor();
 
-            Unloaded += PDFAnnotationItem_Unloaded;
+            //Unloaded += PDFAnnotationItem_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
         }

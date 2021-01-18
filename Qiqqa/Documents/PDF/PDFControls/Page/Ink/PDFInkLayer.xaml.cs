@@ -45,7 +45,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
             RaiseInkChange(InkCanvasEditingMode.Ink);
 
-            Unloaded += PDFInkLayer_Unloaded;
+            //Unloaded += PDFInkLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

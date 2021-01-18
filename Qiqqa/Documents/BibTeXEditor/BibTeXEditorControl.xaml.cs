@@ -62,7 +62,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             SizeChanged += BibTeXEditorControl_SizeChanged;
 
-            Unloaded += BibTeXEditorControl_Unloaded;
+            //Unloaded += BibTeXEditorControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             // The error panel

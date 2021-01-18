@@ -65,7 +65,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
             popup = new AugmentedPopup(this);
 
-            Unloaded += PDFTextSelectPopup_Unloaded;
+            //Unloaded += PDFTextSelectPopup_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

@@ -73,7 +73,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 build_popup_from_ocr.BuildMenu();
             }
 
-            Unloaded += JumpToSectionPopup_Unloaded;
+            //Unloaded += JumpToSectionPopup_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

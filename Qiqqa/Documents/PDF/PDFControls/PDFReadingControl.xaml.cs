@@ -50,7 +50,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             InitializeComponent();
 
-            Unloaded += PDFReadingControl_Unloaded;
+            //Unloaded += PDFReadingControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             GoogleScholarSideBar.Visibility = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries ? Visibility.Visible : Visibility.Collapsed;

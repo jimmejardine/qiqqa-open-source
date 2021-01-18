@@ -32,7 +32,7 @@ namespace Qiqqa.Common.TagManagement
         {
             InitializeComponent();
 
-            Unloaded += TagEditorControl_Unloaded;
+            //Unloaded += TagEditorControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             ObjAddControl.OnNewTag += ObjAddControl_OnNewTag;

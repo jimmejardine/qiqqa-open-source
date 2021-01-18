@@ -156,7 +156,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 PopulateNeededLayers();
             });
 
-            Unloaded += PDFRendererPageControl_Unloaded;
+            //Unloaded += PDFRendererPageControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

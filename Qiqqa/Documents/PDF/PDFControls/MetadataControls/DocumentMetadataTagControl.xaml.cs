@@ -39,7 +39,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ImageClear.VerticalAlignment = VerticalAlignment.Center;
             ImageClear.ToolTip = "Click here to remove this tag from the document.";
 
-            Unloaded += DocumentMetadataTagControl_Unloaded;
+            //Unloaded += DocumentMetadataTagControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

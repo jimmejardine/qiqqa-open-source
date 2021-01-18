@@ -84,7 +84,7 @@ namespace Qiqqa.Main
             SizeChanged += MainWindow_SizeChanged;
             KeyUp += MainWindow_KeyUp;
 
-            Unloaded += MainWindow_Unloaded;
+            //Unloaded += MainWindow_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
             Closing += MainWindow_Closing;
             Closed += MainWindow_Closed;

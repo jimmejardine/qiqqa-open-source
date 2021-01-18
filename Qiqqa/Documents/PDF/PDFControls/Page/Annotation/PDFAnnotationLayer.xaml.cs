@@ -64,7 +64,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                 }
             }
 
-            Unloaded += PDFAnnotationLayer_Unloaded;
+            //Unloaded += PDFAnnotationLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

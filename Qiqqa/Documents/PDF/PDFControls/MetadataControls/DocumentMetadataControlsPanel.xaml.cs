@@ -18,7 +18,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             InitializeComponent();
 
-            Unloaded += DocumentMetadataControlsPanel_Unloaded;
+            //Unloaded += DocumentMetadataControlsPanel_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             ObjTabs.Children.Clear();

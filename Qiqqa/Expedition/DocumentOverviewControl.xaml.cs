@@ -33,7 +33,7 @@ namespace Qiqqa.Expedition
         {
             InitializeComponent();
 
-            Unloaded += DocumentOverviewControl_Unloaded;
+            //Unloaded += DocumentOverviewControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             DataContextChanged += TopicOverviewControl_DataContextChanged;

@@ -30,7 +30,7 @@ namespace Qiqqa.Main
             InitializeComponent();
 
             Loaded += StatusBar_Loaded;
-            Unloaded += StatusBar_Unloaded;
+            //Unloaded += StatusBar_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             string post_version_type = ApplicationDeployment.IsNetworkDeployed ? "o" : "s";

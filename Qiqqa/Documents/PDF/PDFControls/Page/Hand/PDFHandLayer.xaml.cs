@@ -48,7 +48,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             MouseUp += PDFHandLayer_MouseUp;
             MouseMove += PDFHandLayer_MouseMove;
 
-            Unloaded += PDFHandLayer_Unloaded;
+            //Unloaded += PDFHandLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 

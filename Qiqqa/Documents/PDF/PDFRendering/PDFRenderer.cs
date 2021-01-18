@@ -33,11 +33,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private SoraxPDFRenderer sorax_pdf_renderer;
 
-        public PDFRenderer(string pdf_filename, string pdf_user_password, string pdf_owner_password)
-            : this(null, pdf_filename, pdf_user_password, pdf_owner_password)
-        {
-        }
-
         public PDFRenderer(string precomputed_document_fingerprint, string pdf_filename, string pdf_user_password, string pdf_owner_password)
         {
             this.pdf_filename = pdf_filename;

@@ -37,7 +37,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             drag_area_tracker = new DragAreaTracker(this);
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
 
-            Unloaded += PDFCameraLayer_Unloaded;
+            //Unloaded += PDFCameraLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 
