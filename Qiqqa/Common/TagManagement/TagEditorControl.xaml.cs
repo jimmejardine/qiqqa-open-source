@@ -32,11 +32,24 @@ namespace Qiqqa.Common.TagManagement
         {
             InitializeComponent();
 
+            Unloaded += TagEditorControl_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
             ObjAddControl.OnNewTag += ObjAddControl_OnNewTag;
 
             // Register for notifications of changes to the COMPONENT's TagsBundle
             wdpcn = new WeakDependencyPropertyChangeNotifier(this, TagsBundleProperty);
             wdpcn.ValueChanged += OnTagsBundlePropertyChanged;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
+        }
+
+        private void TagEditorControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
         }
 
         private void OnTagsBundlePropertyChanged(object sender, EventArgs e)
@@ -147,6 +160,7 @@ namespace Qiqqa.Common.TagManagement
                 WPFDoEvents.SafeExec(() =>
                 {
                     ObjAddControl.OnNewTag -= ObjAddControl_OnNewTag;
+                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 ++dispose_count;

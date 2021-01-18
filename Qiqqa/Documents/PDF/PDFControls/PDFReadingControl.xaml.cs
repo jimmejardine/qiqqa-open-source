@@ -51,6 +51,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             InitializeComponent();
 
             Unloaded += PDFReadingControl_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             GoogleScholarSideBar.Visibility = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries ? Visibility.Visible : Visibility.Collapsed;
 
@@ -272,6 +273,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
             Loaded += PDFReadingControl_Loaded;
         }
 
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            CleanUp();
+        }
+
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
         // Which says:
         //
@@ -281,8 +287,15 @@ namespace Qiqqa.Documents.PDF.PDFControls
         // or a UserControl, it may not be called as expected.
         private void PDFReadingControl_Unloaded(object sender, RoutedEventArgs e)
         {
+            CleanUp();
+        }
+
+        private void CleanUp()
+        {
             // TODO: kill the pdf renderer
             //throw new NotImplementedException();
+
+            Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
 
         private void PDFReadingControl_Loaded(object sender, RoutedEventArgs e)

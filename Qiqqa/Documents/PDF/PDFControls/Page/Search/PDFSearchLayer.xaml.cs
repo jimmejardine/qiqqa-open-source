@@ -34,12 +34,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
             SizeChanged += PDFSearchLayer_SizeChanged;
 
-            this.Unloaded += PDFSearchLayer_Unloaded;
+            Unloaded += PDFSearchLayer_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
         }
 
         private void PDFSearchLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
 
         private void PDFSearchLayer_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -187,6 +193,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                 WPFDoEvents.SafeExec(() =>
                 {
                     DataContext = null;
+
+                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>

@@ -69,12 +69,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
             ReColor();
 
-            this.Unloaded += PDFAnnotationItem_Unloaded;
+            Unloaded += PDFAnnotationItem_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
         }
 
         private void PDFAnnotationItem_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
 
         private void ObjTagEditorControl_LostFocus(object sender, RoutedEventArgs e)
@@ -315,6 +322,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
                         ObjTagEditorControl.TagFeature_Add = null;
                         ObjTagEditorControl.TagFeature_Remove = null;
+
+                        Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                     }
                 });
 

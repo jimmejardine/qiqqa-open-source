@@ -62,6 +62,9 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             SizeChanged += BibTeXEditorControl_SizeChanged;
 
+            Unloaded += BibTeXEditorControl_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
             // The error panel
             //ObjErrorPanel.Background = ThemeColours.Background_Brush_Warning;
             //ObjErrorPanel.Opacity = .3;
@@ -105,6 +108,16 @@ namespace Qiqqa.Documents.BibTeXEditor
                 "Please enter a BibTeX key for this article.\nIt needs to be unique in your library as it is used to identify this reference when you use Qiqqa InCite or in LaTeX when you use the \\cite{KEY} command.";
 
             RebuidTextAndGrid();
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
+        }
+
+        private void BibTeXEditorControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
         }
 
         private void BibTeXEditorControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -718,6 +731,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
                     TxtRecordKey.TextChanged -= OnGridTextChanged;
+                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
 
                     ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;
                     ComboRecordType.KeyUp -= ComboRecordType_KeyUp;

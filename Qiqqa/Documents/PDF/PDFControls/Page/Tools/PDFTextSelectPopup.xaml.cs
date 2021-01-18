@@ -65,14 +65,27 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
             popup = new AugmentedPopup(this);
 
-            this.Unloaded += PDFTextSelectPopup_Unloaded;
+            Unloaded += PDFTextSelectPopup_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            CleanUp();
         }
 
         private void PDFTextSelectPopup_Unloaded(object sender, RoutedEventArgs e)
         {
+            CleanUp();
+        }
+
+        private void CleanUp()
+        { 
             this.selected_text = null;
             this.pdf_document = null;
             this.popup = null;
+
+            Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
 
         private void MenuItemBibTexSet_Click(object sender, RoutedEventArgs e)

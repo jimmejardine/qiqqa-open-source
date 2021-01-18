@@ -658,6 +658,9 @@
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryChooserControl.xaml.cs">
       <DependentUpon>IntranetLibraryChooserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryEditControl.xaml.cs">
+      <DependentUpon>IntranetLibraryEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDB.cs" />
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDetail.cs" />
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryTools.cs" />
@@ -1402,6 +1405,10 @@
     <Page Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryChooserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="DocumentLibrary\LibraryCatalog\MultipleDocumentsSelectedPanel.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -34,11 +34,17 @@ namespace Qiqqa.Expedition
             InitializeComponent();
 
             Unloaded += DocumentOverviewControl_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             DataContextChanged += TopicOverviewControl_DataContextChanged;
 
             TxtTitle.Cursor = Cursors.Hand;
             TxtTitle.MouseLeftButtonUp += TxtTitle_MouseLeftButtonUp;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            CleanUp();
         }
 
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
@@ -50,8 +56,15 @@ namespace Qiqqa.Expedition
         // or a UserControl, it may not be called as expected.
         private void DocumentOverviewControl_Unloaded(object sender, RoutedEventArgs e)
         {
+            CleanUp();
+        }
+
+        private void CleanUp()
+        {
             // TODO: discard the pdf renderer
-            //throw new NotImplementedException();
+            DataContext = null;
+
+            Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
 
         private void TxtTitle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

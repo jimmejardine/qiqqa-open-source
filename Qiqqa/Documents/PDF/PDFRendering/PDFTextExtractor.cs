@@ -192,15 +192,15 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             NUM_OCR_THREADS = ConfigurationManager.Instance.ConfigurationRecord.System_NumOCRProcesses ?? 0;
             if (0 == NUM_OCR_THREADS)
             {
-				// use the total number of cores (minus one); assume that all processors
-				// report the number of *virtual* cores as twice the number of physical
-				// cores (as happens to be the case for most modern consumer Intel and AMD CPUs)
+                // use the total number of cores (minus one); assume that all processors
+                // report the number of *virtual* cores as twice the number of physical
+                // cores (as happens to be the case for most modern consumer Intel and AMD CPUs)
                 NUM_OCR_THREADS = Environment.ProcessorCount / 2 - 1;
             }
-			// ditto: limit to the number of physical cores in the CPU
+            // ditto: limit to the number of physical cores in the CPU
             NUM_OCR_THREADS = Math.Min(NUM_OCR_THREADS, Environment.ProcessorCount / 2);
-			// and make sure antique or obscure hardware doesn't tease us into
-			// arriving at a ZERO thread count:
+            // and make sure antique or obscure hardware doesn't tease us into
+            // arriving at a ZERO thread count:
             NUM_OCR_THREADS = Math.Max(NUM_OCR_THREADS, 1);
 #if DEBUG // for debugging
             NUM_OCR_THREADS = 1;   // force a single thread for ease of debugging the background process
@@ -626,7 +626,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             }
 
                             // reduce CPU load by snoozing for a bit.
-                            if (cpu_load_too_high_for_UI_responsiveness)
+                            if (cpu_load_too_high_for_UI_responsiveness && !ShutdownableManager.Instance.IsShuttingDown)
                             {
                                 daemon.Sleep(1000);
                             }

@@ -19,6 +19,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             InitializeComponent();
 
             Unloaded += DocumentMetadataControlsPanel_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             ObjTabs.Children.Clear();
             ObjTabs.AddContent("Properties", "Properties", null, false, false, TabMetadata);
@@ -32,6 +33,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ReevaluateDataContext();
         }
 
+        private void Dispatcher_ShutdownStarted(object sender, System.EventArgs e)
+        {
+            CleanUp();
+        }
+
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
         // Which says:
         //
@@ -41,9 +47,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         // or a UserControl, it may not be called as expected.
         private void DocumentMetadataControlsPanel_Unloaded(object sender, RoutedEventArgs e)
         {
+            CleanUp();
+        }
+
+        private void CleanUp()
+        { 
             // TODO: ditch the pdf renders in the GridPreview children list...
             DataContextChanged -= DocumentMetadataControlsPanel_DataContextChanged;
             DataContext = null;
+
+            ObjTabs.Children.Clear();
+
+            Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
 
         private void HyperlinkRestore_Click(object sender, RoutedEventArgs e)
