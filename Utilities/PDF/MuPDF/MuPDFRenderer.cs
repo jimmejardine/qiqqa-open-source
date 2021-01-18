@@ -10,7 +10,6 @@ namespace Utilities.PDF.MuPDF
 {
     public class MuPDFRenderer
     {
-#if TEST
         public static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, string password, ProcessPriorityClass priority_class)
         {
             string process_parameters = String.Format(
@@ -22,10 +21,9 @@ namespace Utilities.PDF.MuPDF
                 + " " + page_number
                 );
 
-            MemoryStream ms = ReadEntireStandardOutput(process_parameters, priority_class);
+            MemoryStream ms = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, priority_class);
             return ms;
         }
-#endif
 
         public class TextChunk
         {
@@ -51,7 +49,7 @@ namespace Utilities.PDF.MuPDF
                 + " " + page_numbers
                 );
 
-            using (MemoryStream ms = ReadEntireStandardOutput(process_parameters, priority_class))
+            using (MemoryStream ms = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, priority_class))
             {
                 ms.Seek(0, SeekOrigin.Begin);
                 using (StreamReader sr_lines = new StreamReader(ms))
@@ -266,13 +264,13 @@ namespace Utilities.PDF.MuPDF
         }
 
 
-        private static MemoryStream ReadEntireStandardOutput(string process_parameters, ProcessPriorityClass priority_class)
+        private static MemoryStream ReadEntireStandardOutput(string pdfDrawExe, string process_parameters, ProcessPriorityClass priority_class)
         {
             Stopwatch clk = Stopwatch.StartNew();
 
             // STDOUT/STDERR
             Logging.Debug("PDFDRAW :: ReadEntireStandardOutput command: pdfdraw.exe {0}", process_parameters);
-            using (Process process = ProcessSpawning.SpawnChildProcess("pdfdraw.exe", process_parameters, priority_class, stdout_is_binary: true))
+            using (Process process = ProcessSpawning.SpawnChildProcess(pdfDrawExe, process_parameters, priority_class, stdout_is_binary: true))
             {
                 using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process, stdout_is_binary: true))
                 {

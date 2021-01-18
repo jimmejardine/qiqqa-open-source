@@ -82,9 +82,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// <param name="page"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        internal byte[] GetPageByHeightAsImage(int page, double height)
+        internal byte[] GetPageByHeightAsImage(int page, double height, double width)
         {
-            return sorax_pdf_renderer.GetPageByHeightAsImage(page, height);
+            return sorax_pdf_renderer.GetPageByHeightAsImage(page, height, width);
         }
 
         internal byte[] GetPageByDPIAsImage(int page, float dpi)

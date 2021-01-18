@@ -73,6 +73,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         {
             public BitmapSource Image;
             public double requested_height;
+            public double requested_width;
         }
 
         private CurrentlyShowingImageClass _currently_showing_image = null;
@@ -500,18 +501,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         internal void RefreshPage()
         {
-            RefreshPage(null, 0);
+            RefreshPage(null, 0, 0);
         }
 
-        private void RefreshPage_ResizedImageCallback(BitmapSource requested_image_rescale, double requested_height)
+        private void RefreshPage_ResizedImageCallback(BitmapSource requested_image_rescale, double requested_height, double requested_width)
         {
-            RefreshPage(requested_image_rescale, requested_height);
+            RefreshPage(requested_image_rescale, requested_height, requested_width);
         }
 
         private class PendingRefreshWork
         {
             public BitmapSource requested_image_rescale;
             public double requested_height;
+            public double requested_width;
         }
 
         private object pending_refresh_work_lock = new object();
@@ -525,7 +527,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         /// Any previous queued refresh is ignored.  If another refresh is busy running, then the most recently received request is queued.
         /// </summary>
         /// <param name="requested_image_rescale">The suggested image to use, if null then will be requested asynchronously.</param>
-        private void RefreshPage(BitmapSource requested_image_rescale, double requested_height)
+        private void RefreshPage(BitmapSource requested_image_rescale, double requested_height, double requested_width)
         {
             PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height };
 
@@ -583,7 +585,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     if (page_is_in_view)
                     {
                         double desired_rescaled_image_height = remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
-                        if (null != CurrentlyShowingImage && CurrentlyShowingImage.requested_height == desired_rescaled_image_height)
+                        double desired_rescaled_image_width = remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
+                        if (null != CurrentlyShowingImage && (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width))
                         {
                             ImagePage_HIDDEN.Stretch = Stretch.None;
                         }
@@ -658,9 +661,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     {
                         // Work out the size of the image we would like to have
                         double desired_rescaled_image_height = remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
+                        double desired_rescaled_image_width = remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
 
                         // Is the current image not good enough?  Then perhaps use a provided one
-                        if (null == CurrentlyShowingImage || CurrentlyShowingImage.requested_height != desired_rescaled_image_height)
+                        if (null == CurrentlyShowingImage || (CurrentlyShowingImage.requested_height != desired_rescaled_image_height && CurrentlyShowingImage.requested_width != desired_rescaled_image_width))
                         {
                             // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                             lock (pending_refresh_work_lock)
@@ -670,28 +674,32 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                                 if (null != pending_refresh_work.requested_image_rescale)
                                 {
                                     // Choose the closer image
-                                    double discrepancy_existing_image = (null == CurrentlyShowingImage) ? Double.MaxValue : Math.Abs(CurrentlyShowingImage.requested_height - desired_rescaled_image_height);
-                                    double discrepancy_supplied_image = (null == pending_refresh_work.requested_image_rescale) ? Double.MaxValue : Math.Abs(pending_refresh_work.requested_height - desired_rescaled_image_height);
+                                    double discrepancy_existing_image = (null == CurrentlyShowingImage) ? Double.MaxValue : Math.Min(Math.Abs(CurrentlyShowingImage.requested_height - desired_rescaled_image_height), Math.Abs(CurrentlyShowingImage.requested_width - desired_rescaled_image_width));
+                                    double discrepancy_supplied_image = (null == pending_refresh_work.requested_image_rescale) ? Double.MaxValue : Math.Min(Math.Abs(pending_refresh_work.requested_height - desired_rescaled_image_height), Math.Abs(pending_refresh_work.requested_width - desired_rescaled_image_width));
 
                                     // If the request image is better, use it
                                     if (discrepancy_supplied_image < discrepancy_existing_image)
                                     {
-                                        CurrentlyShowingImage = new CurrentlyShowingImageClass { Image = pending_refresh_work.requested_image_rescale, requested_height = pending_refresh_work.requested_height };
+                                        CurrentlyShowingImage = new CurrentlyShowingImageClass { 
+                                            Image = pending_refresh_work.requested_image_rescale, 
+                                            requested_height = pending_refresh_work.requested_height,
+                                            requested_width = pending_refresh_work.requested_width
+                                        };
                                     }
                                 }
                             }
                         }
 
                         // If our current image is still not good enough, request one
-                        if (null == CurrentlyShowingImage || CurrentlyShowingImage.requested_height != desired_rescaled_image_height)
+                        if (null == CurrentlyShowingImage || CurrentlyShowingImage.requested_height != desired_rescaled_image_height || CurrentlyShowingImage.requested_width != desired_rescaled_image_width)
                         {
-                            pdf_renderer_control_stats.GetResizedPageImage(this, page, desired_rescaled_image_height, RefreshPage_ResizedImageCallback);
+                            pdf_renderer_control_stats.GetResizedPageImage(this, page, desired_rescaled_image_height, desired_rescaled_image_width, RefreshPage_ResizedImageCallback);
                         }
 
                         // Recalculate the aspect ratio
                         if (null != CurrentlyShowingImage)
                         {
-                            if (CurrentlyShowingImage.requested_height == desired_rescaled_image_height)
+                            if (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width)
                             {
                                 ImagePage_HIDDEN.Stretch = Stretch.None;
                             }

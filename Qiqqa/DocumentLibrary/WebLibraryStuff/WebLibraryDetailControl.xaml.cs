@@ -45,6 +45,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
     public partial class WebLibraryDetailControl : DockPanel
     {
         private static int PREVIEW_IMAGE_HEIGHT = 350;
+        private static int PREVIEW_IMAGE_WIDTH = 350;
         private static double PREVIEW_IMAGE_PERCENTAGE = .4;
         private WebLibraryListControl.WebLibrarySelectedDelegate web_library_selected_delegate;
         private WebLibraryDetail web_library_detail = null;
@@ -609,7 +610,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                         {
                                             try
                                             {
-                                                using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE)))
+                                                using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE, PREVIEW_IMAGE_WIDTH / PREVIEW_IMAGE_PERCENTAGE)))
                                                 {
                                                     Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
                                                     page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
