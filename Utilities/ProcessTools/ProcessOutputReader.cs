@@ -6,6 +6,31 @@ using Utilities.GUI;
 
 namespace Utilities.ProcessTools
 {
+    public struct ProcessOutputDump
+    {
+        public string stdout;
+        public string stderr;
+
+        public string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (!String.IsNullOrWhiteSpace(stdout))
+            {
+                sb.AppendLine("--- Standard output:");
+                sb.AppendLine(stdout);
+            }
+            if (!String.IsNullOrWhiteSpace(stderr))
+            {
+                sb.AppendLine("--- Standard error:");
+                sb.AppendLine(stderr);
+            }
+            return sb.ToString();
+        }
+    }
+
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     public class ProcessOutputReader : IDisposable
     {
         private Process process;
@@ -49,7 +74,7 @@ namespace Utilities.ProcessTools
             process.Exited += (sender, e) => {
                 lock (io_buffers_lock)
                 {
-                    Error.Add("--EXIT--");
+                    Error.Add($"--EXIT:{process.ExitCode}--");
                 }
             }; 
             if (!stdout_is_binary)
@@ -108,7 +133,7 @@ namespace Utilities.ProcessTools
 
         // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        public string GetOutputsDumpString()
+        public ProcessOutputDump GetOutputsDumpStrings()
         {
             // oddly enough this code can produce a race condition exception for some Output: "Collection was modified; enumeration operation may not execute."
             //
@@ -121,7 +146,6 @@ namespace Utilities.ProcessTools
                 {
                     StringBuilder sb = new StringBuilder();
 
-                    sb.AppendLine("--- Standard output:");
                     lock (io_buffers_lock)
                     {
                         foreach (string s in Output)
@@ -129,20 +153,26 @@ namespace Utilities.ProcessTools
                             sb.AppendLine(s);
                         }
                     }
-                    sb.AppendLine("--- Standard error:");
+
+                    StringBuilder sb2 = new StringBuilder();
+
                     lock (io_buffers_lock)
                     {
                         foreach (string s in Error)
                         {
-                            sb.AppendLine(s);
+                            sb2.AppendLine(s);
                         }
                     }
-                    return sb.ToString();
+                    return new ProcessOutputDump()
+                    {
+                        stdout = sb.ToString(),
+                        stderr = sb2.ToString()
+                    };
                 }
                 catch (Exception ex)
                 {
                     odd_ex = ex;
-                    Logging.Error(ex, "GetOutputsDumpString failed with this odd condition...");
+                    Logging.Error(ex, "GetOutputsDumpStrings failed with this odd condition...");
                 }
             }
 			

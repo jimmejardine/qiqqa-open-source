@@ -581,8 +581,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
 
             // And fill the placeholders
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
-            {
                 try
                 {
                     UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws);
@@ -705,12 +703,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         ButtonCoverFlow.IsChecked = false;
                         UpdateLibraryStatistics();
                 }
-            });
         }
 
         private void UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(List<DocumentDisplayWork> ddws)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             ObjCarousel.Items.Clear();
 

@@ -271,4 +271,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)Qiqqa.Build\copy_mupdf_binaries.cmd $(TargetDir) $(ConfigurationName) $(ProjectDir)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

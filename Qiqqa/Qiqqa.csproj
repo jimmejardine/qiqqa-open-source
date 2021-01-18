@@ -2044,6 +2044,9 @@
       <Link>CHANGELOG_full.md</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="..\Qiqqa.Build\copy_mupdf_binaries.cmd">
+      <Link>copy_mupdf_binaries.cmd</Link>
+    </None>
     <None Include="InCite\registry_fixes\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -5335,4 +5338,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)Qiqqa.Build\copy_mupdf_binaries.cmd $(TargetDir) $(ConfigurationName) $(ProjectDir)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Threading;
 using Utilities.GUI;
+using Utilities.PDF.MuPDF;
 
 namespace Utilities.PDF.Sorax
 {
@@ -29,7 +31,7 @@ namespace Utilities.PDF.Sorax
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi:0, height, width);
+            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi: 0, height, width);
         }
 
 
@@ -37,10 +39,10 @@ namespace Utilities.PDF.Sorax
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi);
+            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi, 0, 0);
         }
 
-        private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, string pdf_owner_password, int page, float dpi, double height = 0, double width = 0)
+        private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, string pdf_owner_password, int page, float dpi, double height, double width)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -49,17 +51,13 @@ namespace Utilities.PDF.Sorax
                 // sample command (PNG written to stdout for page #2, width and height are limiting/reducing, dpi-resolution is driving):
                 //
                 //      mudraw -q -o - -F png -r 600 -w 1920 -h 1280 G:\Qiqqa\evil\Guest\documents\1\1A9760F3917A107AC46E6E292B9C839364F09E73.pdf  2
+                var img = MuPDFRenderer.RenderPDFPageAsByteArray(filename, page, (int)Math.Round(dpi), (int)Math.Round(height), (int)Math.Round(width), pdf_owner_password, ProcessPriorityClass.BelowNormal);
 
-                using (FileStream fs = new FileStream(@"C:\temp\aax.png", FileMode.Open, FileAccess.Read))
-                {
-                    MemoryStream ms = new MemoryStream();
-                    fs.CopyTo(ms);
-                    return ms.ToArray();
-                }
+                return img;
             }
             catch (Exception ex)
             {
-                throw new GenericException(ex, $"Error while rasterising page {page} at {dpi}dpi / {height}x{width} pixels of '{filename}'");
+                throw new GenericException(ex, $"PDF Render: Error while rasterising page {page} at {dpi}dpi / {height}x{width} pixels of '{filename}'");
             }
         }
     }

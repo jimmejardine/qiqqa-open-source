@@ -840,12 +840,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                     if (!CheckOCRProcessSuccess(fake_parameters, out report))
                     {
-                        Logging.Error("SEVERE OCR PROBLEM: Couldn't even perform FAKE=DUMMY OCR on the page, so giving up for {0}:\n  command: {1}\n  result: {2}\n  error log: {3}", next_job.job, report.OCRParameters, report.exitCode, report.OCRStdioOutput);
+                        Logging.Error("SEVERE OCR PROBLEM: Couldn't even perform FAKE=DUMMY OCR on the page, so giving up for {0}:\n  command: {1}\n  result: {2}\n  error log: {3}", next_job.job, report.OCRParameters, report.exitCode, report.OCRStdioOut);
                     }
                 }
                 else
                 {
-                    Logging.Error("SEVERE OCR PROBLEM: Single page OCR on page {0} resulted in an error which cannot be easily resolved. We will attempt a RETRY later for {1}:\n  command: {2}\n  result: {3}\n  error log: {4}", next_job.job.page, next_job.job, report.OCRParameters, report.exitCode, report.OCRStdioOutput);
+                    Logging.Error("SEVERE OCR PROBLEM: Single page OCR on page {0} resulted in an error which cannot be easily resolved. We will attempt a RETRY later for {1}:\n  command: {2}\n  result: {3}\n  error log: {4}", next_job.job.page, next_job.job, report.OCRParameters, report.exitCode, report.OCRStdioOut);
                 }
             }
         }
@@ -854,14 +854,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             public string OCRParameters;
             public int exitCode;
-            public string OCRStdioOutput;
+            public ProcessOutputDump OCRStdioOut;
             public bool hasExited;
             public long durationMS;
         }
 
         private bool failureMaybeDueToEncryptedPDF(OCRExecReport report)
         {
-            if (report.OCRStdioOutput.Contains("Sorax.SoraxPDFRendererDLLWrapper.HDOCWrapper") || report.OCRStdioOutput.Contains("Sorax.SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage"))
+            if (report.OCRStdioOut.stderr.Contains("Sorax.SoraxPDFRendererDLLWrapper.HDOCWrapper") || report.OCRStdioOut.stderr.Contains("Sorax.SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage"))
             {
                 return true;
             }
@@ -927,7 +927,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     {
                         OCRParameters = ocr_parameters,
                         exitCode = process.ExitCode,
-                        OCRStdioOutput = process_output_reader.GetOutputsDumpString(),
+                        OCRStdioOut = process_output_reader.GetOutputsDumpStrings(),
                         hasExited = has_exited,
                         durationMS = duration
                     };
@@ -936,19 +936,19 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 // Check that we had a clean exit
                 if (!report.hasExited || 0 != report.exitCode)
                 {
-                    Logging.Error("There was a problem while running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+                    Logging.Error("There was a problem while running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOut, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
 
                     return false;
                 }
                 else
                 {
-                    if (report.OCRStdioOutput.Contains("ERROR"))
+                    if (report.OCRStdioOut.stderr.Contains("ERROR"))
                     {
-                        Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+                        Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOut, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
                     }
                     else
                     {
-                        Logging.Info("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+                        Logging.Info("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOut, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
                     }
                     return true;
                 }

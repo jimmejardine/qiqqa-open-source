@@ -389,6 +389,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tooling", "tooling", "{F9DF
 		build-installer.sh = build-installer.sh
 		Qiqqa.Build\bump_version.js = Qiqqa.Build\bump_version.js
 		Qiqqa.Build\ClientVersion.xml = Qiqqa.Build\ClientVersion.xml
+		Qiqqa.Build\copy_mupdf_binaries.cmd = Qiqqa.Build\copy_mupdf_binaries.cmd
 		Qiqqa.Build\fix-docs-filenames.js = Qiqqa.Build\fix-docs-filenames.js
 		Qiqqa.Build\go.bat = Qiqqa.Build\go.bat
 		Qiqqa.Build\munch_changelog.js = Qiqqa.Build\munch_changelog.js

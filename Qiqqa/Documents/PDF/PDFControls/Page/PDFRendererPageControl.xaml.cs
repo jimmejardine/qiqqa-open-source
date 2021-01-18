@@ -529,6 +529,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         /// <param name="requested_image_rescale">The suggested image to use, if null then will be requested asynchronously.</param>
         private void RefreshPage(BitmapSource requested_image_rescale, double requested_height, double requested_width)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height };
 
             // cache the document fingerprint for the occasion where the RefreshPage_*() methods invoked/dispatched
@@ -559,6 +561,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         private void RefreshPage_INTERNAL_FAST()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             while (true)
             {
                 // Get the next piece of work
@@ -691,7 +695,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                         }
 
                         // If our current image is still not good enough, request one
-                        if (null == CurrentlyShowingImage || CurrentlyShowingImage.requested_height != desired_rescaled_image_height || CurrentlyShowingImage.requested_width != desired_rescaled_image_width)
+                        if (null == CurrentlyShowingImage || (CurrentlyShowingImage.requested_height != desired_rescaled_image_height && CurrentlyShowingImage.requested_width != desired_rescaled_image_width))
                         {
                             pdf_renderer_control_stats.GetResizedPageImage(this, page, desired_rescaled_image_height, desired_rescaled_image_width, RefreshPage_ResizedImageCallback);
                         }
