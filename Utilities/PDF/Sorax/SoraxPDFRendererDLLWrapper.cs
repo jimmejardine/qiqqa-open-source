@@ -22,14 +22,14 @@ namespace Utilities.PDF.Sorax
 
         public static int GetPageCount(string filename, string pdf_user_password, string pdf_owner_password)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             throw new ApplicationException("Not supported yet");
         }
 
         public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, int height, int width)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi: 0, height, width);
         }
@@ -37,14 +37,14 @@ namespace Utilities.PDF.Sorax
 
         public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, int dpi)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi, 0, 0);
         }
 
         private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, string pdf_owner_password, int page, int dpi, int height, int width)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             try
             {

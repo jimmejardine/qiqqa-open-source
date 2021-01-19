@@ -9,6 +9,7 @@ using Qiqqa.Documents.PDF.PDFControls.Page;
 using Utilities;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -132,31 +133,36 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     continue;
                 }
 
-                try
+                SafeThreadPool.QueueUserWorkItem(o =>
                 {
-                    //PngBitmapDecoder decoder = new PngBitmapDecoder(new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height)), BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-                    //BitmapSource bitmap = decoder.Frames[0];
-                    //bitmap.Freeze();
+                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-                    BitmapImage bitmap = new BitmapImage();
-                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height, resized_page_image_item_request.width)))
+                    try
                     {
-                        bitmap.BeginInit();
-                        bitmap.StreamSource = ms;
-                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmap.EndInit();
-                        bitmap.Freeze();
-                    }
+                        //PngBitmapDecoder decoder = new PngBitmapDecoder(new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height)), BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                        //BitmapSource bitmap = decoder.Frames[0];
+                        //bitmap.Freeze();
 
-                    if (null != bitmap)
-                    {
-                        resized_page_image_item_request.callback(bitmap, resized_page_image_item_request.height, resized_page_image_item_request.width);
+                        BitmapImage bitmap = new BitmapImage();
+                        using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height, resized_page_image_item_request.width)))
+                        {
+                            bitmap.BeginInit();
+                            bitmap.StreamSource = ms;
+                            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmap.EndInit();
+                            bitmap.Freeze();
+                        }
+
+                        if (null != bitmap)
+                        {
+                            resized_page_image_item_request.callback(bitmap, resized_page_image_item_request.height, resized_page_image_item_request.width);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "There was an error while resizing a PDF page image");
-                }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "There was an error while resizing a PDF page image");
+                    }
+                });
             }
         }
 

@@ -20,7 +20,7 @@ namespace Utilities.PDF.MuPDF
             // make sure we send a sane DPI value to mudraw all the time:
             if (dpi == 0)
             {
-                dpi = 600;
+                dpi = 300;
             }
 
             string process_parameters = String.Format(

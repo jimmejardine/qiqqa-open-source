@@ -20,7 +20,7 @@ namespace Utilities.PDF.Sorax
 
         public byte[] GetPageByHeightAsImage(int page, int height, int width)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (cache)

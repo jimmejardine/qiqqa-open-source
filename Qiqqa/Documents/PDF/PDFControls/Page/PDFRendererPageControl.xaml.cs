@@ -529,8 +529,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         /// <param name="requested_image_rescale">The suggested image to use, if null then will be requested asynchronously.</param>
         private void RefreshPage(BitmapSource requested_image_rescale, int requested_height, int requested_width)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height, requested_width = requested_width };
 
             // cache the document fingerprint for the occasion where the RefreshPage_*() methods invoked/dispatched
@@ -538,6 +536,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             // an exception may be thrown and *reported*: that's where we need this Fingerprint copy to prevent
             // a second failure:
             documentFingerprint = pdf_renderer_control_stats.pdf_document.Fingerprint;
+
+            bool call_fast = false;
+            bool call_slow = false;
 
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pending_refresh_work_lock)
@@ -547,15 +548,30 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 if (!pending_refresh_work_fast_running)
                 {
                     pending_refresh_work_fast_running = true;
-                    WPFDoEvents.InvokeAsyncInUIThread(() => RefreshPage_INTERNAL_FAST());
+                    call_fast = true;
                 }
 
                 pending_refresh_work_slow = pending_refresh_work;
                 if (!pending_refresh_work_slow_running)
                 {
                     pending_refresh_work_slow_running = true;
-                    WPFDoEvents.InvokeAsyncInUIThread(() => RefreshPage_INTERNAL_SLOW(), DispatcherPriority.Background);
+                    call_slow = true;
                 }
+            }
+
+            if (call_fast)
+            {
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    RefreshPage_INTERNAL_FAST();
+                });
+            }
+            if (call_slow)
+            {
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    RefreshPage_INTERNAL_SLOW();
+                }, DispatcherPriority.Background);
             }
         }
 
