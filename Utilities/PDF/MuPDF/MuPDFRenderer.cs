@@ -17,12 +17,6 @@ namespace Utilities.PDF.MuPDF
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            // make sure we send a sane DPI value to mudraw all the time:
-            if (dpi == 0)
-            {
-                dpi = 300;
-            }
-
             string process_parameters = String.Format(
                 $"-q -w {width} -h {height} -r {dpi} -o -"
                 + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)

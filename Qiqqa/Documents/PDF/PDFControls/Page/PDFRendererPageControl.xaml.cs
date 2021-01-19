@@ -529,6 +529,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         /// <param name="requested_image_rescale">The suggested image to use, if null then will be requested asynchronously.</param>
         private void RefreshPage(BitmapSource requested_image_rescale, int requested_height, int requested_width)
         {
+            // prevent crashes by PDF page renders which call back late (when control has already expired)
+            if (pdf_renderer_control_stats == null)
+                return;
+
             PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height, requested_width = requested_width };
 
             // cache the document fingerprint for the occasion where the RefreshPage_*() methods invoked/dispatched
@@ -721,7 +725,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                         {
                             if (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width)
                             {
-                                ImagePage_HIDDEN.Stretch = Stretch.None;
+                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;  // TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
                             }
                             else
                             {

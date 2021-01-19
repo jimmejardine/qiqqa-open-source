@@ -30,7 +30,9 @@ namespace Utilities.PDF.Sorax
                 if (null == bitmap)
                 {
                     // check if we have a higher size image cached already: use that one instead of bothering the PDF renderer again
+#if false
                     bitmap = cache.GetNextOneBetter(page, height);
+#endif
                     if (null == bitmap)
                     {
                         bitmap = SoraxPDFRendererDLLWrapper.GetPageByHeightAsImage(pdf_filename, pdf_owner_password, pdf_user_password, page, height, width);
