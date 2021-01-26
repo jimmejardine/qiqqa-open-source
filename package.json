@@ -1,6 +1,6 @@
 {
   "name": "qiqqa",
-  "version": "83.0.7656-36858",
+  "version": "83.0.7665-36168",
   "description": "Qiqqa: The essential free research and reference manager. Search for, read and annotate your PDFs. Then review your work, write up and create bibliographies instantly.",
   "main": "Qiqqa.Build/info.js",
   "directories": {
