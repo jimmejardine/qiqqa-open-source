@@ -1,41 +1,72 @@
-<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.Import.Manual.ImportFromFolder"
-                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                          xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-                          xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-                          Title="Folder Import" Height="480" Width="640" ResizeMode="NoResize">
+<commongui:StandardWindow
+    x:Class="Qiqqa.DocumentLibrary.Import.Manual.ImportFromFolder"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    x:Name="ImportFromFolderWindow"
+    Title="Folder Import"
+    Width="640"
+    Height="480"
+    ResizeMode="NoResize">
     <DockPanel>
-        <commongui:StandardPageHeader x:Name="Header" DockPanel.Dock="Top" Caption="Import from Folder" SubCaption="Select the folder to import from." />
+        <commongui:StandardPageHeader
+            x:Name="Header"
+            Caption="Import from Folder"
+            DockPanel.Dock="Top"
+            SubCaption="Select the folder to import from." />
         <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
             <DockPanel HorizontalAlignment="Right">
-                <local_gui:AugmentedButton x:Name="btnCancel" Click="BtnCancel_OnClick" MinHeight="20" />
-                <local_gui:AugmentedButton x:Name="btnImport" Click="BtnImport_OnClick" IsEnabled="{Binding IsSelectedFileValid}" MinHeight="20"  Margin="12,0,0,0" />
+                <local_gui:AugmentedButton
+                    x:Name="btnCancel"
+                    MinHeight="20"
+                    Click="BtnCancel_OnClick" />
+                <local_gui:AugmentedButton
+                    x:Name="btnImport"
+                    MinHeight="20"
+                    Margin="12,0,0,0"
+                    Click="BtnImport_OnClick"
+                    IsEnabled="{Binding IsSelectedFileValid}" />
             </DockPanel>
         </local_gui:AugmentedPadder>
-        <local_gui:AugmentedPadder >
+        <local_gui:AugmentedPadder>
             <StackPanel>
                 <DockPanel>
-                    <local_gui:AugmentedButton DockPanel.Dock="Right"
-                                             Margin="5,0,0,0"
-                                             Click="FolderLocationButton_Click"
-                                       CaptionDock="Bottom"
-                                      >
+                    <local_gui:AugmentedButton
+                        Margin="5,0,0,0"
+                        CaptionDock="Bottom"
+                        Click="FolderLocationButton_Click"
+                        DockPanel.Dock="Right">
                         Browse
                     </local_gui:AugmentedButton>
-                    <TextBox x:Name="folderLocationTextBox" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=SelectedPath}" ToolTip="{Binding Path=SelectedPath}"/>
+                    <TextBox
+                        x:Name="folderLocationTextBox"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="{Binding Path=SelectedPath}"
+                        ToolTip="{Binding Path=SelectedPath}" />
                 </DockPanel>
-                <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Margin="3"
-                  IsChecked="{Binding RecurseSubfolders}"
-                  ToolTip="Import PDF's from all subfolders?"
-                  VerticalAlignment="Center">
+                <CheckBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="3"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding RecurseSubfolders}"
+                    ToolTip="Import PDF's from all subfolders?">
                     Include subfolders
                 </CheckBox>
-                <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  Margin="3"
-                  IsChecked="{Binding ImportTagsFromSubfolderNames}"
-                  ToolTip="Should each subfolder name be automatically added as a document tag?"
-                  Visibility="Visible"
-                  VerticalAlignment="Center"
-                  IsEnabled="{Binding RecurseSubfolders}">
+                <CheckBox
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="3"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding ImportTagsFromSubfolderNames}"
+                    IsEnabled="{Binding RecurseSubfolders}"
+                    ToolTip="Should each subfolder name be automatically added as a document tag?"
+                    Visibility="Visible">
                     Add subfolder names as tags
                 </CheckBox>
             </StackPanel>

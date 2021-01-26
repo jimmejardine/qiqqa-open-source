@@ -27,13 +27,13 @@
                     <TextBlock Grid.Row="0" Grid.Column="0">
                         Hostname:
                     </TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="2">
+                        Port:
+                    </TextBlock>
                     <TextBox
                         Grid.Row="1"
                         Grid.Column="0"
                         Text="{Binding Proxy_Hostname}" />
-                    <TextBlock Grid.Row="0" Grid.Column="2">
-                        Port:
-                    </TextBlock>
                     <TextBox
                         Grid.Row="1"
                         Grid.Column="2"
@@ -41,14 +41,14 @@
                     <TextBlock Grid.Row="2" Grid.Column="0">
                         Username:
                     </TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="2">
+                        Password:
+                    </TextBlock>
                     <TextBox
                         Name="ObjUserName"
                         Grid.Row="3"
                         Grid.Column="0"
                         Text="{Binding Proxy_Username}" />
-                    <TextBlock Grid.Row="2" Grid.Column="2">
-                        Password:
-                    </TextBlock>
                     <local_gui:BindablePasswordBox
                         Name="ObjPassword"
                         Grid.Row="3"

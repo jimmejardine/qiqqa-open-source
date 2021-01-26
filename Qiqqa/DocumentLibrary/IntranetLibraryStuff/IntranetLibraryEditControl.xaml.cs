@@ -23,6 +23,8 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
     {
         public IntranetLibraryEditControl()
         {
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             Title =

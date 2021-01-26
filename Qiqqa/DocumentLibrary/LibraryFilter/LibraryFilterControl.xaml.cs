@@ -122,7 +122,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 ObjThemeExplorerControl.LibraryRef = web_library_detail;
                 ObjTypeExplorerControl.LibraryRef = web_library_detail;
 
-                // WEAK EVENT HANDLER FOR: library.OnDocumentsChanged += Library_OnNewDocument;
+                // WEAK EVENT HANDLER FOR: web_library_detail.Xlibrary.OnDocumentsChanged += (sender, args) => { Library_OnNewDocument(sender, args.PDFDocument); };
                 WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, LibraryFilterControl>(
                     web_library_detail,
                     registerWeakEvent,
@@ -132,7 +132,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 );
             }
         }
-
 
         private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
         {
@@ -504,7 +503,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 }
                 if (null != intersection)
                 {
-                    Logging.Info("intersection={0}", intersection.Count);
+                    Logging.Info($"intersection={ intersection.Count }");
                 }
 
                 // If we have nothing good to say, say nothing at all
@@ -514,25 +513,31 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 }
             }
 
-            List<PDFDocument> pdf_documents = null;
-            // If there are no filters, use all document
-            if (null == intersection)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
-            }
-            else // Otherwise get the subset of documents
-            {
-                pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(intersection);
-            }
-            Logging.Debug特("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, web_library_detail.Title);
+                List<PDFDocument> pdf_documents = null;
+                // If there are no filters, use all document
+                if (null == intersection)
+                {
+                    pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
+                }
+                else // Otherwise get the subset of documents
+                {
+                    pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(intersection);
+                }
+                Logging.Debug特("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, web_library_detail.Title);
 
-            if (!explorers_are_reset)
-            {
-                ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
-            }
+                if (!explorers_are_reset)
+                {
+                    ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
+                }
 
-            // Call the event
-            OnFilterChanged?.Invoke(this, pdf_documents, descriptive_span, search_quick_query, search_quick_scores, pdf_document_to_focus_on);
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    // Call the event
+                    OnFilterChanged?.Invoke(this, pdf_documents, descriptive_span, search_quick_query, search_quick_scores, pdf_document_to_focus_on);
+                });
+            });
         }
 
         #region --- Test ------------------------------------------------------------------------

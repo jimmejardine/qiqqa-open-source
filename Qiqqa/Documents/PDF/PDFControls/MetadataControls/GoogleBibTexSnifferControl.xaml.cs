@@ -148,11 +148,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public GoogleBibTexSnifferControl()
         {
-            Theme.Initialize();
+            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
-
-            SetupConfiguredDimensions();
 
             // Search options
             search_options = new SearchOptions();

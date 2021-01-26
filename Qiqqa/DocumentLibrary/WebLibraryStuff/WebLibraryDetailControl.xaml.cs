@@ -277,7 +277,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // Store the web library details
             web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail)
+            // TODO: wait until the library has been completely loaded before we register this event!
+            if (null != web_library_detail && web_library_detail.Xlibrary != null)
             {
                 // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;
                 WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, WebLibraryDetailControl>(

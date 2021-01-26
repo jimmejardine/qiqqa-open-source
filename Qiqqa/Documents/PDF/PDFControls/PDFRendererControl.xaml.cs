@@ -121,21 +121,31 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             PageZoom(zoom_type);
 
-            // Add the child pages
-            bool add_bells_and_whistles = pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount < 50;
+            var doc = pdf_renderer_control_stats.pdf_document;
 
-            Logging.Info("+Creating child page controls");
-            for (int page = 1; page <= pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                PDFRendererPageControl page_control = new PDFRendererPageControl(page, this, pdf_renderer_control_stats, add_bells_and_whistles);
-                ObjPagesPanel.Children.Add(page_control);
-            }
-            Logging.Info("-Creating child page controls");
+                // Add the child pages
+                bool add_bells_and_whistles = doc.PDFRenderer.PageCount < 50;
+
+                int page_count = doc.PDFRenderer.PageCount;
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    Logging.Info("+Creating child page controls");
+                    for (int page = 1; page <= page_count; ++page)
+                    {
+                        PDFRendererPageControl page_control = new PDFRendererPageControl(page, this, pdf_renderer_control_stats, add_bells_and_whistles);
+                        ObjPagesPanel.Children.Add(page_control);
+                    }
+                    Logging.Info("-Creating child page controls");
+                });
+            });
 
             Logging.Info("+Setting initial viewport");
             ReconsiderOperationMode(OperationMode.Hand);
 
-            SetSearchKeywords();  // Eventually this should move into the reconsideroperationmode
+            SetSearchKeywords();  // Eventually this should move into the ReconsiderOperationMode
             ScrollPages.Focus();
 
             Logging.Info("-Setting initial viewport");
@@ -149,13 +159,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
         // Which says:
         //
-        // Note that the Unloaded event is not raised after an application begins shutting down. 
-        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
-        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
+        // Note that the Unloaded event is not raised after an application begins shutting down.
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs.
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window
         // or a UserControl, it may not be called as expected.
         private void PDFRendererControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();   
+            Dispose();
         }
 
         private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)

@@ -9,6 +9,7 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Utilities;
 using Utilities.Misc;
+using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 {
@@ -23,6 +24,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         public CameraActionChooserDialog()
         {
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             Title = "What would you like to do with your snapshot?";

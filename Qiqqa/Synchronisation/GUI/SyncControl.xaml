@@ -7,6 +7,7 @@
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="SyncManagementWindow"
     d:DesignHeight="1050"
     mc:Ignorable="d">
     <commongui:StandardWindow.Resources>
@@ -187,7 +188,7 @@
                                 </Underline>
                             </Paragraph>
                             <Paragraph>
-                                Syncing your libraries lets you work on your Qiqqa libraries from multiple machines.  
+                                Syncing your libraries lets you work on your Qiqqa libraries from multiple machines.
                                 Syncable libraries are also called Intranet Libraries.
                             </Paragraph>
                             <Paragraph>
@@ -201,19 +202,16 @@
                                 Having synced your desktop or laptop against your local Intranet Library, you can work offline away from the office and sync on your return.
                             </Paragraph>
                             <Paragraph>
-                                Qiqqa doesn't require the folder you sync to to be a
-                                <Italic>network share</Italic>! Any folder is fine, be it a directory on your USB Flash disk, SSD, portable HD, or a folder in the space on your computer you backup to the Cloud via Google Drive, DropBox or other means.
-                                This allows Qiqqa to be flexible and enables you to use Sync for either personal backups, portability of the library across multiple machines you work at or share the library with co-workers.
-                            </Paragraph>
+                                Qiqqa doesn't require the folder you sync to to be a<Italic>network share</Italic>
+                                ! Any folder is fine, be it a directory on your USB Flash disk, SSD, portable HD, or a folder in the space on your computer you backup to the Cloud via Google Drive, DropBox or other means.
+                                This allows Qiqqa to be flexible and enables you to use Sync for either personal backups, portability of the library across multiple machines you work at or share the library with co-workers.</Paragraph>
                             <Paragraph>
                                 <Bold>Warning:</Bold>
-                                While you can Sync your initial 'Guest' library, sharing that library with co-workers would force them to have their 'Guest' library as your synced library instead of their own 'scratch space', so to speak.
-                            </Paragraph>
+                                While you can Sync your initial 'Guest' library, sharing that library with co-workers would force them to have their 'Guest' library as your synced library instead of their own 'scratch space', so to speak.</Paragraph>
                             <Paragraph>
                                 We therefor 
-                                <Bold>strongly advise to create a Intranet Library with a dedicated name</Bold> 
-                                so that it can be easily shared among co-workers.
-                            </Paragraph>
+                                <Bold>strongly advise to create a Intranet Library with a dedicated name</Bold>
+                                so that it can be easily shared among co-workers.</Paragraph>
                             <Paragraph>
                                 <Underline>
                                     Syncing concepts
@@ -242,7 +240,7 @@
                                             Padding="0"
                                             HorizontalAlignment="Right">
                                             <BlockUIContainer>
-                                                <local_gui:AugmentedButton Name="ButtonSyncDocuments"  Height="16" />
+                                                <local_gui:AugmentedButton Name="ButtonSyncDocuments" Height="16" />
                                             </BlockUIContainer>
                                         </Floater>
                                         <Bold>
@@ -268,8 +266,7 @@
                                 <Bold>
                                     NB:
                                 </Bold>
-                                Bundle Libraries can not be synced. If you want to sync across multiple computers or with colleagues, create a Intranet Library.
-                            </Paragraph>
+                                Bundle Libraries can not be synced. If you want to sync across multiple computers or with colleagues, create a Intranet Library.</Paragraph>
                         </commongui:StandardFlowDocument>
                     </local_gui:NonScrollingFlowDocumentScrollViewer>
                 </local_gui:AugmentedBorder>

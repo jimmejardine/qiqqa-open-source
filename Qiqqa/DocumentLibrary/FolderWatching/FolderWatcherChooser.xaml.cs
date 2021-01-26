@@ -20,6 +20,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         {
             web_library_detail = library;
 
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             btnOk.Click += btnOk_Click;

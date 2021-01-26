@@ -25,7 +25,7 @@ namespace Qiqqa.Synchronisation.GUI
 
         public SyncControl()
         {
-            Theme.Initialize();
+            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
 

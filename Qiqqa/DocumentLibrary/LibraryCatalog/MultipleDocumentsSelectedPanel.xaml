@@ -13,8 +13,7 @@
             <local_gui:NonScrollingFlowDocumentScrollViewer>
                 <commongui:StandardFlowDocument>
                     <Paragraph>
-                        You have selected
-                        <Bold>
+                        You have selected<Bold>
                             <Run Name="TxtNumDocuments">
                                 0
                             </Run>

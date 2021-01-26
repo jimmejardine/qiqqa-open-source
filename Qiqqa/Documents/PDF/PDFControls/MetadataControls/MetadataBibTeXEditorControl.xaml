@@ -5,6 +5,7 @@
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    x:Name="MetadataBibTeXEditorWindow"
     MinWidth="250">
     <DockPanel>
         <Grid DockPanel.Dock="Bottom">

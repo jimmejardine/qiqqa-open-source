@@ -5,6 +5,7 @@ using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Utilities;
+using Utilities.GUI;
 
 namespace Qiqqa.Main.LogoutStuff
 {
@@ -15,6 +16,8 @@ namespace Qiqqa.Main.LogoutStuff
     {
         public LogoutWindow()
         {
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             DataContext = ConfigurationManager.Instance.ConfigurationRecord_Bindable;
