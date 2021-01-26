@@ -6,6 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
@@ -96,6 +97,29 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ObjLibraryFilterControl_Sort.SortChanged += ObjLibraryFilterControl_Sort_SortChanged;
 
             ObjPanelSearchByTag.Visibility = ConfigurationManager.Instance.NoviceVisibility;
+
+            //  DispatcherTimer setup
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += WeakEventHandler2.Wrap(dispatcherTimer_Tick, (eh) =>
+            {
+                dispatcherTimer.Tick -= eh;
+            });
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(Constants.UI_REFRESH_POLLING_INTERVAL);
+            dispatcherTimer.Start();
+        }
+
+        private long library_change_marker_tick = 0;
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (null != web_library_detail)
+            {
+                PDFDocument pdf_document = null;
+                if (web_library_detail.Xlibrary?.CheckIfDocumentsHaveChanged(ref library_change_marker_tick, ref pdf_document) ?? false)
+                {
+                    ReExecuteAllSearches(pdf_document);
+                }
+            }
         }
 
         internal WebLibraryDetail web_library_detail = null;
@@ -121,29 +145,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 ObjRatingExplorerControl.LibraryRef = web_library_detail;
                 ObjThemeExplorerControl.LibraryRef = web_library_detail;
                 ObjTypeExplorerControl.LibraryRef = web_library_detail;
-
-                // WEAK EVENT HANDLER FOR: web_library_detail.Xlibrary.OnDocumentsChanged += (sender, args) => { Library_OnNewDocument(sender, args.PDFDocument); };
-                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, LibraryFilterControl>(
-                    web_library_detail,
-                    registerWeakEvent,
-                    deregisterWeakEvent,
-                    this,
-                    forwardWeakEvent
-                );
             }
-        }
-
-        private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
-        {
-            sender.Xlibrary.OnDocumentsChanged += eh;
-        }
-        private static void deregisterWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
-        {
-            sender.Xlibrary.OnDocumentsChanged -= eh;
-        }
-        private static void forwardWeakEvent(LibraryFilterControl me, object event_sender, Library.PDFDocumentEventArgs args)
-        {
-            me.Library_OnNewDocument(event_sender, args.PDFDocument);
         }
 
         public void ResetFilters(bool reset_explorers = true)
@@ -182,11 +184,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         }
 
         #region --- Automated update to match Library ------------------------------------------------------------------------------------------------------------------------
-
-        private void Library_OnNewDocument(object sender, PDFDocument pdf_document)
-        {
-            WPFDoEvents.InvokeAsyncInUIThread(() => ReExecuteAllSearches(pdf_document));
-        }
 
         private void ReExecuteAllSearches(PDFDocument pdf_document_to_focus_on)
         {

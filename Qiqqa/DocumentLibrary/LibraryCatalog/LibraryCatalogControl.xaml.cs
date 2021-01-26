@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.LibraryFilter;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
@@ -41,6 +42,29 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             if (Runtime.IsRunningInVisualStudioDesigner)
             {
                 //DataContext = dummy;
+            }
+
+            //  DispatcherTimer setup
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += WeakEventHandler2.Wrap(dispatcherTimer_Tick, (eh) =>
+            {
+                dispatcherTimer.Tick -= eh;
+            });
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(Constants.UI_REFRESH_POLLING_INTERVAL);
+            dispatcherTimer.Start();
+        }
+
+        private long library_change_marker_tick = 0;
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (null != web_library_detail)
+            {
+                PDFDocument pdf_document = null;
+                if (web_library_detail.Xlibrary?.CheckIfDocumentsHaveChanged(ref library_change_marker_tick, ref pdf_document) ?? false)
+                {
+                    library_OnDocumentsChanged();
+                }
             }
         }
 
@@ -131,44 +155,17 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
                 drag_to_library_manager = new DragToLibraryManager(web_library_detail);
                 drag_to_library_manager.RegisterControl(this);
-
-                web_library_detail = DataContext as WebLibraryDetail;
-                if (null != web_library_detail)
-                {
-                    // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;
-                    WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, LibraryCatalogControl>(
-                        web_library_detail,
-                        registerWeakEvent,
-                        deregisterWeakEvent,
-                        this,
-                        forwardWeakEvent
-                    );
-
-                    drag_to_library_manager.DefaultLibrary = web_library_detail;
-                }
+                drag_to_library_manager.DefaultLibrary = web_library_detail;
             }
-        }
-
-        private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
-        {
-            sender.Xlibrary.OnDocumentsChanged += eh;
-        }
-        private static void deregisterWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
-        {
-            sender.Xlibrary.OnDocumentsChanged -= eh;
-        }
-        private static void forwardWeakEvent(LibraryCatalogControl me, object event_sender, Library.PDFDocumentEventArgs args)
-        {
-            me.library_OnDocumentsChanged();
         }
 
         private void library_OnDocumentsChanged()
         {
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
-            {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                 if (ListPDFDocuments.IsVisible)
                 {
-                    // WARNING: 
+                    // WARNING:
                     // note the comment in SetPDFDocuments(() below. Without that `SelectedIndex = null`
                     // statement commented out, we wouldn't be able to still see the selected items here
                     // via `ListPDFDocuments.SelectedIndex` as they would've been WIPED already!
@@ -183,12 +180,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                     {
                         // delay the refresh until the user is done.
                         //
-                        // Simple tickle the OnDocumentsChanged event again: that way we are pretty independent
-                        // of what happens exactly to this control (it may even disappear due to library tab close
-                        // and we should survive even then!)
-                        WebLibraryDetail libref = LibraryRef;
-                        Library lib = libref?.Xlibrary;
-                        lib?.SignalThatDocumentsHaveChanged(null);
+                        // Simple wait until the next poll event: we RESET our own tick tracker to ensure
+                        // the poll will catch the existing update once again.
+                        library_change_marker_tick = 0;
                     }
                     else
                     {
@@ -207,7 +201,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         }
                     }
                 }
-            });
         }
 
         public void SetPDFDocuments(IEnumerable<PDFDocument> pdf_documents, PDFDocument pdf_document_to_focus_on = null, string filter_terms = null, Dictionary<string, double> search_scores = null)

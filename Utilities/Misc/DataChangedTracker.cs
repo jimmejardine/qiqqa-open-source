@@ -13,6 +13,11 @@ namespace Utilities.Misc
         // Use this so we can *guarantee* unique marker codes for any update.
         private long ticker = 0;
 
+        // NOTE: the ticker/marker is designed to make sure the 0 (zero)value is
+        // always older than ANY update: that way complicated logic triggered by
+        // the marker check can simply cause the tracker to re-trigger by RESETting
+        // it's own marker value (`previous_marker`) to 0 (zero).
+
         private long last_updated = 0;
 
         // Updater should call this API to mark any update as 'done':

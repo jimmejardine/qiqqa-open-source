@@ -271,26 +271,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             {
                 Logging.Error(ex, "Exception in SyncQueues.Instance.DoMaintenance");
             }
-
-            // Check if documents have changed
-            foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
-            {
-                Library library = web_library_detail.Xlibrary;
-
-                if (library == null || !library.LibraryIsLoaded)
-                {
-                    continue;
-                }
-
-                try
-                {
-                    library.CheckForSignalThatDocumentsHaveChanged();
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Exception in Library.CheckForSignalThatDocumentsHaveChanged");
-                }
-            }
         }
 
         private void DoMonitoring_Frequent(Daemon daemon)

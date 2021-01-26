@@ -35,16 +35,20 @@ namespace Qiqqa.Common
             Closing += ActivityMonitor_Closing;
             Closed += ActivityMonitor_Closed;
 
-            WeakEventHandler<EventArgs>.Register<ActivityMonitorCore, ActivityMonitor>(
-                null,
-                (d, eh) => { ActivityMonitorCore.OnTick += eh; },
-                (d, eh) => { ActivityMonitorCore.OnTick -= eh; },
-                this,
-                ActivityMonitor_OnTick
-            );
+
+            //  DispatcherTimer setup
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += WeakEventHandler2.Wrap(dispatcherTimer_Tick, (eh) =>
+            {
+                dispatcherTimer.Tick -= eh;
+            });
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(Constants.UI_REFRESH_POLLING_INTERVAL);
+            dispatcherTimer.Start();
         }
 
-        private static void ActivityMonitor_OnTick(ActivityMonitor self, object sender, EventArgs e)
+        private long library_change_marker_tick = 0;
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
         }
 

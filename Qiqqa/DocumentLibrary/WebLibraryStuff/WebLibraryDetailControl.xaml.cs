@@ -35,7 +35,7 @@ using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-
+using System.Windows.Threading;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -48,7 +48,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private static int PREVIEW_IMAGE_WIDTH = 350;
         private static double PREVIEW_IMAGE_PERCENTAGE = .4;
         private WebLibraryListControl.WebLibrarySelectedDelegate web_library_selected_delegate;
-        private WebLibraryDetail web_library_detail = null;
         private DragToLibraryManager drag_to_library_manager;
         private bool concise_view = false;
 
@@ -88,8 +87,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             TxtTitle.FontSize = ThemeColours.HEADER_FONT_SIZE;
             TxtTitle.FontFamily = ThemeTextStyles.FontFamily_Header;
 
-            DataContextChanged += WebLibraryDetailControl_DataContextChanged;
-
             ButtonReadOnly.Icon = Icons.GetAppIcon(Icons.WebLibrary_ReadOnly);
             ButtonReadOnly.Click += ButtonReadOnly_Click;
             ButtonReadOnly.ToolTip = READONLY_BLURB;
@@ -125,6 +122,30 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             drag_to_library_manager.RegisterControl(this);
 
             UpdateLibraryStatistics();
+
+            //  DispatcherTimer setup
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += WeakEventHandler2.Wrap(dispatcherTimer_Tick, (eh) =>
+            {
+                dispatcherTimer.Tick -= eh;
+            });
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(Constants.UI_REFRESH_POLLING_INTERVAL);
+            dispatcherTimer.Start();
+        }
+
+        private long library_change_marker_tick = 0;
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
+            if (null != web_library_detail)
+            {
+                PDFDocument doc = null;
+                if (web_library_detail.Xlibrary?.CheckIfDocumentsHaveChanged(ref library_change_marker_tick, ref doc) ?? false)
+                {
+                    UpdateLibraryStatistics();
+                }
+            }
         }
 
         private void ButtonReadOnly_Click(object sender, RoutedEventArgs e)
@@ -135,6 +156,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void ButtonAutoSync_Click(object sender, RoutedEventArgs e)
         {
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
                 web_library_detail.AutoSync = ButtonAutoSync.IsChecked ?? false;
@@ -270,49 +292,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             e.Handled = true;
         }
 
-        private void WebLibraryDetailControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            drag_to_library_manager.DefaultLibrary = null;
-            ObjTitleImage.Source = null;
-
-            // Store the web library details
-            web_library_detail = DataContext as WebLibraryDetail;
-            // TODO: wait until the library has been completely loaded before we register this event!
-            if (null != web_library_detail && web_library_detail.Xlibrary != null)
-            {
-                // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;
-                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, WebLibraryDetailControl>(
-                    web_library_detail,
-                    registerWeakEvent,
-                    deregisterWeakEvent,
-                    this,
-                    forwardWeakEvent
-                );
-
-                drag_to_library_manager.DefaultLibrary = web_library_detail;
-            }
-
-            UpdateLibraryStatistics();
-        }
-
-        private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
-        {
-            sender.Xlibrary.OnDocumentsChanged += eh;
-        }
-        private static void deregisterWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
-        {
-            sender.Xlibrary.OnDocumentsChanged -= eh;
-        }
-        private static void forwardWeakEvent(WebLibraryDetailControl me, object event_sender, Library.PDFDocumentEventArgs args)
-        {
-            me.library_OnDocumentsChanged();
-        }
-
-        private void library_OnDocumentsChanged()
-        {
-            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateLibraryStatistics());
-        }
-
         private void UpdateLibraryStatistics()
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
@@ -326,6 +305,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void UpdateLibraryStatistics_Stats()
         {
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
+
             // Reset all
             ChartReading.Visibility = Visibility.Collapsed;
             ObjCarousel.Visibility = Visibility.Collapsed;
@@ -353,7 +334,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     if (!have_generated_charts)
                     {
                         have_generated_charts = true;
-                        SafeThreadPool.QueueUserWorkItem(o => UpdateLibraryStatistics_Stats_Background_Charts());
+                        SafeThreadPool.QueueUserWorkItem(o => UpdateLibraryStatistics_Stats_Background_Charts(web_library_detail));
                     }
                 }
 
@@ -364,13 +345,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     if (!have_generated_cover_flow)
                     {
                         have_generated_cover_flow = true;
-                        SafeThreadPool.QueueUserWorkItem(o => UpdateLibraryStatistics_Stats_Background_CoverFlow());
+                        SafeThreadPool.QueueUserWorkItem(o => UpdateLibraryStatistics_Stats_Background_CoverFlow(web_library_detail));
                     }
                 }
             }
         }
 
-        private void UpdateLibraryStatistics_Stats_Background_Charts()
+        private void UpdateLibraryStatistics_Stats_Background_Charts(WebLibraryDetail web_library_detail)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -478,7 +459,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         }
 
 
-        private void UpdateLibraryStatistics_Stats_Background_CoverFlow()
+        private void UpdateLibraryStatistics_Stats_Background_CoverFlow(WebLibraryDetail web_library_detail)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -582,128 +563,128 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
 
             // And fill the placeholders
+            try
+            {
+                UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws);
+
                 try
                 {
-                    UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws);
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                        try
+                    // Now render each document
+                    using (Font font = new Font("Times New Roman", 11.0f))
+                    {
+                        using (StringFormat string_format = new StringFormat
                         {
-                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-                        // Now render each document
-                        using (Font font = new Font("Times New Roman", 11.0f))
+                            Alignment = StringAlignment.Center,
+                            LineAlignment = StringAlignment.Center
+                        })
+                        {
+                            var color_matrix = new ColorMatrix();
+                            color_matrix.Matrix33 = 0.9f;
+                            using (var image_attributes = new ImageAttributes())
                             {
-                                using (StringFormat string_format = new StringFormat
+                                image_attributes.SetColorMatrix(color_matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                                foreach (DocumentDisplayWork ddw in ddwm.ddws)
                                 {
-                                    Alignment = StringAlignment.Center,
-                                    LineAlignment = StringAlignment.Center
-                                })
-                                {
-                                    var color_matrix = new ColorMatrix();
-                                    color_matrix.Matrix33 = 0.9f;
-                                    using (var image_attributes = new ImageAttributes())
+                                    try
                                     {
-                                        image_attributes.SetColorMatrix(color_matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-
-                                        foreach (DocumentDisplayWork ddw in ddwm.ddws)
+                                        using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, (int)Math.Round(PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE), (int)Math.Round(PREVIEW_IMAGE_WIDTH / PREVIEW_IMAGE_PERCENTAGE))))
                                         {
-                                            try
+                                            Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
+                                            page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
+
+                                            using (Graphics g = Graphics.FromImage(page_bitmap))
                                             {
-                                                using (MemoryStream ms = new MemoryStream(ddw.pdf_document.PDFRenderer.GetPageByHeightAsImage(1, (int)Math.Round(PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE), (int)Math.Round(PREVIEW_IMAGE_WIDTH / PREVIEW_IMAGE_PERCENTAGE))))
+                                                int CENTER = 60;
+                                                int RADIUS = 60;
+
                                                 {
-                                                    Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
-                                                    page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
-
-                                                    using (Graphics g = Graphics.FromImage(page_bitmap))
+                                                    BitmapImage starburst_bi = null;
+                                                    switch (ddw.starburst_color)
                                                     {
-                                                        int CENTER = 60;
-                                                        int RADIUS = 60;
-
-                                                        {
-                                                            BitmapImage starburst_bi = null;
-                                                            switch (ddw.starburst_color)
-                                                            {
-                                                                case DocumentDisplayWork.StarburstColor.Blue:
-                                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
-                                                                    break;
-                                                                case DocumentDisplayWork.StarburstColor.Green:
-                                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
-                                                                    break;
-                                                                case DocumentDisplayWork.StarburstColor.Pink:
-                                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
-                                                                    break;
-                                                                default:
-                                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
-                                                                    break;
-                                                            }
-
-                                                            Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi);
-                                                            g.SmoothingMode = SmoothingMode.AntiAlias;
-                                                            g.DrawImage(
-                                                                starburst_image,
-                                                                new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
-                                                                0,
-                                                                0,
-                                                                starburst_image.Width,
-                                                                starburst_image.Height,
-                                                                GraphicsUnit.Pixel,
-                                                                image_attributes
-                                                            );
-                                                        }
-
-                                                        using (Matrix mat = new Matrix())
-                                                        {
-                                                            mat.RotateAt(-50, new PointF(CENTER / 2, CENTER / 2));
-                                                            g.Transform = mat;
-
-                                                            string wrapped_caption = ddw.starburst_caption;
-                                                            wrapped_caption = wrapped_caption.ToLower();
-                                                            wrapped_caption = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(wrapped_caption);
-                                                            wrapped_caption = wrapped_caption.Replace(" ", "\n");
-                                                            g.DrawString(wrapped_caption, font, Brushes.Black, new PointF(CENTER / 2, CENTER / 2), string_format);
-                                                        }
+                                                        case DocumentDisplayWork.StarburstColor.Blue:
+                                                            starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
+                                                            break;
+                                                        case DocumentDisplayWork.StarburstColor.Green:
+                                                            starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
+                                                            break;
+                                                        case DocumentDisplayWork.StarburstColor.Pink:
+                                                            starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
+                                                            break;
+                                                        default:
+                                                            starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
+                                                            break;
                                                     }
 
-                                                    BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
-
-                                                    ddw.page_bitmap_source = page_bitmap_source;
+                                                    Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi);
+                                                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                                                    g.DrawImage(
+                                                        starburst_image,
+                                                        new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
+                                                        0,
+                                                        0,
+                                                        starburst_image.Width,
+                                                        starburst_image.Height,
+                                                        GraphicsUnit.Pixel,
+                                                        image_attributes
+                                                    );
                                                 }
 
-                                                    try
-                                                    {
-                                                        UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
-                                                throw;
-                                                    }
+                                                using (Matrix mat = new Matrix())
+                                                {
+                                                    mat.RotateAt(-50, new PointF(CENTER / 2, CENTER / 2));
+                                                    g.Transform = mat;
+
+                                                    string wrapped_caption = ddw.starburst_caption;
+                                                    wrapped_caption = wrapped_caption.ToLower();
+                                                    wrapped_caption = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(wrapped_caption);
+                                                    wrapped_caption = wrapped_caption.Replace(" ", "\n");
+                                                    g.DrawString(wrapped_caption, font, Brushes.Black, new PointF(CENTER / 2, CENTER / 2), string_format);
+                                                }
                                             }
-                                            catch (Exception ex)
-                                            {
-                                                Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
-                                            throw;
-                                            }
+
+                                            BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
+
+                                            ddw.page_bitmap_source = page_bitmap_source;
                                         }
+
+                                        try
+                                        {
+                                            UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
+                                            throw;
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
+                                        throw;
                                     }
                                 }
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
-                        }
+                    }
                 }
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
                 }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
+            }
 
-                if (0 == ddwm.ddws.Count)
-                {
-                        ButtonCoverFlow.IsChecked = false;
-                        UpdateLibraryStatistics();
-                }
+            if (0 == ddwm.ddws.Count)
+            {
+                ButtonCoverFlow.IsChecked = false;
+                UpdateLibraryStatistics();
+            }
         }
 
         private void UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(List<DocumentDisplayWork> ddws)
@@ -812,6 +793,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ButtonAutoSync.Visibility = Visibility.Collapsed;
             ButtonReadOnly.Visibility = Visibility.Collapsed;
 
+            ObjTitleImage.Source = null;
+
+            // Store the web library details
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
+            // No need to wait until the library has been completely loaded!
+            drag_to_library_manager.DefaultLibrary = web_library_detail;
+
             if (null != web_library_detail)
             {
                 if (!web_library_detail.IsIntranetLibrary)
@@ -858,7 +846,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 // The customization images stuff
                 {
-                    string image_filename = CustomBackgroundFilename;
+                    string image_filename = CustomBackgroundFilename();
                     if (File.Exists(image_filename))
                     {
                         try
@@ -870,14 +858,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                             Logging.Warn(ex, "Problem with custom library background.");
                         }
                     }
-                    else
-                    {
-                        ObjTitleImage.Source = null;
-                    }
                 }
 
                 {
-                    string image_filename = CustomIconFilename;
+                    string image_filename = CustomIconFilename();
                     if (File.Exists(image_filename))
                     {
                         try
@@ -931,15 +915,25 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        private string CustomIconFilename => Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_icon.png"));
+        private string CustomIconFilename()
+        {
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
 
-        private string CustomBackgroundFilename => Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_background.jpg"));
+            return Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_icon.png"));
+        }
+
+        private string CustomBackgroundFilename()
+        {
+            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
+
+            return Path.GetFullPath(Path.Combine(web_library_detail.LIBRARY_BASE_PATH ?? ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"Qiqqa.library_custom_background.jpg"));
+        }
 
         internal void CustomiseBackground()
         {
             GenericCustomiseChooser(
                 "Please select an image to use as the background of this Library.  Press CANCEL to remove any existing background.",
-                CustomBackgroundFilename
+                CustomBackgroundFilename()
             );
         }
 
@@ -947,7 +941,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             GenericCustomiseChooser(
                 "Please select an image to use as the icon of this Library.  Press CANCEL to remove any existing icon.",
-                CustomIconFilename
+                CustomIconFilename()
             );
         }
 
