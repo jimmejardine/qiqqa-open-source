@@ -95,9 +95,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         public void CauseAllPDFPagesToBeOCRed()
         {
             // jobqueue this one too - saves us one PDF access + parse action inline when invoked in the UI thread by OpenDocument()
-            int pgcount = PageCount;
             SafeThreadPool.QueueUserWorkItem(o =>
             {
+                int pgcount = PageCount;
+
                 for (int i = pgcount; i >= 1; --i)
                 {
                     GetOCRText(i);
@@ -367,7 +368,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             Logging.Info("Flushing the cached page renderings for {0}", document_fingerprint);
 
-            sorax_pdf_renderer.Flush();
+            // TODO: ditch cached PDF page images?
         }
 
         public void FlushCachedTexts()

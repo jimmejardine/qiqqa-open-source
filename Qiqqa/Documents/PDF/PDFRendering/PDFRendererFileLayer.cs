@@ -4,6 +4,7 @@ using System.ServiceModel.Security;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
+using Utilities.GUI;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -128,6 +129,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 if (num_pages == 0)
                 {
+                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                     num_pages = CountPDFPages();
                 }
                 return Math.Max(0, num_pages);
@@ -136,6 +139,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private int CountPDFPages()
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             string cached_count_filename = MakeFilename_PageCount();
             int num;
 

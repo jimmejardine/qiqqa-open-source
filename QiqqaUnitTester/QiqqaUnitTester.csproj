@@ -145,12 +145,16 @@
       <Link>Utilities\StringTools.cs</Link>
     </Compile>
     <Compile Include="ApprovalTestsConfig.cs" />
+    <Compile Include="AsyncFireAndForget.cs" />
+    <Compile Include="AsyncFireAndForgetSimple.cs" />
     <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest2.cs" />
     <Compile Include="UnitTestProjectConfig.cs" />
+    <Compile Include="WeeakEventHandler.UnitTests.cs" />
+    <Compile Include="WeeakEventHandlerAlt.UnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Qiqqa\BibTeX\EntryTypeDefinitions\qiqqa-entry-type-definitions.json">

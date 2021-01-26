@@ -29,6 +29,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             metadata_extraction_daemon = new MetadataExtractionDaemon();
 
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 1 * 1000, hold_off_level: 1);
+            MaintainableManager.Instance.RegisterHeldOffTask(DoMonitoring_Frequent, 0, 2 * 1000);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Frequent, 10 * 1000, 1 * 1000);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Infrequent, 10 * 1000, 10 * 1000);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_QuiteInfrequent, 10 * 1000, 1 * 60 * 1000);
@@ -290,6 +291,11 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     Logging.Error(ex, "Exception in Library.CheckForSignalThatDocumentsHaveChanged");
                 }
             }
+        }
+
+        private void DoMonitoring_Frequent(Daemon daemon)
+        {
+            ActivityMonitorCore.BackgroundTask();
         }
     }
 }

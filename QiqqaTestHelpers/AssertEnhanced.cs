@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -1726,5 +1728,316 @@ namespace QiqqaTestHelpers
 
         #endregion
 
+        // ------------------------------------------------------------------------------------------------------
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws any exception
+        //     and throws
+        //     AssertFailedException
+        //     if code does not throw exceptions.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        // Returns:
+        //     The exception that was thrown.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throw an exception.
+        public static Exception ThrowsException(Action action)
+        {
+            try
+            {
+                action.Invoke();
+                throw new AssertFailedException("delegate action does not throw an exception");
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        public static Exception ThrowsException(Action action, string message)
+        {
+            try
+            {
+                action.Invoke();
+                throw new AssertFailedException(String.IsNullOrWhiteSpace(message) ? "delegate action does not throw an exception" : message);
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The exception that was thrown.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throws exception of type T.
+        public static T ThrowsException<T>(Action action) where T : Exception
+        {
+            return Assert.ThrowsException<T>(action);
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        //   message:
+        //     The message to include in the exception when action does not throws exception
+        //     of type T.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The exception that was thrown.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throws exception of type T.
+        public static T ThrowsException<T>(Action action, string message) where T : Exception
+        {
+            return Assert.ThrowsException<T>(action, message);
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The exception that was thrown.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throws exception of type T.
+        public static T ThrowsException<T>(Func<object> action) where T : Exception
+        {
+            return Assert.ThrowsException<T>(action);
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        //   message:
+        //     The message to include in the exception when action does not throws exception
+        //     of type T.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The exception that was thrown.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throws exception of type T.
+        public static T ThrowsException<T>(Func<object> action, string message) where T : Exception
+        {
+            return Assert.ThrowsException<T>(action, message);
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        //   message:
+        //     The message to include in the exception when action does not throws exception
+        //     of type T.
+        //
+        //   parameters:
+        //     An array of parameters to use when formatting message.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The exception that was thrown.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throw exception of type T.
+        public static T ThrowsException<T>(Func<object> action, string message, params object[] parameters) where T : Exception
+        {
+            return Assert.ThrowsException<T>(action, message, parameters);
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        //   message:
+        //     The message to include in the exception when action does not throws exception
+        //     of type T.
+        //
+        //   parameters:
+        //     An array of parameters to use when formatting message.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The exception that was thrown.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throws exception of type T.
+        public static T ThrowsException<T>(Action action, string message, params object[] parameters) where T : Exception
+        {
+            return Assert.ThrowsException<T>(action, message, parameters);
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The System.Threading.Tasks.Task executing the delegate.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throws exception of type T.
+        public static Task<T> ThrowsExceptionAsync<T>(Func<Task> action) where T : Exception
+        {
+            return Assert.ThrowsExceptionAsync<T>(action);
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        //   message:
+        //     The message to include in the exception when action does not throws exception
+        //     of type T.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The System.Threading.Tasks.Task executing the delegate.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throws exception of type T.
+        public static Task<T> ThrowsExceptionAsync<T>(Func<Task> action, string message) where T : Exception
+        {
+            return Assert.ThrowsExceptionAsync<T>(action, message);
+        }
+
+        //
+        // Summary:
+        //     Tests whether the code specified by delegate action throws exact given exception
+        //     of type T (and not of derived type) and throws
+        //     AssertFailedException
+        //     if code does not throws exception or throws exception of type other than T.
+        //
+        // Parameters:
+        //   action:
+        //     Delegate to code to be tested and which is expected to throw exception.
+        //
+        //   message:
+        //     The message to include in the exception when action does not throws exception
+        //     of type T.
+        //
+        //   parameters:
+        //     An array of parameters to use when formatting message.
+        //
+        // Type parameters:
+        //   T:
+        //     Type of exception expected to be thrown.
+        //
+        // Returns:
+        //     The System.Threading.Tasks.Task executing the delegate.
+        //
+        // Exceptions:
+        //   T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException:
+        //     Thrown if action does not throws exception of type T.
+        public static Task<T> ThrowsExceptionAsync<T>(Func<Task> action, string message, params object[] parameters) where T : Exception
+        {
+            return Assert.ThrowsExceptionAsync<T>(action, message, parameters);
+        }
     }
 }

@@ -604,15 +604,18 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                              ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
                             );
                         bool cpu_load_too_high_for_UI_responsiveness = (clk_duration > 300);
-                        if (aborting_or_busy_elsewhere || cpu_load_too_high_for_UI_responsiveness)
+                        bool dev_override = !ConfigurationManager.IsEnabled("TextExtraction");
+
+                            if (aborting_or_busy_elsewhere || cpu_load_too_high_for_UI_responsiveness || dev_override)
                         {
-                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/delay signals were detected: {1}/{2}/{3}/{4}/{5}.",
+                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/delay signals were detected: {1}/{2}/{3}/{4}/{5}/{6}.",
                                 clk_duration,
                                 (ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
                                 cpu_load_too_high_for_UI_responsiveness ? "+UI-wait+" : "-UI-",
                                 Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
                                 ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-",
-                                Library.IsBusyRegeneratingTags ? "+LibRegenerate+" : "-Regen-"
+                                Library.IsBusyRegeneratingTags ? "+LibRegenerate+" : "-Regen-",
+                                dev_override ? "+DevAdvSettings+" : "-DevAdvCfg-"
                              );
 
                             // push the job onto the queue and start from the beginning:
@@ -626,7 +629,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             }
 
                             // reduce CPU load by snoozing for a bit.
-                            if (cpu_load_too_high_for_UI_responsiveness && !ShutdownableManager.Instance.IsShuttingDown)
+                            if ((cpu_load_too_high_for_UI_responsiveness || dev_override) && !ShutdownableManager.Instance.IsShuttingDown)
                             {
                                 daemon.Sleep(1000);
                             }
@@ -678,11 +681,21 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         {
                             if (next_job.is_group)
                             {
-                                ProcessNextJob_Group(next_job, temp_ocr_result_filename);
+                                    ProcessNextJob_Group(next_job, temp_ocr_result_filename);
                             }
                             else
                             {
-                                ProcessNextJob_Single(next_job, temp_ocr_result_filename);
+                                if (!ConfigurationManager.IsEnabled("RenderPDFPagesForOCR"))
+                                {
+                                    Logging.Info($"Cannot OCR a single PDF page for PDF document {next_job.job.pdf_renderer.DocumentFingerprint}, page {next_job.job.page} as PDF page image rendering has been disabled due to Developer Override setting { "RenderPDFPagesForOCR" }=false");
+
+                                    // re-queue until setting is changed (or have it pending indefinitely)
+                                    QueueJobSingle(next_job.job);
+                                }
+                                else
+                                {
+                                    ProcessNextJob_Single(next_job, temp_ocr_result_filename);
+                                }
                             }
                         }
                         catch (Exception ex)

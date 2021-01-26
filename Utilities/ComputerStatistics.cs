@@ -459,5 +459,59 @@ Whether the associated process has been terminated: ....... {proc.HasExited}
                 Logging.Error(ex);
             }
         }
+
+        public static MemoryStatus GetMemoryStatus()
+        {
+            Process proc = Process.GetCurrentProcess();
+            ProcessThreadCollection mythreads = proc.Threads;
+
+            return new MemoryStatus()
+            {
+                TotalRunningThreadCount = GetTotalRunningThreadCount(),
+                ThreadPoolRunningThreadCount = SafeThreadPool.RunningThreadCount,
+                ThreadPoolPendingTaskCount = SafeThreadPool.QueuedThreadCount,
+                GCTotalMemory = GC.GetTotalMemory(false),
+                PeakPagedMemorySize = proc.PeakPagedMemorySize64,
+                PagedMemorySize = proc.PagedMemorySize64,
+                PagedSystemMemorySize = proc.PagedSystemMemorySize64,
+                NonpagedSystemMemorySize = proc.NonpagedSystemMemorySize64,
+                PeakWorkingMemorySize = proc.PeakWorkingSet64,
+                WorkingMemorySize = proc.WorkingSet64,
+                MaxAllowedWorkingMemorySize = proc.MaxWorkingSet.ToInt64(),
+                PeakVirtualMemorySize = proc.PeakVirtualMemorySize64,
+                VirtualMemorySize = proc.VirtualMemorySize64,
+                PrivateMemorySize = proc.PrivateMemorySize64,
+                PrivilegedProcessorTime = proc.PrivilegedProcessorTime,
+                UserProcessorTime = proc.UserProcessorTime,
+                TotalProcessorTime = proc.TotalProcessorTime,
+                StartTime = proc.StartTime,
+                OSOpenHandleCount = proc.HandleCount,
+                UIResponding = proc.Responding
+            };
+        }
+    }
+
+    public struct MemoryStatus
+    {
+        public int TotalRunningThreadCount;
+        public int ThreadPoolRunningThreadCount;
+        public int ThreadPoolPendingTaskCount;
+        public long GCTotalMemory;
+        public long PeakPagedMemorySize;
+        public long PagedMemorySize;
+        public long PagedSystemMemorySize;
+        public long NonpagedSystemMemorySize;
+        public long PeakWorkingMemorySize;
+        public long WorkingMemorySize;
+        public long MaxAllowedWorkingMemorySize;
+        public long PeakVirtualMemorySize;
+        public long VirtualMemorySize;
+        public long PrivateMemorySize;
+        public TimeSpan PrivilegedProcessorTime;
+        public TimeSpan UserProcessorTime;
+        public TimeSpan TotalProcessorTime;
+        public DateTime StartTime;
+        public int OSOpenHandleCount;
+        public bool UIResponding;
     }
 }

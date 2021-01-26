@@ -11,6 +11,7 @@ using Qiqqa.Expedition;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Images;
+using Utilities.Misc;
 using Image = System.Drawing.Image;
 
 namespace Qiqqa.DocumentLibrary
@@ -105,46 +106,56 @@ namespace Qiqqa.DocumentLibrary
                 return;
             }
 
-            try
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                if (pdf_document.DocumentExists)
+                try
                 {
-                    const double IMAGE_PERCENTAGE = 0.5;
-
-                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
+                    if (pdf_document.DocumentExists)
                     {
-                        Bitmap image = (Bitmap)Image.FromStream(ms);
-                        PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
-                        PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
-                        PDFOverlayRenderer.RenderInks(image, pdf_document, page);
+                        const double IMAGE_PERCENTAGE = 0.5;
 
-                        image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat);
-                        BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-                        ImageThumbnail.Source = image_page;
+                        using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
+                        {
+                            Bitmap image = (Bitmap)Image.FromStream(ms);
+                            PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
+                            PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
+                            PDFOverlayRenderer.RenderInks(image, pdf_document, page);
+
+                            image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat);
+                            BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
+
+                            WPFDoEvents.InvokeAsyncInUIThread(() =>
+                            {
+                                ImageThumbnail.Source = image_page;
+
+                                if (null != ImageThumbnail.Source)
+                                {
+                                    ImageThumbnail.Visibility = Visibility.Visible;
+                                }
+                                else
+                                {
+                                    ImageThumbnail.Visibility = Visibility.Collapsed;
+                                }
+                            });
+                        }
+                    }
+                    else
+                    {
+                        string abstract_text = pdf_document.Abstract;
+                        if (PDFAbstractExtraction.CANT_LOCATE != abstract_text)
+                        {
+                            WPFDoEvents.InvokeAsyncInUIThread(() =>
+                            {
+                                TxtAbstract.Text = abstract_text;
+                            });
+                        }
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    string abstract_text = pdf_document.Abstract;
-                    if (PDFAbstractExtraction.CANT_LOCATE != abstract_text)
-                    {
-                        TxtAbstract.Text = abstract_text;
-                    }
+                    Logging.Error(ex, "There was a problem showing the PDF thumbnail");
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "There was a problem showing the PDF thumbnail");
-            }
-
-            if (null != ImageThumbnail.Source)
-            {
-                ImageThumbnail.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                ImageThumbnail.Visibility = Visibility.Collapsed;
-            }
+            });
         }
     }
 }

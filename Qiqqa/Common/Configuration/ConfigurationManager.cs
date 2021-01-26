@@ -149,7 +149,7 @@ namespace Qiqqa.Common.Configuration
         }
         public string BaseDirectoryForQiqqa
         {
-            get 
+            get
             {
                 return __BaseDirectoryForQiqqa.Value;
             }
@@ -469,13 +469,30 @@ namespace Qiqqa.Common.Configuration
                 if (Instance.developer_test_settings.TryGetValue(key, out var val))
                 {
                     bool? rv = val as bool?;
-                    return rv ?? true;
+                    return rv ?? (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
                 }
             }
-            return true;
+            return (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
         }
 
-        public static void ThrowWhenActionIsNotEnabled(string key)
+        public static void ResetDeveloperSettings()
+        {
+            if (null != Instance.developer_test_settings)
+            {
+                Instance.developer_test_settings.Clear();
+            }
+        }
+
+        public static Dictionary<string, object> GetDeveloperSettingsReference()
+        {
+            if (null == Instance.developer_test_settings)
+            {
+                Instance.developer_test_settings = new Dictionary<string, object>();
+            }
+            return Instance.developer_test_settings;
+        }
+
+            public static void ThrowWhenActionIsNotEnabled(string key)
         {
             if (!IsEnabled(key))
             {

@@ -109,6 +109,12 @@ namespace Qiqqa.StartPage
             ButtonNewConfig.ToolTip = LocalisationManager.Get("START/TIP/CONFIG");
             ButtonNewConfig.Click += ButtonNewConfig_Click;
 
+            ButtonBackgroundActivities.Icon = Icons.GetAppIcon(Icons.Debugging);
+            ButtonBackgroundActivities.Caption = LocalisationManager.Get("START/CAP/VIEWBACKGROUNDACTIVITIES");
+            ButtonBackgroundActivities.ToolTip = LocalisationManager.Get("START/TIP/VIEWBACKGROUNDACTIVITIES");
+            ButtonBackgroundActivities.Click += ButtonViewBackgroundActivities_Click;
+
+
             ButtonExpertMode.Icon = Icons.GetAppIcon(Icons.BibTeXSnifferWizard);
             if (!ADVANCED_MENUS) ButtonExpertMode.Caption = LocalisationManager.Get("START/CAP/EXPERT_MODE");
             ButtonExpertMode.ToolTip = LocalisationManager.Get("START/TIP/EXPERT_MODE");
@@ -238,6 +244,11 @@ namespace Qiqqa.StartPage
             MainWindowServiceDispatcher.Instance.OpenControlPanel();
         }
 
+        private void ButtonViewBackgroundActivities_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowServiceDispatcher.Instance.OpenActivityMonitor();
+        }
+
         private void ButtonNewHelp_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
@@ -290,7 +301,7 @@ namespace Qiqqa.StartPage
             ButtonHelpPopup.Close();
 
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-            
+
             PDFDocument pdf_document = QiqqaManualTools.AddManualsToLibrary(WebLibraryManager.Instance.Library_Guest);
             MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
         }

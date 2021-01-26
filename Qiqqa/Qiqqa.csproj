@@ -330,6 +330,10 @@
       <Project>{32C275F8-5235-485B-80B2-32270D415E85}</Project>
       <Name>QiqqaOCR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\thirdparty\WpfScreenHelper\src\WpfScreenHelper\WpfScreenHelper.csproj">
+      <Project>{1ff2df7e-e740-4663-a95f-981147909cdf}</Project>
+      <Name>WpfScreenHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Name>Utilities</Name>
       <Project>{B0289358-E81C-4094-9DB1-F520F24D339B}</Project>
@@ -493,6 +497,9 @@
     <Compile Include="ClientVersioning\ClientVersionInformation.cs" />
     <Compile Include="ClientVersioning\ClientVersionReleaseNotes.xaml.cs">
       <DependentUpon>ClientVersionReleaseNotes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ActivityMonitor\ActivityMonitor.xaml.cs">
+      <DependentUpon>ActivityMonitor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\AssociatePDFWithVanillaReferenceWindow.xaml.cs">
       <DependentUpon>AssociatePDFWithVanillaReferenceWindow.xaml</DependentUpon>
@@ -1311,6 +1318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClientVersioning\ClientVersionReleaseNotes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\ActivityMonitor\ActivityMonitor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

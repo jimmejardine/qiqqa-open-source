@@ -8,7 +8,7 @@ You can override this 'base path' by specifying another base path on the command
 
 > ### Extra since v83
 >
-> Since v83 you can also click the 'Change this path' button in the startup dialog and point Qiqqa at another base directory, 
+> Since v83 you can also click the 'Change this path' button in the startup dialog and point Qiqqa at another base directory,
 > which is then persisted by Qiqqa, i.e. Qiqqa will keep using the new directory in subsequent runs -- until you change it again.
 
 
@@ -18,10 +18,10 @@ You can override this 'base path' by specifying another base path on the command
 
 For example:
 
-- when you are testing Qiqqa and want to use a different (set of) Qiqqa Libraries for that. Overriding the 'base path' ensures your valuable Qiqqa libraries for regular use cannot be touched by the Qiqqa run-time under test. 
-  
+- when you are testing Qiqqa and want to use a different (set of) Qiqqa Libraries for that. Overriding the 'base path' ensures your valuable Qiqqa libraries for regular use cannot be touched by the Qiqqa run-time under test.
+
   > Assuming, of course, that the regular base path directory tree and the one you specified via the commandline do not overlap.
-  
+
 - when you wish to work on one or more Qiqqa Libraries which should not be integrated into your regular set of libraries, e.g. when you wish to help someone else by having a look into their library/libraries you got copied locally.
 
 
@@ -42,14 +42,14 @@ qiqqa.exe D:\Qiqqa.Test.Libs\base\
 
 
 
-## Overriding Qiqqa behaviour 
+## Overriding Qiqqa behaviour
 
 You can override several Qiqqa behaviours by adding a [JSON5](https://json5.org/) configuration file in the Qiqqa 'base path', i.e. the base directory where all Qiqqa libraries are stored locally, named `Qiqqa.Developer.Settings.json5`. Qiqqa will load this file at application startup.
 
 
 
 
-### Configuring `Qiqqa.Developer.Settings.json5` 
+### Configuring `Qiqqa.Developer.Settings.json5`
 
 Here's an example which lists all supported settings:
 
@@ -67,6 +67,9 @@ Here's an example which lists all supported settings:
 	TextExtraction: true,           // when false: this kills the mupdf based text extraction and OCR tasks
 	SuggestingMetadata: true,       // when false: this kills the metadata (Title, Author, etc.) suggesting from extracted text
 	BuildSearchIndex: true,         // when false: this kills the Lucene-based search index build/update process
+	RenderPDFPagesForSidePanels: true,         // this kills the rendering of PDF pages to thumbnails in preview sidepanels
+	RenderPDFPagesForReading: true,            // this kills the rendering of PDF pages to main panel PDF view/read/edit tabs (NOT thumbnails!)
+	RenderPDFPagesForOCR: true,                // this kills the rendering of PDF pages for OCR-ing a document's pages via QiqqaOCR background application
 }
 ```
 

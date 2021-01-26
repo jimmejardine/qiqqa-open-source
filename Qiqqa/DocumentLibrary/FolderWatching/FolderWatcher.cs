@@ -326,6 +326,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
+                if (!ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
+                {
+                    Logging.Info("Watched folder {0} will not be watched/scanned due to Developer Override setting {1}=false", configured_folder_to_watch, nameof(FolderWatcher));
+                    break;
+                }
+
                 // reset counters for logging/reporting:
                 watch_stats.Reset(daemon);
 
@@ -439,7 +445,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     // TODO: refactor the ImportingIntoLibrary class
                 }
 
-
                 watch_stats.processed_file_count = watch_stats.processing_file_count;
 
                 Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", watch_stats.processed_file_count, watch_stats.processing_file_count, watch_stats.scanned_file_count, watch_stats.skipped_file_count, watch_stats.scanned_file_count - watch_stats.skipped_file_count - watch_stats.processing_file_count);
@@ -516,7 +521,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
 
             global_watch_stats.Inc(0.1);
-            
+
             bool have_we_slept = false;
 
             if (watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION)

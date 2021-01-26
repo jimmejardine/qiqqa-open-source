@@ -32,6 +32,7 @@ using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing;
 using Qiqqa.Wizards;
 using Qiqqa.Wizards.AnnotationReport;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Wizard;
@@ -42,7 +43,6 @@ using UserControl = System.Windows.Controls.UserControl;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-using Qiqqa.DocumentLibrary.WebLibraryStuff;
 
 namespace Qiqqa.Common
 {
@@ -72,6 +72,17 @@ namespace Qiqqa.Common
                 main_window.DockingManager.AddContent(window_key, "Configuration (Shift-F1)", Icons.GetAppIcon(Icons.ModuleConfiguration), true, true, configuration_control);
                 return configuration_control;
             }
+        }
+
+        public void OpenActivityMonitor()
+        {
+            StandardWindowFactory.Create(nameof(ActivityMonitor), () =>
+            {
+                ActivityMonitor control = new ActivityMonitor();
+                control.Show();
+                //main_window.DockingManager.AddContent(window_key, "Activity Monitor", Icons.GetAppIcon(Icons.Debugging), true, true, control);
+                return control;
+            });
         }
 
         public LibraryControl OpenLibrary(WebLibraryDetail web_library_detail)
@@ -285,7 +296,7 @@ namespace Qiqqa.Common
 
         private void OnShowTagOptionsComplete(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
-            AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report) 
+            AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report)
             {
                 ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
                 string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
@@ -549,7 +560,7 @@ namespace Qiqqa.Common
 
             // Then expand the interesting documents
             {
-                // Thmeme docs
+                // Theme docs
                 brainstorm_control.SceneRenderingControl.SelectAll();
                 brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
                 brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.S) { RoutedEvent = Keyboard.KeyDownEvent });
