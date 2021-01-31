@@ -116,5 +116,49 @@ Example code is still a mess, as all things that were looked at, include Countin
 
   Yes, those can be 'hacked' - or rather *hyjacked* by malicious apps, so tread carefully and don't attach the soul of your first-born to a Win32 API mutex or anything.
 
+---
 
+\[Edit]
+
+fork() emulators on Win32:
+
+- https://github.com/kaniini/win32-fork 
+
+  On revisiting after the work doen above: FORGET IT. It's using undocumented WIN32 APIs and here's https://social.msdn.microsoft.com/Forums/en-US/4ade520c-0899-4600-9b80-6202d87c16ef/rtlcloneuserprocess-behavior-changed-after-build-14393
+  to *appreciate* that. DIW.
+
+- https://github.com/wrenchonline/win32_fork_
+
+  Does some pretty hairy things, haven't tested it. After finding out there's no official `fork` in Win32 (after reading it, I *did* remember it. sigh. Webservers and how to implement them in classic UNIX vs classic Win: fork vs async...)
+  I merely had this around as a copy to possibly look at in case of despair. The despair was there, but only after having gone through the ordeal above myself did I understand again what's going on here.
+  
+  Not what I'm looking for, and while my own code is flaky in a few spots, this one has hairs in other places where I do not want them, particularly after having tested my own code and the Win32 API behaviours on the dev box.
+
+
+Note about my wondering about which handles to share and how:
+
+See these repo's for sample code. The key bit for *sharing* is this for every handle:
+
+	SECURITY_ATTRIBUTES sa;
+	//
+	// Create two inheritable events
+	//
+	sa.nLength = sizeof(sa);
+	sa.lpSecurityDescriptor = 0;
+	sa.bInheritHandle = TRUE;  <-- !!!
+    ...
+	__hforkchild = CreateEvent(&sa,TRUE,FALSE,NULL); <-- for example
+
+and then there's some macro fancy fencing, but AFAICT the handles are passed across via `WriteProcessMemory()`. Takes some extra footwork with Events to make sure that pans out apparently. Not my fancy.
+
+Particularly since I notice that *they* use Named Mutexes (okay, *Named Events*) as well, so why bother if that's the basic signal I need? 
+I'm not planning on doing (or needing) a 100% fork() port, that having gone out the window as soon as I read & recalled the fork() trouble of old on Windows. 
+
+Basically it's just another fancy `execvp()` or whatnot, so the cost is very probably comparable and that was what all this fuss was about initially: 
+a cheaper way to kick off children/processes such that I can stop worrying about heap corruption and **heap leaks**. 
+
+So far, the conclusion there is that I'm stuck with basic CreateProcess("path-to-exe") costs any which way, so it's back to the drawing board to reconsider how I'll do those children again: 
+definitely NOT as a one-child-per-task, but probably more like a run-until-we-are-buggered single multithreaded one, which gets a monitor as parent to make sure baby is kicked alive as soon as it goes b0rk-b0rk-bork.
+Then we can do extra-fancy stuff like monitor OS-level reported memory consumption by ourselves and kill ourselves (the child, that is) via ExitProcess() Win32 API (which is pretty brutal) so all socket handles and stuff get released by the OS on our demise and us not having to wait for some possibly horribly long 'cleanup' process in `exit()` phase. The monitor will be able to observe our demise (TODO: that is not yet coded into this technology example!) and kick us back alive with another CreateProcess() once we're found absent & demised.
+(Hm, do that with a bit of a delay in between attempts, until our target child count is back up to max: that CreateProcess MAY start a fresh client, but *that* client MAY bug out if there's anything wrong with the important sockets and stuff it wants to bind to at startup... Just a thought...)
 
