@@ -581,6 +581,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfScreenHelper", "thirdpar
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "forking cleans up memory leaks", "Technology Tests\forking cleans up memory leaks\forking cleans up memory leaks.vcxproj", "{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "monitor our memory usage and die when passing threshold", "Technology Tests\monitor our memory usage and die when passing threshold\monitor our memory usage and die when passing threshold.vcxproj", "{4F88275C-D544-40C0-B478-9018F8BAE8C5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Technology Tests\Technology Library\Technology Library.projitems*{22eccf4f-7ed0-48b3-a244-07863fb4b81e}*SharedItemsImports = 4
@@ -2176,8 +2178,8 @@ Global
 		{1FF2DF7E-E740-4663-A95F-981147909CDF}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
 		{1FF2DF7E-E740-4663-A95F-981147909CDF}.Release+SETUP|x86.Build.0 = Release|Any CPU
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Debug|Mixed Platforms.Build.0 = Debug|x64
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Debug|x64.ActiveCfg = Debug|x64
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Debug|x64.Build.0 = Debug|x64
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Debug|x86.ActiveCfg = Debug|Win32
@@ -2197,6 +2199,28 @@ Global
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Release+SETUP|x64.Build.0 = Release|x64
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Release+SETUP|x86.ActiveCfg = Release|Win32
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}.Release+SETUP|x86.Build.0 = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Debug|x64.ActiveCfg = Debug|x64
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Debug|x64.Build.0 = Debug|x64
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Debug|x86.ActiveCfg = Debug|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Debug|x86.Build.0 = Debug|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release|Any CPU.ActiveCfg = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release|x64.ActiveCfg = Release|x64
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release|x64.Build.0 = Release|x64
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release|x86.ActiveCfg = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release|x86.Build.0 = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release+SETUP|Any CPU.ActiveCfg = Debug|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release+SETUP|Any CPU.Build.0 = Debug|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release+SETUP|Mixed Platforms.ActiveCfg = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release+SETUP|Mixed Platforms.Build.0 = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release+SETUP|x64.ActiveCfg = Release|x64
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release+SETUP|x64.Build.0 = Release|x64
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release+SETUP|x86.ActiveCfg = Release|Win32
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5}.Release+SETUP|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2279,6 +2303,7 @@ Global
 		{E74F29FA-F143-4ADC-B92C-6AF1A8E4A417} = {0BB76DA8-553C-47E2-BD86-B58490247111}
 		{DA38CA0B-89B9-4703-A77D-8049AC3A0D04} = {A641717E-DD60-4E51-9973-D57D1CDAFB69}
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
+		{4F88275C-D544-40C0-B478-9018F8BAE8C5} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1053AC46-6C10-40DE-8F81-A31A1C28ACDC}

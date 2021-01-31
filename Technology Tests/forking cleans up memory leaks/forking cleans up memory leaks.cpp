@@ -95,7 +95,7 @@ LPCWSTR childEventName = TEXT("ForkTestAppChildEvent");
 
 // Format a readable error message, display a message box, 
 // and exit from the application.
-void ErrorExit(PCTSTR lpszFunction)
+static void ErrorExit(PCTSTR lpszFunction)
 {
     LPVOID lpMsgBuf;
     LPVOID lpDisplayBuf;
@@ -126,7 +126,7 @@ void ErrorExit(PCTSTR lpszFunction)
     exit(1);
 }
 
-void printError(const WCHAR* msg)
+static void printError(const WCHAR* msg)
 {
     DWORD eNum;
     WCHAR sysMsg[256];
@@ -155,7 +155,7 @@ void printError(const WCHAR* msg)
 
 // Read from a file and write its contents to the pipe for the child's STDIN.
 // Stop when there is no more data. 
-void WriteToPipe(void)
+static void WriteToPipe(void)
 {
     DWORD dwRead, dwWritten;
     CHAR chBuf[BUFSIZE];
@@ -186,7 +186,7 @@ void WriteToPipe(void)
 // Read output from the child process's pipe for STDOUT
 // and write to the parent process's pipe for STDOUT. 
 // Stop when there is no more data. 
-void ReadFromPipe(void)
+static void ReadFromPipe(void)
 {
     DWORD dwRead, dwWritten;
     CHAR chBuf[BUFSIZE];
@@ -218,7 +218,7 @@ void ReadFromPipe(void)
     OutputDebugStringA("ReadFromPipe END.\n");
 }
 
-DWORD WINAPI ThreadProc(LPVOID lpParameter)
+static DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {
     OutputDebugString(TEXT("Making sure the child stdout does not block on buffer full: copy it to parent stdout in separate thread.\n"));
 
@@ -228,7 +228,7 @@ DWORD WINAPI ThreadProc(LPVOID lpParameter)
     return 0;
 }
 
-void CreateChildProcess()
+static void CreateChildProcess()
 // Create a child process that uses the previously created pipes for STDIN and STDOUT.
 {
     TCHAR szAppPath[MAX_PATH];
@@ -399,7 +399,7 @@ public:
     };
 };
 
-int child_main(int argc, TCHAR* argv[])
+static int child_main(int argc, TCHAR* argv[])
 {
     CHAR chBuf[BUFSIZE];
     DWORD dwRead, dwWritten;
@@ -495,7 +495,7 @@ static BOOL WINAPI TerminationHandlerRoutine(DWORD dwCtrlType)
 
 
 
-BOOL ListProcessModules(DWORD dwPID)
+static BOOL ListProcessModules(DWORD dwPID)
 {
     HANDLE hModuleSnap = INVALID_HANDLE_VALUE;
     MODULEENTRY32 me32;
@@ -538,7 +538,7 @@ BOOL ListProcessModules(DWORD dwPID)
     return(TRUE);
 }
 
-BOOL ListProcessThreads(DWORD dwOwnerPID)
+static BOOL ListProcessThreads(DWORD dwOwnerPID)
 {
     HANDLE hThreadSnap = INVALID_HANDLE_VALUE;
     THREADENTRY32 te32;
@@ -578,7 +578,7 @@ BOOL ListProcessThreads(DWORD dwOwnerPID)
     return(TRUE);
 }
 
-BOOL GetProcessList()
+static BOOL GetProcessList()
 {
     HANDLE hProcessSnap;
     HANDLE hProcess;
@@ -654,7 +654,7 @@ BOOL GetProcessList()
     return(TRUE);
 }
 
-int CountNumberOfSameProcess(LPCWSTR exePath)
+static int CountNumberOfSameProcess(LPCWSTR exePath)
 {
     HANDLE hProcessSnap;
     HANDLE hProcess;
@@ -762,7 +762,7 @@ int CountNumberOfSameProcess(LPCWSTR exePath)
 
 // To ensure correct resolution of symbols, add Psapi.lib to TARGETLIBS
 // and compile with -DPSAPI_VERSION=1
-void PrintProcessNameAndID(DWORD processID)
+static void PrintProcessNameAndID(DWORD processID)
 {
     WCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
 
@@ -788,7 +788,7 @@ void PrintProcessNameAndID(DWORD processID)
     CloseHandle(hProcess);
 }
 
-int PSGetProcessList()
+static int PSGetProcessList()
 {
     // Get the list of process identifiers.
     DWORD aProcesses[1024], cbNeeded, cProcesses;
@@ -817,7 +817,7 @@ int PSGetProcessList()
 #endif
 
 
-int CPP_main(int argc, TCHAR* argv[])
+static int CPP_main(int argc, TCHAR* argv[])
 {
     try
     {
@@ -1061,7 +1061,8 @@ int CPP_main(int argc, TCHAR* argv[])
         exit(2);
     }
 }
-int SEH_main(int argc, TCHAR* argv[])
+
+static int SEH_main(int argc, TCHAR* argv[])
 {
     int rv = 0;
     __try
@@ -1082,7 +1083,7 @@ int SEH_main(int argc, TCHAR* argv[])
     return rv;
 }
 
-void atexit_semaphore_handler()
+static void atexit_semaphore_handler()
 {
     OutputDebugStringA("atexit_semaphore_handler\n");
 

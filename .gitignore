@@ -43,9 +43,6 @@ desktop.ini
 # build misc output files for Qiqqa.org project
 Qiqqa.org.log
 Qiqqa.org.vcxprojAssemblyReference.cache
-/Technology Tests/forking cleans up memory leaks/Debug-32
-/Technology Tests/forking cleans up memory leaks/Debug/forking .d60370db.tlog/*.tlog
-/Technology Tests/forking cleans up memory leaks/Debug/forking .d60370db.tlog/*.lastbuildstate
-/Technology Tests/forking cleans up memory leaks/Debug/forking .d60370db.tlog/unsuccessfulbuild
-/Technology Tests/forking cleans up memory leaks/Debug/*.log
-/Technology Tests/forking cleans up memory leaks/Debug/*.idb
+
+/Technology Tests/forking cleans up memory leaks/Debug*/
+/Technology Tests/monitor our memory usage and die when passing threshold/Debug*/
