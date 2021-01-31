@@ -71,4 +71,44 @@ Of course, the returned count was only accurate a little while before you got th
 
 so a Named Semaphore may be useless, but a Named Mutex might be handy to have: that way we can guarantee that the process counting (done inside the critical section) is on the money: all counted instances were still running at the time of the counting!
 
+---
+
+## State of Affairs / What's happening in the example code
+
+\[Taken from previous commit message:]
+
+adding Technology Test sample/test app: checking forking cleans up memory leaks.cpp() on Windows. Turns out that's a no-go (been away too long from Win32 API work; had forgotten that bit :-( ), so sample code checks behaviour what to do for a self-monitoring Windows executable. 
+
+Turns out debugging is a bastard as you're hard up against the wall to debug the *child* that's invoked via CreateProcess. 
+Besides, the initial sample code grabbed off the Microsoft site had the nasty "side effect" of causing infinite instantiations when patched that way, so the conclusion for the future is: better to have a separately named 'monitor' application, which keeps N child applications afloat.
+
+Example code is still a mess, as all things that were looked at, include Counting Semaphores to help keep track of the number of child instances, etc. is all still in there.
+
+### Conclusions:
+
+- name monitor and child apps differently, so you can have the solution open in TWO MSVC instances and debug the monitor in one, while debugging the child in another.
+- do NOT use Counting Semaphores (or any other 'obvious' stuff) for keeping track of the number of children alive: when they *terminate*, through Win32API ExitProcess, TerminateProcess or hard crash, ANYTHING that's not `exit(X)`, you're toast as the application WILL NOT invoke class destructors or any handlers you can hook into when that happens, resulting in the **inability to guarantee** that any semaphore signaling will be matched by appropriate release at end-of-child-life.
+
+  Consequently, the only viable way to make sure you can count the children alive at point of decision to kick one more alive or not is to use a system which **completes entirely** at start of child app: the way this is done here is to use a Named Mutex (all we need is a critical section, no counting done at this level, so not a semaphore but a mutex instead), which protects a critical section in all parties involved, where the OS is queried for a processes snapshot (a la `ps -ax` if you're into UNIX) and then scan the executable names for a match. Once that scan is done, the critical section ends and the Mutex is released, so we CAN guarantee proper global mutex handling now (as long as our OS process scan code doesn't *crash* ;-) )
+
+  Then, when the count of 'live children' is high enough, the creation of yet anotheer one is skipped.
+- extra lesson: Named Mutexes and Named Semaphores on Win32/64 can have a 'Global\' prefix, if you read their API docs. DO NOT DO THAT. Turns out that the verbiage at the Microsoft site is not clear enough for *me*, at least, to grok that this prefix is ONLY legal when running Terminal Services, which is Windows Server stuff and I bet you're not running research UI applications on a Windows Server license, surely!  ;-P
+
+  That bit took another couple of hours off my life. !@#$%^
+
+- extra lesson: DO read ('empty') your child's STDOUT pipe CONTINUOUSLY and RIGOROUSLY, when you've redirected its stdio to you, the parent/monitor. If you don't (and the original Microsoft sample code didn't because it didn't have to, as it didn't have any "debugging printf statements" in there! !@#$%^) to child process will BLOCK, waiting indefinitely for the parent to finally do some ReadFile(handle) work and empty the buffer.
+
+  In the current example code, this has been resolved by kicking an extra *thread* alive in the *monitor* (`ThreadProc`) which' sole purpose is continuously waiting for stdout data from the child. 
+
+  I could have gone the whole hog and written asynchronous I/O code for that instead, but this was done faster, WORKS, and wasn't the main subject at time of writing.
+
+- extra lesson: call the `FlushFileBuffers()` API on your parent/child pipes (redirected stdin + stdout): that *also* wasn't in the original sample code from MS, but is absolutely mandatory if you don't want to wonder why the Heck your collected log looks brutally truncated on app exit.
+
+  The MS sample code got away with it, because it matched write and read buffer for buffer, so that really is an edge case of using redirected stdio.
+
+- use OutputDebugStr to *really* printf-debug your code, because the child's printf() is, of course, *redirected*, and if you're debugging pipes it DOES NOT help when you're first trying to fill & choke the buggers only faster: you won't see nuttin', only a stuck bunch of applications. ;-)
+
+  Use [SysInternals OutputDebug monitor UI app (Debug64.exe)](https://docs.microsoft.com/en-us/sysinternals/downloads/debugview) for this as MSVC *only* grabs `OutputDebugStr` output from the executable currently being debugged: that being only one half of the story underway, you will quickly understand that other means to read your debug output are mandatory here.
+
+
 
