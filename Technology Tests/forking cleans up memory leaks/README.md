@@ -110,5 +110,11 @@ Example code is still a mess, as all things that were looked at, include Countin
 
   Use [SysInternals OutputDebug monitor UI app (Debug64.exe)](https://docs.microsoft.com/en-us/sysinternals/downloads/debugview) for this as MSVC *only* grabs `OutputDebugStr` output from the executable currently being debugged: that being only one half of the story underway, you will quickly understand that other means to read your debug output are mandatory here.
 
+- extra lesson: sharing handles sounds *fun*, but that did not pan out for sharing Event/Mutex/Semaphore handles, at least not for me. (Never have done *exactly* that before in my life and some deep searching on the InterWebz, wading through the cruft out there, it **sounds** like that's only going to fly, *maybe*, when I set up custom ACLs (yech! been there. Done that. Never again. Thank *you*.) **or** I may be barking up the wrong tree there *utterly* and can *somehow* pass these handles I wish to share with the CreateProcess-ed child via the ProcessInfo block or there-abouts. That's just a very vague notion I have now, while writing this, but haven't seen ANYTHING on the InterNeddz suggesting this might fly for arbitrary handles *outside* the stdio set...
+
+  Anyway, point being: use Named Pipes, Named Mutexes, etc. 
+
+  Yes, those can be 'hacked' - or rather *hyjacked* by malicious apps, so tread carefully and don't attach the soul of your first-born to a Win32 API mutex or anything.
+
 
 
