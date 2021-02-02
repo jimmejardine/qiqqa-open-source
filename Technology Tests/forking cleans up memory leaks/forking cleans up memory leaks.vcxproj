@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{d60370db-184a-4fb4-ac09-a0cd7e0f34fa}</ProjectGuid>
-    <RootNamespace>forkingcleansupmemoryleaks</RootNamespace>
+    <RootNamespace>fork-me</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
