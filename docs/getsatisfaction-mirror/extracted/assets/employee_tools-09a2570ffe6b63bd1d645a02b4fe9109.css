@@ -1,0 +1,166 @@
+#facebox .content {
+  float: none; }
+#facebox .tips {
+  padding: 8px;
+  background: #f0f7fa; }
+  #facebox .tips p {
+    margin-bottom: 9px; }
+  #facebox .tips h4 {
+    font-size: 1.1em; }
+  #facebox .tips ol {
+    list-style-type: decimal;
+    margin-left: 25px; }
+    #facebox .tips ol li {
+      margin-bottom: 18px; }
+#facebox .text {
+  width: 400px; }
+#facebox .text_area {
+  width: 549px;
+  height: 100px; }
+#facebox #inline_topic {
+  z-index: 2000;
+  width: 300px;
+  padding: 8px 10px;
+  position: absolute;
+  background-color: white;
+  border: 2px solid #999999;
+  border-color: #dddddd #999999 #999999 #dddddd; }
+  #facebox #inline_topic small {
+    color: #777777;
+    display: block;
+    font-weight: bold;
+    padding-top: 5px; }
+  #facebox #inline_topic a.title {
+    font-weight: bold; }
+  #facebox #inline_topic a.close {
+    float: right;
+    font-size: 90%;
+    margin-left: 5px; }
+  #facebox #inline_topic div {
+    padding-top: 2px; }
+#facebox h1 {
+  margin-bottom: 0.8em; }
+#facebox h2 {
+  color: #444444;
+  font-size: 1.4em !important; }
+#facebox h3 {
+  margin-bottom: 5px; }
+#facebox #reason_row {
+  margin-top: 1em; }
+#facebox #selected_result {
+  margin-bottom: 1em; }
+  #facebox #selected_result #topic_url {
+    background-color: #ffffcc; }
+#facebox .search_results {
+  font-size: 0.9em;
+  width: 403px;
+  border: 1px solid #dddddd; }
+  #facebox .search_results span.label {
+    display: block;
+    padding: 5px; }
+  #facebox .search_results ul li {
+    border-top: 1px solid #dddddd; }
+    #facebox .search_results ul li a {
+      display: block;
+      padding: 5px; }
+  #facebox .search_results table {
+    width: 100%; }
+  #facebox .search_results .subject span {
+    background-color: white;
+    font-size: 0.9em; }
+  #facebox .search_results .data td {
+    padding: 2px; }
+  #facebox .search_results td.actions {
+    width: 80px; }
+  #facebox .search_results tr.question:hover td {
+    background: #e2f4f8; }
+  #facebox .search_results tr.idea:hover td {
+    background: #fdf1ce; }
+  #facebox .search_results tr.problem:hover td {
+    background: #faa1a1; }
+  #facebox .search_results tr.talk:hover td {
+    background: #dfefce; }
+  #facebox .search_results tr.praise:hover td {
+    background: #dfefce; }
+#facebox label {
+  margin-bottom: 5px;
+  display: block; }
+#facebox .submit {
+  float: none;
+  margin-right: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  text-align: center;
+  color: #333333 !important;
+  cursor: pointer;
+  font-size: 110%;
+  font-family: arial;
+  padding: 6px 20px;
+  border: 1px solid #aaaaaa;
+  border-top-color: #cccccc;
+  border-left-color: #cccccc;
+  background: white url(https://drp60gfj3y9kn.cloudfront.net/assets/gray_button-ebce20ce29a5290b2562a74a7dc2c349.png) repeat-x 0 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 35px; }
+  #facebox .submit:hover {
+    border-color: #999999; }
+#facebox .radio_set {
+  margin-bottom: 8px; }
+  #facebox .radio_set * {
+    vertical-align: middle; }
+#facebox .tooltip dd {
+  width: 206px; }
+
+#merge_overlay #merge_tabs {
+  padding: 0;
+  margin: 0 !important; }
+#merge_overlay .merged_note {
+  font-size: 9px;
+  margin: 4px; }
+#merge_overlay .disabled_reason {
+  color: red !important;
+  margin-left: 34px; }
+#merge_overlay .reply_preview {
+  background-color: #eeeeee;
+  padding: 10px;
+  position: relative;
+  min-height: 72px;
+  margin: 10px 0; }
+  #merge_overlay .reply_preview .user_avatar {
+    float: left; }
+  #merge_overlay .reply_preview .user_post {
+    margin-left: 75px;
+    height: 100px;
+    overflow-y: scroll; }
+#merge_overlay .edit_note {
+  width: 90%; }
+#merge_overlay #change_reason {
+  height: 40px; }
+#merge_overlay em {
+  font-style: italic; }
+#merge_overlay .box {
+  border: 1px solid #cccccc;
+  margin-bottom: 1em;
+  padding: 10px; }
+#merge_overlay .additional_options {
+  padding: 0.5em; }
+#merge_overlay .red {
+  color: red; }
+#merge_overlay .merge_tabs {
+  display: table-row; }
+  #merge_overlay .merge_tabs li {
+    display: inline; }
+  #merge_overlay .merge_tabs #url_tab {
+    background-color: red;
+    border-bottom: none; }
+  #merge_overlay .merge_tabs #search_tab {
+    background-color: green;
+    border-bottom: none; }
+  #merge_overlay .merge_tabs a {
+    color: white; }
+    #merge_overlay .merge_tabs a:hover {
+      text-decoration: none; }
+#merge_overlay .topic_search {
+  width: 527px; }

@@ -3,24 +3,36 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>function (data, config, tmpl) {
-        //if (data && data.page && data.page.fileslug) {
-          let title = data.page.filePathStem; // = data.page.fileSlug;
-          let h = hashFnv32a(title);
-          let hs4 = h.toString(16).substr(0, 4).toUpperCase();
-          let fn = path.basename(title);
-          let p = path.dirname(title);
-          if (fn.length > 32) {
-            title = `${ p }/${ fn.substring(0, 32) }~${ hs4 }`;
-          }
-          console.trace(`MyDefaultOuterWrapper.data RETURNS ${JSON5.stringify({inputPath, title, h, fn, p}, null, 2, true)})`);
-          return title.replace(/[\\\/]+/g, ' :: ');
-        //}
-        //return "This is my blog post title";
-      }</title>
+    
+    <hr>
+<p>date: 2017-09-21
+tags:</p>
+<ul>
+<li>tag4
+categories:</li>
+<li>category2</li>
+</ul>
+<hr>
+<h1>third page in category2</h1>
+
   </head>
   <body>
-    <h1>third page in category2</h1>
+    
+    <hr>
+<p>date: 2017-09-21
+tags:</p>
+<ul>
+<li>tag4
+categories:</li>
+<li>category2</li>
+</ul>
+<hr>
+<h1>third page in category2</h1>
 
+
+    <footer>
+      © 2020 Qiqqa Contributors ::
+      <a href="https://github.com/GerHobbelt/qiqqa-open-source/blob/docs-src/views/category2/2017/092102.md">Edit this page on GitHub</a>
+    </footer>
   </body>
 </html>

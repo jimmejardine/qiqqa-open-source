@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <h1>FAQ : Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors</h1>
+<h2>Is Qiqqa Sniffer broken since Qiqqa went Open Source or when?</h2>
+<p>The correct answer here is that <strong>all versions of Qiqqa suffer the same issue</strong> as this is not a Qiqqa issue but something caused by Google and Google Scholar in particular: Google does not want any <em>robots</em> (computer applications with or without human supervision) to connect to their Scholar data.</p>
+<p>Read on if you want to know more.</p>
+<h2>Why do I get a RECAPTCHA and/or Access Denied blocking response from Google Scholar?</h2>
+<p>The true reasons probably are manyfold and complex but some may be gleaned at
+<a href="https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/Progress%20in%20Development/Considering%20the%20Way%20Forward/Links%20to%20Stuff%20To%20Look%20At.md#google-scholar"><code>/docs-src/Progress in Development/Considering the Way Forward/Links to Stuff To Look At</code></a>
+which are my quick notes while looking into what everybody else has been doing and how far they’ve got in <em>solving</em> this issue.</p>
+<p><strong>TL;DR / Bottom Line</strong>: Google does not want you to access Google Scholar:</p>
+<ul>
+<li>
+<p>via anything but a regular, well-known, browser such as Chrome, Safari, FireFox or Microsoft Edge.</p>
+<p>Anything that ever so slightly <em>smells like it <strong>might</strong> not be a regular mainstream browser</em> for <em>direct use</em> by a <em>human being</em> is automatically penalized
+by the Google Scholar site. You’ll get RECAPTCHA’s <em>sooner</em> and <em>more often</em> and when you happen to search a bit too long or fast to the discerning tastes of
+the Google management, you’ll be <strong>blocked</strong> for quite a while – timeout limit is currently unknown to me and certainly subject to change as that’s one of
+the undocumented knobs Google can twiddle if it gets upset about your behaviour.</p>
+<p>Qiqqa has an <strong>embedded browser</strong>, which is, given some effort – and Google expends of <em>lot of effort</em> on this – differentiable from a mainline browser
+like Chrome.</p>
+<blockquote>
+<p>For example, Google can employ <a href="https://pixelprivacy.com/resources/browser-fingerprinting/">fingerprinting technology</a> like
+<a href="https://panopticlick.eff.org/">the panopticlick tool</a> demonstrated at <a href="https://www.eff.org/deeplinks/2017/11/panopticlick-30">the EFF site</a>
+in such a way as to recognize ‘non-standard browsers’. I don’t <strong>know</strong> if they do it this way, but given my observations of Google Scholar behaviour over the years,
+its change in behaviour over time and the question “how would <em>you</em> do it, if you were <em>them</em>?” I’m betting on them having <em>all</em> non-invasive fingerprinting tech
+included in their code: they don’t need consent for that and it’s what a browser transmits anyway – unless it is filtered or altered
+and those two modes happen to be of particular interest to a business like Google which has <em>ads</em> as a major revenue stream:
+if you altered or filtered your browser fingerprint, you’re <strong>very probably</strong> also filtering ads. 1+1=no-Scholar.</p>
+<p>Since this whole endeavour is bathed in <em>probability</em>, Google cannot be absolutely 100% sure about their conclusions about you being a aleged robot/automaton/undesirable-user and
+the easiest answer to the conundrum what to do about <em>that</em> uncertainty is to severely limit the number of Scholar requests for any such entity. If it’s a ‘live one’ (clicking human with a ‘good’ browser) then too bad, but they get a sip and that’s good enough. If they want more, they’ll quickly find it works out for them to move to Chrome. Yay! Meanwhile we (Google) make sure the bots don’t get our stuff in a 1000 years. Yay! × 2!</p>
+<p>Google can simply log your IP address and count requests,
+hitting you with a RECAPTCHA after, say, 10 searches (<em>10</em> being one of the unknown/undocumented parameters that can be easily adjusted by Google
+and <em>seem</em> to have been adjusted over the last couple of years). Google can also hit you with a site error – anything in the 400 or 500 range will do
+and is darn cheap to execute for Google as it ddoesn’t cost any extra resources. Just fail and we’re done. Then Google allows your IP to “cool down” (timeout period)
+during which any Scholar request will immediately error out <em>again</em>. (I expect them to register these attempts of yours and reset the timeout on every occurrence.
+That’s what <em>I</em> would do anyway: <em>frequent hitter is adament after we decide he’s had enough, then we keep blocking the bugger until he really quits</em>.</p>
+</blockquote>
+</li>
+</ul>
+<h2>Is this a Qiqqa problem or a Google Scholar issue or maybe <em>both</em>?</h2>
+<p>Do note that this is not a Qiqqa-specific issue, though Qiqqa happens to be currently worse at it than a few others, who are up-to-date in their war-of-tugs with Scholar’s anti-automaton/anti-embedding detection and blockage logic.</p>
+<p>Qiqqa is hit badly by this because Qiqqa currently uses an old Mozilla browser internally (XULrunner), which technology is about on par with FireFox version 33.</p>
+<p>When you search the Internet, you’ll find lots of others, who don’t use Qiqqa, having the very same problem. Qiqqa <strong>has it worse</strong> thanks to the old Mozilla browser it is using internally, but even upgrading to a bleeding edge Chrome/Chromium-based embedded browser won’t solve the problem entirely as it’s fundamentally an arms’ race between Scholar users automating/simplifying their Scholar use and Google, who offers the service but does not want, and has strong incentives to fight, this kind of automation / assistance as it’s directly cutting into Google and others’ (e.g. Elsevier) revenue streams.</p>
+<h2>Many places around the Internet advise to use a (paid) VPN as a work-around. Would this work and why?</h2>
+<p><strong>TL;DR: umm, don’t think so, but you might get lucky. For a while. Google is actively fighting this and gets smart quickly. <em>Bloody engineers.</em></strong> 😣😈</p>
+<p>The VPN should be a <em>anonymizing VPN</em>, i.e. a VPN which picks up your network access and outputs it from one of many nodes spread throughout the world. NordVPN is a good example of such a VPN but there are many VPN service providers like that.</p>
+<p>The trick here is that the IP-based request counting (also often described as <em>IP tracking</em>, though that would be a slightly different tech with almost the same effect) by Google Scholar is now spread over N ‘<em>exit nodes</em>’ of your VPN service provider as your subsequent Scholar requests seem to originate from another random node of theirs.</p>
+<h3>So that would be a good solution, eh?</h3>
+<p>Well… There’s a few things that make it a temporarily <em>lucky fix</em> at best, in my opinion and experience. Consider not just yourself but <em>many</em> folks wanting to access Google Scholar hassle-free and <em>many</em> of them taking the VPN route: now <em>their</em> Scholar queries are mixed in with <em>yours</em> and all those requests now happen to pop out at the VPN exit nodes, which, you guessed it, now start to look like very active, <em>probably abusive</em> Google Scholar accessing machines and it then takes the proverbial microsecond for Google to decide to <em>block</em> the buggers or at the very least spit ourt RECAPTCHAS. Given that <em>the same exit node</em> from the VPN serves many users like you, chances are that Google has to transmit multiple RECAPTCHAS to that node before the first RECAPTCHA is answered by a user:
+it would take just a little piece of server-side code
+and a minimal amount of persistence (of which Google has plenty as there’s plenty disks around the place 😉 ) and I (being Google) can easily observe
+a single machine <strong>apparently</strong> serving multiple people as only the <em>last</em> RECAPTCHA should be answered if it was a single user
+and a single browser with a single tab open, thus <em>not</em> abusing my Scholar service. Hence I can quickly decide to be done with it utterly and, correct RECAPTCHA answer or not, block the crafty buggers.
+<em>I</em> would probably also make the little extra effort to register said IP as a ‘VPN exit node’ for at least a <em>week</em> before expiring that bit of data and blocking <em>all</em> Scholar access from that node for the duration, forget about the other checks that we do.</p>
+<p>Again, I am <em>second guessing</em> what Google does in their very <strong>closed source</strong> of the Scholar site, but observations to date have at least strongly suggested (temporary) IP blacklisting to me, probably done the way I describe above. You don’t need rocket scientists to implement that stuff anyway.</p>
+<p>So… that would make a VPN a risky proposition as you exchange getting blocked/RECAPTCHAd for your own activities with getting blocked/RECAPTCHAd for <em>other folks</em>’ Scholar activities. Plus the blacklisting is easy to, ah, <em>escalate</em>: take a blocked offender IP off the list, but <em>keep it around in a ‘previous offences’ list</em>: when an IP, at any time, is <em>going to be</em> blocked, we (Google) can quickly check the list of ‘previous offenders’ and when the IP happens to be one, hit it with a doubled time penalty, for example. If the node happens to be the kind of incurable ‘turn style criminal’, that doubling quickly adds up to a <em>year</em> of blockage and the problem will go away by itself.</p>
+<h3><a href="https://www.torproject.org/">Tor</a> to the rescue?</h3>
+<p><strong>Tip</strong>: my research dug up <a href="https://pypi.org/project/scholarly/"><code>scholarly</code></a> as being a very smart little piece of software, which can use the <a href="https://www.torproject.org/">Tor network</a> instead of regular VPN services. Now don’t get excited, as the description for VPNs above goes for <a href="https://www.torproject.org/">Tor</a> and any other distributed anonymizing network alike: your traffic is anonymized by outputting it at a random <em>exit node</em>. The number of <em>exit nodes</em> is however limited and is quite a lower number than the total number of Internet-accessing humans, so their traffic gets mixed in with yours, indicating the same problem for Tor exit nodes as for VPN exit nodes: I (being Google) can more easily detect the nodes as serving multiple people at once, and randomly!, thus having a quicker path towards blocking (cheap) vs. RECAPTCHA slow-down (more expensive for me).</p>
+<p>The <a href="https://www.torproject.org/">Tor</a> way might have slightly <em>more</em> luck as Google is also savvy to some social issues and it is politically opportune to keep the tor gates open for designated opressed people. As Tor is meant to give these folks some potentially safe access to the Net at large, Google <strong>may</strong> be less inclined to block Tor exit nodes, compared to other VPN exit nodes, but again, I’m second-guessing a large corporate entity here, so YMMV.</p>
+<h3>Nice, but you’ve forgotten about corporate proxies serving many users at work: they are not blocked!</h3>
+<p>Of course, things are not so clear-cut as described here as there’s also corporate routers/proxies to consider, but those are recognizable as well if we include mandatory <strong>cookies</strong> in our Scholar traffic (and Google does, gosh, what a surprise!): one user session will always exit from the same IP node for a corporate firewall/proxy, but MAY jump around to different IP numbers when it’s a anonymizing VPN’s exit node collective we’re dealing with: this will happen when we close the connection after a request+response and it will be quite expensive for the VPN service provider to track and link later user requests to Scholar <em>in order to connect them to one exit node consistently</em>, while we are tracking that Scholar ‘session’ already because <em>we</em> (Google) intend it to last not too long or be (ab)used too frequently: you may sip from our teat but <em>feeding</em> off it is objectionable (by us = Google) and hence denied.</p>
+<p>So, yes, all the wild stuff on the Net makes the logic on the Google Scholar server-side quite a bit more finicky, but the basics remains intact: Google can easily install a few knobs to tweak the parameters for RECAPTCHA and Access Denied decisions. As Google has the data and the ability to restrict access unless you conform to their input demands, you only get <em>more</em> Scholar access if you’re human (in the perception of Google!) with very high probability.</p>
+<p>That is why you get less hassle from Google when you log into your google account and access Scholar while being logged in.</p>
+<h2>That’s all dandy, but I cannot log into my google account inside the Qiqqa Sniffer!</h2>
+<p>Yep, that’s the ‘old embedded browser’ kicking in: Google doesn’t allow logins in ‘outdated’ / ‘outmoded’ or otherwise <em>unsupported</em> browsers, and XULrunner happens to be one of those, alas. Hence we have <a href="https://github.com/jimmejardine/qiqqa-open-source/issues/2">issue #2</a> which is, regrettably, a lot of work to accomplish, so it will take a while before that one is done.</p>
+<p><strong>Note</strong>:  it looks like the User-Agent tweak in Qiqqa v82 allows you to log into your google account inside the Qiqqa Sniffer, but that only succeeds anyway when the planets are aligned or what-not. It worked kinda okay back in Q4 2019, but, like with all other things Scholar access, its success rate seems to decline, so YMMV.</p>
+<h2>But you can tell Google that you are a modern-day Chrome, right? There’s the User-Agent!</h2>
+<p>Yup, we do that already in <a href="https://github.com/GerHobbelt/qiqqa-open-source/releases">Qiqqa v82</a>. It <em>seemed</em> to work for a bit last year, but then Google got smart and my access statistics started to go bad again, so it <em>may help a bit</em> but Google knows better than to merely check the User-Agent. You can include JavaScript in your webpage to detect the browser in other ways (Language and feature support checks, f.e.) and then you can decide what to do after all.</p>
+<h2>Is there no end to this RECAPTCHA problem?</h2>
+<p>Frankly, <em>no</em>.</p>
+<p>Like I wrote above, it’s a <em>race of arms</em> as you and Google do have quite different goals with Scholar: you want to use it as a free metadata provider to complete your own library, while Google offers it as an apetizer: we have the best metadata, come into our berth! But we need to be paid after all! And we don’t want anyone siphoning it off our servers and take off with the loot. And while you are only a petty small-time criminal from that perspective, having your own library instead of depending entirely on <em>us</em> (Google), you still are more or less undesirable by us (Google), for Scholar provides you with ways to ‘manage your library’ over at our (Google’s) servers, if only you’ld get an account, so why don’t you?</p>
+<p>“Well, I use Qiqqa!” 😊</p>
+<h2>Jumping Jehoshapath! TL;DR! Give me a list of things to do!</h2>
+<p>I can give you a list of things to <em>try</em>. As you had a TL;DR! moment, the key take-away of all the above should be: it can change any time, any day, depending on the mood Google corporate is in. They decide how tight they turn the screws on your ways into Scholar.</p>
+<p>Given that caveat, here’s a list of things to try:</p>
+<ul>
+<li>
+<p>try to log into your google account using the browser in the Sniffer. See if it succeeds and is persistent, i.e. if Google still calls you by your name while you query Scholar from inside that same Sniffer.</p>
+<p>Expected Result: you might get lucky and be able to do more searches before you’re hit with RECAPTCHA or Access Denied.</p>
+</li>
+<li>
+<p>try to ‘Add to Library’ inside google and then extract the BibTeX from there. Convoluted way to access BibTeX, I’ll grant you, but sometimes that works when regular BibTeX grabbing off Scholar fails.</p>
+</li>
+<li>
+<p><a href="https://github.com/jimmejardine/qiqqa-open-source/issues/113">try the other suggestions listed in the comments for issue #113</a></p>
+</li>
+<li>
+<p>try an anonymizing VPN or SOCKS proxy.</p>
+</li>
+</ul>
+<p>Always: YMMV.</p>
+
+  </head>
+  <body>
+    
+    <h1>FAQ : Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors</h1>
+<h2>Is Qiqqa Sniffer broken since Qiqqa went Open Source or when?</h2>
+<p>The correct answer here is that <strong>all versions of Qiqqa suffer the same issue</strong> as this is not a Qiqqa issue but something caused by Google and Google Scholar in particular: Google does not want any <em>robots</em> (computer applications with or without human supervision) to connect to their Scholar data.</p>
+<p>Read on if you want to know more.</p>
+<h2>Why do I get a RECAPTCHA and/or Access Denied blocking response from Google Scholar?</h2>
+<p>The true reasons probably are manyfold and complex but some may be gleaned at
+<a href="https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/Progress%20in%20Development/Considering%20the%20Way%20Forward/Links%20to%20Stuff%20To%20Look%20At.md#google-scholar"><code>/docs-src/Progress in Development/Considering the Way Forward/Links to Stuff To Look At</code></a>
+which are my quick notes while looking into what everybody else has been doing and how far they’ve got in <em>solving</em> this issue.</p>
+<p><strong>TL;DR / Bottom Line</strong>: Google does not want you to access Google Scholar:</p>
+<ul>
+<li>
+<p>via anything but a regular, well-known, browser such as Chrome, Safari, FireFox or Microsoft Edge.</p>
+<p>Anything that ever so slightly <em>smells like it <strong>might</strong> not be a regular mainstream browser</em> for <em>direct use</em> by a <em>human being</em> is automatically penalized
+by the Google Scholar site. You’ll get RECAPTCHA’s <em>sooner</em> and <em>more often</em> and when you happen to search a bit too long or fast to the discerning tastes of
+the Google management, you’ll be <strong>blocked</strong> for quite a while – timeout limit is currently unknown to me and certainly subject to change as that’s one of
+the undocumented knobs Google can twiddle if it gets upset about your behaviour.</p>
+<p>Qiqqa has an <strong>embedded browser</strong>, which is, given some effort – and Google expends of <em>lot of effort</em> on this – differentiable from a mainline browser
+like Chrome.</p>
+<blockquote>
+<p>For example, Google can employ <a href="https://pixelprivacy.com/resources/browser-fingerprinting/">fingerprinting technology</a> like
+<a href="https://panopticlick.eff.org/">the panopticlick tool</a> demonstrated at <a href="https://www.eff.org/deeplinks/2017/11/panopticlick-30">the EFF site</a>
+in such a way as to recognize ‘non-standard browsers’. I don’t <strong>know</strong> if they do it this way, but given my observations of Google Scholar behaviour over the years,
+its change in behaviour over time and the question “how would <em>you</em> do it, if you were <em>them</em>?” I’m betting on them having <em>all</em> non-invasive fingerprinting tech
+included in their code: they don’t need consent for that and it’s what a browser transmits anyway – unless it is filtered or altered
+and those two modes happen to be of particular interest to a business like Google which has <em>ads</em> as a major revenue stream:
+if you altered or filtered your browser fingerprint, you’re <strong>very probably</strong> also filtering ads. 1+1=no-Scholar.</p>
+<p>Since this whole endeavour is bathed in <em>probability</em>, Google cannot be absolutely 100% sure about their conclusions about you being a aleged robot/automaton/undesirable-user and
+the easiest answer to the conundrum what to do about <em>that</em> uncertainty is to severely limit the number of Scholar requests for any such entity. If it’s a ‘live one’ (clicking human with a ‘good’ browser) then too bad, but they get a sip and that’s good enough. If they want more, they’ll quickly find it works out for them to move to Chrome. Yay! Meanwhile we (Google) make sure the bots don’t get our stuff in a 1000 years. Yay! × 2!</p>
+<p>Google can simply log your IP address and count requests,
+hitting you with a RECAPTCHA after, say, 10 searches (<em>10</em> being one of the unknown/undocumented parameters that can be easily adjusted by Google
+and <em>seem</em> to have been adjusted over the last couple of years). Google can also hit you with a site error – anything in the 400 or 500 range will do
+and is darn cheap to execute for Google as it ddoesn’t cost any extra resources. Just fail and we’re done. Then Google allows your IP to “cool down” (timeout period)
+during which any Scholar request will immediately error out <em>again</em>. (I expect them to register these attempts of yours and reset the timeout on every occurrence.
+That’s what <em>I</em> would do anyway: <em>frequent hitter is adament after we decide he’s had enough, then we keep blocking the bugger until he really quits</em>.</p>
+</blockquote>
+</li>
+</ul>
+<h2>Is this a Qiqqa problem or a Google Scholar issue or maybe <em>both</em>?</h2>
+<p>Do note that this is not a Qiqqa-specific issue, though Qiqqa happens to be currently worse at it than a few others, who are up-to-date in their war-of-tugs with Scholar’s anti-automaton/anti-embedding detection and blockage logic.</p>
+<p>Qiqqa is hit badly by this because Qiqqa currently uses an old Mozilla browser internally (XULrunner), which technology is about on par with FireFox version 33.</p>
+<p>When you search the Internet, you’ll find lots of others, who don’t use Qiqqa, having the very same problem. Qiqqa <strong>has it worse</strong> thanks to the old Mozilla browser it is using internally, but even upgrading to a bleeding edge Chrome/Chromium-based embedded browser won’t solve the problem entirely as it’s fundamentally an arms’ race between Scholar users automating/simplifying their Scholar use and Google, who offers the service but does not want, and has strong incentives to fight, this kind of automation / assistance as it’s directly cutting into Google and others’ (e.g. Elsevier) revenue streams.</p>
+<h2>Many places around the Internet advise to use a (paid) VPN as a work-around. Would this work and why?</h2>
+<p><strong>TL;DR: umm, don’t think so, but you might get lucky. For a while. Google is actively fighting this and gets smart quickly. <em>Bloody engineers.</em></strong> 😣😈</p>
+<p>The VPN should be a <em>anonymizing VPN</em>, i.e. a VPN which picks up your network access and outputs it from one of many nodes spread throughout the world. NordVPN is a good example of such a VPN but there are many VPN service providers like that.</p>
+<p>The trick here is that the IP-based request counting (also often described as <em>IP tracking</em>, though that would be a slightly different tech with almost the same effect) by Google Scholar is now spread over N ‘<em>exit nodes</em>’ of your VPN service provider as your subsequent Scholar requests seem to originate from another random node of theirs.</p>
+<h3>So that would be a good solution, eh?</h3>
+<p>Well… There’s a few things that make it a temporarily <em>lucky fix</em> at best, in my opinion and experience. Consider not just yourself but <em>many</em> folks wanting to access Google Scholar hassle-free and <em>many</em> of them taking the VPN route: now <em>their</em> Scholar queries are mixed in with <em>yours</em> and all those requests now happen to pop out at the VPN exit nodes, which, you guessed it, now start to look like very active, <em>probably abusive</em> Google Scholar accessing machines and it then takes the proverbial microsecond for Google to decide to <em>block</em> the buggers or at the very least spit ourt RECAPTCHAS. Given that <em>the same exit node</em> from the VPN serves many users like you, chances are that Google has to transmit multiple RECAPTCHAS to that node before the first RECAPTCHA is answered by a user:
+it would take just a little piece of server-side code
+and a minimal amount of persistence (of which Google has plenty as there’s plenty disks around the place 😉 ) and I (being Google) can easily observe
+a single machine <strong>apparently</strong> serving multiple people as only the <em>last</em> RECAPTCHA should be answered if it was a single user
+and a single browser with a single tab open, thus <em>not</em> abusing my Scholar service. Hence I can quickly decide to be done with it utterly and, correct RECAPTCHA answer or not, block the crafty buggers.
+<em>I</em> would probably also make the little extra effort to register said IP as a ‘VPN exit node’ for at least a <em>week</em> before expiring that bit of data and blocking <em>all</em> Scholar access from that node for the duration, forget about the other checks that we do.</p>
+<p>Again, I am <em>second guessing</em> what Google does in their very <strong>closed source</strong> of the Scholar site, but observations to date have at least strongly suggested (temporary) IP blacklisting to me, probably done the way I describe above. You don’t need rocket scientists to implement that stuff anyway.</p>
+<p>So… that would make a VPN a risky proposition as you exchange getting blocked/RECAPTCHAd for your own activities with getting blocked/RECAPTCHAd for <em>other folks</em>’ Scholar activities. Plus the blacklisting is easy to, ah, <em>escalate</em>: take a blocked offender IP off the list, but <em>keep it around in a ‘previous offences’ list</em>: when an IP, at any time, is <em>going to be</em> blocked, we (Google) can quickly check the list of ‘previous offenders’ and when the IP happens to be one, hit it with a doubled time penalty, for example. If the node happens to be the kind of incurable ‘turn style criminal’, that doubling quickly adds up to a <em>year</em> of blockage and the problem will go away by itself.</p>
+<h3><a href="https://www.torproject.org/">Tor</a> to the rescue?</h3>
+<p><strong>Tip</strong>: my research dug up <a href="https://pypi.org/project/scholarly/"><code>scholarly</code></a> as being a very smart little piece of software, which can use the <a href="https://www.torproject.org/">Tor network</a> instead of regular VPN services. Now don’t get excited, as the description for VPNs above goes for <a href="https://www.torproject.org/">Tor</a> and any other distributed anonymizing network alike: your traffic is anonymized by outputting it at a random <em>exit node</em>. The number of <em>exit nodes</em> is however limited and is quite a lower number than the total number of Internet-accessing humans, so their traffic gets mixed in with yours, indicating the same problem for Tor exit nodes as for VPN exit nodes: I (being Google) can more easily detect the nodes as serving multiple people at once, and randomly!, thus having a quicker path towards blocking (cheap) vs. RECAPTCHA slow-down (more expensive for me).</p>
+<p>The <a href="https://www.torproject.org/">Tor</a> way might have slightly <em>more</em> luck as Google is also savvy to some social issues and it is politically opportune to keep the tor gates open for designated opressed people. As Tor is meant to give these folks some potentially safe access to the Net at large, Google <strong>may</strong> be less inclined to block Tor exit nodes, compared to other VPN exit nodes, but again, I’m second-guessing a large corporate entity here, so YMMV.</p>
+<h3>Nice, but you’ve forgotten about corporate proxies serving many users at work: they are not blocked!</h3>
+<p>Of course, things are not so clear-cut as described here as there’s also corporate routers/proxies to consider, but those are recognizable as well if we include mandatory <strong>cookies</strong> in our Scholar traffic (and Google does, gosh, what a surprise!): one user session will always exit from the same IP node for a corporate firewall/proxy, but MAY jump around to different IP numbers when it’s a anonymizing VPN’s exit node collective we’re dealing with: this will happen when we close the connection after a request+response and it will be quite expensive for the VPN service provider to track and link later user requests to Scholar <em>in order to connect them to one exit node consistently</em>, while we are tracking that Scholar ‘session’ already because <em>we</em> (Google) intend it to last not too long or be (ab)used too frequently: you may sip from our teat but <em>feeding</em> off it is objectionable (by us = Google) and hence denied.</p>
+<p>So, yes, all the wild stuff on the Net makes the logic on the Google Scholar server-side quite a bit more finicky, but the basics remains intact: Google can easily install a few knobs to tweak the parameters for RECAPTCHA and Access Denied decisions. As Google has the data and the ability to restrict access unless you conform to their input demands, you only get <em>more</em> Scholar access if you’re human (in the perception of Google!) with very high probability.</p>
+<p>That is why you get less hassle from Google when you log into your google account and access Scholar while being logged in.</p>
+<h2>That’s all dandy, but I cannot log into my google account inside the Qiqqa Sniffer!</h2>
+<p>Yep, that’s the ‘old embedded browser’ kicking in: Google doesn’t allow logins in ‘outdated’ / ‘outmoded’ or otherwise <em>unsupported</em> browsers, and XULrunner happens to be one of those, alas. Hence we have <a href="https://github.com/jimmejardine/qiqqa-open-source/issues/2">issue #2</a> which is, regrettably, a lot of work to accomplish, so it will take a while before that one is done.</p>
+<p><strong>Note</strong>:  it looks like the User-Agent tweak in Qiqqa v82 allows you to log into your google account inside the Qiqqa Sniffer, but that only succeeds anyway when the planets are aligned or what-not. It worked kinda okay back in Q4 2019, but, like with all other things Scholar access, its success rate seems to decline, so YMMV.</p>
+<h2>But you can tell Google that you are a modern-day Chrome, right? There’s the User-Agent!</h2>
+<p>Yup, we do that already in <a href="https://github.com/GerHobbelt/qiqqa-open-source/releases">Qiqqa v82</a>. It <em>seemed</em> to work for a bit last year, but then Google got smart and my access statistics started to go bad again, so it <em>may help a bit</em> but Google knows better than to merely check the User-Agent. You can include JavaScript in your webpage to detect the browser in other ways (Language and feature support checks, f.e.) and then you can decide what to do after all.</p>
+<h2>Is there no end to this RECAPTCHA problem?</h2>
+<p>Frankly, <em>no</em>.</p>
+<p>Like I wrote above, it’s a <em>race of arms</em> as you and Google do have quite different goals with Scholar: you want to use it as a free metadata provider to complete your own library, while Google offers it as an apetizer: we have the best metadata, come into our berth! But we need to be paid after all! And we don’t want anyone siphoning it off our servers and take off with the loot. And while you are only a petty small-time criminal from that perspective, having your own library instead of depending entirely on <em>us</em> (Google), you still are more or less undesirable by us (Google), for Scholar provides you with ways to ‘manage your library’ over at our (Google’s) servers, if only you’ld get an account, so why don’t you?</p>
+<p>“Well, I use Qiqqa!” 😊</p>
+<h2>Jumping Jehoshapath! TL;DR! Give me a list of things to do!</h2>
+<p>I can give you a list of things to <em>try</em>. As you had a TL;DR! moment, the key take-away of all the above should be: it can change any time, any day, depending on the mood Google corporate is in. They decide how tight they turn the screws on your ways into Scholar.</p>
+<p>Given that caveat, here’s a list of things to try:</p>
+<ul>
+<li>
+<p>try to log into your google account using the browser in the Sniffer. See if it succeeds and is persistent, i.e. if Google still calls you by your name while you query Scholar from inside that same Sniffer.</p>
+<p>Expected Result: you might get lucky and be able to do more searches before you’re hit with RECAPTCHA or Access Denied.</p>
+</li>
+<li>
+<p>try to ‘Add to Library’ inside google and then extract the BibTeX from there. Convoluted way to access BibTeX, I’ll grant you, but sometimes that works when regular BibTeX grabbing off Scholar fails.</p>
+</li>
+<li>
+<p><a href="https://github.com/jimmejardine/qiqqa-open-source/issues/113">try the other suggestions listed in the comments for issue #113</a></p>
+</li>
+<li>
+<p>try an anonymizing VPN or SOCKS proxy.</p>
+</li>
+</ul>
+<p>Always: YMMV.</p>
+
+
+    <footer>
+      © 2020 Qiqqa Contributors ::
+      <a href="https://github.com/GerHobbelt/qiqqa-open-source/blob/docs-src/FAQ/Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors.md">Edit this page on GitHub</a>
+    </footer>
+  </body>
+</html>

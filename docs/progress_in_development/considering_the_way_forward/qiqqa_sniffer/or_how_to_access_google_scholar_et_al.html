@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <p>There’s two ways forward as I can see, which are the most viable:</p>
+<ul>
+<li>
+<p>embedded CEFSharp or CEFGlue in the WPF application.</p>
+<p>Problem with that one: non-portable as WPF is not Cross-Platform, so we’ll have to redo the effort entirely for UNIX boxes.</p>
+<p>Besides: I’ld rather not do a UI upgrade / refit in WPF as I don’t want to dive deep into that technology to make it perform well (lists, rendering, etc.), but fundamentally this is an emotional thing (“developer happiness”) rather than a technology boundary.</p>
+</li>
+<li>
+<p>embed a Google Scholar capable browser in an Electron / Chromely / CEFGlue / CEFSharp style redo of Qiqqa</p>
+<p>That’s a bigger project initially as we’ll have to redo the entire UI in HTML5/CSS/JS, but it would be portable, at least in <em>theory</em>.</p>
+<p>Trouble there is that <code>&lt;iframe&gt;</code> is <strong>out</strong> to serve as a Google Scholar embed function, since Scholar and friends have similar checks and restrictions built in server-side to what’s described here (<abbr title="[object Object]">emphasis</abbr> mine): <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Security_concerns">MDN: From object to iframe — other embedding technologies: Security Concerns</a></p>
+<blockquote>
+<p>A quick example first though — try loading the previous example we showed above into your browser — you can find it live on Github (see the source code too.) You won’t actually see anything displayed on the page, and if you look at the Console in the browser developer tools, you’ll see a message telling you why. In Firefox, you’ll get told</p>
+<blockquote>
+<p><strong>Load denied by X-Frame-Options: <a href="https://developer.mozilla.org/en-US/docs/Glossary">https://developer.mozilla.org/en-US/docs/Glossary</a> does not permit framing.</strong></p>
+</blockquote>
+<p><strong>This is because the developers that built MDN have included a setting on the server that serves the website pages to disallow them from being embedded inside <code>&lt;iframe&gt;</code>s</strong> (see <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Configure_CSP_directives">Configure CSP directives</a>, below. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">+</a> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors">+</a> ) This makes sense — an entire MDN page doesn’t really make sense to be embedded in other pages unless you want to do something like embed them on your site and claim them as your own — or attempt to steal data via clickjacking, which are both really bad things to do. Plus if everybody started to do this, all the additional bandwidth would start to cost Mozilla a lot of money.</p>
+</blockquote>
+</li>
+</ul>
+<h2>So it’s CEF’s <code>&lt;webview&gt;</code> or bust.</h2>
+<p>Or is it?</p>
+<p>Suppose we want <em>most</em> of the Qiqqa application portable and the <code>&lt;webview&gt;</code> tag happens to not deliver?</p>
+<p>Then we <em>might</em> consider using a <em>absolutely minimal native UI</em> base application, which splits the UI in two:</p>
+<ul>
+<li>one part for our own stuff, however rendered (using a CEF view if we want to do it in HTML/CSS rather than WPF)</li>
+<li>a <em>second</em> part / half where the <em>independent</em> embedded browser resides, which mimics Chrome sufficiently for Scholar not to barf a hairball.</li>
+</ul>
+<p><strong>Or</strong> there’s the ‘browser extension’ idea a la Zotero et al, which popped up yesterday while I was working on <a href="./links_to_stuff_to_look_at.html">Links to Stuff To Look At</a> and the Google Scholar access frolics that abound on the 'Net: better to <em>steal</em> a nice set of rims than flintstone your own set of tires <em>sans road suspension</em>, right? 😉</p>
+<p>Such a browser extension would be suboptimal in another way: you wouldn’t be able to look at the PDF / bibTeX part of your Sniffer UI unless we’d rebuild that in HTML/CSS <em>inside</em> the extension, so talking about having your work cut for you… Sounds like the HTML/CSS UI way isn’t so dumb / over the top as I sometimes think it is when the hours are dark. 😕</p>
+<h3><code>&lt;webview&gt;</code> → Electron <em>et al</em>?</h3>
+<p>I’ve looked at Electron and various similar solutions which might be more closely related to C#/.NET – which is what we’re currently using as a programming language in Qiqqa.
+Chromely might be a viable candidate as it’s not using WinForms or WPF and is advertised as Cross Platform (Win, Mac, Linux). <a href="http://Electron.NET">Electron.NET</a> is what I looked at before that, but it’s a bit too much <a href="http://ASP.NET">ASP.NET</a> oriented to my tastes and I don’t wish to exchange WPF for <a href="http://ASP.NET">ASP.NET</a>: I believe we can do a fine UI without any need for <a href="http://ASP.NET">ASP.NET</a>.</p>
+<p>Meanwhile – and <strong>this is the important bit to consider across the board, irrespective of which UI/CEF solution we pick</strong> – there’s this page: <a href="https://www.electronjs.org/docs/api/webview-tag#warning">https://www.electronjs.org/docs/api/webview-tag#warning</a>. Quoting (<abbr title="[object Object]">emphasis</abbr> mine):</p>
+<blockquote>
+<h2>Warning</h2>
+<p>Electron’s <code>webview</code> tag is based on <a href="https://developer.chrome.com/apps/tags/webview">Chromium’s <code>webview</code></a>, which is undergoing dramatic architectural changes. This impacts the stability of <code>webviews</code>, including rendering, navigation, and event routing.</p>
+<p><strong>We currently recommend to NOT USE the <code>webview</code> tag and to consider alternatives, like <code>iframe</code>, Electron’s <code>BrowserView</code>, or an architecture that avoids embedded content altogether.</strong></p>
+</blockquote>
+<p>Given that recommendation (and some noise I saw elsewhere about removing <code>&lt;webview&gt;</code> from CEF altogether), (re)building the Qiqqa UI in pure HTML (via Electron <em>et al</em>) is NOT DOABLE. Quoting the next bit from that same page:</p>
+<blockquote>
+<h3>Enabling</h3>
+<p>By default the <code>webview</code> tag is disabled in Electron &gt;= 5. You need to enable the tag by setting the <code>webviewTag</code> webPreferences option when constructing your <code>BrowserWindow</code>.
+For more information <a href="https://www.electronjs.org/docs/api/browser-window">see the <code>BrowserWindow</code> constructor docs</a>.</p>
+</blockquote>
+<p>And from the Chrome <code>&lt;webview&gt;</code> documentation page:</p>
+<blockquote>
+<h3>Usage</h3>
+<p>Use the <code>webview</code> tag to embed ‘guest’ content (such as web pages) in your Chrome App. The guest content is contained within the <code>webview</code> container; an embedder page within your Chrome App controls how the guest content is laid out and rendered.</p>
+<p>Different from the <code>iframe</code>, the <code>webview</code> runs in a separate process than your app; it doesn’t have the same permissions as your app and all interactions between your app and embedded content will be asynchronous. This keeps your app safe from the embedded content.</p>
+</blockquote>
+<p>Also read <a href="https://www.electronjs.org/docs/tutorial/security#isolation-for-untrusted-content">the Electron Security Considerations page</a> as that one applies to <em>anyone</em> with an embedded (CEF) browser. <strong>That includes us!</strong> Quoting from that page:</p>
+<blockquote>
+<h3>Isolation For Untrusted Content</h3>
+<p>A security issue exists whenever you receive code from an untrusted source (e.g. a remote server) and execute it locally. As an example, consider a remote website being displayed inside a default <a href="https://www.electronjs.org/docs/api/browser-window"><code>BrowserWindow</code></a>. If an attacker somehow manages to change said content (either by attacking the source directly, or by sitting between your app and the actual destination), they will be able to execute native code on the user’s machine.</p>
+<p>**⚠️ Under no circumstances should you load and execute remote code with <code>Node.js</code> integration enabled. Instead, use only local files (packaged together with your application) to execute <code>Node.js</code> code. To display remote content, use <a href="https://www.electronjs.org/docs/api/webview-tag">the <code>&lt;webview&gt;</code> tag</a> or <a href="https://www.electronjs.org/docs/api/browser-view"><code>BrowserView</code></a>, make sure to disable the <code>nodeIntegration</code> and enable <code>contextIsolation</code>.</p>
+</blockquote>
+<p>… and check <a href="https://www.electronjs.org/docs/tutorial/security#checklist-security-recommendations">their Security Recommendations Checklist!</a> when we finally do ours.</p>
+<p><strong>Q:</strong> Should we maybe use an Electron (or Chromely) derivative which has a very basic native UI, which embeds multiple <a href="https://www.electronjs.org/docs/api/browser-view"><code>BrowserViews</code></a>? Or can Electron / Chromely do that already?</p>
+<p><strong>A:</strong> Chromely does not seem to have this, out of the box, while a further check uncovered <a href="https://github.com/electron/electron/pull/16148">this PR-16148 for Electron</a> which has been merged into their codebase since December 2018. Related Electron issues also referenced in that PR:</p>
+<ul>
+<li><a href="https://github.com/electron/electron/issues/16181">16181 - Allow more than one BrowserView per BrowserWindow</a></li>
+<li><a href="https://github.com/electron/electron/issues/10323">10323 - Trying to tile 2 BrowserViews into one BrowserWindow, 1st not rendering</a>
+plus some <code>webview</code> woes that may hit us too:</li>
+<li><a href="https://github.com/electron/electron/issues/14905">14905 - webview no longer emits keyboard events </a></li>
+<li><a href="https://github.com/electron/electron/issues/14258#issuecomment-416794070">14258 - Webview: traps keyboard events once focused (comment on why this won’t be fixed)</a></li>
+<li><a href="https://github.com/electron/electron/pull/16064">16064 - Allow more than one BrowserView per BrowserWindow</a></li>
+<li><a href="https://github.com/beakerbrowser/beaker/issues/1297#issuecomment-459932323">BeakerBrowser: 1297 - Inconsistent Keyboard Shortcuts</a></li>
+<li><a href="https://github.com/getferdi/ferdi/issues/305">Ferdi i.e. Open Source Franz: 305 - Considering BrowserViews</a></li>
+<li><a href="https://www.reddit.com/r/kde/comments/e7136e/google_bans_falkon_and_konqueror_browsers/">Reddit: Google bans Falkon and Konqueror browsers! Probably other niche browsers too.</a></li>
+<li><a href="https://github.com/sindresorhus/awesome-electron">Awesome Electron - Useful resources for creating apps with Electron</a></li>
+<li><a href="https://github.com/electron/electron-packager/issues/215">Package apps with native module dependencies on platforms other than the host platform (cross-compilation) -&gt; advice is to use multi-platform CI build processes to produce electron installers</a></li>
+<li><a href="https://github.com/maciejczyzewski/airtrash">📡 100 tiny steps to build cross-platform desktop application using Electron/Node.js/C++</a></li>
+<li><a href="https://www.electronjs.org/docs/tutorial/using-native-node-modules">Electron: Using Native Node Modules</a></li>
+<li><a href="https://stackoverflow.com/questions/150544/can-you-catch-a-native-exception-in-c-sharp-code">Can you catch a native exception in C# code?</a></li>
+<li><a href="https://www.electron.build/multi-platform-build">Electron: Multi Platform Build</a></li>
+<li><a href="http://blog.arrayofbytes.co.uk/?p=379">Electron with SQLite</a></li>
+<li><a href="https://opendistro.github.io/for-elasticsearch/">Open Distro for Elasticsearch</a></li>
+<li><a href="https://www.electronjs.org/docs/api/browser-view">Electron Documentation: Class: BrowserView</a></li>
+<li><a href="https://www.electronjs.org/docs/api/browser-window">Electron Documentation: BrowserWindow</a></li>
+<li><a href="https://www.electronjs.org/docs/tutorial/web-embeds">Electron Documentation: Web embeds in Electron</a></li>
+<li><a href="https://ourcodeworld.com/articles/read/925/how-to-implement-browser-like-tabs-in-electron-framework">How to implement browser like tabs in Electron Framework</a>
+Note that this article uses <code>&lt;webview&gt;</code> which is advised against by Electron. Check the Min and Wex web browsers listed in the ‘Awesome Electron’ list to see if they use some other means, e.g. BrowserView. <a href="https://github.com/getferdi/ferdi">Ferdi</a> and <a href="https://github.com/ramboxapp/community-edition">RamBox</a> are also candidates for inspection as these apps link to a plethora of external services. <strong>Do check out these issues of theirs</strong>:
+<ul>
+<li><a href="https://github.com/ramboxapp/community-edition/issues/2521">Unable to login to google account with 2-step verification</a></li>
+<li><a href="https://github.com/ramboxapp/community-edition/issues/2495">Google says: “You are trying to sign in from a browser or app that doesn’t allow us to keep your account secure.”</a></li>
+<li><a href="https://github.com/ramboxapp/community-edition/issues/2375">I have problems when i try to login in Microsoft teams and Microsoft outlook since around 1 week</a></li>
+<li><a href="https://github.com/ramboxapp/community-edition/issues/1765">Please fix your security posture.</a></li>
+<li><a href="https://github.com/meetfranz/franz/issues/15">Memory comsumption and process opened</a></li>
+</ul>
+</li>
+<li><a href="https://www.chromium.org/developers/design-documents/oop-iframes">Chromium: Out-of-Process iframes (OOPIFs)</a></li>
+<li><a href="https://www.chromium.org/developers/design-documents/site-isolation">Chromium: Site Isolation Design Document</a></li>
+<li><a href="https://www.chromium.org/developers/design-documents/oop-iframes/oop-iframes-rendering">Chromium: Rendering and compositing out of process iframes</a></li>
+<li><a href="https://bitbucket.org/chromiumembedded/cef/issues/1748/support">CEF: <code>&lt;webview&gt;</code> support</a></li>
+</ul>
+<h3>Backing up to the main problem: how to get a Qiqqa Sniffer done in a cross-platform UI (not WPF)</h3>
+<p>The Qiqqa Sniffer is a UI part which is useful in a large part by having both a ‘Google’-like public internet facing search engine <em>and</em> a PDF + metadata viewer visible and accessible for select/copy/paste and various editing activities: this requires at least <em>some way of communication</em> between the PDF viewer, metadata editor, additional controls and the multi-tabbed generic search engine, while security concerns &amp; <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Qiqqa%20Sniffer%2C%20BibTeX%20grazing%20and%20Google%20Scholar%20RECAPTCHA%20and%20Access%20Denied%20site%20blocking%20errors.md">Google Scholar quirks</a> will make this <em>probably hard</em> when we do it in plain Electron or Chromely.</p>
+<p>How about having a very basic <em>native</em> UI (which must then be ported to the various platforms 😰) which embeds multiple BrowserViews? (Rough thought right now going like this: take Chromely, augment to have native UI for window with 2 or 3 panels, each carrying its own independent BrowserWindow, sandboxed if need be. That would make the dialogs/windows <em>containers</em> <em>native</em>, while all content and controls nitty-gritty would then be done in a CEF control, i.e. HTML/CSS/JS)</p>
+<h2>Analysis Notes</h2>
+<p>So, after all this looking around and researching I did, there’s at least one solid conclusion:</p>
+<p><code>&lt;iframe&gt;</code>s are <em>out</em>.</p>
+<p>Now we either stick with WPF for the Sniffer – which would mean at least one important part of our functionality depends on WPF and is thus non-portable, where the question then becomes: how much stuff do we park / keep in WPF and how much stuff do we dump elsewhere, as in: using HTML/CSS/JS technology for the UI bits – <em>or</em> we ditch WPF and then either make <code>&lt;webview&gt;</code> work for us <em>or</em> use a few OS-native panels in which we run two CEF instances to accomplish what we need <em>or</em> we go a UI/UX where the sniffer moves into a native browser via a <em>browser extension/plugin</em> which then communicates with the Qiqqa app via websocket or some such, while the native browser does the work we need to provide Sniffer functionality: BibTeX/metadata extraction, PDF download redirection/fetching and (<strong>do not forget this way of user interaction in the current Sniffer!</strong>) copy/paste from browser pane into BibTeX editor plus copy/paste from OCR-ed PDF view into browser search/url box – which constitutes both <em>manual</em> metadata editing and metadata <em>validation</em>, the latter being done by <em>eyeballing the browser page while eyeing the BibTeX panel at the same time</em>. (Having this done as a Chrome extension might be tecnically easier but would require moving/resizing different application screens or Alt-TABbing like mad: there’s good reasons to have the panes in the Qiqqa Sniffer together as they are!)</p>
+<p>CEF webview:</p>
+<ul>
+<li><a href="https://bitbucket.org/chromiumembedded/cef/issues/1748/support">https://bitbucket.org/chromiumembedded/cef/issues/1748/support</a></li>
+</ul>
+
+  </head>
+  <body>
+    
+    <p>There’s two ways forward as I can see, which are the most viable:</p>
+<ul>
+<li>
+<p>embedded CEFSharp or CEFGlue in the WPF application.</p>
+<p>Problem with that one: non-portable as WPF is not Cross-Platform, so we’ll have to redo the effort entirely for UNIX boxes.</p>
+<p>Besides: I’ld rather not do a UI upgrade / refit in WPF as I don’t want to dive deep into that technology to make it perform well (lists, rendering, etc.), but fundamentally this is an emotional thing (“developer happiness”) rather than a technology boundary.</p>
+</li>
+<li>
+<p>embed a Google Scholar capable browser in an Electron / Chromely / CEFGlue / CEFSharp style redo of Qiqqa</p>
+<p>That’s a bigger project initially as we’ll have to redo the entire UI in HTML5/CSS/JS, but it would be portable, at least in <em>theory</em>.</p>
+<p>Trouble there is that <code>&lt;iframe&gt;</code> is <strong>out</strong> to serve as a Google Scholar embed function, since Scholar and friends have similar checks and restrictions built in server-side to what’s described here (<abbr title="[object Object]">emphasis</abbr> mine): <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Security_concerns">MDN: From object to iframe — other embedding technologies: Security Concerns</a></p>
+<blockquote>
+<p>A quick example first though — try loading the previous example we showed above into your browser — you can find it live on Github (see the source code too.) You won’t actually see anything displayed on the page, and if you look at the Console in the browser developer tools, you’ll see a message telling you why. In Firefox, you’ll get told</p>
+<blockquote>
+<p><strong>Load denied by X-Frame-Options: <a href="https://developer.mozilla.org/en-US/docs/Glossary">https://developer.mozilla.org/en-US/docs/Glossary</a> does not permit framing.</strong></p>
+</blockquote>
+<p><strong>This is because the developers that built MDN have included a setting on the server that serves the website pages to disallow them from being embedded inside <code>&lt;iframe&gt;</code>s</strong> (see <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies#Configure_CSP_directives">Configure CSP directives</a>, below. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">+</a> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors">+</a> ) This makes sense — an entire MDN page doesn’t really make sense to be embedded in other pages unless you want to do something like embed them on your site and claim them as your own — or attempt to steal data via clickjacking, which are both really bad things to do. Plus if everybody started to do this, all the additional bandwidth would start to cost Mozilla a lot of money.</p>
+</blockquote>
+</li>
+</ul>
+<h2>So it’s CEF’s <code>&lt;webview&gt;</code> or bust.</h2>
+<p>Or is it?</p>
+<p>Suppose we want <em>most</em> of the Qiqqa application portable and the <code>&lt;webview&gt;</code> tag happens to not deliver?</p>
+<p>Then we <em>might</em> consider using a <em>absolutely minimal native UI</em> base application, which splits the UI in two:</p>
+<ul>
+<li>one part for our own stuff, however rendered (using a CEF view if we want to do it in HTML/CSS rather than WPF)</li>
+<li>a <em>second</em> part / half where the <em>independent</em> embedded browser resides, which mimics Chrome sufficiently for Scholar not to barf a hairball.</li>
+</ul>
+<p><strong>Or</strong> there’s the ‘browser extension’ idea a la Zotero et al, which popped up yesterday while I was working on <a href="./links_to_stuff_to_look_at.html">Links to Stuff To Look At</a> and the Google Scholar access frolics that abound on the 'Net: better to <em>steal</em> a nice set of rims than flintstone your own set of tires <em>sans road suspension</em>, right? 😉</p>
+<p>Such a browser extension would be suboptimal in another way: you wouldn’t be able to look at the PDF / bibTeX part of your Sniffer UI unless we’d rebuild that in HTML/CSS <em>inside</em> the extension, so talking about having your work cut for you… Sounds like the HTML/CSS UI way isn’t so dumb / over the top as I sometimes think it is when the hours are dark. 😕</p>
+<h3><code>&lt;webview&gt;</code> → Electron <em>et al</em>?</h3>
+<p>I’ve looked at Electron and various similar solutions which might be more closely related to C#/.NET – which is what we’re currently using as a programming language in Qiqqa.
+Chromely might be a viable candidate as it’s not using WinForms or WPF and is advertised as Cross Platform (Win, Mac, Linux). <a href="http://Electron.NET">Electron.NET</a> is what I looked at before that, but it’s a bit too much <a href="http://ASP.NET">ASP.NET</a> oriented to my tastes and I don’t wish to exchange WPF for <a href="http://ASP.NET">ASP.NET</a>: I believe we can do a fine UI without any need for <a href="http://ASP.NET">ASP.NET</a>.</p>
+<p>Meanwhile – and <strong>this is the important bit to consider across the board, irrespective of which UI/CEF solution we pick</strong> – there’s this page: <a href="https://www.electronjs.org/docs/api/webview-tag#warning">https://www.electronjs.org/docs/api/webview-tag#warning</a>. Quoting (<abbr title="[object Object]">emphasis</abbr> mine):</p>
+<blockquote>
+<h2>Warning</h2>
+<p>Electron’s <code>webview</code> tag is based on <a href="https://developer.chrome.com/apps/tags/webview">Chromium’s <code>webview</code></a>, which is undergoing dramatic architectural changes. This impacts the stability of <code>webviews</code>, including rendering, navigation, and event routing.</p>
+<p><strong>We currently recommend to NOT USE the <code>webview</code> tag and to consider alternatives, like <code>iframe</code>, Electron’s <code>BrowserView</code>, or an architecture that avoids embedded content altogether.</strong></p>
+</blockquote>
+<p>Given that recommendation (and some noise I saw elsewhere about removing <code>&lt;webview&gt;</code> from CEF altogether), (re)building the Qiqqa UI in pure HTML (via Electron <em>et al</em>) is NOT DOABLE. Quoting the next bit from that same page:</p>
+<blockquote>
+<h3>Enabling</h3>
+<p>By default the <code>webview</code> tag is disabled in Electron &gt;= 5. You need to enable the tag by setting the <code>webviewTag</code> webPreferences option when constructing your <code>BrowserWindow</code>.
+For more information <a href="https://www.electronjs.org/docs/api/browser-window">see the <code>BrowserWindow</code> constructor docs</a>.</p>
+</blockquote>
+<p>And from the Chrome <code>&lt;webview&gt;</code> documentation page:</p>
+<blockquote>
+<h3>Usage</h3>
+<p>Use the <code>webview</code> tag to embed ‘guest’ content (such as web pages) in your Chrome App. The guest content is contained within the <code>webview</code> container; an embedder page within your Chrome App controls how the guest content is laid out and rendered.</p>
+<p>Different from the <code>iframe</code>, the <code>webview</code> runs in a separate process than your app; it doesn’t have the same permissions as your app and all interactions between your app and embedded content will be asynchronous. This keeps your app safe from the embedded content.</p>
+</blockquote>
+<p>Also read <a href="https://www.electronjs.org/docs/tutorial/security#isolation-for-untrusted-content">the Electron Security Considerations page</a> as that one applies to <em>anyone</em> with an embedded (CEF) browser. <strong>That includes us!</strong> Quoting from that page:</p>
+<blockquote>
+<h3>Isolation For Untrusted Content</h3>
+<p>A security issue exists whenever you receive code from an untrusted source (e.g. a remote server) and execute it locally. As an example, consider a remote website being displayed inside a default <a href="https://www.electronjs.org/docs/api/browser-window"><code>BrowserWindow</code></a>. If an attacker somehow manages to change said content (either by attacking the source directly, or by sitting between your app and the actual destination), they will be able to execute native code on the user’s machine.</p>
+<p>**⚠️ Under no circumstances should you load and execute remote code with <code>Node.js</code> integration enabled. Instead, use only local files (packaged together with your application) to execute <code>Node.js</code> code. To display remote content, use <a href="https://www.electronjs.org/docs/api/webview-tag">the <code>&lt;webview&gt;</code> tag</a> or <a href="https://www.electronjs.org/docs/api/browser-view"><code>BrowserView</code></a>, make sure to disable the <code>nodeIntegration</code> and enable <code>contextIsolation</code>.</p>
+</blockquote>
+<p>… and check <a href="https://www.electronjs.org/docs/tutorial/security#checklist-security-recommendations">their Security Recommendations Checklist!</a> when we finally do ours.</p>
+<p><strong>Q:</strong> Should we maybe use an Electron (or Chromely) derivative which has a very basic native UI, which embeds multiple <a href="https://www.electronjs.org/docs/api/browser-view"><code>BrowserViews</code></a>? Or can Electron / Chromely do that already?</p>
+<p><strong>A:</strong> Chromely does not seem to have this, out of the box, while a further check uncovered <a href="https://github.com/electron/electron/pull/16148">this PR-16148 for Electron</a> which has been merged into their codebase since December 2018. Related Electron issues also referenced in that PR:</p>
+<ul>
+<li><a href="https://github.com/electron/electron/issues/16181">16181 - Allow more than one BrowserView per BrowserWindow</a></li>
+<li><a href="https://github.com/electron/electron/issues/10323">10323 - Trying to tile 2 BrowserViews into one BrowserWindow, 1st not rendering</a>
+plus some <code>webview</code> woes that may hit us too:</li>
+<li><a href="https://github.com/electron/electron/issues/14905">14905 - webview no longer emits keyboard events </a></li>
+<li><a href="https://github.com/electron/electron/issues/14258#issuecomment-416794070">14258 - Webview: traps keyboard events once focused (comment on why this won’t be fixed)</a></li>
+<li><a href="https://github.com/electron/electron/pull/16064">16064 - Allow more than one BrowserView per BrowserWindow</a></li>
+<li><a href="https://github.com/beakerbrowser/beaker/issues/1297#issuecomment-459932323">BeakerBrowser: 1297 - Inconsistent Keyboard Shortcuts</a></li>
+<li><a href="https://github.com/getferdi/ferdi/issues/305">Ferdi i.e. Open Source Franz: 305 - Considering BrowserViews</a></li>
+<li><a href="https://www.reddit.com/r/kde/comments/e7136e/google_bans_falkon_and_konqueror_browsers/">Reddit: Google bans Falkon and Konqueror browsers! Probably other niche browsers too.</a></li>
+<li><a href="https://github.com/sindresorhus/awesome-electron">Awesome Electron - Useful resources for creating apps with Electron</a></li>
+<li><a href="https://github.com/electron/electron-packager/issues/215">Package apps with native module dependencies on platforms other than the host platform (cross-compilation) -&gt; advice is to use multi-platform CI build processes to produce electron installers</a></li>
+<li><a href="https://github.com/maciejczyzewski/airtrash">📡 100 tiny steps to build cross-platform desktop application using Electron/Node.js/C++</a></li>
+<li><a href="https://www.electronjs.org/docs/tutorial/using-native-node-modules">Electron: Using Native Node Modules</a></li>
+<li><a href="https://stackoverflow.com/questions/150544/can-you-catch-a-native-exception-in-c-sharp-code">Can you catch a native exception in C# code?</a></li>
+<li><a href="https://www.electron.build/multi-platform-build">Electron: Multi Platform Build</a></li>
+<li><a href="http://blog.arrayofbytes.co.uk/?p=379">Electron with SQLite</a></li>
+<li><a href="https://opendistro.github.io/for-elasticsearch/">Open Distro for Elasticsearch</a></li>
+<li><a href="https://www.electronjs.org/docs/api/browser-view">Electron Documentation: Class: BrowserView</a></li>
+<li><a href="https://www.electronjs.org/docs/api/browser-window">Electron Documentation: BrowserWindow</a></li>
+<li><a href="https://www.electronjs.org/docs/tutorial/web-embeds">Electron Documentation: Web embeds in Electron</a></li>
+<li><a href="https://ourcodeworld.com/articles/read/925/how-to-implement-browser-like-tabs-in-electron-framework">How to implement browser like tabs in Electron Framework</a>
+Note that this article uses <code>&lt;webview&gt;</code> which is advised against by Electron. Check the Min and Wex web browsers listed in the ‘Awesome Electron’ list to see if they use some other means, e.g. BrowserView. <a href="https://github.com/getferdi/ferdi">Ferdi</a> and <a href="https://github.com/ramboxapp/community-edition">RamBox</a> are also candidates for inspection as these apps link to a plethora of external services. <strong>Do check out these issues of theirs</strong>:
+<ul>
+<li><a href="https://github.com/ramboxapp/community-edition/issues/2521">Unable to login to google account with 2-step verification</a></li>
+<li><a href="https://github.com/ramboxapp/community-edition/issues/2495">Google says: “You are trying to sign in from a browser or app that doesn’t allow us to keep your account secure.”</a></li>
+<li><a href="https://github.com/ramboxapp/community-edition/issues/2375">I have problems when i try to login in Microsoft teams and Microsoft outlook since around 1 week</a></li>
+<li><a href="https://github.com/ramboxapp/community-edition/issues/1765">Please fix your security posture.</a></li>
+<li><a href="https://github.com/meetfranz/franz/issues/15">Memory comsumption and process opened</a></li>
+</ul>
+</li>
+<li><a href="https://www.chromium.org/developers/design-documents/oop-iframes">Chromium: Out-of-Process iframes (OOPIFs)</a></li>
+<li><a href="https://www.chromium.org/developers/design-documents/site-isolation">Chromium: Site Isolation Design Document</a></li>
+<li><a href="https://www.chromium.org/developers/design-documents/oop-iframes/oop-iframes-rendering">Chromium: Rendering and compositing out of process iframes</a></li>
+<li><a href="https://bitbucket.org/chromiumembedded/cef/issues/1748/support">CEF: <code>&lt;webview&gt;</code> support</a></li>
+</ul>
+<h3>Backing up to the main problem: how to get a Qiqqa Sniffer done in a cross-platform UI (not WPF)</h3>
+<p>The Qiqqa Sniffer is a UI part which is useful in a large part by having both a ‘Google’-like public internet facing search engine <em>and</em> a PDF + metadata viewer visible and accessible for select/copy/paste and various editing activities: this requires at least <em>some way of communication</em> between the PDF viewer, metadata editor, additional controls and the multi-tabbed generic search engine, while security concerns &amp; <a href="https://github.com/jimmejardine/qiqqa-open-source/blob/master/docs-src/FAQ/Qiqqa%20Sniffer%2C%20BibTeX%20grazing%20and%20Google%20Scholar%20RECAPTCHA%20and%20Access%20Denied%20site%20blocking%20errors.md">Google Scholar quirks</a> will make this <em>probably hard</em> when we do it in plain Electron or Chromely.</p>
+<p>How about having a very basic <em>native</em> UI (which must then be ported to the various platforms 😰) which embeds multiple BrowserViews? (Rough thought right now going like this: take Chromely, augment to have native UI for window with 2 or 3 panels, each carrying its own independent BrowserWindow, sandboxed if need be. That would make the dialogs/windows <em>containers</em> <em>native</em>, while all content and controls nitty-gritty would then be done in a CEF control, i.e. HTML/CSS/JS)</p>
+<h2>Analysis Notes</h2>
+<p>So, after all this looking around and researching I did, there’s at least one solid conclusion:</p>
+<p><code>&lt;iframe&gt;</code>s are <em>out</em>.</p>
+<p>Now we either stick with WPF for the Sniffer – which would mean at least one important part of our functionality depends on WPF and is thus non-portable, where the question then becomes: how much stuff do we park / keep in WPF and how much stuff do we dump elsewhere, as in: using HTML/CSS/JS technology for the UI bits – <em>or</em> we ditch WPF and then either make <code>&lt;webview&gt;</code> work for us <em>or</em> use a few OS-native panels in which we run two CEF instances to accomplish what we need <em>or</em> we go a UI/UX where the sniffer moves into a native browser via a <em>browser extension/plugin</em> which then communicates with the Qiqqa app via websocket or some such, while the native browser does the work we need to provide Sniffer functionality: BibTeX/metadata extraction, PDF download redirection/fetching and (<strong>do not forget this way of user interaction in the current Sniffer!</strong>) copy/paste from browser pane into BibTeX editor plus copy/paste from OCR-ed PDF view into browser search/url box – which constitutes both <em>manual</em> metadata editing and metadata <em>validation</em>, the latter being done by <em>eyeballing the browser page while eyeing the BibTeX panel at the same time</em>. (Having this done as a Chrome extension might be tecnically easier but would require moving/resizing different application screens or Alt-TABbing like mad: there’s good reasons to have the panes in the Qiqqa Sniffer together as they are!)</p>
+<p>CEF webview:</p>
+<ul>
+<li><a href="https://bitbucket.org/chromiumembedded/cef/issues/1748/support">https://bitbucket.org/chromiumembedded/cef/issues/1748/support</a></li>
+</ul>
+
+
+    <footer>
+      © 2020 Qiqqa Contributors ::
+      <a href="https://github.com/GerHobbelt/qiqqa-open-source/blob/docs-src/Progress in Development/Considering the Way Forward/Qiqqa Sniffer - or how to access Google Scholar et al.md">Edit this page on GitHub</a>
+    </footer>
+  </body>
+</html>

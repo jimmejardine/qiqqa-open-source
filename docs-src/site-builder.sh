@@ -21,19 +21,14 @@ b )
 
   rm -rf docs/
   mkdir docs
-  echo "Website construction temporarily disabled as we change tooling for this..."
+  #echo "Website construction temporarily disabled as we change tooling for this..."
   #DEBUG="*,-not_this" npx @gerhobbelt/eleventy --config=docs-src/.eleventy.js
   #prettier --write docs/
 
   #node docs-src/site-builder.js
-
-  echo done.
-  ;;
-
-d )
-  echo "--- start VuePress dev server ---"
-
-  npx @gerhobbelt/eleventy --config=docs-src/.eleventy.js
+  
+  #node node_modules/deGaulle/dist/cli.js build docs-src/ --output ./docs/
+  node ../deGaulle/dist/cli.js build docs-src/ --output ./docs/ --config docs-src/site-builder.js
 
   echo done.
   ;;
@@ -62,7 +57,6 @@ $0 [-b] [-d] [-s] [-c]
 build & run vuepress-based documentation website QiQQa.ORG.
 
 -b       : (re)build website from sources
--d       : run the vuepress dev server
 -s       : run the live_server local dev webserver
 -c       : clean the website output/dist directory
 
