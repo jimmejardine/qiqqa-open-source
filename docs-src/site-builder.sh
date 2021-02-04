@@ -28,7 +28,7 @@ b )
   #node docs-src/site-builder.js
   
   #node node_modules/deGaulle/dist/cli.js build docs-src/ --output ./docs/
-  node ../deGaulle/dist/cli.js build docs-src/ --output ./docs/ --config docs-src/site-builder.js
+  node ../deGaulle/dist/cli.js build docs-src/ --output ./docs/ --config docs-src/site-builder.mjs
 
   echo done.
   ;;

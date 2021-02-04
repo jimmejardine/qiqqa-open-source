@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <h1>Fingerprinting, Linking and Libraries</h1>
+<p>Store fingerprints in binary byte mode instead of string, at least for the new SHA256 hashes. That saves space and makes comparisons, etc just a bit faster too. Store as hex text in database, etc. as humans will want to access those machine parts independently from Qiqqa.</p>
+<p>Allow documents to link to others: “duplicates” are an obvious reason. But there’s more:</p>
+<p>As we want to decrypt / <em>unlock</em> PDFs using qpdf and make then carry text layers, when they don’t already (OCR! Also <em>forced OCR</em> for those PDFs that produce invalid text / mangled text on extract: some PDFs are protected against text extraction that way.)</p>
+<p>So we recognize the following types of <abbr title="[object Object]">links</abbr>:</p>
+<ul>
+<li>the document itself: “raw” / original</li>
+<li>Aliases
+<ul>
+<li>decrypted / unlocked (qpdf output of the same PDF)</li>
+<li>textified (OCR applied and stored as text layer)</li>
+<li>post-processed:
+<ul>
+<li>cover pages removed / cleaned up</li>
+<li>page scans / images cleaned up / righted (for skewed and slightly rotated and other rougher scans)</li>
+<li>augmented / edited / fixed-unbroken (where missing pages have been added or other errors in the original PDF have been fixed. Also addresses those PDFs which have gone through <em>repair</em> processes.)</li>
+<li>edited / reviewed (while a manuscript may go through several iterations, each one reviewed, etc., this would then be SET/ARRAY of <abbr title="[object Object]">links</abbr>, but I suggest we can get away with linking them one by one, so as a <em>linked list</em>. If a PDF is then removed, the linked list should be maintained by linking the previous with the next. Incidentally, <em>this</em> is where it clearly became apparent that <em>linking back to the original</em> is a smart idea - either that or you’ld have to use a double-linked list, otherwise you’ld need a O(N) costly scan of your library to find the original in order to patch the linked list on document delete! Referring back to the original is a smart thing anyway, because you may not land on the original at first, but find an alias/copy of it and then may want to visit the original…)</li>
+</ul>
+</li>
+<li>vetted (the final edition, flagged as such by the Qiqqa user: the cleaned up, to-be-used-from-here-on-out edition of the original PDF)</li>
+</ul>
+</li>
+<li>Similes
+<ul>
+<li>near-duplicates: same content, different print / venue / publisher? (this would be a variable number of <abbr title="[object Object]">links</abbr>: MANY)</li>
+<li>reprint (when the same book or paper is reprinted later with minor or no changes. Sounds like another type of <em>edition</em> to me, though - see the next item)</li>
+<li>edition (not exactly a duplicate, but it’s handy to have a quick way to point at a retraction, updated paper with partial new info, new edition of a book, etc.) (also a list of <abbr title="[object Object]">links</abbr>: there’s books out there with multiple editions and check arXiv to quickly find there’s plenty papers that come in v1, v2, v3, … versions. )</li>
+<li>annotated (well, if you wanted to store your or others’ annotations in the PDF itself. This would of course be another SET of <abbr title="[object Object]">links</abbr>. Not much difference with <em>editions</em>, <em>revisions</em> or <em>edited</em> versions: all of them are <em>almost identical</em> in that the differences in the content will be <em>minimal</em>. Of course, this calls for a <em>comparison tool</em>: how about applying the nice .NET test system ApprovedNET and use or rip that one for the tek to fire up Beyond Compare or whatever external comparison tool we might favor? Good thought.)</li>
+</ul>
+</li>
+</ul>
+<h1>Sync?</h1>
+<p>How should we go about <strong>syncing</strong> libraries? Qiqqa does that already, but what are our thoughts on what <em>should</em> happen vs what is actually done today?</p>
+<p>Should we allow the guest library to be <em>shareable</em> at all? Currently, when you do, and <em>join</em> it from another computer your Guest lib there gets hooked up, even if you rename the bugger, and you <em>might</em> not want that to happen.</p>
+<p>Should we have a Guest lib at all? How about we all start with a unique lib? Ah! That would cause trouble:</p>
+<ol>
+<li>Qiqqa would then need to scan the base dir (it does that <em>anyway</em>) and the first lib it finds which includes a known_web_libraries file will drive the naming of the others: if you did a repair-and-care or made a mess of your base dir some other way (e.g. you’re <em>me</em> and you have several copies of older <em>crashed</em> commercial Qiqqa Guest libs – renamed! – in there), then you will be unsure which lib+known_web_libraries combo will drive your named list of libraries <em>today</em> and <strong>that is a problem</strong>. Hence having a fixed Guest lib on every machine is a boon that way. Might want to tolerate having it renamed though…</li>
+<li>While this “unique names from the start” idea sounds great on paper, the <em>second problem</em> is for folks using multiple computers: today, they can easily join up their guest libraries hassle-free, as the names will match. If they wish to join/sync their machines with this no-Guest idea, they’ll have to either <em>delete</em> their initial Guest lib on every node (except the first one) as the sync/join will not link that lib, but hook them up to a <em>second</em> lib, so all machines except the first one will show two(2) libraries after join/sync – until they have deleted the local (empty) guest lib.</li>
+</ol>
+<p>Now thoughtful minds might argue that this is <strong>not a problem, but a benefit instead</strong>, as it’ll ensure you and anyone else will never inadvertedly join/sync your guest libs ever again. Hmmmm.
+3. How is Qiqqa to know that it has created its first demo library with those two documents?</p>
+<p>Or do we just mark a library as ‘initial/starter’? Or do we provide the user with an up-front choice, whether they want to create a demo/guest lib or not? (Answer: they wouldn’t want one created on their second/third/etc. machines if they plan to sync the boxes next.) How do we register in Qiqqa that the guest lib has been created? (Answer: simple marker file in the base directory root? That’s enough to flag this thing has happened somewhere in the past. So… we should provide the user with the option to create a demo library? No/Yes, that’s very close to offering to create an empty <em>unsynced</em> library anyway: just add the tick box “add demo content” or not and we’re golden.)
+4. How would Qiqqa with a roll-back? Answer: well, an older Qiqqa would not recognize this for it is and create a Guest library anyway. Ah well, we can always go and delete that one when we roll forward again. Still <em>binary compatible</em> that way. With a little side note for the situation when you roll back.</p>
+
+  </head>
+  <body>
+
+    <h1>Fingerprinting, Linking and Libraries</h1>
+<p>Store fingerprints in binary byte mode instead of string, at least for the new SHA256 hashes. That saves space and makes comparisons, etc just a bit faster too. Store as hex text in database, etc. as humans will want to access those machine parts independently from Qiqqa.</p>
+<p>Allow documents to link to others: “duplicates” are an obvious reason. But there’s more:</p>
+<p>As we want to decrypt / <em>unlock</em> PDFs using qpdf and make then carry text layers, when they don’t already (OCR! Also <em>forced OCR</em> for those PDFs that produce invalid text / mangled text on extract: some PDFs are protected against text extraction that way.)</p>
+<p>So we recognize the following types of <abbr title="[object Object]">links</abbr>:</p>
+<ul>
+<li>the document itself: “raw” / original</li>
+<li>Aliases
+<ul>
+<li>decrypted / unlocked (qpdf output of the same PDF)</li>
+<li>textified (OCR applied and stored as text layer)</li>
+<li>post-processed:
+<ul>
+<li>cover pages removed / cleaned up</li>
+<li>page scans / images cleaned up / righted (for skewed and slightly rotated and other rougher scans)</li>
+<li>augmented / edited / fixed-unbroken (where missing pages have been added or other errors in the original PDF have been fixed. Also addresses those PDFs which have gone through <em>repair</em> processes.)</li>
+<li>edited / reviewed (while a manuscript may go through several iterations, each one reviewed, etc., this would then be SET/ARRAY of <abbr title="[object Object]">links</abbr>, but I suggest we can get away with linking them one by one, so as a <em>linked list</em>. If a PDF is then removed, the linked list should be maintained by linking the previous with the next. Incidentally, <em>this</em> is where it clearly became apparent that <em>linking back to the original</em> is a smart idea - either that or you’ld have to use a double-linked list, otherwise you’ld need a O(N) costly scan of your library to find the original in order to patch the linked list on document delete! Referring back to the original is a smart thing anyway, because you may not land on the original at first, but find an alias/copy of it and then may want to visit the original…)</li>
+</ul>
+</li>
+<li>vetted (the final edition, flagged as such by the Qiqqa user: the cleaned up, to-be-used-from-here-on-out edition of the original PDF)</li>
+</ul>
+</li>
+<li>Similes
+<ul>
+<li>near-duplicates: same content, different print / venue / publisher? (this would be a variable number of <abbr title="[object Object]">links</abbr>: MANY)</li>
+<li>reprint (when the same book or paper is reprinted later with minor or no changes. Sounds like another type of <em>edition</em> to me, though - see the next item)</li>
+<li>edition (not exactly a duplicate, but it’s handy to have a quick way to point at a retraction, updated paper with partial new info, new edition of a book, etc.) (also a list of <abbr title="[object Object]">links</abbr>: there’s books out there with multiple editions and check arXiv to quickly find there’s plenty papers that come in v1, v2, v3, … versions. )</li>
+<li>annotated (well, if you wanted to store your or others’ annotations in the PDF itself. This would of course be another SET of <abbr title="[object Object]">links</abbr>. Not much difference with <em>editions</em>, <em>revisions</em> or <em>edited</em> versions: all of them are <em>almost identical</em> in that the differences in the content will be <em>minimal</em>. Of course, this calls for a <em>comparison tool</em>: how about applying the nice .NET test system ApprovedNET and use or rip that one for the tek to fire up Beyond Compare or whatever external comparison tool we might favor? Good thought.)</li>
+</ul>
+</li>
+</ul>
+<h1>Sync?</h1>
+<p>How should we go about <strong>syncing</strong> libraries? Qiqqa does that already, but what are our thoughts on what <em>should</em> happen vs what is actually done today?</p>
+<p>Should we allow the guest library to be <em>shareable</em> at all? Currently, when you do, and <em>join</em> it from another computer your Guest lib there gets hooked up, even if you rename the bugger, and you <em>might</em> not want that to happen.</p>
+<p>Should we have a Guest lib at all? How about we all start with a unique lib? Ah! That would cause trouble:</p>
+<ol>
+<li>Qiqqa would then need to scan the base dir (it does that <em>anyway</em>) and the first lib it finds which includes a known_web_libraries file will drive the naming of the others: if you did a repair-and-care or made a mess of your base dir some other way (e.g. you’re <em>me</em> and you have several copies of older <em>crashed</em> commercial Qiqqa Guest libs – renamed! – in there), then you will be unsure which lib+known_web_libraries combo will drive your named list of libraries <em>today</em> and <strong>that is a problem</strong>. Hence having a fixed Guest lib on every machine is a boon that way. Might want to tolerate having it renamed though…</li>
+<li>While this “unique names from the start” idea sounds great on paper, the <em>second problem</em> is for folks using multiple computers: today, they can easily join up their guest libraries hassle-free, as the names will match. If they wish to join/sync their machines with this no-Guest idea, they’ll have to either <em>delete</em> their initial Guest lib on every node (except the first one) as the sync/join will not link that lib, but hook them up to a <em>second</em> lib, so all machines except the first one will show two(2) libraries after join/sync – until they have deleted the local (empty) guest lib.</li>
+</ol>
+<p>Now thoughtful minds might argue that this is <strong>not a problem, but a benefit instead</strong>, as it’ll ensure you and anyone else will never inadvertedly join/sync your guest libs ever again. Hmmmm.
+3. How is Qiqqa to know that it has created its first demo library with those two documents?</p>
+<p>Or do we just mark a library as ‘initial/starter’? Or do we provide the user with an up-front choice, whether they want to create a demo/guest lib or not? (Answer: they wouldn’t want one created on their second/third/etc. machines if they plan to sync the boxes next.) How do we register in Qiqqa that the guest lib has been created? (Answer: simple marker file in the base directory root? That’s enough to flag this thing has happened somewhere in the past. So… we should provide the user with the option to create a demo library? No/Yes, that’s very close to offering to create an empty <em>unsynced</em> library anyway: just add the tick box “add demo content” or not and we’re golden.)
+4. How would Qiqqa with a roll-back? Answer: well, an older Qiqqa would not recognize this for it is and create a Guest library anyway. Ah well, we can always go and delete that one when we roll forward again. Still <em>binary compatible</em> that way. With a little side note for the situation when you roll back.</p>
+
+
+    <footer>
+      © 2020 Qiqqa Contributors ::
+      <a href="https://github.com/GerHobbelt/qiqqa-open-source/blob/docs-src/Progress in Development/Fingerprinting, Linking and Libraries.md">Edit this page on GitHub</a>
+    </footer>
+  </body>
+</html>
