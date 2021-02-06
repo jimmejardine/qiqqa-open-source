@@ -231,21 +231,25 @@ namespace Qiqqa.StartPage
 
         private void ButtonNewBrainstorm_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenNewBrainstorm();
         }
 
         private void ButtonNewBrowser_Click(object sender, RoutedEventArgs e)
         {
+            ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenWebBrowser();
         }
 
         private void ButtonNewConfig_Click(object sender, RoutedEventArgs e)
         {
+            ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenControlPanel();
         }
 
         private void ButtonViewBackgroundActivities_Click(object sender, RoutedEventArgs e)
         {
+            ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenActivityMonitor();
         }
 
@@ -257,11 +261,13 @@ namespace Qiqqa.StartPage
 
         private void ButtonInCite_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenInCite();
         }
 
         private void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_StartPage);
             MainWindowServiceDispatcher.Instance.OpenExpedition(null, null);
         }
