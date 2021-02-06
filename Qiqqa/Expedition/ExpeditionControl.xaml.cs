@@ -92,8 +92,6 @@ namespace Qiqqa.Expedition
 
             if (null != eds)
             {
-                LDAAnalysis lda_analysis = eds.LDAAnalysis;
-
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < eds.LDAAnalysis.NUM_TOPICS; ++i)
                 {

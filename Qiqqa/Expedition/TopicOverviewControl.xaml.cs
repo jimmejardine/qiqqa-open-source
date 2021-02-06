@@ -11,6 +11,7 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities.GUI;
 using Utilities.Mathematics.Topics.LDAStuff;
+using Utilities.Misc;
 
 namespace Qiqqa.Expedition
 {
@@ -71,13 +72,22 @@ namespace Qiqqa.Expedition
 
                 // Then the docs
                 {
-                    int NUM_DOCS = detailed_mode ? 50 : 10;
+                    int NUM_DOCS = Math.Min(detailed_mode ? 50 : 10, lda_analysis.NUM_DOCS);
+
+                    ASSERT.Test(tod.topic >= 0);
+                    ASSERT.Test(tod.topic < lda_analysis.NUM_TOPICS);
 
                     for (int d = 0; d < NUM_DOCS && d < eds.docs.Count; ++d)
                     {
-                        PDFDocument pdf_document = tod.web_library_detail.Xlibrary.GetDocumentByFingerprint(eds.docs[lda_analysis.DensityOfDocsInTopicsSorted[tod.topic][d].doc]);
+                        DocProbability[] docs = lda_analysis.DensityOfDocsInTopicsSorted[tod.topic];
+                        ASSERT.Test(docs != null);
+                        ASSERT.Test(docs.Length == lda_analysis.NUM_DOCS);
+                        DocProbability lda_elem = docs[d];
+                        ASSERT.Test(lda_elem != null);
 
-                        string doc_percentage = String.Format("{0:N0}%", 100 * lda_analysis.DensityOfDocsInTopicsSorted[tod.topic][d].prob);
+                        PDFDocument pdf_document = tod.web_library_detail.Xlibrary.GetDocumentByFingerprint(eds.docs[lda_elem.doc]);
+
+                        string doc_percentage = String.Format("{0:N0}%", 100 * lda_elem.prob);
 
                         bool alternator = false;
                         TextBlock text_doc = ListFormattingTools.GetDocumentTextBlock(pdf_document, ref alternator, Features.Expedition_TopicDocument, TopicDocumentPressed_MouseButtonEventHandler, doc_percentage + " - ");

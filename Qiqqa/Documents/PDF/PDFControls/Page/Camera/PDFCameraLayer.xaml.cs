@@ -9,6 +9,7 @@ using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
+using Utilities.Images;
 using Utilities.Misc;
 using Utilities.OCR;
 
@@ -70,7 +71,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                 SafeThreadPool.QueueUserWorkItem(o =>
                 {
                     // GetSnappedImage() invokes the background renderer, hence run it in a background thread itself:
-                    CroppedBitmap image = GetSnappedImage(page_info, mouse_up_point, mouse_down_point);
+                    BitmapSource image = GetSnappedImage(page_info, mouse_up_point, mouse_down_point);
                     List<Word> words = GetSnappedWords(page_info, mouse_up_point, mouse_down_point);
                     string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
                     string tabled_text = SelectedWordsToFormattedTextConvertor.ConvertToTable(words);
@@ -99,6 +100,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         private static List<Word> GetSnappedWords(DocPageInfo page_info, Point mouse_up_point, Point mouse_down_point)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             double left = Math.Min(mouse_up_point.X, mouse_down_point.X) / page_info.ActualWidth;
             double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / page_info.ActualHeight;
             double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / page_info.ActualWidth;
@@ -121,9 +124,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             return words_in_selection;
         }
 
-        private static CroppedBitmap GetSnappedImage(DocPageInfo page_info, Point mouse_up_point, Point mouse_down_point)
+        private static BitmapSource GetSnappedImage(DocPageInfo page_info, Point mouse_up_point, Point mouse_down_point)
         {
-            CroppedBitmap cropped_image_page = null;
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            BitmapSource cropped_image_page = null;
 
             using (MemoryStream ms = new MemoryStream(page_info.pdf_document.PDFRenderer.GetPageByDPIAsImage(page_info.page, 150)))
             {
@@ -143,7 +148,28 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
                     if (0 < width && 0 < height)
                     {
-                        cropped_image_page = new CroppedBitmap(image_page, new Int32Rect((int)left, (int)top, (int)width, (int)height));
+                        var cropped = new CroppedBitmap(image_page, new Int32Rect((int)left, (int)top, (int)width, (int)height));
+
+                        // UPDATE HERE: CroppedBitmap to BitmapImage
+                        // cropped_image_page = GetJpgImage(cropped.Source);
+                        // or
+                        //cropped_image_page = GetPngImage(cropped.Source);
+
+                        using (MemoryStream mStream = new MemoryStream())
+                        {
+                            PngBitmapEncoder jEncoder = new PngBitmapEncoder();
+
+                            jEncoder.Frames.Add(BitmapFrame.Create(cropped));  // the croppedBitmap is a CroppedBitmap object
+
+                            // jEncoder.QualityLevel = 75;
+                            jEncoder.Save(mStream);
+
+                            cropped_image_page = BitmapImageTools.LoadFromStream(mStream);
+
+                            // I can also get array of bytes that represent the cropped image by call this method : mStream.GetBuffer()
+
+                            //cropped_image_page = BitmapImageTools.CropImageRegion(image_page, left, top, width, height);
+                        }
                     }
                 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Mathematics.Topics.LDAStuff;
+using Utilities.Misc;
 
 namespace Qiqqa.Expedition
 {
@@ -41,9 +42,15 @@ namespace Qiqqa.Expedition
                             int topic = topics[t].topic;
                             double topic_prob = topics[t].prob;
 
+                            ASSERT.Test(topic >= 0);
+                            ASSERT.Test(topic < lda_analysis.NUM_TOPICS);
+
                             // Look at the first 50 docs in each topic (if there are that many)
                             DocProbability[] docs = lda_analysis.DensityOfDocsInTopicsSorted[topic];
-                            for (int d = 0; d < docs.Length && d < 50; ++d)
+                            ASSERT.Test(docs != null);
+                            ASSERT.Test(docs.Length == lda_analysis.NUM_DOCS);
+
+                            for (int d = 0; d < Math.Min(docs.Length, 50); ++d)
                             {
                                 int doc = docs[d].doc;
                                 double doc_prob = docs[d].prob;

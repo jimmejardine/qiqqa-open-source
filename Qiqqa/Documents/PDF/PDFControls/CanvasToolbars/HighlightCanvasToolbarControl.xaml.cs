@@ -78,7 +78,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
         private WeakReference<PDFRendererControl> pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
-            get {
+            get
+            {
                 if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
                 {
                     return control;

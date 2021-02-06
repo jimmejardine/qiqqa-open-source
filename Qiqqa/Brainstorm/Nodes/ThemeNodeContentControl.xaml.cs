@@ -105,17 +105,21 @@ namespace Qiqqa.Brainstorm.Nodes
 
             // Create an array for the document biases
             // Fill the array using the dot product of the document distribution dotted with the topic distribution - then normalise
-            double[] biases = new double[eds.LDAAnalysis.NUM_DOCS];
-            for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
+            LDAAnalysis lda = eds.LDAAnalysis;
+
+            float[,] density_of_topics_in_docs = lda.DensityOfTopicsInDocuments;
+
+            double[] biases = new double[lda.NUM_DOCS];
+            for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
             {
                 double bias_num_squared = 0;
                 double bias_den_doc = 0;
                 double bias_den_tags = 0;
 
-                for (int topic = 0; topic < eds.LDAAnalysis.NUM_TOPICS; ++topic)
+                for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
                 {
-                    bias_num_squared += eds.LDAAnalysis.DensityOfTopicsInDocuments[doc, topic] * tags_distribution[topic];
-                    bias_den_doc += eds.LDAAnalysis.DensityOfTopicsInDocuments[doc, topic] * eds.LDAAnalysis.DensityOfTopicsInDocuments[doc, topic];
+                    bias_num_squared += density_of_topics_in_docs[doc, topic] * tags_distribution[topic];
+                    bias_den_doc += density_of_topics_in_docs[doc, topic] * density_of_topics_in_docs[doc, topic];
                     bias_den_tags += tags_distribution[topic] * tags_distribution[topic];
                 }
 
@@ -123,8 +127,8 @@ namespace Qiqqa.Brainstorm.Nodes
             }
 
             // Then build up a matrix FROM each document -
-            List<int>[] references_outbound = new List<int>[eds.LDAAnalysis.NUM_DOCS];
-            for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
+            List<int>[] references_outbound = new List<int>[lda.NUM_DOCS];
+            for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
             {
                 references_outbound[doc] = new List<int>();
 
@@ -150,11 +154,11 @@ namespace Qiqqa.Brainstorm.Nodes
             }
 
             // Space for the pageranks
-            double[] pageranks_current = new double[eds.LDAAnalysis.NUM_DOCS];
-            double[] pageranks_next = new double[eds.LDAAnalysis.NUM_DOCS];
+            double[] pageranks_current = new double[lda.NUM_DOCS];
+            double[] pageranks_next = new double[lda.NUM_DOCS];
 
             // Initialise
-            for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
+            for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
             {
                 pageranks_current[doc] = biases[doc];
             }
@@ -166,7 +170,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 Logging.Info("Performing ThemedPageRank iteration {0}", iteration);
 
                 // Spread out the activation pageranks
-                for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
+                for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
                 {
                     foreach (int doc_inbound in references_outbound[doc])
                     {
@@ -176,20 +180,20 @@ namespace Qiqqa.Brainstorm.Nodes
 
                 // Mix the spread out pageranks with the initial bias pageranks
                 double ALPHA = 0.5;
-                for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
+                for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
                 {
                     pageranks_next[doc] = (1 - ALPHA) * pageranks_next[doc] + ALPHA * biases[doc];
                 }
 
                 // Normalise the next pageranks
                 double total = 0;
-                for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
+                for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
                 {
                     total += pageranks_next[doc];
                 }
                 if (0 < total)
                 {
-                    for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
+                    for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
                     {
                         pageranks_next[doc] /= total;
                     }
@@ -202,8 +206,8 @@ namespace Qiqqa.Brainstorm.Nodes
             }
 
             // Sort the pageranks, descending
-            int[] docs = new int[eds.LDAAnalysis.NUM_DOCS];
-            for (int doc = 0; doc < eds.LDAAnalysis.NUM_DOCS; ++doc)
+            int[] docs = new int[lda.NUM_DOCS];
+            for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
             {
                 docs[doc] = doc;
             }
@@ -300,7 +304,9 @@ namespace Qiqqa.Brainstorm.Nodes
                 ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
                 if (null != eds)
                 {
-                    float[] tags_distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
+                    LDAAnalysis lda = eds.LDAAnalysis;
+
+                    float[] tags_distribution = new float[lda.NUM_TOPICS];
                     int tags_distribution_denom = 0;
                     foreach (string tag in tags_array)
                     {
@@ -309,9 +315,9 @@ namespace Qiqqa.Brainstorm.Nodes
                             ++tags_distribution_denom;
 
                             int tag_id = eds.words_index[tag];
-                            for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                            for (int topic_i = 0; topic_i < lda.NUM_TOPICS; ++topic_i)
                             {
-                                tags_distribution[topic_i] += eds.LDAAnalysis.PseudoDensityOfTopicsInWords[tag_id, topic_i];
+                                tags_distribution[topic_i] += lda.PseudoDensityOfTopicsInWords[tag_id, topic_i];
                             }
                         }
                         else
@@ -323,7 +329,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     if (0 < tags_distribution_denom)
                     {
                         // Normalise the tags distribution
-                        for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                        for (int topic_i = 0; topic_i < lda.NUM_TOPICS; ++topic_i)
                         {
                             tags_distribution[topic_i] /= tags_distribution_denom;
                         }

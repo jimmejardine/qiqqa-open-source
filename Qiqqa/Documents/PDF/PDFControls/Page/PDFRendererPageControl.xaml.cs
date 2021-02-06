@@ -52,7 +52,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     ImagePage_HIDDEN_ = new Image();
                     ImagePage_HIDDEN.Stretch = Stretch.None;
 
-                    // THIS MUST BE IN PLACE OS THAT WE HAVE PIXEL PERFECT RENDERING
+                    // THIS MUST BE IN PLACE SO THAT WE HAVE PIXEL PERFECT RENDERING
                     ImagePage_HIDDEN.SnapsToDevicePixels = true;
                     RenderOptions.SetBitmapScalingMode(ImagePage_HIDDEN, BitmapScalingMode.NearestNeighbor);
                     RenderOptions.SetEdgeMode(ImagePage_HIDDEN, EdgeMode.Aliased);
@@ -705,7 +705,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                             int desired_rescaled_image_width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
                             if (null != CurrentlyShowingImage && (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width))
                             {
-                                ImagePage_HIDDEN.Stretch = Stretch.None;
+                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;  // TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
+                                //ImagePage_HIDDEN.Stretch = Stretch.None;
                             }
                             else
                             {

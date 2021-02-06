@@ -119,10 +119,12 @@ namespace Qiqqa.Brainstorm.Nodes
                     if (eds.docs_index.ContainsKey(doc.Fingerprint))
                     {
                         int doc_id = eds.docs_index[doc.Fingerprint];
-                        float[,] density_of_topics_in_docs = eds.LDAAnalysis.DensityOfTopicsInDocuments;
+                        LDAAnalysis lda = eds.LDAAnalysis;
 
-                        float[] distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
-                        for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                        float[,] density_of_topics_in_docs = lda.DensityOfTopicsInDocuments;
+
+                        float[] distribution = new float[lda.NUM_TOPICS];
+                        for (int topic_i = 0; topic_i < lda.NUM_TOPICS; ++topic_i)
                         {
                             distribution[topic_i] = density_of_topics_in_docs[doc_id, topic_i];
                         }
@@ -160,7 +162,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
                             WPFDoEvents.InvokeInUIThread(() =>
                             {
-                                for (int t = 0; t < topics.Length && t < 5; ++t)
+                                for (int t = 0; t < Math.Min(topics.Length, 5); ++t)
                                 {
                                     string topic_name = eds.GetDescriptionForTopic(topics[t].topic, include_topic_number: false, "\n");
                                     ThemeNodeContent tnc = new ThemeNodeContent(topic_name, doc.LibraryRef.Id);

@@ -10,6 +10,7 @@ using Qiqqa.Common.GUI;
 using Utilities;
 using Utilities.Misc;
 using Utilities.GUI;
+using System.Windows.Media;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 {
@@ -18,7 +19,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
     /// </summary>
     public partial class CameraActionChooserDialog : StandardWindow
     {
-        private CroppedBitmap image;
+        private BitmapSource image;
         private string raw_text;
         private string tabled_text;
 
@@ -65,19 +66,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                 Clipboard.SetImage(image);
                 StatusManager.Instance.UpdateStatus("RegionSnapshot", "An image snapshot of the PDF region has been copied to the clipboard.");
             }
-
             else if (CmdRawText == sender)
             {
                 ClipboardTools.SetText(raw_text);
                 StatusManager.Instance.UpdateStatus("RegionSnapshot", "A text snapshot of the PDF region has been copied to the clipboard.");
             }
-
             else if (CmdTabulatedText == sender)
             {
                 ClipboardTools.SetText(tabled_text);
                 StatusManager.Instance.UpdateStatus("RegionSnapshot", "A tabulated snapshot of the PDF region has been copied to the clipboard.");
             }
-
             else if (CmdTabulatedCharts == sender)
             {
                 string data = Uri.EscapeDataString(tabled_text);
@@ -88,13 +86,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             Close();
         }
 
-        internal void SetLovelyDetails(CroppedBitmap image, string raw_text, string tabled_text)
+        internal void SetLovelyDetails(BitmapSource image, string raw_text, string tabled_text)
         {
             this.image = image;
             this.raw_text = raw_text;
             this.tabled_text = tabled_text;
 
             ObjImage.Source = image;
+            ObjImage.Stretch = Stretch.Uniform;  // the PDF render scales correctly on screen, finally
+
             ObjRawText.Text = raw_text;
             ObjTabulatedText.Text = tabled_text;
         }
