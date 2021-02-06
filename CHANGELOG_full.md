@@ -1,5 +1,4 @@
-
-# v83pre release: v83.0.7665-36168 (UNPUBLISHED)
+# v83pre release: v83.?????????????????????? (UNPUBLISHED)
 
 > ## Note
 >
@@ -11,6 +10,138 @@
 
 
 
+2021-02-06
+----------
+
+			
+* (43414aa4) bunch of work done on https://github.com/jimmejardine/qiqqa-open-source/issues/299 
+  and similar issues:
+  
+  - removed the cyclic reference in the PDFRendererControlStats setup.
+  - added WeakReference<PDFRendererControl> instances in any sub-controls which would otherwise have caused a cyclic reference
+  - null-reference checking via ASSERT.Test() so that we at least can debug the bastards when we hit them.
+  - Added null reference checks via if(...) constructs for several controls' usage.
+  - added null checks for several functions which would legally return `null`, e.g. on data file load ('de-serialize') errors.
+  
+    TODO: trigger those errors forcefully for testing.
+	
+  N.B.: This commit corrects the omissions from commit (a52e64d4) below.
+			
+* (3e0f2488) regenerated doc/site again with experimental deGaulle code.
+			
+* (a52e64d4) bunch of work done on https://github.com/jimmejardine/qiqqa-open-source/issues/299 
+  and similar issues:
+  
+  - removed the cyclic reference in the PDFRendererControlStats setup.
+  - added WeakReference<PDFRendererControl> instances in any sub-controls which would otherwise have caused a cyclic reference
+  - null-reference checking via ASSERT.Test() so that we at least can debug the bastards when we hit them.
+  - Added null reference checks via if(...) constructs for several controls' usage.
+  - added null checks for several functions which would legally return `null`, e.g. on data file load ('de-serialize') errors.    
+  
+    TODO: trigger those errors forcefully for testing.
+			
+
+
+
+2021-02-04
+----------
+
+			
+* (47216357) regenerated doc/site again with experimental deGaulle code.
+			
+* (481bd5ad) also added video files from docs-src/
+			
+* (dcbdf0ff) 
+  - some work done on the document generator (very much unfinished yet)
+  - regenerated the /docs/ directory tree.
+			
+* (485c30dd) (https://github.com/jimmejardine/qiqqa-open-source/issues/218) 
+  
+  archived the original getsatisfaction pages + assets, as obtained from bing+google. 7zip solid archive packing produces a *tiny* archive for all this content! :-))
+			
+* (1e3056c8) (https://github.com/jimmejardine/qiqqa-open-source/issues/218) 
+
+  more cleaning of the getsatisfaction pages 
+			
+
+
+
+2021-02-02
+----------
+
+			
+* (adce4c45) write down latest brainwave about PDF handling and the scripting around that one.
+			
+* (ca076972) give the technology tests shorter binary names.
+			
+
+
+
+2021-01-31
+----------
+
+			
+* (fbdab184) added another Technology Test application: this one to test behaviour of the Win32 System memory query APIs and our ability to monitor these values to help decide when we have a "run away" or "deterirating" application.
+  
+  README is included, describing higher goals and peculiar observations.
+			
+* (3d959e54) and a couple more notes on the fork-me technology test.
+			
+* (2c0ee480) Forgot to write down the *extra extra* lessons learned during the previous one/two days of reviving my Win32 API memory and 'foo'. Wrote it down in the fork-me README for posterity.
+			
+* (927091f7) added info from previous commit msg in README: the lessons learned and all that
+			
+* (a297e0f4) adding Technology Test sample/test app: checking forking cleans up memory leaks.cpp() on Windows. Turns out that's a no-go (been away too long from Win32 API work; had forgotten that bit :-( ), so sample code checks behaviour what to do for a self-monitoring Windows executable.
+  
+  Turns out debugging is a bastard as you're hard up against the wall to debug the *child* that's invoked via CreateProcess.
+  Besides, the initial sample code grabbed off the Microsoft site had the nasty "side effect" of causing infinite instantiations when patched that way, so the conclusion for the future is: better to have a separately named 'monitor' application, which keeps N child applications afloat.
+  
+  Example code is still a mess, as all things that were looked at, include Counting Semaphores to help keep track of the number of child instances, etc. is all still in there.
+  
+  Conclusions:
+  
+  - name monitor and child apps differently, so you can have the solution open in TWO MSVC instances and debug the monitor in one, while debugging the child in another.
+  - do NOT use Counting Semaphores (or any other 'obvious' stuff) for keeping track of the number of children alive: when they *terminate*, through Win32API ExitProcess, TerminateProcess or hard crash, ANYTHING that's not `exit(X)`, you're toast as the application WILL NOT invoke class destructors or any handlers you can hook into when that happens, resulting in the **inability to guarantee** that any semaphore signaling will be matched by appropriate release at end-of-child-life.
+  
+    Consequently, the only viable way to make sure you can count the children alive at point of decision to kick one more alive or not is to use a system which **completes entirely** at start of child app: the way this is done here is to use a Named Mutex (all we need is a critical section, no counting done at this level, so not a semaphore but a mutex instead), which protects a critical section in all parties involved, where the OS is queried for a processes snapshot (a la `ps -ax` if you're into UNIX) and then scan the executable names for a match. Once that scan is done, the critical section ends and the Mutex is released, so we CAN guarantee proper global mutex handling now (as long as our OS process scan code doesn't *crash* ;-) )
+  
+    Then, when the count of 'live children' is high enough, the creation of yet anotheer one is skipped.
+  - extra lesson: Named Mutexes and Named Semaphores on Win32/64 can have a 'Global\' prefix, if you read their API docs. DO NOT DO THAT. Turns out that the verbiage at the Microsoft site is not clear enough for *me*, at least, to grok that this prefix is ONLY legal when running Terminal Services, which is Windows Server stuff and I bet you're not running research UI applications on a Windows Server license, surely!  ;-P
+  
+    That bit took another couple of hours off my life. !@#$%^
+  
+  - extra lesson: DO read ('empty') your child's STDOUT pipe CONTINUOUSLY and RIGOROUSLY, when you've redirected its stdio to you, the parent/monitor. If you don't (and the original Microsoft sample code didn't because it didn't have to, as it didn't have any "debugging printf statements" in there! !@#$%^) to child process will BLOCK, waiting indefinitely for the parent to finally do some ReadFile(handle) work and empty the buffer.
+  
+    In the current example code, this has been resolved by kicking an extra *thread* alive in the *monitor* (`ThreadProc`) which' sole purpose is continuously waiting for stdout data from the child.
+  
+    I could have gone the whole hog and written asynchronous I/O code for that instead, but this was done faster, WORKS, and wasn't the main subject at time of writing.
+  
+  - extra lesson: call the `FlushFileBuffers()` API on your parent/child pipes (redirected stdin + stdout): that *also* wasn't in the original sample code from MS, but is absolutely mandatory if you don't want to wonder why the Heck your collected log looks brutally truncated on app exit.
+  
+    The MS sample code got away with it, because it matched write and read buffer for buffer, so that really is an edge case of using redirected stdio.
+  
+  - use OutputDebugStr to *really* printf-debug your code, because the child's printf() is, of course, *redirected*, and if you're debugging pipes it DOES NOT help when you're first trying to fill & choke the buggers only faster: you won't see nuttin', only a stuck bunch of applications. ;-)
+  
+    Use SysInternals OutputDebug monitor UI app (Debug64.exe) for this as MSVC *only* grabs OutputDebugStr output from the executable currently being debugged: that being only one half of the story underway, you will quickly understand that other means to read your debug output are mandatory here.
+			
+
+
+
+2021-01-30
+----------
+
+			
+* (4fcb3a78) add a couple of docs
+			
+
+
+
+2021-01-27
+----------
+
+			
+* (12fb8627) updated MuPDF submodule
+			
 
 
 
@@ -18,6 +149,12 @@
 
 
 
+
+# v83pre release: v83.0.7665-36168 (UNPUBLISHED)
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
 
 
 
@@ -25,7 +162,13 @@
 2021-01-26
 ----------
 
-
+			
+* (4e6b21bb) fixed CHANGELOG_full.md -- last edit hadn't cleaned up old records like it should've.
+			
+* (5435253b) Following up on the hint https://stackoverflow.com/questions/9602567/how-to-update-ui-from-another-thread-running-in-another-class#answer-9620011 : using DispatcherTimer to ensure the library overview + filters and library list panels get update periodically, when there's any change to the library content.
+  
+  This is just the start, as this will also serve well when we update PDF Document metadata / text / etc. in the background and want to signal the UI (or rather: have the active parts of the UI **discover** ) that there's change to be rendered/updated in the UI.
+			
 * (81460293..a40cbbca) Fixed code responsible for loading and saving Window positions & sizes. 
 
   Part of the work done while migrating the multi-monitor screen/dpi scaling to the external library WPFScreenHelper.
