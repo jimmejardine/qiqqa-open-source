@@ -8,7 +8,7 @@
     xmlns:tags="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff">
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
-            <local_gui:AugmentedButton Name="CmdExport" DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton x:Name="CmdExport" DockPanel.Dock="Right" />
             <local_gui:AugmentedSearchBox
                 Name="TxtSearchTermsFilter"
                 EmptyTextPrompt="Enter keywords to filter the above list (e.g. smi;king)"

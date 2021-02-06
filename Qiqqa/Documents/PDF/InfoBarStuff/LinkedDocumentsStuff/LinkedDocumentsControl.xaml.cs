@@ -68,16 +68,21 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
         public void SetPDFDocument(PDFDocument doc)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             pdf_document = doc;
 
-            ObjPDFDocuments.ItemsSource = null;
-
-            string query = ObjSearchBox.Text;
-
-            SafeThreadPool.QueueUserWorkItem(o =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
-                ReSearch(doc, query);
-                RepopulatePanels(doc);
+                ObjPDFDocuments.ItemsSource = null;
+
+                string query = ObjSearchBox.Text;
+
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
+                    ReSearch(doc, query);
+                    RepopulatePanels(doc);
+                });
             });
         }
 

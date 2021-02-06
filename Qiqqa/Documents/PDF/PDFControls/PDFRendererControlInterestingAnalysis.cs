@@ -6,6 +6,7 @@ using Qiqqa.DocumentLibrary.SimilarAuthorsStuff;
 using Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff;
 using Utilities;
 using Utilities.Collections;
+using Utilities.GUI;
 using Utilities.Internet.GoogleScholar;
 using Utilities.Language;
 using Utilities.Misc;
@@ -15,9 +16,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
 {
     internal class PDFRendererControlInterestingAnalysis
     {
-        public static void DoInterestingAnalysis(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        public static void DoInterestingAnalysis(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFDocument pdf_document)
         {
-            pdf_reading_control.OnlineDatabaseLookupControl.PDFDocument = pdf_renderer_control_stats.pdf_document;
+            pdf_reading_control.OnlineDatabaseLookupControl.PDFDocument = pdf_document;
 
             ShutdownableManager.Sleep(1000);
             if (ShutdownableManager.Instance.IsShuttingDown)
@@ -26,43 +27,33 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 return;
             }
 
-            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_DuplicatesAndCitations(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
+            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_DuplicatesAndCitations(pdf_reading_control, pdf_document));
             // Only bother Google Scholar with a query when we want to:
             if (ConfigurationManager.IsEnabled(nameof(DoInterestingAnalysis_GoogleScholar)))
             {
-                SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_GoogleScholar(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
+                SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_GoogleScholar(pdf_reading_control, pdf_document));
             }
-            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_TagCloud(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
-            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_SimilarAuthors(pdf_reading_control, pdf_renderer_control, pdf_renderer_control_stats));
+            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_TagCloud(pdf_reading_control, pdf_document));
+            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_SimilarAuthors(pdf_reading_control, pdf_document));
         }
 
-        private static void DoInterestingAnalysis_DuplicatesAndCitations(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        private static void DoInterestingAnalysis_DuplicatesAndCitations(PDFReadingControl pdf_reading_control, PDFDocument pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             try
             {
-                pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
-                {
-                    pdf_reading_control.DuplicateDetectionControl.SetPDFDocument(pdf_renderer_control_stats.pdf_document);
-                }
-                ));
-                pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
-                {
-                    pdf_reading_control.CitationsControl.SetPDFDocument(pdf_renderer_control_stats.pdf_document);
-                }
-                ));
-                pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
-                {
-                    pdf_reading_control.LinkedDocumentsControl.SetPDFDocument(pdf_renderer_control_stats.pdf_document);
-                }
-                ));
+                pdf_reading_control.DuplicateDetectionControl.SetPDFDocument(pdf_document);
+                pdf_reading_control.CitationsControl.SetPDFDocument(pdf_document);
+                pdf_reading_control.LinkedDocumentsControl.SetPDFDocument(pdf_document);
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem with the citations analysis for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+                Logging.Error(ex, "There was a problem with the citations analysis for document {0}", pdf_document.Fingerprint);
             }
         }
 
-        private static void DoInterestingAnalysis_GoogleScholar(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        private static void DoInterestingAnalysis_GoogleScholar(PDFReadingControl pdf_reading_control, PDFDocument pdf_document)
         {
             bool attempt_scrape = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries;
 
@@ -73,16 +64,15 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 // Get the GoogleScholar similar documents
                 try
                 {
-                    string title = pdf_renderer_control_stats.pdf_document.TitleCombined;
+                    string title = pdf_document.TitleCombined;
                     if (Constants.TITLE_UNKNOWN != title)
                     {
                         GoogleScholarScrapePaperSet gssp_set = GoogleScholarScrapePaperSet.GenerateFromQuery(title, 10);
 
-                        pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
                         {
-                            pdf_reading_control.SimilarDocsControl.SpecifyPaperSet(gssp_set);
-                        }
-                        ));
+                            pdf_reading_control?.SimilarDocsControl.SpecifyPaperSet(gssp_set);
+                        });
                     }
                     else
                     {
@@ -91,47 +81,44 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem getting the GoogleScholar similar documents for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+                    Logging.Error(ex, "There was a problem getting the GoogleScholar similar documents for document {0}", pdf_document.Fingerprint);
                 }
             }
         }
 
-        private static void DoInterestingAnalysis_TagCloud(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        private static void DoInterestingAnalysis_TagCloud(PDFReadingControl pdf_reading_control, PDFDocument pdf_document)
         {
             // Populate the tag cloud
             try
             {
-                List<TagCloudEntry> tag_cloud_entries = PDFDocumentTagCloudBuilder.BuildTagCloud(pdf_renderer_control_stats.pdf_document.LibraryRef, pdf_renderer_control_stats.pdf_document);
+                List<TagCloudEntry> tag_cloud_entries = PDFDocumentTagCloudBuilder.BuildTagCloud(pdf_document.LibraryRef, pdf_document);
 
-                pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     pdf_reading_control.TagCloud.SpecifyEntries(tag_cloud_entries);
-                }
-                ));
+                });
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem creating the tag cloud for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+                Logging.Error(ex, "There was a problem creating the tag cloud for document {0}", pdf_document.Fingerprint);
             }
         }
 
-        private static void DoInterestingAnalysis_SimilarAuthors(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats)
+        private static void DoInterestingAnalysis_SimilarAuthors(PDFReadingControl pdf_reading_control, PDFDocument pdf_document)
         {
             // Populate the similar authors
             try
             {
-                List<NameTools.Name> authors = SimilarAuthors.GetAuthorsForPDFDocument(pdf_renderer_control_stats.pdf_document);
-                MultiMap<string, PDFDocument> authors_documents = SimilarAuthors.GetDocumentsBySameAuthors(pdf_renderer_control_stats.pdf_document.LibraryRef, pdf_renderer_control_stats.pdf_document, authors);
+                List<NameTools.Name> authors = SimilarAuthors.GetAuthorsForPDFDocument(pdf_document);
+                MultiMap<string, PDFDocument> authors_documents = SimilarAuthors.GetDocumentsBySameAuthors(pdf_document.LibraryRef, pdf_document, authors);
 
-                pdf_renderer_control.Dispatcher.Invoke(new Action(() =>
-                {
+                WPFDoEvents.InvokeAsyncInUIThread(() => {
                     pdf_reading_control.SimilarAuthorsControl.SetItems(authors_documents);
-                }
-                ));
+                });
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem creating the tag cloud for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+                Logging.Error(ex, "There was a problem creating the tag cloud for document {0}", pdf_document.Fingerprint);
             }
         }
     }

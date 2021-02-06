@@ -121,7 +121,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Expedition
             int[,] topics_popularity = new int[LDAAnalysis.NUM_TOPICS, TOP_N];
 
             {
-                TopicProbability[][] density_of_top5_topics_in_docs_sorted = LDAAnalysis.DensityOfTop5TopicsInDocsSorted; // [doc][n<5]                
+                TopicProbability[][] density_of_top5_topics_in_docs_sorted = LDAAnalysis.DensityOfTop5TopicsInDocsSorted; // [doc][n<5]
                 for (int doc = 0; doc < LDAAnalysis.NUM_DOCS; ++doc)
                 {
                     for (int n = 0; n < TOP_N; ++n)
@@ -205,3 +205,4 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Expedition
 #endif
     }
 }
+

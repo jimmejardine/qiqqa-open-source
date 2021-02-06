@@ -45,12 +45,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
             RaiseInkChange(InkCanvasEditingMode.Ink);
 
-            this.Unloaded += PDFInkLayer_Unloaded;
+            //Unloaded += PDFInkLayer_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
         }
 
         private void PDFInkLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
 
         public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
@@ -122,7 +128,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             {
                 ObjInkCanvas.Strokes.Save(ms, true);
                 byte[] ink_blob = ms.ToArray();
-                pdf_document.Inks.AddPageInkBlob(page, ink_blob);
+                pdf_document.AddPageInkBlob(page, ink_blob);
             }
         }
 
@@ -172,56 +178,61 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
         {
             Logging.Debug("PDFInkLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (0 == dispose_count)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    if (null != ObjInkCanvas)
+                    if (0 == dispose_count)
                     {
-                        ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
-                        ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
-                        ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
-                        ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
-
-                        ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
-                    }
-                }
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (dispose_count == 0)
-                {
-                    foreach (var el in Children)
-                    {
-                        IDisposable node = el as IDisposable;
-                        if (null != node)
+                        if (null != ObjInkCanvas)
                         {
-                            node.Dispose();
+                            ObjInkCanvas.StrokeCollected -= ObjInkCanvas_StrokeCollected;
+                            ObjInkCanvas.StrokeErased -= ObjInkCanvas_StrokeErased;
+                            ObjInkCanvas.SelectionMoved -= ObjInkCanvas_SelectionMoved;
+                            ObjInkCanvas.SelectionResized -= ObjInkCanvas_SelectionResized;
+
+                            ObjInkCanvas.RequestBringIntoView -= ObjInkCanvas_RequestBringIntoView;
                         }
                     }
-                }
-            }, must_exec_in_UI_thread: true);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                Children.Clear();
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (dispose_count == 0)
+                    {
+                        foreach (var el in Children)
+                        {
+                            IDisposable node = el as IDisposable;
+                            if (null != node)
+                            {
+                                node.Dispose();
+                            }
+                        }
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                pdf_document = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    Children.Clear();
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    pdf_document = null;
+
+                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
+
+                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
-
-            ++dispose_count;
-
-            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

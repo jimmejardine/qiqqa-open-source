@@ -31,6 +31,9 @@ namespace Utilities.GUI
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
 
+            TextCaption.HorizontalAlignment = HorizontalAlignment.Stretch;
+            TextCaption.VerticalAlignment = VerticalAlignment.Stretch;
+
             RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             IsEnabledChanged += AugmentedButton_IsEnabledChanged;
@@ -50,18 +53,27 @@ namespace Utilities.GUI
                 cachedDefaultFontSize = 12;
             }
 
-#if DEBUG
             // When in Designer mode, show a bit of stuff or the thing looks weird:
-            if (Runtime.IsRunningInVisualStudioDesigner)
+            if (Runtime.IsRunningInVisualStudioDesigner && false)
             {
-                Caption = "Sample in DesignMode";
-                Icon = Icons.GetAppIcon(Icons.SaveAs);
+                if (String.IsNullOrWhiteSpace(Caption))
+                {
+                    Caption = "Sample in DesignMode";
+                }
+                if (ImageIcon == null || ImageIcon.Source == null || ImageIcon.Width < 1 || ImageIcon.Height < 1)
+                {
+                    ImageIcon.Source = Icons.GetAppIcon(Icons.SaveAs);
+                }
             }
-#endif
         }
 
         public bool CenteredMode
         {
+            // Visual Studio b0rks in Designer when this one doesn't have a get method:
+            get
+            {
+                return TextCaption.HorizontalAlignment == HorizontalAlignment.Center;
+            }
             set
             {
                 if (value)

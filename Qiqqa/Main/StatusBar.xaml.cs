@@ -29,8 +29,9 @@ namespace Qiqqa.Main
         {
             InitializeComponent();
 
-            this.Loaded += StatusBar_Loaded;
-            this.Unloaded += StatusBar_Unloaded;
+            Loaded += StatusBar_Loaded;
+            //Unloaded += StatusBar_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
             string post_version_type = ApplicationDeployment.IsNetworkDeployed ? "o" : "s";
             CmdVersion.Caption = "v." + ClientVersion.CurrentVersion + post_version_type;
@@ -42,9 +43,21 @@ namespace Qiqqa.Main
             CmdVersion.ToolTip = "This shows the version of Qiqqa you are using.\nClick here to show the release notes for historical versions and for instructions on how to get an older version of Qiqqa.";
         }
 
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            CleanUp();
+        }
+
         private void StatusBar_Unloaded(object sender, RoutedEventArgs e)
         {
+            CleanUp();
+        }
+
+        private void CleanUp()
+        { 
             StatusManager.Instance.OnStatusEntryUpdate -= StatusManager_OnStatusEntryUpdate;
+
+            Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
 
         private void StatusBar_Loaded(object sender, RoutedEventArgs e)

@@ -25,7 +25,7 @@ namespace Qiqqa.Synchronisation.GUI
 
         public SyncControl()
         {
-            Theme.Initialize();
+            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
 
@@ -51,7 +51,7 @@ namespace Qiqqa.Synchronisation.GUI
             ButtonCancel.Click += ButtonCancel_Click;
         }
 
-        private void btnBrowseSyncPath_Click(object sender, RoutedEventArgs e)
+        private void btnEditSyncSettings_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -84,7 +84,6 @@ namespace Qiqqa.Synchronisation.GUI
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {

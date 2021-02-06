@@ -249,7 +249,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 {
                     // l1_clk.LockPerfTimerStop();
 
-                    word_index_manager.WriteMasterList();
+                    word_index_manager?.WriteMasterList();
                 }
 
                 //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
@@ -295,19 +295,22 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             lock (pdf_documents_in_library_lock)
             {
                 //l1_clk.LockPerfTimerStop();
-                foreach (PDFDocumentInLibrary pdf_document_in_library in pdf_documents_in_library.Values)
+                if (pdf_documents_in_library != null)
                 {
-                    ++denominator_documents;
-                    if (pdf_document_in_library.finished_indexing)
+                    foreach (PDFDocumentInLibrary pdf_document_in_library in pdf_documents_in_library.Values)
                     {
-                        ++numerator_documents;
-                        pages_so_far += pdf_document_in_library.total_pages;
-                    }
-                    else
-                    {
-                        int finished_pages_count = (pdf_document_in_library.pages_already_indexed != null) ? pdf_document_in_library.pages_already_indexed.Count : 0;
-                        pages_so_far += finished_pages_count;
-                        pages_to_go += (pdf_document_in_library.total_pages - finished_pages_count);
+                        ++denominator_documents;
+                        if (pdf_document_in_library.finished_indexing)
+                        {
+                            ++numerator_documents;
+                            pages_so_far += pdf_document_in_library.total_pages;
+                        }
+                        else
+                        {
+                            int finished_pages_count = (pdf_document_in_library.pages_already_indexed != null) ? pdf_document_in_library.pages_already_indexed.Count : 0;
+                            pages_so_far += finished_pages_count;
+                            pages_to_go += (pdf_document_in_library.total_pages - finished_pages_count);
+                        }
                     }
                 }
             }
@@ -408,7 +411,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     {
                         //l1_clk.LockPerfTimerStop();
 
-                        go = !pdf_documents_in_library.ContainsKey(pdf_document.Fingerprint);
+                        go = !pdf_documents_in_library?.ContainsKey(pdf_document.Fingerprint) ?? false;
                     }
 
                     if (go)
@@ -435,7 +438,10 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         lock (pdf_documents_in_library_lock)
                         {
                             //l2_clk.LockPerfTimerStop();
-                            pdf_documents_in_library[pdf_document_in_library.fingerprint] = pdf_document_in_library;
+                            if (pdf_documents_in_library != null)
+                            {
+                                pdf_documents_in_library[pdf_document_in_library.fingerprint] = pdf_document_in_library;
+                            }
                         }
                     }
                 }
@@ -518,14 +524,21 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 //l1_clk.LockPerfTimerStop();
 
                 // Get all documents that are not been finished with their indexing
-                pdf_documents_in_library_to_process = new List<PDFDocumentInLibrary>(
-                    from pdf_document_in_library in pdf_documents_in_library.Values
-                    orderby pdf_document_in_library.last_indexed ascending
-                    where (pdf_document_in_library.finished_indexing == false || pdf_document_in_library.metadata_already_indexed == false)
-                    // Don't try to reprocess the document queue too frequently
-                    && pdf_document_in_library.last_indexed < most_recent_eligible_time_for_processing
-                    select pdf_document_in_library
-                );
+                if (pdf_documents_in_library != null)
+                {
+                    pdf_documents_in_library_to_process = new List<PDFDocumentInLibrary>(
+                        from pdf_document_in_library in pdf_documents_in_library.Values
+                        orderby pdf_document_in_library.last_indexed ascending
+                        where (pdf_document_in_library.finished_indexing == false || pdf_document_in_library.metadata_already_indexed == false)
+                        // Don't try to reprocess the document queue too frequently
+                        && pdf_document_in_library.last_indexed < most_recent_eligible_time_for_processing
+                        select pdf_document_in_library
+                    );
+                }
+                else
+                {
+                    pdf_documents_in_library_to_process = new List<PDFDocumentInLibrary>();
+                }
             }
 
             // Process each one
@@ -585,7 +598,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                             {
                                 // l6_clk.LockPerfTimerStop();
 
-                                word_index_manager.AddDocumentMetadata(pdf_document.Deleted, pdf_document.Fingerprint, pdf_document.TitleCombined, pdf_document.AuthorsCombined, pdf_document.YearCombined, pdf_document.Comments, sb_tags.ToString(), sb_annotations.ToString(), pdf_document.BibTex, pdf_document.BibTexItem);
+                                word_index_manager?.AddDocumentMetadata(pdf_document.Deleted, pdf_document.Fingerprint, pdf_document.TitleCombined, pdf_document.AuthorsCombined, pdf_document.YearCombined, pdf_document.Comments, sb_tags.ToString(), sb_annotations.ToString(), pdf_document.BibTex, pdf_document.BibTexItem);
                             }
 #endif
 
@@ -662,7 +675,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                             // l7_clk.LockPerfTimerStop();
 
                                             // Index it
-                                            word_index_manager.AddDocumentPage(pdf_document.Deleted, pdf_document_in_library.fingerprint, page, sb.ToString());
+                                            word_index_manager?.AddDocumentPage(pdf_document.Deleted, pdf_document_in_library.fingerprint, page, sb.ToString());
                                         }
 #endif
 

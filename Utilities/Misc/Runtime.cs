@@ -8,7 +8,6 @@ namespace Utilities.Misc
     {
         public static string StartupDirectory => Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
 
-#if DEBUG
         public static bool IsRunningInVisualStudioDesigner
         {
             get
@@ -27,7 +26,5 @@ namespace Utilities.Misc
                 return false;
             }
         }
-#endif
-
     }
 }

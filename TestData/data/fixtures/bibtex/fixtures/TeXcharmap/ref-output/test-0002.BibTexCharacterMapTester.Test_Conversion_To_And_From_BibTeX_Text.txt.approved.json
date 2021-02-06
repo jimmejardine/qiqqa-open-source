@@ -1,0 +1,86 @@
+﻿Well actually there are some more not-so-pleasant features of zotero&bibtex combo:
+- in math papers, sometimes you need to have things which look like regular text to be typeset in math mode, e.g. "$K$-theory", not "K-theory" (so pure rich text support is definitely not sufficient - an extra pair of tags saying <math> would be sufficient though)
+- there's another TeX quirk (which I agree might not be that critical to have as soon as possible, so this is just for the record): sometimes it uses macros (=functions) to capitalize or de-capitalize article titles, and it is important that some letters need to be kept capital regardless of the context (for instance in "book name, Vol I.", 'V' and 'I' need to be capital). The usual way to force bibtex to keep these capital is to enclose them with , e.g. "book name, Vol I."
+
+$ \cal L__X \nabla=ev\vert__t=0\circ\, \displaystyle\frac\partial\partial t\circ\, \nabla^^\varphi__t, $
+
+Personally, I think almost all of my issues with mangling could easily be solved if there was a way for Zotero to avoid escaping fields. Barring this, if it could at least avoid escaping anything between $...$, that would give me access to all LaTeX mathmode commands such as Greek letters, underscores, etc. I could of course see a relatively rare use case where some user had a title such as "On the $11.25 Trillion USD American Debt And What the $36,755.27 USD Per Capita Means." But it seems that escaping these dollar signs manually for BibTeX might be a more reasonable approach than always escaping everything, i.e. it would be easy to write this title as "On the \$11.25 Trillion USD American Debt And What the \$36,755.27 USD Per Capita Means." The relative inconvenience for solving this one rare use case is definitely worth it IMO because LaTeX users will very, very often want to do things like $e^\mu xt$ (superscript Greek mu xt over the letter e) or $u_xx$ (subscript xx under u).
+
+article: hopf_partial_1950
+title: The partial differential equation \$u\_t + uu\_x + \textbackslashmu u\_xx\$
+author: E. Hopf
+
+V. G. Veselago, "The electrodynamics of substances with simultaneously negative values of ε and µ", Soviet Physics Uspekhi, vol. 10, no. 4, pp. 509-514, 1968
+
+As far as I know, LaTeX/BibTeX chokes on those characters; they should actually be $\epsilon$ and $\mu$, in order to be properly rendered in a bibliography.
+
+article: test-ticket1661
+title: non-braking space: ~; accented characters: \~n and \~n; tilde operator: \~
+
+title: \TeX at Calma R\thinspace\&\thinspace D
+
+Announcement of \LaTeX Version 2.09
+
+DVIto\kern-.15em VDU: A \TeX\ page previewer
+
+DVIto\kern-.15em VDU: A \TeX\ page previewer
+
+\VAX\ Language Sensitive Editor Templates and Guide for use with \LaTeX
+
+Post-\LaTeX Index Formatting
+
+DVIto\kern-.1emVDU 1.7 and PSPRINT 1.1
+
+DVIto\kern-.1emVDU 1.7 and PSPRINT 1.1
+
+Amiga\TeX\dots or How envy was resisted
+
+Using \TeX and \LaTeX with WordPerfect 5.0
+
+Reprint: The new font family selection\Dash User interface to standard \LaTeX
+
+Ji\vr\'\i Vesel\'y
+
+Review of \it 3\thinspace:\thinspace16 Bible Texts
+
+Relative moves in \LaTeX\ pictures
+
+Tough table becomes easy with \PiCTeX
+
+Document classes and packages in \LaTeXe
+
+\PS font support in \LaTeXe
+
+First applications of $ \Omega $: Adobe Poetica
+
+An audio view of (\La)\TeX documents --- part II
+
+Another look at \LaTeX to \SGML conversion
+
+Never again active characters! $ \Omega
+$-Babel
+
+$ \Omega $Times and $ \Omega $Helvetica fonts
+
+Hán Thê\llap\raise 0.5ex\hbox\'\relax Thánh and Sebastian Rahtz
+
+\LyX --- An Open Source document processor
+
+Euler-\kern-1pt VM: Generic math fonts for use with LaTeX
+
+Math in \ConTeXt: Bridging the gap with (\kern-.1emAMS\kern.05em-)\LaTeX
+
+Generating multiple outputs from \OMEGA
+
+\csstarttext: Practical \ConTeXt
+
+Katalin Fried \lowercaseet al.
+
+New hyphenation techniques in $ \Omega_2 $
+
+Designing a special book: With both pleasure and
+                 \ldots\,fear
+
+
+
+

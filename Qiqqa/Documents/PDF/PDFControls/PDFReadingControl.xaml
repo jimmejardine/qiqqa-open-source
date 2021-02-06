@@ -66,14 +66,12 @@
                     <local_gui:AugmentedToolBarButton x:Name="ButtonJumpToSection"/>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonPreviousPage"/>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonNextPage"/>
-                    <local_gui:AugmentedSpacer />
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Name="JumpToPageNumberLabel" >
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Name="JumpToPageNumberLabel"  Margin="3" >
                         Page:
                     </TextBlock>
                     <TextBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="JumpToPageNumber" MinWidth="20"/>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Name="JumpToPageNumberMax" />
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonMisc"/>
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonMisc" Margin="3" />
                     <local_gui:AugmentedToolBarPopup x:Name="ButtonMiscPopup">
                         <StackPanel>
                             <local_gui:AugmentedToolBarButton x:Name="ButtonDocumentSave" CaptionDock="Right" />
@@ -86,9 +84,7 @@
                             <local_gui:AugmentedToolBarButton x:Name="ButtonMoreMenus" CaptionDock="Right" />
                         </StackPanel>
                     </local_gui:AugmentedToolBarPopup>
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast" />
-                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast"  Margin="3" />
                 </StackPanel>
             </DockPanel>
         </local_gui:AugmentedToolBarTray>

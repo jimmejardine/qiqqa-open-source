@@ -301,9 +301,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void ImportManualsIntoLocalGuestLibraryIfMissing()
         {
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 

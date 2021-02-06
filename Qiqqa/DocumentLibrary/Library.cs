@@ -380,7 +380,7 @@ namespace Qiqqa.DocumentLibrary
         /// <param name="tags"></param>
         /// <param name="suppressDialogs"></param>
         /// <returns></returns>
-        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, WebLibraryDetail web_library_detail, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument AddNewDocumentToLibrary_SYNCHRONOUS(string filename, WebLibraryDetail web_library_detail, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -389,7 +389,7 @@ namespace Qiqqa.DocumentLibrary
                 StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Adding {0} to library", filename));
             }
 
-            PDFDocument pdf_document = AddNewDocumentToLibrary(filename, web_library_detail, original_filename, suggested_download_source, bibtex, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
+            PDFDocument pdf_document = AddNewDocumentToLibrary(filename, web_library_detail, original_filename, suggested_download_source, bibtex, tags, comments, suppressDialogs);
 
             if (!suppressDialogs)
             {
@@ -406,7 +406,7 @@ namespace Qiqqa.DocumentLibrary
             return pdf_document;
         }
 
-        private PDFDocument AddNewDocumentToLibrary(string filename, WebLibraryDetail web_library_detail, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        private PDFDocument AddNewDocumentToLibrary(string filename, WebLibraryDetail web_library_detail, string original_filename, string suggested_download_source, string bibtex, HashSet<string> tags, string comments, bool suppressDialogs)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -418,9 +418,11 @@ namespace Qiqqa.DocumentLibrary
                 last_pdf_add_time.Restart();
             }
 
+            FolderWatcher.global_watch_stats.Inc(0.1);
+
             if (String.IsNullOrEmpty(filename) || filename.EndsWith(".vanilla_reference"))
             {
-                return AddVanillaReferenceDocumentToLibrary(bibtex, web_library_detail, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
+                return AddVanillaReferenceDocumentToLibrary(bibtex, web_library_detail, tags, comments, suppressDialogs);
             }
 
             bool is_a_document_we_can_cope_with = false;
@@ -568,19 +570,18 @@ namespace Qiqqa.DocumentLibrary
                 pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
             }
 
-            if (!suppress_signal_that_docs_have_changed)
-            {
-                SignalThatDocumentsHaveChanged(pdf_document);
-            }
+            SignalThatDocumentsHaveChanged(pdf_document);
+
+            FolderWatcher.global_watch_stats.Inc();
 
             return pdf_document;
         }
 
-        private PDFDocument AddNewDocumentToLibrary(PDFDocument pdf_document_template, WebLibraryDetail web_library_detail, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        private PDFDocument AddNewDocumentToLibrary(PDFDocument pdf_document_template, WebLibraryDetail web_library_detail, bool suppressDialogs)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, web_library_detail, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs, suppress_signal_that_docs_have_changed);
+            PDFDocument pdf_document = AddNewDocumentToLibrary(pdf_document_template.DocumentPath, web_library_detail, pdf_document_template.DownloadLocation, pdf_document_template.DownloadLocation, pdf_document_template.BibTex, null, null, suppressDialogs);
 
             return pdf_document;
         }
@@ -600,7 +601,7 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        public PDFDocument AddVanillaReferenceDocumentToLibrary(string bibtex, WebLibraryDetail web_library_detail, HashSet<string> tags, string comments, bool suppressDialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument AddVanillaReferenceDocumentToLibrary(string bibtex, WebLibraryDetail web_library_detail, HashSet<string> tags, string comments, bool suppressDialogs)
         {
             string bibtex_after_key = GetBibTeXAfterKey(bibtex);
 
@@ -646,22 +647,21 @@ namespace Qiqqa.DocumentLibrary
                 pdf_documents[pdf_document.Fingerprint] = pdf_document;
             }
 
-            if (!suppress_signal_that_docs_have_changed)
-            {
-                SignalThatDocumentsHaveChanged(pdf_document);
-            }
+            SignalThatDocumentsHaveChanged(pdf_document);
+
+            FolderWatcher.global_watch_stats.Inc();
 
             return pdf_document;
         }
 
-        public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail, bool suppress_dialogs, bool suppress_signal_that_docs_have_changed)
+        public PDFDocument CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail, bool suppress_dialogs)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             StatusManager.Instance.UpdateStatus("LibraryDocument", String.Format("Copying {0} ({1}) into library", existing_pdf_document.TitleCombined, existing_pdf_document.Fingerprint));
 
             //  do a normal add (since stored separately)
-            var new_pdf_document = AddNewDocumentToLibrary(existing_pdf_document, web_library_detail, suppress_dialogs, suppress_signal_that_docs_have_changed);
+            var new_pdf_document = AddNewDocumentToLibrary(existing_pdf_document, web_library_detail, suppress_dialogs);
 
             // If we were not able to create the PDFDocument from an existing pdf file (i.e. it was a missing reference), then create one from scratch
             if (null == new_pdf_document)
@@ -1008,23 +1008,12 @@ namespace Qiqqa.DocumentLibrary
             SignalThatDocumentsHaveChanged(null);
         }
 
-#region --- Signaling that documents have been changed ------------------
+        #region --- Signaling that documents have been changed ------------------
 
-        public class PDFDocumentEventArgs : EventArgs
-        {
-            public PDFDocumentEventArgs(PDFDocument pdf_document)
-            {
-                PDFDocument = pdf_document;
-            }
+        private DataChangedTracker DocumentsHaveChanged = new DataChangedTracker();
 
-            public PDFDocument PDFDocument { get; }
-
-        }
-        public event EventHandler<PDFDocumentEventArgs> OnDocumentsChanged;
-
-        private DateTime last_documents_changed_time = DateTime.MinValue;
-        private DateTime last_documents_changed_signal_time = DateTime.MinValue;
-        private PDFDocument documents_changed_optional_changed_pdf_document = null;
+        // make sure it's a WEAK reference as the reference will only be updated when there's a new PDF loaded or updated!
+        private WeakReference<PDFDocument> documents_changed_optional_changed_pdf_document = null;
         private object last_documents_changed_lock = new object();
 
         public void SignalThatDocumentsHaveChanged(PDFDocument optional_changed_pdf_document)
@@ -1033,72 +1022,44 @@ namespace Qiqqa.DocumentLibrary
             lock (last_documents_changed_lock)
             {
                 //l1_clk.LockPerfTimerStop();
-                last_documents_changed_time = DateTime.UtcNow;
-                if (null == documents_changed_optional_changed_pdf_document || optional_changed_pdf_document == documents_changed_optional_changed_pdf_document)
+                DocumentsHaveChanged.MarkAsUpdated();
+
+                // when multiple documents have changed since the observer(s) handled the previous signal,
+                // you'll only see the last PDF document as we update continuously...
+                if (optional_changed_pdf_document != null
+                    && documents_changed_optional_changed_pdf_document != null
+                    && documents_changed_optional_changed_pdf_document.TryGetTarget(out PDFDocument old_doc)
+                    && old_doc != null)
                 {
-                    documents_changed_optional_changed_pdf_document = optional_changed_pdf_document;
-                }
-                else
-                {
-                    // multiple documents have changed since the observer(s) handled the previous signal...
-                    documents_changed_optional_changed_pdf_document = null;
+                    documents_changed_optional_changed_pdf_document.SetTarget(optional_changed_pdf_document);
                 }
             }
         }
 
-        internal void CheckForSignalThatDocumentsHaveChanged()
+        public bool CheckIfDocumentsHaveChanged(ref long previous_marker, ref PDFDocument latest_document)
         {
-            if (LibraryIsKilled)
-            {
-                return;
-            }
-
-            PDFDocument local_documents_changed_optional_changed_pdf_document;
-            DateTime now = DateTime.UtcNow;
-
-            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_documents_changed_lock)
             {
-                //l1_clk.LockPerfTimerStop();
-                // If no docs have changed, nothing to do
-                if (last_documents_changed_signal_time >= last_documents_changed_time)
+                if (DocumentsHaveChanged.HasBeenUpdated(ref previous_marker))
                 {
-                    return;
+                    PDFDocument doc = null;
+
+                    if (documents_changed_optional_changed_pdf_document != null)
+                    {
+                        _ = documents_changed_optional_changed_pdf_document.TryGetTarget(out doc);
+                    }
+                    latest_document = doc;
+                    return true;
                 }
-
-                // Don't refresh more than once every few seconds in busy-adding times
-                if (now.Subtract(last_documents_changed_time).TotalSeconds < 1 && now.Subtract(last_documents_changed_signal_time).TotalSeconds < 15)
-                {
-                    return;
-                }
-
-                // Don't refresh more than once a second in quiet times
-                if (now.Subtract(last_documents_changed_signal_time).TotalSeconds < 1)
-                {
-                    return;
-                }
-
-                // Let's signal!
-                local_documents_changed_optional_changed_pdf_document = documents_changed_optional_changed_pdf_document;
-                documents_changed_optional_changed_pdf_document = null;
-                last_documents_changed_signal_time = now;
             }
-
-            try
-            {
-                OnDocumentsChanged?.Invoke(this, new PDFDocumentEventArgs(local_documents_changed_optional_changed_pdf_document));
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "There was an exception while notifying that documents have changed.");
-            }
+            return false;
         }
 
-#endregion
+            #endregion
 
-#region --- IDisposable ------------------------------------------------------------------------
+            #region --- IDisposable ------------------------------------------------------------------------
 
-        ~Library()
+            ~Library()
         {
             Logging.Debug("~Library()");
             Dispose(false);
@@ -1163,8 +1124,6 @@ namespace Qiqqa.DocumentLibrary
                 folder_watcher_manager = null;
                 library_db = null;
             });
-
-            var self = this;
 
             ++dispose_count;
         }

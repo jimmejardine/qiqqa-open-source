@@ -1,13 +1,30 @@
-<Button x:Class="Utilities.GUI.AugmentedButton"
+<Button
+    x:Class="Utilities.GUI.AugmentedButton"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI"
-    >
-    <DockPanel x:Name="ObjPanel">
-        <Grid x:Name="PanelPopupPanel" DockPanel.Dock="Right" Width="20" Margin="1,0,0,0" >
-            <Image x:Name="ImagePopupIndicator" Width="8" Height="8"/>
+    xmlns:local_gui="clr-namespace:Utilities.GUI">
+    <DockPanel x:Name="ObjPanel" Background="Transparent">
+        <Grid
+            x:Name="PanelPopupPanel"
+            Width="20"
+            Margin="1,0,0,0"
+            DockPanel.Dock="Right">
+            <Image
+                x:Name="ImagePopupIndicator"
+                Width="8"
+                Height="8" />
         </Grid>
-        <Image x:Name="ImageIcon" Width="32" Height="32" Visibility="Collapsed" />
-        <TextBlock x:Name="TextCaption" Visibility="Collapsed" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0" MinWidth="25" ></TextBlock>
+        <Image
+            x:Name="ImageIcon"
+            Width="32"
+            Height="32"
+            Visibility="Collapsed" />
+        <TextBlock
+            x:Name="TextCaption"
+            MinWidth="25"
+            Margin="5,0"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
+        <Grid Name="GridFiller" />
     </DockPanel>
 </Button>

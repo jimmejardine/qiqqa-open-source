@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
 #if !HAS_NO_PROTOBUF
 using ProtoBuf;
+using Utilities.Misc;
 #endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -94,6 +95,7 @@ namespace Utilities.Files
 
         public static void SaveSafely(string filename, object animal_to_save)
         {
+            ASSERT.Test(animal_to_save != null);
             try
             {
                 SaveRedundant(filename, animal_to_save);
@@ -128,6 +130,8 @@ namespace Utilities.Files
 
         public static void JsonSave<T>(string filename, T animal_to_save)
         {
+            ASSERT.Test((object)animal_to_save != null);
+
             string json = JsonConvert.SerializeObject(animal_to_save, Formatting.Indented);
             TextSave(filename, json);
         }

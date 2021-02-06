@@ -30,7 +30,7 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, true, true, new FilenameWithMetadataImport[] { fwmi });
+            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, true, new FilenameWithMetadataImport[] { fwmi });
 
             return pdf_document;
         }
@@ -52,7 +52,7 @@ namespace Qiqqa.DocumentLibrary
                 "}"
                 ;
 
-            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, true, true, new FilenameWithMetadataImport[] { fwmi });
+            PDFDocument pdf_document = ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, true, new FilenameWithMetadataImport[] { fwmi });
 
             return pdf_document;
         }

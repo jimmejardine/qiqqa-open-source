@@ -109,6 +109,12 @@ namespace Qiqqa.StartPage
             ButtonNewConfig.ToolTip = LocalisationManager.Get("START/TIP/CONFIG");
             ButtonNewConfig.Click += ButtonNewConfig_Click;
 
+            ButtonBackgroundActivities.Icon = Icons.GetAppIcon(Icons.Debugging);
+            ButtonBackgroundActivities.Caption = LocalisationManager.Get("START/CAP/VIEWBACKGROUNDACTIVITIES");
+            ButtonBackgroundActivities.ToolTip = LocalisationManager.Get("START/TIP/VIEWBACKGROUNDACTIVITIES");
+            ButtonBackgroundActivities.Click += ButtonViewBackgroundActivities_Click;
+
+
             ButtonExpertMode.Icon = Icons.GetAppIcon(Icons.BibTeXSnifferWizard);
             if (!ADVANCED_MENUS) ButtonExpertMode.Caption = LocalisationManager.Get("START/CAP/EXPERT_MODE");
             ButtonExpertMode.ToolTip = LocalisationManager.Get("START/TIP/EXPERT_MODE");
@@ -225,17 +231,26 @@ namespace Qiqqa.StartPage
 
         private void ButtonNewBrainstorm_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenNewBrainstorm();
         }
 
         private void ButtonNewBrowser_Click(object sender, RoutedEventArgs e)
         {
+            ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenWebBrowser();
         }
 
         private void ButtonNewConfig_Click(object sender, RoutedEventArgs e)
         {
+            ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenControlPanel();
+        }
+
+        private void ButtonViewBackgroundActivities_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonToolsPopup.Close();
+            MainWindowServiceDispatcher.Instance.OpenActivityMonitor();
         }
 
         private void ButtonNewHelp_Click(object sender, RoutedEventArgs e)
@@ -246,11 +261,13 @@ namespace Qiqqa.StartPage
 
         private void ButtonInCite_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenInCite();
         }
 
         private void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_StartPage);
             MainWindowServiceDispatcher.Instance.OpenExpedition(null, null);
         }
@@ -288,10 +305,9 @@ namespace Qiqqa.StartPage
         private void ButtonNewManual_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
-#if DEBUG
+
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
-            
+
             PDFDocument pdf_document = QiqqaManualTools.AddManualsToLibrary(WebLibraryManager.Instance.Library_Guest);
             MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
         }
@@ -349,12 +365,15 @@ namespace Qiqqa.StartPage
         {
             Logging.Debug("StartPageControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                DataContext = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
 
-            ++dispose_count;
+                ++dispose_count;
+            });
         }
     }
 }

@@ -5,11 +5,11 @@
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_library="clr-namespace:Qiqqa.DocumentLibrary"
   xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-  mc:Ignorable="d" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
   x:Class="Qiqqa.DocumentLibrary.LibraryDBStuff.LibraryDBExplorer"
-  d:DesignWidth="568" 
+  d:DesignWidth="568"
   d:DesignHeight="122"
 >
     <DockPanel>
@@ -27,8 +27,7 @@
                     </TextBlock>
                     <TextBox Grid.Row="2" Name="TxtLibrary" MinWidth="80" MaxWidth="150" />
                 </Grid>
-                <local_gui:AugmentedSpacer />
-                <Grid>
+                <Grid Margin="3" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
@@ -61,8 +60,7 @@
                     </TextBlock>
                     <TextBox Grid.Row="2" Name="MaxNumberOfRecords" />
                 </Grid>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedButton Name="ButtonGet" MinWidth="50" />
+                <local_gui:AugmentedButton Name="ButtonGet" MinWidth="50"  Margin="3" />
                 <local_gui:AugmentedButton Name="ButtonPut" MinWidth="50" />
             </StackPanel>
         </local_gui:AugmentedToolBarTray>

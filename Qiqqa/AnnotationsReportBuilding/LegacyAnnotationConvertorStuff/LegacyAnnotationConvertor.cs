@@ -6,6 +6,7 @@ using Qiqqa.Documents.PDF.PDFControls.MetadataControls;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Interactive;
 using Utilities;
+using Utilities.GUI;
 using Utilities.PDF;
 
 namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
@@ -27,6 +28,8 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
 
         public static int ImportLegacyAnnotations(PDFDocument pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             int imported_count = 0;
 
             if (!pdf_document.DocumentExists)
@@ -34,7 +37,6 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                 Logging.Info("Not importing legacy annotations for {0} because it has no PDF.", pdf_document.Fingerprint);
                 return imported_count;
             }
-
 
             Logging.Info("+Importing legacy annotations from {0}", pdf_document.Fingerprint);
             using (AugmentedPdfLoadedDocument raw_pdf_document = new AugmentedPdfLoadedDocument(pdf_document.PDFRenderer.PDFFilename))
@@ -67,7 +69,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                                 if (null == matching_existing_pdf_annotation)
                                 {
                                     // Add it to the PDFDocument
-                                    pdf_document.GetAnnotations().AddUpdatedAnnotation(pdf_annotation);
+                                    pdf_document.AddUpdatedAnnotation(pdf_annotation);
                                     imported_count++;
                                 }
                                 else
@@ -89,6 +91,8 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                     }
                 }
             }
+
+            pdf_document.ReprocessDocumentIfDirty();
 
             Logging.Info("-Importing legacy annotations from {0}", pdf_document.Fingerprint);
 

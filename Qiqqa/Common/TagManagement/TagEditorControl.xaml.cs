@@ -32,11 +32,24 @@ namespace Qiqqa.Common.TagManagement
         {
             InitializeComponent();
 
+            //Unloaded += TagEditorControl_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
             ObjAddControl.OnNewTag += ObjAddControl_OnNewTag;
 
             // Register for notifications of changes to the COMPONENT's TagsBundle
             wdpcn = new WeakDependencyPropertyChangeNotifier(this, TagsBundleProperty);
             wdpcn.ValueChanged += OnTagsBundlePropertyChanged;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
+        }
+
+        private void TagEditorControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
         }
 
         private void OnTagsBundlePropertyChanged(object sender, EventArgs e)
@@ -121,37 +134,37 @@ namespace Qiqqa.Common.TagManagement
         {
             Logging.Debug("TagEditorControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
-                BindingOperations.ClearBinding(this, TagsBundleProperty);
-
-                if (null != wdpcn)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    wdpcn.ValueChanged -= OnTagsBundlePropertyChanged;
-                }
-                // TagsBundle = null;  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                    // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                    BindingOperations.ClearBinding(this, TagsBundleProperty);
 
-                ObjTagsPanel.Children.Clear();
-            }, must_exec_in_UI_thread: true);
+                    if (null != wdpcn)
+                    {
+                        wdpcn.ValueChanged -= OnTagsBundlePropertyChanged;
+                    }
+                    // TagsBundle = null;  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Get rid of managed resources
-                wdpcn?.Dispose();
+                    ObjTagsPanel.Children.Clear();
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Get rid of managed resources
+                    wdpcn?.Dispose();
+                    wdpcn = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ObjAddControl.OnNewTag -= ObjAddControl_OnNewTag;
+                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjAddControl.OnNewTag -= ObjAddControl_OnNewTag;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                wdpcn = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion

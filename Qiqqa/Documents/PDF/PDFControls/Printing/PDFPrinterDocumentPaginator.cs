@@ -127,20 +127,23 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
         {
             Logging.Debug("PDFPrinterDocumentPaginator::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // Get rid of managed resources / get rid of cyclic references:
-                pdf_document = null;
-                pdf_renderer = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    pdf_document = null;
+                    pdf_renderer = null;
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                last_document_page?.Dispose();
-                last_document_page = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    last_document_page?.Dispose();
+                    last_document_page = null;
+                });
 
-            ++dispose_count;
+                ++dispose_count;
+            });
         }
 
         #endregion

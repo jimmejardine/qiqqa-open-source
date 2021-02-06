@@ -1,14 +1,17 @@
 ﻿using System.Drawing;
 using System.IO;
 using Qiqqa.Documents.PDF.PDFRendering;
+using Utilities.GUI;
 using Utilities.Images;
 
 namespace Qiqqa.Documents.PDF
 {
     internal class PDFAnnotationToImageRenderer
     {
-        public static Image RenderAnnotation(PDFDocument pdf_document, PDFAnnotation pdf_annotation, float dpi)
+        public static Image RenderAnnotation(PDFDocument pdf_document, PDFAnnotation pdf_annotation, int dpi)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByDPIAsImage(pdf_annotation.Page, dpi)))
             {
                 Image image = Image.FromStream(ms);

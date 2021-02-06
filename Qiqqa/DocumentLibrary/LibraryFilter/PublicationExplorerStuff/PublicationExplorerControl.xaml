@@ -10,7 +10,6 @@
                 If you have associated BibTeX with your PDFs, Qiqqa will automatically extract their publications.
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
-        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree" />
+        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree"  Margin="3" />
     </DockPanel>
 </UserControl>

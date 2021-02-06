@@ -1,0 +1,115 @@
+#analytics_header {
+  background-color: #EEE;
+  padding: 10px 20px;
+  border-bottom: 1px solid #DDD;
+  margin-bottom: 30px; }
+  #analytics_header h1 {
+    line-height: 1;
+    font-size: 185%;
+    letter-spacing: -1px;
+    margin-bottom: 2px;
+    padding-left: 3px; }
+  #analytics_header p.subhead {
+    color: #dd1d75;
+    padding: 2px 6px;
+    display: inline;
+    background-color: #FFF;
+    border: 1px solid #e9e9e9; }
+
+#controls {
+  width: 180px;
+  float: left; }
+  #controls #filters p {
+    margin-bottom: 6px; }
+  #controls #filters a {
+    font-weight: bold;
+    padding-left: 20px; }
+    #controls #filters a.on {
+      color: black;
+      text-decoration: none;
+      background: transparent url(https://dv4uxy777adjt.cloudfront.net/_cb/90e376c/assets/black_arrow.png) no-repeat 9px 50%; }
+
+/* Timeline stuff */
+#timeline_container {
+  margin-left: 200px; }
+
+/* Table stuff */
+.selector {
+  width: 20px; }
+
+.label {
+  width: 190px; }
+
+.even td {
+  background-color: #f8f8f8; }
+
+.odd td {
+  background-color: #ffffff; }
+
+/* Set of table data */
+.set {
+  margin-bottom: 10px; }
+  .set h2 {
+    font-size: 120%;
+    padding: 10px 20px; }
+
+.sub td.row_label div {
+  padding-left: 20px !important; }
+
+/* Table Data */
+.data {
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: inherit;
+  border-top: 1px solid #DDD;
+  border-left: 1px solid #DDD; }
+  .data th {
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD; }
+    .data th.selector {
+      border-right: 1px solid #FFF;
+      border-bottom: 1px solid #FFF; }
+  .data td {
+    padding: 0;
+    color: #333;
+    border-bottom: 1px solid #DDD;
+    border-right: 1px solid #DDD; }
+    .data td div strong {
+      font-weight: normal;
+      display: block;
+      padding-bottom: 3px; }
+    .data td.click {
+      cursor: pointer;
+      background-color: #DDD;
+      border-bottom: 1px solid #FFF;
+      border-right: 2px solid #6a6a6a; }
+    .data td.on {
+      background-color: #BBB; }
+  .data tr.on td.click {
+    background-color: #BBB; }
+  .data td span.green {
+    color: green;
+    background-color: #FFF; }
+  .data td span.red {
+    color: red;
+    background-color: #FFF; }
+  .data td.row_label div strong {
+    font-size: 90%;
+    font-weight: bold; }
+  .data td.row_label * {
+    vertical-align: middle; }
+  .data td.row_label span {
+    font-size: 90%; }
+  .data td.row_label .toggle {
+    color: black;
+    background: transparent url(https://dv4uxy777adjt.cloudfront.net/_cb/90e376c/assets/black_arrow.png) no-repeat 100% 50%;
+    padding-right: 12px; }
+  .data td.row_label .on {
+    background: transparent url(https://drp60gfj3y9kn.cloudfront.net/_cb/90e376c/assets/black_arrow_on.png) no-repeat 100% 50%;
+    padding-right: 12px; }
+  .data tr.on td.row_label .toggle {
+    color: white;
+    background-image: url(https://dv4uxy777adjt.cloudfront.net/_cb/90e376c/assets/white_arrow.png); }
+  .data tr.on td.row_label .on {
+    color: white;
+    background-image: url(https://d37h3y471q0lt2.cloudfront.net/_cb/90e376c/assets/white_arrow_on.png); }

@@ -1,3 +1,455 @@
+# v83pre release: v83.?????????????????????? (UNPUBLISHED)
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+
+
+
+2021-02-06
+----------
+
+			
+* (43414aa4) bunch of work done on https://github.com/jimmejardine/qiqqa-open-source/issues/299 
+  and similar issues:
+  
+  - removed the cyclic reference in the PDFRendererControlStats setup.
+  - added WeakReference<PDFRendererControl> instances in any sub-controls which would otherwise have caused a cyclic reference
+  - null-reference checking via ASSERT.Test() so that we at least can debug the bastards when we hit them.
+  - Added null reference checks via if(...) constructs for several controls' usage.
+  - added null checks for several functions which would legally return `null`, e.g. on data file load ('de-serialize') errors.
+  
+    TODO: trigger those errors forcefully for testing.
+	
+  N.B.: This commit corrects the omissions from commit (a52e64d4) below.
+			
+* (3e0f2488) regenerated doc/site again with experimental deGaulle code.
+			
+* (a52e64d4) bunch of work done on https://github.com/jimmejardine/qiqqa-open-source/issues/299 
+  and similar issues:
+  
+  - removed the cyclic reference in the PDFRendererControlStats setup.
+  - added WeakReference<PDFRendererControl> instances in any sub-controls which would otherwise have caused a cyclic reference
+  - null-reference checking via ASSERT.Test() so that we at least can debug the bastards when we hit them.
+  - Added null reference checks via if(...) constructs for several controls' usage.
+  - added null checks for several functions which would legally return `null`, e.g. on data file load ('de-serialize') errors.    
+  
+    TODO: trigger those errors forcefully for testing.
+			
+
+
+
+2021-02-04
+----------
+
+			
+* (47216357) regenerated doc/site again with experimental deGaulle code.
+			
+* (481bd5ad) also added video files from docs-src/
+			
+* (dcbdf0ff) 
+  - some work done on the document generator (very much unfinished yet)
+  - regenerated the /docs/ directory tree.
+			
+* (485c30dd) (https://github.com/jimmejardine/qiqqa-open-source/issues/218) 
+  
+  archived the original getsatisfaction pages + assets, as obtained from bing+google. 7zip solid archive packing produces a *tiny* archive for all this content! :-))
+			
+* (1e3056c8) (https://github.com/jimmejardine/qiqqa-open-source/issues/218) 
+
+  more cleaning of the getsatisfaction pages 
+			
+
+
+
+2021-02-02
+----------
+
+			
+* (adce4c45) write down latest brainwave about PDF handling and the scripting around that one.
+			
+* (ca076972) give the technology tests shorter binary names.
+			
+
+
+
+2021-01-31
+----------
+
+			
+* (fbdab184) added another Technology Test application: this one to test behaviour of the Win32 System memory query APIs and our ability to monitor these values to help decide when we have a "run away" or "deterirating" application.
+  
+  README is included, describing higher goals and peculiar observations.
+			
+* (3d959e54) and a couple more notes on the fork-me technology test.
+			
+* (2c0ee480) Forgot to write down the *extra extra* lessons learned during the previous one/two days of reviving my Win32 API memory and 'foo'. Wrote it down in the fork-me README for posterity.
+			
+* (927091f7) added info from previous commit msg in README: the lessons learned and all that
+			
+* (a297e0f4) adding Technology Test sample/test app: checking forking cleans up memory leaks.cpp() on Windows. Turns out that's a no-go (been away too long from Win32 API work; had forgotten that bit :-( ), so sample code checks behaviour what to do for a self-monitoring Windows executable.
+  
+  Turns out debugging is a bastard as you're hard up against the wall to debug the *child* that's invoked via CreateProcess.
+  Besides, the initial sample code grabbed off the Microsoft site had the nasty "side effect" of causing infinite instantiations when patched that way, so the conclusion for the future is: better to have a separately named 'monitor' application, which keeps N child applications afloat.
+  
+  Example code is still a mess, as all things that were looked at, include Counting Semaphores to help keep track of the number of child instances, etc. is all still in there.
+  
+  Conclusions:
+  
+  - name monitor and child apps differently, so you can have the solution open in TWO MSVC instances and debug the monitor in one, while debugging the child in another.
+  - do NOT use Counting Semaphores (or any other 'obvious' stuff) for keeping track of the number of children alive: when they *terminate*, through Win32API ExitProcess, TerminateProcess or hard crash, ANYTHING that's not `exit(X)`, you're toast as the application WILL NOT invoke class destructors or any handlers you can hook into when that happens, resulting in the **inability to guarantee** that any semaphore signaling will be matched by appropriate release at end-of-child-life.
+  
+    Consequently, the only viable way to make sure you can count the children alive at point of decision to kick one more alive or not is to use a system which **completes entirely** at start of child app: the way this is done here is to use a Named Mutex (all we need is a critical section, no counting done at this level, so not a semaphore but a mutex instead), which protects a critical section in all parties involved, where the OS is queried for a processes snapshot (a la `ps -ax` if you're into UNIX) and then scan the executable names for a match. Once that scan is done, the critical section ends and the Mutex is released, so we CAN guarantee proper global mutex handling now (as long as our OS process scan code doesn't *crash* ;-) )
+  
+    Then, when the count of 'live children' is high enough, the creation of yet anotheer one is skipped.
+  - extra lesson: Named Mutexes and Named Semaphores on Win32/64 can have a 'Global\' prefix, if you read their API docs. DO NOT DO THAT. Turns out that the verbiage at the Microsoft site is not clear enough for *me*, at least, to grok that this prefix is ONLY legal when running Terminal Services, which is Windows Server stuff and I bet you're not running research UI applications on a Windows Server license, surely!  ;-P
+  
+    That bit took another couple of hours off my life. !@#$%^
+  
+  - extra lesson: DO read ('empty') your child's STDOUT pipe CONTINUOUSLY and RIGOROUSLY, when you've redirected its stdio to you, the parent/monitor. If you don't (and the original Microsoft sample code didn't because it didn't have to, as it didn't have any "debugging printf statements" in there! !@#$%^) to child process will BLOCK, waiting indefinitely for the parent to finally do some ReadFile(handle) work and empty the buffer.
+  
+    In the current example code, this has been resolved by kicking an extra *thread* alive in the *monitor* (`ThreadProc`) which' sole purpose is continuously waiting for stdout data from the child.
+  
+    I could have gone the whole hog and written asynchronous I/O code for that instead, but this was done faster, WORKS, and wasn't the main subject at time of writing.
+  
+  - extra lesson: call the `FlushFileBuffers()` API on your parent/child pipes (redirected stdin + stdout): that *also* wasn't in the original sample code from MS, but is absolutely mandatory if you don't want to wonder why the Heck your collected log looks brutally truncated on app exit.
+  
+    The MS sample code got away with it, because it matched write and read buffer for buffer, so that really is an edge case of using redirected stdio.
+  
+  - use OutputDebugStr to *really* printf-debug your code, because the child's printf() is, of course, *redirected*, and if you're debugging pipes it DOES NOT help when you're first trying to fill & choke the buggers only faster: you won't see nuttin', only a stuck bunch of applications. ;-)
+  
+    Use SysInternals OutputDebug monitor UI app (Debug64.exe) for this as MSVC *only* grabs OutputDebugStr output from the executable currently being debugged: that being only one half of the story underway, you will quickly understand that other means to read your debug output are mandatory here.
+			
+
+
+
+2021-01-30
+----------
+
+			
+* (4fcb3a78) add a couple of docs
+			
+
+
+
+2021-01-27
+----------
+
+			
+* (12fb8627) updated MuPDF submodule
+			
+
+
+
+
+
+
+
+
+# v83pre release: v83.0.7665-36168 (UNPUBLISHED)
+
+> ## Note
+>
+> This release is **binary compatible with v80 and v79**: any library created using this version MUST be readable and usable by v80 and v79 software releases.
+
+
+
+
+2021-01-26
+----------
+
+			
+* (4e6b21bb) fixed CHANGELOG_full.md -- last edit hadn't cleaned up old records like it should've.
+			
+* (5435253b) Following up on the hint https://stackoverflow.com/questions/9602567/how-to-update-ui-from-another-thread-running-in-another-class#answer-9620011 : using DispatcherTimer to ensure the library overview + filters and library list panels get update periodically, when there's any change to the library content.
+  
+  This is just the start, as this will also serve well when we update PDF Document metadata / text / etc. in the background and want to signal the UI (or rather: have the active parts of the UI **discover** ) that there's change to be rendered/updated in the UI.
+			
+* (81460293..a40cbbca) Fixed code responsible for loading and saving Window positions & sizes. 
+
+  Part of the work done while migrating the multi-monitor screen/dpi scaling to the external library WPFScreenHelper.
+			
+* (81460293) 
+  - added preliminary ActivityMonitor window to the UI.
+    + background work is running, but...
+    + TODO: draw UI. Using some graph library I guess.  :-/
+  - added test code for Unit Testing async Task-based processing, which is 'FireAndForget' style work. C# 5.0/7.0 async/await cannot deliver on that, IIUC, because that's fundamentally expecting a long-running process to *finally* deliver a result by **returning** it. WE, on the other hand, want to arrive at a UI process where we fire off a long-running update process (e.g. page count determining for PDFs in a lib, when sorting on page count), which will UPDATE our data LATER, while RIGHT NOW, we use a FAKE VALUE. That kind of thinking leads to us having to seriously consider hints like this one: https://stackoverflow.com/questions/9602567/how-to-update-ui-from-another-thread-running-in-another-class#answer-9620011
+    as we're aiming for a process which essentially has TWO moments in time when the values are to be processed!
+  - grabbed thee entire WeakReferences stuff from the source where we got WeakEventManager.
+    + incidentally, the unit tests for SIMILAR STUFF, WHICH GOT FROM SOME OBSCURE OTHER PLACE, clearly FAIL right now. WHY that is, I don't know yet.
+  - apply the developer config settings, e.g. FolderWatcher setting.
+    + Still got TODO the PDF page rendering enable/disable settings though
+  - updated a couple of unit test sollwert files regarding BibTeX parsing. (That's another subject that needs further attention)
+			
+* (a40cbbca) 
+  - added thirdparty lib WPFScreenHelper for DPI/screenrez detection and processing for multiple monitors.
+    + Moved the original Qiqqa code concerned with this to that lib.
+  - fiddling with XAML: default window sizes, etc.
+			
+
+
+
+2021-01-24
+----------
+
+			
+* (5bb399db) taking out the pdf page image cache code, which was sub-optimal anyway as it only cached page images for main view panes (side panel PDF page thumbnails were not cached), nor was the cache able to track pdf page usage (every open PDF had its own 3-page cache)
+			
+
+
+
+2021-01-19
+----------
+
+			
+* (7a4bc6f4) update MuPDF submodule
+			
+* (09f77fd5) whoops, forgot to commit the mudraw copy script! pretty important for the new PDF rendering to work!
+			
+* (ec9f20d8) TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
+  
+  + nitpick: off by one error fix in image cache: code doesn't read like it acted: max cache size was 4, not 3, due to wrong compare in Put()
+			
+* (93c9dd39) 
+  - update submodules: MuPDF mudraw now supports zero dpi
+  - update submodules: MuPDF mudraw now recalculates dpi and sets it in the generated image file when w+h have been specified as well. This effed us up pretty badly re image size rendering in WPF. sEE ALSO https://www.hanselman.com/blog/be-aware-of-dpi-with-image-pngs-in-wpf-images-scale-weird-or-are-blurry INCLUDING COMMENTS THERE. !@#$%^& WPF
+  
+  - taken care of multiple UI assertions; mudraw should now run in a background thread instead of (like SORAX) occupying the UI thread while rendering pages.
+			
+
+
+
+
+
+2021-01-18
+----------
+
+			
+* (5459dc7d) migrate the height/width logic around the PDF page renderer from double to int. This should help improve cache performance a bit as now == equality comparisons should actually deliver instead of possibly maybe matching.
+  
+  Also fixed a width edit I missed (the old cache and calc stuff only reckoned with height :-( -- https://github.com/jimmejardine/qiqqa-open-source/issues/9 )
+  
+  Added cache retrieval code which picks a higher rez image when already present: this should ultimate reduce the pressure on the PDF renderer, of course depending on the order of incoming requests (thumbnails in side panel vs full rez main page views)
+			
+* (5ff4991e) Bye bye SORAX! https://github.com/jimmejardine/qiqqa-open-source/issues/209 -- current patch uses bleeding edge **patched** Artifex MuPDF as intended, but is still VERY HACKY (UI assertions failing all around as those are still from the Sorax days wheere it had to run in the UI thread, while this external executable SHOULD NOT).
+  
+  Side effect of this changee is the immediate *proper rendering* of many PDFs which failed before: my OnSemi datasheets in the Evil Collection now show some pixels instead of blank white pages. YAY!
+  
+  **Also** separated stdout and stderr output from external apps in the process output reader tooling; QiqqaOCR had to be adjusted to log to stderr as it was previously logging to stdout and that's not desirable any more as stdout now is for incoming content while stderr is the error/log channel for console apps like mudraw, etc.  Thanks to https://stackoverflow.com/questions/22363033/how-do-i-configure-log4net-consoleappender-to-write-to-console-err-and-console-o
+			
+* (306dc143) 
+  - preparing the PDFRenderer to use latest MuPDF mudraw tool. (submodule updated: -q quiet mode patches, ...)
+  
+    Going to use binary PNG transmission over stdout as working with a temporary file would quickly wear out any SSD serving as temp disk: one image rendered for every page, thumbnail of a page, etc.etc.: that's a lot of images rendered and saved to temp disk space if we used that as intermediate storage. :-(
+  
+  - adding width next to height as a render criterium: this should ultimately fix a long-standing problem I have with Qiqqa rendering 'PowerPoint presentation PDFs' in a crazy way: those pages SHOULD be fitted to the screen as well as all other pages.
+  
+  That's about https://github.com/jimmejardine/qiqqa-open-source/issues/7, https://github.com/jimmejardine/qiqqa-open-source/issues/9, https://github.com/jimmejardine/qiqqa-open-source/issues/209, https://github.com/jimmejardine/qiqqa-open-source/issues/280 and a part of the work towards https://github.com/jimmejardine/qiqqa-open-source/issues/289
+			
+* (c10a4278) Forgot to add the new (to be edited, now just a rough copy) Library Properties Edit page, meant for editing the sync path, etc.
+			
+* (65fa738e) 
+  - disabling the 'Unloaded' event handlers as the side panel for the library document list view (for single selected document, tab 3: abstract + page previews) is otherwise lost after switching back & forth between those tabs (preview, properties, annotations)
+  
+  - weird sh*t happening with a HUGE pdf (500MB!) and Sorax rendering. Getting quite fed up with the bloody bastard.
+			
+* (c2d00090) fix UI: in library list view, side panel for single selected PDF shows Abstract + page previews in third tab. Abstract could be very large and does not scroll along with the rest. Fixed.
+			
+* (9f7c460a) more work done on unloading/cleeaning up after WPF controls
+			
+* (0d9a297b) messed about with the Sync dialog. The only useful/sane spinoff of that being a slight tweak of the description in there. (Trying to make the sync path an edit box inside that list's DataContext was a horror. Solving it another way next.)    !@#$%^&* WPF
+			
+* (b548b1c4) fix crash: MainWindow's new CleanUp() function is invoked multiple times, the last time when the Application.Current dispatcher has already shutdown entirely: Application.Current == null then.
+			
+* (f2390a7d) nuking the SynchronizationState hack to get a working dispatcher, which I ripped off the Net earlier: cute but NO CIGAR: that one is as dead as Application.Current when the time comes and it's ShutDown Hour. Stripped out that code, not *exactly* reverting to the previous staste of affairs in WPFDoEvents.InvokeInUI / InvokeAsyncInUI APIs, as the current flow was/is okay anyway, so we keep that: async invoke attempts AFTER shutdown has been flagged are DISCARDED (that takes care nicely of pending PDF page renders for the UI!) while we did some work in the previous commits to reduce the number of synchronous cleanup calls to a bare minimum: the only ones I still see screaming through my debugger are those pesky SORAX destructors, which **somehow** manage to still screw up themselves. Alas. This should keep the number of post-shutdown exception reports in any logging to a bare minimum, so we can focus on the real deal of errors occurring during / near the of end of an application run.
+
+  BTW: the original info for that hack (which has now been removed) came from https://stackoverflow.com/questions/11625208/accessing-ui-main-thread-safely-in-wpf
+			
+* (d9dca75f) working on the application exit behaviour. Finally getting something that looks like it's working.
+  
+  Thanks to these articles:
+  - https://stackoverflow.com/questions/14479038/how-to-fire-unload-event-of-usercontrol-in-a-wpf-window
+  - https://social.msdn.microsoft.com/Forums/en-US/7d413643-6877-4ea3-861d-61ad4a59eaa1/wpf-finalize-and-ui-thread  (which was the first one ever to give me a *working* hint!)
+  - http://geekswithblogs.net/cskardon/archive/2008/06/23/dispose-of-a-wpf-usercontrol-ish.aspx (via the previous article.)
+			
+* (9581da25) allowing Visual Studio DesignMode in Rel;ease builds as well now.
+			
+
+
+
+2021-01-17
+----------
+
+			
+* (6494d192) 
+  - crash fix in LibraryIndexer (TODO: test the LuceneIndex being instantiated in there so we don't stick with that NULL pointer forever)
+  - refactor the PDF Text Extractor process to reduce CPU load when UI responsiveness measurable drops (>= 300ms per UI message round-trip)
+			
+* (af028fc9) tweaking the XAML - margings/padding/styling. Also used some Fallback values to better preview document lines in the library control in DesignMode in Visual Studio; the names are such that they pop out immediately when testing the Qiqqa binary (which should set up all these fields anyway, so the fallbacks shouldn't show up anywhere)
+			
+* (09ff3877) 
+  - revert one WeakReference: incorrect analysis of the code lost us the proper working of the library side panel (single and multiple selections)
+  - remove the WaitForUIThreadActivityDone() code throughout: this API results in UI lockups; probably because the message pumps created are insufficient. Don't know how exactly, but killing that bit of code makes a few dialogs operate better under the current test circumstances -- very hard to reproduce, so better test this now while the planets are aligned  :-S
+			
+* (666a9e28) fixing the new "work for 5 seconds, then take a breather for one-and-a-half" logic.
+			
+* (b4cbe2db) remove the `supress_signal...` parameter: ALWAYS signal a library update, i.e. document addition. The old approach is not needed anyway as the costly UI updates are triggered from a background timer process ('frequent background tasks'), which polls every second.
+  
+  Special attention has been paid to the library document list NOT LOOSING the selection checkboxes any more: this took some more work and is pretty hairy, but finally you don't loose your selection while a library gets updated in the background: the library list UI update is *delayed* until you are DONE with the selection.
+  
+  Ways to RESET the selection:
+  - press F5 key for 'refresh' (New Feature!) -- this one will only reset the selection when there's an actual library list update to do, i.e. if the redraw/repaint logic discovers that the number of documents in the library has changed and there's some actual repainting of the list to do.
+  - going out of focus, i.e. switching to a different tab in Qiqqa, and then switching back: the logic for that one will also invoke a full list update if there are any library updates.
+  
+  Extras:
+  
+  - FolderWatcher has been overhauled (and so has the 're-add PDFs in the documents directory' menu item: "Recover unregistered PDFs in this library") to add PDFs for about 5 seconds, then take a breather for about 1.5 seconds so the other tasks and the UI can get a bit of air and do their thing.
+  
+  - The statusbar now includes a little folder+eyes item when the FolderWatcher is active: it's a simple small progress bar, providing a bit of visual feedback so the user knows when the folderWatcher is active.
+  
+    + NOTE: when you add/import PDFs yourself, the folder+eyes status thingamajig also pops up for a bit. It shows there's work being done importing PDFs into libraries.
+			
+* (a3292bc1) 
+  - fixing SORAX-related crashes by moving all SORAX actions into the UI thread; the lib uses COM under the hood, which requires a working and accessible Windows message pipe, something which only the UI thread can provide.
+  - littered the code with WPFDoEvents UI/not-UI assertions -- which caught the above scenario in a Dispose() for a page image render. And that was the hint the needed to progress a little further towards stibility: it was SORAX which caused a *lot* of the out-of-memory failures due to crazy COM/WPF/UI failures, even for smaller libraries under test.
+  - fix bit of an odd crash in the Lucene flush/cleanup during shutdown, where Lucene kept busy with 'optimizing the index' while a quick application termination was happening in the background, resulting in lockup and then a crash.
+  - this MAY be a fix for the reported "number of documents reported not matching reality": added update/refresh code to update the library list panel when PDF documents are added in the background via FolderWatcher or other means (async library loading). WARNING: this code is still incomplete/buggy!
+  - most UI assertions have been covered now. Keeping them anyway as this is hairy stuff and should be tested more.
+  
+  Addresses (but is not guaranteed to fix) #290, #283, #281, #280, #243
+			
+* (18fbb7e4) removing more Commercial Qiqqa cruft: "Partial Sync" is gone (was only a 'feature' for folks who hadn't paid up in time for their license to remain 100% active)
+			
+* (384e13bb) fix https://github.com/jimmejardine/qiqqa-open-source/issues/292 : using a Grid Filler a la ToggleButton, which didn't suffer from this issue.  !@#$%^&* WPF
+			
+* (ddbac8da) adding more WPF work from @mahfiaz : replacing spacer nodes with margins on the content nodes.
+			
+* (21a1fb80) Visual Studio Designer Mode hacking   :-((
+			
+
+
+
+2021-01-16
+----------
+
+			
+* (a7cc032f) typo
+			
+* (b26a10ae) Added text suggested by @vroegope; augmented.
+			
+* (90177e1d) 
+  - bumped Qiqqa version for release
+  - migrated to a simpler Dispose approach where SafeExec() has a single function: executing the code and catching any crashes, so the outer code layer can continue executing without trouble. The 'must run in UI thread' requirement for all WPF Controls is enforced by using the appropriate WPFDoEvents.InvokeInUIThread() API: this is a **synchronous** call **intentionally**: the Dispose() call won't wait for async stuff to do their thing.
+  - augmented the documentation for the developer overrides json5 config file
+			
+* (9fd31ca7) re-introduce the PDFDocument save+reindex work which was previously done via event handler for annotations/inks/highlights -- which has now been removed.
+			
+* (fff8bb3e) 
+  - re-enable the metadata loading (revert hack for memory pressure tests)
+  - augment Doc load/init error messages which would signal loss of (corrupt/unsupported) metadata.
+			
+* (61dfe937) removed cyclic reference over registered event from PDFDocument -> Annotations+Inks+Highlights -> PDFDocument
+			
+* (b61af454) update MuPDF submodule
+			
+* (4f932710) Brutal hack to discard metadata raw bytes to see what the memory consumption is going to be (improvement?) -- most memory costs are currently in the LibraryItem and many Dictionary and HashSet instances which have a string QiqqaHASH (~MD5) STRING key.
+			
+
+
+
+2021-01-15
+----------
+
+			
+* (a1048888) Create What IS Qiqqa - Where or How is it useful to you.md
+			
+
+
+
+2021-01-14
+----------
+
+			
+* (4636aa0c) change the UI change bits from sync to async: it's okay (probably!) and prevents slow-down/long waits and reduced perf of the app under high loads.
+			
+* (bfb099cc) 
+  - lots of rework to get calculus/document work into the background threads and out of the UI thread.
+  - fixes the UI and other exceptions reported in https://github.com/jimmejardine/qiqqa-open-source/issues/290, plus some of the stuff discovered in the logs from other submitters.
+  - fixes a couple of slow-downs / lock-ups due to the code / thread re-org; discovered by analyzing the 'Threads' + CallStack views in the Visual Studio debugger. Done this in multiple tests on small and large / huge library systems (combined over 50K documents; which *does* cause out-of-memory issues still, unfortunately)
+  - added `Unloaded` handlers for UI elements to ensure these remove/unlink PDFDocument references ASAP so that the .NET GC (Garbage Collector) can do its job soonest and best.
+  
+  NOTE: remember that the memory slowly fills up as you look at PDFs: the metadata and annotations (Inks, Annots, etc.) are loaded but *probably* never discarded. This is no worse than the old scheme where there was the "annotation cachee', which I removed a couple of commits earlier: with that one it was worse and *faster* towards out-of-mem. Anyway, a lot of work remains to be done to find out properly how and where we must cut to relieve the memory pressure: the memory dumps and diff analyses via Visual Studio means shows lots of detail, but no clear picture yet of what *really* matters. Next stage: cutting out Lucene and all 32-bit libraries, with known loss of UI/UX/functionality, just to see how this works out for memory pressure development during load and bulk processing of my huge test libraries.
+			
+* (a9deb954) an improved version of the WPFdoEvents.Invoke* APIs for executing code in the UI or background threads specifically. The most important update here is the extra code which now ensures the UI/not-UI check can still deliver when the application is already shutting down and thus Application.CurrentDispatcher is nil: we use a different scheme where we monitor the CurrentDispatcher while the app is still in full swing and then, when the time comes, we use the cached dispatcher core to switch contexts where necessary.
+			
+* (3c36df91) fix race condition in the UI status updater. Should improve UI status bar update frequency & responsiveness, when combined with the next commit (which is an improved of the WPFdoEvents.Invoke* APIs for executing codee in the UI or background threads specifically.)
+			
+* (e8e66ca7) removed the convoluted document annotations' cache system, which only gobbled up eextra memory and effort (CPU cycles) without easing the load on the system for large libraries.
+			
+* (4634028f) XAML: minimal cleanup & tweak of Augmentedbutton
+			
+
+
+
+2021-01-13
+----------
+
+			
+* (364baa2e) improve error message
+			
+* (179476cc) Merge remote-tracking branch 'remotes/jimmejardine-original/master'
+			
+* (fd9136a3) Make Qiqqa Base Path changeable in the "login"==startup dialog; for safety also ensure the code 'locks' the configured path after this (or before you do anything with it, like backup or restore a qiqqa backup!) so any later change (which should never happen anyway) is immediately flagged as a fatal program failure.
+  
+  Also DO NOT display any GDI+ failures any more: those originate in SORAX and XULrunner and are unresolvable anyway; those are all display failures which are harmless to the database itself and the large user facing error report dialogs are only highly obnoxious.
+			
+
+
+
+2021-01-12
+----------
+
+			
+* (ecf6c3c4) Wrong decision: don't spend any more effort in trying to upgrade to Lucene.NET (bleeding edge); invest in migrating to SOLR instead: the migration takes too long and *feels too brittle* to validate the effort, for it will be *intermediate result* anyway as I *want* to move to a search index which can be opened up to "power users" -- which means *everyone* in my opinion as everybody should have an opportunity to "do stuff with the search index" as they see fit and opening up the search index is the way forward there, irrespective of any user's usage patterns or learning/research goals. Hence we must detach Lucene.NET as a submodule right away.
+			
+
+
+
+2021-01-11
+----------
+
+			
+* (2b0cfe38) tweaking the in/NOT-in-UI assertions so it's easier to put a breakpoint there while debugging the app.
+			
+* (000e797e) fix errors reported by WPF in the notification bar. Still quite a few binding errors remain, but at least some have been fixed.
+			
+* (ca863c41) prevent exception (handled, but anyway) while shutting down app
+			
+* (63f0e67e) tweak the diagnostics output for the machine+configuration logging: formatting now as I intended it initially.
+			
+* (64b8890b) work done on the UI code to move heavy / blocking activity to a background thread (mainly all on-demand File I/O for PDF annotations: inks, text, etc.).
+  Added quite a few 'in UI?' / 'NOT in UI thread?' assertions to help the debugging/diagnostics process while we work on this.
+  Should've been async processing, but not sure if mere 'async' would ensure stuff gets run in either background threads or UI thread. Anyway, I have the framework calls needed for this already around, so using those: SafeThreadPool and WPFDoEvents APIs.
+			
+* (88364615) updated the Lucene.NEt project: as I wrote there, it's now fixed at NET48 because it's way too much hassle to fix the upgrade to the other platforms (NET5, Net Standard 2.1, NET Core App 3.1): the builds are way too finicky as they sometimes succeed and then break again at the most inconvenient times, resulting in quite a bit of WTF. Better to spend time on Lucene/SOLR itself ASAP, instead.
+			
+* (89b643f4) Fixing a few XAML Binding errors reported in the logging.
+			
+* (1b78c176) fixing a couple of crashes in the new application state logging code for #288
+			
+* (0e9a35a3) reshuffling the database upgrades (for migrating old qiqqa versions to newer releases) until after the 'login screen' where we can see the library base path (and possibly edit it, once we've added a browse button there). Meanwhile everything else should be held off until those upgrade actions have completed, or we'ld be loading a buggered state of affairs. Hence a holdoff semaphore is used to signal the end of the 'upgrade process' (signaled via a call to the `Kick()` API)
+			
+
+
+
+
+
+
+
 
 # v83pre release: v83.0.7649-30836 (UNPUBLISHED)
 
@@ -20,6 +472,10 @@
 ----------
 
 			
+* (af0837dd) updated packages
+			
+* (d10b29dd) adding the required submodules for InnoDependencyInstaller which we'll use for ensuring the user's machine has all the prerequisites for qiqqa installed. See also the origin document here: https://www.codeproject.com/Articles/20868/Inno-Setup-Dependency-Installer
+			
 * (18f18fbd) updated the 'superclean' script to not nuke any important binaries while erasing all compiler outputs.
 			
 * (4f741076) updated developer info txt & ignore the current .NET SDK and RunTime installers in the /libs/ directory.
@@ -38,7 +494,18 @@
 			
 * (311d6872) diagnostics output extended as part of work on https://github.com/jimmejardine/qiqqa-open-source/issues/288 : we need to see what the configured and internal paths used are for various bits inside Qiqqa.
 			
+* (3c79ed0c) adding Lucene.NET project as a submodule -- see if we can use this one before we migrate to using SOLR.
+			
 * (55f328ba) added GetOCRText boundary check to at least help discover *why* & *when* exactly these out-of-bounds requests occur - as this was discovered in customer log files during problem analysis of https://github.com/jimmejardine/qiqqa-open-source/issues/283
+			
+
+
+
+2021-01-07
+----------
+
+			
+* (adb4a72e) Create Citations and ways to feed and sync those with the documents you write.md
 			
 
 
@@ -105,6 +572,7 @@
 			
 * (3050e4a0..540a0e2d) Update README.md
 			
+* (6f4f63d3) Update Links to Stuff To Look At.md
 			
 
 
@@ -120,6 +588,8 @@
 * (0afca2ff) message language typo fix
 			
 * (cbbca0f5) rename WebLibraryDetail attributes which were only relevant back in the day of Commercial Qiqqa. This should uncover any lingering use of the buggers pretty darn quickly.
+			
+* (3cd322a0) remove or otherwise flag unused code.
 			
 * (f484785f) update `qpdf` tool to 10.0.4
 			
@@ -265,7 +735,9 @@
 2020-10-30
 ----------
 
-
+			
+* (8c6ed3d1) bump_version task script: make sure to skip over the MuPDF subtree as that one has its own version(s)!
+			
 * (48d9718b) edit/delete menu options: had not correctly saved the english texts file for that one
 
 * (b97c2498)

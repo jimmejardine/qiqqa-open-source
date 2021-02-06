@@ -65,7 +65,7 @@ async function scandir() {
         absolute: true,
         onlyFiles: true,
         caseSensitiveMatch: false,
-        ignore: ['Qiqqa.Build/Packages', 'packages/', 'research/', 'MuPDF/', 'Lucene.NET/']
+        ignore: ['Qiqqa.Build/Packages', 'packages/', 'research/', 'thirdparty/', 'MuPDF/', 'Lucene.NET/']
     });
 
  	paths.sort();

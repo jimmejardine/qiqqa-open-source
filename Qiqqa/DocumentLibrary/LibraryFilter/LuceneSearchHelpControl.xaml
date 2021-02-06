@@ -1,14 +1,15 @@
-<commongui:StandardWindow 
+<commongui:StandardWindow
   x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LuceneSearchHelpControl"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_gui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-  mc:Ignorable="d" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  x:Name="LuceneSearchHelpWindow"
   Title="Search Instructions"
-  d:DesignHeight="870"
+  d:DesignHeight="854" d:DesignWidth="735.5" MinWidth="380" Width="735"
 >
     <DockPanel>
         <local_gui:StandardPageHeader x:Name="Header" DockPanel.Dock="Top" Caption="Qiqqa Search" SubCaption="How to search better using Qiqqa's powerful search tools." />

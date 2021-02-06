@@ -7,3 +7,6 @@
 [submodule "Qiqqa.Build/Packaging/dotnet-deployment-tools"]
 	path = Qiqqa.Build/Packaging/dotnet-deployment-tools
 	url = git@github.com:GerHobbelt/deployment-tools.git
+[submodule "thirdparty/WpfScreenHelper"]
+	path = thirdparty/WpfScreenHelper
+	url = git@github.com:GerHobbelt/WpfScreenHelper.git

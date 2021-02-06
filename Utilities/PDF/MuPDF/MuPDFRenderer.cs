@@ -1,31 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Imaging;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.ProcessTools;
 
 namespace Utilities.PDF.MuPDF
 {
     public class MuPDFRenderer
     {
-#if TEST
-        public static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, string password, ProcessPriorityClass priority_class)
+        private static int render_count = 0;
+
+        public static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            render_count++;
+
             string process_parameters = String.Format(
-                ""
-                + " " + "-o stdout.png "
-                + " " + "-r " + dpi
+                $"-q -w {width} -h {height} -r {dpi} -o -"
                 + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
                 + " " + '"' + pdf_filename + '"'
                 + " " + page_number
                 );
 
-            MemoryStream ms = ReadEntireStandardOutput(process_parameters, priority_class);
+            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mudraw.exe"));
+            if (!File.Exists(exe))
+            {
+                throw new Exception($"PDF Page Rendering: missing modern MuPDF 'mudraw.exe': it does not exist in the expected path: '{exe}'");
+            }
+            if (!File.Exists(pdf_filename))
+            {
+                throw new Exception($"PDF Page Rendering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
+            }
+
+            MemoryStream ms = ReadEntireStandardOutput(exe, process_parameters, binary_output: true, priority_class);
             return ms;
         }
-#endif
+
+        public static byte[] RenderPDFPageAsByteArray(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
+        {
+            using (MemoryStream ms = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class))
+            {
+                ms.Seek(0, SeekOrigin.Begin);
+
+                // Read all the bytes in the stream from its current location to a byte[] array
+                byte[] img = ms.ToArray();
+
+                return img;
+            }
+        }
+
+        public static BitmapImage RenderPage_AsBitmapImage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
+        {
+            using (MemoryStream ms = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class))
+            {
+                BitmapImage bitmap_image = new BitmapImage();
+
+                bitmap_image.BeginInit();
+                bitmap_image.StreamSource = ms;
+                bitmap_image.EndInit();
+                return bitmap_image;
+            }
+        }
+
+        public static Bitmap RenderPage_AsBitmap(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
+        {
+            using (MemoryStream ms = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class))
+            {
+                Bitmap bitmap = new Bitmap(ms);
+
+                return bitmap;
+            }
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
 
         public class TextChunk
         {
@@ -43,6 +96,8 @@ namespace Utilities.PDF.MuPDF
 
         public static List<TextChunk> GetEmbeddedText(string pdf_filename, string page_numbers, string password, ProcessPriorityClass priority_class)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             string process_parameters = String.Format(
                 ""
                 + " " + "-tt "
@@ -51,7 +106,7 @@ namespace Utilities.PDF.MuPDF
                 + " " + page_numbers
                 );
 
-            using (MemoryStream ms = ReadEntireStandardOutput(process_parameters, priority_class))
+            using (MemoryStream ms = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, binary_output: false, priority_class))
             {
                 ms.Seek(0, SeekOrigin.Begin);
                 using (StreamReader sr_lines = new StreamReader(ms))
@@ -266,13 +321,15 @@ namespace Utilities.PDF.MuPDF
         }
 
 
-        private static MemoryStream ReadEntireStandardOutput(string process_parameters, ProcessPriorityClass priority_class)
+        private static MemoryStream ReadEntireStandardOutput(string pdfDrawExe, string process_parameters, bool binary_output, ProcessPriorityClass priority_class)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Stopwatch clk = Stopwatch.StartNew();
 
             // STDOUT/STDERR
             Logging.Debug("PDFDRAW :: ReadEntireStandardOutput command: pdfdraw.exe {0}", process_parameters);
-            using (Process process = ProcessSpawning.SpawnChildProcess("pdfdraw.exe", process_parameters, priority_class, stdout_is_binary: true))
+            using (Process process = ProcessSpawning.SpawnChildProcess(pdfDrawExe, process_parameters, priority_class, stdout_is_binary: true))
             {
                 using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process, stdout_is_binary: true))
                 {
@@ -284,17 +341,17 @@ namespace Utilities.PDF.MuPDF
                             long elapsed = clk.ElapsedMilliseconds;
                             Logging.Debug("PDFDRAW :: ReadEntireStandardOutput setup time: {0} ms for parameters:\n    {1}", elapsed, process_parameters);
 
-                            MemoryStream ms = new MemoryStream(256 * 1024);
+                            MemoryStream ms = new MemoryStream(1024 * 1024);
                             int total_size = StreamToFile.CopyStreamToStream(fs, ms);
                             long elapsed2 = clk.ElapsedMilliseconds;
-                            Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    pdfdraw.exe {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters);
+                            Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    {4} {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters, pdfDrawExe);
 
                             // Check that the process has exited properly
                             process.WaitForExit(1000);
 
                             if (!process.HasExited)
                             {
-                                Logging.Debug("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpString());
+                                Logging.Debug("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpStrings().stderr);
 
                                 try
                                 {
@@ -308,15 +365,21 @@ namespace Utilities.PDF.MuPDF
                                     Logging.Error(ex, "There was a problem killing the PDFRenderer process after timeout ({0} ms)", elapsed2 + 1000);
                                 }
 
-                                Logging.Error("PDFRenderer process did not terminate, so killed it. Commandline:\n    {0}\n{1}", process_parameters, process_output_reader.GetOutputsDumpString());
+                                Logging.Error("PDFRenderer process did not terminate, so killed it. Commandline:\n    {2} {0}\n{1}", process_parameters, process_output_reader.GetOutputsDumpStrings().stderr, pdfDrawExe);
 
-                                throw new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: pdfdraw.exe {process_parameters}");
+                                throw new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: {pdfDrawExe} {process_parameters}");
                             }
                             else if (process.ExitCode != 0)
                             {
-                                Logging.Error("PDFDRAW did fail with exit code {0} for commandline:\n    {1}\n{2}", process.ExitCode, process_parameters, process_output_reader.GetOutputsDumpString());
+                                Logging.Error("PDFDRAW did fail with exit code {0} for commandline:\n    {3} {1}\n{2}", process.ExitCode, process_parameters, process_output_reader.GetOutputsDumpStrings().stderr, pdfDrawExe);
 
-                                throw new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: pdfdraw.exe {process_parameters}");
+                                throw new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: {pdfDrawExe} {process_parameters}");
+                            }
+                            else
+                            {
+                                // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
+                                var outs = process_output_reader.GetOutputsDumpStrings();
+                                Logging.Error("PDFDRAW did SUCCEED with exit code {0} for commandline:\n    {3} {1}\n{2}", process.ExitCode, process_parameters, outs.stderr, pdfDrawExe);
                             }
 
                             return ms;

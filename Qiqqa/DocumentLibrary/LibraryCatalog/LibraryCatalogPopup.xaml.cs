@@ -49,9 +49,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             MenuDelete.Click += MenuDelete_Click;
             MenuUseFilenameAsTitle.Click += MenuUseFilenameAsTitle_Click;
             MenuUseDirectoriesAsTags.Click += MenuUseDirectoriesAsTags_Click;
-#if SYNCFUSION_ANTIQUE
             MenuUseKeywordsAsTags.Click += MenuUseKeywordsAsTags_Click;
-#endif
             MenuCopyBibTeXKey.Click += MenuCopyBibTeXKey_Click;
             MenuCopyQiqqaURI.Click += MenuCopyQiqqaURI_Click;
             MenuInCite_Word.Click += MenuInCite_Word_Click;
@@ -61,9 +59,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             MenuCopyToAnotherLibrary.Click += MenuCopyToAnotherLibrary_Click;
             MenuMoveToAnotherLibrary.Click += MenuMoveToAnotherLibrary_Click;
             MenuConvertLegacyAnnotations.Click += MenuConvertLegacyAnnotations_Click;
-#if SYNCFUSION_ANTIQUE
             MenuForgetLegacyAnnotations.Click += MenuForgetLegacyAnnotations_Click;
-#endif
             MenuExploreInBrainstorm.Click += MenuExploreInBrainstorm_Click;
             MenuExploreInExpedition.Click += MenuExploreInExpedition_Click;
             MenuExploreInPivot.Click += MenuExploreInPivot_Click;
@@ -230,49 +226,61 @@ SourceURL: {0}
         {
             popup.Close();
 
-            int imported_count = 0;
-
 #if SYNCFUSION_ANTIQUE
-            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportLegacyAnnotations);
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                try
+                int imported_count = 0;
+
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportLegacyAnnotations);
+                foreach (var pdf_document in pdf_documents)
                 {
-                    imported_count += LegacyAnnotationConvertor.ImportLegacyAnnotations(pdf_document);   // TODO: do this sort of heavy task in a background task; now it locks up the UI
+                    try
+                    {
+                        imported_count += LegacyAnnotationConvertor.ImportLegacyAnnotations(pdf_document);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Error while importing legacy annotations.");
+                    }
                 }
-                catch (Exception ex)
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
-                    Logging.Error(ex, "Error while importing legacy annotations.");
-                }
-            }
+                    MessageBoxes.Info(imported_count + " legacy annotations imported.");
+                });
+            });
 #else
             throw new Exception("Not implemented");
 #endif
-
-            MessageBoxes.Info(imported_count + " legacy annotations imported.");
         }
 
-#if SYNCFUSION_ANTIQUE
         private void MenuForgetLegacyAnnotations_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
-            FeatureTrackingManager.Instance.UseFeature(Features.Library_ForgetLegacyAnnotations);
-            foreach (var pdf_document in pdf_documents)
+#if SYNCFUSION_ANTIQUE
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                try
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_ForgetLegacyAnnotations);
+                foreach (var pdf_document in pdf_documents)
                 {
-                    LegacyAnnotationConvertor.ForgetLegacyAnnotations(pdf_document);
+                    try
+                    {
+                        LegacyAnnotationConvertor.ForgetLegacyAnnotations(pdf_document);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Error while forgetting legacy annotations.");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Error while forgetting legacy annotations.");
-                }
-            }
 
-            MessageBoxes.Info("Legacy annotations removed.");
-        }
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    MessageBoxes.Info("Legacy annotations removed.");
+                });
+            });
 #endif
+        }
 
         private void MenuForceOCR_Click(object sender, RoutedEventArgs e)
         {
@@ -290,13 +298,16 @@ SourceURL: {0}
                 "language", language
                 );
 
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                if (pdf_document.DocumentExists)
+                foreach (var pdf_document in pdf_documents)
                 {
-                    pdf_document.PDFRenderer.ForceOCRText(language);
+                    if (pdf_document.DocumentExists)
+                    {
+                        pdf_document.PDFRenderer.ForceOCRText(language);
+                    }
                 }
-            }
+            });
         }
 
         private void MenuClearOCR_Click(object sender, RoutedEventArgs e)
@@ -305,10 +316,13 @@ SourceURL: {0}
 
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ClearOCR);
 
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                pdf_document.PDFRenderer.ClearOCRText();
-            }
+                foreach (var pdf_document in pdf_documents)
+                {
+                    pdf_document.PDFRenderer.ClearOCRText();
+                }
+            });
         }
 
         private void MenuAddMultipleTags_Click(object sender, RoutedEventArgs e)
@@ -429,13 +443,13 @@ SourceURL: {0}
             });
         }
 
-#if SYNCFUSION_ANTIQUE
         private void MenuUseKeywordsAsTags_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
             FeatureTrackingManager.Instance.UseFeature(Features.Document_ExtractKeywordsAsTags);
 
+#if SYNCFUSION_ANTIQUE
             foreach (var pdf_document in pdf_documents)
             {
                 try
@@ -447,8 +461,8 @@ SourceURL: {0}
                     Logging.Error(ex, "There was a problem extracting the document keywords as tags.");
                 }
             }
-        }
 #endif
+        }
 
         private void MenuUseDirectoriesAsTags_Click(object sender, RoutedEventArgs e)
         {

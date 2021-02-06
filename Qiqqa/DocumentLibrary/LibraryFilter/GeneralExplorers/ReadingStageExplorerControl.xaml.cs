@@ -6,6 +6,7 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
+using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 {
@@ -53,6 +54,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         internal static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             List<PDFDocument> pdf_documents = null;
             if (null == parent_fingerprints)
             {

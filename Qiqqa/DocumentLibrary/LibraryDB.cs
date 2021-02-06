@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Text;
+using Newtonsoft.Json;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.DiskSerialisation;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Strings;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -238,7 +241,33 @@ namespace Qiqqa.DocumentLibrary
             {
                 return string.Format("{0}.{1}", fingerprint, extension);
             }
-        }
+
+            public string MetadataAsString()
+            {
+                // keep the unrecognized data around so we may fix it later...
+                string str = null;
+                try
+                {
+                    try
+                    {
+                        DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
+
+                        str = JsonConvert.SerializeObject(dictionary.Attributes, Formatting.Indented);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex);
+
+                        str = StringTools.HumanReadableASCIIAndHexStr(data);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex);
+                }
+                return str;
+            }
+		}
 
         public Dictionary<string, byte[]> GetLibraryItemsAsCache(string extension, List<string> fingerprints = null)
         {
@@ -326,7 +355,7 @@ namespace Qiqqa.DocumentLibrary
                                         continue;
                                     }
 
-                                    if (false)
+                                    if (true)
                                     {
                                         Exception ex2 = null;
 

@@ -43,3 +43,6 @@ desktop.ini
 # build misc output files for Qiqqa.org project
 Qiqqa.org.log
 Qiqqa.org.vcxprojAssemblyReference.cache
+
+/Technology Tests/forking cleans up memory leaks/Debug*/
+/Technology Tests/monitor our memory usage and die when passing threshold/Debug*/

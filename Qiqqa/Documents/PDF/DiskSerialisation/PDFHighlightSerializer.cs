@@ -55,7 +55,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                     {
                         foreach (PDFHighlight highlight in highlights_list)
                         {
-                            highlights.AddUpdatedHighlight(highlight);
+                            pdf_document.AddUpdatedHighlight(highlight);
                         }
                     }
                 }

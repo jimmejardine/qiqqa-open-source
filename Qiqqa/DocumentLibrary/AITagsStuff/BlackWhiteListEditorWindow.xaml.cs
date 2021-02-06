@@ -7,6 +7,7 @@ using icons;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
+using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
@@ -20,6 +21,8 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
         public BlackWhiteListEditorWindow()
         {
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             ObjHeader.Img = Icons.GetAppIcon(Icons.LibraryAutoTagsBlackWhiteLists);

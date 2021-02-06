@@ -55,7 +55,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                     {
                         process.WaitForExit();
 
-                        Logging.Info("XULRunner installer:\n{0}", process_output_reader.GetOutputsDumpString());
+                        Logging.Info("XULRunner installer:\n{0}", process_output_reader.GetOutputsDumpStrings());
                     }
                 }
 

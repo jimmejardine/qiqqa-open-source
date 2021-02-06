@@ -354,28 +354,31 @@ namespace Qiqqa.Common.SpeedRead
         {
             Logging.Debug("SpeedReadControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // Get rid of managed resources and background threads
-                playing = false;
-
-                if (thread != null)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    thread.Join();
-                }
-            });
+                    // Get rid of managed resources and background threads
+                    playing = false;
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                words.Clear();
-            });
+                    if (thread != null)
+                    {
+                        thread.Join();
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    words.Clear();
+                });
 
-            ++dispose_count;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
+            });
         }
 
         #endregion

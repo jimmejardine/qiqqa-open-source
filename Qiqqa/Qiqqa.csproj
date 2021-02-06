@@ -52,7 +52,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>83.0.7649.30836</ApplicationVersion>
+    <ApplicationVersion>83.0.7665.36168</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -330,6 +330,10 @@
       <Project>{32C275F8-5235-485B-80B2-32270D415E85}</Project>
       <Name>QiqqaOCR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\thirdparty\WpfScreenHelper\src\WpfScreenHelper\WpfScreenHelper.csproj">
+      <Project>{1ff2df7e-e740-4663-a95f-981147909cdf}</Project>
+      <Name>WpfScreenHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Name>Utilities</Name>
       <Project>{B0289358-E81C-4094-9DB1-F520F24D339B}</Project>
@@ -494,6 +498,9 @@
     <Compile Include="ClientVersioning\ClientVersionReleaseNotes.xaml.cs">
       <DependentUpon>ClientVersionReleaseNotes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ActivityMonitor\ActivityMonitor.xaml.cs">
+      <DependentUpon>ActivityMonitor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\AssociatePDFWithVanillaReferenceWindow.xaml.cs">
       <DependentUpon>AssociatePDFWithVanillaReferenceWindow.xaml</DependentUpon>
     </Compile>
@@ -657,6 +664,9 @@
     </Compile>
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryChooserControl.xaml.cs">
       <DependentUpon>IntranetLibraryChooserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryEditControl.xaml.cs">
+      <DependentUpon>IntranetLibraryEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDB.cs" />
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDetail.cs" />
@@ -1311,6 +1321,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Common\ActivityMonitor\ActivityMonitor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\AssociatePDFWithVanillaReferenceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1402,6 +1416,10 @@
     <Page Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryChooserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="DocumentLibrary\LibraryCatalog\MultipleDocumentsSelectedPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -2037,6 +2055,9 @@
       <Link>CHANGELOG_full.md</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="..\Qiqqa.Build\copy_mupdf_binaries.cmd">
+      <Link>copy_mupdf_binaries.cmd</Link>
+    </None>
     <None Include="InCite\registry_fixes\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -5328,4 +5349,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)Qiqqa.Build\copy_mupdf_binaries.cmd $(TargetDir) $(ConfigurationName) $(ProjectDir)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>83.0.7649.30836</ApplicationVersion>
+    <ApplicationVersion>83.0.7665.36168</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -462,6 +462,9 @@
     <Resource Include="Application\Warning2.png" />
     <Resource Include="Application\Window.png" />
     <Resource Include="Application\BibTexReset.png" />
+    <Resource Include="Application\Debugging.png" />
+    <Resource Include="Application\Doctor.png" />
+    <Resource Include="Backgrounds\green-dice-a4.jpg" />
     <Content Include="License.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

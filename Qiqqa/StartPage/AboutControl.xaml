@@ -1,211 +1,185 @@
-<UserControl x:Class="Qiqqa.StartPage.AboutControl"
+<UserControl
+    x:Class="Qiqqa.StartPage.AboutControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
->
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI">
     <Grid>
-        <FlowDocumentScrollViewer  IsToolBarVisible="False">
+        <FlowDocumentScrollViewer IsToolBarVisible="False">
             <commongui:StandardFlowDocument>
                 <Paragraph>
-                    About Qiqqa
+                    <InlineUIContainer>
+                        <Image Width="180" Source="pack://application:,,,/icons;component/Application/QiqqaLogoSmall.png" />
+                    </InlineUIContainer>
                 </Paragraph>
                 <Paragraph>
-                    This is Qiqqa version
-                    <Run Name="lblVersion">
+                    <Bold>About Qiqqa</Bold>
+                </Paragraph>
+                <Paragraph>
+                    This is Qiqqa version<Run Name="lblVersion">
+                        v0
                     </Run>
-                    (
-                    <Run Name="lblFullVersion">
-                    </Run>
+                    (<Run Name="lblFullVersion">v0.1.2.3.4.5.6</Run>
                     ).
-                    Qiqqa is Copyright © Quantisle 2010-
-                    <Run Name="lblCopyrightYear">
+                    Qiqqa is Copyright © Quantisle 2010-<Run Name="lblCopyrightYear">
+                        20XX
                     </Run>
-                    .  
-            All rights reserved.  All other trademarks are copyright their respective owners.
-                </Paragraph>
+                    .
+                    All rights reserved.  All other trademarks are copyright their respective owners.</Paragraph>
                 <Paragraph>
-                    Useful links
+                    <Bold>Useful links</Bold>
                 </Paragraph>
                 <List>
                     <ListItem>
                         <Paragraph>
-                            Visit the
-                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkForums">
+                            Visit the<Hyperlink x:Name="lnkForums" Click="Hyperlink_Click">
                                 Qiqqa forums
                             </Hyperlink>
-                            .  If you are stuck or have a question, someone probably has answered it already for you!
-                        </Paragraph>
+                            .
+                            If you are stuck or have a question, someone probably has answered it already for you!</Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
                             <Hyperlink Click="Feedback_Click">
                                 Submit feedback
                             </Hyperlink>
-                            - bugs, praise, complaints, ideas.
-                        </Paragraph>
+                            - bugs, praise, complaints, ideas.</Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Go to the
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkQiqqaWebsite">
+                            Go to the<Hyperlink x:Name="lnkQiqqaWebsite" Click="Hyperlink_Click">
                                 Qiqqa website
                             </Hyperlink>
-                            .
-                        </Paragraph>
+                            .</Paragraph>
                     </ListItem>
                 </List>
                 <Paragraph>
-                    Thanks!
+                    <Bold>Thanks!</Bold>
                 </Paragraph>
                 <Paragraph>
                     We would like to thank the following for their contributions to Qiqqa:
                 </Paragraph>
                 <List>
                     <ListItem>
-                        <Paragraph>
-                            Splashscreen image is adapted with kind thanks to
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkSplashScreen">
+                        <Paragraph TextAlignment="Left">
+                            Splashscreen image is adapted with kind thanks to<Hyperlink x:Name="lnkSplashScreen" Click="Hyperlink_Click">
                                 WiseWanderer@deviantART
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some icons from the
-                            <Hyperlink  Click="Hyperlink_Click"  x:Name="lnkIconsTango">
+                            Some icons from the<Hyperlink x:Name="lnkIconsTango" Click="Hyperlink_Click">
                                 GNOME Tango project
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some icons from
-                            <Hyperlink  Click="Hyperlink_Click"  x:Name="lnkIconsFreeDigitalPhotos">
+                            Some icons from<Hyperlink x:Name="lnkIconsFreeDigitalPhotos" Click="Hyperlink_Click">
                                 freedigitalphotos.net
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some icons from
-                            <Hyperlink  Click="Hyperlink_Click"  x:Name="lnkIconsBuuf">
+                            Some icons from<Hyperlink x:Name="lnkIconsBuuf" Click="Hyperlink_Click">
                                 mattahan@deviantART
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some icons from
-                            <Hyperlink  Click="Hyperlink_Click"  x:Name="lnkIconsVisualPharm">
+                            Some icons from<Hyperlink x:Name="lnkIconsVisualPharm" Click="Hyperlink_Click">
                                 VisualPharm
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some icons from
-                            <Hyperlink  Click="Hyperlink_Click"  x:Name="lnkIconsGlyphicons">
+                            Some icons from<Hyperlink x:Name="lnkIconsGlyphicons" Click="Hyperlink_Click">
                                 Glyphicons
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Topic Model - Blei, D.M., Ng, A.Y. &amp; Jordan, M.I., 2003. Latent Dirichlet Allocation.
-                            <Italic>
+                            Topic Model - Blei, D.M., Ng, A.Y. &amp; Jordan, M.I., 2003. Latent Dirichlet Allocation.<Italic>
                                 The Journal of Machine Learning Research
                             </Italic>
-                            , 3, pp.993-1022.
-                        </Paragraph>
+                            , 3, pp.993-1022.</Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some OCR functionality is provided with thanks to the
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkTesseract">
+                            Some OCR functionality is provided with thanks to the<Hyperlink x:Name="lnkTesseract" Click="Hyperlink_Click">
                                 Tesseract project
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some components with thanks to the
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkWpfToolkit">
+                            Some components with thanks to the<Hyperlink x:Name="lnkWpfToolkit" Click="Hyperlink_Click">
                                 WPF toolkit
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some components with thanks to
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkAvalonEdit">
+                            Some components with thanks to<Hyperlink x:Name="lnkAvalonEdit" Click="Hyperlink_Click">
                                 AvalonEdit
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            The PDF rendering functionality is provided with thanks to
-                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkSorax">
+                            The PDF rendering functionality is provided with thanks to<Hyperlink x:Name="lnkSorax" Click="Hyperlink_Click">
                                 Sorax
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Some awesome development tools were provided courtesy of
-                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkRedgate">
+                            Some awesome development tools were provided courtesy of<Hyperlink x:Name="lnkRedgate" Click="Hyperlink_Click">
                                 RedGate
                             </Hyperlink>
                         </Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Qiqqa InCite is powered by Frank Bennett's
-                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkCiteProc">
+                            Qiqqa InCite is powered by Frank Bennett's<Hyperlink x:Name="lnkCiteProc" Click="Hyperlink_Click">
                                 citeproc-js
                             </Hyperlink>
-                            and the
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkCSL">
+                            and the<Hyperlink x:Name="lnkCSL" Click="Hyperlink_Click">
                                 Citation Style Language (CSL)
                             </Hyperlink>
-                            , developed largely by Bruce D'Arcus.
-                        </Paragraph>
+                            , developed largely by Bruce D'Arcus.</Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            A number of the CSL styles bundled with Qiqqa are courtesy of 
-			  the
-                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkZoteroCSL">
+                            A number of the CSL styles bundled with Qiqqa are courtesy of
+                            the<Hyperlink x:Name="lnkZoteroCSL" Click="Hyperlink_Click">
                                 Zotero CSL repository
                             </Hyperlink>
-                            .
-                        </Paragraph>
+                            .</Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Many more CSL styles bundled with Qiqqa are courtesy of the
-                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkCSLProject">
+                            Many more CSL styles bundled with Qiqqa are courtesy of the<Hyperlink x:Name="lnkCSLProject" Click="Hyperlink_Click">
                                 Citation Style Language Project
                             </Hyperlink>
-                            via its
-                            <Hyperlink Click="Hyperlink_Click"  x:Name="lnkCSLGithub">
+                            via its<Hyperlink x:Name="lnkCSLGithub" Click="Hyperlink_Click">
                                 GitHub CSL repository
                             </Hyperlink>
-                            .
-                        </Paragraph>
+                            .</Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
-                            Our browser thanks to
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkGecko">
+                            Our browser thanks to<Hyperlink x:Name="lnkGecko" Click="Hyperlink_Click">
                                 GeckoFX
                             </Hyperlink>
-                            and
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkXULRunner">
+                            and<Hyperlink x:Name="lnkXULRunner" Click="Hyperlink_Click">
                                 XULRunner
                             </Hyperlink>
-                            .
-                        </Paragraph>
+                            .</Paragraph>
                     </ListItem>
                     <ListItem>
                         <Paragraph>
@@ -219,17 +193,15 @@
                     </ListItem>
                 </List>
                 <Paragraph>
-                    Qiqqa Terms and Conditions and 3rd Party Licences
+                    <Bold>Qiqqa Terms and Conditions and 3rd Party Licences</Bold>
                 </Paragraph>
                 <List>
                     <ListItem>
                         <Paragraph>
-                            These are available
-                            <Hyperlink Click="Hyperlink_Click" x:Name="lnkLicenses">
+                            These are available<Hyperlink x:Name="lnkLicenses" Click="Hyperlink_Click">
                                 here
                             </Hyperlink>
-                            .
-                        </Paragraph>
+                            .</Paragraph>
                     </ListItem>
                 </List>
             </commongui:StandardFlowDocument>

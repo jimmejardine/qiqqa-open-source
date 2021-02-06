@@ -1,6 +1,6 @@
 {
   "name": "qiqqa",
-  "version": "83.0.7649-30836",
+  "version": "83.0.7665-36168",
   "description": "Qiqqa: The essential free research and reference manager. Search for, read and annotate your PDFs. Then review your work, write up and create bibliographies instantly.",
   "main": "Qiqqa.Build/info.js",
   "directories": {
@@ -40,14 +40,15 @@
   "homepage": "https://github.com/jimmejardine/qiqqa-open-source#readme",
   "dependencies": {},
   "devDependencies": {
-    "@gerhobbelt/glob": "^7.1.7-5",
+    "@gerhobbelt/glob": "7.1.7-5",
     "@gerhobbelt/json5": "2.1.0-48",
     "@gerhobbelt/live-server": "1.3.1-28",
-    "@gerhobbelt/nomnom": "1.8.4-30",
+    "@gerhobbelt/nomnom": "1.8.4-31",
     "@gerhobbelt/xml-beautifier": "1.0.2-1",
+    "deGaulle": "file:../deGaulle",
     "glob": "7.1.6",
     "globby": "11.0.2",
-    "jsdom": "^16.4.0",
+    "jsdom": "16.4.0",
     "moment": "2.29.1",
     "prettier": "2.2.1",
     "prettier-cli": "0.1.0",

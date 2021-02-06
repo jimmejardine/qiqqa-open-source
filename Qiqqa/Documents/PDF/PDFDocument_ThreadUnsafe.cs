@@ -46,6 +46,9 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
+        [NonSerialized]
+        internal bool dirtyNeedsReindexing = false;
+
         public string GetAttributesAsJSON()
         {
             string json = JsonConvert.SerializeObject(dictionary.Attributes, Formatting.Indented);
@@ -833,11 +836,11 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             if (null == annotations)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 annotations = new PDFAnnotationList();
-                PDFAnnotationSerializer.ReadFromDisk(this, ref annotations);
-#if false
-                annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
-#endif
+                PDFAnnotationSerializer.ReadFromDisk(this);
+                dirtyNeedsReindexing = true;
             }
 
             return annotations;
@@ -867,6 +870,14 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return json;
         }
 
+        public void AddUpdatedAnnotation(PDFAnnotation annotation)
+        {
+            if (annotations.__AddUpdatedAnnotation(annotation))
+            {
+                dirtyNeedsReindexing = true;
+            }
+        }
+
         [NonSerialized]
         private PDFHightlightList highlights = null;
         public PDFHightlightList Highlights => GetHighlights(null);
@@ -879,10 +890,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 highlights = new PDFHightlightList();
                 PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
-#if false
-                highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
-#endif
-                return highlights;
+                dirtyNeedsReindexing = true;
             }
 
             return highlights;
@@ -907,6 +915,20 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return json;
         }
 
+        public void AddUpdatedHighlight(PDFHighlight highlight)
+        {
+            if (highlights.__AddUpdatedHighlight(highlight))
+            {
+                dirtyNeedsReindexing = true;
+            }
+        }
+
+        public void RemoveUpdatedHighlight(PDFHighlight highlight)
+        {
+            highlights.__RemoveUpdatedHighlight(highlight);
+            dirtyNeedsReindexing = true;
+        }
+
         [NonSerialized]
         private PDFInkList inks = null;
         public PDFInkList Inks => GetInks();
@@ -919,9 +941,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 inks = new PDFInkList();
                 PDFInkSerializer.ReadFromDisk(this, inks);
-#if false
-                inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
-#endif
+                dirtyNeedsReindexing = true;
             }
 
             return inks;
@@ -946,6 +966,14 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
                 }
             }
             return data;
+        }
+
+        public void AddPageInkBlob(int page, byte[] page_ink_blob)
+        {
+            if (inks.__AddPageInkBlob(page, page_ink_blob))
+            {
+                dirtyNeedsReindexing = true;
+            }
         }
 
         #endregion -------------------------------------------------------------------------------------------------
@@ -1188,12 +1216,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             annotations = null;
             highlights = null;
             inks = null;
-#else
-#if false
-            annotations.OnPDFAnnotationListChanged += annotations_OnPDFAnnotationListChanged;
-            highlights.OnPDFHighlightListChanged += highlights_OnPDFHighlightListChanged;
-            inks.OnPDFInkListChanged += inks_OnPDFInkListChanged;
-#endif
 #endif
         }
 
@@ -1233,7 +1255,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
 
             // Create the new PDF document
-            PDFDocument new_pdf_document = LibraryRef.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, web_library_detail, pdf_filename, pdf_filename, null, null, null, false, true);
+            PDFDocument new_pdf_document = LibraryRef.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, web_library_detail, pdf_filename, pdf_filename, null, null, null, false);
 
             return new_pdf_document;
         }

@@ -18,25 +18,19 @@
                 <Grid DockPanel.Dock="Right" VerticalAlignment="Center" x:Name="HolderForSearchBox" />
                 <StackPanel Orientation="Horizontal">
                     <local_gui:AugmentedToolBarButton x:Name="ButtonCitationSnippetToClipboard" />
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonNewCitation" />
+                    <local_gui:AugmentedToolBarButton Name="ButtonNewCitation"  Margin="3" />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonNewCitationSeparateAuthorYear" />
                     <local_gui:AugmentedToolBarButton x:Name="ButtonAddBibliography" />
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonRefresh" />
-                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedToolBarButton Name="ButtonRefresh"  Margin="3" />
                     <StackPanel>
-                        <local_gui:AugmentedSpacer />
-                        <Viewbox Stretch="Uniform" Height="32" MaxWidth="150" >
+                        <Viewbox Stretch="Uniform" Height="32" MaxWidth="150"  Margin="3" >
                             <TextBlock x:Name="TextStyleFilename" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding InCite_LastStyleFile, Converter={StaticResource FilenameToCSLNameConverter}}" />
                         </Viewbox>
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock HorizontalAlignment="Center" x:Name="LblTextStyleFilename">
+                        <TextBlock HorizontalAlignment="Center" Name="LblTextStyleFilename" Margin="3" >
                             Style CSL
                         </TextBlock>
                     </StackPanel>
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonEditCSL" />
+                    <local_gui:AugmentedToolBarButton Name="ButtonEditCSL"  Margin="3" />
                     <local_gui:AugmentedToolBarPopup x:Name="ButtonEditCSLPopup">
                         <StackPanel>
                             <local_gui:AugmentedToolBarButton x:Name="ButtonCSLStandard" CaptionDock="Right" />
@@ -45,19 +39,15 @@
                             <local_gui:AugmentedToolBarButton x:Name="ButtonEditCSL_Internal" CaptionDock="Right" />
                         </StackPanel>
                     </local_gui:AugmentedToolBarPopup>
-                    <local_gui:AugmentedSpacer />
                     <StackPanel>
-                        <local_gui:AugmentedSpacer />
-                        <Viewbox Stretch="Uniform" Height="32" MaxWidth="150" >
+                        <Viewbox Stretch="Uniform" Height="32" MaxWidth="150"  Margin="3" >
                             <TextBlock Name="TextLibraryForCitations" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Viewbox>
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock HorizontalAlignment="Center" Name="LblTextLibraryForCitations">
+                        <TextBlock HorizontalAlignment="Center" Name="LblTextLibraryForCitations" Margin="3" >
                             Library for citations
                         </TextBlock>
                     </StackPanel>
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonTools" />
+                    <local_gui:AugmentedToolBarButton Name="ButtonTools"  Margin="3" />
                     <local_gui:AugmentedToolBarPopup x:Name="ButtonToolsPopup">
                         <StackPanel>
                             <local_gui:AugmentedToggleButton x:Name="ButtonUseAbbreviations" CaptionDock="Right" IsChecked="{Binding InCite_UseAbbreviations}"/>
@@ -69,8 +59,7 @@
                             <local_gui:AugmentedToolBarButton x:Name="ButtonAddCSLStats" CaptionDock="Right" Visibility="Collapsed"/>
                         </StackPanel>
                     </local_gui:AugmentedToolBarPopup>
-                    <local_gui:AugmentedSpacer />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonWebcast" />
+                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast"  Margin="3" />
                 </StackPanel>
             </DockPanel>
         </local_gui:AugmentedToolBarTray>

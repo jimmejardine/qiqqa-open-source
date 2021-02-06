@@ -1,0 +1,18 @@
+// This file may contain comments.
+//
+// Lines can be commented out at will.
+
+{
+	LoadKnownWebLibraries: true,
+	AddLegacyWebLibrariesThatCanBeFoundOnDisk: true,
+	SaveKnownWebLibraries: true,
+	DoInterestingAnalysis_GoogleScholar: false,
+
+	FolderWatcher: true,
+	TextExtraction: true,           // this kills the mupdf based text extraction and OCR tasks
+	SuggestingMetadata: true,       // this kills the metadata (Title, Author, etc.) suggesting from extracted text
+	BuildSearchIndex: true,         // this kills the Lucene-based search index build/update process
+	RenderPDFPagesForSidePanels: true,         // this kills the rendering of PDF pages to thumbnails in preview sidepanels
+	RenderPDFPagesForReading: true,            // this kills the rendering of PDF pages to main panel PDF view/read/edit tabs (NOT thumbnails!)
+	RenderPDFPagesForOCR: true,                // this kills the rendering of PDF pages for OCR-ing a document's pages via QiqqaOCR background application
+}

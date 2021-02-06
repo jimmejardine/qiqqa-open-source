@@ -36,7 +36,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             web_library_detail = _web_library_detail;
 
-            Theme.Initialize();
+            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
 
@@ -125,14 +125,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         private void CmdAutomaticMendeleyImport_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, mdd.metadata_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, mdd.metadata_imports.ToArray());
             Close();
         }
 
         private void CmdAutomaticEndnoteImport_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, edd.metadata_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, edd.metadata_imports.ToArray());
             Close();
         }
 
@@ -214,9 +214,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             _currentSelectedExportFile = null;
 
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             switch (_currentProvider)
             {
@@ -277,9 +275,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             _currentSelectedSupplementaryFolder = null;
 
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             switch (_currentProvider)
             {
@@ -583,7 +579,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 filename_and_bibtex_imports.Add(filename_with_metadata_import);
             }
 
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, filename_and_bibtex_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, filename_and_bibtex_imports.ToArray());
 
             MessageBoxes.Info("{0} files are now being imported - this may take a little while.  You can track the import progress in the status bar.", filename_and_bibtex_imports.Count);
 

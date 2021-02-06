@@ -64,7 +64,7 @@ namespace Qiqqa.StartPage
         public void DoSync()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Sync_Stats);
-            LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(true, true, true, false));
+            LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(wants_user_intervention: true, suppress_already_in_progress_notification: false));
         }
     }
 }

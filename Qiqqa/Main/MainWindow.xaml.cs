@@ -41,9 +41,12 @@ namespace Qiqqa.Main
         {
             MainWindowServiceDispatcher.Instance.MainWindow = this;
 
-            Theme.Initialize();
+            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
+
+            Application.Current.SessionEnding += Current_SessionEnding;
+            Application.Current.Exit += Current_Exit;
 
             HourglassState = 2;
             WPFDoEvents.SetHourglassCursor();
@@ -55,18 +58,6 @@ namespace Qiqqa.Main
             if (WebsiteAccess.IsTestEnvironment)
             {
                 Title = String.Format("Qiqqa v{0} (TEST ENVIRONMENT)", ClientVersion.CurrentBuild);
-            }
-
-            // Check that we actually are fitting on the user's screen
-            if (Left > SystemParameters.VirtualScreenWidth || Width > SystemParameters.FullPrimaryScreenWidth)
-            {
-                Left = 0;
-                Width = SystemParameters.FullPrimaryScreenWidth;
-            }
-            if (Top > SystemParameters.VirtualScreenHeight || Height > SystemParameters.FullPrimaryScreenHeight)
-            {
-                Top = 0;
-                Height = SystemParameters.FullPrimaryScreenHeight;
             }
 
             DockingManager.WindowIcon = Icons.GetAppIconICO(Icons.Qiqqa);
@@ -81,6 +72,8 @@ namespace Qiqqa.Main
             SizeChanged += MainWindow_SizeChanged;
             KeyUp += MainWindow_KeyUp;
 
+            //Unloaded += MainWindow_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
             Closing += MainWindow_Closing;
             Closed += MainWindow_Closed;
 
@@ -99,6 +92,41 @@ namespace Qiqqa.Main
             //this.StateChanged += MainWindow_StateChanged;
 
             WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Logging.Info("x");
+
+            CleanUp();
+        }
+
+        private void Current_Exit(object sender, ExitEventArgs e)
+        {
+            Logging.Info("x");
+
+            CleanUp();
+        }
+
+        private void Current_SessionEnding(object sender, SessionEndingCancelEventArgs e)
+        {
+            Logging.Info("x");
+
+            CleanUp();
+        }
+
+        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
+        // Which says:
+        //
+        // Note that the Unloaded event is not raised after an application begins shutting down.
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs.
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window
+        // or a UserControl, it may not be called as expected.
+        private void MainWindow_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Logging.Info("x");
+
+            CleanUp();
         }
 
         private void Instance_WebLibrariesChanged()
@@ -145,6 +173,21 @@ namespace Qiqqa.Main
 
             // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
             ResetHourglassWhenAllIsDone();
+        }
+
+        public override bool SetupConfiguredDimensions(Size preferred_dimensions)
+        {
+            bool has_cfg = base.SetupConfiguredDimensions(preferred_dimensions);
+
+            if (!has_cfg)
+            {
+                if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
+                {
+                    WindowState = WindowState.Maximized;
+                }
+            }
+
+            return has_cfg;
         }
 
         private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
@@ -197,18 +240,6 @@ namespace Qiqqa.Main
 
             WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
-                {
-                    SetupConfiguredDimensions();
-                }
-                else
-                {
-                    if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
-                    {
-                        WindowState = WindowState.Maximized;
-                    }
-                }
-
                 // Install the global keyboard and mouse hooks
                 if (!RegistrySettings.Instance.IsSet(RegistrySettings.DisableGlobalKeyHook))
                 {
@@ -271,8 +302,17 @@ namespace Qiqqa.Main
 
             MainEntry.SignalShutdown("Main window CLOSING event: user explicitly shutting down application.");
 
-            // If we get this far, they want out
-            already_exiting = true;
+            CleanUp();
+        }
+
+        private void CleanUp()
+        {
+            ipc_server?.Stop();
+            ipc_server = null;
+
+            FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
+
+            Application.Current?.Shutdown();
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
@@ -281,12 +321,7 @@ namespace Qiqqa.Main
 
             MainEntry.SignalShutdown("Main window CLOSED event: explicitly shutting down application.");
 
-            ipc_server?.Stop();
-            ipc_server = null;
-
-            FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
-
-            Application.Current.Shutdown();
+            CleanUp();
 
             Logging.Info("-Explicitly shutting down application");
         }
@@ -358,28 +393,31 @@ namespace Qiqqa.Main
         {
             Logging.Debug("MainWindow::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    ipc_server?.Stop();
-                }
-            }, must_exec_in_UI_thread: true);
+                    if (dispose_count == 0)
+                    {
+                        ipc_server?.Stop();
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjStartPage = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ObjStartPage = null;
 
-                keyboard_hook = null;
-                ipc_server = null;
+                    keyboard_hook = null;
+                    ipc_server = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
-
-            ++dispose_count;
         }
 
 #endregion

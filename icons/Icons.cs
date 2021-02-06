@@ -12,11 +12,12 @@ namespace icons
         public const string QiqqaMedal = "QiqqaMedal";
         public const string QiqqaWhiteBackground = "QiqqaWhiteBackground";
         public const string QiqqaAndroid = "QiqqaAndroid";
-        public const string Champion = "Champion";
 
         public const string AugmentedButtonDown = "AugmentedButtonDown";
         public const string ToolbarBackground = "ToolbarBackground";
 
+        public const string Champion = "Champion";
+        public const string Fiftieth = "50th";
         public const string Plus = "Plus";
         public const string Minus = "Minus";
         public const string Yes = "Yes";
@@ -76,6 +77,9 @@ namespace icons
         public const string GarbageCollect = "GarbageCollect";
         public const string ZipLogs = "ZipLogs";
 
+        public const string AdChampion = "AdChampion";
+        public const string AdDatacopiaQiqqa = "AdDatacopiaQiqqa";
+        public const string AdOmnipatentsQiqqa = "AdOmnipatentsQiqqa";
         public const string Datacopia = "Datacopia";
         public const string SocialMedia = "SocialMedia";
         public const string QiqqaWeb = "QiqqaWeb";
@@ -149,6 +153,7 @@ namespace icons
         public const string BrainstormAutoArrange = "BrainstormAutoArrange";
 
         public const string LibraryDoOCR = "LibraryDoOCR";
+        public const string LibraryTextSearch = "LibraryTextSearch";
         public const string LibraryAnnotationsReport = "LibraryAnnotationsReport";
         public const string LibraryGenerateReferences = "LibraryGenerateReferences";
         public const string LibraryFindDuplicates = "LibraryFindDuplicates";
@@ -237,8 +242,12 @@ namespace icons
         public const string AdvertClose = "AdvertClose";
         public const string ThumbsUp = "ThumbsUp";
         public const string ThumbsDown = "ThumbsDown";
+        public const string Tweet = "Tweet";
 
         public const string LEDCircleBlue = "led_circle_blue";
+
+        public const string Debugging = "Debugging";
+        public const string Doctor = "Doctor";
 
         public const string Premium = "Premium";
         public const string PremiumInactive = "PremiumInactive";
@@ -269,6 +278,9 @@ namespace icons
 
         public static readonly string NotificationBarClose = "NotificationBarClose";
 
+
+        public static readonly string GlossPremium = "GlossPremium";
+        public static readonly string GlossChampion = "GlossChampion";
         public static readonly string GlossHelpers = "GlossHelpers";
 
         public static readonly string StarburstBlue = "StarburstBlue";

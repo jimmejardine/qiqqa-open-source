@@ -110,7 +110,7 @@ namespace Qiqqa.Common
                                     StatusManager.Instance.UpdateStatus("LogBundler", "Bundling the logfile. Please wait...", progress, MAX_PROGRESS);
                                 }
 
-                                Logging.Info("7ZIP Log Bundling progress:\n{0}", process_output_reader.GetOutputsDumpString());
+                                Logging.Info("7ZIP Log Bundling progress:\n{0}", process_output_reader.GetOutputsDumpStrings());
                             }
 
                             MessageBoxes.Info($"The Qiqqa logs with some diagnostic info have been zipped to the location you specified:\n{target_filename}\n\nPlease upload it as issue attachment in your issue filed at https://github.com/jimmejardine/qiqqa-open-source/issues if the support team has requested it. Many thanks!");

@@ -15,6 +15,7 @@ using Lucene.Net.Search;
 #endif
 using Utilities.Files;
 using Utilities.GUI;
+using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -36,6 +37,8 @@ namespace Utilities.Language.TextIndexing
 
         public LuceneIndex(string LIBRARY_INDEX_BASE_PATH)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             this.LIBRARY_INDEX_BASE_PATH = LIBRARY_INDEX_BASE_PATH;
 
             CheckIndexVersion();
@@ -124,15 +127,33 @@ namespace Utilities.Language.TextIndexing
             Stopwatch clk = Stopwatch.StartNew();
 
             Logging.Info("+Flushing a lucene IndexWriter");
-            if (null != index_writer)
+            try
             {
-                index_writer.Commit();
-                index_writer.Optimize();
-                index_writer.Close();
-                index_writer.Dispose();
-                index_writer = null;
+                if (null != index_writer)
+                {
+                    if (ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Logging.Warn("Lucene:IndexWriter: Skipping commit + optimization due to breaking out due to application termination");
+                    }
+                    else
+                    {
+                        index_writer.Commit();
+                        index_writer.Optimize();
+                    }
+                    index_writer.Close();
+                    index_writer.Dispose();
+                    index_writer = null;
+                }
             }
-            Logging.Info("-Flushing a lucene IndexWriter (time spent: {0} ms)", clk.ElapsedMilliseconds);
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Lucene:IndexWriter: Error occurred.");
+                throw;
+            }
+            finally
+            {
+                Logging.Info("-Flushing a lucene IndexWriter (time spent: {0} ms)", clk.ElapsedMilliseconds);
+            }
 #endif
         }
 

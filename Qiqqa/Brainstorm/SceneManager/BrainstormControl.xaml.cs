@@ -154,36 +154,28 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             SceneRenderingControl.New();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             SceneRenderingControl.SaveToDisk();
         }
 
         private void ButtonSaveAs_Click(object sender, RoutedEventArgs e)
         {
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             SceneRenderingControl.SaveAsToDisk();
         }
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             SceneRenderingControl.OpenFromDisk();
         }
@@ -310,17 +302,20 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             Logging.Debug("BrainstormControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources
-                    SceneRenderingControl?.Dispose();
-                }
-                SceneRenderingControl = null;
-            });
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        SceneRenderingControl?.Dispose();
+                    }
+                    SceneRenderingControl = null;
+                });
 
-            ++dispose_count;
+                ++dispose_count;
+            });
         }
 
         #endregion

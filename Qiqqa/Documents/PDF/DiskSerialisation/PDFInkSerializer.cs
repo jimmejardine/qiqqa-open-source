@@ -33,7 +33,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                     {
                         foreach (var pair in page_ink_blobs)
                         {
-                            inks.AddPageInkBlob(pair.Key, pair.Value);
+                            pdf_document.AddPageInkBlob(pair.Key, pair.Value);
                         }
                     }
                 }

@@ -121,6 +121,8 @@ namespace Utilities.Internet
 
             public DownloadAsyncTracker(string url)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 // Init
                 ProgressPercentage = 0;
                 DownloadDataCompletedEventArgs = null;
