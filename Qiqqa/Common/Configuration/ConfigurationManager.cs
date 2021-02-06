@@ -362,7 +362,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-#region --- Search history ----------------------------------------------------------------------------------------
+        #region --- Search history ----------------------------------------------------------------------------------------
 
         private HashSet<string> search_history = new HashSet<string>();
         private HashSet<string> search_history_from_disk = null;
@@ -421,9 +421,9 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-#endregion
+        #endregion
 
-#region --- Public initialisation ----------------------------------------------------------------------------------------
+        #region --- Public initialisation ----------------------------------------------------------------------------------------
 
         public void ResetConfigurationRecordToGuest()
         {
@@ -435,9 +435,9 @@ namespace Qiqqa.Common.Configuration
             ResetConfigurationRecord(user_guid_, false);
         }
 
-#endregion
+        #endregion
 
-#region --- Public accessors ----------------------------------------------------------------------------------------
+        #region --- Public accessors ----------------------------------------------------------------------------------------
 
         public bool IsGuest => is_guest;
 
@@ -492,7 +492,7 @@ namespace Qiqqa.Common.Configuration
             return Instance.developer_test_settings;
         }
 
-            public static void ThrowWhenActionIsNotEnabled(string key)
+        public static void ThrowWhenActionIsNotEnabled(string key)
         {
             if (!IsEnabled(key))
             {
