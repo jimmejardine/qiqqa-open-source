@@ -502,7 +502,9 @@ namespace Qiqqa.AnnotationsReportBuilding
 
             Run run = (Run)sender;
             PDFDocument pdf_document = (PDFDocument)run.Tag;
-            PDFDocumentCitingTools.CitePDFDocument(pdf_document, separate_author_and_date);
+            ASSERT.Test(pdf_document != null);
+			
+	        PDFDocumentCitingTools.CitePDFDocument(pdf_document, separate_author_and_date);
             e.Handled = true;
         }
 

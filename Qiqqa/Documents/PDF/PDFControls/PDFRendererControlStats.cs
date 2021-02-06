@@ -15,7 +15,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 {
     public class PDFRendererControlStats
     {
-        internal PDFRendererControl pdf_renderer_control;
         internal PDFDocument pdf_document;
 
         public double zoom_factor = 1.0;
@@ -36,9 +35,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        public PDFRendererControlStats(PDFRendererControl pdf_renderer_control, PDFDocument pdf_document)
+        public PDFRendererControlStats(PDFDocument pdf_document)
         {
-            this.pdf_renderer_control = pdf_renderer_control;
             this.pdf_document = pdf_document;
 
             using (var graphics = Graphics.FromHwnd(IntPtr.Zero))
@@ -104,6 +102,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 lock (resized_page_image_item_requests)
                 {
                     // l1_clk.LockPerfTimerStop();
+
                     // If there is nothing more to do...
                     if (0 == resized_page_image_item_request_orders.Count)
                     {
@@ -128,6 +127,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 Logging.Debug("Performing page redraw for {0}", resized_page_image_item_request.page);
 
                 // Check that the page is still visible
+                ASSERT.Test(resized_page_image_item_request.page_control != null);
                 if (!resized_page_image_item_request.page_control.PageIsInView)
                 {
                     continue;

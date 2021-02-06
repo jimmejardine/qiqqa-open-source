@@ -147,6 +147,7 @@
     <Compile Include="ApprovalTestsConfig.cs" />
     <Compile Include="AsyncFireAndForget.cs" />
     <Compile Include="AsyncFireAndForgetSimple.cs" />
+    <Compile Include="CSharpLanguageFeatureTests.cs" />
     <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />

@@ -7,6 +7,7 @@ using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
+using Utilities.Misc;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
@@ -16,18 +17,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
     /// </summary>
     public partial class PDFTextSentenceLayer : PageLayer, IDisposable
     {
-        private PDFRendererControlStats pdf_renderer_control_stats;
+        private WeakReference<PDFRendererControl> pdf_renderer_control;
         private int page;
 
         private DragAreaTracker drag_area_tracker;
         private TextLayerSelectionMode text_layer_selection_mode;
         private TextSelectionManager text_selection_manager;
 
-        public PDFTextSentenceLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
+        public PDFTextSentenceLayer(PDFRendererControl pdf_renderer_control, int page)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
+            this.pdf_renderer_control = new WeakReference<PDFRendererControl>(pdf_renderer_control);
             this.page = page;
 
             InitializeComponent();
@@ -55,6 +56,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             //Unloaded += PDFTextSentenceLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
+        private PDFRendererControl GetPDFRendererControl()
+        {
+            if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
+            {
+                return control;
+            }
+            return null;
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -91,7 +100,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
                     string selected_text = text_selection_manager.GetLastSelectedWordsString();
                     ClipboardTools.SetText(selected_text);
                 }
-
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "There was a problem copying text to the clipboard.");
@@ -113,8 +121,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
         private void drag_area_tracker_OnDragStarted(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
         {
-            WordList words = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
-            WordList selected_words = text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
+            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
+                PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
+            ASSERT.Test(pdf_document != null);
+
+            if (pdf_document != null)
+            {
+                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
+            }
         }
 
         private void drag_area_tracker_OnDragInProgress(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_move_point)
@@ -137,13 +152,21 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
             string selected_text = text_selection_manager.GetLastSelectedWordsString();
             if (selected_text.Length > 0)
             {
-                if (button_right_pressed)
-                {
-                    PDFTextSelectPopup popup = new PDFTextSelectPopup(selected_text, pdf_renderer_control_stats.pdf_document);
-                    popup.Open();
-                }
+                PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
 
-                pdf_renderer_control_stats.pdf_renderer_control.OnTextSelected(selected_text);
+                if (pdf_renderer_control != null)
+                {
+                    if (button_right_pressed)
+                    {
+                        PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
+                        ASSERT.Test(pdf_document != null);
+
+                        PDFTextSelectPopup popup = new PDFTextSelectPopup(selected_text, pdf_document);
+                        popup.Open();
+                    }
+
+                    pdf_renderer_control.OnTextSelected(selected_text);
+                }
             }
         }
 
@@ -186,17 +209,24 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         {
             ClearChildren();
 
-            WordList words = pdf_renderer_control_stats?.pdf_document?.PDFRenderer.GetOCRText(page);
-            if (null == words)
+            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
+            PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
+            ASSERT.Test(pdf_document != null);
+
+            if (pdf_document != null)
             {
-                Children.Add(new OCRNotAvailableControl());
-            }
-            else
-            {
-                foreach (var t in Children.OfType<OCRNotAvailableControl>())
+                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                if (null == words)
                 {
-                    Children.Remove(t);
-                    break;
+                    Children.Add(new OCRNotAvailableControl());
+                }
+                else
+                {
+                    foreach (var t in Children.OfType<OCRNotAvailableControl>())
+                    {
+                        Children.Remove(t);
+                        break;
+                    }
                 }
             }
         }
@@ -272,7 +302,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
                 WPFDoEvents.SafeExec(() =>
                 {
                     // Clear the references for sanity's sake
-                    pdf_renderer_control_stats = null;
+                    pdf_renderer_control = null;
                     drag_area_tracker = null;
                     text_selection_manager = null;
                 });

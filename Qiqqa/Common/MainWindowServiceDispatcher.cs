@@ -43,6 +43,7 @@ using UserControl = System.Windows.Controls.UserControl;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using Utilities.Misc;
 
 namespace Qiqqa.Common
 {
@@ -545,42 +546,50 @@ namespace Qiqqa.Common
 
         internal void ExploreTopicInBrainstorm(WebLibraryDetail web_library_detail, int topic)
         {
-            ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-            string topic_name = eds.GetDescriptionForTopic(topic, include_topic_number: false, "\n");
-
-            BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
-            ThemeNodeContent tnc = new ThemeNodeContent(topic_name, web_library_detail.Id);
-            NodeControl node_control = brainstorm_control.SceneRenderingControl.AddNewNodeControlInScreenCentre(tnc);
-            brainstorm_control.AutoArrange(true);
-
-            // Then expand the interesting documents - old style
-            //ThemeNodeContentControl node_content_control = node_control.NodeContentControl as ThemeNodeContentControl;
-            //node_content_control.ExpandSpecificDocuments();
-            //node_content_control.ExpandInfluentialDocuments();
-
-            // Then expand the interesting documents
+            ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+            if (null != eds)
             {
-                // Theme docs
-                brainstorm_control.SceneRenderingControl.SelectAll();
-                brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
-                brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.S) { RoutedEvent = Keyboard.KeyDownEvent });
+                string topic_name = eds.GetDescriptionForTopic(topic, include_topic_number: false, "\n");
 
-                // Authors
-                brainstorm_control.SceneRenderingControl.SelectAll();
-                brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.A) { RoutedEvent = Keyboard.KeyDownEvent });
+                BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
+                ThemeNodeContent tnc = new ThemeNodeContent(topic_name, web_library_detail.Id);
+                NodeControl node_control = brainstorm_control.SceneRenderingControl.AddNewNodeControlInScreenCentre(tnc);
+                brainstorm_control.AutoArrange(true);
 
-                // Their docs
-                brainstorm_control.SceneRenderingControl.SelectAll();
-                brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
+                // Then expand the interesting documents - old style
+                //ThemeNodeContentControl node_content_control = node_control.NodeContentControl as ThemeNodeContentControl;
+                //node_content_control.ExpandSpecificDocuments();
+                //node_content_control.ExpandInfluentialDocuments();
+
+                // Then expand the interesting documents
+                {
+                    // Theme docs
+                    brainstorm_control.SceneRenderingControl.SelectAll();
+                    brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
+                    brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.S) { RoutedEvent = Keyboard.KeyDownEvent });
+
+                    // Authors
+                    brainstorm_control.SceneRenderingControl.SelectAll();
+                    brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.A) { RoutedEvent = Keyboard.KeyDownEvent });
+
+                    // Their docs
+                    brainstorm_control.SceneRenderingControl.SelectAll();
+                    brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
+                }
+
+                brainstorm_control.SceneRenderingControl.SetSelectedNodeControl(node_control, false);
             }
-
-            brainstorm_control.SceneRenderingControl.SetSelectedNodeControl(node_control, false);
+            else
+            {
+                MessageBoxes.Error("Please run Expedition on your library.\nThen you will get to explore its themes and you will get to explore its documents through brainstorm.");
+            }
         }
 
 
         internal void ExploreLibraryInBrainstorm(WebLibraryDetail web_library_detail)
         {
             BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
+            ASSERT.Test(web_library_detail != null);
 
             int WIDTH = 320;
             int HEIGHT = 240;
@@ -588,7 +597,7 @@ namespace Qiqqa.Common
             LibraryNodeContent content_library = new LibraryNodeContent(web_library_detail.Title, web_library_detail.Id);
             NodeControl node_library = brainstorm_control.SceneRenderingControl.AddNewNodeControl(content_library, 0, 0, WIDTH, HEIGHT);
 
-            ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+            ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
             if (null != eds)
             {
                 for (int topic = 0; topic < eds.lda_sampler.NumTopics; ++topic)
