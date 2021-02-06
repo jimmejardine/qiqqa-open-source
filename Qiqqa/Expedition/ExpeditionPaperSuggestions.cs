@@ -20,61 +20,56 @@ namespace Qiqqa.Expedition
 
             try
             {
-                if (null == pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+                ExpeditionDataSource eds = pdf_document.LibraryRef?.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+
+                if (null != eds)
                 {
-                    return results;
-                }
+                    LDAAnalysis lda_analysis = eds.LDAAnalysis;
 
-                ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-                LDAAnalysis lda_analysis = eds.LDAAnalysis;
-
-                if (!pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index.ContainsKey(pdf_document.Fingerprint))
-                {
-                    return results;
-                }
-
-                // Fill the similar papers
-                {
-                    int doc_id = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index[pdf_document.Fingerprint];
-                    TopicProbability[] topics = lda_analysis.DensityOfTopicsInDocsSorted[doc_id];
-
-                    List<DocProbability> similar_docs = new List<DocProbability>();
-
-                    // Only look at the first 5 topics
-                    for (int t = 0; t < topics.Length && t < 3; ++t)
+                    if (eds.docs_index.ContainsKey(pdf_document.Fingerprint))
                     {
-                        int topic = topics[t].topic;
-                        double topic_prob = topics[t].prob;
+                        // Fill the similar papers
 
-                        // Look at the first 50 docs in each topic (if there are that many)
-                        DocProbability[] docs = lda_analysis.DensityOfDocsInTopicsSorted[topic];
-                        for (int d = 0; d < docs.Length && d < 50; ++d)
+                        int doc_id = eds.docs_index[pdf_document.Fingerprint];
+                        TopicProbability[] topics = lda_analysis.DensityOfTopicsInDocsSorted[doc_id];
+
+                        List<DocProbability> similar_docs = new List<DocProbability>();
+
+                        // Only look at the first 5 topics
+                        for (int t = 0; t < topics.Length && t < 3; ++t)
                         {
-                            int doc = docs[d].doc;
-                            double doc_prob = docs[d].prob;
+                            int topic = topics[t].topic;
+                            double topic_prob = topics[t].prob;
 
-                            DocProbability dp = new DocProbability(Math.Sqrt(topic_prob * doc_prob), doc);
-                            similar_docs.Add(dp);
+                            // Look at the first 50 docs in each topic (if there are that many)
+                            DocProbability[] docs = lda_analysis.DensityOfDocsInTopicsSorted[topic];
+                            for (int d = 0; d < docs.Length && d < 50; ++d)
+                            {
+                                int doc = docs[d].doc;
+                                double doc_prob = docs[d].prob;
+
+                                DocProbability dp = new DocProbability(Math.Sqrt(topic_prob * doc_prob), doc);
+                                similar_docs.Add(dp);
+                            }
                         }
-                    }
 
-                    // Now take the top N docs
-                    similar_docs.Sort();
-                    for (int i = 0; i < similar_docs.Count && i < NUM_OTHERS; ++i)
-                    {
-                        string fingerprint_to_look_for = eds.docs[similar_docs[i].doc];
-                        PDFDocument pdf_document_similar = pdf_document.LibraryRef.Xlibrary.GetDocumentByFingerprint(fingerprint_to_look_for);
-                        if (null == pdf_document_similar)
+                        // Now take the top N docs
+                        similar_docs.Sort();
+                        for (int i = 0; i < similar_docs.Count && i < NUM_OTHERS; ++i)
                         {
-                            Logging.Warn("ExpeditionPaperSuggestions: Cannot find similar document anymore for fingerprint {0}", fingerprint_to_look_for);
-                        }
-                        else
-                        {
-                            results.Add(new Result { pdf_document = pdf_document_similar, relevance = similar_docs[i].prob });
+                            string fingerprint_to_look_for = eds.docs[similar_docs[i].doc];
+                            PDFDocument pdf_document_similar = pdf_document.LibraryRef.Xlibrary.GetDocumentByFingerprint(fingerprint_to_look_for);
+                            if (null == pdf_document_similar)
+                            {
+                                Logging.Warn("ExpeditionPaperSuggestions: Cannot find similar document anymore for fingerprint {0}", fingerprint_to_look_for);
+                            }
+                            else
+                            {
+                                results.Add(new Result { pdf_document = pdf_document_similar, relevance = similar_docs[i].prob });
+                            }
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {

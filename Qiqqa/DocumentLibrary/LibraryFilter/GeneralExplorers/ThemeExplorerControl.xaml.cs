@@ -78,32 +78,30 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             try
             {
                 // Check that expedition has been run...
-                if (null == web_library_detail.Xlibrary.ExpeditionManager || null == web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+                    ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+                if (eds != null)
                 {
-                    return results;
-                }
+                    HashSet<string> pdf_doc_fingerprints = web_library_detail.Xlibrary.GetAllDocumentFingerprints();
 
-                ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-                HashSet<string> pdf_doc_fingerprints = web_library_detail.Xlibrary.GetAllDocumentFingerprints();
-
-                for (int t = 0; t < eds.LDAAnalysis.NUM_TOPICS; ++t)
-                {
-                    string topic_name = eds.GetDescriptionForTopic(t, include_topic_number: false, "; ");
-
-                    // Show the top % of docs
-                    int num_docs = eds.LDAAnalysis.NUM_DOCS / 10;
-                    num_docs = Math.Max(num_docs, 3);
-
-                    for (int d = 0; d < eds.LDAAnalysis.NUM_DOCS && d < num_docs; ++d)
+                    for (int t = 0; t < eds.LDAAnalysis.NUM_TOPICS; ++t)
                     {
-                        string fingerprint_to_look_for = eds.docs[eds.LDAAnalysis.DensityOfDocsInTopicsSorted[t][d].doc];
-                        if (!pdf_doc_fingerprints.Contains(fingerprint_to_look_for))
+                        string topic_name = eds.GetDescriptionForTopic(t, include_topic_number: false, "; ");
+
+                        // Show the top % of docs
+                        int num_docs = eds.LDAAnalysis.NUM_DOCS / 10;
+                        num_docs = Math.Max(num_docs, 3);
+
+                        for (int d = 0; d < eds.LDAAnalysis.NUM_DOCS && d < num_docs; ++d)
                         {
-                            Logging.Warn("ThemeExplorer: Cannot find document anymore for fingerprint {0}", fingerprint_to_look_for);
-                        }
-                        else if (null == parent_fingerprints || parent_fingerprints.Contains(fingerprint_to_look_for))
-                        {
-                            results.Add(topic_name, fingerprint_to_look_for);
+                            string fingerprint_to_look_for = eds.docs[eds.LDAAnalysis.DensityOfDocsInTopicsSorted[t][d].doc];
+                            if (!pdf_doc_fingerprints.Contains(fingerprint_to_look_for))
+                            {
+                                Logging.Warn("ThemeExplorer: Cannot find document anymore for fingerprint {0}", fingerprint_to_look_for);
+                            }
+                            else if (null == parent_fingerprints || parent_fingerprints.Contains(fingerprint_to_look_for))
+                            {
+                                results.Add(topic_name, fingerprint_to_look_for);
+                            }
                         }
                     }
                 }

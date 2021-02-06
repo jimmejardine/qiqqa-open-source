@@ -50,16 +50,17 @@ namespace Qiqqa.Expedition
 
             PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-            if (null == pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+            ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+
+            if (null == eds)
             {
                 return;
             }
-
-            ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-            LDAAnalysis lda_analysis = eds.LDAAnalysis;
-
-            // Draw the pie chart
+            else
             {
+                LDAAnalysis lda_analysis = eds.LDAAnalysis;
+
+                // Draw the pie chart
                 try
                 {
 

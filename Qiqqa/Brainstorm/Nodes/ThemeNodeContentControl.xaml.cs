@@ -70,6 +70,7 @@ namespace Qiqqa.Brainstorm.Nodes
         internal void ColourNodeBackground(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            ASSERT.Test(eds != null);
 
             WPFDoEvents.InvokeInUIThread(() =>
             {
@@ -96,6 +97,7 @@ namespace Qiqqa.Brainstorm.Nodes
         internal static void AddDocumentsInfluentialInDistribution(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            ASSERT.Test(eds != null);
 
             Logging.Info("+Performing ThemedPageRank on {0} documents", eds.LDAAnalysis.NUM_DOCS);
 
@@ -244,6 +246,7 @@ namespace Qiqqa.Brainstorm.Nodes
         internal static void AddDocumentsSimilarToDistribution(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            ASSERT.Test(eds != null);
 
             // Get the most similar PDFDocuments
             int[] doc_ids = LDAAnalysisTools.GetDocumentsSimilarToDistribution(eds.LDAAnalysis, tags_distribution);
@@ -294,44 +297,44 @@ namespace Qiqqa.Brainstorm.Nodes
                     return;
                 }
 
-                if (null == web_library_detail.Xlibrary.ExpeditionManager || null == web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+                ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+                if (null != eds)
                 {
-                    Logging.Warn("Expedition has not been run for library '{0}'.", web_library_detail.Title);
-                    return;
-                }
-
-                ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-
-                float[] tags_distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
-                int tags_distribution_denom = 0;
-                foreach (string tag in tags_array)
-                {
-                    if (eds.words_index.ContainsKey(tag))
+                    float[] tags_distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
+                    int tags_distribution_denom = 0;
+                    foreach (string tag in tags_array)
                     {
-                        ++tags_distribution_denom;
-
-                        int tag_id = eds.words_index[tag];
-                        for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                        if (eds.words_index.ContainsKey(tag))
                         {
-                            tags_distribution[topic_i] += eds.LDAAnalysis.PseudoDensityOfTopicsInWords[tag_id, topic_i];
+                            ++tags_distribution_denom;
+
+                            int tag_id = eds.words_index[tag];
+                            for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                            {
+                                tags_distribution[topic_i] += eds.LDAAnalysis.PseudoDensityOfTopicsInWords[tag_id, topic_i];
+                            }
+                        }
+                        else
+                        {
+                            Logging.Warn("Ignoring tag {0} which we don't recognise.", tag);
                         }
                     }
-                    else
-                    {
-                        Logging.Warn("Ignoring tag {0} which we don't recognise.", tag);
-                    }
-                }
 
-                if (0 < tags_distribution_denom)
+                    if (0 < tags_distribution_denom)
+                    {
+                        // Normalise the tags distribution
+                        for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                        {
+                            tags_distribution[topic_i] /= tags_distribution_denom;
+                        }
+                    }
+
+                    distribution_use(node_control, web_library_detail, eds, tags_distribution);
+                }
+                else
                 {
-                    // Normalise the tags distribution
-                    for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
-                    {
-                        tags_distribution[topic_i] /= tags_distribution_denom;
-                    }
+                        Logging.Warn("Expedition has not been run for library '{0}'.", web_library_detail.Title);
                 }
-
-                distribution_use(node_control, web_library_detail, eds, tags_distribution);
             });
         }
 

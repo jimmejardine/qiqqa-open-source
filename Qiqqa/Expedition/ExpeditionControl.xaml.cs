@@ -88,13 +88,14 @@ namespace Qiqqa.Expedition
 
         private void ButtonExportTopics_Click(object sender, RoutedEventArgs e)
         {
-            if (null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+            ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+
+            if (null != eds)
             {
-                ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-                LDAAnalysis lda_analysis = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis;
+                LDAAnalysis lda_analysis = eds.LDAAnalysis;
 
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS; ++i)
+                for (int i = 0; i < eds.LDAAnalysis.NUM_TOPICS; ++i)
                 {
                     string topic_description = eds.GetDescriptionForTopic(i);
                     sb.AppendFormat("{1}\r\n", i, topic_description);
@@ -180,13 +181,15 @@ namespace Qiqqa.Expedition
             {
                 TextLibraryForExpedition.Text = web_library_detail.Title;
 
-                int suggested_theme_count = web_library_detail.Xlibrary.ExpeditionManager.RecommendedThemeCount;
-                TextExpeditionNumThemes.Text = "" + suggested_theme_count;
-                TextExpeditionNumThemes.ToolTip = "How many themes do you want in this Expedition?\n(" + suggested_theme_count + " suggested)";
+                int suggested_theme_count = web_library_detail.Xlibrary?.ExpeditionManager?.RecommendedThemeCount ?? 0;
+                TextExpeditionNumThemes.Text = $"{suggested_theme_count}";
+                TextExpeditionNumThemes.ToolTip = $"How many themes do you want in this Expedition?\n({ suggested_theme_count } suggested)";
 
-                if (null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+                ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+
+                if (null != eds)
                 {
-                    for (int i = 0; i < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS; ++i)
+                    for (int i = 0; i < eds.LDAAnalysis.NUM_TOPICS; ++i)
                     {
                         TopicOverviewControl.TopicOverviewData tod = new TopicOverviewControl.TopicOverviewData
                         {
@@ -253,7 +256,7 @@ namespace Qiqqa.Expedition
 
         private void VoteDown_Click(object sender, RoutedEventArgs e)
         {
-            if (null != web_library_detail.Xlibrary.ExpeditionManager && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs)
+            if (null != web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource?.docs)
             {
                 FeatureTrackingManager.Instance.UseFeature(
                     Features.Vote_Expedition,
@@ -277,7 +280,7 @@ namespace Qiqqa.Expedition
 
         private void VoteUp_Click(object sender, RoutedEventArgs e)
         {
-            if (null != web_library_detail.Xlibrary.ExpeditionManager && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs)
+            if (null != web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource?.docs)
             {
                 FeatureTrackingManager.Instance.UseFeature(
                     Features.Vote_Expedition,

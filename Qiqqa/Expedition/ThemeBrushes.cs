@@ -26,23 +26,30 @@ namespace Qiqqa.Expedition
 
         public static Brush GetBrushForDistribution(WebLibraryDetail web_library_detail, int num_topics, float[] distribution)
         {
-            Color[] colours = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.Colours;
+            ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
 
-            int num_stops = 2 * num_topics;
-
-            GradientStopCollection gradient_stop_collection = new GradientStopCollection(num_stops);
-            double previous_offset = 0.0;
-            for (int i = 0; i < num_topics; ++i)
+            if (null != eds)
             {
-                gradient_stop_collection.Add(new GradientStop(colours[i], previous_offset));
-                previous_offset += distribution[i];
-                gradient_stop_collection.Add(new GradientStop(colours[i], previous_offset));
+                Color[] colours = eds.Colours;
+
+                int num_stops = 2 * num_topics;
+
+                GradientStopCollection gradient_stop_collection = new GradientStopCollection(num_stops);
+                double previous_offset = 0.0;
+                for (int i = 0; i < num_topics; ++i)
+                {
+                    gradient_stop_collection.Add(new GradientStop(colours[i], previous_offset));
+                    previous_offset += distribution[i];
+                    gradient_stop_collection.Add(new GradientStop(colours[i], previous_offset));
+                }
+
+                LinearGradientBrush lgb = new LinearGradientBrush(gradient_stop_collection);
+                lgb.Freeze();
+
+                return lgb;
             }
 
-            LinearGradientBrush lgb = new LinearGradientBrush(gradient_stop_collection);
-            lgb.Freeze();
-
-            return lgb;
+            return UNKNOWN_BRUSH;
         }
 
         private static void GetDensityForDocument(PDFDocument pdf_document, out int doc_id, out int num_topics, out float[] density_of_topics_in_document)
@@ -56,26 +63,25 @@ namespace Qiqqa.Expedition
                 return;
             }
 
-            if (null == pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource)
-            {
-                return;
-            }
+            ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
 
-            ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-            LDAAnalysis lda_analysis = eds.LDAAnalysis;
-            if (!pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index.ContainsKey(pdf_document.Fingerprint))
+            if (null != eds)
             {
-                return;
-            }
+                LDAAnalysis lda_analysis = eds.LDAAnalysis;
+                if (eds.docs_index.ContainsKey(pdf_document.Fingerprint))
+                {
+                    // Result!
 
-            // Result!
-            doc_id = pdf_document.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs_index[pdf_document.Fingerprint];
-            num_topics = lda_analysis.NUM_TOPICS;
-            density_of_topics_in_document = new float[num_topics];
-            for (int i = 0; i < lda_analysis.NUM_TOPICS; ++i)
-            {
-                density_of_topics_in_document[i] = lda_analysis.DensityOfTopicsInDocuments[doc_id, i];
+                    doc_id = eds.docs_index[pdf_document.Fingerprint];
+                    num_topics = lda_analysis.NUM_TOPICS;
+                    density_of_topics_in_document = new float[num_topics];
+                    for (int i = 0; i < lda_analysis.NUM_TOPICS; ++i)
+                    {
+                        density_of_topics_in_document[i] = lda_analysis.DensityOfTopicsInDocuments[doc_id, i];
+                    }
+                }
             }
         }
     }
 }
+

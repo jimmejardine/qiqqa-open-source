@@ -170,7 +170,7 @@ namespace Qiqqa.Expedition
             {
                 // This exception should only occur when the user *canceled* the process and should therefor
                 // *not* be propagated. Instead, we have to report an aborted result:
-                progress_update_delegate("Cancelled Expedition", 1, 1);
+                progress_update_delegate("Canceled Expedition", 1, 1);
                 return null;
             }
 
