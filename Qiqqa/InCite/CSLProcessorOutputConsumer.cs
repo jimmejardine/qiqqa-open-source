@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+#if XULRUNNER_GECKO_ANTIQUE
 using Gecko;
+#endif
 using Newtonsoft.Json.Linq;
 using Utilities;
 using Utilities.GUI;
@@ -41,7 +43,9 @@ namespace Qiqqa.InCite
         public string error_message = null;
 
         public bool success;
+#if XULRUNNER_GECKO_ANTIQUE
         private GeckoWebBrowser web_browser;
+#endif
 
         public delegate void BibliographyReadyDelegate(CSLProcessorOutputConsumer ip);
 
@@ -55,6 +59,7 @@ namespace Qiqqa.InCite
 
             // Create the browser
             Logging.Info("Creating web browser for InCite CSL processing");
+#if XULRUNNER_GECKO_ANTIQUE
             web_browser = new GeckoWebBrowser();
             web_browser.CreateControl();
 
@@ -72,8 +77,12 @@ namespace Qiqqa.InCite
 
             // Kick off citeproc computation
             web_browser.Navigate(uri.ToString());
+#else
+            throw new NotImplementedException();
+#endif
         }
 
+#if XULRUNNER_GECKO_ANTIQUE
         private void web_browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
         {
             Logging.Debug特("JAVASCRIPT CONSOLE MESSAGE: {0}", e.Message);
@@ -214,12 +223,15 @@ namespace Qiqqa.InCite
                 Logging.Error(ex, "There was a problem in the callback from citeproc");
             }
         }
+#endif
 
         private bool finished_processing = false;
 
+#if XULRUNNER_GECKO_ANTIQUE
         private void web_browser_JavascriptError(object sender, JavascriptErrorEventArgs e)
         {
         }
+#endif
 
         private void SetInline(string key, int position, string text, int total_items_affected_by_key)
         {
@@ -411,13 +423,17 @@ namespace Qiqqa.InCite
                     if (dispose_count == 0)
                     {
                         // Get rid of managed resources
+#if XULRUNNER_GECKO_ANTIQUE
                         web_browser?.Dispose();
+#endif
                     }
                 });
 
                 WPFDoEvents.SafeExec(() =>
                 {
+#if XULRUNNER_GECKO_ANTIQUE
                     web_browser = null;
+#endif
 
                     brd = null;
                     user_argument = null;

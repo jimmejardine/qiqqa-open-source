@@ -5,7 +5,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
+#if TESSERACT_ANTIQUE
 using tessnet2;
+#endif
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
@@ -127,7 +129,7 @@ namespace QiqqaOCR
             word_list.AddRange(ConvertToWordList());
 
             Logging.Info("-Doing OCR");
-            
+
             Logging.Info("Faked {0} words ({1} @ #{2})", word_list.Count, pdf_filename, page_number);
 
 #if false

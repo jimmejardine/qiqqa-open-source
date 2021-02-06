@@ -5,7 +5,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
+#if TESSERACT_ANTIQUE
 using tessnet2;
+#endif
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
@@ -15,7 +17,9 @@ using Utilities.PDF.Sorax;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+#if TESSERACT_ANTIQUE
 using Word = tessnet2.Word;
+#endif
 
 
 namespace QiqqaOCR
@@ -313,7 +317,7 @@ namespace QiqqaOCR
 
                     // DEBUG CODE: Draw in the region rectangles
                     //
-                    // When we run in NOKILL mode, we "know" we're running in a debugger or stand-alone environment 
+                    // When we run in NOKILL mode, we "know" we're running in a debugger or stand-alone environment
                     // intended for testing this code. Hence we should dump the regions image as part of the process.
                     if (no_kill)
                     {

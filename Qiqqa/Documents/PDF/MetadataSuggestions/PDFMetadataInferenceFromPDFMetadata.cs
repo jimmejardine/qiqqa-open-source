@@ -62,11 +62,11 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
                     }
                 }
             }
+
+            return true;
 #else
             throw new Exception("Not implemented");
 #endif
-
-            return true;
         }
 
 #if SYNCFUSION_ANTIQUE

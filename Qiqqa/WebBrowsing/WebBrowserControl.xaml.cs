@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Threading;
+#if XULRUNNER_GECKO_ANTIQUE
 using Gecko;
 using Gecko.Events;
+#endif
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
+
+// https://docs.microsoft.com/en-us/microsoft-edge/webview2/gettingstarted/wpf
 
 namespace Qiqqa.WebBrowsing
 {
@@ -24,6 +28,7 @@ namespace Qiqqa.WebBrowsing
 
             InitializeComponent();
 
+#if XULRUNNER_GECKO_ANTIQUE
             ObjWebBrowser.CreateControl();
             ObjWebBrowser.Navigating += ObjWebBrowser_Navigating;
             ObjWebBrowser.DocumentCompleted += ObjWebBrowser_DocumentCompleted;
@@ -32,9 +37,13 @@ namespace Qiqqa.WebBrowsing
             // Seems to crash Qiqqa in Gecko v13 - perhaps the statuses are updating too quickly or in parallel?!
             // Seems to work with gecko v21...
             ObjWebBrowser.StatusTextChanged += ObjWebBrowser_StatusTextChanged;
+#else
+            // TODO: WebView2 ?
+#endif
         }
 
-        private void ObjWebBrowser_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
+#if XULRUNNER_GECKO_ANTIQUE
+            private void ObjWebBrowser_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
         {
             WebBrowserHostControl wbhc = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
             WebBrowserControl wbc = wbhc.OpenNewWindow();
@@ -52,12 +61,15 @@ namespace Qiqqa.WebBrowsing
         {
             web_browser_host_control.ObjWebBrowser_Navigating(this, e.Uri);
         }
+#endif
 
         private void ObjWebBrowser_DocumentCompleted(object sender, EventArgs e)
         {
+#if XULRUNNER_GECKO_ANTIQUE
             GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
             Logging.Info("Browser page contents received at url {0}", web_control.Url.ToString());
             web_browser_host_control.ObjWebBrowser_LoadCompleted(this);
+#endif
         }
 
         internal void GoForward()
@@ -72,7 +84,9 @@ namespace Qiqqa.WebBrowsing
 
         internal void Print()
         {
+#if XULRUNNER_GECKO_ANTIQUE
             ObjWebBrowser.Navigate("javascript:print()");
+#endif
         }
 
         internal void Refresh()
@@ -94,6 +108,7 @@ namespace Qiqqa.WebBrowsing
 
         internal void Navigate(Uri uri)
         {
+#if XULRUNNER_GECKO_ANTIQUE
             try
             {
                 // Clear out any pending uri
@@ -107,6 +122,7 @@ namespace Qiqqa.WebBrowsing
                 Logging.Warn(ex, "Problem navigating to website {0}", uristr);
                 MessageBoxes.Error("There was a problem navigating to {0}.  Please try again after checking the web address.", uristr);
             }
+#endif
         }
 
         internal Uri NavigateOnceVisibleUri
@@ -124,6 +140,7 @@ namespace Qiqqa.WebBrowsing
             return uri;
         }
 
+#if XULRUNNER_GECKO_ANTIQUE
         public string Title => ObjWebBrowser.DocumentTitle;
 
         internal Uri CurrentUri => ObjWebBrowser.Url;
@@ -131,6 +148,15 @@ namespace Qiqqa.WebBrowsing
         public string PageText => ObjWebBrowser.Document.Body.TextContent;
 
         public string PageHTML => ObjWebBrowser.Document.GetElementsByTagName("html")[0].OuterHtml;
+#else
+        public string Title => throw new NotImplementedException();
+
+        internal Uri CurrentUri => throw new NotImplementedException();
+
+        public string PageText => throw new NotImplementedException();
+
+        public string PageHTML => throw new NotImplementedException();
+#endif
 
         #region --- IDisposable ------------------------------------------------------------------------
 

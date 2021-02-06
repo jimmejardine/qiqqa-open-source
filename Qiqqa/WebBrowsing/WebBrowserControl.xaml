@@ -1,12 +1,18 @@
 <UserControl x:Class="Qiqqa.WebBrowsing.WebBrowserControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:gecko="clr-namespace:Gecko;assembly=Geckofx-Winforms"
+               mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900"
     >
     <Grid>
-        <WindowsFormsHost Name="ObjFormsHost">
-            <gecko:GeckoWebBrowser x:Name="ObjWebBrowser" />
-        </WindowsFormsHost>
+        <DockPanel>
+            <wv2:WebView2 x:Name="ObjWebBrowser"
+                  Source="https://www.microsoft.com"
+    />
+        </DockPanel>
     </Grid>
 </UserControl>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if WSH_SHORTCUT_ANTIQUE
 using IWshRuntimeLibrary;
+#endif
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
@@ -26,7 +28,9 @@ namespace Qiqqa.Exporting
 
         private static void Export_Directories_Titles(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
+#if WSH_SHORTCUT_ANTIQUE
             WshShell shell = new WshShell();
+#endif
 
             string titles_base_path = Path.GetFullPath(Path.Combine(base_path, @"titles"));
             Directory.CreateDirectory(titles_base_path);
@@ -36,7 +40,11 @@ namespace Qiqqa.Exporting
                 try
                 {
                     string filename = Path.GetFullPath(Path.Combine(titles_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
+#if WSH_SHORTCUT_ANTIQUE
                     CreateShortcut(shell, item.filename, filename);
+#else
+                    throw new NotImplementedException();
+#endif
                 }
                 catch (Exception ex)
                 {
@@ -47,7 +55,9 @@ namespace Qiqqa.Exporting
 
         private static void Export_Directories_Authors(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
+#if WSH_SHORTCUT_ANTIQUE
             WshShell shell = new WshShell();
+#endif
 
             string authors_base_path = Path.GetFullPath(Path.Combine(base_path, @"authors"));
             Directory.CreateDirectory(authors_base_path);
@@ -62,7 +72,11 @@ namespace Qiqqa.Exporting
                         string author_base_path = Path.GetFullPath(Path.Combine(authors_base_path, name.LastName_Initials));
                         Directory.CreateDirectory(author_base_path);
                         string filename = Path.GetFullPath(Path.Combine(author_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
+#if WSH_SHORTCUT_ANTIQUE
                         CreateShortcut(shell, item.filename, filename);
+#else
+                        throw new NotImplementedException();
+#endif
                     }
                 }
                 catch (Exception ex)
@@ -74,7 +88,9 @@ namespace Qiqqa.Exporting
 
         private static void Export_Directories_Tags(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
+#if WSH_SHORTCUT_ANTIQUE
             WshShell shell = new WshShell();
+#endif
 
             string tags_base_path = Path.GetFullPath(Path.Combine(base_path, @"tags"));
             Directory.CreateDirectory(tags_base_path);
@@ -88,7 +104,11 @@ namespace Qiqqa.Exporting
                         string tag_base_path = Path.GetFullPath(Path.Combine(tags_base_path, FileTools.MakeSafeFilename(tag)));
                         Directory.CreateDirectory(tag_base_path);
                         string filename = Path.GetFullPath(Path.Combine(tag_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
+#if WSH_SHORTCUT_ANTIQUE
                         CreateShortcut(shell, item.filename, filename);
+#else
+                        throw new NotImplementedException();
+#endif
                     }
                 }
                 catch (Exception ex)
@@ -100,7 +120,9 @@ namespace Qiqqa.Exporting
 
         private static void Export_Directories_AutoTags(WebLibraryDetail web_library_detail, string base_path, Dictionary<string, PDFDocumentExportItem> pdf_document_export_items)
         {
+#if WSH_SHORTCUT_ANTIQUE
             WshShell shell = new WshShell();
+#endif
 
             string tags_base_path = Path.GetFullPath(Path.Combine(base_path, @"autotags"));
             Directory.CreateDirectory(tags_base_path);
@@ -114,7 +136,11 @@ namespace Qiqqa.Exporting
                         string tag_base_path = Path.GetFullPath(Path.Combine(tags_base_path, FileTools.MakeSafeFilename(tag)));
                         Directory.CreateDirectory(tag_base_path);
                         string filename = Path.GetFullPath(Path.Combine(tag_base_path, FileTools.MakeSafeFilename(item.pdf_document.TitleCombined) + ".lnk"));
+#if WSH_SHORTCUT_ANTIQUE
                         CreateShortcut(shell, item.filename, filename);
+#else
+                        throw new NotImplementedException();
+#endif
                     }
                 }
                 catch (Exception ex)
@@ -124,11 +150,13 @@ namespace Qiqqa.Exporting
             }
         }
 
+#if WSH_SHORTCUT_ANTIQUE
         private static void CreateShortcut(WshShell shell, string filename_target, string filename_shortcut)
         {
             IWshShortcut link = (IWshShortcut)shell.CreateShortcut(filename_shortcut);
             link.TargetPath = filename_target;
             link.Save();
         }
+#endif
     }
 }
