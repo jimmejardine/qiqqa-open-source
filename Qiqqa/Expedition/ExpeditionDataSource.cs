@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Media;
 using Utilities.Mathematics.Topics.LDAStuff;
+using Utilities.Misc;
 
 namespace Qiqqa.Expedition
 {
@@ -177,11 +178,16 @@ namespace Qiqqa.Expedition
             }
 
             LDAAnalysis lda = LDAAnalysis;
+            WordProbability[] lda_wordprobs = lda.DensityOfWordsInTopicsSorted[topic];
+            ASSERT.Test(lda_wordprobs != null);
 
             double last_term_prob = 0;
             for (int t = 0; t < 5 && t < lda.NUM_WORDS; ++t)
             {
-                if (last_term_prob / lda.DensityOfWordsInTopicsSorted[topic][t].prob > 10)
+                WordProbability lda_node = lda_wordprobs[t];
+                ASSERT.Test(lda_node != null);
+
+                if (last_term_prob / lda_node.prob > 10)
                 {
                     if (stop_at_word_probability_jump)
                     {
@@ -192,9 +198,9 @@ namespace Qiqqa.Expedition
                         sb.Append(" // ");
                     }
                 }
-                last_term_prob = lda.DensityOfWordsInTopicsSorted[topic][t].prob;
+                last_term_prob = lda_node.prob;
 
-                sb.Append(String.Format("{0}", words[lda.DensityOfWordsInTopicsSorted[topic][t].word]));
+                sb.Append(String.Format("{0}", words[lda_node.word]));
                 sb.Append(separator);
             }
 

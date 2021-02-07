@@ -672,6 +672,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                                 Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
 
                                                 // do not rethrow the error: allow the other pages in the pages to be rendered...
+
+                                                ddw.page_bitmap_source = Backgrounds.GetBackground(Backgrounds.PageRenderingFailed_ClassicNews);
                                             }
                                         }
                                     }
@@ -697,13 +699,13 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                     Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
                                     Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
                                 }
-                            }
 
-			                if (0 == ddwm.ddws.Count)
-			                {
-			                    ButtonCoverFlow.IsChecked = false;
-			                    UpdateLibraryStatistics();
-			                }
+				                if (0 == ddwm.ddws.Count)
+				                {
+				                    ButtonCoverFlow.IsChecked = false;
+				                    UpdateLibraryStatistics();
+				                }
+                            }
                         });
                     });
                 }
@@ -754,7 +756,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            ddw.image.Source = ddw.page_bitmap_source;
+            ddw.image.Source = ddw.page_bitmap_source ?? Backgrounds.GetBackground(Backgrounds.PageRenderingFailed_Relax);
+            ddw.image.Stretch = Stretch.Uniform;
             ddw.border.Visibility = Visibility.Visible;
         }
 
