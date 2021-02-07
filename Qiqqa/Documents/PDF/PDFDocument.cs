@@ -1103,6 +1103,7 @@ namespace Qiqqa.Documents.PDF
         /// <returns></returns>
         public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, string fingerprint, byte[] data)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
             ASSERT.Test(!String.IsNullOrEmpty(fingerprint));
 
             DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);

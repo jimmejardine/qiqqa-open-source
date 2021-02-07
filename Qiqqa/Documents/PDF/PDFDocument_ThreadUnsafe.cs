@@ -993,103 +993,10 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             PDFInkSerializer.WriteToDisk(this, force_flush_no_matter_what);
         }
 
-#if false
-        /// <summary>
-        /// Throws exception when metadata could not be converted to a valid PDFDocument instance.
-        /// </summary>
-        /// <param name="library"></param>
-        /// <param name="data"></param>
-        /// <param name="library_items_annotations_cache"></param>
-        /// <returns></returns>
-        public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
-        {
-            DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
-            PDFDocument pdf_document = new PDFDocument(library, dictionary);
-            pdf_document.GetAnnotations(library_items_annotations_cache);
-            return pdf_document;
-        }
-
-        public static PDFDocument CreateFromPDF(WebLibraryDetail web_library_detail, string filename, string precalculated_fingerprint__can_be_null)
-        {
-            string fingerprint = precalculated_fingerprint__can_be_null;
-            if (String.IsNullOrEmpty(fingerprint))
-            {
-                fingerprint = StreamFingerprint.FromFile(filename);
-            }
-
-            PDFDocument pdf_document = new PDFDocument(library);
-
-            // Store the most important information
-            pdf_document.FileType = Path.GetExtension(filename).TrimStart('.');
-            pdf_document.Fingerprint = fingerprint;
-            pdf_document.DateAddedToDatabase = DateTime.UtcNow;
-            pdf_document.DateLastModified = DateTime.UtcNow;
-
-            Directory.CreateDirectory(pdf_document.DocumentBasePath);
-
-            pdf_document.StoreAssociatedPDFInRepository(filename);
-
-            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
-            if (0 == library_items.Count)
-            {
-                pdf_document.QueueToStorage();
-            }
-            else
-            {
-                try
-                {
-                    LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(library, library_item.data, null);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
-                    pdf_document.QueueToStorage();
-                    //pdf_document.SaveToMetaData();
-                }
-            }
-
-            return pdf_document;
-        }
-
-        public static PDFDocument CreateFromVanillaReference(Library library)
-        {
-            PDFDocument pdf_document = new PDFDocument(library);
-
-            // Store the most important information
-            pdf_document.FileType = Constants.VanillaReferenceFileType;
-            pdf_document.Fingerprint = VanillaReferenceCreating.CreateVanillaReferenceFingerprint();
-            pdf_document.DateAddedToDatabase = DateTime.UtcNow;
-            pdf_document.DateLastModified = DateTime.UtcNow;
-
-            Directory.CreateDirectory(pdf_document.DocumentBasePath);
-
-            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
-            if (0 == library_items.Count)
-            {
-                pdf_document.QueueToStorage();
-            }
-            else
-            {
-                try
-                {
-                    LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(library, library_item.data, null);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
-                    pdf_document.QueueToStorage();
-                }
-            }
-
-            return pdf_document;
-        }
-#endif
-
         public void CopyMetaData(PDFDocument_ThreadUnsafe pdf_document_template, bool copy_fingerprint = true, bool copy_filetype = true)
         {
             // TODO: do a proper merge, based on flags from the caller about to do and what to pass:
+
             HashSet<string> keys = new HashSet<string>(dictionary.Keys);
             foreach (var k2 in pdf_document_template.dictionary.Keys)
             {

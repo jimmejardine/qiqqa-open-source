@@ -27,6 +27,8 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
         internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             byte[] annotations_data = null;
 
             // Try to load the annotations from file if they exist
