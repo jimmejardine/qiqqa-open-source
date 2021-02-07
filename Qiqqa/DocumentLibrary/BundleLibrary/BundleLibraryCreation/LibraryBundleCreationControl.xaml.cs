@@ -53,7 +53,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
         private void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
         {
             using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
-            { 
+            {
                 dialog.IsFolderPicker = true;
                 dialog.Title = "Please select the folder into which the two Library Bundle files should be placed.";
                 CommonFileDialogResult result = dialog.ShowDialog();

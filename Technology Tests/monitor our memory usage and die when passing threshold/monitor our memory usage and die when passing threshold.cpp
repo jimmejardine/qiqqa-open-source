@@ -3,7 +3,7 @@
 
 
 // use the portability work of cUrl: faster than writing our own header files...
-#include "curl_setup.h" 
+#include "curl_setup.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,10 +45,10 @@ if (!(check))                   \
 }
 
 
-#define BUFSIZE 4096 
+#define BUFSIZE 4096
 
 
-// Format a readable error message, display a message box, 
+// Format a readable error message, display a message box,
 // and exit from the application.
 void ErrorExit(const wchar_t * lpszFunction)
 {
@@ -185,7 +185,7 @@ static void showMemoryConsumption()
 
 static void growHeapAndWatch(int n)
 {
-    const int CHUNKSIZE = 25e6;
+    const int CHUNKSIZE = (int)25e6;
     void* p = malloc(CHUNKSIZE);
     ++n;
     debugPrint(L"+ chunk %d\n", n);
@@ -221,7 +221,7 @@ int _tmain(int argc, TCHAR* argv[])
 
     // https://docs.microsoft.com/en-us/windows/win32/psapi/collecting-memory-usage-information-for-a-process
     // https://docs.microsoft.com/en-us/previous-versions/windows/desktop/legacy/aa965225(v=vs.85)
-    // 
+    //
     showMemoryConsumption();
 
     growHeapAndWatch(0);
@@ -232,7 +232,7 @@ int _tmain(int argc, TCHAR* argv[])
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
+// Tips for Getting Started:
 //   1. Use the Solution Explorer window to add/manage files
 //   2. Use the Team Explorer window to connect to source control
 //   3. Use the Output window to see build output and other messages

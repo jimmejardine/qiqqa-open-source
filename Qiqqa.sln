@@ -583,6 +583,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "forking cleans up memory le
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "monitor our memory usage and die when passing threshold", "Technology Tests\monitor our memory usage and die when passing threshold\monitor our memory usage and die when passing threshold.vcxproj", "{4F88275C-D544-40C0-B478-9018F8BAE8C5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{06A61DE6-4566-4DE2-AF39-2AE13D03F6E1}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Technology Tests\Technology Library\Technology Library.projitems*{22eccf4f-7ed0-48b3-a244-07863fb4b81e}*SharedItemsImports = 4
@@ -2302,6 +2304,7 @@ Global
 		{00115919-815B-4F64-BC9D-219078B1F3AA} = {0BB76DA8-553C-47E2-BD86-B58490247111}
 		{E74F29FA-F143-4ADC-B92C-6AF1A8E4A417} = {0BB76DA8-553C-47E2-BD86-B58490247111}
 		{DA38CA0B-89B9-4703-A77D-8049AC3A0D04} = {A641717E-DD60-4E51-9973-D57D1CDAFB69}
+		{1FF2DF7E-E740-4663-A95F-981147909CDF} = {06A61DE6-4566-4DE2-AF39-2AE13D03F6E1}
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{4F88275C-D544-40C0-B478-9018F8BAE8C5} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 	EndGlobalSection
