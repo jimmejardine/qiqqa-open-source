@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 #if !HAS_NO_PROTOBUF
 using ProtoBuf;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 #endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -95,14 +96,21 @@ namespace Utilities.Files
 
         public static void SaveSafely(string filename, object animal_to_save)
         {
-            ASSERT.Test(animal_to_save != null);
-            try
+            if (!ShutdownableManager.Instance.IsShuttingDown)
             {
-                SaveRedundant(filename, animal_to_save);
+                ASSERT.Test(animal_to_save != null);
             }
-            catch (Exception ex)
+
+            if (animal_to_save != null)
             {
-                Logging.Warn(ex, $"Error saving '{filename}'");
+                try
+                {
+                    SaveRedundant(filename, animal_to_save);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Warn(ex, $"Error saving '{filename}'");
+                }
             }
         }
 
