@@ -465,6 +465,9 @@
     <Resource Include="Application\Debugging.png" />
     <Resource Include="Application\Doctor.png" />
     <Resource Include="Backgrounds\green-dice-a4.jpg" />
+    <Resource Include="Backgrounds\green-dice-for-fail.jpg" />
+    <Resource Include="Backgrounds\qiqqa-page-render-fail-news-page.jpg" />
+    <Resource Include="Backgrounds\qiqqa-page-render-fail-poster.jpg" />
     <Content Include="License.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
