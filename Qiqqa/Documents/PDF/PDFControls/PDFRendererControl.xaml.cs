@@ -126,14 +126,12 @@ namespace Qiqqa.Documents.PDF.PDFControls
             SafeThreadPool.QueueUserWorkItem(o =>
             {
                 // Add the child pages
-                bool add_bells_and_whistles = doc.PDFRenderer.PageCount < 50;
-
-                int page_count = doc.PDFRenderer.PageCount;
+                bool add_bells_and_whistles = (doc.PageCount > 0 && doc.PageCount < 50);
 
                 WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     Logging.Info("+Creating child page controls");
-                    for (int page = 1; page <= page_count; ++page)
+                    for (int page = 1; page <= doc.PageCount; ++page)
                     {
                         PDFRendererPageControl page_control = new PDFRendererPageControl(this, page, add_bells_and_whistles);
                         ObjPagesPanel.Children.Add(page_control);
@@ -667,7 +665,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
         public PDFRendererPageControl GetPageControl(int page)
         {
             List<PDFRendererPageControl> child_pages = new List<PDFRendererPageControl>(ObjPagesPanel.Children.OfType<PDFRendererPageControl>());
-            if (child_pages.Count > 0 && page - 1 < child_pages.Count)
+
+            if (child_pages.Count > 0 && page > 0 && page - 1 < child_pages.Count)
             {
                 return (PDFRendererPageControl)child_pages[page - 1];
             }
@@ -724,18 +723,16 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 return;
             }
 
-            int page = selected_page.PageNumber;
-            page = page + direction;
-            if (page > pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount)
-            {
-                page = 1;
-            }
-            if (page < 1)
-            {
-                page = pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount;
-            }
+            int page_number = selected_page.PageNumber;
+            page_number = page_number + direction;
 
-            MoveSelectedPageAbsolute(page);
+            // cycle around when jumping to page #N:
+            int modulo = Math.Max(1, pdf_renderer_control_stats.pdf_document.PageCount);
+            page_number = (page_number - 1) + 2 * modulo;     // guaranteed to end up with a positive number here...
+            page_number %= modulo;
+            page_number++;            // and make it 1-based again after the MODULO math.
+
+            MoveSelectedPageAbsolute(page_number);
         }
 
         public void MoveSelectedPageAbsolute(int page)

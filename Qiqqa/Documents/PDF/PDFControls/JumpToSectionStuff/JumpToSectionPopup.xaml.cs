@@ -68,7 +68,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 build_popup_from_pdf.BuildMenu();
             }
 
-            if (pdf_document != null && pdf_document.PDFRenderer.PageCount < 100)
+            if (pdf_document != null /* && pdf_document.PDFRenderer.PageCount < 100  -- plenty thesis papers out there with more than 100 pages... removed this arbitrary heuristic */)
             {
                 BuildPopupFromOCR build_popup_from_ocr = new BuildPopupFromOCR(this, pdf_document);
                 build_popup_from_ocr.BuildMenu();

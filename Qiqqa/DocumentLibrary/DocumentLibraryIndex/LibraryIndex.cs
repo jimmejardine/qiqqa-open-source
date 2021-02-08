@@ -425,7 +425,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                         if (pdf_document.DocumentExists)
                         {
-                            pdf_document_in_library.total_pages = pdf_document.PDFRenderer.PageCount;
+                            pdf_document_in_library.total_pages = pdf_document.PageCount;
                             pdf_document_in_library.finished_indexing = false;
                         }
                         else
@@ -613,7 +613,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         {
                             if (pdf_document.DocumentExists)
                             {
-                                for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+                                for (int page = 1; page <= pdf_document.PageCount; ++page)
                                 {
                                     WordList word_list = null;
 

@@ -11,6 +11,12 @@ using Utilities.ProcessTools;
 
 namespace Utilities.PDF.MuPDF
 {
+    public class PDFDocumentMuPDFMetaInfo
+    {
+        public int PageCount = -1;
+        public bool DocumentIsCorrupted = false;
+    }
+
     public class MuPDFRenderer
     {
         private static int render_count = 0;
@@ -76,6 +82,40 @@ namespace Utilities.PDF.MuPDF
 
                 return bitmap;
             }
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public static PDFDocumentMuPDFMetaInfo GetDocumentMetaInfo(string pdf_filename, string password, ProcessPriorityClass priority_class)
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            string process_parameters = String.Format(
+                $"-q -o -"
+                + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
+                + " " + '"' + pdf_filename + '"'
+                );
+
+            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mudraw.exe"));
+            if (!File.Exists(exe))
+            {
+                throw new Exception($"PDF metadata gathering: missing modern MuPDF 'mudraw.exe': it does not exist in the expected path: '{exe}'");
+            }
+            if (!File.Exists(pdf_filename))
+            {
+                throw new Exception($"PDF metadata gathering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
+            }
+
+            using (MemoryStream ms = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, binary_output: false, priority_class))
+            {
+                ms.Seek(0, SeekOrigin.Begin);
+                using (StreamReader sr = new StreamReader(ms))
+                {
+                    string txt = sr.ReadToEnd();
+                }
+            }
+
+            return null;
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------

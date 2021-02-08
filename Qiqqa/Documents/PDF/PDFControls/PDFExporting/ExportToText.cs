@@ -17,7 +17,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+            for (int page = 1; page <= pdf_document.PageCount; ++page)
             {
                 sb.AppendLine();
                 sb.AppendLine(String.Format("--- Page {0} ---", page));

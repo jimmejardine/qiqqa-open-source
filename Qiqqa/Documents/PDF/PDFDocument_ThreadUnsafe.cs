@@ -108,10 +108,17 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             dictionary = new DictionaryBasedObject();
         }
 
-        internal PDFDocument_ThreadUnsafe(WebLibraryDetail web_library_detail, DictionaryBasedObject dictionary)
+        internal PDFDocument_ThreadUnsafe(WebLibraryDetail web_library_detail, DictionaryBasedObject dictionary, PDFAnnotationList prefetched_annotations_for_document = null)
         {
             this.library = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
             this.dictionary = dictionary;
+
+            // process any prefetched annotations that we may have as usual:
+            if (prefetched_annotations_for_document != null)
+            {
+                    annotations = prefetched_annotations_for_document;
+                    dirtyNeedsReindexing = (prefetched_annotations_for_document.Count > 0);
+            }
         }
 
         [NonSerialized]
@@ -122,7 +129,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             {
                 if (null == pdf_renderer)
                 {
-                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, LibraryRef.Xlibrary.PasswordManager.GetPassword(this), LibraryRef.Xlibrary.PasswordManager.GetPassword(this));
+                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, LibraryRef.Xlibrary.PasswordManager.GetPassword(this));
                 }
 
                 return pdf_renderer;
@@ -137,24 +144,50 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             {
                 if (null == pdf_renderer_file_layer)
                 {
-                    pdf_renderer_file_layer = new PDFRendererFileLayer(Fingerprint, DocumentPath);
+                    pdf_renderer_file_layer = new PDFRendererFileLayer(Fingerprint, DocumentPath, LibraryRef.Xlibrary.PasswordManager.GetPassword(this));
                 }
 
                 return pdf_renderer_file_layer;
             }
         }
 
-        public int SafePageCount
+        public int PageCount
         {
             get
             {
                 if (DocumentExists)
                 {
-                    return PDFRenderer.PageCount;
+                    int n = PDFRenderer.PageCount;
+                    if (n < 0)
+                    {
+                        IsCorruptedDocument = true;
+                    }
+                    return n;
                 }
                 else
                 {
                     return 0;
+                }
+            }
+        }
+
+        public string PageCountAsString
+        {
+            get
+            {
+                int n = PageCount;
+                switch (n)
+                {
+                case -1:
+                    return "<pending>";
+
+                case 0:
+                    if (IsVanillaReference) return "<vanilla ref>";
+                    if (IsCorruptedDocument) return "<corrupted PDF>";
+                    return "<empty document>";
+
+                default:
+                    return n.ToString();
                 }
             }
         }
@@ -657,20 +690,20 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             get
             {
                 int value = Convert.ToInt32(dictionary["PageLastRead"] ?? 0);
-                int pageCount = this.SafePageCount;
+                int pageCount = PageCount;
                 if (value < 0 || value > pageCount)
                 {
-                    Logging.Error("Reading an invalid PageLastRead value {0} from the database, while the total page count is {1}", dictionary["PageLastRead"], SafePageCount);
+                    Logging.Error("Reading an invalid PageLastRead value {0} from the database, while the total page count is {1}", dictionary["PageLastRead"], PageCountAsString);
                     value = Math.Max(0, Math.Min(pageCount, value));
                 }
                 return value;
             }
             set
             {
-                int pageCount = this.SafePageCount;
+                int pageCount = PageCount;
                 if (value < 0 || value > pageCount)
                 {
-                    Logging.Error("Setting an invalid PageLastRead value {0}, while the total page count is {1}", value, SafePageCount);
+                    Logging.Error("Setting an invalid PageLastRead value {0}, while the total page count is {1}", value, PageCountAsString);
                     value = Math.Max(0, Math.Min(pageCount, value));
                 }
                 dictionary["PageLastRead"] = value;
@@ -796,8 +829,25 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             {
                 if (document_exists.HasValue) return document_exists.Value;
 
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 document_exists = File.Exists(DocumentPath);
                 return document_exists.Value;
+            }
+        }
+
+        [NonSerialized]
+        private bool? document_is_corrupted = null;
+        public bool IsCorruptedDocument
+        {
+            get
+            {
+                if (document_is_corrupted.HasValue) return document_is_corrupted.Value;
+                return false;
+            }
+            set
+            {
+                document_is_corrupted = value;
             }
         }
 
@@ -819,6 +869,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
             if (!DocumentExists) return 0;
             if (document_size > 0) return document_size;
+
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Execute file system query and cache its result:
             document_size = File.GetSize(DocumentPath);

@@ -14,7 +14,7 @@ namespace Qiqqa.Documents.PDF.Search
 
             if (pdf_document.DocumentExists)
             {
-                for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+                for (int page = 1; page <= pdf_document.PageCount; ++page)
                 {
                     search_result_set[page] = SearchPage(pdf_document, page, terms, PDFSearcher.MATCH_CONTAINS);
                 }

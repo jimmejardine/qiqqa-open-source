@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.ServiceModel.Security;
+using System.Threading;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -25,15 +27,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private string fingerprint;
         private string pdf_filename;
-        private int num_pages;
-        private int num_pages_calc_try_count;
+        private string pdf_password;
+        private int num_pages = -1;        // signal: -2 and below: failed permanently (1 + attempts to diagnose); -1: not yet determined; 0: empty document (rare/weird!); > 0: number of actual pages in document
 
-        public PDFRendererFileLayer(string fingerprint, string pdf_filename)
+        public PDFRendererFileLayer(string fingerprint, string pdf_filename, string password)
         {
             this.fingerprint = fingerprint;
             this.pdf_filename = pdf_filename;
-            num_pages = 0; // CountPDFPages();
-            num_pages_calc_try_count = 0;
+            this.pdf_password = password;
         }
 
         /// <summary>
@@ -123,17 +124,25 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return filename;
         }
 
+
+        /// <summary>
+        /// Return value meaning:
+        /// * -2 and below: failed permanently (1 + #attempts to diagnose)
+        /// * -1: not yet determined
+        /// * 0: empty document (rare, possibly even weird! Who stores an empty document in a library?)
+        /// * 1 and above: number of actual pages in document
+        /// </summary>
         public int PageCount
         {
             get
             {
-                if (num_pages == 0)
+                if (num_pages == -1)
                 {
                     WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
                     num_pages = CountPDFPages();
                 }
-                return Math.Max(0, num_pages);
+                return num_pages;
             }
         }
 
@@ -150,34 +159,38 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 if (File.Exists(cached_count_filename))
                 {
                     num = Convert.ToInt32(File.ReadAllText(cached_count_filename));
-                    if (0 != num)
+                    if (num > 0)
                     {
                         return num;
                     }
+                    // NOTE: all fringe cases, that is CORRUPTED and EMPTY documents, will be re-analyzed this way on every run!
+                    // This prevents odd page numbers from creeping into the persisted cache.
                 }
             }
             catch (Exception ex)
             {
                 Logging.Warn(ex, "There was a problem loading the cached page count.");
-
-                FileTools.Delete(cached_count_filename);
             }
 
+            // Nuke the cache file, iff it exists. When we get here, it contained undesirable data anyway.
+            FileTools.Delete(cached_count_filename);
+
             // If we get here, either the pagecount-file doesn't exist, or there was an exception
-            Logging.Debug特("Using calculated PDF page count for file {0}", pdf_filename);
-            num = PDFTools.CountPDFPages(pdf_filename);
+            Logging.Debug特("Calculating PDF page count for file {0}", pdf_filename);
+
+            num = PDFTools.CountPDFPages(pdf_filename, pdf_password);
+
             Logging.Info("The result is {1} for using calculated PDF page count for file {0}", pdf_filename, num);
             while (true)
             {
-                if (0 != num)
+                if (num > 0)
                 {
-                    num_pages_calc_try_count = 0;  // reset recalc fail counter
-
                     try
                     {
                         Directory.CreateDirectory(Path.GetDirectoryName(cached_count_filename));
                         string outputText = Convert.ToString(num, 10);
                         File.WriteAllText(cached_count_filename, outputText);
+
                         // Open the file and read back what was written: we don't do a file lock for this one, but reckon all threads who
                         // do this, will produce the same number = file content.
                         //
@@ -189,6 +202,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         {
                             throw new IOException("CountPDFPages: cache content as read back from cache file does not match written data. Cache file is untrustworthy.");
                         }
+
+                        return num;
                     }
                     catch (Exception ex)
                     {
@@ -202,28 +217,26 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         // as it is a heavy operation!
                         //
                         //num = 0;
+
+                        Thread.Sleep(2);   // wait a tick or so before we retry
+
+                        continue;
                     }
                 }
-                else
-                {
-                    // Special case: when the CountPDFPages() API does not deliver a sane, that is non-zero, page count,
-                    // then we've got a PDF file issue on our hands, very probably a damaged PDF.
-                    //
-                    // Damaged PDF files SHOULD NOT burden us forever, hence we introduce the heuristic of Three Strikes:
-                    // when we've (re)calculated the PDF page count three times in a row with errors (num == 0), then we
-                    // don't retry ever again, at least not during this application run.
-                    //
-                    // we DO NOT count I/O errors around the cache file, we only count (re)calc errors:
-                    num_pages_calc_try_count++;
-                    if (num_pages_calc_try_count >= 3)
-                    {
-                        num = -1; // signal final failure
 
-                        Logging.Warn("Marking this PDF Document as uncompromisingly stubborn in its failure to be inspected for file {0}", pdf_filename);
+                // Special case: when the CountPDFPages() API does not deliver a sane, that is positive, page count,
+                // then we've got a PDF file issue on our hands, very probably a damaged PDF.
+                //
+                // Damaged PDF files SHOULD NOT burden us forever, hence we introduce the heuristic of Retry At Restart:
+                // all "suspect" page counts are used as is for now, but when the application is restarted at any time
+                // later, those documents will be inspected once again.
+                //
+                // we DO NOT count I/O errors around the cache file.
 
-                        continue; // and cache this value
-                    }
-                }
+                ASSERT.Test(num <= 0);
+
+                Logging.Warn("Marking this PDF Document as uncompromisingly stubborn in its failure to be inspected for file {0}. Page count code: {1}", pdf_filename, num);
+
                 break;
             }
 

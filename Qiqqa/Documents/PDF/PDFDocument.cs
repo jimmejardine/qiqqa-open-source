@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Windows.Media;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
@@ -50,10 +51,10 @@ namespace Qiqqa.Documents.PDF
             doc = new PDFDocument_ThreadUnsafe(web_library_detail);
         }
 
-        private PDFDocument(LockObject _lock, WebLibraryDetail web_library_detail, DictionaryBasedObject dictionary)
+        private PDFDocument(LockObject _lock, WebLibraryDetail web_library_detail, DictionaryBasedObject dictionary, PDFAnnotationList prefetched_annotations_for_document = null)
         {
             access_lock = _lock;
-            doc = new PDFDocument_ThreadUnsafe(web_library_detail, dictionary);
+            doc = new PDFDocument_ThreadUnsafe(web_library_detail, dictionary, prefetched_annotations_for_document);
         }
 
         public PDFRenderer PDFRenderer
@@ -78,13 +79,24 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        public int SafePageCount
+        public int PageCount
         {
             get
             {
                 lock (access_lock)
                 {
-                    return doc.SafePageCount;
+                    return doc.PageCount;
+                }
+            }
+        }
+
+        public string PageCountAsString
+        {
+            get
+            {
+                lock (access_lock)
+                {
+                    return doc.PageCountAsString;
                 }
             }
         }
@@ -1101,7 +1113,7 @@ namespace Qiqqa.Documents.PDF
         /// <param name="data"></param>
         /// <param name="library_items_annotations_cache"></param>
         /// <returns></returns>
-        public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, string fingerprint, byte[] data)
+        public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, string fingerprint, byte[] data, PDFAnnotationList prefetched_annotations_for_document = null)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
             ASSERT.Test(!String.IsNullOrEmpty(fingerprint));
@@ -1112,20 +1124,42 @@ namespace Qiqqa.Documents.PDF
             string id = dictionary["Fingerprint"] as string;
             if (String.IsNullOrEmpty(id))
             {
+                Logging.Error("Library '{1}' corrupted? Sanity check: the document record for document fingerprint {0} lacked a fingerprint as part of the mandatory metadata. This has been fixed now.", fingerprint, web_library_detail.DescriptiveTitle);
+
                 dictionary["Fingerprint"] = fingerprint;
+                id = fingerprint;
+            }
+
+            // extra verification / sanity check: this will catch some very obscure DB corruption, or rather **manual editing**! ;-)
+            if (id != fingerprint || true)
+            {
+                // see which of them makes the most sense... And DO remember that Qiqqa fingeerprint hashes are variable-length, due to an old systemic bug!
+                Regex re = new Regex(@"^[a-zA-Z0-9]{20,}(?:_REF)?$");
+                bool id_is_possibly_legal = re.IsMatch(id);
+                bool key_is_possibly_legal = re.IsMatch(fingerprint);
+
+                // if the entry in the record itself is legal, run with that one. Otherwise, fall back to using the DB record KEY.
+                if (id_is_possibly_legal)
+                {
+                    Logging.Error("Library '{2}' corrupted? Sanity check: given fingerprint '{0}' does not match the fingerprint '{1}' obtained from the DB metadata record. Running with the fingerprint specified in the metadata record.", fingerprint, id, web_library_detail.DescriptiveTitle);
+                }
+                else
+                {
+                    Logging.Error("Library '{2}' corrupted? Sanity check: given fingerprint '{0}' does not match the fingerprint '{1}' obtained from the DB metadata record. Running with the fingerprint specified as database record KEY, since the other fingerprint does not look like a LEGAL fingerprint.", fingerprint, id, web_library_detail.DescriptiveTitle);
+
+                    dictionary["Fingerprint"] = fingerprint;
+                    id = fingerprint;
+                }
             }
 
             LockObject _lock = new LockObject();
-            PDFDocument pdf_document = new PDFDocument(_lock, web_library_detail, dictionary);
+            PDFDocument pdf_document = new PDFDocument(_lock, web_library_detail, dictionary, prefetched_annotations_for_document);
 
-            // extra verification / sanity check: this will catch some very obscure DB corruption, or rather **manual editing**! ;-)
-            if (pdf_document.Fingerprint != fingerprint)
-            {
-                Logging.Warn("Sanity check: given fingerprint '{0}' does not match the fingerprint '{1}' obtained from the DB metadata record. Running with the fingerprint specified in the metadata record.", fingerprint, pdf_document.Fingerprint);
-            }
-
-            // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
+            // thread-UNSAFE access is permitted as the PDF has just been created and 
+            // is NOT known to the outside world (i.e. beyond the scope of this function) 
+            // so there's no thread-safety risk yet.
             _ = pdf_document.doc.GetAnnotations();
+
             return pdf_document;
         }
 

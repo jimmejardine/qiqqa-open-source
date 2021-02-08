@@ -17,16 +17,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
     internal class PDFPrinterDocumentPaginator : DocumentPaginator, IDisposable
     {
         private PDFDocument pdf_document;
-        private PDFRenderer pdf_renderer;
         private int page_from;
         private int page_to;
         private Size page_size;
         private int total_pages_printed = 0;
 
-        public PDFPrinterDocumentPaginator(PDFDocument pdf_document, PDFRenderer pdf_renderer, int page_from, int page_to, Size page_size)
+        public PDFPrinterDocumentPaginator(PDFDocument pdf_document, int page_from, int page_to, Size page_size)
         {
             this.pdf_document = pdf_document;
-            this.pdf_renderer = pdf_renderer;
             this.page_from = page_from;
             this.page_to = page_to;
             this.page_size = page_size;
@@ -45,7 +43,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
             StatusManager.Instance.UpdateStatus("PDFPrinter", String.Format("Printing page {0} of {1}", page_zero_based + 1, PageCount), page_zero_based + 1, PageCount, true);
 
             // Render a page at 300 DPI...
-            using (MemoryStream ms = new MemoryStream(pdf_renderer.GetPageByDPIAsImage(page, 300)))
+            using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByDPIAsImage(page, 300)))
             {
                 using (Image image = Image.FromStream(ms))
                 {
@@ -133,7 +131,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
                 {
                     // Get rid of managed resources / get rid of cyclic references:
                     pdf_document = null;
-                    pdf_renderer = null;
                 });
 
                 WPFDoEvents.SafeExec(() =>

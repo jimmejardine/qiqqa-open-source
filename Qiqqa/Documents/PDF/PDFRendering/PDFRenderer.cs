@@ -20,7 +20,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private string pdf_filename;
         private string pdf_user_password;
-        private string pdf_owner_password;
         private string document_fingerprint;
         private PDFRendererFileLayer pdf_render_file_layer;
         private Dictionary<int, TypedWeakReference<WordList>> texts = new Dictionary<int, TypedWeakReference<WordList>>();
@@ -33,15 +32,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private SoraxPDFRenderer sorax_pdf_renderer;
 
-        public PDFRenderer(string precomputed_document_fingerprint, string pdf_filename, string pdf_user_password, string pdf_owner_password)
+        public PDFRenderer(string precomputed_document_fingerprint, string pdf_filename, string pdf_user_password)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             this.pdf_filename = pdf_filename;
             this.pdf_user_password = pdf_user_password;
-            this.pdf_owner_password = pdf_owner_password;
             document_fingerprint = precomputed_document_fingerprint ?? StreamFingerprint.FromFile(this.pdf_filename);
 
-            pdf_render_file_layer = new PDFRendererFileLayer(document_fingerprint, pdf_filename);
-            sorax_pdf_renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password, pdf_owner_password);
+            pdf_render_file_layer = new PDFRendererFileLayer(document_fingerprint, pdf_filename, pdf_user_password);
+            sorax_pdf_renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password);
         }
 
         public string PDFFilename => pdf_filename;

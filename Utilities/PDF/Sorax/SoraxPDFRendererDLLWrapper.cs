@@ -13,36 +13,26 @@ namespace Utilities.PDF.Sorax
     {
         static SoraxPDFRendererDLLWrapper()
         {
-            Logging.Debug特("+Initialising SoraxPDFRendererDLLWrapper");
-            string config_filename = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"SPdf.ini"));
-            Logging.Debug特("-Initialising SoraxPDFRendererDLLWrapper");
         }
 
         // ------------------------------------------------------------------------------------------------------------------------
 
-        public static int GetPageCount(string filename, string pdf_user_password, string pdf_owner_password)
+        public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, int page, int height, int width)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            throw new ApplicationException("Not supported yet");
+            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, page, dpi: 0, height, width);
         }
 
-        public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, int height, int width)
+
+        public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, int page, int dpi)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi: 0, height, width);
+            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, page, dpi, 0, 0);
         }
 
-
-        public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, int dpi)
-        {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, pdf_owner_password, page, dpi, 0, 0);
-        }
-
-        private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, string pdf_owner_password, int page, int dpi, int height, int width)
+        private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, int page, int dpi, int height, int width)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -51,7 +41,7 @@ namespace Utilities.PDF.Sorax
                 // sample command (PNG written to stdout for page #2, width and height are limiting/reducing, dpi-resolution is driving):
                 //
                 //      mudraw -q -o - -F png -r 600 -w 1920 -h 1280 G:\Qiqqa\evil\Guest\documents\1\1A9760F3917A107AC46E6E292B9C839364F09E73.pdf  2
-                var img = MuPDFRenderer.RenderPDFPageAsByteArray(filename, page, dpi, height, width, pdf_owner_password, ProcessPriorityClass.BelowNormal);
+                var img = MuPDFRenderer.RenderPDFPageAsByteArray(filename, page, dpi, height, width, pdf_user_password, ProcessPriorityClass.BelowNormal);
 
                 return img;
             }

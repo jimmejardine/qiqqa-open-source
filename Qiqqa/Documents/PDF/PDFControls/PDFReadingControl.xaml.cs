@@ -241,7 +241,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             TagCloud.TagClick += TagCloud_TagClick;
 
             JumpToPageNumber.Text = "" + 1;
-            JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
+            JumpToPageNumberMax.Text = $" of {pdf_document.PageCountAsString}";
             JumpToPageNumber.KeyDown += JumpToPageNumber_KeyDown;
             JumpToPageNumber.KeyUp += JumpToPageNumber_KeyUp;
             JumpToPageNumber.GotFocus += JumpToPageNumber_GotFocus;
@@ -564,7 +564,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             if (pdf_document != null)
             {
                 JumpToPageNumber.Text = "" + page;
-                JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
+                JumpToPageNumberMax.Text = $" of {pdf_document.PageCountAsString}";
             }
         }
 
@@ -608,13 +608,16 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 if (pdf_document != null)
                 {
-                    if (page_number < 1) page_number = pdf_document.PDFRenderer.PageCount;
-                    if (page_number > pdf_document.PDFRenderer.PageCount) page_number = 1;
+                    // cycle around when jumping to page #N:
+                    int modulo = Math.Max(1, pdf_document.PageCount);
+                    page_number = (page_number - 1) + 2 * modulo;     // guaranteed to end up with a positive number here...
+                    page_number %= modulo;
+                    page_number++;            // and make it 1-based again after the MODULO math.
 
                     pdf_renderer_control.MoveSelectedPageAbsolute(page_number);
 
                     JumpToPageNumber.Text = "" + page_number;
-                    JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
+                    JumpToPageNumberMax.Text = $" of {pdf_document.PageCountAsString}";
                     JumpToPageNumber.SelectAll();
                 }
             }
@@ -716,7 +719,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             if (null != pdf_document)
             {
-                PDFPrinter.Print(pdf_document, pdf_document.PDFRenderer, "PDFRenderer");
+                PDFPrinter.Print(pdf_document, "PDFRenderer");
             }
         }
 
@@ -922,25 +925,16 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         #region --- Speed read and text-to-speech ------------------------------------------------------------------------------------------------------------------------------------------
 
-        private void GetCombinedWordsList(List<string> words, List<int> page_word_offsets, int single_page_only = -1)
+        private void GetCombinedWordsList(List<string> words, List<int> page_word_offsets)
         {
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
             if (null != pdf_document)
             {
-                int start_page = 0;
-                int end_page = pdf_document.SafePageCount - 1;
-
-                if (-1 != single_page_only)
+                for (int page = 1; page <= pdf_document.PageCount; ++page)
                 {
-                    start_page = single_page_only;
-                    end_page = single_page_only;
-                }
-
-                for (int page = start_page; page <= end_page; ++page)
-                {
-                    WordList words_on_page = pdf_document.PDFRenderer.GetOCRText(page + 1);
+                    WordList words_on_page = pdf_document.PDFRenderer.GetOCRText(page);
                     page_word_offsets.Add(words.Count);
                     if (null != words_on_page)
                     {

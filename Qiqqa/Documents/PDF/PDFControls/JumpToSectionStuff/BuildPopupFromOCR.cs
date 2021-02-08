@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using Utilities;
 using Utilities.OCR;
 
@@ -23,9 +24,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 return;
             }
 
-            WordList[] word_lists = new WordList[pdf_document.PDFRenderer.PageCount + 1];
+            WordList[] word_lists = new WordList[Math.Max(0, pdf_document.PageCount) + 1];
             bool missing_text = false;
-            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+            for (int page = 1; page <= pdf_document.PageCount; ++page)
             {
                 WordList word_list = pdf_document.PDFRenderer.GetOCRText(page);
                 if (null != word_list)
@@ -38,6 +39,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 }
             }
 
+            // TODO: this menu is hard-coded and fully geared towards English-only whitepapers. Make this more flexible.
             AddItemChild_Front(word_lists, "Abstract");
             AddItemChild_Front(word_lists, "Keywords");
             AddItemChild_Front(word_lists, "Introduction");
@@ -63,7 +65,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             // Add a notice if OCR is not complete
             if (missing_text)
             {
-                // add a warning that OCR is not complete
+                // TODO: add a warning that OCR is not complete
             }
         }
 
@@ -75,7 +77,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
             string section_lower = section.ToLower();
 
-            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+            for (int page = 1; page <= pdf_document.PageCount; ++page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)
@@ -115,7 +117,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
         {
             string section_lower = section.ToLower();
 
-            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+            for (int page = 1; page <= pdf_document.PageCount; ++page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)
@@ -137,7 +139,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
         {
             string section_lower = section.ToLower();
 
-            for (int page = pdf_document.PDFRenderer.PageCount; page >= 1; --page)
+            for (int page = pdf_document.PageCount; page >= 1; --page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)

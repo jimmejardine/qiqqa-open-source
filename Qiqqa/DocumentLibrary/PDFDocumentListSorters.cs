@@ -67,7 +67,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static Comparison<PDFDocument> PageCount => delegate (PDFDocument p1, PDFDocument p2)
                                                                          {
-                                                                             return Sorting.Compare(p1.SafePageCount, p2.SafePageCount);
+                                                                             return Sorting.Compare(p1.PageCount, p2.PageCount);
                                                                          };
     }
 }
