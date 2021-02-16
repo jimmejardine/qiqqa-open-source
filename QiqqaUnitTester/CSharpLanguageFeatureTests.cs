@@ -4,7 +4,7 @@ using QiqqaTestHelpers;
 
 // https://www.automatetheplanet.com/mstest-cheat-sheet/
 
-namespace QiqqaUnitTester
+namespace QiqqaUnitTester.Fundamentals
 {
     /// <summary>
     /// Because I'm not 200% fluent in everything C# and sometimes, when coming here from another programming language I wonder...

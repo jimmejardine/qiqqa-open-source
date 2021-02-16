@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace QiqqaUnitTester
+namespace QiqqaUnitTester.Fundamentals
 {
     [TestClass]
     public class LIFO_and_FIFO_performance_testing
