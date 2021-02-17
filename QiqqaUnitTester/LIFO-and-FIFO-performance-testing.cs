@@ -111,156 +111,229 @@ namespace QiqqaUnitTester.Fundamentals
             Console.WriteLine("test console");
         }
 
+        internal class LifoElement
+        {
+            public string a = "buggerit";
+            public int v1 = 42;
+            public string b = "millenium hand & shrimp";
+        }
+
         [TestMethod]
         public void PerformanceBenchmarkTest()
         {
             // Your test code goes here.
-            Collections4Test.run(TestContext);
-        }
-    }
-
-    internal static class Collections4Test
-    {
-        public static void run(TestContext TestContext)
-        {
-            Random rand = new Random();
+            const int limit = 4000000;
             Stopwatch sw = new Stopwatch();
-            Stack<int> stack = new Stack<int>();
-            Queue<int> queue = new Queue<int>();
-            List<int> list1 = new List<int>();
-            List<int> list2 = new List<int>();
-            LinkedList<int> linkedlist1 = new LinkedList<int>();
-            LinkedList<int> linkedlist2 = new LinkedList<int>();
+            Stack<LifoElement> stack = new Stack<LifoElement>();
+            Queue<LifoElement> queue = new Queue<LifoElement>();
+            List<LifoElement> list1 = new List<LifoElement>();
+            List<LifoElement> list2 = new List<LifoElement>();
+            LinkedList<LifoElement> linkedlist1 = new LinkedList<LifoElement>();
+            LinkedList<LifoElement> linkedlist2 = new LinkedList<LifoElement>();
             int dummy;
+            LifoElement[] data = new LifoElement[limit];
+            for (int i = 0; i < limit; i++)
+            {
+                data[i] = new LifoElement();
+                data[i].v1 = i;
+            }
 
             sw.Reset();
-            Console.Write("Pushing to Stack...");
+            Console.Write("{0,40}  ", "stack.Push");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                stack.Push(rand.Next());
+                stack.Push(data[i]);
             }
             sw.Stop();
             Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
             sw.Reset();
-            Console.Write("Poping from Stack...");
+            Console.Write("{0,40}  ", "stack.Pop");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                dummy = stack.Pop();
-                dummy++;
+                stack.Pop();
             }
             sw.Stop();
-            Console.WriteLine("  Time used: {0,9} ticks\n", sw.ElapsedTicks);
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
 
 
             sw.Reset();
-            Console.Write("Enqueue to Queue...");
+            Console.Write("{0,40}  ", "queue.Enqueue");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                queue.Enqueue(rand.Next());
+                queue.Enqueue(data[i]);
             }
             sw.Stop();
             Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
             sw.Reset();
-            Console.Write("Dequeue from Queue...");
+            Console.Write("{0,40}  ", "queue.Dequeue");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                dummy = queue.Dequeue();
-                dummy++;
+                queue.Dequeue();
             }
             sw.Stop();
-            Console.WriteLine("  Time used: {0,9} ticks\n", sw.ElapsedTicks);
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
 
+#if false   // these are extremely slow operations!
 
             sw.Reset();
-            Console.Write("Insert to List at the front...");
+            Console.Write( "{0,40}  ", "Insert to List at the front..." );
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for ( int i = 0; i < limit; i++ ) {
+              list1.Insert( 0, data[i]);
+            }
+            sw.Stop();
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
+            
+            sw.Reset();
+            Console.Write( "{0,40}  ", "RemoveAt from List at the front..." );
+            sw.Start();
+            for ( int i = 0; i < limit; i++ ) {
+              list1.RemoveAt( 0 );
+            }
+            sw.Stop();
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
+
+#endif
+
+            sw.Reset();
+            Console.Write("{0,40}  ", "list2.Add");
+            sw.Start();
+            for (int i = 0; i < limit; i++)
             {
-                list1.Insert(0, rand.Next());
+                list2.Add(data[i]);
             }
             sw.Stop();
             Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
             sw.Reset();
-            Console.Write("RemoveAt from List at the front...");
+            Console.Write("{0,40}  ", "list2.RemoveAt(END)");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                dummy = list1[0];
-                list1.RemoveAt(0);
-                dummy++;
-            }
-            sw.Stop();
-            Console.WriteLine("  Time used: {0,9} ticks\n", sw.ElapsedTicks);
-
-
-            sw.Reset();
-            Console.Write("Add to List at the end...");
-            sw.Start();
-            for (int i = 0; i < 100000; i++)
-            {
-                list2.Add(rand.Next());
-            }
-            sw.Stop();
-            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
-            sw.Reset();
-            Console.Write("RemoveAt from List at the end...");
-            sw.Start();
-            for (int i = 0; i < 100000; i++)
-            {
-                dummy = list2[list2.Count - 1];
                 list2.RemoveAt(list2.Count - 1);
-                dummy++;
             }
             sw.Stop();
-            Console.WriteLine("  Time used: {0,9} ticks\n", sw.ElapsedTicks);
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
 
+#if false   // these are extremely slow operations!
 
             sw.Reset();
-            Console.Write("AddFirst to LinkedList...");
+            Console.Write("{0,40}  ", "list2.Insert(START)");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                linkedlist1.AddFirst(rand.Next());
+                list2.Insert(0, data[i]);
             }
             sw.Stop();
             Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
             sw.Reset();
-            Console.Write("RemoveFirst from LinkedList...");
+            Console.Write("{0,40}  ", "list2.RemoveAt(START)");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                dummy = linkedlist1.First.Value;
+                list2.RemoveAt(0);
+            }
+            sw.Stop();
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
+
+#endif
+
+            sw.Reset();
+            Console.Write("{0,40}  ", "linkedlist1.AddFirst");
+            sw.Start();
+            for (int i = 0; i < limit; i++)
+            {
+                linkedlist1.AddFirst(data[i]);
+            }
+            sw.Stop();
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
+            sw.Reset();
+            Console.Write("{0,40}  ", "linkedlist1.RemoveFirst");
+            sw.Start();
+            for (int i = 0; i < limit; i++)
+            {
                 linkedlist1.RemoveFirst();
-                dummy++;
             }
             sw.Stop();
-            Console.WriteLine("  Time used: {0,9} ticks\n", sw.ElapsedTicks);
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
 
 
             sw.Reset();
-            Console.Write("AddLast to LinkedList...");
+            Console.Write("{0,40}  ", "linkedlist2.AddLast");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                linkedlist2.AddLast(rand.Next());
+                linkedlist2.AddLast(data[i]);
             }
             sw.Stop();
             Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
             sw.Reset();
-            Console.Write("RemoveLast from LinkedList...");
+            Console.Write("{0,40}  ", "linkedlist2.RemoveLast");
             sw.Start();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < limit; i++)
             {
-                dummy = linkedlist2.Last.Value;
                 linkedlist2.RemoveLast();
-                dummy++;
             }
             sw.Stop();
-            Console.WriteLine("  Time used: {0,9} ticks\n", sw.ElapsedTicks);
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
+
+
+            // Fill again
+            for (int i = 0; i < limit; i++)
+            {
+                list2.Add(data[i]);
+            }
+            sw.Reset();
+            Console.Write("{0,40}  ", "list2[i]");
+            sw.Start();
+            for (int i = 0; i < limit; i++)
+            {
+                dummy = list2[i].v1;
+            }
+            sw.Stop();
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
+
+
+            // Fill array
+            sw.Reset();
+            Console.Write("{0,40}  ", "FillArray");
+            sw.Start();
+            var array = new LifoElement[limit];
+            for (int i = 0; i < limit; i++)
+            {
+                array[i] = data[i];
+            }
+            sw.Stop();
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
+
+            sw.Reset();
+            Console.Write("{0,40}  ", "array[i]");
+            sw.Start();
+            for (int i = 0; i < limit; i++)
+            {
+                dummy = array[i].v1;
+            }
+            sw.Stop();
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
+
+
+            // Fill again
+            for (int i = 0; i < limit; i++)
+            {
+                linkedlist1.AddFirst(data[i]);
+            }
+            sw.Reset();
+            Console.Write("{0,40}  ", "foreach_linkedlist1");
+            sw.Start();
+            foreach (var item in linkedlist1)
+            {
+                dummy = item.v1;
+            }
+            sw.Stop();
+            Console.WriteLine("  Time used: {0,9} ticks", sw.ElapsedTicks);
         }
     }
 }
