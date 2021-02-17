@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Utilities.Shutdownable;
 
 namespace Utilities.Misc
@@ -37,10 +38,10 @@ namespace Utilities.Misc
 
         private static void IncrementRunningThreadCount()
         {
-                lock (running_thread_count_lock)
-                {
-                    running_thread_count++;
-                }
+            lock (running_thread_count_lock)
+            {
+                running_thread_count++;
+            }
         }
 
         private static void DecrementRunningThreadCount()
@@ -48,6 +49,74 @@ namespace Utilities.Misc
             lock (running_thread_count_lock)
             {
                 running_thread_count--;
+            }
+        }
+
+        public static bool QueueAsyncUserWorkItem(Func<Task> callback, bool skip_task_at_app_shutdown = true)
+        {
+            lock (queued_thread_count_lock)
+            {
+                queued_thread_count++;
+            }
+#if TEST
+            int workerThreads;
+            int completionPortThreads;
+
+            ThreadPool.GetAvailableThreads(out workerThreads, out completionPortThreads);
+            //Logging.Debug("QueueUserWorkItem: AvailableThreads = {0} | {1}, CompletedWorkItemCount = {2}, PendingWorkItemCount = {3}, ThreadCount = {4}", workerThreads, completionPortThreads, ThreadPool.CompletedWorkItemCount, ThreadPool.PendingWorkItemCount, ThreadPool.ThreadCount);
+            Logging.Debug("QueueUserWorkItem: AvailableThreads = {0} | {1}, Queued Threads = {2}", workerThreads, completionPortThreads, QueuedThreadCount);
+            ThreadPool.GetMaxThreads(out workerThreads, out completionPortThreads);
+            Logging.Debug("QueueUserWorkItem: MaxThreads = {0} | {1}", workerThreads, completionPortThreads);
+            ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
+            Logging.Debug("QueueUserWorkItem: MinThreads = {0} | {1}", workerThreads, completionPortThreads);
+#endif
+            return ThreadPool.QueueUserWorkItem(o =>
+            {
+                AsyncUserWorkItem(callback, skip_task_at_app_shutdown);
+            });
+        }
+
+        private static void AsyncUserWorkItem(Func<Task> callback, bool skip_at_app_shutdown)
+        {
+            IncrementRunningThreadCount();
+
+            try
+            {
+                if (skip_at_app_shutdown && ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    Logging.Debug特("SafeThreadPool::QueueUserWorkItem: Breaking out due to application termination");
+                    return;
+                }
+
+                Task t = callback.Invoke();
+                //var w = t.ConfigureAwait(false);
+                //var a = w.GetAwaiter();
+                //a.GetResult();
+                t.Wait();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    Logging.Warn(ex, "There has been an exception on the SafeThreadPool context.");
+                    if (null != UnhandledException)
+                    {
+                        UnhandledExceptionEventArgs ueea = new UnhandledExceptionEventArgs(ex, false);
+                        UnhandledException(null, ueea);
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    Logging.Error(ex2, "There was an exception while trying to call back the SafeThreadPool exception callback!");
+                }
+            }
+            finally
+            {
+                lock (queued_thread_count_lock)
+                {
+                    queued_thread_count--;
+                }
+                DecrementRunningThreadCount();
             }
         }
 
@@ -69,23 +138,10 @@ namespace Utilities.Misc
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
             Logging.Debug("QueueUserWorkItem: MinThreads = {0} | {1}", workerThreads, completionPortThreads);
 #endif
-            if (skip_task_at_app_shutdown)
+            return ThreadPool.QueueUserWorkItem(o =>
             {
-                return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD(callback));
-            }
-            else
-            {
-                return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD_NoSkip(callback));
-            }
-        }
-
-        private static void QueueUserWorkItem_THREAD_NoSkip(WaitCallback callback)
-        {
-            UserWorkItem(callback, skip_at_app_shutdown: false);
-        }
-        private static void QueueUserWorkItem_THREAD(WaitCallback callback)
-        {
-            UserWorkItem(callback, skip_at_app_shutdown: true);
+                UserWorkItem(callback, skip_task_at_app_shutdown);
+            });
         }
 
         private static void UserWorkItem(WaitCallback callback, bool skip_at_app_shutdown)

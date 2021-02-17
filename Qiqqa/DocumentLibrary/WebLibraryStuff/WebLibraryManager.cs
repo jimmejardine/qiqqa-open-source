@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.BundleLibrary;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
@@ -77,7 +78,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             // WARNING: this code is executed inside an Instance lock (lock_instance) and should therefor be both minimal and FAST:
             // hence we push all the work to be done onto a worker thread for processing at a later time.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueAsyncUserWorkItem(async () =>
             {
                 WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -90,7 +91,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     {
                         return;
                     }
-                    Thread.Sleep(250);
+                    await Task.Delay(250);
                 }
                 Logging.Info("Done waiting for the UPGRADE startup process to finish: going to load the libraries...");
 
@@ -306,7 +307,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Import the Qiqqa manuals in the background, waiting until the library has loaded...
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueAsyncUserWorkItem(async () =>
             {
                 while (!guest_web_library_detail.Xlibrary.LibraryIsLoaded)
                 {
@@ -314,7 +315,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     {
                         return;
                     }
-                    Thread.Sleep(500);
+                    await Task.Delay(500);
                 }
 
                 QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail);

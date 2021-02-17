@@ -45,4 +45,10 @@ Qiqqa.org.log
 Qiqqa.org.vcxprojAssemblyReference.cache
 
 /Technology Tests/forking cleans up memory leaks/Debug*/
+/Technology Tests/forking cleans up memory leaks/Release*/
 /Technology Tests/monitor our memory usage and die when passing threshold/Debug*/
+/Technology Tests/monitor our memory usage and die when passing threshold/Release*/
+
+*.log
+*.diagsession
+
