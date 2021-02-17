@@ -425,7 +425,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                         if (pdf_document.DocumentExists)
                         {
-                            pdf_document_in_library.total_pages = pdf_document.PageCount;
+                            pdf_document_in_library.total_pages = Math.Max(0, pdf_document.PageCount);
                             pdf_document_in_library.finished_indexing = false;
                         }
                         else
@@ -623,7 +623,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                         continue;
                                     }
 
-                                    word_list = pdf_document.PDFRenderer.GetOCRText(page);
+                                    word_list = pdf_document.GetOCRText(page);
 
                                     // Process each word of the document
                                     if (null == word_list)

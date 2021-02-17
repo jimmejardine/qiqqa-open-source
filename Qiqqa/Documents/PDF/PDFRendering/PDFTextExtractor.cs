@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.Files;
@@ -63,14 +64,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public class Job
         {
-            public const int TEXT_PAGES_PER_GROUP = PDFRenderer.TEXT_PAGES_PER_GROUP;
+            public const int TEXT_PAGES_PER_GROUP = PDFDocument.TEXT_PAGES_PER_GROUP;
 
-            public PDFRenderer pdf_renderer;
+            public PDFDocument pdf_renderer;
             public int page;
             public bool force_job;
             public string language;
 
-            public Job(PDFRenderer pdf_renderer, int page)
+            public Job(PDFDocument pdf_renderer, int page)
             {
                 this.pdf_renderer = pdf_renderer;
                 this.page = page;
@@ -156,7 +157,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             /// <returns></returns>
             public static string GetQueuedJobToken(Job job)
             {
-                return job.pdf_renderer.DocumentFingerprint + "." + job.page;
+                return job.pdf_renderer.Fingerprint + "." + job.page;
             }
 
             /// <summary>
@@ -170,11 +171,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 if (is_group)
                 {
                     int job_group_start_page = ((job.page - 1) / Job.TEXT_PAGES_PER_GROUP) * Job.TEXT_PAGES_PER_GROUP + 1;
-                    return job.pdf_renderer.DocumentFingerprint + "." + job_group_start_page;
+                    return job.pdf_renderer.Fingerprint + "." + job_group_start_page;
                 }
                 else
                 {
-                    return job.pdf_renderer.DocumentFingerprint + "." + job.page;
+                    return job.pdf_renderer.Fingerprint + "." + job.page;
                 }
             }
 
@@ -687,7 +688,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             {
                                 if (!ConfigurationManager.IsEnabled("RenderPDFPagesForOCR"))
                                 {
-                                    Logging.Info($"Cannot OCR a single PDF page for PDF document {next_job.job.pdf_renderer.DocumentFingerprint}, page {next_job.job.page} as PDF page image rendering has been disabled due to Developer Override setting { "RenderPDFPagesForOCR" }=false");
+                                    Logging.Info($"Cannot OCR a single PDF page for PDF document {next_job.job.pdf_renderer.Fingerprint}, page {next_job.job.page} as PDF page image rendering has been disabled due to Developer Override setting { "RenderPDFPagesForOCR" }=false");
 
                                     // re-queue until setting is changed (or have it pending indefinitely)
                                     QueueJobSingle(next_job.job);
@@ -756,13 +757,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     ""
                     + "GROUP"
                     + " "
-                    + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                    + '"' + next_job.job.pdf_renderer.DocumentPath + '"'
                     + " "
                     + page_numbers_string
                     + " "
                     + '"' + temp_ocr_result_filename + '"'
                     + " "
-                    + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFUserPassword) + '"'
+                    + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFPassword) + '"'
                     + " "
                     + '"' + next_job.job.language + '"'
                     ;
@@ -804,13 +805,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 ""
                 + "SINGLE"
                 + " "
-                + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                + '"' + next_job.job.pdf_renderer.DocumentPath + '"'
                 + " "
                 + next_job.job.page
                 + " "
                 + '"' + temp_ocr_result_filename + '"'
                 + " "
-                + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFUserPassword) + '"'
+                + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFPassword) + '"'
                 + " "
                 + '"' + next_job.job.language + '"'
                 ;
@@ -844,7 +845,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         ""
                         + "SINGLE-FAKE"
                         + " "
-                        + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                        + '"' + next_job.job.pdf_renderer.DocumentPath + '"'
                         + " "
                         + next_job.job.page
                         + " "

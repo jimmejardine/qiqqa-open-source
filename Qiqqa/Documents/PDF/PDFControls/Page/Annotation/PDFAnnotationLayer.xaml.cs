@@ -103,7 +103,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                 return;
             }
 
-            PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.PDFRenderer.DocumentFingerprint, page, PDFAnnotationEditorControl.LastAnnotationColor, ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname);
+            PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.Fingerprint, page, PDFAnnotationEditorControl.LastAnnotationColor, ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname);
             pdf_annotation.Left = Math.Min(mouse_up_point.X, mouse_down_point.X) / ActualWidth;
             pdf_annotation.Top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / ActualHeight;
             pdf_annotation.Width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;

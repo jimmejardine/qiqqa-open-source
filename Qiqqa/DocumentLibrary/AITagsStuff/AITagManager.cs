@@ -235,7 +235,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                                                 }
 
                                                 int page = page_result.page;
-                                                WordList page_word_list = pdf_document.PDFRenderer.GetOCRText(page);
+                                                WordList page_word_list = pdf_document.GetOCRText(page);
                                                 if (null != page_word_list)
                                                 {
                                                     foreach (Word word in page_word_list)

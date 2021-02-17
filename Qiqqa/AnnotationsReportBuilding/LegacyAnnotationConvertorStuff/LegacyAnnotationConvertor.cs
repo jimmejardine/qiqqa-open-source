@@ -37,7 +37,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
             }
 
             Logging.Info("+Importing legacy annotations from {0}", pdf_document.Fingerprint);
-            using (AugmentedPdfLoadedDocument raw_pdf_document = new AugmentedPdfLoadedDocument(pdf_document.PDFRenderer.PDFFilename))
+            using (AugmentedPdfLoadedDocument raw_pdf_document = new AugmentedPdfLoadedDocument(pdf_document.DocumentPath))
             {
                 for (int page = 0; page < raw_pdf_document.Pages.Count; ++page)
                 {
@@ -122,7 +122,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                     string text = raw_popup_annotation.Icon + ": " + raw_popup_annotation.Text;
 
                     // Create the annotation
-                    PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.PDFRenderer.DocumentFingerprint, page + 1, PDFAnnotationEditorControl.LastAnnotationColor, null);
+                    PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.Fingerprint, page + 1, PDFAnnotationEditorControl.LastAnnotationColor, null);
                     pdf_annotation.Legacy = true;
                     pdf_annotation.Left = left;
                     pdf_annotation.Top = top;
@@ -150,7 +150,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
                     string text = raw_markup_annotation.TextMarkupAnnotationType.ToString();
 
                     // Create the annotation
-                    PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.PDFRenderer.DocumentFingerprint, page + 1, PDFAnnotationEditorControl.LastAnnotationColor, null);
+                    PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.Fingerprint, page + 1, PDFAnnotationEditorControl.LastAnnotationColor, null);
                     pdf_annotation.Legacy = true;
                     pdf_annotation.Left = left;
                     pdf_annotation.Top = top;

@@ -20,7 +20,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 Logging.Debug("+CountPDFPages_MuPDF: {0}", filename);
                 var metadata = MuPDFRenderer.GetDocumentMetaInfo(filename, password, ProcessPriorityClass.Normal);
-                int page_count = metadata?.PageCount ?? (metadata.DocumentIsCorrupted ? -2 : -1);
+                int page_count = metadata?.PageCount ?? (metadata.DocumentIsCorrupted ? -3 : -1);
                 Logging.Debug("-CountPDFPages_MuPDF '{1}' -> ({0} pages)", page_count, filename);
                 return page_count;
             }

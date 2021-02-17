@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using Qiqqa.Documents.PDF.ThreadUnsafe;
+using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
@@ -13,7 +13,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     public static class PDFMetadataSerializer
     {
-        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document, bool force_flush_no_matter_what)
+        internal static void WriteToDisk(PDFDocument pdf_document, bool force_flush_no_matter_what)
         {
             if (!force_flush_no_matter_what)
             {

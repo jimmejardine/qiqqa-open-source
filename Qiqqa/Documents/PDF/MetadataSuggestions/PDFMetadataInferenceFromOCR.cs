@@ -25,7 +25,7 @@ namespace Qiqqa.Documents.PDF.MetadataSuggestions
             if (!String.IsNullOrEmpty(pdf_document.TitleSuggested) && !allow_retry) return false;
 
             // Only look for metadata if the OCR is ready
-            WordList word_list = pdf_document.PDFRenderer.GetOCRText(1);
+            WordList word_list = pdf_document.GetOCRText(1);
             if (null != word_list)
             {
                 pdf_document.AutoSuggested_OCRFrontPage = true;

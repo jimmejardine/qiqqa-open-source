@@ -96,7 +96,7 @@ namespace Qiqqa.Documents.PDF.Search
 
             // Add the PDF running text
             {
-                WordList words_pdf = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList words_pdf = pdf_document.GetOCRText(page);
                 if (null != words_pdf)
                 {
                     words.AddRange(words_pdf);

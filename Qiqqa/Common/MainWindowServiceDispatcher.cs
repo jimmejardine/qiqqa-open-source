@@ -222,7 +222,7 @@ namespace Qiqqa.Common
             }
 
             // Cause all pages to be OCRed
-            pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
+            pdf_document.CauseAllPDFPagesToBeOCRed();
 
             // Create a title for the window
             string title = "PDF " + pdf_document.Fingerprint;
@@ -414,6 +414,8 @@ namespace Qiqqa.Common
 
         public void OpenUrlInBrowser(string url, bool force_external_browser)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             if (force_external_browser || ConfigurationManager.Instance.ConfigurationRecord.System_UseExternalWebBrowser)
             {
                 BrowserStarter.OpenBrowser(url);

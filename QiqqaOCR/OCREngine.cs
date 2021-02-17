@@ -237,8 +237,7 @@ namespace QiqqaOCR
         public static WordList DoOCR(string pdf_filename, int page_number)
         {
             Logging.Info("+Rendering page {1} for PDF file {0}", pdf_filename, page_number);
-            SoraxPDFRenderer renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password);
-            using (MemoryStream ms = new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200)))
+            using (MemoryStream ms = new MemoryStream(SoraxPDFRenderer.GetPageByDPIAsImage(pdf_filename, pdf_user_password, page_number, 200)))
             {
                 Bitmap bitmap = (Bitmap)Image.FromStream(ms);
 

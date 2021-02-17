@@ -2,20 +2,9 @@
 
 namespace Utilities.PDF.Sorax
 {
-    public class SoraxPDFRenderer
+    public static class SoraxPDFRenderer
     {
-        private string pdf_filename;
-        private string pdf_user_password;
-
-        public SoraxPDFRenderer(string pdf_filename, string pdf_user_password)
-        {
-            this.pdf_filename = pdf_filename;
-            this.pdf_user_password = pdf_user_password;
-        }
-
-        // ------------------------------------------------------------------------------------------------------------------------
-
-        public byte[] GetPageByHeightAsImage(int page, int height, int width)
+        public static byte[] GetPageByHeightAsImage(string pdf_filename, string pdf_user_password, int page, int height, int width)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -25,7 +14,7 @@ namespace Utilities.PDF.Sorax
             return bitmap;
         }
 
-        public byte[] GetPageByDPIAsImage(int page, int dpi)
+        public static byte[] GetPageByDPIAsImage(string pdf_filename, string pdf_user_password, int page, int dpi)
         {
             // TODO: check if we have a higher size image cached already: use that one instead of bothering the PDF renderer again
             return SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage(pdf_filename, pdf_user_password, page, dpi);

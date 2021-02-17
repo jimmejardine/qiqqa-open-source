@@ -28,7 +28,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             bool missing_text = false;
             for (int page = 1; page <= pdf_document.PageCount; ++page)
             {
-                WordList word_list = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList word_list = pdf_document.GetOCRText(page);
                 if (null != word_list)
                 {
                     word_lists[page] = word_list;

@@ -23,7 +23,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
                 sb.AppendLine(String.Format("--- Page {0} ---", page));
                 sb.AppendLine();
 
-                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList words = pdf_document.GetOCRText(page);
                 if (null != words)
                 {
                     foreach (Word word in words)

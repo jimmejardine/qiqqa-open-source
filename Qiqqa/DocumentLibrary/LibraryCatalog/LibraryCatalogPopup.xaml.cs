@@ -296,7 +296,7 @@ SourceURL: {0}
                 {
                     if (pdf_document.DocumentExists)
                     {
-                        pdf_document.PDFRenderer.ForceOCRText(language);
+                        pdf_document.ForceOCRText(language);
                     }
                 }
             });
@@ -312,7 +312,7 @@ SourceURL: {0}
             {
                 foreach (var pdf_document in pdf_documents)
                 {
-                    pdf_document.PDFRenderer.ClearOCRText();
+                    pdf_document.ClearOCRText();
                 }
             });
         }

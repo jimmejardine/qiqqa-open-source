@@ -49,7 +49,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
                         }
 
                         StringBuilder sb = new StringBuilder();
-                        WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                        WordList words = pdf_document.GetOCRText(page);
                         if (null != words)
                         {
                             Word last_word = null;

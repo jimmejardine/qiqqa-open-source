@@ -456,7 +456,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                         PDFDocument pdf_document = GetPDFDocument();
                         ASSERT.Test(pdf_document != null);
 
-                        pdf_document?.PDFRenderer.FlushCachedPageRenderings();
+                        pdf_document?.FlushCachedPageRenderings();
                     }
                 });
 
@@ -934,7 +934,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 for (int page = 1; page <= pdf_document.PageCount; ++page)
                 {
-                    WordList words_on_page = pdf_document.PDFRenderer.GetOCRText(page);
+                    WordList words_on_page = pdf_document.GetOCRText(page);
                     page_word_offsets.Add(words.Count);
                     if (null != words_on_page)
                     {
@@ -975,7 +975,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     if (pdf_document != null)
                     {
                         int page = pdf_renderer_control.SelectedPage.PageNumber;
-                        WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                        WordList words = pdf_document.GetOCRText(page);
                         if (null != words)
                         {
                             StringBuilder sb = new StringBuilder();

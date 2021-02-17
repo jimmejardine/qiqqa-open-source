@@ -12,7 +12,7 @@ namespace Qiqqa.Documents.PDF
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByDPIAsImage(pdf_annotation.Page, dpi)))
+            using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByDPIAsImage(pdf_annotation.Page, dpi)))
             {
                 Image image = Image.FromStream(ms);
                 PDFOverlayRenderer.RenderHighlights(image, pdf_document, pdf_annotation.Page);

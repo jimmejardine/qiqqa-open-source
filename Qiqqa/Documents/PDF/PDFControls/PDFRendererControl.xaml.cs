@@ -445,7 +445,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 {
                     if (dispose_count == 0)
                     {
-                        pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                        pdf_renderer_control_stats?.pdf_document.FlushCachedPageRenderings();
                     }
 
                     Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;

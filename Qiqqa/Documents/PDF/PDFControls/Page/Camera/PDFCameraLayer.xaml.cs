@@ -109,7 +109,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             List<Word> words_in_selection = new List<Word>();
 
-            WordList word_list = page_info.pdf_document.PDFRenderer.GetOCRText(page_info.page);
+            WordList word_list = page_info.pdf_document.GetOCRText(page_info.page);
             if (null != word_list)
             {
                 foreach (var word in word_list)
@@ -130,7 +130,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             BitmapSource cropped_image_page = null;
 
-            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.PDFRenderer.GetPageByDPIAsImage(page_info.page, 150)))
+            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.GetPageByDPIAsImage(page_info.page, 150)))
             {
                 PngBitmapDecoder decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                 BitmapSource image_page = decoder.Frames[0];

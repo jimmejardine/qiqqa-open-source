@@ -31,7 +31,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.PDFDocumentTagCloudStuff
 
                 for (int page = 1; page <= pdf_document.PageCount && page < MAX_PAGE_LIMIT; ++page)
                 {
-                    string page_text = pdf_document.PDFRenderer.GetFullOCRText(page);
+                    string page_text = pdf_document.GetFullOCRText(page);
                     foreach (string autotag in autotags)
                     {
                         int word_count = StringTools.CountStringOccurence(page_text, autotag);

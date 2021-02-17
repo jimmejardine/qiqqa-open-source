@@ -150,7 +150,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             MouseDown += PDFRendererPageControl_MouseDown;
 
-            pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable += pdf_renderer_OnPageTextAvailable;
+            pdf_renderer_control_stats.pdf_document.OnPageTextAvailable += pdf_renderer_OnPageTextAvailable;
 
             if (add_bells_and_whistles)
             {
@@ -1016,7 +1016,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
                         if (pdf_document != null)
                         {
-                            pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
+                            pdf_document.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
                         }
                     }
                 });

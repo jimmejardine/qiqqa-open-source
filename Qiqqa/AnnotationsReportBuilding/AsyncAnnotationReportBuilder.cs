@@ -545,7 +545,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                 {
                     if (last_pdf_document.DocumentExists)
                     {
-                        last_pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                        last_pdf_document.FlushCachedPageRenderings();
                     }
                 }
 
@@ -636,7 +636,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             {
                 if (last_pdf_document.DocumentExists)
                 {
-                    last_pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                    last_pdf_document.FlushCachedPageRenderings();
                 }
             }
 
@@ -652,7 +652,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             try
             {
                 // Get the text for this annotation
-                WordList word_list = pdf_document.PDFRenderer.GetOCRText(pdf_annotation.Page);
+                WordList word_list = pdf_document.GetOCRText(pdf_annotation.Page);
 
                 if (null != word_list)
                 {

@@ -96,7 +96,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_AddHighlight);
 
-            WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+            WordList words = pdf_document.GetOCRText(page);
             text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
 
             // Decide if we are adding or removing highlights

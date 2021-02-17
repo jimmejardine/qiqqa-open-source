@@ -401,7 +401,7 @@ namespace Qiqqa.Common.GUI
             return done;
         }
 
-        private static bool _SnapToPixels = true;
+        //private static bool _SnapToPixels = true;
         public static bool SnapToPixels
         {
             get

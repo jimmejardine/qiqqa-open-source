@@ -657,9 +657,7 @@ static BOOL GetProcessList()
 static int CountNumberOfSameProcess(LPCWSTR exePath)
 {
     HANDLE hProcessSnap;
-    HANDLE hProcess;
     PROCESSENTRY32 pe32;
-    DWORD dwPriorityClass;
     int count = 0;
 
     // Take a snapshot of all processes in the system.

@@ -610,7 +610,7 @@ namespace Qiqqa.DocumentLibrary
                 }
 
                 // Get OCR queued
-                pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
+                pdf_document.CauseAllPDFPagesToBeOCRed();
             }
 
             SignalThatDocumentsHaveChanged(pdf_document);

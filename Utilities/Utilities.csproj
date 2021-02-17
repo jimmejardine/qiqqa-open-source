@@ -282,6 +282,7 @@
     <Compile Include="Collections\EnumerableHelper.cs" />
     <Compile Include="Collections\MultiMap.cs" />
     <Compile Include="Collections\MultiMapSet.cs" />
+    <Compile Include="Collections\PriorityExecutionQueue.cs" />
     <Compile Include="Collections\Set.cs">
       <SubType>Code</SubType>
     </Compile>

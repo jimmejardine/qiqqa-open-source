@@ -572,7 +572,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     // another subselection is ON/OFF: does the library entry have OCR data available already?
                     if (include_in_search_pool && null != search_options.DocumentIsOCRed)
                     {
-                        bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata;
+                        bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata();
                         // perform a more precise check when there's few documents to process, as this check is pretty costly:
                         //
                         // Note: fetching the `PDFRenderer.PageCount` may produce non-zero results, but it would still
@@ -581,7 +581,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                         //
                         if (hasOCRdata && pdf_documents_total_pool.Count < 100000)
                         {
-                            string w = pdf_document.PDFRenderer.GetFullOCRText();
+                            string w = pdf_document.GetFullOCRText();
                             hasOCRdata = !String.IsNullOrWhiteSpace(w);
                         }
 #if false
@@ -693,7 +693,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     PDFRendererControlArea.Visibility = Visibility.Visible;
 
                     // Make sure the first page is OCRed...
-                    pdf_document.PDFRenderer.GetOCRText(1);
+                    _ = pdf_document.GetOCRText(1);
 
                     // Set up the new renderer control
                     pdf_renderer_control = new PDFRendererControl(pdf_document, remember_last_read_page: false, PDFRendererControl.ZoomType.Zoom1Up);

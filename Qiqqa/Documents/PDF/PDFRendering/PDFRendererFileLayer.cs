@@ -3,6 +3,7 @@ using System.IO;
 using System.ServiceModel.Security;
 using System.Threading;
 using Qiqqa.Common.Configuration;
+using Qiqqa.Documents.PDF.PDFRendering;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -12,30 +13,18 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 
-namespace Qiqqa.Documents.PDF.PDFRendering
+namespace Qiqqa.Documents.PDF
 {
-    public class PDFRendererFileLayer
+    public partial class PDFDocument
     {
-        private const int TEXT_PAGES_PER_GROUP = PDFRenderer.TEXT_PAGES_PER_GROUP;
-
         public static readonly string BASE_PATH_DEFAULT = Path.GetFullPath(Path.Combine(ConfigurationManager.Instance.BaseDirectoryForQiqqa, @"ocr"));
 
-        static PDFRendererFileLayer()
+        public static void PrepOCRBaseDirectory()
         {
             Directory.CreateDirectory(BASE_PATH_DEFAULT);
         }
 
-        private string fingerprint;
-        private string pdf_filename;
-        private string pdf_password;
-        private int num_pages = -1;        // signal: -2 and below: failed permanently (1 + attempts to diagnose); -1: not yet determined; 0: empty document (rare/weird!); > 0: number of actual pages in document
-
-        public PDFRendererFileLayer(string fingerprint, string pdf_filename, string password)
-        {
-            this.fingerprint = fingerprint;
-            this.pdf_filename = pdf_filename;
-            this.pdf_password = password;
-        }
+        private int num_pages = -1;        // signal: -3 and below: failed permanently (2 + attempts to diagnose); -2: failed permanently due to absent PDF file; -1: not yet determined; 0: empty document (rare/weird!); > 0: number of actual pages in document
 
         /// <summary>
         /// This is an approximate response: it takes a *fast* shortcut to check if the given
@@ -44,8 +33,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
         ///
         /// The cost: one(1) I/O per check.
+        /// 
+        /// Implementation Note: do NOT check if DocumentExists: our pagecount cache check is sufficient and one I/O per check.
         /// </summary>
-        public static bool HasOCRdata(string fingerprint)
+        public bool HasOCRdata()
         {
             // BasePath:
             string base_path = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForOCRs;
@@ -53,10 +44,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 base_path = BASE_PATH_DEFAULT;
             }
-            // string cached_count_filename = MakeFilename_PageCount(fingerprint);
+            // string cached_count_filename = MakeFilename_PageCount(Fingerprint);
             // return MakeFilenameWith2LevelIndirection("pagecount", "0", "txt");
-            string indirection_characters = fingerprint.Substring(0, 2).ToUpper();
-            string cached_count_filename = Path.GetFullPath(Path.Combine(base_path, indirection_characters, String.Format("{0}.{1}.{2}.{3}", fingerprint, @"pagecount", @"0", @"txt")));
+            string indirection_characters = Fingerprint.Substring(0, 2).ToUpper();
+            string cached_count_filename = Path.GetFullPath(Path.Combine(base_path, indirection_characters, String.Format("{0}.{1}.{2}.{3}", Fingerprint, @"pagecount", @"0", @"txt")));
 
             return File.Exists(cached_count_filename);
         }
@@ -79,13 +70,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private string MakeFilename(string file_type, object token, string extension)
         {
-            return Path.GetFullPath(Path.Combine(BasePath, String.Format("{0}.{1}.{2}.{3}", fingerprint, file_type, token, extension)));
+            return Path.GetFullPath(Path.Combine(BasePath, String.Format("{0}.{1}.{2}.{3}", Fingerprint, file_type, token, extension)));
         }
 
         private string MakeFilenameWith2LevelIndirection(string file_type, object token, string extension)
         {
-            string indirection_characters = fingerprint.Substring(0, 2).ToUpper();
-            return Path.GetFullPath(Path.Combine(BasePath, indirection_characters, String.Format("{0}.{1}.{2}.{3}", fingerprint, file_type, token, extension)));
+            string indirection_characters = Fingerprint.Substring(0, 2).ToUpper();
+            return Path.GetFullPath(Path.Combine(BasePath, indirection_characters, String.Format("{0}.{1}.{2}.{3}", Fingerprint, file_type, token, extension)));
         }
 
         internal string MakeFilename_TextSingle(int page_number)
@@ -106,28 +97,37 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return MakeFilenameWith2LevelIndirection(@"pagecount", @"0", @"txt");
         }
 
-        internal string StorePageTextSingle(int page, string source_filename)
+        internal void StorePageTextSingle(int page, string source_filename)
         {
             string filename = MakeFilename_TextSingle(page);
             Directory.CreateDirectory(Path.GetDirectoryName(filename));
             File.Copy(source_filename, filename, true);
             File.Delete(source_filename);
-            return filename;
+
+            OnPageTextAvailable?.Invoke(page, page);
         }
 
-        internal string StorePageTextGroup(int page, string source_filename)
+        internal void StorePageTextGroup(int page, int TEXT_PAGES_PER_GROUP, string source_filename)
         {
             string filename = MakeFilename_TextGroup(page);
             Directory.CreateDirectory(Path.GetDirectoryName(filename));
             File.Copy(source_filename, filename, true);
             File.Delete(source_filename);
-            return filename;
-        }
 
+            if (null != OnPageTextAvailable)
+            {
+                int page_range_start = ((page - 1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
+                int page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
+                page_range_end = Math.Min(page_range_end, PageCount);
+
+                OnPageTextAvailable?.Invoke(page_range_start, page_range_end);
+            }
+        }
 
         /// <summary>
         /// Return value meaning:
-        /// * -2 and below: failed permanently (1 + #attempts to diagnose)
+        /// * -3 and below: failed permanently (2 + #attempts to diagnose)
+        /// * -2: failed permanently due to absent PDF file: cannot determine page count when the file does not exist!
         /// * -1: not yet determined
         /// * 0: empty document (rare, possibly even weird! Who stores an empty document in a library?)
         /// * 1 and above: number of actual pages in document
@@ -176,13 +176,17 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             FileTools.Delete(cached_count_filename);
 
             // If we get here, either the pagecount-file doesn't exist, or there was an exception
-            Logging.Debug特("Calculating PDF page count for file {0}", pdf_filename);
+            Logging.Debug特("Calculating PDF page count for file {0}", DocumentPath);
 
-            num = PDFTools.CountPDFPages(pdf_filename, pdf_password);
-
-            Logging.Info("The result is {1} for using calculated PDF page count for file {0}", pdf_filename, num);
-            while (true)
+            if (!DocumentExists)
             {
+                num = -2;
+            }
+            else
+            {
+                num = PDFTools.CountPDFPages(DocumentPath, PDFPassword);
+
+                Logging.Info("The result is {1} for using calculated PDF page count for file {0}", DocumentPath, num);
                 if (num > 0)
                 {
                     try
@@ -207,7 +211,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(ex, "There was a problem using calculated PDF page count for file {0} / {1}", pdf_filename, cached_count_filename);
+                        Logging.Error(ex, "There was a problem using calculated PDF page count for file {0} / {1}", DocumentPath, cached_count_filename);
 
                         FileTools.Delete(cached_count_filename);
 
@@ -218,9 +222,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         //
                         //num = 0;
 
-                        Thread.Sleep(2);   // wait a tick or so before we retry
-
-                        continue;
+                        return num;
                     }
                 }
 
@@ -235,9 +237,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                 ASSERT.Test(num <= 0);
 
-                Logging.Warn("Marking this PDF Document as uncompromisingly stubborn in its failure to be inspected for file {0}. Page count code: {1}", pdf_filename, num);
-
-                break;
+                Logging.Warn("Marking this PDF Document as uncompromisingly stubborn in its failure to be inspected for file {0}. Page count code: {1}", DocumentPath, num);
             }
 
             return num;

@@ -127,7 +127,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             if (pdf_document != null)
             {
-                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList words = pdf_document.GetOCRText(page);
                 text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
             }
         }
@@ -215,7 +215,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             if (pdf_document != null)
             {
-                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList words = pdf_document.GetOCRText(page);
                 if (null == words)
                 {
                     Children.Add(new OCRNotAvailableControl());

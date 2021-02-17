@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
-using Qiqqa.Documents.PDF.ThreadUnsafe;
+using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -13,7 +13,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     internal class PDFAnnotationSerializer
     {
-        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document, bool force_flush_no_matter_what)
+        internal static void WriteToDisk(PDFDocument pdf_document, bool force_flush_no_matter_what)
         {
             if (!force_flush_no_matter_what)
             {
@@ -102,7 +102,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             return rv;
         }
 
-        internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document)
+        internal static void ReadFromDisk(PDFDocument pdf_document)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
