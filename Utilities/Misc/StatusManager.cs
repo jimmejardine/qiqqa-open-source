@@ -150,7 +150,7 @@ namespace Utilities.Misc
             // Don't log 'ClearStatus' messages: Clear ~ UpdateStatus("",0,0)
             if (current_update_number != 0 || total_update_count != 0 || !String.IsNullOrEmpty(message))
             {
-                Logging.Debug特("{0}:{1} ({2}/{3}: {4:P1})", key, message, current_update_number, total_update_count, Mathematics.Perunage.Calc(current_update_number, total_update_count));
+                Logging.Debug特("{0}:{1} ({2}/{3}: {4:P1})", key, message.Replace("📂👀", "[progress]"), current_update_number, total_update_count, Mathematics.Perunage.Calc(current_update_number, total_update_count));
             }
 
             // Do log the statuses (above) but stop updating the UI when we're shutting down:
