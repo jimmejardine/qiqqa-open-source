@@ -10,7 +10,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
         public static string GetAbstractForDocument(PDFDocument pdf_document)
         {
-            // Try on the first two pages (sometimes there is a cover page)
+            // Try on the first three pages (sometimes there is a cover page)
             for (int page = 1; page <= 3; ++page)
             {
                 string result = GetAbstractForDocument(pdf_document, page);

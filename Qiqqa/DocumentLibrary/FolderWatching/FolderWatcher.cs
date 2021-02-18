@@ -197,7 +197,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         private WatchStatistics watch_stats;
 
-
         public class GlobalWatchStatistics
         {
             private double scanned_file_count;
