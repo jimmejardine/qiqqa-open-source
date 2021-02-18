@@ -8,6 +8,10 @@ using System.Windows.Media.Imaging;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.ProcessTools;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
+using System.Text;
 
 namespace Utilities.PDF.MuPDF
 {
@@ -15,9 +19,216 @@ namespace Utilities.PDF.MuPDF
     {
         public int PageCount = -1;
         public bool DocumentIsCorrupted = false;
+
+        // ---- RAW content + error feedback items: --------------------------------------------------
+
+        /// <summary>
+        /// JSON decode errors + ...
+        /// </summary>
+        public List<string> errors = new List<string>();
+        /// <summary>
+        /// the data as produced by `mutool multipurp`
+        /// </summary>
+        public string raw_multipurp_text = null;
+        /// <summary>
+        /// the `mutool multipurp` data, as decoded by the JSON parser a.k.a. deserializer
+        /// </summary>
+        public List<MultiPurpDocumentInfoObject> raw_decoded_json = new List<MultiPurpDocumentInfoObject>();
+
+        /// <summary>
+        /// Erase the raw content to help save heap space.
+        ///
+        /// This will nuke the `raw_multipurp_text` and `raw_decoded_json` members.
+        /// This will also *clear* the `errors` list.
+        /// </summary>
+        public void ClearRawContent()
+        {
+            errors.Clear();
+            raw_multipurp_text = null;
+            raw_decoded_json = null;
+        }
     }
 
-    public class MuPDFRenderer
+    // MuPDF mutool multipurp JSON output classes ------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public class MultiPurpGatheredErrors
+    {
+        public string Log;
+        public bool? LogOverflow;
+    }
+
+    public class MultiPurpTargetCoordinates
+    {
+        public float X;
+        public float Y;
+    }
+
+    public class MultiPurpDocumentOutline
+    {
+        public string InternalLink;
+        public int? TargetPageNumber;
+        public MultiPurpTargetCoordinates TargetCoordinates;
+        public string ExternalLink;
+        public string Title;
+        public bool? IsOpen;
+        public List<MultiPurpDocumentOutline> Children;
+    }
+
+    public class MultiPurpDocumentGlobalInfo
+    {
+        public string Version;
+        public Dictionary<string, string> Info;
+        public object Encryption;
+        public object Metadata;
+        public int? Pages;
+        public int? Chapters;
+        public List<int> ChapterPages;
+        public List<MultiPurpDocumentOutline> DocumentOutlines;
+        public MultiPurpGatheredErrors GatheredErrors;
+    }
+
+        public class MultiPurpPageMediaBox
+    {
+        public int? Page;
+        public string Bounds;
+    }
+
+    public class MultiPurpPageFont
+    {
+        public int? Page;
+        public string FontType;
+        public string FontName;
+        public string FontEncoding;
+    }
+
+    public class MultiPurpImageFilter
+    {
+        public string Filter;
+    }
+
+    public class MultiPurpImage
+    {
+        public string type; // "stream"
+        public object data;
+    }
+
+    public class MultiPurpPageImage
+    {
+        public int? Page;
+        public MultiPurpImageFilter ImageFilter;
+        public int? ImageWidth;
+        public int? ImageHeight;
+        public string ImageDimensions;
+        public int? ImageBPC;
+        public string ImageCS;
+        public MultiPurpImage Image;
+    }
+
+    public class MultiPurpPageAnnotation
+    {
+        public int? AnnotNumber;
+        public string AnnotType;
+        public string BoundsInDocument;
+        public string Bounds;
+        public bool? NeedsNewAP;
+        public string Author;
+        public string CreationDate;
+        public string ModificationDate;
+        public string Flags;
+        public string PopupBounds;
+        public bool? HasInkList;
+        public bool? HasQuadPoints;
+        public bool? HasVertexData;
+        public bool? HasLineData;
+        public bool? HasInteriorColor;
+        public bool? HasLineEndingStyles;
+        public bool? HasIconName;
+        public bool? HasOpenAction;
+        public bool? HasAuthorData;
+        public bool? IsActive;
+        public bool? IsHot;
+        public string Language;
+        public string Icon;
+        public string FieldFlags;
+        public string FieldKey;
+        public string FieldValue;
+        public bool? IsEmbeddedFile;
+        public string EmbeddedFileName;
+        public string EmbeddedFileType;
+        public object Popup;
+        public string Contents;
+    }
+
+    public class MultiPurpSinglePageInfo
+    {
+        public int? PageNumber;
+        public List<MultiPurpPageMediaBox> Mediaboxes;
+        public List<MultiPurpPageFont> Fonts;
+        public List<MultiPurpPageImage> Images;
+        public string PageBounds;
+        public List<MultiPurpPageAnnotation> Annotations;
+        public string PageError;
+        public MultiPurpGatheredErrors GatheredErrors;
+    }
+
+    public class MultiPurpPageSequenceItem
+    {
+        public int? FirstPage;
+        public int? LastPage;
+        public List<MultiPurpSinglePageInfo> Info;
+    }
+
+    public class MultiPurpFormFieldSignature
+    {
+        public string Type;
+        public string CERT;
+        public string DIGEST;
+        public string SignatureError;
+    }
+
+    public class MultiPurpDocumentGeneralInfo
+    {
+        public string Title;
+        public string Author;
+        public string Format;
+        public string Encryption;
+        public string PDF_Creator;
+        public string PDF_Producer;
+        public string Subject;
+        public string Keywords;
+        public string Creation_Date;
+        public string Modification_Date;
+        public Dictionary<string, object> MetaInfoDictionary;
+        public string Permissions;
+        public string Status;
+        public bool? DocWasLinearized;
+        public int? DocumentUpdateCount;
+        public string ChangeHistoryValidation;
+        public List<MultiPurpFormFieldSignature> FormFieldSignatures;
+        public string UpdatesStatus;
+        public bool? WasRepaired;
+        public bool? NeedsPassword;
+    }
+
+    public class MultiPurpPageInfoSeriesItem
+    {
+        public string InfoMode;
+        public List<MultiPurpPageSequenceItem> PageSequence;
+        public MultiPurpDocumentGeneralInfo DocumentGeneralInfo;
+        public MultiPurpGatheredErrors GatheredErrors;
+    }
+
+    public class MultiPurpDocumentInfoObject
+    {
+        public string DocumentFilePath;
+        public MultiPurpDocumentGlobalInfo GlobalInfo;
+        public List<MultiPurpPageInfoSeriesItem> PageInfoSeries;
+        public MultiPurpGatheredErrors GatheredErrors;
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public static class MuPDFRenderer
     {
         private static int render_count = 0;
 
@@ -28,13 +239,13 @@ namespace Utilities.PDF.MuPDF
             render_count++;
 
             string process_parameters = String.Format(
-                $"-q -w {width} -h {height} -r {dpi} -o -"
+                $"draw -q -w {width} -h {height} -r {dpi} -o -"
                 + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
                 + " " + '"' + pdf_filename + '"'
                 + " " + page_number
                 );
 
-            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mudraw.exe"));
+            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mutool.exe"));
             if (!File.Exists(exe))
             {
                 throw new Exception($"PDF Page Rendering: missing modern MuPDF 'mudraw.exe': it does not exist in the expected path: '{exe}'");
@@ -91,12 +302,12 @@ namespace Utilities.PDF.MuPDF
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             string process_parameters = String.Format(
-                $"-q -o -"
+                $"multipurp -o -"
                 + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
                 + " " + '"' + pdf_filename + '"'
                 );
 
-            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mudraw.exe"));
+            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mutool.exe"));
             if (!File.Exists(exe))
             {
                 throw new Exception($"PDF metadata gathering: missing modern MuPDF 'mudraw.exe': it does not exist in the expected path: '{exe}'");
@@ -106,16 +317,59 @@ namespace Utilities.PDF.MuPDF
                 throw new Exception($"PDF metadata gathering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
             }
 
-            using (MemoryStream ms = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, binary_output: false, priority_class))
+            using (MemoryStream ms = ReadEntireStandardOutput(exe, process_parameters, binary_output: false, priority_class))
             {
                 ms.Seek(0, SeekOrigin.Begin);
                 using (StreamReader sr = new StreamReader(ms))
                 {
-                    string txt = sr.ReadToEnd();
+                    string json = sr.ReadToEnd();
+                    //string json = Encoding.UTF8.GetString(txt);
+
+                    PDFDocumentMuPDFMetaInfo rv = new PDFDocumentMuPDFMetaInfo();
+
+                    rv.raw_multipurp_text = json;
+
+                    rv.raw_decoded_json = JsonConvert.DeserializeObject<List<MultiPurpDocumentInfoObject>>(json,
+                        new JsonSerializerSettings
+                        {
+                            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+                            {
+                                rv.errors.Add(args.ErrorContext.Error.Message);
+                                args.ErrorContext.Handled = true;
+                            },
+                            //Converters = { new IsoDateTimeConverter() }
+                        });
+
+                    foreach (MultiPurpDocumentInfoObject raw_infos in rv.raw_decoded_json)
+                    {
+                        var info = raw_infos.GlobalInfo;
+                        if (info?.Pages != null)
+                        {
+                            rv.PageCount = info.Pages.Value;
+                        }
+
+                        // when the document had to be reported or caused trouble, we flag it as "corrupted":
+                        if (raw_infos.PageInfoSeries.Count > 0 && (raw_infos.PageInfoSeries[0].DocumentGeneralInfo?.WasRepaired ?? false))
+                        {
+                            rv.DocumentIsCorrupted = true;
+                        }
+
+                        // when we have an outer error block, then the errors were severe and we surely have a corrupted (or at least a very untrustworthy!) PDF:
+                        if (raw_infos.GatheredErrors != null)
+                        {
+                            rv.DocumentIsCorrupted = true;
+                        }
+
+                        // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
+                        if (rv.errors.Count > 0)
+                        {
+                            rv.DocumentIsCorrupted = true;
+                        }
+                    }
+
+                    return rv;
                 }
             }
-
-            return null;
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------
