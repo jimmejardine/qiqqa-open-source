@@ -131,22 +131,15 @@ namespace QiqqaUnitTester.PDFDocument
             string json_text = JsonConvert.SerializeObject(json_doc, Formatting.Indented).Replace("\r\n", "\n");
 
             // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
-            string path = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile(@"fixtures/1.Doc-Many.Metadata.Formats/0001-LDA-paper/2004.04.PNAS.ef997ae1b01762b57b75d8c22fb8cec87406-multipurp.json");
             //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
             ApprovalTests.Approvals.Verify(
-                new QiqqaApprover(json_text, path),
+                new QiqqaApprover(json_text, pdf_filename),
                 ApprovalTests.Approvals.GetReporter()
             );
 
             info.ClearRawContent();
             ASSERT.IsNull(info.raw_multipurp_text);
             ASSERT.IsNull(info.raw_decoded_json);
-        }
-
-        [TestMethod]
-        public void TestMethod1()
-        {
-            ASSERT.IsTrue(true);
         }
     }
 }
