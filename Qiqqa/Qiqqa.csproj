@@ -303,26 +303,26 @@
     <Reference Include="UIAutomationProvider">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WinCopies.Util, Version=2.6.1.1, Culture=neutral, PublicKeyToken=cb02bf7a62cec965, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.Util.2.6.1.1\lib\net48\WinCopies.Util.dll</HintPath>
+    <Reference Include="WinCopies.Util, Version=2.7.0.0, Culture=neutral, PublicKeyToken=cb02bf7a62cec965, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.Util.2.7.0\lib\net48\WinCopies.Util.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack, Version=2.1.0.0, Culture=neutral, PublicKeyToken=7cede2e7a545acde, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.2.1.0\lib\net48\WinCopies.WindowsAPICodePack.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack, Version=2.1.1.0, Culture=neutral, PublicKeyToken=7cede2e7a545acde, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.2.1.1\lib\net48\WinCopies.WindowsAPICodePack.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.COMNative, Version=2.1.0.0, Culture=neutral, PublicKeyToken=ecca801a1abe31d1, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.COMNative.2.1.0\lib\net48\WinCopies.WindowsAPICodePack.COMNative.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.COMNative, Version=2.1.1.0, Culture=neutral, PublicKeyToken=ecca801a1abe31d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.COMNative.2.1.1\lib\net48\WinCopies.WindowsAPICodePack.COMNative.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.Consts, Version=2.1.0.0, Culture=neutral, PublicKeyToken=49443f23c9a81e6e, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Consts.2.1.0\lib\net48\WinCopies.WindowsAPICodePack.Consts.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.Consts, Version=2.1.1.0, Culture=neutral, PublicKeyToken=49443f23c9a81e6e, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Consts.2.1.1\lib\net48\WinCopies.WindowsAPICodePack.Consts.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.Shell, Version=2.1.0.0, Culture=neutral, PublicKeyToken=a5d06180d9f8fba2, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Shell.2.1.0\lib\net48\WinCopies.WindowsAPICodePack.Shell.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.Shell, Version=2.1.1.0, Culture=neutral, PublicKeyToken=a5d06180d9f8fba2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Shell.2.1.1\lib\net48\WinCopies.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.ShellExtensions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=bbf48980819ff167, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.ShellExtensions.2.1.0\lib\net48\WinCopies.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.ShellExtensions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=bbf48980819ff167, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.ShellExtensions.2.1.1\lib\net48\WinCopies.WindowsAPICodePack.ShellExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.Win32Native, Version=2.1.0.0, Culture=neutral, PublicKeyToken=ac0f4cf54a027a4d, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Win32Native.2.1.0\lib\net48\WinCopies.WindowsAPICodePack.Win32Native.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.Win32Native, Version=2.1.1.0, Culture=neutral, PublicKeyToken=ac0f4cf54a027a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Win32Native.2.1.1\lib\net48\WinCopies.WindowsAPICodePack.Win32Native.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>

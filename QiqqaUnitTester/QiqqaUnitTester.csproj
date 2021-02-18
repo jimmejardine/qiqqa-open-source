@@ -100,8 +100,8 @@
       <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Drawing.Common.5.0.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.5.0.1\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -125,7 +125,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="TextCopy, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
-      <HintPath>..\packages\TextCopy.4.2.1\lib\net461\TextCopy.dll</HintPath>
+      <HintPath>..\packages\TextCopy.4.3.0\lib\net461\TextCopy.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +149,7 @@
     <Compile Include="AsyncFireAndForgetSimple.cs" />
     <Compile Include="CSharpLanguageFeatureTests.cs" />
     <Compile Include="LIFO-and-FIFO-performance-testing.cs" />
+    <Compile Include="PDFDocumentMetaInfoTest.cs" />
     <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />
@@ -206,4 +207,7 @@
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Import Project="..\packages\ApprovalTests.5.4.5\build\ApprovalTests.targets" Condition="Exists('..\packages\ApprovalTests.5.4.5\build\ApprovalTests.targets')" />
   <Import Project="..\packages\EmptyFiles.2.6.0\build\EmptyFiles.targets" Condition="Exists('..\packages\EmptyFiles.2.6.0\build\EmptyFiles.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)Qiqqa.Build\copy_mupdf_binaries.cmd $(TargetDir) $(ConfigurationName) $(ProjectDir)</PreBuildEvent>
+  </PropertyGroup>
 </Project>
