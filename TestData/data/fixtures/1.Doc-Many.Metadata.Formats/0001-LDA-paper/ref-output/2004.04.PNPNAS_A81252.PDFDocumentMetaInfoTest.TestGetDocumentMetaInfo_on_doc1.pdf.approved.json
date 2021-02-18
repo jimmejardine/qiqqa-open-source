@@ -30,7 +30,12 @@
                 "Mediaboxes": [
                   {
                     "Page": 1,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -109,7 +114,10 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -143,14 +151,24 @@
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 2,
                 "Mediaboxes": [
                   {
                     "Page": 2,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -229,7 +247,10 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -263,14 +284,24 @@
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 3,
                 "Mediaboxes": [
                   {
                     "Page": 3,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -361,7 +392,10 @@
                     },
                     "ImageWidth": 513,
                     "ImageHeight": 438,
-                    "ImageDimensions": "513x438",
+                    "ImageDimensions": {
+                      "W": 513,
+                      "H": 438
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -401,7 +435,10 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -435,14 +472,24 @@
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 4,
                 "Mediaboxes": [
                   {
                     "Page": 4,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -521,7 +568,10 @@
                     },
                     "ImageWidth": 513,
                     "ImageHeight": 411,
-                    "ImageDimensions": "513x411",
+                    "ImageDimensions": {
+                      "W": 513,
+                      "H": 411
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -561,7 +611,10 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -595,14 +648,24 @@
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 5,
                 "Mediaboxes": [
                   {
                     "Page": 5,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -681,7 +744,10 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -715,14 +781,24 @@
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 6,
                 "Mediaboxes": [
                   {
                     "Page": 6,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -789,7 +865,10 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -829,7 +908,10 @@
                     },
                     "ImageWidth": 804,
                     "ImageHeight": 1159,
-                    "ImageDimensions": "804x1159",
+                    "ImageDimensions": {
+                      "W": 804,
+                      "H": 1159
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -863,14 +945,24 @@
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 7,
                 "Mediaboxes": [
                   {
                     "Page": 7,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -919,7 +1011,10 @@
                     },
                     "ImageWidth": 950,
                     "ImageHeight": 232,
-                    "ImageDimensions": "950x232",
+                    "ImageDimensions": {
+                      "W": 950,
+                      "H": 232
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -959,7 +1054,10 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -999,7 +1097,10 @@
                     },
                     "ImageWidth": 890,
                     "ImageHeight": 531,
-                    "ImageDimensions": "890x531",
+                    "ImageDimensions": {
+                      "W": 890,
+                      "H": 531
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -1033,14 +1134,24 @@
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 8,
                 "Mediaboxes": [
                   {
                     "Page": 8,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -1101,7 +1212,10 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
@@ -1135,7 +1249,12 @@
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               }
             ]
           }

@@ -90,7 +90,7 @@ namespace Utilities.PDF.MuPDF
         public class MultiPurpPageMediaBox
     {
         public int? Page;
-        public string Bounds;
+        public List<float> Bounds;
     }
 
     public class MultiPurpPageFont
@@ -112,13 +112,19 @@ namespace Utilities.PDF.MuPDF
         public object data;
     }
 
+    public class MultiPurpImageDimensions
+    {
+        public float W;
+        public float H;
+    }
+
     public class MultiPurpPageImage
     {
         public int? Page;
         public MultiPurpImageFilter ImageFilter;
         public int? ImageWidth;
         public int? ImageHeight;
-        public string ImageDimensions;
+        public MultiPurpImageDimensions ImageDimensions;
         public int? ImageBPC;
         public string ImageCS;
         public MultiPurpImage Image;
@@ -128,14 +134,14 @@ namespace Utilities.PDF.MuPDF
     {
         public int? AnnotNumber;
         public string AnnotType;
-        public string BoundsInDocument;
-        public string Bounds;
+        public List<float> BoundsInDocument;
+        public List<float> Bounds;
         public bool? NeedsNewAP;
         public string Author;
         public string CreationDate;
         public string ModificationDate;
         public string Flags;
-        public string PopupBounds;
+        public List<float> PopupBounds;
         public bool? HasInkList;
         public bool? HasQuadPoints;
         public bool? HasVertexData;
@@ -159,14 +165,27 @@ namespace Utilities.PDF.MuPDF
         public string Contents;
     }
 
+    public class MultiPurpLinkInPage
+    {
+        public string LinkType;
+        public string Url;
+        public int? TargetPageNumber;
+        public int? TargetChapter;
+        public int? TargetChapterPage;
+        public string TargetError;
+        public MultiPurpTargetCoordinates TargetCoordinates;
+        public List<float> LinkBounds;
+    }
+
     public class MultiPurpSinglePageInfo
     {
         public int? PageNumber;
         public List<MultiPurpPageMediaBox> Mediaboxes;
         public List<MultiPurpPageFont> Fonts;
         public List<MultiPurpPageImage> Images;
-        public string PageBounds;
+        public List<float> PageBounds;
         public List<MultiPurpPageAnnotation> Annotations;
+        public List<MultiPurpLinkInPage> LinksInPage;
         public string PageError;
         public MultiPurpGatheredErrors GatheredErrors;
     }
@@ -228,6 +247,18 @@ namespace Utilities.PDF.MuPDF
 
     // ------------------------------------------------------------------------------------------------------------------------------------------------
 
+    public class ExecResultAggregate
+    {
+        public Exception error;
+        public string executable;
+        public string process_parameters;
+
+        public int exitCode = -1;
+        public bool stdoutIsBinary;
+        public MemoryStream stdoutStream;
+        public ProcessOutputDump errOutputDump;
+    }
+
     public static class MuPDFRenderer
     {
         private static int render_count = 0;
@@ -255,8 +286,14 @@ namespace Utilities.PDF.MuPDF
                 throw new Exception($"PDF Page Rendering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
             }
 
-            MemoryStream ms = ReadEntireStandardOutput(exe, process_parameters, binary_output: true, priority_class);
-            return ms;
+            ExecResultAggregate rv = ReadEntireStandardOutput(exe, process_parameters, binary_output: true, priority_class);
+
+            if (rv.error != null)
+            {
+                rv.stdoutStream?.Close();
+                throw rv.error;
+            }
+            return rv.stdoutStream;
         }
 
         public static byte[] RenderPDFPageAsByteArray(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
@@ -317,58 +354,76 @@ namespace Utilities.PDF.MuPDF
                 throw new Exception($"PDF metadata gathering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
             }
 
-            using (MemoryStream ms = ReadEntireStandardOutput(exe, process_parameters, binary_output: false, priority_class))
+            var execResult = ReadEntireStandardOutput(exe, process_parameters, binary_output: false, priority_class);
+            try
             {
-                ms.Seek(0, SeekOrigin.Begin);
-                using (StreamReader sr = new StreamReader(ms))
+                using (MemoryStream ms = execResult.stdoutStream)
                 {
-                    string json = sr.ReadToEnd();
-                    //string json = Encoding.UTF8.GetString(txt);
-
-                    PDFDocumentMuPDFMetaInfo rv = new PDFDocumentMuPDFMetaInfo();
-
-                    rv.raw_multipurp_text = json;
-
-                    rv.raw_decoded_json = JsonConvert.DeserializeObject<List<MultiPurpDocumentInfoObject>>(json,
-                        new JsonSerializerSettings
-                        {
-                            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
-                            {
-                                rv.errors.Add(args.ErrorContext.Error.Message);
-                                args.ErrorContext.Handled = true;
-                            },
-                            //Converters = { new IsoDateTimeConverter() }
-                        });
-
-                    foreach (MultiPurpDocumentInfoObject raw_infos in rv.raw_decoded_json)
+                    ms.Seek(0, SeekOrigin.Begin);
+                    using (StreamReader sr = new StreamReader(ms))
                     {
-                        var info = raw_infos.GlobalInfo;
-                        if (info?.Pages != null)
-                        {
-                            rv.PageCount = info.Pages.Value;
-                        }
+                        string json = sr.ReadToEnd();
+                        //string json = Encoding.UTF8.GetString(txt);
 
-                        // when the document had to be reported or caused trouble, we flag it as "corrupted":
-                        if (raw_infos.PageInfoSeries.Count > 0 && (raw_infos.PageInfoSeries[0].DocumentGeneralInfo?.WasRepaired ?? false))
+                        PDFDocumentMuPDFMetaInfo rv = new PDFDocumentMuPDFMetaInfo();
+
+                        rv.raw_multipurp_text = json;
+
+                        rv.raw_decoded_json = JsonConvert.DeserializeObject<List<MultiPurpDocumentInfoObject>>(json,
+                            new JsonSerializerSettings
+                            {
+                                Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+                                {
+                                    rv.errors.Add(args.ErrorContext.Error.Message);
+                                    args.ErrorContext.Handled = true;
+                                },
+                                //Converters = { new IsoDateTimeConverter() }
+                            });
+
+                        if (rv.raw_decoded_json != null)
                         {
+                            foreach (MultiPurpDocumentInfoObject raw_infos in rv.raw_decoded_json)
+                            {
+                                var info = raw_infos.GlobalInfo;
+                                if (info?.Pages != null)
+                                {
+                                    rv.PageCount = info.Pages.Value;
+                                }
+
+                                // when the document had to be reported or caused trouble, we flag it as "corrupted":
+                                if (raw_infos.PageInfoSeries.Count > 0 && (raw_infos.PageInfoSeries[0].DocumentGeneralInfo?.WasRepaired ?? false))
+                                {
+                                    rv.DocumentIsCorrupted = true;
+                                }
+
+                                // when we have an outer error block, then the errors were severe and we surely have a corrupted (or at least a very untrustworthy!) PDF:
+                                if (raw_infos.GatheredErrors != null)
+                                {
+                                    rv.DocumentIsCorrupted = true;
+                                }
+
+                                // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
+                                if (rv.errors.Count > 0)
+                                {
+                                    rv.DocumentIsCorrupted = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
                             rv.DocumentIsCorrupted = true;
                         }
 
-                        // when we have an outer error block, then the errors were severe and we surely have a corrupted (or at least a very untrustworthy!) PDF:
-                        if (raw_infos.GatheredErrors != null)
-                        {
-                            rv.DocumentIsCorrupted = true;
-                        }
-
-                        // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
-                        if (rv.errors.Count > 0)
-                        {
-                            rv.DocumentIsCorrupted = true;
-                        }
+                        return rv;
                     }
-
-                    return rv;
                 }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, $"Failed to process the output from the command:\n     { execResult.executable } { execResult.process_parameters }\n --->\n    exitCode: { execResult.exitCode }\n    stderr: { execResult.errOutputDump.stderr }\n    runtime error: { execResult.error }");
+
+                    throw;
             }
         }
 
@@ -400,7 +455,9 @@ namespace Utilities.PDF.MuPDF
                 + " " + page_numbers
                 );
 
-            using (MemoryStream ms = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, binary_output: false, priority_class))
+            var execResult = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, binary_output: false, priority_class);
+
+            using (MemoryStream ms = execResult.stdoutStream)
             {
                 ms.Seek(0, SeekOrigin.Begin);
                 using (StreamReader sr_lines = new StreamReader(ms))
@@ -614,12 +671,18 @@ namespace Utilities.PDF.MuPDF
             return text_chunks;
         }
 
-
-        private static MemoryStream ReadEntireStandardOutput(string pdfDrawExe, string process_parameters, bool binary_output, ProcessPriorityClass priority_class)
+        private static ExecResultAggregate ReadEntireStandardOutput(string pdfDrawExe, string process_parameters, bool binary_output, ProcessPriorityClass priority_class)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            Stopwatch clk = Stopwatch.StartNew();
+            ExecResultAggregate rv = new ExecResultAggregate
+            {
+                executable = pdfDrawExe,
+                process_parameters = process_parameters,
+                stdoutIsBinary = binary_output
+            };
+
+        Stopwatch clk = Stopwatch.StartNew();
 
             // STDOUT/STDERR
             Logging.Debug("PDFDRAW :: ReadEntireStandardOutput command: pdfdraw.exe {0}", process_parameters);
@@ -635,8 +698,9 @@ namespace Utilities.PDF.MuPDF
                             long elapsed = clk.ElapsedMilliseconds;
                             Logging.Debug("PDFDRAW :: ReadEntireStandardOutput setup time: {0} ms for parameters:\n    {1}", elapsed, process_parameters);
 
-                            MemoryStream ms = new MemoryStream(1024 * 1024);
-                            int total_size = StreamToFile.CopyStreamToStream(fs, ms);
+                            rv.stdoutStream = new MemoryStream(1024 * 1024);
+                            int total_size = StreamToFile.CopyStreamToStream(fs, rv.stdoutStream);
+                            
                             long elapsed2 = clk.ElapsedMilliseconds;
                             Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    {4} {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters, pdfDrawExe);
 
@@ -652,31 +716,54 @@ namespace Utilities.PDF.MuPDF
                                     process.Kill();
 
                                     // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
-                                    process.WaitForExit(1000);
+                                    process.WaitForExit(3000);
                                 }
                                 catch (Exception ex)
                                 {
                                     Logging.Error(ex, "There was a problem killing the PDFRenderer process after timeout ({0} ms)", elapsed2 + 1000);
                                 }
 
-                                Logging.Error("PDFRenderer process did not terminate, so killed it. Commandline:\n    {2} {0}\n{1}", process_parameters, process_output_reader.GetOutputsDumpStrings().stderr, pdfDrawExe);
+                                // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
+                                var outs = process_output_reader.GetOutputsDumpStrings();
+                                rv.errOutputDump = outs;
 
-                                throw new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: {pdfDrawExe} {process_parameters}");
+                                Logging.Error($"PDFRenderer process did not terminate, so killed it. Commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
+
+                                rv.error = new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: {pdfDrawExe} {process_parameters}");
+                                rv.exitCode = 0;
+                                if (process.HasExited)
+                                {
+                                    rv.exitCode = process.ExitCode;
+                                }
+                                if (rv.exitCode == 0)
+                                {
+                                    rv.exitCode = -666;  // timeout
+                                }
                             }
                             else if (process.ExitCode != 0)
                             {
-                                Logging.Error("PDFDRAW did fail with exit code {0} for commandline:\n    {3} {1}\n{2}", process.ExitCode, process_parameters, process_output_reader.GetOutputsDumpStrings().stderr, pdfDrawExe);
+                                // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
+                                var outs = process_output_reader.GetOutputsDumpStrings();
+                                rv.errOutputDump = outs;
 
-                                throw new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: {pdfDrawExe} {process_parameters}");
+                                Logging.Error("PDFDRAW did fail with exit code {0} for commandline:\n    {3} {1}\n{2}", process.ExitCode, process_parameters, outs.stderr, pdfDrawExe);
+
+                                rv.error = new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: {pdfDrawExe} {process_parameters}");
+                                rv.exitCode = process.ExitCode;
                             }
                             else
                             {
                                 // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
                                 var outs = process_output_reader.GetOutputsDumpStrings();
+                                rv.errOutputDump = outs;
+
                                 Logging.Error("PDFDRAW did SUCCEED with exit code {0} for commandline:\n    {3} {1}\n{2}", process.ExitCode, process_parameters, outs.stderr, pdfDrawExe);
+
+                                rv.error = null;
+                                rv.exitCode = process.ExitCode;
                             }
 
-                            return ms;
+                            return rv;
                         }
                     }
                 }
