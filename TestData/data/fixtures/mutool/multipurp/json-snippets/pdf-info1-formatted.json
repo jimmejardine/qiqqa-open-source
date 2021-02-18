@@ -4,10 +4,10 @@
     "GlobalInfo": {
       "Version": "PDF-1.3",
       "Info": {
-        "/Creator": "XPP",
-        "/CreationDate": "D:20090312125059-07'00'",
-        "/ModDate": "D:20090312125059-07'00'",
-        "/Producer": "Mac OS X 10.4.11 Quartz PDFContext"
+        "Creator": "XPP",
+        "CreationDate": "D:20090312125059-07'00'",
+        "ModDate": "D:20090312125059-07'00'",
+        "Producer": "Mac OS X 10.4.11 Quartz PDFContext"
       },
       "Pages": 8,
       "Chapters": 1,
@@ -30,7 +30,12 @@
                 "Mediaboxes": [
                   {
                     "Page": 1,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -109,48 +114,56 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 2,
                 "Mediaboxes": [
                   {
                     "Page": 2,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -229,48 +242,56 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 3,
                 "Mediaboxes": [
                   {
                     "Page": 3,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -361,36 +382,34 @@
                     },
                     "ImageWidth": 513,
                     "ImageHeight": 438,
-                    "ImageDimensions": "513x438",
+                    "ImageDimensions": {
+                      "W": 513,
+                      "H": 438
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 38270,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 513,
-                        "/Height": 438,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 38270,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 513,
+                        "Height": 438,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -401,48 +420,56 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 4,
                 "Mediaboxes": [
                   {
                     "Page": 4,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -521,36 +548,34 @@
                     },
                     "ImageWidth": 513,
                     "ImageHeight": 411,
-                    "ImageDimensions": "513x411",
+                    "ImageDimensions": {
+                      "W": 513,
+                      "H": 411
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 53185,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 513,
-                        "/Height": 411,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 53185,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 513,
+                        "Height": 411,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -561,48 +586,56 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 5,
                 "Mediaboxes": [
                   {
                     "Page": 5,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -681,48 +714,56 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 6,
                 "Mediaboxes": [
                   {
                     "Page": 6,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -789,36 +830,34 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -829,48 +868,56 @@
                     },
                     "ImageWidth": 804,
                     "ImageHeight": 1159,
-                    "ImageDimensions": "804x1159",
+                    "ImageDimensions": {
+                      "W": 804,
+                      "H": 1159
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 164559,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 804,
-                        "/Height": 1159,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 164559,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 804,
+                        "Height": 1159,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 7,
                 "Mediaboxes": [
                   {
                     "Page": 7,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -919,36 +966,34 @@
                     },
                     "ImageWidth": 950,
                     "ImageHeight": 232,
-                    "ImageDimensions": "950x232",
+                    "ImageDimensions": {
+                      "W": 950,
+                      "H": 232
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 54347,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 950,
-                        "/Height": 232,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 54347,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 950,
+                        "Height": 232,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -959,36 +1004,34 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -999,48 +1042,56 @@
                     },
                     "ImageWidth": 890,
                     "ImageHeight": 531,
-                    "ImageDimensions": "890x531",
+                    "ImageDimensions": {
+                      "W": 890,
+                      "H": 531
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 63745,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 890,
-                        "/Height": 531,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 63745,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 890,
+                        "Height": 531,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               },
               {
                 "PageNumber": 8,
                 "Mediaboxes": [
                   {
                     "Page": 8,
-                    "Bounds": "0 0 612 801"
+                    "Bounds": [
+                      0,
+                      0,
+                      612,
+                      801
+                    ]
                   }
                 ],
                 "Fonts": [
@@ -1101,41 +1152,44 @@
                     },
                     "ImageWidth": 38,
                     "ImageHeight": 1632,
-                    "ImageDimensions": "38x1632",
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
                     "ImageBPC": 8,
                     "ImageCS": "ICC",
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
                 ],
-                "PageBounds": "0 0 594 783"
+                "PageBounds": [
+                  0,
+                  0,
+                  594,
+                  783
+                ]
               }
             ]
           }
@@ -1148,10 +1202,10 @@
           "Creation_Date": "D:20090312125059-07'00'",
           "Modification_Date": "D:20090312125059-07'00'",
           "MetaInfoDictionary": {
-            "/Creator": "XPP",
-            "/CreationDate": "D:20090312125059-07'00'",
-            "/ModDate": "D:20090312125059-07'00'",
-            "/Producer": "Mac OS X 10.4.11 Quartz PDFContext"
+            "Creator": "XPP",
+            "CreationDate": "D:20090312125059-07'00'",
+            "ModDate": "D:20090312125059-07'00'",
+            "Producer": "Mac OS X 10.4.11 Quartz PDFContext"
           },
           "Permissions": "print, copy, edit, annotate",
           "Status": "PDF document with 1 update.",

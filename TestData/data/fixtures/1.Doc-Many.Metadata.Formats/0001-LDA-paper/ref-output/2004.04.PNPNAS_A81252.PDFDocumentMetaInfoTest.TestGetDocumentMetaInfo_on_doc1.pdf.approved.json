@@ -4,10 +4,10 @@
     "GlobalInfo": {
       "Version": "PDF-1.3",
       "Info": {
-        "/Creator": "XPP",
-        "/CreationDate": "D:20090312125059-07'00'",
-        "/ModDate": "D:20090312125059-07'00'",
-        "/Producer": "Mac OS X 10.4.11 Quartz PDFContext"
+        "Creator": "XPP",
+        "CreationDate": "D:20090312125059-07'00'",
+        "ModDate": "D:20090312125059-07'00'",
+        "Producer": "Mac OS X 10.4.11 Quartz PDFContext"
       },
       "Pages": 8,
       "Chapters": 1,
@@ -123,30 +123,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
@@ -256,30 +251,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
@@ -401,30 +391,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 38270,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 513,
-                        "/Height": 438,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 38270,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 513,
+                        "Height": 438,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -444,30 +429,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
@@ -577,30 +557,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 53185,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 513,
-                        "/Height": 411,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 53185,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 513,
+                        "Height": 411,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -620,30 +595,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
@@ -753,30 +723,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
@@ -874,30 +839,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -917,30 +877,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 164559,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 804,
-                        "/Height": 1159,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 164559,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 804,
+                        "Height": 1159,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
@@ -1020,30 +975,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 54347,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 950,
-                        "/Height": 232,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 54347,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 950,
+                        "Height": 232,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -1063,30 +1013,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   },
@@ -1106,30 +1051,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 63745,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 890,
-                        "/Height": 531,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 63745,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 890,
+                        "Height": 531,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 58,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 1,
-                              "/Alternate": "/DeviceGray",
-                              "/Filter": "/FlateDecode"
+                              "Length": 631,
+                              "N": 1,
+                              "Alternate": "DeviceGray",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
@@ -1221,30 +1161,25 @@
                     "Image": {
                       "type": "stream",
                       "data": {
-                        "/Length": 27518,
-                        "/Type": "/XObject",
-                        "/Subtype": "/Image",
-                        "/Width": 38,
-                        "/Height": 1632,
-                        "/ColorSpace": [
-                          "/ICCBased",
+                        "Length": 27518,
+                        "Type": "XObject",
+                        "Subtype": "Image",
+                        "Width": 38,
+                        "Height": 1632,
+                        "ColorSpace": [
+                          "ICCBased",
                           {
                             "type": "stream",
                             "data": {
-                              "/Length": {
-                                "type": "R",
-                                "num": 28,
-                                "gen": 0,
-                                "S_D_R": 1
-                              },
-                              "/N": 3,
-                              "/Alternate": "/DeviceRGB",
-                              "/Filter": "/FlateDecode"
+                              "Length": 706,
+                              "N": 3,
+                              "Alternate": "DeviceRGB",
+                              "Filter": "FlateDecode"
                             }
                           }
                         ],
-                        "/BitsPerComponent": 8,
-                        "/Filter": "/DCTDecode"
+                        "BitsPerComponent": 8,
+                        "Filter": "DCTDecode"
                       }
                     }
                   }
@@ -1267,10 +1202,10 @@
           "Creation_Date": "D:20090312125059-07'00'",
           "Modification_Date": "D:20090312125059-07'00'",
           "MetaInfoDictionary": {
-            "/Creator": "XPP",
-            "/CreationDate": "D:20090312125059-07'00'",
-            "/ModDate": "D:20090312125059-07'00'",
-            "/Producer": "Mac OS X 10.4.11 Quartz PDFContext"
+            "Creator": "XPP",
+            "CreationDate": "D:20090312125059-07'00'",
+            "ModDate": "D:20090312125059-07'00'",
+            "Producer": "Mac OS X 10.4.11 Quartz PDFContext"
           },
           "Permissions": "print, copy, edit, annotate",
           "Status": "PDF document with 1 update.",

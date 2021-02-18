@@ -200,7 +200,26 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./atlas_over.pdf")]
         [DataRow("./btxdoc.pdf")]
         [DataTestMethod]
-        public void Test_PDF_metadata_extraction_via_multipurp_chunk0020_misc_imgHEX(string filepath)
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0011_misc_imgHEX(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("./pdfbox/testPDFPackage.pdf")]
+        [DataRow("./attachment.formular.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0012_attachedFiles(string filepath)
         {
             string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
             ASSERT.FileExists(pdf_filename);
@@ -222,7 +241,8 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./Drezner - Computation of the Bivariate Normal Integral.pdf")]
         [DataRow("./eisenstein-nlp-notes.pdf")]
         [DataRow("./Genz - Numerical Computation of Multivariate Normal Probabilities.pdf")]
-        [DataRow("./html-standard.pdf")]
+        [DataRow("./printf[1]2.pdf")]
+        [DataRow("./pdfmark_reference.pdf")]
         [DataRow("./IEEEtran_bst_HOWTO.pdf")]
         [DataRow("./IEEEtran_HOWTO.pdf")]
         [DataRow("./keyboard-shortcuts-windows.pdf")]
@@ -248,13 +268,30 @@ namespace QiqqaUnitTester.PDFDocument
             );
         }
 
+        [DataRow("./html-standard.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0021_document_outlines_and_int_plus_ext_URL_links(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./readme.pdf")]
         [DataRow("./solr-word.pdf")]
         [DataRow("./Steen - Gaussian Quadratures for the Integrals xxx.pdf")]
         [DataRow("./tb87nemeth.pdf")]
         [DataRow("./test.pdf")]
         [DataRow("./testfile1.pdf")]
-        [DataRow("./testfile2.pdf")]
         [DataRow("./testflow_ctl_A4.pdf")]
         [DataRow("./testflow_ctl_LTR.pdf")]
         [DataRow("./testflow_doc.pdf")]
@@ -266,6 +303,24 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./中文分词十年又回顾- 2007-2017 CWS-10Year-Review-2.pdf")]
         [DataTestMethod]
         public void Test_PDF_metadata_extraction_via_multipurp_chunk0030(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("./testfile2.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0031(string filepath)
         {
             string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
             ASSERT.FileExists(pdf_filename);
@@ -327,6 +382,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/AcrobatMerge-SameMerged.pdf")]
         [DataRow("./pdfbox/AcrobatMerge-SameNameNode.pdf")]
         [DataRow("./pdfbox/AcrobatMerge-TextFieldsOnly-SameMerged.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0050_pdfbox(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./pdfbox/Acroform-PDFBOX-2333.pdf")]
         [DataRow("./pdfbox/AcroFormForMerge-DifferentExportValues.pdf")]
         [DataRow("./pdfbox/AcroFormForMerge-DifferentFieldType.pdf")]
@@ -336,10 +408,26 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/AcroFormForMerge.pdf")]
         [DataRow("./pdfbox/AcroFormsBasicFields.pdf")]
         [DataRow("./pdfbox/AcroFormsRotation.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0051_pdfbox(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./pdfbox/AlignmentTests.pdf")]
         [DataRow("./pdfbox/badpagelabels.pdf")]
         [DataRow("./pdfbox/BidiSample.pdf")]
-        [DataRow("./pdfbox/ccitt4-cib-test.pdf")]
         [DataRow("./pdfbox/ControlCharacters.pdf")]
         [DataRow("./pdfbox/custom-render-demo.pdf")]
         [DataRow("./pdfbox/cweb.pdf")]
@@ -359,6 +447,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/JPXTestCMYK.pdf")]
         [DataRow("./pdfbox/JPXTestGrey.pdf")]
         [DataRow("./pdfbox/JPXTestRGB.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0052_pdfbox(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./pdfbox/Liste732004001452_001_0.pdf_0_.pdf")]
         [DataRow("./pdfbox/MissingCatalog.pdf")]
         [DataRow("./pdfbox/MultilineFields.pdf")]
@@ -368,15 +473,26 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/openoffice-test-document.pdf")]
         [DataRow("./pdfbox/page_tree_multiple_levels.pdf")]
         [DataRow("./pdfbox/pdfa-with-annotations-square.pdf")]
-        [DataRow("./pdfbox/PDFAMetaDataValidationTestMiddleControlChar.pdf")]
-        [DataRow("./pdfbox/PDFAMetaDataValidationTestMiddleNul.pdf")]
-        [DataRow("./pdfbox/PDFAMetaDataValidationTestTrailingControlChar.pdf")]
-        [DataRow("./pdfbox/PDFAMetaDataValidationTestTrailingNul.pdf")]
-        [DataRow("./pdfbox/PDFAMetaDataValidationTestTrailingSpaces.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0053_pdfbox(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./pdfbox/PDFBOX-2984-rotations.pdf")]
         [DataRow("./pdfbox/PDFBOX-3025.pdf")]
         [DataRow("./pdfbox/PDFBOX-3038-001033-p2.pdf")]
-        [DataRow("./pdfbox/PDFBOX-3042-003177-p2.pdf")]
         [DataRow("./pdfbox/PDFBOX-3044-010197-p5-ligatures.pdf")]
         [DataRow("./pdfbox/PDFBOX-3053-reduced.pdf")]
         [DataRow("./pdfbox/PDFBOX-3061-092465-reduced.pdf")]
@@ -397,29 +513,59 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/PDFBOX-4372-2DAYCLVOFG3FTVO4RMAJJL3VTPNYDFRO-p4_reduced.pdf")]
         [DataRow("./pdfbox/PDFBOX-4417-001031.pdf")]
         [DataRow("./pdfbox/PDFBOX-4417-054080.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0054_pdfbox(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./pdfbox/PDFBox.GlobalResourceMergeTest.Doc01.decoded.pdf")]
         [DataRow("./pdfbox/PDFBox.GlobalResourceMergeTest.Doc01.pdf")]
         [DataRow("./pdfbox/PDFBox.GlobalResourceMergeTest.Doc02.decoded.pdf")]
         [DataRow("./pdfbox/PDFBox.GlobalResourceMergeTest.Doc02.pdf")]
         [DataRow("./pdfbox/PDFBoxLegacyMerge-SameMerged.pdf")]
         [DataRow("./pdfbox/pdfbox_webpage.pdf")]
-        [DataRow("./pdfbox/png_demo.pdf")]
         [DataRow("./pdfbox/preEnc_20141025_105451.pdf")]
         [DataRow("./pdfbox/raw_image_demo.pdf")]
         [DataRow("./pdfbox/rotation.pdf")]
         [DataRow("./pdfbox/sampleForSpec.pdf")]
         [DataRow("./pdfbox/sample_fonts_solidconvertor.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0055_pdfbox(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./pdfbox/sign_me.pdf")]
         [DataRow("./pdfbox/sign_me_tsa.pdf")]
         [DataRow("./pdfbox/sign_me_visible.pdf")]
         [DataRow("./pdfbox/simple-openoffice.pdf")]
         [DataRow("./pdfbox/SimpleForm2Fields.pdf")]
         [DataRow("./pdfbox/source.pdf")]
-        [DataRow("./pdfbox/survey.pdf")]
         [DataRow("./pdfbox/test-landscape2.pdf")]
         [DataRow("./pdfbox/test.pdf")]
-        [DataRow("./pdfbox/test.unc.pdf")]
-        [DataRow("./pdfbox/testPDFPackage.pdf")]
         [DataRow("./pdfbox/testPDF_multiFormatEmbFiles.pdf")]
         [DataRow("./pdfbox/test_pagelabels.pdf")]
         [DataRow("./pdfbox/tiger-as-form-xobject.pdf")]
@@ -427,7 +573,34 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/with_outline.pdf")]
         [DataRow("./pdfbox/yaddatest.pdf")]
         [DataTestMethod]
-        public void Test_PDF_metadata_extraction_via_multipurp_chunk0050_pdfbox(string filepath)
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0056_pdfbox(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("./pdfbox/PDFAMetaDataValidationTestMiddleControlChar.pdf")]
+        [DataRow("./pdfbox/PDFAMetaDataValidationTestMiddleNul.pdf")]
+        [DataRow("./pdfbox/PDFAMetaDataValidationTestTrailingControlChar.pdf")]
+        [DataRow("./pdfbox/PDFAMetaDataValidationTestTrailingNul.pdf")]
+        [DataRow("./pdfbox/PDFAMetaDataValidationTestTrailingSpaces.pdf")]
+        [DataRow("./pdfbox/ccitt4-cib-test.pdf")]
+        [DataRow("./pdfbox/PDFBOX-3042-003177-p2.pdf")]
+        [DataRow("./pdfbox/png_demo.pdf")]
+        [DataRow("./pdfbox/survey.pdf")]
+        [DataRow("./pdfbox/test.unc.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0057_pdfbox(string filepath)
         {
             string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
             ASSERT.FileExists(pdf_filename);
@@ -487,9 +660,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/11-pages-with-labels.pdf")]
         [DataRow("./qpdf/11-pages.pdf")]
         [DataRow("./qpdf/2.pdf")]
-        [DataRow("./qpdf/20-pages.pdf")]
-        [DataRow("./qpdf/3.pdf")]
-        [DataRow("./qpdf/4.pdf")]
         [DataRow("./qpdf/5.pdf")]
         [DataRow("./qpdf/a.pdf")]
         [DataRow("./qpdf/add-contents.pdf")]
@@ -504,8 +674,24 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/appearances-quack.pdf")]
         [DataRow("./qpdf/append-page-content-damaged.pdf")]
         [DataRow("./qpdf/append-page-content.pdf")]
-        [DataRow("./qpdf/append-xref-loop-fixed.pdf")]
-        [DataRow("./qpdf/append-xref-loop.pdf")]
+        [DataRow("./qpdf-manual.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0070_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/bad-data-out.pdf")]
         [DataRow("./qpdf/bad-data.pdf")]
         [DataRow("./qpdf/bad-encryption-length.pdf")]
@@ -559,6 +745,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/button-set-broken.pdf")]
         [DataRow("./qpdf/button-set-out.pdf")]
         [DataRow("./qpdf/button-set.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0071_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/c-check-clear-in.pdf")]
         [DataRow("./qpdf/c-check-warn-in.pdf")]
         [DataRow("./qpdf/c-decrypt-R5-with-user.pdf")]
@@ -574,11 +777,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/c-normalized-content.pdf")]
         [DataRow("./qpdf/c-object-streams.pdf")]
         [DataRow("./qpdf/c-qdf.pdf")]
-        [DataRow("./qpdf/c-r2.pdf")]
-        [DataRow("./qpdf/c-r3.pdf")]
-        [DataRow("./qpdf/c-r4.pdf")]
-        [DataRow("./qpdf/c-r5-in.pdf")]
-        [DataRow("./qpdf/c-r6-in.pdf")]
         [DataRow("./qpdf/c-uncompressed-streams.pdf")]
         [DataRow("./qpdf/coalesce-out.pdf")]
         [DataRow("./qpdf/coalesce-split-1-2.pdf")]
@@ -593,11 +791,27 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/compress-objstm-xref.pdf")]
         [DataRow("./qpdf/compressed-metadata.pdf")]
         [DataRow("./qpdf/content-stream-errors.pdf")]
-        [DataRow("./qpdf/copied-positive-P.pdf")]
         [DataRow("./qpdf/copy-foreign-objects-in.pdf")]
         [DataRow("./qpdf/copy-foreign-objects-out1.pdf")]
         [DataRow("./qpdf/copy-foreign-objects-out2.pdf")]
         [DataRow("./qpdf/copy-foreign-objects-out3.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0072_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/custom-pipeline.pdf")]
         [DataRow("./qpdf/damaged-inline-image-out.pdf")]
         [DataRow("./qpdf/damaged-inline-image.pdf")]
@@ -623,26 +837,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/empty-info.pdf")]
         [DataRow("./qpdf/empty-object.pdf")]
         [DataRow("./qpdf/enc-base.pdf")]
-        [DataRow("./qpdf/enc-long-password.pdf")]
-        [DataRow("./qpdf/enc-R2,V1,O=master.pdf")]
-        [DataRow("./qpdf/enc-R2,V1,U=view,O=master.pdf")]
-        [DataRow("./qpdf/enc-R2,V1,U=view,O=view.pdf")]
-        [DataRow("./qpdf/enc-R2,V1.pdf")]
-        [DataRow("./qpdf/enc-R3,V2,O=master.pdf")]
-        [DataRow("./qpdf/enc-R3,V2,U=view,O=master.pdf")]
-        [DataRow("./qpdf/enc-R3,V2,U=view,O=view.pdf")]
-        [DataRow("./qpdf/enc-R3,V2.pdf")]
-        [DataRow("./qpdf/enc-XI-attachments-base.pdf")]
-        [DataRow("./qpdf/enc-XI-base.pdf")]
-        [DataRow("./qpdf/enc-XI-long-password.pdf")]
-        [DataRow("./qpdf/enc-XI-R6,V5,O=master.pdf")]
-        [DataRow("./qpdf/enc-XI-R6,V5,U=attachment,encrypted-attachments.pdf")]
-        [DataRow("./qpdf/enc-XI-R6,V5,U=view,attachments,cleartext-metadata.pdf")]
-        [DataRow("./qpdf/enc-XI-R6,V5,U=view,O=master.pdf")]
-        [DataRow("./qpdf/enc-XI-R6,V5,U=wwwww,O=wwwww.pdf")]
-        [DataRow("./qpdf/encrypted-40-bit-R3.pdf")]
-        [DataRow("./qpdf/encrypted-positive-P.pdf")]
-        [DataRow("./qpdf/encrypted-with-images.pdf")]
         [DataRow("./qpdf/eof-in-inline-image.pdf")]
         [DataRow("./qpdf/eof-reading-token.pdf")]
         [DataRow("./qpdf/eof-terminates-literal.pdf")]
@@ -660,6 +854,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/extra-header-newline.pdf")]
         [DataRow("./qpdf/extra-header-no-newline.pdf")]
         [DataRow("./qpdf/extract-duplicate-page.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0073_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/fax-decode-parms.pdf")]
         [DataRow("./qpdf/field-types (2).pdf")]
         [DataRow("./qpdf/field-types.pdf")]
@@ -678,7 +889,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/form-xobjects-out.pdf")]
         [DataRow("./qpdf/form.pdf")]
         [DataRow("./qpdf/from-scratch-0.pdf")]
-        [DataRow("./qpdf/fuzz-16214.pdf")]
         [DataRow("./qpdf/fx-overlay-56.pdf")]
         [DataRow("./qpdf/fx-overlay-57.pdf")]
         [DataRow("./qpdf/fx-overlay-58.pdf")]
@@ -716,6 +926,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/good7.pdf")]
         [DataRow("./qpdf/good8.pdf")]
         [DataRow("./qpdf/good9.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0074_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/hybrid-xref.pdf")]
         [DataRow("./qpdf/image-streams-small.pdf")]
         [DataRow("./qpdf/image-streams.pdf")]
@@ -727,6 +954,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/in.pdf")]
         [DataRow("./qpdf/indirect-decode-parms-out.pdf")]
         [DataRow("./qpdf/indirect-decode-parms.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0075A_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/indirect-r-arg.pdf")]
         [DataRow("./qpdf/inline-image-colorspace-lookup-out.pdf")]
         [DataRow("./qpdf/inline-image-colorspace-lookup.pdf")]
@@ -736,6 +980,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/input (2).pdf")]
         [DataRow("./qpdf/input.pdf")]
         [DataRow("./qpdf/invalid-id-xref.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0075B_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/issue-100.pdf")]
         [DataRow("./qpdf/issue-101.pdf")]
         [DataRow("./qpdf/issue-106.pdf")]
@@ -757,6 +1018,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/issue-335b.pdf")]
         [DataRow("./qpdf/issue-99.pdf")]
         [DataRow("./qpdf/issue-99b.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0075C_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/jpeg-qstream.pdf")]
         [DataRow("./qpdf/labels-split-01-06.pdf")]
         [DataRow("./qpdf/labels-split-07-11.pdf")]
@@ -766,6 +1044,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/leading-junk.pdf")]
         [DataRow("./qpdf/lin-delete-and-reuse.pdf")]
         [DataRow("./qpdf/lin-special.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0075D_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/lin0.pdf")]
         [DataRow("./qpdf/lin1.pdf")]
         [DataRow("./qpdf/lin2.pdf")]
@@ -776,6 +1071,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/lin7.pdf")]
         [DataRow("./qpdf/lin8.pdf")]
         [DataRow("./qpdf/lin9.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0075E_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/linearization-bounds-1.pdf")]
         [DataRow("./qpdf/linearization-bounds-2.pdf")]
         [DataRow("./qpdf/linearization-large-vector-alloc.pdf")]
@@ -792,7 +1104,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/merge-multiple-labels.pdf")]
         [DataRow("./qpdf/merge-three-files-1.pdf")]
         [DataRow("./qpdf/merge-three-files-2.pdf")]
-        [DataRow("./qpdf/metadata-crypt-filter.pdf")]
         [DataRow("./qpdf/minimal-1.pdf")]
         [DataRow("./qpdf/minimal-9.pdf")]
         [DataRow("./qpdf/minimal-dangling-out.pdf")]
@@ -840,6 +1151,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/outlines-with-loop.pdf")]
         [DataRow("./qpdf/outlines-with-old-root-dests.pdf")]
         [DataRow("./qpdf/override-compressed-object.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0076_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/p1-a-p2-a.pdf")]
         [DataRow("./qpdf/p1-a-p2-b.pdf")]
         [DataRow("./qpdf/p1-a.pdf")]
@@ -923,6 +1251,23 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/split-exp-group-01-05.pdf")]
         [DataRow("./qpdf/split-exp-group-06-10.pdf")]
         [DataRow("./qpdf/split-exp-group-11-11.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0077_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
         [DataRow("./qpdf/stamp.pdf")]
         [DataRow("./qpdf/stream-data.pdf")]
         [DataRow("./qpdf/stream-line-enders.pdf")]
@@ -940,7 +1285,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/token-filters-out.pdf")]
         [DataRow("./qpdf/tokenize-content-streams.pdf")]
         [DataRow("./qpdf/tokens.pdf")]
-        [DataRow("./qpdf/unfilterable-with-crypt.pdf")]
         [DataRow("./qpdf/unfilterable.pdf")]
         [DataRow("./qpdf/unique-resources.pdf")]
         [DataRow("./qpdf/unreferenced-dropped.pdf")]
@@ -955,17 +1299,147 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/uo-5.pdf")]
         [DataRow("./qpdf/uo-6.pdf")]
         [DataRow("./qpdf/uo-7.pdf")]
-        [DataRow("./qpdf/V4-aes-clearmeta.pdf")]
-        [DataRow("./qpdf/V4-aes.pdf")]
-        [DataRow("./qpdf/V4-clearmeta.pdf")]
-        [DataRow("./qpdf/V4.pdf")]
         [DataRow("./qpdf/warn-replace.pdf")]
         [DataRow("./qpdf/xref-errors.pdf")]
         [DataRow("./qpdf/xref-with-short-size.pdf")]
         [DataRow("./qpdf/zero-offset.pdf")]
         [DataRow("./qpdf-manual.pdf")]
         [DataTestMethod]
-        public void Test_PDF_metadata_extraction_via_multipurp_chunk0070_qpdf(string filepath)
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0078_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("./qpdf/fuzz-16214.pdf")]
+        [DataRow("./qpdf/20-pages.pdf")]
+        [DataRow("./qpdf/3.pdf")]
+        [DataRow("./qpdf/4.pdf")]
+        [DataRow("./qpdf/append-xref-loop-fixed.pdf")]
+        [DataRow("./qpdf/append-xref-loop.pdf")]
+        [DataRow("./qpdf/c-r2.pdf")]
+        [DataRow("./qpdf/c-r3.pdf")]
+        [DataRow("./qpdf/c-r4.pdf")]
+        [DataRow("./qpdf/c-r5-in.pdf")]
+        [DataRow("./qpdf/c-r6-in.pdf")]
+        [DataRow("./qpdf/copied-positive-P.pdf")]
+        [DataRow("./qpdf/enc-long-password.pdf")]
+        [DataRow("./qpdf/enc-R2,V1,O=master.pdf")]
+        [DataRow("./qpdf/enc-R2,V1,U=view,O=master.pdf")]
+        [DataRow("./qpdf/enc-R2,V1,U=view,O=view.pdf")]
+        [DataRow("./qpdf/enc-R2,V1.pdf")]
+        [DataRow("./qpdf/enc-R3,V2,O=master.pdf")]
+        [DataRow("./qpdf/enc-R3,V2,U=view,O=master.pdf")]
+        [DataRow("./qpdf/enc-R3,V2,U=view,O=view.pdf")]
+        [DataRow("./qpdf/enc-R3,V2.pdf")]
+        [DataRow("./qpdf/enc-XI-attachments-base.pdf")]
+        [DataRow("./qpdf/enc-XI-base.pdf")]
+        [DataRow("./qpdf/enc-XI-long-password.pdf")]
+        [DataRow("./qpdf/enc-XI-R6,V5,O=master.pdf")]
+        [DataRow("./qpdf/enc-XI-R6,V5,U=attachment,encrypted-attachments.pdf")]
+        [DataRow("./qpdf/enc-XI-R6,V5,U=view,attachments,cleartext-metadata.pdf")]
+        [DataRow("./qpdf/enc-XI-R6,V5,U=view,O=master.pdf")]
+        [DataRow("./qpdf/enc-XI-R6,V5,U=wwwww,O=wwwww.pdf")]
+        [DataRow("./qpdf/encrypted-40-bit-R3.pdf")]
+        [DataRow("./qpdf/encrypted-positive-P.pdf")]
+        [DataRow("./qpdf/encrypted-with-images.pdf")]
+        [DataRow("./qpdf/metadata-crypt-filter.pdf")]
+        [DataRow("./qpdf/unfilterable-with-crypt.pdf")]
+        [DataRow("./qpdf/V4-aes-clearmeta.pdf")]
+        [DataRow("./qpdf/V4-aes.pdf")]
+        [DataRow("./qpdf/V4-clearmeta.pdf")]
+        [DataRow("./qpdf/V4.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0079_qpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("tcpdf/example_003.pdf")]
+        [DataRow("tcpdf/example_008.pdf")]
+        [DataRow("tcpdf/example_012.pdf")]
+        [DataRow("tcpdf/example_013.pdf")]
+        [DataRow("tcpdf/example_014.pdf")]
+        [DataRow("tcpdf/example_015.pdf")]
+        [DataRow("tcpdf/example_017.pdf")]
+        [DataRow("tcpdf/example_018.pdf")]
+        [DataRow("tcpdf/example_020.pdf")]
+        [DataRow("tcpdf/example_022.pdf")]
+        [DataRow("tcpdf/example_023.pdf")]
+        [DataRow("tcpdf/example_024.pdf")]
+        [DataRow("tcpdf/example_025.pdf")]
+        [DataRow("tcpdf/example_026.pdf")]
+        [DataRow("tcpdf/example_027.pdf")]
+        [DataRow("tcpdf/example_028.pdf")]
+        [DataRow("tcpdf/example_030.pdf")]
+        [DataRow("tcpdf/example_031.pdf")]
+        [DataRow("tcpdf/example_032.pdf")]
+        [DataRow("tcpdf/example_033.pdf")]
+        [DataRow("tcpdf/example_034.pdf")]
+        [DataRow("tcpdf/example_035.pdf")]
+        [DataRow("tcpdf/example_036.pdf")]
+        [DataRow("tcpdf/example_037.pdf")]
+        [DataRow("tcpdf/example_038.pdf")]
+        [DataRow("tcpdf/example_040.pdf")]
+        [DataRow("tcpdf/example_041.pdf")]
+        [DataRow("tcpdf/example_042.pdf")]
+        [DataRow("tcpdf/example_046.pdf")]
+        [DataRow("tcpdf/example_050.pdf")]
+        [DataRow("tcpdf/example_051.pdf")]
+        [DataRow("tcpdf/example_052.pdf")]
+        [DataRow("tcpdf/example_053.pdf")]
+        [DataRow("tcpdf/example_054.pdf")]
+        [DataRow("tcpdf/example_055.pdf")]
+        [DataRow("tcpdf/example_056.pdf")]
+        [DataRow("tcpdf/example_057.pdf")]
+        [DataRow("tcpdf/example_058.pdf")]
+        [DataRow("tcpdf/example_060.pdf")]
+        [DataRow("tcpdf/example_061.pdf")]
+        [DataRow("tcpdf/example_062.pdf")]
+        [DataRow("tcpdf/example_063.pdf")]
+        [DataRow("tcpdf/example_064.pdf")]
+        [DataRow("tcpdf/example_065.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0080_tcpdf(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("tcpdf/example_016.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0081_tcpdf(string filepath)
         {
             string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
             ASSERT.FileExists(pdf_filename);
@@ -982,3 +1456,4 @@ namespace QiqqaUnitTester.PDFDocument
         }
     }
 }
+
