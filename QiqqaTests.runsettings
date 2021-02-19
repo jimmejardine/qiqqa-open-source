@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+	<!-- Configurations that affect the Test Framework -->
+	<RunConfiguration>
+		<!-- Path relative to directory that contains .runsettings file-->
+		<ResultsDirectory>.\TestResults</ResultsDirectory>
+
+		<!-- TestSessionTimeout was introduced in Visual Studio 2017 version 15.5 -->
+		<!-- Specify timeout in milliseconds. A valid value should be greater than 0 -->
+		<!-- <TestSessionTimeout>10000</TestSessionTimeout> -->
+
+		<!-- true or false -->
+		<!-- Value that specifies the exit code when no tests are discovered -->
+		<TreatNoTestsAsError>true</TreatNoTestsAsError>
+	</RunConfiguration>
+
+	<!-- Parameters used by tests at run time -->
+	<TestRunParameters>
+		<Parameter name="QiqqaEvilPDFCollectionBasePath" value="G:/Qiqqa/evil-base" />
+	</TestRunParameters>
+
+	<!-- Configuration for loggers -->
+	<LoggerRunSettings>
+		<Loggers>
+			<Logger friendlyName="console" enabled="True">
+				<Configuration>
+					<Verbosity>quiet</Verbosity>
+				</Configuration>
+			</Logger>
+		</Loggers>
+	</LoggerRunSettings>
+
+	<!-- Adapter Specific sections -->
+
+	<!-- MSTest adapter -->
+	<MSTest>
+		<MapInconclusiveToFailed>true</MapInconclusiveToFailed>
+		<CaptureTraceOutput>true</CaptureTraceOutput>
+		<DeleteDeploymentDirectoryAfterTestRunIsComplete>false</DeleteDeploymentDirectoryAfterTestRunIsComplete>
+		<DeploymentEnabled>false</DeploymentEnabled>
+	</MSTest>
+
+</RunSettings>
