@@ -291,7 +291,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./Steen - Gaussian Quadratures for the Integrals xxx.pdf")]
         [DataRow("./tb87nemeth.pdf")]
         [DataRow("./test.pdf")]
-        [DataRow("./testfile1.pdf")]
         [DataRow("./testflow_ctl_A4.pdf")]
         [DataRow("./testflow_ctl_LTR.pdf")]
         [DataRow("./testflow_doc.pdf")]
@@ -318,6 +317,7 @@ namespace QiqqaUnitTester.PDFDocument
             );
         }
 
+        [DataRow("./testfile1.pdf")]
         [DataRow("./testfile2.pdf")]
         [DataTestMethod]
         public void Test_PDF_metadata_extraction_via_multipurp_chunk0031(string filepath)
@@ -434,7 +434,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/data-000001.pdf")]
         [DataRow("./pdfbox/debug.xml.pdf")]
         [DataRow("./pdfbox/DifferentDALevels.pdf")]
-        [DataRow("./pdfbox/document.pdf")]
         [DataRow("./pdfbox/embedded_zip.pdf")]
         [DataRow("./pdfbox/excel.pdf")]
         [DataRow("./pdfbox/F001u_3_7j.pdf")]
@@ -511,7 +510,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/PDFBOX-3833-reduced.pdf")]
         [DataRow("./pdfbox/PDFBOX-4322-Empty-ToUnicode-reduced.pdf")]
         [DataRow("./pdfbox/PDFBOX-4372-2DAYCLVOFG3FTVO4RMAJJL3VTPNYDFRO-p4_reduced.pdf")]
-        [DataRow("./pdfbox/PDFBOX-4417-001031.pdf")]
         [DataRow("./pdfbox/PDFBOX-4417-054080.pdf")]
         [DataTestMethod]
         public void Test_PDF_metadata_extraction_via_multipurp_chunk0054_pdfbox(string filepath)
@@ -564,7 +562,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/simple-openoffice.pdf")]
         [DataRow("./pdfbox/SimpleForm2Fields.pdf")]
         [DataRow("./pdfbox/source.pdf")]
-        [DataRow("./pdfbox/test-landscape2.pdf")]
         [DataRow("./pdfbox/test.pdf")]
         [DataRow("./pdfbox/testPDF_multiFormatEmbFiles.pdf")]
         [DataRow("./pdfbox/test_pagelabels.pdf")]
@@ -597,7 +594,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/ccitt4-cib-test.pdf")]
         [DataRow("./pdfbox/PDFBOX-3042-003177-p2.pdf")]
         [DataRow("./pdfbox/png_demo.pdf")]
-        [DataRow("./pdfbox/survey.pdf")]
         [DataRow("./pdfbox/test.unc.pdf")]
         [DataTestMethod]
         public void Test_PDF_metadata_extraction_via_multipurp_chunk0057_pdfbox(string filepath)
@@ -620,7 +616,28 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/PasswordSample-256bit.pdf")]
         [DataRow("./pdfbox/PasswordSample-40bit.pdf")]
         [DataTestMethod]
-        public void Test_PDF_metadata_extraction_via_multipurp_chunk0051_pdfbox_password_access(string filepath)
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0058_pdfbox_password_access(string filepath)
+        {
+            string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
+            ASSERT.FileExists(pdf_filename);
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, pdf_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+        [DataRow("./pdfbox/document.pdf")]
+        [DataRow("./pdfbox/PDFBOX-4417-001031.pdf")]
+        [DataRow("./pdfbox/test-landscape2.pdf")]
+        [DataRow("./pdfbox/survey.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_metadata_extraction_via_multipurp_chunk0059_pdfbox(string filepath)
         {
             string pdf_filename = MiscTestHelpers.GetNormalizedPathToAnyTestDataTestFile($"fixtures/PDF/{ filepath.Replace("./", "") }");
             ASSERT.FileExists(pdf_filename);
