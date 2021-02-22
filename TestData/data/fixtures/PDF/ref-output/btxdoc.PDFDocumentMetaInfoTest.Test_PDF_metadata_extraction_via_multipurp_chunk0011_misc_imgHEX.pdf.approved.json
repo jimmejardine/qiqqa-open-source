@@ -1,0 +1,926 @@
+﻿{
+  "info": {
+    "PageCount": 16,
+    "PDFVersion": "PDF-1.5",
+    "Chapters": 0,
+    "ChapterPages": null,
+    "Title": null,
+    "Author": null,
+    "Format": "PDF 1.5",
+    "Encryption": null,
+    "PDFCreator": "TeX",
+    "PDFProducer": "pdfTeX-1.40.11",
+    "Subject": null,
+    "Keywords": null,
+    "Creation_Date": "2010-11-26T01:14:40Z",
+    "Modification_Date": "2010-11-26T01:14:40Z",
+    "Permissions": "print, copy, edit, annotate",
+    "PDFStatus": "PDF document with 1 update.",
+    "DocumentUpdateCount": 1,
+    "ChangeHistoryValidation": "Change history seems valid.",
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": "Document changes conform to permissions",
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": false,
+    "HasDocumentOutlines": false,
+    "AttachedFilesCount": 0,
+    "EmbeddedJavaScriptFilesCount": 0,
+    "DocumentIsCorrupted": false,
+    "errors": [],
+    "raw_multipurp_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "W:\\Projects\\sites\\library.visyond.gov\\80\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\btxdoc.pdf",
+      "GlobalInfo": {
+        "Version": "PDF-1.5",
+        "Info": {
+          "Producer": "pdfTeX-1.40.11",
+          "Creator": "TeX",
+          "CreationDate": "D:20101125171440-08'00'",
+          "ModDate": "D:20101125171440-08'00'",
+          "Trapped": "False",
+          "PTEX.Fullbanner": "This is pdfTeX, Version 3.1415926-1.40.11-2.2 (TeX Live 2010) kpathsea version 6.0.0"
+        },
+        "Pages": 16,
+        "Chapters": 1,
+        "DocumentOutlines": []
+      },
+      "FirstPage": 1,
+      "LastPage": 16,
+      "PageInfo": [
+        {
+          "PageNumber": 1,
+          "Mediaboxes": [
+            {
+              "Page": 1,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "VBBGSH+CMR17",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "PBLVYW+CMR12",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "OQACSQ+CMBX12",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 2,
+          "Mediaboxes": [
+            {
+              "Page": 2,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "OQACSQ+CMBX12",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "PBLVYW+CMR12",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 3,
+          "Mediaboxes": [
+            {
+              "Page": 3,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 3,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 3,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 3,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 4,
+          "Mediaboxes": [
+            {
+              "Page": 4,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 5,
+          "Mediaboxes": [
+            {
+              "Page": 5,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 5,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 5,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 5,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 5,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 5,
+              "FontType": "Type1",
+              "FontName": "OQACSQ+CMBX12",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 6,
+          "Mediaboxes": [
+            {
+              "Page": 6,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 7,
+          "Mediaboxes": [
+            {
+              "Page": 7,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "OQACSQ+CMBX12",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "WCJTWI+CMSY10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "ZUJZBT+CMBX10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 8,
+          "Mediaboxes": [
+            {
+              "Page": 8,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "ZUJZBT+CMBX10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "EWRPFB+CMTI10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 9,
+          "Mediaboxes": [
+            {
+              "Page": 9,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "ZUJZBT+CMBX10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "EWRPFB+CMTI10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "OQACSQ+CMBX12",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 10,
+          "Mediaboxes": [
+            {
+              "Page": 10,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "ZUJZBT+CMBX10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "EWRPFB+CMTI10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 11,
+          "Mediaboxes": [
+            {
+              "Page": 11,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 11,
+              "FontType": "Type1",
+              "FontName": "ZUJZBT+CMBX10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 11,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 11,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 11,
+              "FontType": "Type1",
+              "FontName": "EWRPFB+CMTI10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 11,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 11,
+              "FontType": "Type1",
+              "FontName": "OQACSQ+CMBX12",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 11,
+              "FontType": "Type1",
+              "FontName": "ZFCKQJ+CMMI10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 12,
+          "Mediaboxes": [
+            {
+              "Page": 12,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 12,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 12,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 12,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 12,
+              "FontType": "Type1",
+              "FontName": "EWRPFB+CMTI10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 12,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 13,
+          "Mediaboxes": [
+            {
+              "Page": 13,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 13,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 13,
+              "FontType": "Type1",
+              "FontName": "EWRPFB+CMTI10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 13,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 13,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 13,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 14,
+          "Mediaboxes": [
+            {
+              "Page": 14,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 14,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 14,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 14,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 14,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 15,
+          "Mediaboxes": [
+            {
+              "Page": 15,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 15,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 15,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 15,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 15,
+              "FontType": "Type1",
+              "FontName": "YZBYEZ+CMR7",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 15,
+              "FontType": "Type1",
+              "FontName": "EWRPFB+CMTI10",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        },
+        {
+          "PageNumber": 16,
+          "Mediaboxes": [
+            {
+              "Page": 16,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 16,
+              "FontType": "Type1",
+              "FontName": "JJVDAH+CMR10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 16,
+              "FontType": "Type1",
+              "FontName": "KOSHEL+CMTT10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 16,
+              "FontType": "Type1",
+              "FontName": "ARKBPL+CMCSC10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 16,
+              "FontType": "Type1",
+              "FontName": "OQACSQ+CMBX12",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 16,
+              "FontType": "Type1",
+              "FontName": "EWRPFB+CMTI10",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 16,
+              "FontType": "Type1",
+              "FontName": "HBXYUD+CMTI7",
+              "FontEncoding": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ]
+        }
+      ],
+      "DocumentGeneralInfo": {
+        "Format": "PDF 1.5",
+        "Encryption": "None",
+        "PDF_Creator": "TeX",
+        "PDF_Producer": "pdfTeX-1.40.11",
+        "Creation_Date": "D:20101125171440-08'00'",
+        "Modification_Date": "D:20101125171440-08'00'",
+        "MetaInfoDictionary": {
+          "Producer": "pdfTeX-1.40.11",
+          "Creator": "TeX",
+          "CreationDate": "D:20101125171440-08'00'",
+          "ModDate": "D:20101125171440-08'00'",
+          "Trapped": "False",
+          "PTEX.Fullbanner": "This is pdfTeX, Version 3.1415926-1.40.11-2.2 (TeX Live 2010) kpathsea version 6.0.0"
+        },
+        "Permissions": "print, copy, edit, annotate",
+        "Status": "PDF document with 1 update.",
+        "DocWasLinearized": false,
+        "DocumentUpdateCount": 1,
+        "ChangeHistoryValidation": "Change history seems valid.",
+        "UpdatesStatus": "Document changes conform to permissions",
+        "WasRepaired": false,
+        "NeedsPassword": false,
+        "WasCryptedWithEmptyPassword": false
+      }
+    }
+  ]
+}

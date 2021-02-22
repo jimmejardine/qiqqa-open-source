@@ -1,0 +1,270 @@
+﻿{
+  "info": {
+    "PageCount": 1,
+    "PDFVersion": "PDF-1.7",
+    "Chapters": 0,
+    "ChapterPages": null,
+    "Title": null,
+    "Author": null,
+    "Format": "PDF 1.7",
+    "Encryption": null,
+    "PDFCreator": "Adobe Acrobat 8.1 Combine Files",
+    "PDFProducer": "Adobe Acrobat 8.1",
+    "Subject": null,
+    "Keywords": null,
+    "Creation_Date": "2006-05-24T20:28:02Z",
+    "Modification_Date": "2012-04-26T15:44:37Z",
+    "Permissions": "print, copy, edit, annotate",
+    "PDFStatus": "PDF linearized document with 1 update.",
+    "DocumentUpdateCount": 1,
+    "ChangeHistoryValidation": "Change history seems valid.",
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": "Document changes conform to permissions",
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": false,
+    "HasDocumentOutlines": false,
+    "AttachedFilesCount": 2,
+    "EmbeddedJavaScriptFilesCount": 1,
+    "DocumentIsCorrupted": false,
+    "errors": [],
+    "raw_multipurp_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "W:\\Projects\\sites\\library.visyond.gov\\80\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\pdfbox\\testPDFPackage.pdf",
+      "GlobalInfo": {
+        "Version": "PDF-1.7",
+        "Info": {
+          "CreationDate": "D:20060524132802-07'00'",
+          "Creator": "Adobe Acrobat 8.1 Combine Files",
+          "Keywords": "",
+          "Producer": "Adobe Acrobat 8.1",
+          "ModDate": "D:20120426114437-04'00'"
+        },
+        "Metadata": {
+          "type": "stream",
+          "raw_data": "<?xpacket begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>\n<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"Adobe XMP Core 4.0-c316 44.253921, Sun Oct 01 2006 17:14:39\">\n   <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n      <rdf:Description rdf:about=\"\"\n            xmlns:pdf=\"http://ns.adobe.com/pdf/1.3/\">\n         <pdf:Keywords/>\n         <pdf:Producer>Adobe Acrobat 8.1</pdf:Producer>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:xap=\"http://ns.adobe.com/xap/1.0/\">\n         <xap:ModifyDate>2012-04-26T11:44:37-04:00</xap:ModifyDate>\n         <xap:CreateDate>2006-05-24T13:28:02-07:00</xap:CreateDate>\n         <xap:MetadataDate>2012-04-26T11:44:37-04:00</xap:MetadataDate>\n         <xap:CreatorTool>Adobe Acrobat 8.1 Combine Files</xap:CreatorTool>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n         <dc:format>application/pdf</dc:format>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:xapMM=\"http://ns.adobe.com/xap/1.0/mm/\">\n         <xapMM:DocumentID>uuid:cc4a97c5-eb63-11da-bce0-000a95c39fe2</xapMM:DocumentID>\n         <xapMM:InstanceID>uuid:6c431eee-4bfc-421e-98d3-ce6b24c7e729</xapMM:InstanceID>\n      </rdf:Description>\n   </rdf:RDF>\n</x:xmpmeta>\n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                           \n<?xpacket end=\"w\"?>",
+          "parsed_data": "(xmpmeta\n=x:xmptk Adobe XMP Core 4.0-c316 44.253921, Sun Oct 01 2006 17:14:39\n=xmlns:x adobe:ns:meta/\n  (RDF\n  =xmlns:rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#\n    (Description\n    =xmlns:pdf http://ns.adobe.com/pdf/1.3/\n    =rdf:about \n      (Keywords\n      )Keywords\n      (Producer\n        \"Adobe Acrobat 8.1\"\n      )Producer\n    )Description\n    (Description\n    =xmlns:xap http://ns.adobe.com/xap/1.0/\n    =rdf:about \n      (ModifyDate\n        \"2012-04-26T11:44:37-04:00\"\n      )ModifyDate\n      (CreateDate\n        \"2006-05-24T13:28:02-07:00\"\n      )CreateDate\n      (MetadataDate\n        \"2012-04-26T11:44:37-04:00\"\n      )MetadataDate\n      (CreatorTool\n        \"Adobe Acrobat 8.1 Combine Files\"\n      )CreatorTool\n    )Description\n    (Description\n    =xmlns:dc http://purl.org/dc/elements/1.1/\n    =rdf:about \n      (format\n        \"application/pdf\"\n      )format\n    )Description\n    (Description\n    =xmlns:xapMM http://ns.adobe.com/xap/1.0/mm/\n    =rdf:about \n      (DocumentID\n        \"uuid:cc4a97c5-eb63-11da-bce0-000a95c39fe2\"\n      )DocumentID\n      (InstanceID\n        \"uuid:6c431eee-4bfc-421e-98d3-ce6b24c7e729\"\n      )InstanceID\n    )Description\n  )RDF\n)xmpmeta\n"
+        },
+        "Pages": 1,
+        "Chapters": 1,
+        "DocumentOutlines": [],
+        "AttachedFiles": {
+          "JavaScript": {
+            "Names": [
+              {
+                "Name": "ADBE::FileAttachmentsCompatibility",
+                "Value": {
+                  "S": "JavaScript",
+                  "JS": "var v = app.viewerVersion;\nif (v < 7)\n{\n\tvar n = 0;\n\tif (this.dataObjects != null)\n\t\tn = this.dataObjects.length;\n\tif (v >= 5 && v < 6 && n > 0 && (app.viewerVariation == \"Full\" || app.viewerVariation == \"Fill-In\"))\n\t{\n\t\tif (this.external)\n\t\t\tapp.alert(\"This document has file attachments. To view the attachments, click the Save button to save a copy of the document, open the copy in Acrobat, and use the File > Document Properties > Embedded Data Objects menu.\", 3, 0);\n\t\telse\n\t\t\tapp.alert(\"This document has file attachments. Use the File > Document Properties > Embedded Data Objects menu to view the attachments.\", 3, 0);\n\t}\n\telse if (v >= 6 && v < 7)\n\t{\n\t\tif (n == 0)\n\t\t{\n\t\t\tvar np = this.numPages;\n\t\t\tsyncAnnotScan();\n\t\t\tfor (var p = 0; p < np && n == 0; ++p)\n\t\t\t{\n\t\t\t\tvar annots = this.getAnnots(p);\n\t\t\t\tif (annots != null)\n\t\t\t\t{\n\t\t\t\t\tfor (var i = 0; i < annots.length; ++i)\n\t\t\t\t\t{\n\t\t\t\t\t\tif (annots[i].type == \"FileAttachment\")\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tn = 1;\n\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif (n > 0)\n\t\t{\n\t\t\tif (this.external)\n\t\t\t\tapp.alert(\"This document has file attachments. To view the attachments, click the black triangle at the top of the document window's vertical scrollbar and choose File Attachments.\", 3, 0);\n\t\t\telse\n\t\t\t\tapp.alert(\"This document has file attachments. Use the Document > File Attachments menu to view the attachments.\", 3, 0);\n\t\t}\n\t}\n}\n"
+                }
+              }
+            ]
+          },
+          "EmbeddedFiles": {
+            "Names": [
+              {
+                "Name": "PDF1.pdf",
+                "Value": {
+                  "IsEmbeddedFile": true,
+                  "EmbeddedFileType": "application/pdf",
+                  "EmbeddedFileName": "PDF1.pdf",
+                  "EmbeddedFileIndex": 0,
+                  "EmbedLength": 30825,
+                  "EmbedFilter": "FlateDecode",
+                  "FileDataLength": 35964,
+                  "FileCreationDate": "D:20120426114351-04'00'",
+                  "FileModDate": "D:20120426114352-04'00'",
+                  "FileSize": 35964,
+                  "FileCheckSum": "85 C8 72 07 C9 39 1A 9F 1A E5 C0 A5 1A 41 B2 08",
+                  "FileDesc": "",
+                  "FileRecType": "Filespec",
+                  "UF": "PDF1.pdf",
+                  "CI": {
+                    "Index": 0
+                  },
+                  "F": "PDF1.pdf",
+                  "EF": {
+                    "F": {
+                      "type": "stream",
+                      "raw_data": {
+                        "Subtype": "application/pdf",
+                        "Length": 30825,
+                        "Filter": "FlateDecode",
+                        "DL": 35964,
+                        "Params": {
+                          "CreationDate": "D:20120426114351-04'00'",
+                          "ModDate": "D:20120426114352-04'00'",
+                          "Size": 35964,
+                          "CheckSum": "85 C8 72 07 C9 39 1A 9F 1A E5 C0 A5 1A 41 B2 08"
+                        }
+                      }
+                    }
+                  },
+                  "Desc": "",
+                  "Type": "Filespec"
+                }
+              },
+              {
+                "Name": "PDF2.pdf",
+                "Value": {
+                  "IsEmbeddedFile": true,
+                  "EmbeddedFileType": "application/pdf",
+                  "EmbeddedFileName": "PDF2.pdf",
+                  "EmbeddedFileIndex": 1,
+                  "EmbedLength": 30814,
+                  "EmbedFilter": "FlateDecode",
+                  "FileDataLength": 35961,
+                  "FileCreationDate": "D:20120426114352-04'00'",
+                  "FileModDate": "D:20120426114352-04'00'",
+                  "FileSize": 35961,
+                  "FileCheckSum": "3F 19 EC 21 4C 61 B9 4F 20 DA 64 99 C4 A1 D5 C1",
+                  "FileDesc": "",
+                  "FileRecType": "Filespec",
+                  "UF": "PDF2.pdf",
+                  "CI": {
+                    "Index": 1
+                  },
+                  "F": "PDF2.pdf",
+                  "EF": {
+                    "F": {
+                      "type": "stream",
+                      "raw_data": {
+                        "Subtype": "application/pdf",
+                        "Length": 30814,
+                        "Filter": "FlateDecode",
+                        "DL": 35961,
+                        "Params": {
+                          "CreationDate": "D:20120426114352-04'00'",
+                          "ModDate": "D:20120426114352-04'00'",
+                          "Size": 35961,
+                          "CheckSum": "3F 19 EC 21 4C 61 B9 4F 20 DA 64 99 C4 A1 D5 C1"
+                        }
+                      }
+                    }
+                  },
+                  "Desc": "",
+                  "Type": "Filespec"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "FirstPage": 1,
+      "LastPage": 1,
+      "PageInfo": [
+        {
+          "PageNumber": 1,
+          "Mediaboxes": [
+            {
+              "Page": 1,
+              "Bounds": [
+                0,
+                0,
+                576,
+                360
+              ]
+            }
+          ],
+          "Fonts": [
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "WMCRDO+MyriadPro-Bold",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "VESLPQ+MyriadPro-Regular",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "VESLPQ+MyriadPro-Semibold",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "Images": [
+            {
+              "Page": 1,
+              "ImageFilter": {
+                "Filter": "DCT"
+              },
+              "ImageWidth": 576,
+              "ImageHeight": 360,
+              "ImageDimensions": {
+                "W": 576,
+                "H": 360
+              },
+              "ImageBPC": 8,
+              "ImageCS": "DevGray",
+              "Image": {
+                "type": "stream",
+                "raw_data": {
+                  "Intent": "RelativeColorimetric",
+                  "Subtype": "Image",
+                  "Length": 3388,
+                  "Filter": "DCTDecode",
+                  "Name": "X",
+                  "BitsPerComponent": 8,
+                  "ColorSpace": "DeviceGray",
+                  "Width": 576,
+                  "Height": 360,
+                  "Type": "XObject"
+                }
+              }
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            576,
+            360
+          ],
+          "LinksInPage": [
+            {
+              "LinkType": "External",
+              "Url": "http://www.adobe.com/products/acrobat/readstep2.html",
+              "LinkBounds": [
+                80.4587,
+                243.912,
+                504.618,
+                264.6857
+              ]
+            }
+          ]
+        }
+      ],
+      "DocumentGeneralInfo": {
+        "Format": "PDF 1.7",
+        "Encryption": "None",
+        "PDF_Creator": "Adobe Acrobat 8.1 Combine Files",
+        "PDF_Producer": "Adobe Acrobat 8.1",
+        "Keywords": "",
+        "Creation_Date": "D:20060524132802-07'00'",
+        "Modification_Date": "D:20120426114437-04'00'",
+        "MetaInfoDictionary": {
+          "CreationDate": "D:20060524132802-07'00'",
+          "Creator": "Adobe Acrobat 8.1 Combine Files",
+          "Keywords": "",
+          "Producer": "Adobe Acrobat 8.1",
+          "ModDate": "D:20120426114437-04'00'"
+        },
+        "Permissions": "print, copy, edit, annotate",
+        "Status": "PDF linearized document with 1 update.",
+        "DocWasLinearized": true,
+        "DocumentUpdateCount": 1,
+        "ChangeHistoryValidation": "Change history seems valid.",
+        "UpdatesStatus": "Document changes conform to permissions",
+        "WasRepaired": false,
+        "NeedsPassword": false,
+        "WasCryptedWithEmptyPassword": false
+      }
+    }
+  ]
+}
