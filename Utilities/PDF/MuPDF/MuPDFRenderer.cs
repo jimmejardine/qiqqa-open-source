@@ -18,6 +18,32 @@ namespace Utilities.PDF.MuPDF
     public class PDFDocumentMuPDFMetaInfo
     {
         public int PageCount = -1;
+        public string PDFVersion;
+        public int Chapters = -1;
+        public List<int> ChapterPages;
+        public string Title;
+        public string Author;
+        public string Format;
+        public string Encryption;
+        public string PDFCreator;
+        public string PDFProducer;
+        public string Subject;
+        public string Keywords;
+        public DateTime? Creation_Date = null;
+        public DateTime? Modification_Date = null;
+        public string Permissions;
+        public string PDFStatus;
+        public int DocumentUpdateCount = -1;
+        public string ChangeHistoryValidation;
+        public int FormFieldSignaturesCount = 0;
+        public string UpdatesStatus;
+        public bool WasRepaired;
+        public bool NeedsPassword;
+        public bool WasCryptedWithEmptyPassword;
+        public bool HasDocumentOutlines;
+        public int AttachedFilesCount = 0;
+        public int EmbeddedJavaScriptFilesCount = 0;
+
         public bool DocumentIsCorrupted = false;
 
         // ---- RAW content + error feedback items: --------------------------------------------------
@@ -74,6 +100,51 @@ namespace Utilities.PDF.MuPDF
         public List<MultiPurpDocumentOutline> Children;
     }
 
+    public class MultiPurpAttachedJavascriptFile
+    {
+        public string S; /* 'JavaScript' */
+        public string JS; /* the JS source code */
+    }
+
+    public class MultiPurpAttachedJavascriptFiles
+    {
+        public List<MultiPurpAttachedJavascriptFile> Names;
+    }
+
+    public class MultiPurpAttachedEmbeddedFile
+    {
+        public bool? IsEmbeddedFile;
+        public string EmbeddedFileType;
+        public string EmbeddedFileName;
+        public string UF;
+        public int? EmbeddedFileIndex;
+        public object CI;
+        public string F;
+        public object EF;
+        public string FileSubtype;
+        public int? EmbedLength;
+        public string EmbedFilter;
+        public int? FileDataLength;
+        public string FileCreationDate;
+        public string FileModDate;
+        public int? FileSize;
+        public string FileCheckSum;
+        public string FileDesc;
+        public string FileRecType;
+    }
+
+    public class MultiPurpAttachedEmbeddedFiles
+    {
+        public List<MultiPurpAttachedEmbeddedFile> Names;
+    }
+
+    public class MultiPurpAttachedFiles
+    {
+        public object AP;
+        public MultiPurpAttachedJavascriptFiles JavaScript;
+        public MultiPurpAttachedEmbeddedFiles EmbeddedFiles;
+    }
+
     public class MultiPurpDocumentGlobalInfo
     {
         public string Version;
@@ -84,6 +155,7 @@ namespace Utilities.PDF.MuPDF
         public int? Chapters;
         public List<int> ChapterPages;
         public List<MultiPurpDocumentOutline> DocumentOutlines;
+        public MultiPurpAttachedFiles AttachedFiles;
         public MultiPurpGatheredErrors GatheredErrors;
     }
 
@@ -177,6 +249,21 @@ namespace Utilities.PDF.MuPDF
         public List<float> LinkBounds;
     }
 
+    public class MultiPurpLayerConfig
+    {
+        public string Name;
+        public string Creator;
+    }
+
+    public class MultiPurpUILayerConfig
+    {
+        public int? Depth;
+        public string Type;
+        public bool? Selected;
+        public bool? Locked;
+        public string Text;
+    }
+
     public class MultiPurpSinglePageInfo
     {
         public int? PageNumber;
@@ -186,15 +273,10 @@ namespace Utilities.PDF.MuPDF
         public List<float> PageBounds;
         public List<MultiPurpPageAnnotation> Annotations;
         public List<MultiPurpLinkInPage> LinksInPage;
+        public List<MultiPurpLayerConfig> PDFLayerConfigs;
+        public List<MultiPurpUILayerConfig> PDFUILayerConfigs;
         public string PageError;
         public MultiPurpGatheredErrors GatheredErrors;
-    }
-
-    public class MultiPurpPageSequenceItem
-    {
-        public int? FirstPage;
-        public int? LastPage;
-        public List<MultiPurpSinglePageInfo> Info;
     }
 
     public class MultiPurpFormFieldSignature
@@ -227,21 +309,17 @@ namespace Utilities.PDF.MuPDF
         public string UpdatesStatus;
         public bool? WasRepaired;
         public bool? NeedsPassword;
-    }
-
-    public class MultiPurpPageInfoSeriesItem
-    {
-        public string InfoMode;
-        public List<MultiPurpPageSequenceItem> PageSequence;
-        public MultiPurpDocumentGeneralInfo DocumentGeneralInfo;
-        public MultiPurpGatheredErrors GatheredErrors;
+        public bool? WasCryptedWithEmptyPassword;
     }
 
     public class MultiPurpDocumentInfoObject
     {
         public string DocumentFilePath;
         public MultiPurpDocumentGlobalInfo GlobalInfo;
-        public List<MultiPurpPageInfoSeriesItem> PageInfoSeries;
+            public int? FirstPage;
+            public int? LastPage;
+            public List<MultiPurpSinglePageInfo> PageInfo;
+        public MultiPurpDocumentGeneralInfo DocumentGeneralInfo;
         public MultiPurpGatheredErrors GatheredErrors;
     }
 
@@ -334,12 +412,162 @@ namespace Utilities.PDF.MuPDF
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------
 
+        public static DateTime? ParsePDFTimestamp(string date_str)
+        {
+            if (String.IsNullOrWhiteSpace(date_str))
+                return null;
+
+            date_str = date_str.Trim();
+            if (date_str.StartsWith("D:"))
+                date_str = date_str.Replace("D:", "");
+
+            // now there's a couple formats we've seen out there, next to our own 
+            // multipurp "D:%Y%m%d%H%M%SZ" strftime() and "D:%Y-%m-%d %H:%M:%S UTC" fz_printf("%T") outputs:
+            // "D:%Y%m%d%H%M%S[-+]TZ'TZ'" for timezoned timestamps, e.g. "D:20120208094057-08'00'" or "D:20090612163852+02'00'"
+            DateTime t;
+
+            string[] dt_formats =
+            {
+                "yyyyMMddHHmmssK",
+                "yyyyMMddHHmmsszzz",
+                "yyyyMMddHHmmss",
+                "yyyy/MM/dd HH:mm:ss UTC",
+                "yyyy-MM-dd HH:mm:ss UTC",
+            };
+            if (DateTime.TryParseExact(date_str, dt_formats, null, System.Globalization.DateTimeStyles.AdjustToUniversal, out t))
+                return t;
+            // copy with "HH'MM'" timezone formats:
+            date_str = date_str.Replace("'", ":").TrimEnd(":".ToCharArray());
+            if (DateTime.TryParseExact(date_str, dt_formats, null, System.Globalization.DateTimeStyles.AdjustToUniversal, out t))
+                return t;
+
+            // last resort: try to parse any generic timestamp
+            if (DateTime.TryParse(date_str, out t))
+                return t;
+            return null;
+        }
+
+        public static PDFDocumentMuPDFMetaInfo ParseDocumentMetaInfo(string json)
+        {
+            PDFDocumentMuPDFMetaInfo rv = new PDFDocumentMuPDFMetaInfo();
+
+            rv.raw_multipurp_text = json;
+
+            rv.raw_decoded_json = JsonConvert.DeserializeObject<List<MultiPurpDocumentInfoObject>>(json,
+                new JsonSerializerSettings
+                {
+                    Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+                    {
+                        rv.errors.Add(args.ErrorContext.Error.Message);
+                        args.ErrorContext.Handled = true;
+                    },
+                                //Converters = { new IsoDateTimeConverter() }
+                            });
+
+            if (rv.raw_decoded_json != null)
+            {
+                foreach (MultiPurpDocumentInfoObject raw_infos in rv.raw_decoded_json)
+                {
+                    var info = raw_infos.GlobalInfo;
+                    if (info?.Pages != null)
+                    {
+                        rv.PageCount = info.Pages.Value;
+                    }
+
+                    // when the document had to be reported or caused trouble, we flag it as "corrupted":
+                    if (raw_infos.PageInfo.Count > 0 && (raw_infos.DocumentGeneralInfo?.WasRepaired ?? false))
+                    {
+                        rv.DocumentIsCorrupted = true;
+                    }
+
+                    // when we have ZERO pages, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
+                    if (raw_infos.PageInfo.Count == 0)
+                    {
+                        rv.DocumentIsCorrupted = true;
+                    }
+
+                    // when we have an outer error block, then the errors were severe and we surely have a corrupted (or at least a very untrustworthy!) PDF:
+                    if (raw_infos.GatheredErrors != null)
+                    {
+                        string errmsg = raw_infos.GatheredErrors?.Log;
+                        if (!String.IsNullOrEmpty(errmsg))
+                        {
+                            rv.errors.Add($"GatheredError: {errmsg}");
+                            rv.DocumentIsCorrupted = true;
+                        }
+                    }
+
+                    // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
+                    if (rv.errors.Count > 0)
+                    {
+                        rv.DocumentIsCorrupted = true;
+                    }
+
+                    // now collect the basic info summary datums:
+                    if (info != null)
+                    {
+                        rv.PDFVersion = info.Version;
+                        rv.Chapters = info.Chapters ?? 0;
+                        // 1 chapter is essentially the same as NO CHAPTER
+                        if (rv.Chapters == 1)
+                            rv.Chapters = 0;
+                        if ((info.ChapterPages?.Count ?? 0) > 1)
+                        {
+                            rv.ChapterPages = info.ChapterPages;
+                        }
+                        rv.HasDocumentOutlines = ((info.DocumentOutlines?.Count ?? 0) >= 1);
+                        rv.AttachedFilesCount = (info.AttachedFiles?.EmbeddedFiles?.Names?.Count ?? 0);
+                        rv.EmbeddedJavaScriptFilesCount = (info.AttachedFiles?.JavaScript?.Names?.Count ?? 0);
+                    }
+
+                    var summary = raw_infos.DocumentGeneralInfo;
+                    if (summary != null)
+                    {
+                        rv.Title = summary.Title;
+                        rv.Author = summary.Author;
+                        rv.Format = summary.Format;
+                        rv.Encryption = summary.Encryption;
+                        if (String.IsNullOrWhiteSpace(rv.Encryption) || rv.Encryption == "None")
+                        {
+                            rv.Encryption = null;
+                        }
+                        rv.PDFCreator = summary.PDF_Creator;
+                        rv.PDFProducer = summary.PDF_Producer;
+                        rv.Subject = summary.Subject;
+                        if (!String.IsNullOrWhiteSpace(summary.Keywords))
+                        {
+                            rv.Keywords = summary.Keywords;
+                        }
+                        rv.Creation_Date = ParsePDFTimestamp(summary.Creation_Date);
+                        rv.Modification_Date = ParsePDFTimestamp(summary.Modification_Date);
+                        rv.Permissions = summary.Permissions;
+                        rv.PDFStatus = summary.Status;
+                        rv.DocumentUpdateCount = summary.DocumentUpdateCount ?? 0;
+                        rv.ChangeHistoryValidation = summary.ChangeHistoryValidation;
+                        rv.FormFieldSignaturesCount = summary.FormFieldSignatures?.Count ?? 0;
+                        rv.UpdatesStatus = summary.UpdatesStatus;
+                        rv.WasRepaired = summary.WasRepaired ?? false;
+                        rv.NeedsPassword = summary.NeedsPassword ?? false;
+                        rv.WasCryptedWithEmptyPassword = summary.WasCryptedWithEmptyPassword ?? false;
+                    }
+                }
+            }
+            else
+            {
+                // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
+                rv.DocumentIsCorrupted = true;
+            }
+
+            return rv;
+        }
+
+
         public static PDFDocumentMuPDFMetaInfo GetDocumentMetaInfo(string pdf_filename, string password, ProcessPriorityClass priority_class)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             string process_parameters = String.Format(
-                $"multipurp -o -"
+                $"multipurp -m 1 -o -"
                 + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
                 + " " + '"' + pdf_filename + '"'
                 );
@@ -365,57 +593,7 @@ namespace Utilities.PDF.MuPDF
                         string json = sr.ReadToEnd();
                         //string json = Encoding.UTF8.GetString(txt);
 
-                        PDFDocumentMuPDFMetaInfo rv = new PDFDocumentMuPDFMetaInfo();
-
-                        rv.raw_multipurp_text = json;
-
-                        rv.raw_decoded_json = JsonConvert.DeserializeObject<List<MultiPurpDocumentInfoObject>>(json,
-                            new JsonSerializerSettings
-                            {
-                                Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
-                                {
-                                    rv.errors.Add(args.ErrorContext.Error.Message);
-                                    args.ErrorContext.Handled = true;
-                                },
-                                //Converters = { new IsoDateTimeConverter() }
-                            });
-
-                        if (rv.raw_decoded_json != null)
-                        {
-                            foreach (MultiPurpDocumentInfoObject raw_infos in rv.raw_decoded_json)
-                            {
-                                var info = raw_infos.GlobalInfo;
-                                if (info?.Pages != null)
-                                {
-                                    rv.PageCount = info.Pages.Value;
-                                }
-
-                                // when the document had to be reported or caused trouble, we flag it as "corrupted":
-                                if (raw_infos.PageInfoSeries.Count > 0 && (raw_infos.PageInfoSeries[0].DocumentGeneralInfo?.WasRepaired ?? false))
-                                {
-                                    rv.DocumentIsCorrupted = true;
-                                }
-
-                                // when we have an outer error block, then the errors were severe and we surely have a corrupted (or at least a very untrustworthy!) PDF:
-                                if (raw_infos.GatheredErrors != null)
-                                {
-                                    rv.DocumentIsCorrupted = true;
-                                }
-
-                                // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
-                                if (rv.errors.Count > 0)
-                                {
-                                    rv.DocumentIsCorrupted = true;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
-                            rv.DocumentIsCorrupted = true;
-                        }
-
-                        return rv;
+                        return ParseDocumentMetaInfo(json);
                     }
                 }
             }
@@ -423,7 +601,7 @@ namespace Utilities.PDF.MuPDF
             {
                 Logging.Error(ex, $"Failed to process the output from the command:\n     { execResult.executable } { execResult.process_parameters }\n --->\n    exitCode: { execResult.exitCode }\n    stderr: { execResult.errOutputDump.stderr }\n    runtime error: { execResult.error }");
 
-                    throw;
+                throw;
             }
         }
 

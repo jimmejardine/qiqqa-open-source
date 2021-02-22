@@ -149,6 +149,7 @@
     <Compile Include="AsyncFireAndForgetSimple.cs" />
     <Compile Include="CSharpLanguageFeatureTests.cs" />
     <Compile Include="LIFO-and-FIFO-performance-testing.cs" />
+    <Compile Include="PDFDocumentMetaInfoBulkTest.cs" />
     <Compile Include="PDFDocumentMetaInfoTest.cs" />
     <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
@@ -164,11 +165,13 @@
       <Link>BibTeX\EntryTypeDefinitions\qiqqa-entry-type-definitions.json</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="patch_bulk_tests.js" />
     <None Include="..\Utilities\BibTex\TestFiles\Sample.bib">
       <Link>data\Utilities\BibTeX\Sample.bib</Link>
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="patch_bulk_tests.sh" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QiqqaTestHelpers\QiqqaTestHelpers.csproj">

@@ -49,7 +49,7 @@ namespace QiqqaUnitTester.PDFDocument
             }
 
             string fnpath = Path.GetFullPath(Path.Combine(QiqqaEvilPDFCollectionBasePath, @"TestResults/TestData/data/fixtures/PDF", test_filepath));
-            fnpath = Regex.Replace(fnpath, "\\.[^./\\]+$", "") + ".json";
+            fnpath = Regex.Replace(fnpath, @"\\.[^./\\]+$", "") + ".json";
             return fnpath;
         }
 
@@ -1412,50 +1412,8 @@ namespace QiqqaUnitTester.PDFDocument
 
 
 
-        [DataRow("tcpdf/example_003.pdf")]
-        [DataRow("tcpdf/example_008.pdf")]
-        [DataRow("tcpdf/example_012.pdf")]
-        [DataRow("tcpdf/example_013.pdf")]
-        [DataRow("tcpdf/example_014.pdf")]
-        [DataRow("tcpdf/example_015.pdf")]
-        [DataRow("tcpdf/example_017.pdf")]
-        [DataRow("tcpdf/example_018.pdf")]
-        [DataRow("tcpdf/example_020.pdf")]
-        [DataRow("tcpdf/example_022.pdf")]
-        [DataRow("tcpdf/example_023.pdf")]
-        [DataRow("tcpdf/example_024.pdf")]
-        [DataRow("tcpdf/example_025.pdf")]
-        [DataRow("tcpdf/example_026.pdf")]
-        [DataRow("tcpdf/example_027.pdf")]
-        [DataRow("tcpdf/example_028.pdf")]
-        [DataRow("tcpdf/example_030.pdf")]
-        [DataRow("tcpdf/example_031.pdf")]
-        [DataRow("tcpdf/example_032.pdf")]
-        [DataRow("tcpdf/example_033.pdf")]
-        [DataRow("tcpdf/example_034.pdf")]
-        [DataRow("tcpdf/example_035.pdf")]
-        [DataRow("tcpdf/example_036.pdf")]
-        [DataRow("tcpdf/example_037.pdf")]
-        [DataRow("tcpdf/example_038.pdf")]
-        [DataRow("tcpdf/example_040.pdf")]
-        [DataRow("tcpdf/example_041.pdf")]
-        [DataRow("tcpdf/example_042.pdf")]
-        [DataRow("tcpdf/example_046.pdf")]
-        [DataRow("tcpdf/example_050.pdf")]
-        [DataRow("tcpdf/example_051.pdf")]
-        [DataRow("tcpdf/example_052.pdf")]
-        [DataRow("tcpdf/example_053.pdf")]
-        [DataRow("tcpdf/example_054.pdf")]
-        [DataRow("tcpdf/example_055.pdf")]
-        [DataRow("tcpdf/example_056.pdf")]
-        [DataRow("tcpdf/example_057.pdf")]
-        [DataRow("tcpdf/example_058.pdf")]
-        [DataRow("tcpdf/example_060.pdf")]
-        [DataRow("tcpdf/example_061.pdf")]
-        [DataRow("tcpdf/example_062.pdf")]
-        [DataRow("tcpdf/example_063.pdf")]
-        [DataRow("tcpdf/example_064.pdf")]
-        [DataRow("tcpdf/example_065.pdf")]
+        [DataRow("asbach uralt - dual column scanned old.pdf")]
+        [DataRow("issue-0007-sorax-blank-page.pdf")]
         [DataTestMethod]
         public void Test_PDF_bulk_chunk0034(string filepath)
         {
@@ -1476,7 +1434,12 @@ namespace QiqqaUnitTester.PDFDocument
 
 
 
-        [DataRow("tcpdf/example_016.pdf")]
+        [DataRow("novapdf/active-pdf-links.pdf")]
+        [DataRow("novapdf/pdf-example-bookmarks.pdf")]
+        [DataRow("novapdf/pdf-example-encryption.pdf")]
+        [DataRow("novapdf/pdf-example-subsetted-fonts.pdf")]
+        [DataRow("novapdf/pdf-example-watermarks.pdf")]
+        [DataRow("novapdf/pdf-example-password=test.pdf")]
         [DataTestMethod]
         public void Test_PDF_bulk_chunk0035(string filepath)
         {
@@ -1513,10 +1476,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("qpdf/shared-form-split-6.pdf")]
         [DataRow("qpdf/shared-form-xobject-split-1.pdf")]
         [DataRow("qpdf/shared-form-xobject-split-2.pdf")]
-        [DataRow("qpdf/shared-images-errors-1-3-out.pdf")]
-        [DataRow("qpdf/shared-images-errors-1-out.pdf")]
-        [DataRow("qpdf/shared-images-errors-2-out.pdf")]
-        [DataRow("qpdf/shared-images-errors.pdf")]
         [DataTestMethod]
         public void Test_PDF_bulk_chunk0036(string filepath)
         {
@@ -1537,6 +1496,10 @@ namespace QiqqaUnitTester.PDFDocument
 
 
 
+        [DataRow("qpdf/shared-images-errors-1-3-out.pdf")]
+        [DataRow("qpdf/shared-images-errors-1-out.pdf")]
+        [DataRow("qpdf/shared-images-errors-2-out.pdf")]
+        [DataRow("qpdf/shared-images-errors.pdf")]
         [DataRow("qpdf/shared-images-pages-out.pdf")]
         [DataRow("qpdf/shared-images.pdf")]
         [DataRow("qpdf/shared-split-01-04.pdf")]
@@ -1549,6 +1512,182 @@ namespace QiqqaUnitTester.PDFDocument
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
 
             PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("tcpdf/example_003.pdf")]
+        [DataRow("tcpdf/example_008.pdf")]
+        [DataRow("tcpdf/example_012.pdf")]
+        [DataRow("tcpdf/example_013.pdf")]
+        [DataRow("tcpdf/example_014.pdf")]
+        [DataRow("tcpdf/example_015.pdf")]
+        [DataRow("tcpdf/example_016.bad.XML-metadata-SHOULD-have-been-crypted.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0038(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("tcpdf/example_017.pdf")]
+        [DataRow("tcpdf/example_018.pdf")]
+        [DataRow("tcpdf/example_020.pdf")]
+        [DataRow("tcpdf/example_022.pdf")]
+        [DataRow("tcpdf/example_023.pdf")]
+        [DataRow("tcpdf/example_024.pdf")]
+        [DataRow("tcpdf/example_025.pdf")]
+        [DataRow("tcpdf/example_026.pdf")]
+        [DataRow("tcpdf/example_027.pdf")]
+        [DataRow("tcpdf/example_028.pdf")]
+        [DataRow("tcpdf/example_030.pdf")]
+        [DataRow("tcpdf/example_031.pdf")]
+        [DataRow("tcpdf/example_032.pdf")]
+        [DataRow("tcpdf/example_033.pdf")]
+        [DataRow("tcpdf/example_034.pdf")]
+        [DataRow("tcpdf/example_035.pdf")]
+        [DataRow("tcpdf/example_036.pdf")]
+        [DataRow("tcpdf/example_037.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0039(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("tcpdf/example_038.pdf")]
+        [DataRow("tcpdf/example_040.pdf")]
+        [DataRow("tcpdf/example_041.pdf")]
+        [DataRow("tcpdf/example_042.pdf")]
+        [DataRow("tcpdf/example_046.pdf")]
+        [DataRow("tcpdf/example_050.pdf")]
+        [DataRow("tcpdf/example_051.pdf")]
+        [DataRow("tcpdf/example_052.pdf")]
+        [DataRow("tcpdf/example_053.pdf")]
+        [DataRow("tcpdf/example_054.pdf")]
+        [DataRow("tcpdf/example_055.pdf")]
+        [DataRow("tcpdf/example_056.pdf")]
+        [DataRow("tcpdf/example_057.pdf")]
+        [DataRow("tcpdf/example_058.pdf")]
+        [DataRow("tcpdf/example_060.pdf")]
+        [DataRow("tcpdf/example_061.pdf")]
+        [DataRow("tcpdf/example_062.pdf")]
+        [DataRow("tcpdf/example_063.pdf")]
+        [DataRow("tcpdf/example_064.pdf")]
+        [DataRow("tcpdf/example_065.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0040(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("encrypted-with-known-passwords/How to Password Protect PDF Documents.pdf")]
+        [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-not-encrypted.pdf")]
+        [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-password=test.pdf")]
+        [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-passwords=test,bugger.pdf")]
+        [DataRow("encrypted-with-known-passwords/pdf-example-password=test.pdf")]
+        [DataRow("encrypted-with-known-passwords/pdfpostman-pdf-sample-password=test123.PDF")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0041(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-password=test.pdf", "test")]
+        [DataRow("encrypted-with-known-passwords/pdf-example-password=test.pdf", "test")]
+        [DataRow("encrypted-with-known-passwords/pdfpostman-pdf-sample-password=test123.PDF", "test123")]
+        [DataRow("novapdf/pdf-example-password=test.pdf", "test")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0042_password_protected(string filepath, string password)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, password, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-passwords=test,bugger.pdf", "test")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0043_password_protected(string filepath, string password)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, password, ProcessPriorityClass.Normal);
 
             string json_text = ProduceJSONtext4Comparison(info);
 
