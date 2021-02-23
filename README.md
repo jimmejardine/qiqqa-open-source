@@ -128,3 +128,36 @@ I'm not discouraging you from emailing me, but rather suggesting that there may 
 > *The point being?* It's up to you to consider and decide on the amount and level of privacy of your Qiqqa data and act and communicate accordingly at all times.
 
 
+
+
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/jimmejardine/qiqqa-open-source/graphs/contributors"><img src="https://opencollective.com/qiqqa-open-source/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/qiqqa-open-source/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/qiqqa-open-source"><img src="https://opencollective.com/qiqqa-open-source/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/qiqqa-open-source/contribute)]
+
+<a href="https://opencollective.com/qiqqa-open-source/organization/0/website"><img src="https://opencollective.com/qiqqa-open-source/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/1/website"><img src="https://opencollective.com/qiqqa-open-source/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/2/website"><img src="https://opencollective.com/qiqqa-open-source/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/3/website"><img src="https://opencollective.com/qiqqa-open-source/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/4/website"><img src="https://opencollective.com/qiqqa-open-source/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/5/website"><img src="https://opencollective.com/qiqqa-open-source/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/6/website"><img src="https://opencollective.com/qiqqa-open-source/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/7/website"><img src="https://opencollective.com/qiqqa-open-source/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/8/website"><img src="https://opencollective.com/qiqqa-open-source/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/9/website"><img src="https://opencollective.com/qiqqa-open-source/organization/9/avatar.svg"></a>
+
