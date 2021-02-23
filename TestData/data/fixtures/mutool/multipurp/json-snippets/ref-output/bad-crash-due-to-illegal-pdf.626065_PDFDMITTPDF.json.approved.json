@@ -1,0 +1,50 @@
+﻿{
+  "info": {
+    "PageCount": -1,
+    "PDFVersion": null,
+    "Chapters": -1,
+    "ChapterPages": null,
+    "Title": null,
+    "Author": null,
+    "Format": null,
+    "Encryption": null,
+    "PDFCreator": null,
+    "PDFProducer": null,
+    "Subject": null,
+    "Keywords": null,
+    "Creation_Date": null,
+    "Modification_Date": null,
+    "Permissions": null,
+    "PDFStatus": null,
+    "DocumentUpdateCount": -1,
+    "ChangeHistoryValidation": null,
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": null,
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": false,
+    "HasDocumentOutlines": false,
+    "AttachedFilesCount": 0,
+    "EmbeddedJavaScriptFilesCount": 0,
+    "DocumentIsCorrupted": true,
+    "errors": [
+      "GatheredError: unknown PDF version: 100.0\nexpected generation number (0 ? obj)\nTrailer object number cannot be 0\n\ntrying to repair broken xref after encountering error: Trailer object number cannot be 0\nrepairing PDF document\nignoring object with invalid object number (0 0 R)\nno objects found\n",
+      "MuPDF FailureMessage: no objects found"
+    ],
+    "raw_multipurp_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "G:\\Qiqqa\\evil-base\\TestData\\data\\fixtures\\PDF\\qpdf\\issue-141b.pdf",
+      "GatheredErrors": {
+        "Log": "unknown PDF version: 100.0\nexpected generation number (0 ? obj)\nTrailer object number cannot be 0\n\ntrying to repair broken xref after encountering error: Trailer object number cannot be 0\nrepairing PDF document\nignoring object with invalid object number (0 0 R)\nno objects found\n",
+        "LogOverflow": false
+      }
+    },
+    {
+      "Type": "TerminalFailureInfo",
+      "FailureMessage": "no objects found"
+    }
+  ]
+}

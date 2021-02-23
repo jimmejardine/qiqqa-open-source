@@ -200,7 +200,6 @@ Processing CS files...
 
       counter = 1;
       cs_content = cs_content.replace(chunk_re, (m, p1, p2, p3) => {
-         console.log({cryp: p2.includes(', string password)')})
          let has_password = p2.includes(', string password)');
          let cc = snippet.replace("XXXXXXXXX", `Test_PDF_bulk_chunk${ counter.toString(10).padStart(4, '0') }${ has_password ? '_password_protected' : '' }`);
          if (has_password) {

@@ -193,18 +193,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./cblas.pdf")]
         [DataRow("./crc-doc.1.0.pdf")]
         [DataRow("./Drezner - Computation of the Bivariate Normal Integral.pdf")]
-        [DataRow("./eisenstein-nlp-notes.pdf")]
-        [DataRow("./Genz - Numerical Computation of Multivariate Normal Probabilities.pdf")]
-        [DataRow("./printf[1]2.pdf")]
-        [DataRow("./pdfmark_reference.pdf")]
-        [DataRow("./IEEEtran_bst_HOWTO.pdf")]
-        [DataRow("./IEEEtran_HOWTO.pdf")]
-        [DataRow("./keyboard-shortcuts-windows.pdf")]
-        [DataRow("./LittleCMS fast float extensions 1.0.pdf")]
-        [DataRow("./LittleCMS floating point extensions 1.4.pdf")]
-        [DataRow("./LittleCMS2.12 API.pdf")]
-        [DataRow("./LittleCMS2.12 Plugin API.pdf")]
-        [DataRow("./LittleCMS2.12 tutorial.pdf")]
         [DataTestMethod]
         public void Test_PDF_bulk_chunk0004(string filepath)
         {
@@ -225,9 +213,81 @@ namespace QiqqaUnitTester.PDFDocument
 
 
 
-        [DataRow("./html-standard.pdf")]
+        [DataRow("./eisenstein-nlp-notes.pdf")]
+        [DataRow("./Genz - Numerical Computation of Multivariate Normal Probabilities.pdf")]
+        [DataRow("./printf[1]2.pdf")]
         [DataTestMethod]
         public void Test_PDF_bulk_chunk0005(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("./pdfmark_reference.pdf")]
+        [DataRow("./IEEEtran_bst_HOWTO.pdf")]
+        [DataRow("./IEEEtran_HOWTO.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0006(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("./keyboard-shortcuts-windows.pdf")]
+        [DataRow("./LittleCMS fast float extensions 1.0.pdf")]
+        [DataRow("./LittleCMS floating point extensions 1.4.pdf")]
+        [DataRow("./LittleCMS2.12 API.pdf")]
+        [DataRow("./LittleCMS2.12 Plugin API.pdf")]
+        [DataRow("./LittleCMS2.12 tutorial.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0007(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("./html-standard.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0008(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -261,7 +321,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./zlib.3.pdf")]
         [DataRow("./中文分词十年又回顾- 2007-2017 CWS-10Year-Review-2.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0006(string filepath)
+        public void Test_PDF_bulk_chunk0009(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -283,7 +343,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./testfile1.pdf")]
         [DataRow("./testfile2.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0007(string filepath)
+        public void Test_PDF_bulk_chunk0010(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -322,7 +382,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./mupdf/tritone.pdf")]
         [DataRow("./mupdf/zlib.3.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0008(string filepath)
+        public void Test_PDF_bulk_chunk0011(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -352,7 +412,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/AcrobatMerge-SameNameNode.pdf")]
         [DataRow("./pdfbox/AcrobatMerge-TextFieldsOnly-SameMerged.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0009(string filepath)
+        public void Test_PDF_bulk_chunk0012(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -381,7 +441,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/AcroFormsBasicFields.pdf")]
         [DataRow("./pdfbox/AcroFormsRotation.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0010(string filepath)
+        public void Test_PDF_bulk_chunk0013(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -422,7 +482,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/JPXTestGrey.pdf")]
         [DataRow("./pdfbox/JPXTestRGB.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0011(string filepath)
+        public void Test_PDF_bulk_chunk0014(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -451,7 +511,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/page_tree_multiple_levels.pdf")]
         [DataRow("./pdfbox/pdfa-with-annotations-square.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0012(string filepath)
+        public void Test_PDF_bulk_chunk0015(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -493,7 +553,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/PDFBOX-4372-2DAYCLVOFG3FTVO4RMAJJL3VTPNYDFRO-p4_reduced.pdf")]
         [DataRow("./pdfbox/PDFBOX-4417-054080.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0013(string filepath)
+        public void Test_PDF_bulk_chunk0016(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -524,7 +584,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/sampleForSpec.pdf")]
         [DataRow("./pdfbox/sample_fonts_solidconvertor.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0014(string filepath)
+        public void Test_PDF_bulk_chunk0017(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -557,7 +617,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/with_outline.pdf")]
         [DataRow("./pdfbox/yaddatest.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0015(string filepath)
+        public void Test_PDF_bulk_chunk0018(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -586,7 +646,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/png_demo.pdf")]
         [DataRow("./pdfbox/test.unc.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0016(string filepath)
+        public void Test_PDF_bulk_chunk0019(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -609,7 +669,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/PasswordSample-256bit.pdf")]
         [DataRow("./pdfbox/PasswordSample-40bit.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0017(string filepath)
+        public void Test_PDF_bulk_chunk0020(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -633,7 +693,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./pdfbox/test-landscape2.pdf")]
         [DataRow("./pdfbox/survey.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0018(string filepath)
+        public void Test_PDF_bulk_chunk0021(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -656,7 +716,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./QiqqaFeaturePoster.pdf")]
         [DataRow("./QiqqaPosterPack.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0019(string filepath)
+        public void Test_PDF_bulk_chunk0022(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -695,7 +755,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/append-page-content.pdf")]
         [DataRow("./qpdf-manual.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0020(string filepath)
+        public void Test_PDF_bulk_chunk0023(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -716,12 +776,10 @@ namespace QiqqaUnitTester.PDFDocument
 
         [DataRow("./qpdf/bad-data-out.pdf")]
         [DataRow("./qpdf/bad-data.pdf")]
-        [DataRow("./qpdf/bad-encryption-length.pdf")]
         [DataRow("./qpdf/bad-jpeg-out.pdf")]
         [DataRow("./qpdf/bad-jpeg.pdf")]
         [DataRow("./qpdf/bad-token-startxref.pdf")]
         [DataRow("./qpdf/bad-xref-entry.pdf")]
-        [DataRow("./qpdf/bad1.pdf")]
         [DataRow("./qpdf/bad10.pdf")]
         [DataRow("./qpdf/bad11.pdf")]
         [DataRow("./qpdf/bad12.pdf")]
@@ -768,7 +826,49 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/button-set-out.pdf")]
         [DataRow("./qpdf/button-set.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0021(string filepath)
+        public void Test_PDF_bulk_chunk0024(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("./qpdf/bad-encryption-length.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0025(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("./qpdf/bad1.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0026(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -821,7 +921,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/copy-foreign-objects-out2.pdf")]
         [DataRow("./qpdf/copy-foreign-objects-out3.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0022(string filepath)
+        public void Test_PDF_bulk_chunk0027(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -883,7 +983,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/extra-header-no-newline.pdf")]
         [DataRow("./qpdf/extract-duplicate-page.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0023(string filepath)
+        public void Test_PDF_bulk_chunk0028(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -958,7 +1058,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/good8.pdf")]
         [DataRow("./qpdf/good9.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0024(string filepath)
+        public void Test_PDF_bulk_chunk0029(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -989,7 +1089,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/indirect-decode-parms-out.pdf")]
         [DataRow("./qpdf/indirect-decode-parms.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0025(string filepath)
+        public void Test_PDF_bulk_chunk0030(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1018,7 +1118,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/input.pdf")]
         [DataRow("./qpdf/invalid-id-xref.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0026(string filepath)
+        public void Test_PDF_bulk_chunk0031(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1044,7 +1144,6 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/issue-119.pdf")]
         [DataRow("./qpdf/issue-120.pdf")]
         [DataRow("./qpdf/issue-141a.pdf")]
-        [DataRow("./qpdf/issue-141b.pdf")]
         [DataRow("./qpdf/issue-143.pdf")]
         [DataRow("./qpdf/issue-146.pdf")]
         [DataRow("./qpdf/issue-147.pdf")]
@@ -1053,13 +1152,74 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/issue-150.pdf")]
         [DataRow("./qpdf/issue-179.pdf")]
         [DataRow("./qpdf/issue-202.pdf")]
-        [DataRow("./qpdf/issue-263.pdf")]
         [DataRow("./qpdf/issue-335a.pdf")]
-        [DataRow("./qpdf/issue-335b.pdf")]
         [DataRow("./qpdf/issue-99.pdf")]
         [DataRow("./qpdf/issue-99b.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0027(string filepath)
+        public void Test_PDF_bulk_chunk0032(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("./qpdf/issue-141b.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0033(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("./qpdf/issue-263.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0034(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("./qpdf/issue-335b.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0035(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1088,7 +1248,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/lin-delete-and-reuse.pdf")]
         [DataRow("./qpdf/lin-special.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0028(string filepath)
+        public void Test_PDF_bulk_chunk0036(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1118,7 +1278,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/lin8.pdf")]
         [DataRow("./qpdf/lin9.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0029(string filepath)
+        public void Test_PDF_bulk_chunk0037(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1201,7 +1361,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/outlines-with-old-root-dests.pdf")]
         [DataRow("./qpdf/override-compressed-object.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0030(string filepath)
+        public void Test_PDF_bulk_chunk0038(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1228,7 +1388,47 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/page-labels-no-zero.pdf")]
         [DataRow("./qpdf/page-labels-num-tree.pdf")]
         [DataRow("./qpdf/page-no-content.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0039(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
         [DataRow("./qpdf/pages-copy-encryption.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0040(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
         [DataRow("./qpdf/pages-is-page-out.pdf")]
         [DataRow("./qpdf/pages-is-page.pdf")]
         [DataRow("./qpdf/pages-loop.pdf")]
@@ -1257,7 +1457,47 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/shallow_array.pdf")]
         [DataRow("./qpdf/short-id-linearized.pdf")]
         [DataRow("./qpdf/short-id.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0041(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
         [DataRow("./qpdf/short-O-U.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0042(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
         [DataRow("./qpdf/small-images.pdf")]
         [DataRow("./qpdf/source1.pdf")]
         [DataRow("./qpdf/source2.pdf")]
@@ -1279,7 +1519,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/split-exp-group-06-10.pdf")]
         [DataRow("./qpdf/split-exp-group-11-11.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0031(string filepath)
+        public void Test_PDF_bulk_chunk0043(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1335,7 +1575,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/zero-offset.pdf")]
         [DataRow("./qpdf-manual.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0032(string filepath)
+        public void Test_PDF_bulk_chunk0044(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1393,7 +1633,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("./qpdf/V4-clearmeta.pdf")]
         [DataRow("./qpdf/V4.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0033(string filepath)
+        public void Test_PDF_bulk_chunk0045(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1415,7 +1655,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("asbach uralt - dual column scanned old.pdf")]
         [DataRow("issue-0007-sorax-blank-page.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0034(string filepath)
+        public void Test_PDF_bulk_chunk0046(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1439,9 +1679,8 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("novapdf/pdf-example-encryption.pdf")]
         [DataRow("novapdf/pdf-example-subsetted-fonts.pdf")]
         [DataRow("novapdf/pdf-example-watermarks.pdf")]
-        [DataRow("novapdf/pdf-example-password=test.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0035(string filepath)
+        public void Test_PDF_bulk_chunk0047(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1477,7 +1716,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("qpdf/shared-form-xobject-split-1.pdf")]
         [DataRow("qpdf/shared-form-xobject-split-2.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0036(string filepath)
+        public void Test_PDF_bulk_chunk0048(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1506,7 +1745,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("qpdf/shared-split-05-08.pdf")]
         [DataRow("qpdf/shared-split-09-10.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0037(string filepath)
+        public void Test_PDF_bulk_chunk0049(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1533,7 +1772,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("tcpdf/example_015.pdf")]
         [DataRow("tcpdf/example_016.bad.XML-metadata-SHOULD-have-been-crypted.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0038(string filepath)
+        public void Test_PDF_bulk_chunk0050(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1571,7 +1810,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("tcpdf/example_036.pdf")]
         [DataRow("tcpdf/example_037.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0039(string filepath)
+        public void Test_PDF_bulk_chunk0051(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1611,7 +1850,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("tcpdf/example_064.pdf")]
         [DataRow("tcpdf/example_065.pdf")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0040(string filepath)
+        public void Test_PDF_bulk_chunk0052(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1632,12 +1871,33 @@ namespace QiqqaUnitTester.PDFDocument
 
         [DataRow("encrypted-with-known-passwords/How to Password Protect PDF Documents.pdf")]
         [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-not-encrypted.pdf")]
+        [DataTestMethod]
+        public void Test_PDF_bulk_chunk0053(string filepath)
+        {
+            string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
+            string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
+
+            PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
+
+            string json_text = ProduceJSONtext4Comparison(info);
+
+            // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
+            //ApprovalTests.Approvals.VerifyJson(json_out);   --> becomes the code below:
+            ApprovalTests.Approvals.Verify(
+                new QiqqaApprover(json_text, json_filename),
+                ApprovalTests.Approvals.GetReporter()
+            );
+        }
+
+
+
+        [DataRow("novapdf/pdf-example-password=test.pdf")]
         [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-password=test.pdf")]
         [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-passwords=test,bugger.pdf")]
         [DataRow("encrypted-with-known-passwords/pdf-example-password=test.pdf")]
         [DataRow("encrypted-with-known-passwords/pdfpostman-pdf-sample-password=test123.PDF")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0041(string filepath)
+        public void Test_PDF_bulk_chunk0054(string filepath)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1661,7 +1921,7 @@ namespace QiqqaUnitTester.PDFDocument
         [DataRow("encrypted-with-known-passwords/pdfpostman-pdf-sample-password=test123.PDF", "test123")]
         [DataRow("novapdf/pdf-example-password=test.pdf", "test")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0042_password_protected(string filepath, string password)
+        public void Test_PDF_bulk_chunk0055_password_protected(string filepath, string password)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);
@@ -1682,7 +1942,7 @@ namespace QiqqaUnitTester.PDFDocument
 
         [DataRow("encrypted-with-known-passwords/keyboard-shortcuts-windows-passwords=test,bugger.pdf", "test")]
         [DataTestMethod]
-        public void Test_PDF_bulk_chunk0043_password_protected(string filepath, string password)
+        public void Test_PDF_bulk_chunk0056_password_protected(string filepath, string password)
         {
             string pdf_filename = GetNormalizedPathToPDFTestFile(filepath);
             string json_filename = GetNormalizedPathToJSONOutputFile(filepath);

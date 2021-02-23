@@ -260,6 +260,7 @@ namespace QiqqaUnitTester.PDFDocument
         }
 
         [DataRow("./html-standard.pdf.multipurp.json")]
+        [DataRow("./bad-crash-due-to-illegal-pdf.json")]
         [DataTestMethod]
         public void Test_PDF_metadata_extraction_via_multipurp_chunk0022_load_from_cached_json(string filepath)
         {

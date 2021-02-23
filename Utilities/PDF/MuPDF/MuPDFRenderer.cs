@@ -159,7 +159,7 @@ namespace Utilities.PDF.MuPDF
         public MultiPurpGatheredErrors GatheredErrors;
     }
 
-        public class MultiPurpPageMediaBox
+    public class MultiPurpPageMediaBox
     {
         public int? Page;
         public List<float> Bounds;
@@ -316,11 +316,15 @@ namespace Utilities.PDF.MuPDF
     {
         public string DocumentFilePath;
         public MultiPurpDocumentGlobalInfo GlobalInfo;
-            public int? FirstPage;
-            public int? LastPage;
-            public List<MultiPurpSinglePageInfo> PageInfo;
+        public int? FirstPage;
+        public int? LastPage;
+        public List<MultiPurpSinglePageInfo> PageInfo;
         public MultiPurpDocumentGeneralInfo DocumentGeneralInfo;
         public MultiPurpGatheredErrors GatheredErrors;
+
+        // and when we have a severe failure in multipurp, a second 'crash record' may be output carrying these fields:
+        public string Type;
+        public string FailureMessage;
     }
 
     // ------------------------------------------------------------------------------------------------------------------------------------------------
@@ -461,8 +465,8 @@ namespace Utilities.PDF.MuPDF
                         rv.errors.Add(args.ErrorContext.Error.Message);
                         args.ErrorContext.Handled = true;
                     },
-                                //Converters = { new IsoDateTimeConverter() }
-                            });
+                    //Converters = { new IsoDateTimeConverter() }
+                });
 
             if (rv.raw_decoded_json != null)
             {
@@ -475,13 +479,13 @@ namespace Utilities.PDF.MuPDF
                     }
 
                     // when the document had to be reported or caused trouble, we flag it as "corrupted":
-                    if (raw_infos.PageInfo.Count > 0 && (raw_infos.DocumentGeneralInfo?.WasRepaired ?? false))
+                    if ((raw_infos.PageInfo?.Count ?? 0) > 0 && (raw_infos.DocumentGeneralInfo?.WasRepaired ?? false))
                     {
                         rv.DocumentIsCorrupted = true;
                     }
 
                     // when we have ZERO pages, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
-                    if (raw_infos.PageInfo.Count == 0)
+                    if ((raw_infos.PageInfo?.Count ?? 0) == 0)
                     {
                         rv.DocumentIsCorrupted = true;
                     }
@@ -495,6 +499,12 @@ namespace Utilities.PDF.MuPDF
                             rv.errors.Add($"GatheredError: {errmsg}");
                             rv.DocumentIsCorrupted = true;
                         }
+                    }
+
+                    if (!String.IsNullOrEmpty(raw_infos.FailureMessage))
+                    {
+                        rv.errors.Add($"MuPDF FailureMessage: { raw_infos.FailureMessage }");
+                        rv.DocumentIsCorrupted = true;
                     }
 
                     // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
@@ -860,7 +870,7 @@ namespace Utilities.PDF.MuPDF
                 stdoutIsBinary = binary_output
             };
 
-        Stopwatch clk = Stopwatch.StartNew();
+            Stopwatch clk = Stopwatch.StartNew();
 
             // STDOUT/STDERR
             Logging.Debug("PDFDRAW :: ReadEntireStandardOutput command: pdfdraw.exe {0}", process_parameters);
@@ -878,7 +888,7 @@ namespace Utilities.PDF.MuPDF
 
                             rv.stdoutStream = new MemoryStream(1024 * 1024);
                             int total_size = StreamToFile.CopyStreamToStream(fs, rv.stdoutStream);
-                            
+
                             long elapsed2 = clk.ElapsedMilliseconds;
                             Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    {4} {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters, pdfDrawExe);
 
@@ -948,7 +958,7 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
-#region --- Test ------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness_TEXT_RENDER()
@@ -1084,6 +1094,6 @@ namespace Utilities.PDF.MuPDF
         }
 #endif
 
-#endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }
