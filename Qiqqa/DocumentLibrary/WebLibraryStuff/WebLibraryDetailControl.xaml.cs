@@ -679,6 +679,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                                                 ddw.page_bitmap_source = Backgrounds.GetBackground(Backgrounds.PageRenderingFailed_ClassicNews);
                                             }
+
+                                            // https://stackoverflow.com/questions/9732709/the-calling-thread-cannot-access-this-object-because-a-different-thread-owns-it#answer-33917169
+                                            ddw.page_bitmap_source.Freeze();
                                         }
                                     }
                                 }
