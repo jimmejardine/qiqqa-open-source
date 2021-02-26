@@ -529,7 +529,7 @@ static BOOL ListProcessModules(DWORD dwPID)
         _tprintf(TEXT("\n     Process ID     = 0x%08X"), me32.th32ProcessID);
         _tprintf(TEXT("\n     Ref count (g)  = 0x%04X"), me32.GlblcntUsage);
         _tprintf(TEXT("\n     Ref count (p)  = 0x%04X"), me32.ProccntUsage);
-        _tprintf(TEXT("\n     Base address   = 0x%08X"), (DWORD)me32.modBaseAddr);
+        _tprintf(TEXT("\n     Base address   = 0x%08p"), me32.modBaseAddr);
         _tprintf(TEXT("\n     Base size      = %d"), me32.modBaseSize);
 
     } while (Module32Next(hModuleSnap, &me32));
