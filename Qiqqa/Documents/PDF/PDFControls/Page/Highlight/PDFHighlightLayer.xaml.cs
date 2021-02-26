@@ -73,12 +73,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         private void PDFHighlightLayer_Loaded(object sender, RoutedEventArgs e)
         {
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
+            WPFDoEvents.SafeExec(() =>
             {
-                ObjHighlightRenderer.RebuildVisual(pdf_document, page);
-            }
+                ASSERT.Test(pdf_document != null);
+
+                if (pdf_document != null)
+                {
+                    ObjHighlightRenderer.RebuildVisual(pdf_document, page);
+                }
+            });
         }
 
         public static bool IsLayerNeeded(PDFDocument pdf_document, int page)

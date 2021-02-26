@@ -35,7 +35,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void Dispatcher_ShutdownStarted(object sender, System.EventArgs e)
         {
-            CleanUp();
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
         }
 
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
@@ -76,7 +79,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void DocumentMetadataControlsPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            ReevaluateDataContext();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReevaluateDataContext();
+            });
         }
 
         private void ReevaluateDataContext()
@@ -131,7 +137,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void pdf_renderer_control_SelectedPageChanged(int page)
         {
-            SelectedPageChanged?.Invoke(page);
+            WPFDoEvents.SafeExec(() =>
+            {
+                SelectedPageChanged?.Invoke(page);
+            });
         }
     }
 }

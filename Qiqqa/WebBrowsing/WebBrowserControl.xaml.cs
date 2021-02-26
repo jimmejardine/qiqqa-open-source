@@ -38,28 +38,40 @@ namespace Qiqqa.WebBrowsing
 
         private void ObjWebBrowser_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
         {
-            WebBrowserHostControl wbhc = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
-            WebBrowserControl wbc = wbhc.OpenNewWindow();
-            e.WebBrowser = wbc.ObjWebBrowser;
+            WPFDoEvents.SafeExec(() =>
+            {
+                WebBrowserHostControl wbhc = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
+                WebBrowserControl wbc = wbhc.OpenNewWindow();
+                e.WebBrowser = wbc.ObjWebBrowser;
+            });
         }
 
         private void ObjWebBrowser_StatusTextChanged(object sender, EventArgs e)
         {
-            GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
-            StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
-            Logging.Info("Browser:StatusTextChanged: {0}", web_control.StatusText);
+            WPFDoEvents.SafeExec(() =>
+            {
+                GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
+                StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
+                Logging.Info("Browser:StatusTextChanged: {0}", web_control.StatusText);
+            });
         }
 
         private void ObjWebBrowser_Navigating(object sender, GeckoNavigatingEventArgs e)
         {
-            web_browser_host_control.ObjWebBrowser_Navigating(this, e.Uri);
+            WPFDoEvents.SafeExec(() =>
+            {
+                web_browser_host_control.ObjWebBrowser_Navigating(this, e.Uri);
+            });
         }
 
         private void ObjWebBrowser_DocumentCompleted(object sender, EventArgs e)
         {
-            GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
-            Logging.Info("Browser page contents received at url {0}", web_control.Url.ToString());
-            web_browser_host_control.ObjWebBrowser_LoadCompleted(this);
+            WPFDoEvents.SafeExec(() =>
+            {
+                GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
+                Logging.Info("Browser page contents received at url {0}", web_control.Url.ToString());
+                web_browser_host_control.ObjWebBrowser_LoadCompleted(this);
+            });
         }
 
         internal void GoForward()

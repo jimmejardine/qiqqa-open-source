@@ -158,12 +158,15 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
         private void ObjSearchBox_OnSoftSearch()
         {
-            var doc = this.pdf_document;
-            string query = ObjSearchBox.Text;
-
-            SafeThreadPool.QueueUserWorkItem(o =>
+            WPFDoEvents.SafeExec(() =>
             {
-                ReSearch(doc, query);
+                var doc = this.pdf_document;
+                string query = ObjSearchBox.Text;
+
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
+                    ReSearch(doc, query);
+                });
             });
         }
     }

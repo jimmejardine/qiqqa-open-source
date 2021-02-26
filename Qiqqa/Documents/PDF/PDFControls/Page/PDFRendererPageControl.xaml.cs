@@ -566,10 +566,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         private void pdf_renderer_OnPageTextAvailable(int page_from, int page_to)
         {
-            if (page_from <= page && page_to >= page || page == 0)
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.InvokeAsyncInUIThread(OnPageTextAvailable_DISPATCHER, DispatcherPriority.Background);
-            }
+                if (page_from <= page && page_to >= page || page == 0)
+                {
+                    WPFDoEvents.InvokeAsyncInUIThread(OnPageTextAvailable_DISPATCHER, DispatcherPriority.Background);
+                }
+            });
         }
 
         private void OnPageTextAvailable_DISPATCHER()

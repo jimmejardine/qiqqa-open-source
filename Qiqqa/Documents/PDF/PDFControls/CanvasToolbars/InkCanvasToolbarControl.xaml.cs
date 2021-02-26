@@ -5,6 +5,7 @@ using System.Windows.Ink;
 using System.Windows.Media;
 using icons;
 using Qiqqa.UtilisationTracking;
+using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
 {
@@ -38,7 +39,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
 
         private void ObjColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            RebuildInkParameters();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RebuildInkParameters();
+            });
         }
 
         private WeakReference<PDFRendererControl> pdf_renderer_control = null;

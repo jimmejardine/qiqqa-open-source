@@ -157,7 +157,10 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void GenericLibraryExplorerControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ObjChartRegion.Collapse();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ObjChartRegion.Collapse();
+            });
         }
 
         private void ObjSort_Click(object sender, RoutedEventArgs e)

@@ -59,16 +59,19 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
         private void TreeDuplicates_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            TreeViewItem tvi = TreeDuplicates.SelectedItem as TreeViewItem;
-            if (null != tvi)
+            WPFDoEvents.SafeExec(() =>
             {
-                PDFDocument pdf_document = (PDFDocument)tvi.Tag;
-                ObjDocumentMetadataControlsPanel.DataContext = pdf_document.Bindable;
-            }
-            else
-            {
-                ObjDocumentMetadataControlsPanel.DataContext = null;
-            }
+                TreeViewItem tvi = TreeDuplicates.SelectedItem as TreeViewItem;
+                if (null != tvi)
+                {
+                    PDFDocument pdf_document = (PDFDocument)tvi.Tag;
+                    ObjDocumentMetadataControlsPanel.DataContext = pdf_document.Bindable;
+                }
+                else
+                {
+                    ObjDocumentMetadataControlsPanel.DataContext = null;
+                }
+            });
         }
 
         public void FindDuplicates(WebLibraryDetail web_library_detail)

@@ -45,12 +45,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void Dispatcher_ShutdownStarted(object sender, System.EventArgs e)
         {
-            CleanUp();
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
         }
 
         private void DocumentMetadataTagControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            CleanUp();
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
         }
         private void CleanUp()
         { 

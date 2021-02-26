@@ -62,12 +62,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ObjRefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            Rebuild();
+            WPFDoEvents.SafeExec(() =>
+            {
+                Rebuild();
+            });
         }
 
         private void AnnotationsReviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Rebuild();
+            WPFDoEvents.SafeExec(() =>
+            {
+                Rebuild();
+            });
         }
 
         private void Rebuild()

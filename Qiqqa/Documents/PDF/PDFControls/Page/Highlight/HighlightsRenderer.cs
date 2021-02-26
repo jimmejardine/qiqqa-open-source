@@ -26,7 +26,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         private void HighlightsRenderer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            RebuildVisual();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RebuildVisual();
+            });
         }
 
         internal void RebuildVisual(PDFDocument pdf_document, int page)

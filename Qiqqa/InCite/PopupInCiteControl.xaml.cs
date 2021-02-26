@@ -258,8 +258,11 @@ namespace Qiqqa.InCite
 
         private void TxtSearchTerms_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ReSearch();
-            e.Handled = true;
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReSearch();
+                e.Handled = true;
+            });
         }
 
         private void ReSearch()
@@ -343,15 +346,18 @@ namespace Qiqqa.InCite
 
         private static void chw_Closing(object sender, CancelEventArgs e)
         {
-            if (instance.ObjCheckKeepOpen.IsChecked ?? false)
+            WPFDoEvents.SafeExec(() =>
             {
-            }
-            else
-            {
-                chw.Hide();
-            }
+                if (instance.ObjCheckKeepOpen.IsChecked ?? false)
+                {
+                }
+                else
+                {
+                    chw.Hide();
+                }
 
-            e.Cancel = true;
+                e.Cancel = true;
+            });
         }
 
         public static class Interop

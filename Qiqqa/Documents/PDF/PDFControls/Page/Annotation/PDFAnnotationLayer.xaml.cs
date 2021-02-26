@@ -93,35 +93,41 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
-            FeatureTrackingManager.Instance.UseFeature(Features.Document_AddAnnotation);
-
-            int MINIMUM_DRAG_SIZE_TO_CREATE_ANNOTATION = 20;
-            if (Math.Abs(mouse_up_point.X - mouse_down_point.X) < MINIMUM_DRAG_SIZE_TO_CREATE_ANNOTATION ||
-                Math.Abs(mouse_up_point.Y - mouse_down_point.Y) < MINIMUM_DRAG_SIZE_TO_CREATE_ANNOTATION)
+            WPFDoEvents.SafeExec(() =>
             {
-                Logging.Info("Drag area too small to create annotation");
-                return;
-            }
+                FeatureTrackingManager.Instance.UseFeature(Features.Document_AddAnnotation);
 
-            PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.Fingerprint, page, PDFAnnotationEditorControl.LastAnnotationColor, ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname);
-            pdf_annotation.Left = Math.Min(mouse_up_point.X, mouse_down_point.X) / ActualWidth;
-            pdf_annotation.Top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / ActualHeight;
-            pdf_annotation.Width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
-            pdf_annotation.Height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
+                int MINIMUM_DRAG_SIZE_TO_CREATE_ANNOTATION = 20;
+                if (Math.Abs(mouse_up_point.X - mouse_down_point.X) < MINIMUM_DRAG_SIZE_TO_CREATE_ANNOTATION ||
+                    Math.Abs(mouse_up_point.Y - mouse_down_point.Y) < MINIMUM_DRAG_SIZE_TO_CREATE_ANNOTATION)
+                {
+                    Logging.Info("Drag area too small to create annotation");
+                    return;
+                }
 
-            pdf_document.AddUpdatedAnnotation(pdf_annotation);
+                PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.Fingerprint, page, PDFAnnotationEditorControl.LastAnnotationColor, ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname);
+                pdf_annotation.Left = Math.Min(mouse_up_point.X, mouse_down_point.X) / ActualWidth;
+                pdf_annotation.Top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / ActualHeight;
+                pdf_annotation.Width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
+                pdf_annotation.Height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
 
-            PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation);
-            pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
-            Children.Add(pdf_annotation_item);
+                pdf_document.AddUpdatedAnnotation(pdf_annotation);
+
+                PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation);
+                pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
+                Children.Add(pdf_annotation_item);
+            });
         }
 
         private void PDFAnnotationLayer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            foreach (PDFAnnotationItem pdf_annotation_item in Children.OfType<PDFAnnotationItem>())
+            WPFDoEvents.SafeExec(() =>
             {
-                pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
-            }
+                foreach (PDFAnnotationItem pdf_annotation_item in Children.OfType<PDFAnnotationItem>())
+                {
+                    pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
+                }
+            });
         }
 
         internal override void SelectPage()

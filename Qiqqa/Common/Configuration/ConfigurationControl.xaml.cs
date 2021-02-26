@@ -175,14 +175,17 @@ namespace Qiqqa.Common.Configuration
 
         private void ObjListEZProxy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Proxy proxy = ObjListEZProxy.SelectedItem as Proxy;
-            if (null != proxy && !String.IsNullOrEmpty(proxy.url))
+            WPFDoEvents.SafeExec(() =>
             {
-                ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy = proxy.url;
-                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy));
-            }
+                Proxy proxy = ObjListEZProxy.SelectedItem as Proxy;
+                if (null != proxy && !String.IsNullOrEmpty(proxy.url))
+                {
+                    ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy = proxy.url;
+                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy));
+                }
 
-            e.Handled = true;
+                e.Handled = true;
+            });
         }
 
         private void ObjUserAgent_XXX_Click(object sender, RoutedEventArgs e)

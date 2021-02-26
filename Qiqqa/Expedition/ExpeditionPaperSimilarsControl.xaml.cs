@@ -43,48 +43,51 @@ namespace Qiqqa.Expedition
 
         private void ExpeditionPaperSimilarsControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            // Clear the old
-            ObjPapers.Children.Clear();
-            TxtPleaseRunExpedition.Visibility = Visibility.Visible;
-
-            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
-            if (null == pdf_document_bindable)
+            WPFDoEvents.SafeExec(() =>
             {
-                return;
-            }
+                // Clear the old
+                ObjPapers.Children.Clear();
+                TxtPleaseRunExpedition.Visibility = Visibility.Visible;
 
-            ASSERT.Test(this.IsHitTestVisible);
-
-            PDFDocument pdf_document = pdf_document_bindable.Underlying;
-
-            SafeThreadPool.QueueUserWorkItem(o =>
-            {
-                List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(pdf_document, NumberOfRelevantPapersToDisplay);
-
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
+                if (null == pdf_document_bindable)
                 {
-                    ASSERT.Test(this.IsHitTestVisible);
+                    return;
+                }
 
-                    foreach (ExpeditionPaperSuggestions.Result result in results)
+                ASSERT.Test(this.IsHitTestVisible);
+
+                PDFDocument pdf_document = pdf_document_bindable.Underlying;
+
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
+                    List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(pdf_document, NumberOfRelevantPapersToDisplay);
+
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
-                        // Do we have specific event handling logic?
-                        MouseButtonEventHandler mouse_down_event_handler = null;
-                        if (null != PDFDocumentSelected)
+                        ASSERT.Test(this.IsHitTestVisible);
+
+                        foreach (ExpeditionPaperSuggestions.Result result in results)
                         {
-                            mouse_down_event_handler = DocumentDocumentPressed_MouseButtonEventHandler;
+                            // Do we have specific event handling logic?
+                            MouseButtonEventHandler mouse_down_event_handler = null;
+                            if (null != PDFDocumentSelected)
+                            {
+                                mouse_down_event_handler = DocumentDocumentPressed_MouseButtonEventHandler;
+                            }
+
+                            string doc_percentage = String.Format("{0:N0}%", 100 * result.relevance);
+
+                            bool alternator = false;
+                            TextBlock text_doc =
+                                ShowRelevancePercentage
+                                    ? ListFormattingTools.GetDocumentTextBlock(result.pdf_document, ref alternator, Features.Expedition_TopicDocument, mouse_down_event_handler, doc_percentage + " - ")
+                                    : ListFormattingTools.GetDocumentTextBlock(result.pdf_document, ref alternator, Features.Expedition_TopicDocument, mouse_down_event_handler, null);
+                            ObjPapers.Children.Add(text_doc);
                         }
 
-                        string doc_percentage = String.Format("{0:N0}%", 100 * result.relevance);
-
-                        bool alternator = false;
-                        TextBlock text_doc =
-                            ShowRelevancePercentage
-                                ? ListFormattingTools.GetDocumentTextBlock(result.pdf_document, ref alternator, Features.Expedition_TopicDocument, mouse_down_event_handler, doc_percentage + " - ")
-                                : ListFormattingTools.GetDocumentTextBlock(result.pdf_document, ref alternator, Features.Expedition_TopicDocument, mouse_down_event_handler, null);
-                        ObjPapers.Children.Add(text_doc);
-                    }
-
-                    TxtPleaseRunExpedition.Visibility = Visibility.Collapsed;
+                        TxtPleaseRunExpedition.Visibility = Visibility.Collapsed;
+                    });
                 });
             });
         }

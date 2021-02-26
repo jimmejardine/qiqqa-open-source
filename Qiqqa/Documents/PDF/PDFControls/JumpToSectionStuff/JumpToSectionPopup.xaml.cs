@@ -80,12 +80,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
         private void Dispatcher_ShutdownStarted(object sender, System.EventArgs e)
         {
-            CleanUp();
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
         }
 
         private void JumpToSectionPopup_Unloaded(object sender, RoutedEventArgs e)
         {
-            CleanUp();
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
         }
 
         private void CleanUp()

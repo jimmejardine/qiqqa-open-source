@@ -315,21 +315,27 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void PDFReadingControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
+            WPFDoEvents.SafeExec(() =>
             {
-                GridRIGHT.Collapse();
-            }
-            else
-            {
-                GridRIGHT.Restore();
-            }
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
+                {
+                    GridRIGHT.Collapse();
+                }
+                else
+                {
+                    GridRIGHT.Restore();
+                }
+            });
         }
 
         private void ObjDocumentMetadataControlsPanel_ObjDocumentMetadataControlsPanel_SelectedPageChanged(int page)
         {
-            ASSERT.Test(pdf_renderer_control != null);
+            WPFDoEvents.SafeExec(() =>
+            {
+                ASSERT.Test(pdf_renderer_control != null);
 
-            pdf_renderer_control.SelectPage(page);
+                pdf_renderer_control.SelectPage(page);
+            });
         }
 
         private void ButtonInCite_Word_Click(object sender, RoutedEventArgs e)
@@ -484,88 +490,97 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void pdf_renderer_control_OperationModeChanged(PDFRendererControl.OperationMode operation_mode)
         {
-            // Reset the toggle buttons
-            ButtonHand.IsChecked = false;
-            ButtonTextSentenceSelect.IsChecked = false;
-            ButtonAnnotation.IsChecked = false;
-            ButtonHighlighter.IsChecked = false;
-            ButtonCamera.IsChecked = false;
-            ButtonInk.IsChecked = false;
-
-            // Hide the various toolboxes
-            InkCanvasToolbarBorder.Visibility = Visibility.Collapsed;
-            HighlightCanvasToolbarBorder.Visibility = Visibility.Collapsed;
-            TextCanvasToolbarBorder.Visibility = Visibility.Collapsed;
-
-            // Set the selected toggle button
-            switch (operation_mode)
+            WPFDoEvents.SafeExec(() =>
             {
-                case PDFRendererControl.OperationMode.Hand:
-                    ButtonHand.IsChecked = true;
-                    break;
-                case PDFRendererControl.OperationMode.Annotation:
-                    ButtonAnnotation.IsChecked = true;
-                    break;
-                case PDFRendererControl.OperationMode.Highlighter:
-                    ButtonHighlighter.IsChecked = true;
-                    HighlightCanvasToolbarBorder.Visibility = Visibility.Visible;
-                    break;
-                case PDFRendererControl.OperationMode.Camera:
-                    ButtonCamera.IsChecked = true;
-                    break;
-                case PDFRendererControl.OperationMode.Ink:
-                    ButtonInk.IsChecked = true;
-                    InkCanvasToolbarBorder.Visibility = Visibility.Visible;
-                    break;
-                case PDFRendererControl.OperationMode.TextSentenceSelect:
-                    ButtonTextSentenceSelect.IsChecked = true;
-                    TextCanvasToolbarBorder.Visibility = Visibility.Visible;
-                    break;
-                default:
-                    Logging.Warn("Unknown operation mode {0}", operation_mode);
-                    break;
-            }
+                // Reset the toggle buttons
+                ButtonHand.IsChecked = false;
+                ButtonTextSentenceSelect.IsChecked = false;
+                ButtonAnnotation.IsChecked = false;
+                ButtonHighlighter.IsChecked = false;
+                ButtonCamera.IsChecked = false;
+                ButtonInk.IsChecked = false;
+
+                // Hide the various toolboxes
+                InkCanvasToolbarBorder.Visibility = Visibility.Collapsed;
+                HighlightCanvasToolbarBorder.Visibility = Visibility.Collapsed;
+                TextCanvasToolbarBorder.Visibility = Visibility.Collapsed;
+
+                // Set the selected toggle button
+                switch (operation_mode)
+                {
+                    case PDFRendererControl.OperationMode.Hand:
+                        ButtonHand.IsChecked = true;
+                        break;
+                    case PDFRendererControl.OperationMode.Annotation:
+                        ButtonAnnotation.IsChecked = true;
+                        break;
+                    case PDFRendererControl.OperationMode.Highlighter:
+                        ButtonHighlighter.IsChecked = true;
+                        HighlightCanvasToolbarBorder.Visibility = Visibility.Visible;
+                        break;
+                    case PDFRendererControl.OperationMode.Camera:
+                        ButtonCamera.IsChecked = true;
+                        break;
+                    case PDFRendererControl.OperationMode.Ink:
+                        ButtonInk.IsChecked = true;
+                        InkCanvasToolbarBorder.Visibility = Visibility.Visible;
+                        break;
+                    case PDFRendererControl.OperationMode.TextSentenceSelect:
+                        ButtonTextSentenceSelect.IsChecked = true;
+                        TextCanvasToolbarBorder.Visibility = Visibility.Visible;
+                        break;
+                    default:
+                        Logging.Warn("Unknown operation mode {0}", operation_mode);
+                        break;
+                }
+            });
         }
 
         private void pdf_renderer_control_ZoomTypeChanged(PDFRendererControl.ZoomType zoom_type)
         {
-            Button1Up.IsChecked = false;
-            Button2Up.IsChecked = false;
-            ButtonNUp.IsChecked = false;
-            ButtonWholeUp.IsChecked = false;
-
-            switch (zoom_type)
+            WPFDoEvents.SafeExec(() =>
             {
-                case PDFRendererControl.ZoomType.Zoom1Up:
-                    Button1Up.IsChecked = true;
-                    break;
-                case PDFRendererControl.ZoomType.Zoom2Up:
-                    Button2Up.IsChecked = true;
-                    break;
-                case PDFRendererControl.ZoomType.ZoomNUp:
-                    ButtonNUp.IsChecked = true;
-                    break;
-                case PDFRendererControl.ZoomType.ZoomWholeUp:
-                    ButtonWholeUp.IsChecked = true;
-                    break;
-                case PDFRendererControl.ZoomType.Other:
-                    break;
-                default:
-                    Logging.Warn("Unknown zoom type {0}", zoom_type);
-                    break;
-            }
+                Button1Up.IsChecked = false;
+                Button2Up.IsChecked = false;
+                ButtonNUp.IsChecked = false;
+                ButtonWholeUp.IsChecked = false;
+
+                switch (zoom_type)
+                {
+                    case PDFRendererControl.ZoomType.Zoom1Up:
+                        Button1Up.IsChecked = true;
+                        break;
+                    case PDFRendererControl.ZoomType.Zoom2Up:
+                        Button2Up.IsChecked = true;
+                        break;
+                    case PDFRendererControl.ZoomType.ZoomNUp:
+                        ButtonNUp.IsChecked = true;
+                        break;
+                    case PDFRendererControl.ZoomType.ZoomWholeUp:
+                        ButtonWholeUp.IsChecked = true;
+                        break;
+                    case PDFRendererControl.ZoomType.Other:
+                        break;
+                    default:
+                        Logging.Warn("Unknown zoom type {0}", zoom_type);
+                        break;
+                }
+            });
         }
 
         private void pdf_renderer_control_SelectedPageChanged(int page)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
+            WPFDoEvents.SafeExec(() =>
             {
-                JumpToPageNumber.Text = "" + page;
-                JumpToPageNumberMax.Text = $" of {pdf_document.PageCountAsString}";
-            }
+                PDFDocument pdf_document = GetPDFDocument();
+                ASSERT.Test(pdf_document != null);
+
+                if (pdf_document != null)
+                {
+                    JumpToPageNumber.Text = "" + page;
+                    JumpToPageNumberMax.Text = $" of {pdf_document.PageCountAsString}";
+                }
+            });
         }
 
         private void JumpToPageNumber_GotFocus(object sender, RoutedEventArgs e)
@@ -763,12 +778,18 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void TextBoxFind_OnHardSearch()
         {
-            SetSearchKeywords();
+            WPFDoEvents.SafeExec(() =>
+            {
+                SetSearchKeywords();
+            });
         }
 
         private void ListSearchDetails_SearchSelectionChanged(PDFSearchResult search_result)
         {
-            pdf_renderer_control.FlashSelectedSearchItem(search_result);
+            WPFDoEvents.SafeExec(() =>
+            {
+                pdf_renderer_control.FlashSelectedSearchItem(search_result);
+            });
         }
 
         public void SetSearchKeywords(string keywords)

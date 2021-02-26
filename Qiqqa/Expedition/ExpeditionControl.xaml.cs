@@ -207,12 +207,18 @@ namespace Qiqqa.Expedition
 
         private void toc_PDFDocumentSelected(PDFDocument pdf_document)
         {
-            ChooseNewPDFDocument(pdf_document);
+            WPFDoEvents.SafeExec(() =>
+            {
+                ChooseNewPDFDocument(pdf_document);
+            });
         }
 
         private void ObjDocumentOverviewControl_PDFDocumentSelected(PDFDocument pdf_document)
         {
-            ChooseNewPDFDocument(pdf_document);
+            WPFDoEvents.SafeExec(() =>
+            {
+                ChooseNewPDFDocument(pdf_document);
+            });
         }
 
         public void ChooseNewPDFDocument(PDFDocument pdf_document)

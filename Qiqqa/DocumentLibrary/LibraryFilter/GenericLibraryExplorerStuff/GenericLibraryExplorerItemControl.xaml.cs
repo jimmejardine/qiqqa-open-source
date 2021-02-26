@@ -34,22 +34,25 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void GenericLibraryExplorerItemControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            item = e.NewValue as GenericLibraryExplorerItem;
+            WPFDoEvents.SafeExec(() =>
+            {
+                item = e.NewValue as GenericLibraryExplorerItem;
 
-            if (null != item)
-            {
-                ObjCaption.Text = String.Format("{0} ({1})", item.tag, item.fingerprints.Count);
-                ObjCaption.Background = item.IsSelected ? ThemeColours.Background_Brush_Blue_VeryDarkToDark : Brushes.Transparent;
-                ObjCaption.Foreground = item.IsSelected ? Brushes.Black : Brushes.Black;
-                ObjChecked.IsChecked = item.IsSelected;
-            }
-            else
-            {
-                ObjCaption.Text = null;
-                ObjCaption.Background = Brushes.Transparent;
-                ObjCaption.Foreground = Brushes.Black;
-                ObjChecked.IsChecked = false;
-            }
+                if (null != item)
+                {
+                    ObjCaption.Text = String.Format("{0} ({1})", item.tag, item.fingerprints.Count);
+                    ObjCaption.Background = item.IsSelected ? ThemeColours.Background_Brush_Blue_VeryDarkToDark : Brushes.Transparent;
+                    ObjCaption.Foreground = item.IsSelected ? Brushes.Black : Brushes.Black;
+                    ObjChecked.IsChecked = item.IsSelected;
+                }
+                else
+                {
+                    ObjCaption.Text = null;
+                    ObjCaption.Background = Brushes.Transparent;
+                    ObjCaption.Foreground = Brushes.Black;
+                    ObjChecked.IsChecked = false;
+                }
+            });
         }
 
         private void GenericLibraryExplorerItemControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

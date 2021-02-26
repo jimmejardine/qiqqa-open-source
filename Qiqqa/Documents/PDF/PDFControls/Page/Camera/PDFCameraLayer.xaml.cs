@@ -55,39 +55,43 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
-            FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
-
-            double width_page = Math.Abs(mouse_up_point.X - mouse_down_point.X);
-            double height_page = Math.Abs(mouse_up_point.Y - mouse_down_point.Y);
-            if (3 <= width_page && 3 <= height_page)
+            WPFDoEvents.SafeExec(() =>
             {
-                DocPageInfo page_info = new DocPageInfo{
-                    pdf_document = @pdf_document,
-                    page = @page,
-                    ActualHeight = @ActualHeight,
-                    ActualWidth = @ActualWidth
-                };
+                FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                double width_page = Math.Abs(mouse_up_point.X - mouse_down_point.X);
+                double height_page = Math.Abs(mouse_up_point.Y - mouse_down_point.Y);
+                if (3 <= width_page && 3 <= height_page)
                 {
-                    // GetSnappedImage() invokes the background renderer, hence run it in a background thread itself:
-                    BitmapSource image = GetSnappedImage(page_info, mouse_up_point, mouse_down_point);
-                    List<Word> words = GetSnappedWords(page_info, mouse_up_point, mouse_down_point);
-                    string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
-                    string tabled_text = SelectedWordsToFormattedTextConvertor.ConvertToTable(words);
-
-                    WPFDoEvents.InvokeAsyncInUIThread(() =>
+                    DocPageInfo page_info = new DocPageInfo
                     {
-                        CameraActionChooserDialog cacd = new CameraActionChooserDialog();
-                        cacd.SetLovelyDetails(image, raw_text, tabled_text);
-                        cacd.ShowDialog();
+                        pdf_document = @pdf_document,
+                        page = @page,
+                        ActualHeight = @ActualHeight,
+                        ActualWidth = @ActualWidth
+                    };
+
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        // GetSnappedImage() invokes the background renderer, hence run it in a background thread itself:
+                        BitmapSource image = GetSnappedImage(page_info, mouse_up_point, mouse_down_point);
+                        List<Word> words = GetSnappedWords(page_info, mouse_up_point, mouse_down_point);
+                        string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
+                        string tabled_text = SelectedWordsToFormattedTextConvertor.ConvertToTable(words);
+
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        {
+                            CameraActionChooserDialog cacd = new CameraActionChooserDialog();
+                            cacd.SetLovelyDetails(image, raw_text, tabled_text);
+                            cacd.ShowDialog();
+                        });
                     });
-                });
-            }
-            else
-            {
-                Logging.Info("Region too small to screen grab");
-            }
+                }
+                else
+                {
+                    Logging.Info("Region too small to screen grab");
+                }
+            });
         }
 
         private class DocPageInfo

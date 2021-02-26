@@ -188,11 +188,14 @@ namespace Qiqqa.StartPage
 
         private void ObjSearch_OnHardSearch()
         {
-            string query = ObjSearch.Text;
-            if (!String.IsNullOrEmpty(query))
+            WPFDoEvents.SafeExec(() =>
             {
-                MainWindowServiceDispatcher.Instance.OpenCrossLibrarySearch(query);
-            }
+                string query = ObjSearch.Text;
+                if (!String.IsNullOrEmpty(query))
+                {
+                    MainWindowServiceDispatcher.Instance.OpenCrossLibrarySearch(query);
+                }
+            });
         }
 
         private void ButtonCreateIntranetLibrary_Click(object sender, RoutedEventArgs e)

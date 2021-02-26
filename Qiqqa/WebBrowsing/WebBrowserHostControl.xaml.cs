@@ -310,46 +310,49 @@ namespace Qiqqa.WebBrowsing
 
         private void TabWebBrowserControls_OnActiveItemChanged(FrameworkElement newItemContent)
         {
-            WebBrowserControl wbc = newItemContent as WebBrowserControl;
-
-            if (null != wbc)
+            WPFDoEvents.SafeExec(() =>
             {
-                // find out which, if any, web searcher goes with this particular control
-                WebSearcherEntry wse = null;
+                WebBrowserControl wbc = newItemContent as WebBrowserControl;
 
-                foreach (var web_searcher_entry in web_searcher_entries)
+                if (null != wbc)
                 {
-                    if (web_searcher_entry.browser_control == wbc)
+                    // find out which, if any, web searcher goes with this particular control
+                    WebSearcherEntry wse = null;
+
+                    foreach (var web_searcher_entry in web_searcher_entries)
                     {
-                        wse = web_searcher_entry;
-                        break;
+                        if (web_searcher_entry.browser_control == wbc)
+                        {
+                            wse = web_searcher_entry;
+                            break;
+                        }
                     }
+
+                    Uri uri = wbc.NavigateOnceVisibleUri;
+
+                    if (uri == null || uri.ToString() == WebsiteAccess.Url_AboutBlank)
+                    {
+                        if (wse != null)
+                        {
+                            uri = wbc.NavigateOnceVisibleUri = new Uri(wse.web_searcher.StartUri);
+                        }
+                        else
+                        {
+                            uri = wbc.NavigateOnceVisibleUri = new Uri(WebsiteAccess.Url_BlankWebsite);
+                        }
+                    }
+                    uri = wbc.NavigateToPendingOnceVisibleUri();
+
+                    Logging.Debug特("Active browser control changed");
+                    active_wbc = wbc;
+
+                    uri = wbc.CurrentUri;
+                    ASSERT.Test(uri != null);
+                    TextBoxUrl.Text = uri.ToString();
                 }
 
-                Uri uri = wbc.NavigateOnceVisibleUri;
-
-                if (uri == null || uri.ToString() == WebsiteAccess.Url_AboutBlank)
-                {
-                    if (wse != null)
-                    {
-                        uri = wbc.NavigateOnceVisibleUri = new Uri(wse.web_searcher.StartUri);
-                    }
-                    else
-                    {
-                        uri = wbc.NavigateOnceVisibleUri = new Uri(WebsiteAccess.Url_BlankWebsite);
-                    }
-                }
-                uri = wbc.NavigateToPendingOnceVisibleUri();
-
-                Logging.Debug特("Active browser control changed");
-                active_wbc = wbc;
-
-                uri = wbc.CurrentUri;
-                ASSERT.Test(uri != null);
-                TextBoxUrl.Text = uri.ToString();
-            }
-
-            TabChanged?.Invoke();
+                TabChanged?.Invoke();
+            });
         }
 
         // TODO: make it work akin to the <embed> handling to prevent confusion:
@@ -376,7 +379,10 @@ namespace Qiqqa.WebBrowsing
 
         private void TextBoxUrl_OnHardSearch()
         {
-            DoBrowse();
+            WPFDoEvents.SafeExec(() =>
+            {
+                DoBrowse();
+            });
         }
 
         private void DoBrowse()
@@ -419,7 +425,10 @@ namespace Qiqqa.WebBrowsing
 
         private void TextBoxGoogleScholar_OnHardSearch()
         {
-            DoWebSearch();
+            WPFDoEvents.SafeExec(() =>
+            {
+                DoWebSearch();
+            });
         }
 
         internal void SelectSearchTab(string active_search_key)

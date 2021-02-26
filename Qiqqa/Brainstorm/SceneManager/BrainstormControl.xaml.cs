@@ -240,40 +240,43 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ObjSceneRenderingControl_SelectedNodeControlChanged(NodeControl node_control)
         {
-            // The first time they select something, select the edit tab...
-            if (is_first_selection)
+            WPFDoEvents.SafeExec(() =>
             {
-                is_first_selection = false;
-                DualTabControlArea.MakeActive("Edit");
-                SceneRenderingControl.Focus();
-            }
-
-            // Clear out the old selected node editor
-            if (0 < ObjStackEditor.Children.Count)
-            {
-                FrameworkElement fe = ObjStackEditor.Children[0] as FrameworkElement;
-                if (null != fe)
+                // The first time they select something, select the edit tab...
+                if (is_first_selection)
                 {
-                    fe.DataContext = null;
+                    is_first_selection = false;
+                    DualTabControlArea.MakeActive("Edit");
+                    SceneRenderingControl.Focus();
                 }
-                else
-                {
-                    Logging.Warn("It is strange that there was a non-FrameworkElement child of the brainstorm node editor");
-                }
-                ObjStackEditor.Children.Clear();
-            }
 
-            // Create a new selected node editor (if we have one)
-            FrameworkElement fe_to_load = null;
-            if (null != node_control)
-            {
-                fe_to_load = NodeContentControlRegistry.Instance.GetContentEditor(node_control, node_control.scene_data.node_content);
-            }
-            if (null == fe_to_load)
-            {
-                fe_to_load = ObjStackEditorHelpWhenEmpty;
-            }
-            LoadEditorFrameworkElement(fe_to_load);
+                // Clear out the old selected node editor
+                if (0 < ObjStackEditor.Children.Count)
+                {
+                    FrameworkElement fe = ObjStackEditor.Children[0] as FrameworkElement;
+                    if (null != fe)
+                    {
+                        fe.DataContext = null;
+                    }
+                    else
+                    {
+                        Logging.Warn("It is strange that there was a non-FrameworkElement child of the brainstorm node editor");
+                    }
+                    ObjStackEditor.Children.Clear();
+                }
+
+                // Create a new selected node editor (if we have one)
+                FrameworkElement fe_to_load = null;
+                if (null != node_control)
+                {
+                    fe_to_load = NodeContentControlRegistry.Instance.GetContentEditor(node_control, node_control.scene_data.node_content);
+                }
+                if (null == fe_to_load)
+                {
+                    fe_to_load = ObjStackEditorHelpWhenEmpty;
+                }
+                LoadEditorFrameworkElement(fe_to_load);
+            });
         }
 
         private void LoadEditorFrameworkElement(FrameworkElement fe)

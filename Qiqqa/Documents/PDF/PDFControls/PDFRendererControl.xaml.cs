@@ -205,114 +205,116 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ScrollPages_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            // Weirdly, ScrollChanged is a bubbling event - not a callback on the very object
-            // So you can receive a scroll event from ANY of your children?!!?!!!!!
-            // Inside the reading page, there are scrollbars in the annotation popups, which cause this to fire.  So ignore those...
-            if (e.Source != ScrollPages)
+            WPFDoEvents.SafeExec(() =>
             {
-                return;
-            }
-
-            if (DateTime.MaxValue == first_scroll_timestamp)
-            {
-                first_scroll_timestamp = DateTime.UtcNow;
-
-                if (remember_last_read_page)
+                // Weirdly, ScrollChanged is a bubbling event - not a callback on the very object
+                // So you can receive a scroll event from ANY of your children?!!?!!!!!
+                // Inside the reading page, there are scrollbars in the annotation popups, which cause this to fire.  So ignore those...
+                if (e.Source != ScrollPages)
                 {
-                    if (0 < pdf_renderer_control_stats.pdf_document.PageLastRead)
-                    {
-                        Logging.Debug("********************************** Restoring page to page {0}", pdf_renderer_control_stats.pdf_document.PageLastRead);
-                        PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
-                        ASSERT.Test(page_control != null);
-
-                        page_control.BringIntoView();
-                    }
+                    return;
                 }
-            }
 
-            /*
-                Logging.Info(
-                    "\n----------------------------------------------------------" +
-                    "\nExtentHeight={0}," +
-                    "\nExtentHeightChange={1}," +
-                    "\nExtentWidth={2}," +
-                    "\nExtentWidthChange={3}," +
-                    "\nHorizontalChange={4}," +
-                    "\nHorizontalOffset={5}," +
-                    "\nVerticalChange={6}," +
-                    "\nVerticalOffset={7}," +
-                    "\nViewportHeight={8}," +
-                    "\nViewportHeightChange={9}," +
-                    "\nViewportWidth={10}," +
-                    "\nViewportWidthChange={11}," +
-                    "",
-
-                    e.ExtentHeight,
-                    e.ExtentHeightChange,
-                    e.ExtentWidth,
-                    e.ExtentWidthChange,
-                    e.HorizontalChange,
-                    e.HorizontalOffset,
-                    e.VerticalChange,
-                    e.VerticalOffset,
-                    e.ViewportHeight,
-                    e.ViewportHeightChange,
-                    e.ViewportWidth,
-                    e.ViewportWidthChange
-                    );
-             */
-
-            // Lets see which pages are in view
-            PDFRendererPageControl first_page_in_view = null;
-            List<PDFRendererPageControl> pages_in_view = new List<PDFRendererPageControl>();
-            List<PDFRendererPageControl> pages_not_in_view = new List<PDFRendererPageControl>();
-            foreach (PDFRendererPageControl page in ObjPagesPanel.Children.OfType<PDFRendererPageControl>().Reverse())
-            {
-                GeneralTransform childTransform = page.TransformToAncestor(ScrollPages);
-                Rect rectangle = childTransform.TransformBounds(new Rect(new Point(0, 0), page.RenderSize));
-                Rect result = Rect.Intersect(new Rect(new Point(0, 0), ScrollPages.RenderSize), rectangle);
-
-                if (result != Rect.Empty)
+                if (DateTime.MaxValue == first_scroll_timestamp)
                 {
-                    if (null == first_page_in_view)
-                    {
-                        first_page_in_view = page;
-                    }
+                    first_scroll_timestamp = DateTime.UtcNow;
 
-                    pages_in_view.Add(page);
-                }
-                else
-                {
-                    pages_not_in_view.Add(page);
-                }
-            }
-
-            // Check if the selected page has gone off screen.  If so, select the next page.
-            if (null != SelectedPage)
-            {
-                if (!pages_in_view.Contains(SelectedPage))
-                {
-                    // IF this is the first time the selected page has gone off screen, record the moment
-                    if (DateTime.MaxValue == selected_page_first_offscreen_timestamp)
+                    if (remember_last_read_page)
                     {
-                        selected_page_first_offscreen_timestamp = DateTime.UtcNow;
-                    }
-
-                    // We wait for a few moments after it has gone off the screen...2 is arbitrary, but large enough that we can zoom without changing the selected page before the zoom gets time to move thesleected page back onto the screen...
-                    if (DateTime.UtcNow.Subtract(selected_page_first_offscreen_timestamp).TotalSeconds > 1)
-                    {
-                        if (null != first_page_in_view)
+                        if (0 < pdf_renderer_control_stats.pdf_document.PageLastRead)
                         {
-                            SelectedPage = first_page_in_view;
-                            selected_page_first_offscreen_timestamp = DateTime.MaxValue;
+                            Logging.Debug("********************************** Restoring page to page {0}", pdf_renderer_control_stats.pdf_document.PageLastRead);
+                            PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
+                            ASSERT.Test(page_control != null);
+
+                            page_control.BringIntoView();
                         }
                     }
                 }
-                else
+
+                /*
+                    Logging.Info(
+                        "\n----------------------------------------------------------" +
+                        "\nExtentHeight={0}," +
+                        "\nExtentHeightChange={1}," +
+                        "\nExtentWidth={2}," +
+                        "\nExtentWidthChange={3}," +
+                        "\nHorizontalChange={4}," +
+                        "\nHorizontalOffset={5}," +
+                        "\nVerticalChange={6}," +
+                        "\nVerticalOffset={7}," +
+                        "\nViewportHeight={8}," +
+                        "\nViewportHeightChange={9}," +
+                        "\nViewportWidth={10}," +
+                        "\nViewportWidthChange={11}," +
+                        "",
+
+                        e.ExtentHeight,
+                        e.ExtentHeightChange,
+                        e.ExtentWidth,
+                        e.ExtentWidthChange,
+                        e.HorizontalChange,
+                        e.HorizontalOffset,
+                        e.VerticalChange,
+                        e.VerticalOffset,
+                        e.ViewportHeight,
+                        e.ViewportHeightChange,
+                        e.ViewportWidth,
+                        e.ViewportWidthChange
+                        );
+                 */
+
+                // Lets see which pages are in view
+                PDFRendererPageControl first_page_in_view = null;
+                List<PDFRendererPageControl> pages_in_view = new List<PDFRendererPageControl>();
+                List<PDFRendererPageControl> pages_not_in_view = new List<PDFRendererPageControl>();
+                foreach (PDFRendererPageControl page in ObjPagesPanel.Children.OfType<PDFRendererPageControl>().Reverse())
                 {
-                    selected_page_first_offscreen_timestamp = DateTime.MaxValue;
+                    GeneralTransform childTransform = page.TransformToAncestor(ScrollPages);
+                    Rect rectangle = childTransform.TransformBounds(new Rect(new Point(0, 0), page.RenderSize));
+                    Rect result = Rect.Intersect(new Rect(new Point(0, 0), ScrollPages.RenderSize), rectangle);
+
+                    if (result != Rect.Empty)
+                    {
+                        if (null == first_page_in_view)
+                        {
+                            first_page_in_view = page;
+                        }
+
+                        pages_in_view.Add(page);
+                    }
+                    else
+                    {
+                        pages_not_in_view.Add(page);
+                    }
                 }
-            }
+
+                // Check if the selected page has gone off screen.  If so, select the next page.
+                if (null != SelectedPage)
+                {
+                    if (!pages_in_view.Contains(SelectedPage))
+                    {
+                        // IF this is the first time the selected page has gone off screen, record the moment
+                        if (DateTime.MaxValue == selected_page_first_offscreen_timestamp)
+                        {
+                            selected_page_first_offscreen_timestamp = DateTime.UtcNow;
+                        }
+
+                        // We wait for a few moments after it has gone off the screen...2 is arbitrary, but large enough that we can zoom without changing the selected page before the zoom gets time to move thesleected page back onto the screen...
+                        if (DateTime.UtcNow.Subtract(selected_page_first_offscreen_timestamp).TotalSeconds > 1)
+                        {
+                            if (null != first_page_in_view)
+                            {
+                                SelectedPage = first_page_in_view;
+                                selected_page_first_offscreen_timestamp = DateTime.MaxValue;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        selected_page_first_offscreen_timestamp = DateTime.MaxValue;
+                    }
+                }
 
 #if false
             {
@@ -338,51 +340,52 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
 #endif
 
-            // Clear down the pages NOT in view
-            foreach (PDFRendererPageControl page in pages_not_in_view)
-            {
-                page.SetPageNotInView();
-            }
-
-            // Notify the new pages that are in view
-            foreach (PDFRendererPageControl page in pages_in_view)
-            {
-                //Logging.Debug("Page {0} is in view!!!!!!!!!!!!!!", page.PageNumber);
-                page.SetPageInView();
-            }
-
-            // If the page has been resized or rescaled, try keep the scrollbars in the same place...
-            if (0 != e.ExtentHeightChange)
-            {
-                double prev_extent_height = e.ExtentHeight - e.ExtentHeightChange;
-                double vertical_offset_ratio = e.VerticalOffset / prev_extent_height;
-                double new_vertical_offset = vertical_offset_ratio * e.ExtentHeight;
-
-                if (!Double.IsNaN(new_vertical_offset))
+                // Clear down the pages NOT in view
+                foreach (PDFRendererPageControl page in pages_not_in_view)
                 {
-                    //Logging.Info("Forcing vertical offset from {0} to {1}", e.VerticalOffset, new_vertical_offset);
-                    ScrollPages.ScrollToVerticalOffset(new_vertical_offset);
-                    return;
+                    page.SetPageNotInView();
                 }
-            }
 
-            // Store the last seen page - but not right at the start
-            if (DateTime.UtcNow.Subtract(first_scroll_timestamp).TotalSeconds > 1)
-            {
-                if (remember_last_read_page)
+                // Notify the new pages that are in view
+                foreach (PDFRendererPageControl page in pages_in_view)
                 {
-                    if (0 < pages_in_view.Count)
+                    //Logging.Debug("Page {0} is in view!!!!!!!!!!!!!!", page.PageNumber);
+                    page.SetPageInView();
+                }
+
+                // If the page has been resized or rescaled, try keep the scrollbars in the same place...
+                if (0 != e.ExtentHeightChange)
+                {
+                    double prev_extent_height = e.ExtentHeight - e.ExtentHeightChange;
+                    double vertical_offset_ratio = e.VerticalOffset / prev_extent_height;
+                    double new_vertical_offset = vertical_offset_ratio * e.ExtentHeight;
+
+                    if (!Double.IsNaN(new_vertical_offset))
                     {
-                        PDFRendererPageControl page = pages_in_view[0];
-
-                        // Set the last read page
-                        pdf_renderer_control_stats.pdf_document.PageLastRead = page.Page;
-
-                        // Don't notify this now as it causes many writes of the metadata to be done, which is slow for large highlightlists
-                        //pdf_renderer_control_stats.pdf_document.Bindable.NotifyPropertyChanged(() => pdf_renderer_control_stats.pdf_document.PageLastRead);
+                        //Logging.Info("Forcing vertical offset from {0} to {1}", e.VerticalOffset, new_vertical_offset);
+                        ScrollPages.ScrollToVerticalOffset(new_vertical_offset);
+                        return;
                     }
                 }
-            }
+
+                // Store the last seen page - but not right at the start
+                if (DateTime.UtcNow.Subtract(first_scroll_timestamp).TotalSeconds > 1)
+                {
+                    if (remember_last_read_page)
+                    {
+                        if (0 < pages_in_view.Count)
+                        {
+                            PDFRendererPageControl page = pages_in_view[0];
+
+                            // Set the last read page
+                            pdf_renderer_control_stats.pdf_document.PageLastRead = page.Page;
+
+                            // Don't notify this now as it causes many writes of the metadata to be done, which is slow for large highlightlists
+                            //pdf_renderer_control_stats.pdf_document.Bindable.NotifyPropertyChanged(() => pdf_renderer_control_stats.pdf_document.PageLastRead);
+                        }
+                    }
+                }
+            });
         }
 
         #region --- IDisposable ------------------------------------------------------------------------
@@ -779,9 +782,12 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void PDFRendererControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ReconsiderZoom();
-            last_size_change_height = e.NewSize.Height;
-            last_size_change_width = e.NewSize.Width;
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReconsiderZoom();
+                last_size_change_height = e.NewSize.Height;
+                last_size_change_width = e.NewSize.Width;
+            });
         }
 
         private void ButtonedZoom(double page_count_abreast)

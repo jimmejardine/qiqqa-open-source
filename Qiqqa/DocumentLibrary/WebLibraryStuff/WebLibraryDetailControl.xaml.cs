@@ -138,15 +138,18 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
-            if (null != web_library_detail)
+            WPFDoEvents.SafeExec(() =>
             {
-                PDFDocument doc = null;
-                if (web_library_detail.Xlibrary?.CheckIfDocumentsHaveChanged(ref library_change_marker_tick, ref doc) ?? false)
+                WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
+                if (null != web_library_detail)
                 {
-                    UpdateLibraryStatistics();
+                    PDFDocument doc = null;
+                    if (web_library_detail.Xlibrary?.CheckIfDocumentsHaveChanged(ref library_change_marker_tick, ref doc) ?? false)
+                    {
+                        UpdateLibraryStatistics();
+                    }
                 }
-            }
+            });
         }
 
         private void ButtonReadOnly_Click(object sender, RoutedEventArgs e)

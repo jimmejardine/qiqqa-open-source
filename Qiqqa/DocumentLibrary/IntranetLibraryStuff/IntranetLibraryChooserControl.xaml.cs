@@ -91,7 +91,10 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         private void TxtPath_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidateFolder();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ValidateFolder();
+            });
         }
 
         private void ValidateFolder()

@@ -139,7 +139,6 @@ namespace Qiqqa.InCite
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Error locating used citation.");

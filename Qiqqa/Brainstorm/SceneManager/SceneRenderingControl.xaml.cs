@@ -639,14 +639,17 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void SceneRenderingControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double delta_x = (e.PreviousSize.Width - e.NewSize.Width);
-            double delta_y = (e.PreviousSize.Height - e.NewSize.Height);
+            WPFDoEvents.SafeExec(() =>
+            {
+                double delta_x = (e.PreviousSize.Width - e.NewSize.Width);
+                double delta_y = (e.PreviousSize.Height - e.NewSize.Height);
 
-            current_viewport_topleft.X += delta_x / 2.0 / CurrentPowerScale;
-            current_viewport_topleft.Y += delta_y / 2.0 / CurrentPowerScale;
-            ViewportHasChanged();
+                current_viewport_topleft.X += delta_x / 2.0 / CurrentPowerScale;
+                current_viewport_topleft.Y += delta_y / 2.0 / CurrentPowerScale;
+                ViewportHasChanged();
 
-            RecalculateAllNodeControlDimensions();
+                RecalculateAllNodeControlDimensions();
+            });
         }
 
         internal void UpdateMouseTracking(MouseEventArgs e, bool update_initial)

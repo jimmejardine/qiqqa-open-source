@@ -52,7 +52,10 @@ namespace Qiqqa.Documents.PDF
 
         private void bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            ReprocessDocumentIfDirty();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReprocessDocumentIfDirty();
+            });
         }
 
         public string TitleCombinedTrimmed => StringTools.TrimToLengthWithEllipsis(TitleCombined, 200);

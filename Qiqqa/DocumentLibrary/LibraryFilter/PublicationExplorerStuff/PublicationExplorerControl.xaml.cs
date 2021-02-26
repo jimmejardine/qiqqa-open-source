@@ -80,7 +80,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff
 
         private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
+            WPFDoEvents.SafeExec(() =>
+            {
+                OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
+            });
         }
 
         private void OnItemPopup(WebLibraryDetail web_library_detail, string item_tag)

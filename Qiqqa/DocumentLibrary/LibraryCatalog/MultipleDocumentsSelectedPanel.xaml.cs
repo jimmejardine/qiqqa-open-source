@@ -81,9 +81,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void MultipleDocumentsSelectedPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (null == SelectedPDFDocuments) return;
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (null == SelectedPDFDocuments) return;
 
-            TxtNumDocuments.Text = Convert.ToString(SelectedPDFDocuments.Count);
+                TxtNumDocuments.Text = Convert.ToString(SelectedPDFDocuments.Count);
+            });
         }
 
         // ---------------------------------------------------------------------------------------------------

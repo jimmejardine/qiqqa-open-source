@@ -173,14 +173,17 @@ namespace Qiqqa.Main.LoginStuff
 
         private void LoginWindow_Closing(object sender, CancelEventArgs e)
         {
-            is_closing = true;
-
-            if (!have_done_config)
+            WPFDoEvents.SafeExec(() =>
             {
-                DoGuest();
-            }
+                is_closing = true;
 
-            StartMainApplication();
+                if (!have_done_config)
+                {
+                    DoGuest();
+                }
+
+                StartMainApplication();
+            });
         }
 
         private void StartMainApplication()

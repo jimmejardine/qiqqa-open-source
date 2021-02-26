@@ -38,7 +38,10 @@ namespace Qiqqa.Expedition
 
         private void TopicOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            PopulateDetail(false);
+            WPFDoEvents.SafeExec(() =>
+            {
+                PopulateDetail(false);
+            });
         }
 
         private void PopulateDetail(bool detailed_mode)

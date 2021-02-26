@@ -70,10 +70,13 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void ListPDFDocuments_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (ListPDFDocuments.IsVisible)
+            WPFDoEvents.SafeExec(() =>
             {
-                ListPDFDocuments.UpdateLayout();
-            }
+                if (ListPDFDocuments.IsVisible)
+                {
+                    ListPDFDocuments.UpdateLayout();
+                }
+            });
         }
 
         internal void OnFilterChanged(LibraryFilterControl library_filter_control, List<PDFDocument> pdf_documents, Span descriptive_span, string filter_terms, Dictionary<string, double> search_scores, PDFDocument pdf_document_to_focus_on)
@@ -83,9 +86,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void ListPDFDocuments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ReconsiderPDFDocumentDetail();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReconsiderPDFDocumentDetail();
 
-            SelectionChanged?.Invoke(SelectedPDFDocuments);
+                SelectionChanged?.Invoke(SelectedPDFDocuments);
+            });
         }
 
         private void ReconsiderPDFDocumentDetail()

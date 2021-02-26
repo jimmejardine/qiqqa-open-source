@@ -201,27 +201,36 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         private void TextAnnotationText_GotFocus(object sender, RoutedEventArgs e)
         {
-            ReColor();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReColor();
+            });
         }
 
         private void TextAnnotationText_LostFocus(object sender, RoutedEventArgs e)
         {
-            ReColor();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReColor();
+            });
         }
 
         private void pdf_annotation_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            ReColor();
-
-            // If we are suddenly deleted, we need to close our pop-up and notify our parent so they can remove us from their viewing list
-            if (pdf_annotation.Deleted)
+            WPFDoEvents.SafeExec(() =>
             {
-                GetPDFAnnotationLayer()?.DeletePDFAnnotationItem(this);
-                if (null != pdf_annotation_editor_control_popup)
+                ReColor();
+
+                // If we are suddenly deleted, we need to close our pop-up and notify our parent so they can remove us from their viewing list
+                if (pdf_annotation.Deleted)
                 {
-                    pdf_annotation_editor_control_popup.Close();
+                    GetPDFAnnotationLayer()?.DeletePDFAnnotationItem(this);
+                    if (null != pdf_annotation_editor_control_popup)
+                    {
+                        pdf_annotation_editor_control_popup.Close();
+                    }
                 }
-            }
+            });
         }
 
         private void ReColor()
