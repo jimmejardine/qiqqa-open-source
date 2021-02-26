@@ -607,6 +607,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public void SetSearchKeywords(PDFSearchResultSet search_result_set)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             // If we have a new seat of search results
             if (previous_search_result_set != search_result_set)
             {
@@ -649,7 +651,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                         PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[page - 1];
                         ASSERT.Test(page_control != null);
 
-                        previous_search_result_placeholder = page_control.SetNextSearchPosition(previous_search_result_placeholder);
+                        previous_search_result_placeholder = page_control?.SetNextSearchPosition(previous_search_result_placeholder);
 
                         // If it managed to find a successor search position, stick with that
                         if (null != previous_search_result_placeholder)

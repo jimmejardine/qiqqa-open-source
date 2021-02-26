@@ -9,7 +9,7 @@ using tessnet2;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
-using Utilities.PDF.Sorax;
+using Utilities.PDF.MuPDF;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -237,7 +237,7 @@ namespace QiqqaOCR
         public static WordList DoOCR(string pdf_filename, int page_number)
         {
             Logging.Info("+Rendering page {1} for PDF file {0}", pdf_filename, page_number);
-            using (MemoryStream ms = new MemoryStream(SoraxPDFRenderer.GetPageByDPIAsImage(pdf_filename, pdf_user_password, page_number, 200)))
+            using (MemoryStream ms = new MemoryStream(MuPDFRenderer.GetPageByDPIAsImage(pdf_filename, pdf_user_password, page_number, 200)))
             {
                 Bitmap bitmap = (Bitmap)Image.FromStream(ms);
 

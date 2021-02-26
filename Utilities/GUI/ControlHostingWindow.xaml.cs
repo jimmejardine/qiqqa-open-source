@@ -47,30 +47,36 @@ namespace Utilities.GUI
 
         private void ControlHostingWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            WindowOpenedCapable woc = InternalControl as WindowOpenedCapable;
-            if (null != woc) woc.OnWindowOpened();
+            WPFDoEvents.SafeExec(() =>
+            {
+                WindowOpenedCapable woc = InternalControl as WindowOpenedCapable;
+                if (null != woc) woc.OnWindowOpened();
+            });
         }
 
         private void ControlHostingWindow_Closed(object sender, EventArgs e)
         {
+            WPFDoEvents.SafeExec(() =>
             {
-                WindowClosedCapable wcc = InternalControl as WindowClosedCapable;
-                if (null != wcc)
                 {
-                    wcc.OnWindowClosed();
+                    WindowClosedCapable wcc = InternalControl as WindowClosedCapable;
+                    if (null != wcc)
+                    {
+                        wcc.OnWindowClosed();
+                    }
                 }
-            }
 
-            {
-                IDisposable disposable = InternalControl as IDisposable;
-                GridContent.Children.Clear();
-
-                if (null != disposable)
                 {
-                    disposable.Dispose();
+                    IDisposable disposable = InternalControl as IDisposable;
+                    GridContent.Children.Clear();
+
+                    if (null != disposable)
+                    {
+                        disposable.Dispose();
+                    }
+                    control = null;
                 }
-                control = null;
-            }
+            });
         }
 
         public static void CloseHostedControl(FrameworkElement control)

@@ -7,7 +7,7 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.OCR;
-using Utilities.PDF.Sorax;
+using Utilities.PDF.MuPDF;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -29,7 +29,7 @@ namespace Qiqqa.Documents.PDF
 
         internal byte[] GetPageByDPIAsImage(int page, int dpi)
         {
-            return SoraxPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
+            return MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
         }
 
         public void CauseAllPDFPagesToBeOCRed()

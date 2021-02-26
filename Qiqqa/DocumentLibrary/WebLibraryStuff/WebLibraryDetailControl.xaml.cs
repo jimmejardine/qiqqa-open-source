@@ -36,7 +36,7 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using System.Windows.Threading;
-using Utilities.PDF.Sorax;
+using Utilities.PDF.MuPDF;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -597,7 +597,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                         {
                                             try
                                             {
-                                                using (MemoryStream ms = new MemoryStream(SoraxPDFRenderer.GetPageByHeightAsImage(ddw.pdf_document.DocumentPath, ddw.pdf_document.PDFPassword, 1, (int)Math.Round(PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE), (int)Math.Round(PREVIEW_IMAGE_WIDTH / PREVIEW_IMAGE_PERCENTAGE))))
+                                                using (MemoryStream ms = new MemoryStream(MuPDFRenderer.GetPageByHeightAsImage(ddw.pdf_document.DocumentPath, ddw.pdf_document.PDFPassword, 1, (int)Math.Round(PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE), (int)Math.Round(PREVIEW_IMAGE_WIDTH / PREVIEW_IMAGE_PERCENTAGE))))
                                                 {
                                                     Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
                                                     page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
@@ -653,6 +653,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                                     }
 
                                                     BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
+                                                    ASSERT.Test(page_bitmap_source.IsFrozen);
 
                                                     ddw.page_bitmap_source = page_bitmap_source;
                                                 }

@@ -10,7 +10,7 @@ using Utilities;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Utilities.Misc;
-using Utilities.PDF.Sorax;
+using Utilities.PDF.MuPDF;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -145,7 +145,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                         //bitmap.Freeze();
 
                         BitmapImage bitmap = new BitmapImage();
-                        using (MemoryStream ms = new MemoryStream(SoraxPDFRenderer.GetPageByHeightAsImage(pdf_document.DocumentPath, pdf_document.PDFPassword, resized_page_image_item_request.page, resized_page_image_item_request.height, resized_page_image_item_request.width)))
+                        using (MemoryStream ms = new MemoryStream(MuPDFRenderer.GetPageByHeightAsImage(pdf_document.DocumentPath, pdf_document.PDFPassword, resized_page_image_item_request.page, resized_page_image_item_request.height, resized_page_image_item_request.width)))
                         {
                             bitmap.BeginInit();
                             bitmap.StreamSource = ms;

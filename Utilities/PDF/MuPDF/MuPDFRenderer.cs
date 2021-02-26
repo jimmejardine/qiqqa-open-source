@@ -343,9 +343,47 @@ namespace Utilities.PDF.MuPDF
 
     public static class MuPDFRenderer
     {
+        public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, int page, int height, int width)
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            // TODO: check if we have a higher size image cached already: use that one instead of bothering the PDF renderer again
+
+            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, page, dpi: 0, height, width);
+        }
+
+
+        public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, int page, int dpi)
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            // TODO: check if we have a higher size image cached already: use that one instead of bothering the PDF renderer again
+
+            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, page, dpi, 0, 0);
+        }
+
+        private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, int page, int dpi, int height, int width)
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            try
+            {
+                // sample command (PNG written to stdout for page #2, width and height are limiting/reducing, dpi-resolution is driving):
+                //
+                //      mudraw -q -o - -F png -r 600 -w 1920 -h 1280 G:\Qiqqa\evil\Guest\documents\1\1A9760F3917A107AC46E6E292B9C839364F09E73.pdf  2
+                var img = RenderPDFPageAsByteArray(filename, page, dpi, height, width, pdf_user_password, ProcessPriorityClass.BelowNormal);
+
+                return img;
+            }
+            catch (Exception ex)
+            {
+                throw new GenericException(ex, $"PDF Render: Error while rasterising page {page} at {dpi}dpi / {height}x{width} pixels of '{filename}'");
+            }
+        }
+
         private static int render_count = 0;
 
-        public static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
+        private static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -391,6 +429,7 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
+#if false
         public static BitmapImage RenderPage_AsBitmapImage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             using (MemoryStream ms = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class))
@@ -403,7 +442,9 @@ namespace Utilities.PDF.MuPDF
                 return bitmap_image;
             }
         }
+#endif
 
+#if false
         public static Bitmap RenderPage_AsBitmap(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             using (MemoryStream ms = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class))
@@ -413,6 +454,7 @@ namespace Utilities.PDF.MuPDF
                 return bitmap;
             }
         }
+#endif
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -958,7 +1000,7 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness_TEXT_RENDER()
@@ -1094,6 +1136,6 @@ namespace Utilities.PDF.MuPDF
         }
 #endif
 
-        #endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

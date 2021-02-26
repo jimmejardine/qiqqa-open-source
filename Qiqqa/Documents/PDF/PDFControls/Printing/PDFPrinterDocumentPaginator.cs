@@ -51,7 +51,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
                     PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
                     PDFOverlayRenderer.RenderInks(image, pdf_document, page);
                     BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-                    image_page.Freeze();
+                    ASSERT.Test(image_page.IsFrozen);
 
                     DrawingVisual dv = new DrawingVisual();
                     using (DrawingContext dc = dv.RenderOpen())

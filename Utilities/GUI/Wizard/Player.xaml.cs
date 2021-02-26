@@ -73,7 +73,6 @@ namespace Utilities.GUI.Wizard
             {
                 RefreshVisualsForCurrentStep();
             }
-
             catch (Exception ex)
             {
                 Logging.Warn(ex, "Exception while RefreshVisualsForCurrentStep");

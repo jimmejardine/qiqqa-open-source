@@ -82,25 +82,28 @@ namespace Utilities.GUI.Animation
 
             private void da_Completed(object sender, EventArgs e)
             {
-                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (responsible_managers_lock)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // l1_clk.LockPerfTimerStop();
-                    if (!responsible_managers.ContainsKey(fe) || this != responsible_managers[fe])
+                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (responsible_managers_lock)
                     {
-                    }
-                    else
-                    {
-                        responsible_managers.Remove(fe);
-
-                        fe.Opacity = to_opacity;
-                        fe.BeginAnimation(FrameworkElement.OpacityProperty, null);
-                        if (0 == to_opacity)
+                        // l1_clk.LockPerfTimerStop();
+                        if (!responsible_managers.ContainsKey(fe) || this != responsible_managers[fe])
                         {
-                            fe.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            responsible_managers.Remove(fe);
+
+                            fe.Opacity = to_opacity;
+                            fe.BeginAnimation(FrameworkElement.OpacityProperty, null);
+                            if (0 == to_opacity)
+                            {
+                                fe.Visibility = Visibility.Hidden;
+                            }
                         }
                     }
-                }
+                });
             }
         }
 

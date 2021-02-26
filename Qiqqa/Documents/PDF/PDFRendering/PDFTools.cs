@@ -6,7 +6,7 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.PDF;
 using Utilities.PDF.MuPDF;
-using Utilities.PDF.Sorax;
+using Utilities.PDF.MuPDF;
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {

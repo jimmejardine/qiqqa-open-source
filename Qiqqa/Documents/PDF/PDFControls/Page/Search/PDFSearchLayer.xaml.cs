@@ -140,6 +140,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
         internal PDFSearchResult SetNextSearchPosition(PDFSearchResult previous_search_result_placeholder)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             bool have_found_last_search_item = false;
 
             PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
@@ -150,7 +152,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
                 {
                     ASSERT.Test(pdf_text_item != null);
 
-                    PDFSearchResult search_result_placeholder = pdf_text_item.Tag as PDFSearchResult;
+                    PDFSearchResult search_result_placeholder = pdf_text_item?.Tag as PDFSearchResult;
 
                     // If there was no previous search location, we use the first we find
                     // If the last text item was the match position, use this next one

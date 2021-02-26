@@ -120,6 +120,11 @@ namespace Utilities.Images
                     image.StreamSource.Close();
                     image.StreamSource = null;
                     // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
+                    //
+                    // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
+                    //
+                    // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
+                    // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
                     image.Freeze();
                     return image;
                 }
@@ -157,6 +162,11 @@ namespace Utilities.Images
                 image.StreamSource.Close();
                 image.StreamSource = null;
                 // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
+                //
+                // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
+                //
+                // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
+                // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
                 image.Freeze();
                 return image;
             }
@@ -198,6 +208,11 @@ namespace Utilities.Images
             bitmap_image.StreamSource.Close();
             bitmap_image.StreamSource = null;
             // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
+            //
+            // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
+            //
+            // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
+            // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
             bitmap_image.Freeze();
             return bitmap_image;
         }

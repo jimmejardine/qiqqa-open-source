@@ -12,7 +12,7 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
-using Utilities.PDF.Sorax;
+using Utilities.PDF.MuPDF;
 using Image = System.Drawing.Image;
 
 namespace Qiqqa.DocumentLibrary
@@ -115,7 +115,7 @@ namespace Qiqqa.DocumentLibrary
                     {
                         const double IMAGE_PERCENTAGE = 0.5;
 
-                        using (MemoryStream ms = new MemoryStream(SoraxPDFRenderer.GetPageByHeightAsImage(pdf_document.DocumentPath, pdf_document.PDFPassword, page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
+                        using (MemoryStream ms = new MemoryStream(MuPDFRenderer.GetPageByHeightAsImage(pdf_document.DocumentPath, pdf_document.PDFPassword, page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
                         {
                             Bitmap image = (Bitmap)Image.FromStream(ms);
                             PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
@@ -124,6 +124,7 @@ namespace Qiqqa.DocumentLibrary
 
                             image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat);
                             BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
+                            ASSERT.Test(image_page.IsFrozen);
 
                             WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {

@@ -778,9 +778,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PDF\MuPDF\MuPDFRenderer.cs" />
-    <Compile Include="PDF\Sorax\SoraxDLL.cs" />
-    <Compile Include="PDF\Sorax\SoraxPDFRenderer.cs" />
-    <Compile Include="PDF\Sorax\SoraxPDFRendererDLLWrapper.cs" />
     <Compile Include="PeriodTimeout.cs" />
     <Compile Include="Point2D.cs">
       <SubType>Code</SubType>
