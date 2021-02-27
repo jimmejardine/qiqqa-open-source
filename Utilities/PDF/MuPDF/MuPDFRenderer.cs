@@ -382,38 +382,42 @@ namespace Utilities.PDF.MuPDF
         }
 
         private static int render_count = 0;
+        private static object draw_lock = new object();
 
         private static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            render_count++;
-
-            string process_parameters = String.Format(
-                $"draw -q -w {width} -h {height} -r {dpi} -o -"
-                + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
-                + " " + '"' + pdf_filename + '"'
-                + " " + page_number
-                );
-
-            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mutool.exe"));
-            if (!File.Exists(exe))
+            lock (draw_lock)
             {
-                throw new Exception($"PDF Page Rendering: missing modern MuPDF 'mudraw.exe': it does not exist in the expected path: '{exe}'");
-            }
-            if (!File.Exists(pdf_filename))
-            {
-                throw new Exception($"PDF Page Rendering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
-            }
+                render_count++;
 
-            ExecResultAggregate rv = ReadEntireStandardOutput(exe, process_parameters, binary_output: true, priority_class);
+                string process_parameters = String.Format(
+                    $"draw -T0 -stmf -w {width} -h {height} -r {dpi} -o -"
+                    + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
+                    + " " + '"' + pdf_filename + '"'
+                    + " " + page_number
+                    );
 
-            if (rv.error != null)
-            {
-                rv.stdoutStream?.Close();
-                throw rv.error;
+                string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mutool.exe"));
+                if (!File.Exists(exe))
+                {
+                    throw new Exception($"PDF Page Rendering: missing modern MuPDF 'mutool.exe': it does not exist in the expected path: '{exe}'");
+                }
+                if (!File.Exists(pdf_filename))
+                {
+                    throw new Exception($"PDF Page Rendering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
+                }
+
+                ExecResultAggregate rv = ReadEntireStandardOutput(exe, process_parameters, binary_output: true, priority_class);
+
+                if (rv.error != null)
+                {
+                    rv.stdoutStream?.Close();
+                    throw rv.error;
+                }
+                return rv.stdoutStream;
             }
-            return rv.stdoutStream;
         }
 
         public static byte[] RenderPDFPageAsByteArray(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
@@ -976,7 +980,7 @@ namespace Utilities.PDF.MuPDF
                                 var outs = process_output_reader.GetOutputsDumpStrings();
                                 rv.errOutputDump = outs;
 
-                                Logging.Error("PDFDRAW did fail with exit code {0} for commandline:\n    {3} {1}\n{2}", process.ExitCode, process_parameters, outs.stderr, pdfDrawExe);
+                                Logging.Error($"MuPDF did fail with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
 
                                 rv.error = new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: {pdfDrawExe} {process_parameters}");
                                 rv.exitCode = process.ExitCode;
@@ -987,7 +991,7 @@ namespace Utilities.PDF.MuPDF
                                 var outs = process_output_reader.GetOutputsDumpStrings();
                                 rv.errOutputDump = outs;
 
-                                Logging.Error("PDFDRAW did SUCCEED with exit code {0} for commandline:\n    {3} {1}\n{2}", process.ExitCode, process_parameters, outs.stderr, pdfDrawExe);
+                                Logging.Error($"MuPDF did SUCCEED with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
 
                                 rv.error = null;
                                 rv.exitCode = process.ExitCode;

@@ -108,8 +108,11 @@ namespace Qiqqa.Brainstorm.Nodes
                 int actual_resolution = target_resolution;
                 double resolution_rescale_factor = 1;
 
-                Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, actual_resolution);
-                BitmapSource cropped_image_page = BitmapImageTools.FromImage(annotation_image, (int)(annotation_image.Width * resolution_rescale_factor), (int)(annotation_image.Height * resolution_rescale_factor));
+                BitmapSource cropped_image_page = null;
+                using (Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, actual_resolution))
+                {
+                    cropped_image_page = BitmapImageTools.FromImage(annotation_image, (int)(annotation_image.Width * resolution_rescale_factor), (int)(annotation_image.Height * resolution_rescale_factor));
+                }
 
                 ImageIcon.Source = cropped_image_page;
                 ImageIcon.Width = cropped_image_page.Width / 2;

@@ -114,17 +114,23 @@ namespace Qiqqa.DocumentLibrary
                     if (pdf_document.DocumentExists)
                     {
                         const double IMAGE_PERCENTAGE = 0.5;
+                        BitmapSource image_page = null;
 
                         using (MemoryStream ms = new MemoryStream(MuPDFRenderer.GetPageByHeightAsImage(pdf_document.DocumentPath, pdf_document.PDFPassword, page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
                         {
-                            Bitmap image = (Bitmap)Image.FromStream(ms);
-                            PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
-                            PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
-                            PDFOverlayRenderer.RenderInks(image, pdf_document, page);
+                            using (Bitmap image = (Bitmap)Image.FromStream(ms))
+                            {
+                                PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
+                                PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
+                                PDFOverlayRenderer.RenderInks(image, pdf_document, page);
 
-                            image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat);
-                            BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-                            ASSERT.Test(image_page.IsFrozen);
+                                using (Bitmap cloned_image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat))
+                                {
+                                    image_page = BitmapImageTools.CreateBitmapSourceFromImage(cloned_image);
+                                    ASSERT.Test(image_page.IsFrozen);
+                                }
+                            }
+                        }
 
                             WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {
@@ -139,7 +145,6 @@ namespace Qiqqa.DocumentLibrary
                                     ImageThumbnail.Visibility = Visibility.Collapsed;
                                 }
                             });
-                        }
                     }
                     else
                     {

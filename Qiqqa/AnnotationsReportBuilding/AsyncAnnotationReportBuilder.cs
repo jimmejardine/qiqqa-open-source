@@ -580,8 +580,13 @@ namespace Qiqqa.AnnotationsReportBuilding
                             {
                                 try
                                 {
-                                    System.Drawing.Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, 80);
-                                    BitmapSource cropped_image_page = BitmapImageTools.FromImage(annotation_image);
+                                    BitmapSource cropped_image_page = null;
+
+                                    using (System.Drawing.Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, 80))
+                                    {
+                                        cropped_image_page = BitmapImageTools.FromImage(annotation_image);
+                                        ASSERT.Test(cropped_image_page.IsFrozen);
+                                    }
 
                                     WPFDoEvents.InvokeAsyncInUIThread(() =>
                                     {
