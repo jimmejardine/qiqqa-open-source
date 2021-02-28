@@ -27,3 +27,7 @@
 
   Weird DNS shit happening. Bing and Google know this one, browser cannot reach.
   
+- https://onlinelibrary.wiley.com/doi/pdf/10.1002/humu.22848
+
+  Renders as PDF in browser, but 'Save As' produces the HTML. Only clicking on the content and then hitting right-click meenu -> Save As will prduce the PDF.
+  
