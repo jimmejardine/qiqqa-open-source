@@ -148,4 +148,8 @@ All UI migration options are considered very costly as it's a migration from WPF
 - https://trends.google.com/trends/explore?q=nwjs,Electron%20js,Chromely,nw.js,MAUI%20.NET
 - https://trends.google.com/trends/explore?q=CEFSharp,Electron%20js,Chromely,CEFGlue,MAUI%20.NET : CEFGlue has far fewer 'hits' than CEFSharp. How are they doing relatively?
   - https://trends.google.com/trends/explore?q=CEF%20Chromium,Chromely,CEFGlue,MAUI%20.NET -> same ballpark. Of course you can edit any of those search terms a little and get completely different results :-)
+- https://stackoverflow.com/questions/23509356/node-webkit-vs-electron#:~:text=In%20NW.,js%20file%20in%20the%20package.&text=While%20in%20Electron%2C%20the%20entry,in%20it%20with%20corresponding%20API.
+- http://my2iu.blogspot.com/2017/06/nwjs-vs-electron.html
+- https://github.com/nwjs/nw.js
+
  
