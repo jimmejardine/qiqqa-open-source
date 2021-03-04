@@ -139,3 +139,13 @@ CEFGlue works on both Windows and Linux (and Mac?). This makes the *cross-platfo
 
 All UI migration options are considered very costly as it's a migration from WPF to another system (and the devil is always in the \[UI] details), however, anything that's purely HTML/CSS (plus JS support) based is deemed far more *fun* and therefor *motivating* than moving to other tek such as ASP.NET, Blazor, MAUI/Xamarin, what-not.
 
+
+
+## References
+
+- https://stackoverflow.com/questions/12224798/any-reason-to-prefer-cefsharp-over-cefglue-or-vice-versa
+- https://devblogs.microsoft.com/dotnet/introducing-net-multi-platform-app-ui/
+- https://trends.google.com/trends/explore?q=nwjs,Electron%20js,Chromely,nw.js,MAUI%20.NET
+- https://trends.google.com/trends/explore?q=CEFSharp,Electron%20js,Chromely,CEFGlue,MAUI%20.NET : CEFGlue has far fewer 'hits' than CEFSharp. How are they doing relatively?
+  - https://trends.google.com/trends/explore?q=CEF%20Chromium,Chromely,CEFGlue,MAUI%20.NET -> same ballpark. Of course you can edit any of those search terms a little and get completely different results :-)
+ 
