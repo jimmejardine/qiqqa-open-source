@@ -36,6 +36,7 @@ My own (older) tooling using `gpp -c` (in-house developed scripts) didn't recove
     git gc
     git fsck --full --unreachable --strict
     git reflog expire --expire=0 --all
+    git reflog expire --expire-unreachable=now --all
     git repack -d
     git repack -A
     #git update-ref
@@ -49,6 +50,7 @@ My own (older) tooling using `gpp -c` (in-house developed scripts) didn't recove
   git gc
   git fsck --full --unreachable --strict
   git reflog expire --expire=0 --all
+  git reflog expire --expire-unreachable=now --all
   git repack -d
   git repack -A
   #git update-ref
@@ -58,3 +60,5 @@ My own (older) tooling using `gpp -c` (in-house developed scripts) didn't recove
   ;;
   ```
 - it helps *oodles* if you previously ran the `collect_git_remote_add_recusively.sh` (in-house dev) script to generate a `util/...` shell script to *re*-register git remotes as I had to nuke the important ones locally in refs/remotes/ before I could anywhere near a fixable solution. Otherwise it's back to `git remote add ...` after the deleting when `git fetch` goes t\*ts up and you need to kill more to appease `git fsck` + `git gc`.
+- https://stackoverflow.com/questions/3765234/listing-and-deleting-git-commits-that-are-under-no-branch-dangling --> to help delete those "unreachable" blobs and commits too.
+- 
