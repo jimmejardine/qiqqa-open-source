@@ -10,3 +10,6 @@
 [submodule "thirdparty/WpfScreenHelper"]
 	path = thirdparty/WpfScreenHelper
 	url = git@github.com:GerHobbelt/WpfScreenHelper.git
+[submodule "docs-src/_meta/fonts"]
+	path = docs-src/_meta/fonts
+	url = git@github.com:GerHobbelt/qiqqa-site-selected-web-fonts.git
