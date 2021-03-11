@@ -84,3 +84,42 @@ Meanwhile, let's keep our fingerprint nicely unique and bemoan, yet accept/live 
 
 
 
+
+-------------
+
+## Quick update
+
+Both classical Qiqqa hash fingerprinting (the b0rky SHA1 algo) and a *new* one for future use, based on a fast BLAKE3 hash and Base58 encoding to string for generic use as filename, database key, etc., has been coded in my MuPDF-based toolkit for Qiqqa: https://github.com/GerHobbelt/mupdf/commit/e440b55474b288f9ff5127ee3bf35c67909ec858
+
+Commit Message:
+
+added two `mutool` utilities for Qiqqa:
+- qiqqa_fingerprint0, which calculates the classic Qiqqa SHA1-b0rked fingerprint hash for any given (PDF) file
+- qiqqa_fingerprint1, which calculates the *new* Qiqqa fingerprint, based on BLAKE3 and "tightening" by printing it as a Base58X rather then HEX fingerprint string. (I call this Base58X because it takes the tables off Base58 from the original bitcoin author Satoshi Nakamoto but then goes and does something completely different with it as the original bitcoin code would treat the hash-to-encode as one BigInt, which he then converted to Base58, but which takes quite a few divide and modulo ops, which I don't want to spend on that optimum result, so *instead* I look for where number base 58 and number base 2 get very close and that happens to be at bit/power 41. This idea is very similar to what the folks of Base85/Ascii85 argued for (number base 85 to the power N getting very close to 2 to the power 32, so their argument is that number base 85 (or higher) is very handy to use to encode 32-bit integer streams; *I* have looked at Base85 and Base91 and many others and I don't like them for the same reasons that are listed in the base58 header file by Satoshi Nakamoto: things get icky quickly, while having a higher "encoding space efficiency", as channels such as web (URLs, eMail, etc.), File systems (file names are pretty restricted outside modern UNIX file systems!), source code / JSON data files, etc.etc. all add their own quirks to such encodings, resulting in variable, more-or-less-riddled-with-escapes-or-potential-faults-if-you-dont , encoding length strings.
+
+Base58 has the advantage of remaining a "selectable word" with nothing to get any interface medium's nickers in a twist either.
+
+Besides, consider the relative gains (we're looking at stringified hashes as we'll be storing these in databases and thus do string-comparison based lookups and duplicate checks via fingerprint=hash string compare):
+
++-----------------------------------------------+----------+------------------+
+| HEX encoding of a BLAKE3 full size hash:      | 32 * 2   |   = 64 chars    |
++-----------------------------------------------+----------+------------------+
+| Base64 encode:                                | 32 * 1.33 = 42.7 |    ~ 43 chars   |
++-----------------------------------------------+----------+------------------+
+|Base85 encode:        |  32 * (1/0.80)         | = 40 chars   (80% efficient according to wikipedia: https://en.wikipedia.org/wiki/Binary-to-text_encoding) |
++-----------------------------------------------+----------+------------------+
+|Base91 encode:         | 32 * (1/(1-0.23)) = 41.6        |  ~ 42 chars worst case (http://base91.sourceforge.net/) |
++-----------------------------------------------+----------+------------------+
+|Base91 encode:        |  32 * (1/(1-0.14)) = 37.2        |  ~ 38 chars best case (http://base91.sourceforge.net/) |
++-----------------------------------------------+----------+------------------+
+|Base58 encode:        |  32 * (1/0.73) = 43.8         | ~ 44 chars |
++-----------------------------------------------+----------+------------------+
+|  |
+|  while my own approach takes 58^7 for every 41 bits, hence |
+| Base58X encode:    | 32 * 7 * 8 / 41 = 43.7     | ~ 44 chars too, while I'll have far fewer divide and modulo ops than bitcoin Base58 (Nakamoto) code as I don't treat the eentire hash as one BigInt, but work in an intermediate 41-bit number base system instead. |
++-----------------------------------------------+----------+------------------+
+
+Anyway, more suitable food for a blog article than a commit message   :-D
+
+
+
