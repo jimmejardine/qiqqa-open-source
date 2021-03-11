@@ -101,23 +101,17 @@ Base58 has the advantage of remaining a "selectable word" with nothing to get an
 
 Besides, consider the relative gains (we're looking at stringified hashes as we'll be storing these in databases and thus do string-comparison based lookups and duplicate checks via fingerprint=hash string compare):
 
-+-----------------------------------------------+----------+------------------+
+| ----------------------------------------------- | ---------- | ------------------ |
+| encoding      | calculus   |   # chars    |
+| ----------------------------------------------- | ---------- | ------------------ |
 | HEX encoding of a BLAKE3 full size hash:      | 32 * 2   |   = 64 chars    |
-+-----------------------------------------------+----------+------------------+
 | Base64 encode:                                | 32 * 1.33 = 42.7 |    ~ 43 chars   |
-+-----------------------------------------------+----------+------------------+
 |Base85 encode:        |  32 * (1/0.80)         | = 40 chars   (80% efficient according to wikipedia: https://en.wikipedia.org/wiki/Binary-to-text_encoding) |
-+-----------------------------------------------+----------+------------------+
 |Base91 encode:         | 32 * (1/(1-0.23)) = 41.6        |  ~ 42 chars worst case (http://base91.sourceforge.net/) |
-+-----------------------------------------------+----------+------------------+
 |Base91 encode:        |  32 * (1/(1-0.14)) = 37.2        |  ~ 38 chars best case (http://base91.sourceforge.net/) |
-+-----------------------------------------------+----------+------------------+
 |Base58 encode:        |  32 * (1/0.73) = 43.8         | ~ 44 chars |
-+-----------------------------------------------+----------+------------------+
-|  |
-|  while my own approach takes 58^7 for every 41 bits, hence |
-| Base58X encode:    | 32 * 7 * 8 / 41 = 43.7     | ~ 44 chars too, while I'll have far fewer divide and modulo ops than bitcoin Base58 (Nakamoto) code as I don't treat the eentire hash as one BigInt, but work in an intermediate 41-bit number base system instead. |
-+-----------------------------------------------+----------+------------------+
+|<td colspan=3>  while my own approach takes 58^7 for every 41 bits, hence |
+| Base58X encode:    | 32 * 7 * 8 / 41 = 43.7     | ~ 44 chars too[^while I'll have far fewer divide and modulo ops than bitcoin Base58 (Nakamoto) code as I don't treat the entire hash as one BigInt, but work in an intermediate 41-bit number base system instead.] |
 
 Anyway, more suitable food for a blog article than a commit message   :-D
 
