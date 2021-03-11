@@ -82,6 +82,7 @@ Meanwhile, let's keep our fingerprint nicely unique and bemoan, yet accept/live 
 - https://stackoverflow.com/questions/62664761/probability-of-hash-collision
 - https://en.wikipedia.org/wiki/BLAKE_(hash_function)
 
+ 
 
 
 
@@ -117,3 +118,9 @@ Anyway, more suitable food for a blog article than a commit message   :-D
 
 
 
+- https://crypto.bi/base58/
+- https://en.wikipedia.org/wiki/Binary-to-text_encoding (and related pages on wikipedia)
+- https://crypto.stackexchange.com/questions/57580/purpose-of-folding-a-digest-in-half et al (I've been considering using a truncated or *folded* BLAKE3 hash to make the fingerprint string a little shorter, but decided against it in the end as it is not so important any more: the Base58X-encoded pringerprint strings clock in at 44 characters each, which is a (44 / (20*2)) -> **10% increase** in fingerprint hash string size compared to the original Qiqqa SHA1B (*B* for *B0rk*), while encoding (256/160) = **60%** more hash bits. 
+ 
+  Yes, SHA1B is variable length, but that's not under user or application control, merely an artifact of certain PDF data hashing results. The shortest SHA1B fingerprint in my collection is 36 chracters, and that's *rare*: 5 items in over 20K documents.
+- https://github.com/nakov/Practical-Cryptography-for-Developers-Book 
