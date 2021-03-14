@@ -82,6 +82,7 @@ Meanwhile, let's keep our fingerprint nicely unique and bemoan, yet accept/live 
 - https://stackoverflow.com/questions/62664761/probability-of-hash-collision
 - https://en.wikipedia.org/wiki/BLAKE_(hash_function)
 
+ 
 
 
 
@@ -114,6 +115,27 @@ Besides, consider the relative gains (we're looking at stringified hashes as we'
 | Base58X encode:    | 32 * 7 * 8 / 41 = 43.7     | ~ 44 chars too[^while I'll have far fewer divide and modulo ops than bitcoin Base58 (Nakamoto) code as I don't treat the entire hash as one BigInt, but work in an intermediate 41-bit number base system instead.] |
 
 Anyway, more suitable food for a blog article than a commit message   :-D
+
+
+
+- https://crypto.bi/base58/
+- https://en.wikipedia.org/wiki/Binary-to-text_encoding (and related pages on wikipedia)
+- https://crypto.stackexchange.com/questions/57580/purpose-of-folding-a-digest-in-half et al (I've been considering using a truncated or *folded* BLAKE3 hash to make the fingerprint string a little shorter, but decided against it in the end as it is not so important any more: the Base58X-encoded pringerprint strings clock in at 44 characters each, which is a (44 / (20*2)) -> **10% increase** in fingerprint hash string size compared to the original Qiqqa SHA1B (*B* for *B0rk*), while encoding (256/160) = **60%** more hash bits. 
+ 
+  Yes, SHA1B is variable length, but that's not under user or application control, merely an artifact of certain PDF data hashing results. The shortest SHA1B fingerprint in my collection is 36 chracters, and that's *rare*: 5 items in over 20K documents.
+- https://github.com/nakov/Practical-Cryptography-for-Developers-Book 
+
+
+## Performance of the new vs. old hash: CPU load
+
+Using the new `mutool qiqqa_fingerprint0` and `mutool qiqqa_fingerprint1` tools to calculate the hashes of a subset of the bulktest suite (~ 2K documents) the verdicts are: v2 (BLAKE3+B58X) is about as fast or even *up to 4 times faster* in execution time than SHA1B.
+
+Of course one can argue this was not tested with the .NET version of the SHA1B code, but I expect that to be on par or even worse then the code I used for this, which is through use of the Crypto++ library, which is pretty performant and highly optimized generally.
+
+Anyway, the take-away of this is that the new hash is *better* or at least *competitive* with the original Qiqqa hash and such has been my goal.
+
+> Note: As the timings are all in the sub-second range, often only a couple of milliseconds, these are thus clearly within or near the noise margin of the timing measurement code, which has a millisecond *granularity* (Windows background tasks not related to the tests add an undetermined extra noise layer).
+> 
 
 
 
