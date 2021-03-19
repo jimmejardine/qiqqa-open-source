@@ -1,3 +1,4 @@
+//
 // # forking cleans up memory leaks
 //
 // Well, not exactly, but the key behaviour this test executable MUST exhibit (on Windows and elsewhere)

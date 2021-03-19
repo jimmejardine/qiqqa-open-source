@@ -1,3 +1,4 @@
+//
 // monitor our memory usage and die when passing threshold.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
@@ -50,7 +51,7 @@ if (!(check))                   \
 
 // Format a readable error message, display a message box,
 // and exit from the application.
-void ErrorExit(const wchar_t * lpszFunction)
+static void ErrorExit(const wchar_t * lpszFunction)
 {
     LPTSTR lpMsgBuf;
     LPVOID lpDisplayBuf;
@@ -81,7 +82,7 @@ void ErrorExit(const wchar_t * lpszFunction)
     exit(1);
 }
 
-void printError(const wchar_t * msg)
+static void printError(const wchar_t * msg)
 {
     DWORD eNum;
     WCHAR sysMsg[256];
@@ -100,7 +101,7 @@ void printError(const wchar_t * msg)
     _tprintf(TEXT("\n  WARNING: %s failed with error %d (%s)"), msg, eNum, sysMsg);
 }
 
-void debugPrint(const wchar_t* msg, ...)
+static void debugPrint(const wchar_t* msg, ...)
 {
     va_list argptr;
     va_start(argptr, msg);
