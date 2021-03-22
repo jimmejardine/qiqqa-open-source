@@ -19,3 +19,16 @@ No matter what you feed Qiqqa (as long as it's PDF), it should be (*uniquely*) i
 This here is part of the technical storyboarding side of a UI & UX overhaul of Qiqqa.
 
 Before we put it to Qiqqa, it will be tested here.
+
+
+---
+
+## Task Completed
+
+This technology test has been done in my MuPDF-based toolchain. One notablee difference is the use of BLAKE3 instead of SHA256 as the new hash algorithm as that onee is *faster*, both theoretically and in practice, while offering the same quality of uniqueness guarantees. 
+
+The new `mutool qiqqa_fingerprint0` and `mutool qiqqa_fingerprint1` tools calculate the classic Qiqqa hash and the new BLAKE3+Base58 hash, respectively.
+
+Read the story in [Fingerprinting :: moving forward and away from b0rked SHA1](../docs-src/Progress in Development/Fingerprinting - moving forward and away from b0rked SHA1.md).
+
+
