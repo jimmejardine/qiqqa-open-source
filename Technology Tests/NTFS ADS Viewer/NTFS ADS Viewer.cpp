@@ -8,7 +8,7 @@
 
 // Make sure we support Long Paths:
 #undef MAX_PATH
-#define MAX_PATH 150
+#define MAX_PATH 1500
 
 #define ASSERT(t)                       \
     if (!(t))                           \

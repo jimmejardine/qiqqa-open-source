@@ -431,8 +431,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Technology Library", "Techn
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Technology Library", "Technology Tests\Technology Library\Technology Library.shproj", "{379D85AC-C18A-4033-B4A7-262DAD1AF922}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Upgrade To SHA256", "Technology Tests\Upgrade To SHA256\Upgrade To SHA256.csproj", "{65C85C8D-FE7D-4115-AD34-33CE14573F03}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Used Libraries", "Used Libraries", "{AFF7A134-A4FC-4885-B210-82F2660CAA5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CEFSharp", "CEFSharp", "{19E7F6D9-FDD2-4741-BA3B-1F1B541945B5}"
@@ -586,6 +584,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NTFS ADS Viewer", "Technology Tests\NTFS ADS Viewer\NTFS ADS Viewer.vcxproj", "{28E9E026-5E87-4248-BA0B-07813DCD8DB1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NTFS Find hardlinks or regular files", "Technology Tests\NTFS Find hardlinks or regular files\NTFS Find hardlinks or regular files.vcxproj", "{EC989955-8CCB-49B4-891F-8761CF6E2560}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Technology Tests\Technology Library\Technology Library.projitems*{22eccf4f-7ed0-48b3-a244-07863fb4b81e}*SharedItemsImports = 4
@@ -593,7 +593,6 @@ Global
 		Technology Tests\Technology Library\Technology Library.projitems*{31a26f7a-aaf4-4af4-b237-5a84167d32af}*SharedItemsImports = 4
 		Technology Tests\Technology Library\Technology Library.projitems*{379d85ac-c18a-4033-b4a7-262dad1af922}*SharedItemsImports = 13
 		Technology Tests\Technology Library\Technology Library.projitems*{4b176b4a-0169-492b-9f4f-a7f9958dc5f0}*SharedItemsImports = 4
-		Technology Tests\Technology Library\Technology Library.projitems*{65c85c8d-fe7d-4115-ad34-33ce14573f03}*SharedItemsImports = 4
 		Technology Tests\Technology Library\Technology Library.projitems*{6c3d1bd9-ee0b-45b3-87ad-98d1f6e76022}*SharedItemsImports = 4
 		Technology Tests\Technology Library\Technology Library.vcxitems*{70b0b1fd-2dfc-43d2-930e-27862481c2d0}*SharedItemsImports = 9
 		Technology Tests\Technology Library\Technology Library.projitems*{7d895c92-95ff-4489-ac8b-5652bf1873f9}*SharedItemsImports = 4
@@ -1723,46 +1722,6 @@ Global
 		{81EB0FCD-2A16-4046-B6D5-FDE3B1543BD8}.Release+SETUP|x64.Build.0 = Release|Any CPU
 		{81EB0FCD-2A16-4046-B6D5-FDE3B1543BD8}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
 		{81EB0FCD-2A16-4046-B6D5-FDE3B1543BD8}.Release+SETUP|x86.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Debug|x64.Build.0 = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Debug|x86.Build.0 = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Debug|x64.ActiveCfg = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Debug|x64.Build.0 = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Debug|x86.ActiveCfg = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Debug|x86.Build.0 = Debug|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Release|Any CPU.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Release|x64.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Release|x64.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Release|x86.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.DLL-Import Release|x86.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release|x64.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release|x64.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release|x86.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release|x86.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release+SETUP|Any CPU.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release+SETUP|Any CPU.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release+SETUP|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release+SETUP|Mixed Platforms.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release+SETUP|x64.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release+SETUP|x64.Build.0 = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release+SETUP|x86.ActiveCfg = Release|Any CPU
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03}.Release+SETUP|x86.Build.0 = Release|Any CPU
 		{22ECCF4F-7ED0-48B3-A244-07863FB4B81E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{22ECCF4F-7ED0-48B3-A244-07863FB4B81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22ECCF4F-7ED0-48B3-A244-07863FB4B81E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -3367,6 +3326,44 @@ Global
 		{28E9E026-5E87-4248-BA0B-07813DCD8DB1}.Release+SETUP|x64.Build.0 = Release|x64
 		{28E9E026-5E87-4248-BA0B-07813DCD8DB1}.Release+SETUP|x86.ActiveCfg = Release|Win32
 		{28E9E026-5E87-4248-BA0B-07813DCD8DB1}.Release+SETUP|x86.Build.0 = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Debug|x64.ActiveCfg = Debug|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Debug|x64.Build.0 = Debug|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Debug|x86.ActiveCfg = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Debug|x86.Build.0 = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Debug|Any CPU.ActiveCfg = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Debug|Any CPU.Build.0 = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Debug|x64.ActiveCfg = Debug|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Debug|x64.Build.0 = Debug|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Debug|x86.ActiveCfg = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Debug|x86.Build.0 = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Release|Any CPU.ActiveCfg = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Release|Any CPU.Build.0 = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Release|Mixed Platforms.Build.0 = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Release|x64.ActiveCfg = Release|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Release|x64.Build.0 = Release|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Release|x86.ActiveCfg = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.DLL-Import Release|x86.Build.0 = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release|Any CPU.ActiveCfg = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release|x64.ActiveCfg = Release|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release|x64.Build.0 = Release|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release|x86.ActiveCfg = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release|x86.Build.0 = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release+SETUP|Any CPU.ActiveCfg = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release+SETUP|Any CPU.Build.0 = Debug|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release+SETUP|Mixed Platforms.ActiveCfg = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release+SETUP|Mixed Platforms.Build.0 = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release+SETUP|x64.ActiveCfg = Release|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release+SETUP|x64.Build.0 = Release|x64
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release+SETUP|x86.ActiveCfg = Release|Win32
+		{EC989955-8CCB-49B4-891F-8761CF6E2560}.Release+SETUP|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3400,7 +3397,6 @@ Global
 		{81EB0FCD-2A16-4046-B6D5-FDE3B1543BD8} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{70B0B1FD-2DFC-43D2-930E-27862481C2D0} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{379D85AC-C18A-4033-B4A7-262DAD1AF922} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
-		{65C85C8D-FE7D-4115-AD34-33CE14573F03} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{AFF7A134-A4FC-4885-B210-82F2660CAA5A} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{19E7F6D9-FDD2-4741-BA3B-1F1B541945B5} = {AFF7A134-A4FC-4885-B210-82F2660CAA5A}
 		{E33D9138-0908-45FE-AE90-BC2321A6D24E} = {AFF7A134-A4FC-4885-B210-82F2660CAA5A}
@@ -3451,6 +3447,7 @@ Global
 		{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{4F88275C-D544-40C0-B478-9018F8BAE8C5} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{28E9E026-5E87-4248-BA0B-07813DCD8DB1} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
+		{EC989955-8CCB-49B4-891F-8761CF6E2560} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1053AC46-6C10-40DE-8F81-A31A1C28ACDC}
