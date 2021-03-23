@@ -1,6 +1,7 @@
 ﻿#define UNICODE 1
 #include <windows.h>
 #include <stdio.h>
+#include <inttypes.h>
 #include <string.h>
 #include <assert.h>
 
@@ -22,8 +23,18 @@ static RtlNtStatusToDosError_f RtlNtStatusToDosError;
 
 
 
-// hack: unused attributes bit used by us to signal hardlinks are present
+// hack: unused attributes bits used by us to signal hardlinks are present
 #define FILE_ATTRIBUTE_HAS_MULTIPLE_SITES  0x80000000U
+#define FILE_ATTRIBUTE_HARDLINK            0x40000000U
+
+
+#define PRIME_MODULUS   16769023
+
+typedef struct
+{
+    uint32_t hash;
+    WCHAR* path;
+} HashtableEntry;
 
 
 
@@ -34,6 +45,7 @@ ULONG FilesMatched = 0;
 ULONG FilesProcessed = 0;
 ULONG DotsPrinted = 0;
 BOOLEAN PrintDirectoryOpenErrors = FALSE;
+HashtableEntry UniqueFilePaths[PRIME_MODULUS];
 
 //----------------------------------------------------------------------
 //
@@ -260,6 +272,10 @@ DWORD ParseMask(WCHAR* mask)
             attrs |= FILE_ATTRIBUTE_HAS_MULTIPLE_SITES;
             break;
 
+        case 'X':
+            attrs |= FILE_ATTRIBUTE_HARDLINK;
+            break;
+
         case 'M':
         case '?':
             attrs |= ~(0
@@ -287,6 +303,7 @@ DWORD ParseMask(WCHAR* mask)
                 | FILE_ATTRIBUTE_RECALL_ON_OPEN
                 | FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL
                 | FILE_ATTRIBUTE_HAS_MULTIPLE_SITES
+                | FILE_ATTRIBUTE_HARDLINK
                 );
             break;
 
@@ -303,6 +320,46 @@ DWORD ParseMask(WCHAR* mask)
     return attrs;
 }
 
+
+
+// Produce a hash 1..PRIME (NOTE the 1-based number: this makes it easy and fast to detect empty (hash=0) slots!)
+unsigned int CalculateHash(const WCHAR* str)
+{
+    uint64_t hash = 5381;
+
+    while (*str)
+    {
+        uint64_t c = (*str++) & 0xFFFF;
+
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+    }
+
+    return (unsigned int)(hash % PRIME_MODULUS) + 1;
+}
+
+int TestAndAddInHashtable(const WCHAR* str)
+{
+    unsigned int hash = CalculateHash(str);
+    unsigned int idx = hash - 1;
+    HashtableEntry* slot = &UniqueFilePaths[idx];
+
+    while (slot->path)
+    {
+        if (!wcscmp(slot->path, str))
+            return 1;                   // 1: exists already
+        do {
+            // jump and test next viable slot
+            idx += 43;                  // mutual prime with PRIME_MODULUS
+            idx = idx % PRIME_MODULUS;
+            slot = &UniqueFilePaths[idx];
+        } while (slot->hash && slot->hash != hash);
+    }
+
+    assert(!slot->hash);
+    slot->hash = hash;
+    slot->path = _wcsdup(str);
+    return 0;                   // 0: not present before, ADDED now!
+}
 
 
 // Return TRUE when file is hardlinked at least once, i.e. has two paths on the disk AT LEAST.
@@ -351,9 +408,13 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
         int wantedLinks = !!(wantedAnyAttribs & FILE_ATTRIBUTE_HAS_MULTIPLE_SITES);
         int rejectedLinks = !!(rejectedAttribs & FILE_ATTRIBUTE_HAS_MULTIPLE_SITES);
 
-        mandatoryAttribs &= ~FILE_ATTRIBUTE_HAS_MULTIPLE_SITES;
-        wantedAnyAttribs &= ~FILE_ATTRIBUTE_HAS_MULTIPLE_SITES;
-        rejectedAttribs &= ~FILE_ATTRIBUTE_HAS_MULTIPLE_SITES;
+        int mandatoryHardLink = !!(mandatoryAttribs & FILE_ATTRIBUTE_HARDLINK);
+        int wantedHardLink = !!(wantedAnyAttribs & FILE_ATTRIBUTE_HARDLINK);
+        int rejectedHardLink = !!(rejectedAttribs & FILE_ATTRIBUTE_HARDLINK);
+
+        mandatoryAttribs &= ~(FILE_ATTRIBUTE_HAS_MULTIPLE_SITES | FILE_ATTRIBUTE_HARDLINK);
+        wantedAnyAttribs &= ~(FILE_ATTRIBUTE_HAS_MULTIPLE_SITES | FILE_ATTRIBUTE_HARDLINK);
+        rejectedAttribs &= ~(FILE_ATTRIBUTE_HAS_MULTIPLE_SITES | FILE_ATTRIBUTE_HARDLINK);
 
         if ((attrs & mandatoryAttribs) != mandatoryAttribs)
             return;
@@ -363,12 +424,63 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
             return;
 
         BOOL hasLinks = FileHasMultipleInstances(FileName);
+
         if (mandatoryLinks && !hasLinks)
             return;
-        // when 'has links' is the only thing we *want*, it's kinda mandatory, eh:
+        // when 'has multiple sites' or 'is a hardlink' is the only thing we *want*, it's kinda mandatory, eh:
         if (wantedLinks && !wantedAnyAttribs && !hasLinks)
             return;
+        if (wantedHardLink && !wantedAnyAttribs && !hasLinks)
+            return;
         if (rejectedLinks && hasLinks)
+            return;
+
+        // register all links in a hash table, so next time we test, we'll hit 
+        // one of those entries and declare that one a "hardlink", UNIX Style.
+        int isHardlink = 0;
+        if (hasLinks)
+        {
+            if (!TestAndAddInHashtable(FileName))
+            {
+                WCHAR linkPath[MAX_PATH];
+                WCHAR fullPath[MAX_PATH];
+                DWORD slen = nelem(linkPath);
+                HANDLE fnameHandle = FindFirstFileNameW(FileName, 0, &slen, linkPath);
+                if (fnameHandle != INVALID_HANDLE_VALUE)
+                {
+                    if (wcscmp(linkPath, FileName + 6 /* skip \\?\X: long filename prefix plus drive part as that is not present in the link path */))
+                    {
+                        wcsncpy_s(fullPath, FileName, 6);
+                        wcsncat_s(fullPath, linkPath, nelem(fullPath));
+                        TestAndAddInHashtable(fullPath);
+                    }
+
+                    slen = nelem(linkPath);
+                    while (FindNextFileNameW(fnameHandle, &slen, linkPath))
+                    {
+                        if (wcscmp(linkPath, FileName + 6 /* skip \\?\X: long filename prefix plus drive part as that is not present in the link path */))
+                        {
+                            wcsncpy_s(fullPath, FileName, 6);
+                            wcsncat_s(fullPath, linkPath, nelem(fullPath));
+                            TestAndAddInHashtable(fullPath);
+                        }
+                        slen = nelem(linkPath);
+                    }
+                    FindClose(fnameHandle);
+                }
+            }
+            else
+            {
+                isHardlink = 1;
+            }
+        }
+
+        if (mandatoryHardLink && !isHardlink)
+            return;
+        // when 'is hardlink' is the only thing we *want*, it's kinda mandatory, eh:
+        if (wantedHardLink && !wantedAnyAttribs && !wantedLinks && !isHardlink)
+            return;
+        if (rejectedHardLink && isHardlink)
             return;
 
         FilesMatched++;
@@ -495,7 +607,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
         }
         if (hasLinks)
         {
-            attr_str[22] = 'L';
+            attr_str[22] = isHardlink ? 'L' : '*';
         }
         if (attrs)
         {
@@ -819,10 +931,19 @@ int Usage(WCHAR* ProgramName)
     wprintf(L"       o : RECALL_ON_OPEN\n");
     wprintf(L"       l : STRICTLY_SEQUENTIAL\n");
     wprintf(L"       L : MULTIPLE_SITES (i.e. file has hardlinks on the drive)\n");
+    wprintf(L"       X : HARDLINK (i.e. file is a 'hardlink'.)\n");
     wprintf(L"       M : misc. (unknown)\n");
     wprintf(L"       ? : misc. (unknown)\n");
     wprintf(L"       ~ : *NEGATE* the entire specified mask\n");
     wprintf(L"       ! : *NEGATE* the entire specified mask\n");
+    wprintf(L"\n");
+    wprintf(L"NOTE: we consider a file a 'hardlink' in the UNIX sense when it's the *second or later*\n");
+    wprintf(L"      file path we encounter for the given file during the scan.\n");
+    wprintf(L"      Hence you can filter with '/w ~X', i.e. not wanting to see hardlinks, to get a\n");
+    wprintf(L"      list of unique files in the given search path (there may be links to these files elsewhere).\n");
+    wprintf(L"      You can filter with '/w L' to see all file paths for 'hardlinked' files.\n");
+    wprintf(L"      You can filter with '/m L /r X' to see the *first occurrence* of each 'hardlinked' file\n");
+    wprintf(L"      in the given search path.\n");
     wprintf(L"\n");
 
     return -1;
@@ -939,6 +1060,8 @@ int wmain(int argc, WCHAR* argv[])
             exit(2);
         }
     }
+
+    memset(UniqueFilePaths, 0, sizeof(UniqueFilePaths));
 
     //
     // Now go and process directories
