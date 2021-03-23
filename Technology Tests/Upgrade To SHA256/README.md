@@ -27,7 +27,7 @@ Before we put it to Qiqqa, it will be tested here.
 
 This technology test has been done in my MuPDF-based toolchain. One notable difference is the use of BLAKE3 instead of SHA256 as the new hash algorithm as that one is *faster*, both theoretically and in practice, while offering the same quality of uniqueness guarantees. 
 
-The new `mutool qiqqa_fingerprint0` and `mutool qiqqa_fingerprint1` tools calculate the classic Qiqqa hash and the new BLAKE3+Base58 hash, respectively.
+The new [`mutool qiqqa_fingerprint0`](https://github.com/GerHobbelt/mupdf/blob/master/source/tools/pdffingerprint0.cpp) and [`mutool qiqqa_fingerprint1`](https://github.com/GerHobbelt/mupdf/blob/master/source/tools/pdffingerprint1.c) tools calculate the classic Qiqqa hash and the new BLAKE3+Base58 hash, respectively.
 
 Read the story in [Fingerprinting :: moving forward and away from b0rked SHA1](../docs-src/Progress in Development/Fingerprinting - moving forward and away from b0rked SHA1.md).
 
