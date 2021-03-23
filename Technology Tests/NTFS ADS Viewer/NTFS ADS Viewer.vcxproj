@@ -72,15 +72,27 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Configuration)-$(PlatformArchitecture)\</OutDir>
+    <IntDir>$(Configuration)-$(PlatformArchitecture)\$(ProjectName)\</IntDir>
+    <TargetName>ADSviewer</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Configuration)-$(PlatformArchitecture)\</OutDir>
+    <IntDir>$(Configuration)-$(PlatformArchitecture)\$(ProjectName)\</IntDir>
+    <TargetName>ADSviewer</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Configuration)-$(PlatformArchitecture)\</OutDir>
+    <IntDir>$(Configuration)-$(PlatformArchitecture)\$(ProjectName)\</IntDir>
+    <TargetName>ADSviewer</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Configuration)-$(PlatformArchitecture)\</OutDir>
+    <IntDir>$(Configuration)-$(PlatformArchitecture)\$(ProjectName)\</IntDir>
+    <TargetName>ADSviewer</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

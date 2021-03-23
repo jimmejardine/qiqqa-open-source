@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include <string.h>
+#include <time.h>       /* clock_t, clock, CLOCKS_PER_SEC */
 #include <assert.h>
 
 #include "ntfs_ads_io.h"
@@ -41,8 +42,9 @@ typedef struct
 //
 // Globals
 //
+clock_t ticks;
+int conciseOutput = 0;
 ULONG FilesMatched = 0;
-ULONG FilesProcessed = 0;
 ULONG DotsPrinted = 0;
 BOOLEAN PrintDirectoryOpenErrors = FALSE;
 HashtableEntry UniqueFilePaths[PRIME_MODULUS];
@@ -62,7 +64,7 @@ void PrintNtError(NTSTATUS status)
         NULL, RtlNtStatusToDosError(status),
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
         (LPTSTR)&errMsg, 0, NULL);
-    wprintf(L"%s\n", errMsg);
+    wprintf(L"\r%s\n", errMsg);
     LocalFree(errMsg);
 }
 
@@ -81,7 +83,7 @@ void PrintWin32Error(DWORD ErrorCode)
         NULL, ErrorCode,
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
         (LPTSTR)&lpMsgBuf, 0, NULL);
-    wprintf(L"%s\n", lpMsgBuf);
+    wprintf(L"\r%s\n", lpMsgBuf);
     LocalFree(lpMsgBuf);
 }
 
@@ -337,6 +339,8 @@ unsigned int CalculateHash(const WCHAR* str)
     return (unsigned int)(hash % PRIME_MODULUS) + 1;
 }
 
+
+
 int TestAndAddInHashtable(const WCHAR* str)
 {
     unsigned int hash = CalculateHash(str);
@@ -362,6 +366,7 @@ int TestAndAddInHashtable(const WCHAR* str)
 }
 
 
+
 // Return TRUE when file is hardlinked at least once, i.e. has two paths on the disk AT LEAST.
 BOOL FileHasMultipleInstances(WCHAR* FileName)
 {
@@ -380,6 +385,43 @@ BOOL FileHasMultipleInstances(WCHAR* FileName)
     }
     return !!linkCount;
 }
+
+
+
+void ClearProgress(void)
+{
+    if (!conciseOutput)
+    {
+        wprintf(L"\r     \r");
+        DotsPrinted = 0;
+    }
+}
+
+
+void ShowProgress(void)
+{
+    if (!conciseOutput)
+    {
+        clock_t t2 = clock();
+
+        if (t2 - ticks >= CLOCKS_PER_SEC / 2)
+        {
+            ticks = t2;
+
+            if (DotsPrinted == 3)
+            {
+                ClearProgress();
+            }
+            else
+            {
+                DotsPrinted++;
+                wprintf(L".");
+            }
+            fflush(stdout);
+        }
+    }
+}
+
 
 
 //--------------------------------------------------------------------
@@ -485,138 +527,145 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
 
         FilesMatched++;
 
-        WCHAR    attr_str[32];
+        if (!conciseOutput)
+        {
+            WCHAR    attr_str[32];
 
-        for (int i = 0; i < 32; i++)
-            attr_str[i] = '.';
+            for (int i = 0; i < 32; i++)
+                attr_str[i] = '.';
 
-        if (attrs & FILE_ATTRIBUTE_READONLY)
-        {
-            attr_str[0] = 'R';
-            attrs &= ~FILE_ATTRIBUTE_READONLY;
-        }
-        if (attrs & FILE_ATTRIBUTE_HIDDEN)
-        {
-            attr_str[1] = 'H';
-            attrs &= ~FILE_ATTRIBUTE_HIDDEN;
-        }
-        if (attrs & FILE_ATTRIBUTE_SYSTEM)
-        {
-            attr_str[2] = 'S';
-            attrs &= ~FILE_ATTRIBUTE_SYSTEM;
-        }
-        if (attrs & FILE_ATTRIBUTE_DIRECTORY)
-        {
-            attr_str[3] = 'D';
-            attrs &= ~FILE_ATTRIBUTE_DIRECTORY;
-        }
-        if (attrs & FILE_ATTRIBUTE_ARCHIVE)
-        {
-            attr_str[4] = 'A';
-            attrs &= ~FILE_ATTRIBUTE_ARCHIVE;
-        }
-        if (attrs & FILE_ATTRIBUTE_DEVICE)
-        {
-            attr_str[5] = 'd';
-            attrs &= ~FILE_ATTRIBUTE_DEVICE;
-        }
-        if (attrs & FILE_ATTRIBUTE_NORMAL)
-        {
-            attr_str[6] = 'N';
-            attrs &= ~FILE_ATTRIBUTE_NORMAL;
-        }
-        if (attrs & FILE_ATTRIBUTE_TEMPORARY)
-        {
-            attr_str[7] = 'T';
-            attrs &= ~FILE_ATTRIBUTE_TEMPORARY;
-        }
-        if (attrs & FILE_ATTRIBUTE_SPARSE_FILE)
-        {
-            attr_str[8] = 's';
-            attrs &= ~FILE_ATTRIBUTE_SPARSE_FILE;
-        }
-        if (attrs & FILE_ATTRIBUTE_REPARSE_POINT)
-        {
-            attr_str[9] = 'h';
-            attrs &= ~FILE_ATTRIBUTE_REPARSE_POINT;
-        }
-        if (attrs & FILE_ATTRIBUTE_COMPRESSED)
-        {
-            attr_str[10] = 'C';
-            attrs &= ~FILE_ATTRIBUTE_COMPRESSED;
-        }
-        if (attrs & FILE_ATTRIBUTE_OFFLINE)
-        {
-            attr_str[11] = 'O';
-            attrs &= ~FILE_ATTRIBUTE_OFFLINE;
-        }
-        if (attrs & FILE_ATTRIBUTE_NOT_CONTENT_INDEXED)
-        {
-            attr_str[12] = 'i';
-            attrs &= ~FILE_ATTRIBUTE_NOT_CONTENT_INDEXED;
-        }
-        if (attrs & FILE_ATTRIBUTE_ENCRYPTED)
-        {
-            attr_str[13] = 'E';
-            attrs &= ~FILE_ATTRIBUTE_ENCRYPTED;
-        }
-        if (attrs & FILE_ATTRIBUTE_INTEGRITY_STREAM)
-        {
-            attr_str[14] = 't';
-            attrs &= ~FILE_ATTRIBUTE_INTEGRITY_STREAM;
-        }
-        if (attrs & FILE_ATTRIBUTE_VIRTUAL)
-        {
-            attr_str[15] = 'V';
-            attrs &= ~FILE_ATTRIBUTE_VIRTUAL;
-        }
-        if (attrs & FILE_ATTRIBUTE_NO_SCRUB_DATA)
-        {
-            attr_str[16] = 'b';
-            attrs &= ~FILE_ATTRIBUTE_NO_SCRUB_DATA;
-        }
-        if (attrs & FILE_ATTRIBUTE_EA)
-        {
-            attr_str[17] = 'a';
-            attrs &= ~FILE_ATTRIBUTE_EA;
-        }
-        if (attrs & FILE_ATTRIBUTE_PINNED)
-        {
-            attr_str[18] = 'P';
-            attrs &= ~FILE_ATTRIBUTE_PINNED;
-        }
-        if (attrs & FILE_ATTRIBUTE_UNPINNED)
-        {
-            attr_str[19] = 'u';
-            attrs &= ~FILE_ATTRIBUTE_UNPINNED;
-        }
-        if (attrs & FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS)
-        {
-            attr_str[20] = 'c';
-            attrs &= ~FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS;
-        }
-        if (attrs & FILE_ATTRIBUTE_RECALL_ON_OPEN)
-        {
-            attr_str[21] = 'o';
-            attrs &= ~FILE_ATTRIBUTE_RECALL_ON_OPEN;
-        }
-        if (attrs & FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL)
-        {
-            attr_str[22] = 'l';
-            attrs &= ~FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL;
-        }
-        if (hasLinks)
-        {
-            attr_str[22] = isHardlink ? 'L' : '*';
-        }
-        if (attrs)
-        {
-            attr_str[23] = '?';
-            attrs &= ~FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL;
-        }
-        attr_str[24] = 0;
+            if (attrs & FILE_ATTRIBUTE_READONLY)
+            {
+                attr_str[0] = 'R';
+                attrs &= ~FILE_ATTRIBUTE_READONLY;
+            }
+            if (attrs & FILE_ATTRIBUTE_HIDDEN)
+            {
+                attr_str[1] = 'H';
+                attrs &= ~FILE_ATTRIBUTE_HIDDEN;
+            }
+            if (attrs & FILE_ATTRIBUTE_SYSTEM)
+            {
+                attr_str[2] = 'S';
+                attrs &= ~FILE_ATTRIBUTE_SYSTEM;
+            }
+            if (attrs & FILE_ATTRIBUTE_DIRECTORY)
+            {
+                attr_str[3] = 'D';
+                attrs &= ~FILE_ATTRIBUTE_DIRECTORY;
+            }
+            if (attrs & FILE_ATTRIBUTE_ARCHIVE)
+            {
+                attr_str[4] = 'A';
+                attrs &= ~FILE_ATTRIBUTE_ARCHIVE;
+            }
+            if (attrs & FILE_ATTRIBUTE_DEVICE)
+            {
+                attr_str[5] = 'd';
+                attrs &= ~FILE_ATTRIBUTE_DEVICE;
+            }
+            if (attrs & FILE_ATTRIBUTE_NORMAL)
+            {
+                attr_str[6] = 'N';
+                attrs &= ~FILE_ATTRIBUTE_NORMAL;
+            }
+            if (attrs & FILE_ATTRIBUTE_TEMPORARY)
+            {
+                attr_str[7] = 'T';
+                attrs &= ~FILE_ATTRIBUTE_TEMPORARY;
+            }
+            if (attrs & FILE_ATTRIBUTE_SPARSE_FILE)
+            {
+                attr_str[8] = 's';
+                attrs &= ~FILE_ATTRIBUTE_SPARSE_FILE;
+            }
+            if (attrs & FILE_ATTRIBUTE_REPARSE_POINT)
+            {
+                attr_str[9] = 'h';
+                attrs &= ~FILE_ATTRIBUTE_REPARSE_POINT;
+            }
+            if (attrs & FILE_ATTRIBUTE_COMPRESSED)
+            {
+                attr_str[10] = 'C';
+                attrs &= ~FILE_ATTRIBUTE_COMPRESSED;
+            }
+            if (attrs & FILE_ATTRIBUTE_OFFLINE)
+            {
+                attr_str[11] = 'O';
+                attrs &= ~FILE_ATTRIBUTE_OFFLINE;
+            }
+            if (attrs & FILE_ATTRIBUTE_NOT_CONTENT_INDEXED)
+            {
+                attr_str[12] = 'i';
+                attrs &= ~FILE_ATTRIBUTE_NOT_CONTENT_INDEXED;
+            }
+            if (attrs & FILE_ATTRIBUTE_ENCRYPTED)
+            {
+                attr_str[13] = 'E';
+                attrs &= ~FILE_ATTRIBUTE_ENCRYPTED;
+            }
+            if (attrs & FILE_ATTRIBUTE_INTEGRITY_STREAM)
+            {
+                attr_str[14] = 't';
+                attrs &= ~FILE_ATTRIBUTE_INTEGRITY_STREAM;
+            }
+            if (attrs & FILE_ATTRIBUTE_VIRTUAL)
+            {
+                attr_str[15] = 'V';
+                attrs &= ~FILE_ATTRIBUTE_VIRTUAL;
+            }
+            if (attrs & FILE_ATTRIBUTE_NO_SCRUB_DATA)
+            {
+                attr_str[16] = 'b';
+                attrs &= ~FILE_ATTRIBUTE_NO_SCRUB_DATA;
+            }
+            if (attrs & FILE_ATTRIBUTE_EA)
+            {
+                attr_str[17] = 'a';
+                attrs &= ~FILE_ATTRIBUTE_EA;
+            }
+            if (attrs & FILE_ATTRIBUTE_PINNED)
+            {
+                attr_str[18] = 'P';
+                attrs &= ~FILE_ATTRIBUTE_PINNED;
+            }
+            if (attrs & FILE_ATTRIBUTE_UNPINNED)
+            {
+                attr_str[19] = 'u';
+                attrs &= ~FILE_ATTRIBUTE_UNPINNED;
+            }
+            if (attrs & FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS)
+            {
+                attr_str[20] = 'c';
+                attrs &= ~FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS;
+            }
+            if (attrs & FILE_ATTRIBUTE_RECALL_ON_OPEN)
+            {
+                attr_str[21] = 'o';
+                attrs &= ~FILE_ATTRIBUTE_RECALL_ON_OPEN;
+            }
+            if (attrs & FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL)
+            {
+                attr_str[22] = 'l';
+                attrs &= ~FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL;
+            }
+            if (hasLinks)
+            {
+                attr_str[22] = isHardlink ? 'L' : '*';
+            }
+            if (attrs)
+            {
+                attr_str[23] = '?';
+                attrs &= ~FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL;
+            }
+            attr_str[24] = 0;
 
-        wprintf(L"\r%s %s\n", attr_str, FileName + 4 /* skip \\?\ prefix */ );
+            wprintf(L"\r%s %s\n", attr_str, FileName + 4 /* skip \\?\ prefix */);
+        }
+        else
+        {
+            wprintf(L"\r%s\n", FileName + 4 /* skip \\?\ prefix */);
+        }
     }
 
     if (showLinks)
@@ -661,21 +710,6 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
             }
             FindClose(fnameHandle);
         }
-    }
-
-    if (!(++FilesProcessed % 500))
-    {
-        if (DotsPrinted == 3)
-        {
-            wprintf(L"\r     \r");
-            DotsPrinted = 0;
-        }
-        else
-        {
-            DotsPrinted++;
-            wprintf(L".");
-        }
-        fflush(stdout);
     }
 }
 
@@ -811,6 +845,8 @@ void ProcessDirectory(WCHAR* PathName, WCHAR* SearchPattern, size_t SearchPatter
                 //
                 // Do this file/directory
                 //
+                ShowProgress();
+
                 ProcessFile(subName,
                     (BOOLEAN)(foundFile.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY),
                     mandatoryAttribs, wantedAnyAttribs, rejectedAttribs, showLinks
@@ -825,6 +861,8 @@ void ProcessDirectory(WCHAR* PathName, WCHAR* SearchPattern, size_t SearchPatter
     //
     if (Recurse)
     {
+        ShowProgress();
+
         if (firstCall && !wcsrchr(searchName, L'\\'))
         {
             if (wcsrchr(searchName, L'*'))
@@ -876,6 +914,8 @@ void ProcessDirectory(WCHAR* PathName, WCHAR* SearchPattern, size_t SearchPatter
                 //
                 // Go into this directory
                 //
+                ShowProgress();
+
                 ProcessDirectory(subName, SearchPattern, SearchPatternSize, Recurse, mandatoryAttribs, wantedAnyAttribs, rejectedAttribs, showLinks);
             }
         } while (FindNextFile(dirHandle, &foundFile));
@@ -894,7 +934,13 @@ int Usage(WCHAR* ProgramName)
         baseName = ProgramName;
     else
         baseName++;
+
+    wprintf(L"\nDirScanner v1.0 - List directory contents including NTFS hardlinks\n");
+    wprintf(L"Copyright (C) 2021 Ger Hobbelt\n");
+    wprintf(L"Parts derived from NTFS ADS Viewer, Copyright (C) 1999-2005 Mark Russinovich\n");
+
     wprintf(L"usage: %s [-s] [-m mask] [-r mask] <file or directory>\n", baseName);
+    wprintf(L"-c     Concise output, i.e. do NOT print the attributes\n");
     wprintf(L"-s     Recurse subdirectories\n");
     wprintf(L"-m     mask of attributes which are Mandatory (MUST HAVE)\n");
     wprintf(L"-w     mask of attributes which are Wanted (MAY HAVE)\n");
@@ -965,12 +1011,7 @@ int wmain(int argc, WCHAR* argv[])
     WCHAR		searchPath[MAX_PATH];
     int         i;
 
-    //
-    // Print banner and perform parameter check
-    //
-    wprintf(L"\nNTFSlinks v1.0 - Enumerate NTFS hardlinks\n");
-    wprintf(L"Copyright (C) 1999-2005 Mark Russinovich\n");
-    wprintf(L"Sysinternals - www.sysinternals.com\n\n");
+    ticks = clock();
 
     if (argc > 1)
     {
@@ -986,7 +1027,11 @@ int wmain(int argc, WCHAR* argv[])
                 continue;
             }
 
-            if (argv[i][1] == L's' || argv[i][1] == L'S')
+            if (argv[i][1] == L'c' || argv[i][1] == L'C')
+            {
+                conciseOutput = TRUE;
+            }
+            else if (argv[i][1] == L's' || argv[i][1] == L'S')
             {
                 recurse = TRUE;
             }
@@ -1068,7 +1113,10 @@ int wmain(int argc, WCHAR* argv[])
     //
     ProcessDirectory(searchPath, searchPattern, nelem(searchPattern), recurse, mandatoryAttribs, wantedAnyAttribs, rejectedAttribs, showLinks);
 
+    // reset progress dots to empty line before we exit.
+    ClearProgress();
+
     if (!FilesMatched)
-        wprintf(L"No matching files found.\n\n");
+        wprintf(L"\rNo matching files found.\n\n");
     return 0;
 }
