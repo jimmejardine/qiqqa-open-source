@@ -1,9 +1,0 @@
-{
-  "name": "wpf-nodejs-web-app1",
-  "version": "0.0.0",
-  "description": "WpfNodejsWebApp1",
-  "main": "server.js",
-  "author": {
-    "name": ""
-  }
-}

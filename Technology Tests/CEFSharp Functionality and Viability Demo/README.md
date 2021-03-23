@@ -2,7 +2,7 @@
 
 ## Purpose
 
-To disccover what needs to be done to make CEFSharp our new all-purpose embedded browser control.
+To discover what needs to be done to make CEFSharp our new all-purpose embedded browser control.
 
 Key features which must be supported:
 

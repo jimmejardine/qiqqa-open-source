@@ -34,3 +34,13 @@ This requires:
 This here is part of the technical storyboarding side of a UI & UX overhaul of Qiqqa.
 
 Before we put it to Qiqqa, it will be tested here.
+
+
+
+
+---
+
+## Update
+
+As stated elsewhere, we'll be moving towards a more web technology oriented UI/UX approach, using Chromely or similar.
+As such, this is now obsolete in the sense that we won't be doing this in WPF/XAML, but will pick this up later in web form / editor form. Until then, we've nuked the C#/WPF test code + project here.
