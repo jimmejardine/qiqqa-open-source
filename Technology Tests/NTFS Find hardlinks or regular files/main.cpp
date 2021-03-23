@@ -29,7 +29,7 @@ static RtlNtStatusToDosError_f RtlNtStatusToDosError;
 #define FILE_ATTRIBUTE_HARDLINK            0x40000000U
 
 
-#define PRIME_MODULUS   16769023
+#define PRIME_MODULUS    16769023
 
 typedef struct
 {
@@ -43,11 +43,15 @@ typedef struct
 // Globals
 //
 clock_t ticks;
+FILE* output = NULL;
+CPINFOEXW CPInfo = { 0 };
+int cvtErrors = 0;
 int conciseOutput = 0;
 ULONG FilesMatched = 0;
 ULONG DotsPrinted = 0;
 BOOLEAN PrintDirectoryOpenErrors = FALSE;
 HashtableEntry UniqueFilePaths[PRIME_MODULUS];
+HashtableEntry OutputFilePaths[PRIME_MODULUS];
 
 //----------------------------------------------------------------------
 //
@@ -64,7 +68,7 @@ void PrintNtError(NTSTATUS status)
         NULL, RtlNtStatusToDosError(status),
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
         (LPTSTR)&errMsg, 0, NULL);
-    wprintf(L"\r%s\n", errMsg);
+    fwprintf(stderr, L"\r%s\n", errMsg);
     LocalFree(errMsg);
 }
 
@@ -83,7 +87,7 @@ void PrintWin32Error(DWORD ErrorCode)
         NULL, ErrorCode,
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
         (LPTSTR)&lpMsgBuf, 0, NULL);
-    wprintf(L"\r%s\n", lpMsgBuf);
+    fwprintf(stderr, L"\r%s\n", lpMsgBuf);
     LocalFree(lpMsgBuf);
 }
 
@@ -165,7 +169,7 @@ DWORD ParseMask(WCHAR* mask)
 
     if (!mask)
     {
-        wprintf(L"Missing attributes mask parameter value.\n");
+        fwprintf(stderr, L"Missing attributes mask parameter value.\n");
         exit(1);
     }
 
@@ -310,7 +314,7 @@ DWORD ParseMask(WCHAR* mask)
             break;
 
         default:
-            wprintf(L"\rError reading attributes mask: unknown attribute %C.\n", *mask);
+            fwprintf(stderr, L"\rError reading attributes mask: unknown attribute %C.\n", *mask);
             exit(1);
         }
         mask++;
@@ -341,7 +345,97 @@ unsigned int CalculateHash(const WCHAR* str)
 
 
 
-int TestAndAddInHashtable(const WCHAR* str)
+// Make sure all path separators are windows standard: '\'.
+// Also reduce duplicate path separators, e.g. '//' and '///' into single ones: '\'
+// Rewrites string IN-PLACE.
+void NormalizePathSeparators(WCHAR* str)
+{
+    WCHAR* start = str;
+    WCHAR* dst = str;
+    while (*str)
+    {
+        WCHAR c = *str++;
+        if (c == '/')
+            c = '\\';
+        // bunch consecutive '\' separators EXCEPT at the start, where we may have '\\?\'!
+        if (c == '\\' && str - start >= 2)
+        {
+            WCHAR c2;
+            do
+            {
+                c2 = *str++;
+                if (c2 == '/')
+                    c2 = '\\';
+            } while (c2 == '\\');
+            str--;
+        }
+        *dst++ = c;
+    }
+    *dst = 0;
+}
+
+
+
+void CvtUTF16ToUTF8(char* dst, size_t dstlen, const WCHAR* src)
+{
+    // https://docs.microsoft.com/en-us/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte
+    int len = WideCharToMultiByte(CP_UTF8, WC_ERR_INVALID_CHARS | WC_NO_BEST_FIT_CHARS,src, -1, NULL, 0, NULL, NULL);
+    if (len == 0)
+    {
+        fwprintf(stderr, L"\rWARNING: Error while converting string to UTF8 for output to file. The data will be sanitized!\n    Offending string: \"%s\"\n", src);
+        PrintWin32Error(GetLastError());
+        len = WideCharToMultiByte(CP_UTF8, WC_NO_BEST_FIT_CHARS, src, -1, NULL, 0, NULL, NULL);
+        cvtErrors++;
+    }
+    if (len >= (int)dstlen)
+    {
+        fwprintf(stderr, L"\rERROR: The UTF8 encoded string is too large: %d doesn't fit into the %zu byte buffer. The data will be truncated!\n    Offending string: \"%s\"\n", len, dstlen, src);
+        cvtErrors++;
+    }
+    
+    dst[0] = 0;
+    int rv = WideCharToMultiByte(CP_UTF8, WC_NO_BEST_FIT_CHARS, src, -1, dst, dstlen, NULL, NULL);
+    dst[dstlen - 1] = 0;
+    if (rv == 0)
+    {
+        fwprintf(stderr, L"\rERROR: Error while converting string to UTF8 for output to file.\n    Offending string: \"%s\"\n", src);
+        PrintWin32Error(GetLastError());
+        exit(3);
+    }
+}
+
+
+
+void CloseOutput(void)
+{
+    if (output && output != stdout)
+    {
+        // Dump the hash table content as UTF8 to file.
+        // And clear the hash table too! It may be re-used in another round.
+        for (int i = 0; i < PRIME_MODULUS; i++)
+        {
+            HashtableEntry *slot = &OutputFilePaths[i];
+            if (!slot->hash)
+                continue;
+            ASSERT(slot->path != NULL);
+
+            // write filename as UTF8 and check it for sanity while we do:
+            char fname[MAX_PATH * 5];
+            CvtUTF16ToUTF8(fname, sizeof(fname), slot->path);
+            fprintf(output, "%s\n", fname);
+
+            free(slot->path);
+        }
+
+        fclose(output);
+
+        memset(OutputFilePaths, 0, sizeof(OutputFilePaths));
+    }
+    output = NULL;
+}
+
+
+int TestAndAddInHashtable(const WCHAR* str, HashtableEntry *UniqueFilePaths)
 {
     unsigned int hash = CalculateHash(str);
     unsigned int idx = hash - 1;
@@ -392,7 +486,7 @@ void ClearProgress(void)
 {
     if (!conciseOutput)
     {
-        wprintf(L"\r     \r");
+        fwprintf(stderr, L"\r     \r");
         DotsPrinted = 0;
     }
 }
@@ -415,7 +509,7 @@ void ShowProgress(void)
             else
             {
                 DotsPrinted++;
-                wprintf(L".");
+                fwprintf(stderr, L".");
             }
             fflush(stdout);
         }
@@ -437,7 +531,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
 
     if (attrs == INVALID_FILE_ATTRIBUTES)
     {
-        wprintf(L"\rError reading attributes of %s:\n", FileName);
+        fwprintf(stderr, L"\rError reading attributes of %s:\n", FileName);
         PrintWin32Error(GetLastError());
     }
     else
@@ -482,7 +576,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
         int isHardlink = 0;
         if (hasLinks)
         {
-            if (!TestAndAddInHashtable(FileName))
+            if (!TestAndAddInHashtable(FileName, UniqueFilePaths))
             {
                 WCHAR linkPath[MAX_PATH];
                 WCHAR fullPath[MAX_PATH];
@@ -494,7 +588,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
                     {
                         wcsncpy_s(fullPath, FileName, 6);
                         wcsncat_s(fullPath, linkPath, nelem(fullPath));
-                        TestAndAddInHashtable(fullPath);
+                        TestAndAddInHashtable(fullPath, UniqueFilePaths);
                     }
 
                     slen = nelem(linkPath);
@@ -504,7 +598,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
                         {
                             wcsncpy_s(fullPath, FileName, 6);
                             wcsncat_s(fullPath, linkPath, nelem(fullPath));
-                            TestAndAddInHashtable(fullPath);
+                            TestAndAddInHashtable(fullPath, UniqueFilePaths);
                         }
                         slen = nelem(linkPath);
                     }
@@ -660,11 +754,20 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
             }
             attr_str[24] = 0;
 
-            wprintf(L"\r%s %s\n", attr_str, FileName + 4 /* skip \\?\ prefix */);
+            fwprintf(stderr, L"\r");
+            fwprintf(stdout, L"%s %s\n", attr_str, FileName + 4 /* skip \\?\ prefix */);
         }
-        else
+        else if (!output)
         {
-            wprintf(L"\r%s\n", FileName + 4 /* skip \\?\ prefix */);
+            // only dump the file paths to STDOUT in concisee mode when NO output file has been specified.
+            fwprintf(stderr, L"\r");
+            fwprintf(stdout, L"%s\n", FileName + 4 /* skip \\?\ prefix */);
+        }
+
+        if (output)
+        {
+            // register filename in the OUTPUT hash table when we're going to output it 'unordered' to output file.
+            TestAndAddInHashtable(FileName + 4 /* skip \\?\ prefix */, OutputFilePaths);
         }
     }
 
@@ -676,14 +779,14 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
         HANDLE fnameHandle = FindFirstFileNameW(FileName, 0, &slen, linkPath);
         if (fnameHandle == INVALID_HANDLE_VALUE)
         {
-            wprintf(L"\rError reading link names for %s:\n", FileName);
+            fwprintf(stderr, L"\rError reading link names for %s:\n", FileName);
             PrintWin32Error(GetLastError());
         }
         else
         {
             if (wcscmp(linkPath, FileName + 6 /* skip \\?\X: long filename prefix plus drive part as that is not present in the link path */))
             {
-                wprintf(L"\r#--Link: %2.2s%s\n", FileName + 4, linkPath);
+                fwprintf(stdout, L"\r#--Link: %2.2s%s\n", FileName + 4, linkPath);
             }
             linkCount++;
 
@@ -692,7 +795,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
             {
                 if (wcscmp(linkPath, FileName + 6 /* skip \\?\X: long filename prefix plus drive part as that is not present in the link path */))
                 {
-                    wprintf(L"\r#--Link: %2.2s%s\n", FileName + 4, linkPath);
+                    fwprintf(stdout, L"\r#--Link: %2.2s%s\n", FileName + 4, linkPath);
                 }
                 slen = nelem(linkPath);
                 linkCount++;
@@ -700,12 +803,12 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
             // EVERY file has ONE "hardlink" at least. UNIX-like "hardlinked files" have MULTIPLE sites:
             if (linkCount > 1)
             {
-                wprintf(L"\rNumber of sites: %d\n", linkCount);
+                fwprintf(stdout, L"\r#--Number of sites: %d\n", linkCount);
             }
 
             if (GetLastError() != ERROR_HANDLE_EOF)
             {
-                wprintf(L"\rError reading link names for %s:\n", FileName);
+                fwprintf(stderr, L"\rError reading link names for %s:\n", FileName);
                 PrintWin32Error(GetLastError());
             }
             FindClose(fnameHandle);
@@ -731,7 +834,7 @@ void ProcessDirectory(WCHAR* PathName, WCHAR* SearchPattern, size_t SearchPatter
     WCHAR			searchName[MAX_PATH];
     HANDLE			dirHandle = INVALID_HANDLE_VALUE;
     HANDLE			patternHandle;
-    static BOOLEAN	firstCall = TRUE;
+    BOOLEAN	        firstCall = (SearchPattern[0] == 0);
     WIN32_FIND_DATA foundFile;
 
     //
@@ -791,8 +894,6 @@ void ProcessDirectory(WCHAR* PathName, WCHAR* SearchPattern, size_t SearchPatter
             else
             {
                 WCHAR *dirEnd = wcsrchr(PathName, '\\');
-                if (!dirEnd)
-                    dirEnd = wcsrchr(PathName, '/');
                 if (!dirEnd)
                     dirEnd = wcsrchr(PathName, ':');
                 WCHAR* basename;
@@ -935,62 +1036,63 @@ int Usage(WCHAR* ProgramName)
     else
         baseName++;
 
-    wprintf(L"\nDirScanner v1.0 - List directory contents including NTFS hardlinks\n");
-    wprintf(L"Copyright (C) 2021 Ger Hobbelt\n");
-    wprintf(L"Parts derived from NTFS ADS Viewer, Copyright (C) 1999-2005 Mark Russinovich\n");
+    fwprintf(stderr, L"\nDirScanner v1.1 - List directory contents including NTFS hardlinks\n");
+    fwprintf(stderr, L"Copyright (C) 2021 Ger Hobbelt\n");
+    fwprintf(stderr, L"Some parts Copyright (C) 1999-2005 Mark Russinovich\n");
 
-    wprintf(L"usage: %s [-s] [-m mask] [-r mask] <file or directory>\n", baseName);
-    wprintf(L"-c     Concise output, i.e. do NOT print the attributes\n");
-    wprintf(L"-s     Recurse subdirectories\n");
-    wprintf(L"-m     mask of attributes which are Mandatory (MUST HAVE)\n");
-    wprintf(L"-w     mask of attributes which are Wanted (MAY HAVE)\n");
-    wprintf(L"-r     mask of attributes which are Rejected (HAS NOT)\n\n");
-    wprintf(L"-l     list all hardlink sites for every file which has multiple sites (hardlinks)\n");
-    wprintf(L"\n");
-    wprintf(L"The M,W,R masks are processed as follows:\n"
+    fwprintf(stderr, L"usage: %s [-s] [-m mask] [-r mask] [-w mask] [-o file] <file or directory> ...\n", baseName);
+    fwprintf(stderr, L"-c     Concise output, i.e. do NOT print the attributes\n");
+    fwprintf(stderr, L"-s     Recurse subdirectories\n");
+    fwprintf(stderr, L"-m     mask of attributes which are Mandatory (MUST HAVE)\n");
+    fwprintf(stderr, L"-w     mask of attributes which are Wanted (MAY HAVE)\n");
+    fwprintf(stderr, L"-r     mask of attributes which are Rejected (HAS NOT)\n\n");
+    fwprintf(stderr, L"-l     list all hardlink sites for every file which has multiple sites (hardlinks)\n");
+    fwprintf(stderr, L"-o     write the collected list of paths to the specified file (SEMI-RANDOM HASH-based order)\n");
+    fwprintf(stderr, L"\n");
+    fwprintf(stderr, L"The M,W,R masks are processed as follows:\n"
             L"  mask & MUST(Mandatory) == MUST\n"
             L"  mask & MAY(Wanted) != 0          (if '-w' was specified)\n"
             L"  mask & NOT(Rejected) == 0\n"
             L"only files which pass all three checks will be listed.\n\n");
-    wprintf(L"Mask/Attributes:\n");
-    wprintf(L"       R : READONLY\n");
-    wprintf(L"       H : HIDDEN\n");
-    wprintf(L"       S : SYSTEM\n");
-    wprintf(L"       D : DIRECTORY\n");
-    wprintf(L"       A : ARCHIVE\n");
-    wprintf(L"       d : DEVICE\n");
-    wprintf(L"       N : NORMAL\n");
-    wprintf(L"       T : TEMPORARY\n");
-    wprintf(L"       s : SPARSE_FILE\n");
-    wprintf(L"       h : REPARSE_POINT\n");
-    wprintf(L"       C : COMPRESSED\n");
-    wprintf(L"       O : OFFLINE\n");
-    wprintf(L"       i : NOT_CONTENT_INDEXED\n");
-    wprintf(L"       E : ENCRYPTED\n");
-    wprintf(L"       t : INTEGRITY_STREAM\n");
-    wprintf(L"       V : VIRTUAL\n");
-    wprintf(L"       b : NO_SCRUB_DATA\n");
-    wprintf(L"       a : EA\n");
-    wprintf(L"       P : PINNED\n");
-    wprintf(L"       u : UNPINNED\n");
-    wprintf(L"       c : RECALL_ON_DATA_ACCESS\n");
-    wprintf(L"       o : RECALL_ON_OPEN\n");
-    wprintf(L"       l : STRICTLY_SEQUENTIAL\n");
-    wprintf(L"       L : MULTIPLE_SITES (i.e. file has hardlinks on the drive)\n");
-    wprintf(L"       X : HARDLINK (i.e. file is a 'hardlink'.)\n");
-    wprintf(L"       M : misc. (unknown)\n");
-    wprintf(L"       ? : misc. (unknown)\n");
-    wprintf(L"       ~ : *NEGATE* the entire specified mask\n");
-    wprintf(L"       ! : *NEGATE* the entire specified mask\n");
-    wprintf(L"\n");
-    wprintf(L"NOTE: we consider a file a 'hardlink' in the UNIX sense when it's the *second or later*\n");
-    wprintf(L"      file path we encounter for the given file during the scan.\n");
-    wprintf(L"      Hence you can filter with '/w ~X', i.e. not wanting to see hardlinks, to get a\n");
-    wprintf(L"      list of unique files in the given search path (there may be links to these files elsewhere).\n");
-    wprintf(L"      You can filter with '/w L' to see all file paths for 'hardlinked' files.\n");
-    wprintf(L"      You can filter with '/m L /r X' to see the *first occurrence* of each 'hardlinked' file\n");
-    wprintf(L"      in the given search path.\n");
-    wprintf(L"\n");
+    fwprintf(stderr, L"Mask/Attributes:\n");
+    fwprintf(stderr, L"       R : READONLY\n");
+    fwprintf(stderr, L"       H : HIDDEN\n");
+    fwprintf(stderr, L"       S : SYSTEM\n");
+    fwprintf(stderr, L"       D : DIRECTORY\n");
+    fwprintf(stderr, L"       A : ARCHIVE\n");
+    fwprintf(stderr, L"       d : DEVICE\n");
+    fwprintf(stderr, L"       N : NORMAL\n");
+    fwprintf(stderr, L"       T : TEMPORARY\n");
+    fwprintf(stderr, L"       s : SPARSE_FILE\n");
+    fwprintf(stderr, L"       h : REPARSE_POINT\n");
+    fwprintf(stderr, L"       C : COMPRESSED\n");
+    fwprintf(stderr, L"       O : OFFLINE\n");
+    fwprintf(stderr, L"       i : NOT_CONTENT_INDEXED\n");
+    fwprintf(stderr, L"       E : ENCRYPTED\n");
+    fwprintf(stderr, L"       t : INTEGRITY_STREAM\n");
+    fwprintf(stderr, L"       V : VIRTUAL\n");
+    fwprintf(stderr, L"       b : NO_SCRUB_DATA\n");
+    fwprintf(stderr, L"       a : EA\n");
+    fwprintf(stderr, L"       P : PINNED\n");
+    fwprintf(stderr, L"       u : UNPINNED\n");
+    fwprintf(stderr, L"       c : RECALL_ON_DATA_ACCESS\n");
+    fwprintf(stderr, L"       o : RECALL_ON_OPEN\n");
+    fwprintf(stderr, L"       l : STRICTLY_SEQUENTIAL\n");
+    fwprintf(stderr, L"       L : MULTIPLE_SITES (i.e. file has hardlinks on the drive)\n");
+    fwprintf(stderr, L"       X : HARDLINK (i.e. file is a 'hardlink'.)\n");
+    fwprintf(stderr, L"       M : misc. (unknown)\n");
+    fwprintf(stderr, L"       ? : misc. (unknown)\n");
+    fwprintf(stderr, L"       ~ : *NEGATE* the entire specified mask\n");
+    fwprintf(stderr, L"       ! : *NEGATE* the entire specified mask\n");
+    fwprintf(stderr, L"\n");
+    fwprintf(stderr, L"NOTE: we consider a file a 'hardlink' in the UNIX sense when it's the *second or later*\n");
+    fwprintf(stderr, L"      file path we encounter for the given file during the scan.\n");
+    fwprintf(stderr, L"      Hence you can filter with '/w ~X', i.e. not wanting to see hardlinks, to get a\n");
+    fwprintf(stderr, L"      list of unique files in the given search path (there may be links to these files elsewhere).\n");
+    fwprintf(stderr, L"      You can filter with '/w L' to see all file paths for 'hardlinked' files.\n");
+    fwprintf(stderr, L"      You can filter with '/m L /r X' to see the *first occurrence* of each 'hardlinked' file\n");
+    fwprintf(stderr, L"      in the given search path.\n");
+    fwprintf(stderr, L"\n");
 
     return -1;
 }
@@ -1000,8 +1102,6 @@ int wmain(int argc, WCHAR* argv[])
 {
     BOOLEAN     recurse = FALSE;
     BOOLEAN     regular_only = FALSE;
-    PWCHAR      filePart;
-    WCHAR		volume[] = L"C:\\";
     DWORD		fsFlags;
     BOOLEAN     showLinks = FALSE;
     DWORD       mandatoryAttribs = 0;
@@ -1009,59 +1109,12 @@ int wmain(int argc, WCHAR* argv[])
     DWORD       rejectedAttribs = 0;
     WCHAR       searchPattern[MAX_PATH];
     WCHAR		searchPath[MAX_PATH];
+    WCHAR		listOutputPath[MAX_PATH];
     int         i;
 
     ticks = clock();
 
-    if (argc > 1)
-    {
-        for (i = 1; i < argc; i++)
-        {
-            if (argv[i][0] != L'/' && argv[i][0] != L'-')
-            {
-                if (i != argc - 1)
-                {
-                    wprintf(argv[i]);
-                    return Usage(argv[0]);
-                }
-                continue;
-            }
-
-            if (argv[i][1] == L'c' || argv[i][1] == L'C')
-            {
-                conciseOutput = TRUE;
-            }
-            else if (argv[i][1] == L's' || argv[i][1] == L'S')
-            {
-                recurse = TRUE;
-            }
-            else if (argv[i][1] == L'l' || argv[i][1] == L'L')
-            {
-                showLinks = TRUE;
-            }
-            else if (argv[i][1] == L'm' || argv[i][1] == 'M')
-            {
-                i++;
-                mandatoryAttribs = ParseMask(argv[i]);
-            }
-            else if (argv[i][1] == L'w' || argv[i][1] == 'W')
-            {
-                i++;
-                wantedAnyAttribs = ParseMask(argv[i]);
-            }
-            else if (argv[i][1] == L'r' || argv[i][1] == 'R')
-            {
-                i++;
-                rejectedAttribs = ParseMask(argv[i]);
-            }
-            else
-            {
-                wprintf(L"Unrecognized commandline argument: %s\n\n", argv[i]);
-                return Usage(argv[0]);
-            }
-        }
-    }
-    else
+    if (argc <= 1)
     {
         return Usage(argv[0]);
     }
@@ -1079,44 +1132,144 @@ int wmain(int argc, WCHAR* argv[])
     //
     if (!(NtQueryInformationFile = (NtQueryInformationFile_f)GetProcAddress(GetModuleHandle(L"ntdll.dll"), "NtQueryInformationFile")))
     {
-        wprintf(L"\nCould not find NtQueryInformationFile entry point in NTDLL.DLL\n");
+        fwprintf(stderr, L"\nCould not find NtQueryInformationFile entry point in NTDLL.DLL\n");
         exit(1);
     }
     if (!(RtlNtStatusToDosError = (RtlNtStatusToDosError_f)GetProcAddress(GetModuleHandle(L"ntdll.dll"), "RtlNtStatusToDosError")))
     {
-        wprintf(L"\nCould not find RtlNtStatusToDosError entry point in NTDLL.DLL\n");
+        fwprintf(stderr, L"\nCould not find RtlNtStatusToDosError entry point in NTDLL.DLL\n");
         exit(1);
     }
-    // https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
-    wcsncpy_s(searchPath, L"\\\\?\\", 4);
-    GetFullPathName(argv[argc - 1], MAX_PATH - 4, searchPath + 4, &filePart);
 
-    //
-    // Make sure that it's a NTFS volume
-    //
-    if (searchPath[1] == L':')
     {
-        fsFlags = 0;
-        volume[0] = searchPath[0];
-        GetVolumeInformation(volume, NULL, 0, NULL, NULL, &fsFlags, NULL, 0);
-        if (!(fsFlags & FILE_SUPPORTS_HARD_LINKS))
+        if (!GetCPInfoExW(CP_UTF8, 0, &CPInfo))
         {
-            wprintf(L"\nThe specified volume does not support hardlinks.\n\n");
-            exit(2);
+            memset(&CPInfo, 0, sizeof(CPInfo));
+            CPInfo.DefaultChar[0] = '?';
         }
     }
 
-    memset(UniqueFilePaths, 0, sizeof(UniqueFilePaths));
+    // Now go through the search paths sequentially, while we parse the commandline parameters alongside.
+    // Order of appearancee is important, hence you can specify different attribute mask filters
+    // for different search paths!
 
-    //
-    // Now go and process directories
-    //
-    ProcessDirectory(searchPath, searchPattern, nelem(searchPattern), recurse, mandatoryAttribs, wantedAnyAttribs, rejectedAttribs, showLinks);
+    if (argv[argc - 1][0] == L'/' || argv[argc - 1][0] == L'-')
+    {
+        fwprintf(stderr, L"Unused commandline parameters at the end of your commandline. Please clean up: %s\n", argv[argc - 1]);
+        return Usage(argv[0]);
+    }
+
+    memset(UniqueFilePaths, 0, sizeof(UniqueFilePaths));
+    memset(OutputFilePaths, 0, sizeof(OutputFilePaths));
+
+    output = NULL;
+    atexit(CloseOutput);
+
+    for (i = 1; i < argc; i++)
+    {
+        if (argv[i][0] != L'/' && argv[i][0] != L'-')
+        {
+            // https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
+            wcsncpy_s(searchPath, L"\\\\?\\", 4);
+            PWCHAR filePart;
+            GetFullPathName(argv[argc - 1], MAX_PATH - 4, searchPath + 4, &filePart);
+            NormalizePathSeparators(searchPath);
+
+            //
+            // Check that it's a NTFS volume and report limited abilities when it's not
+            //
+            if (searchPath[1] == L':')
+            {
+                fsFlags = 0;
+                WCHAR volume[] = L"C:\\";
+                volume[0] = searchPath[0];
+                GetVolumeInformation(volume, NULL, 0, NULL, NULL, &fsFlags, NULL, 0);
+                if (!(fsFlags & FILE_SUPPORTS_HARD_LINKS))
+                {
+                    fwprintf(stderr, L"\nWARNING: The specified volume %s does not support Windows/NTFS hardlinks. We won't be able to find any of those then!\n\n", volume);
+                    // ignore this inability, so we can scan network drives, etc. anyway.
+                }
+            }
+            else if (searchPath[4 + 1] == L':')
+            {
+                // User very probably specified a '\\?\D:\...' UNC path. Check the drive letter in there.
+                fsFlags = 0;
+                WCHAR volume[] = L"C:\\";
+                volume[0] = searchPath[4];
+                GetVolumeInformation(volume, NULL, 0, NULL, NULL, &fsFlags, NULL, 0);
+                if (!(fsFlags & FILE_SUPPORTS_HARD_LINKS))
+                {
+                    fwprintf(stderr, L"\nWARNING: The specified volume %s does not support Windows/NTFS hardlinks. We won't be able to find any of those then!\n\n", volume);
+                    // ignore this inability, so we can scan network drives, etc. anyway.
+                }
+            }
+
+            //
+            // Now go and process directories
+            //
+            searchPattern[0] = 0;           // signal initial call of this recursive function
+            ProcessDirectory(searchPath, searchPattern, nelem(searchPattern), recurse, mandatoryAttribs, wantedAnyAttribs, rejectedAttribs, showLinks);
+        }
+        else if (argv[i][1] == L'c' || argv[i][1] == L'C')
+        {
+            conciseOutput = TRUE;
+        }
+        else if (argv[i][1] == L's' || argv[i][1] == L'S')
+        {
+            recurse = TRUE;
+        }
+        else if (argv[i][1] == L'l' || argv[i][1] == L'L')
+        {
+            showLinks = TRUE;
+        }
+        else if (argv[i][1] == L'm' || argv[i][1] == 'M')
+        {
+            i++;
+            mandatoryAttribs = ParseMask(argv[i]);
+        }
+        else if (argv[i][1] == L'w' || argv[i][1] == 'W')
+        {
+            i++;
+            wantedAnyAttribs = ParseMask(argv[i]);
+        }
+        else if (argv[i][1] == L'r' || argv[i][1] == 'R')
+        {
+            i++;
+            rejectedAttribs = ParseMask(argv[i]);
+        }
+        else if (argv[i][1] == L'o' || argv[i][1] == 'O')
+        {
+            CloseOutput();
+
+            i++;
+            wcscpy_s(listOutputPath, argv[i]);
+            NormalizePathSeparators(listOutputPath);
+
+            char fname[MAX_PATH * 5];
+            CvtUTF16ToUTF8(fname, sizeof(fname), listOutputPath);
+            errno_t err = fopen_s(&output, fname, "w");
+            if (!output || err)
+            {
+                char msg[1024];
+                strerror_s(msg, errno);
+                fwprintf(stderr, L"Unable to open file '%s' for writing: ", listOutputPath);
+                fprintf(stderr, "%s.\n\n", msg);
+                return EXIT_FAILURE;
+            }
+        }
+        else
+        {
+            fwprintf(stderr, L"Unrecognized commandline argument: %s\n\n", argv[i]);
+            return Usage(argv[0]);
+        }
+    }
+
+    CloseOutput();
 
     // reset progress dots to empty line before we exit.
     ClearProgress();
 
     if (!FilesMatched)
-        wprintf(L"\rNo matching files found.\n\n");
+        fwprintf(stderr, L"\rNo matching files found.\n\n");
     return 0;
 }
