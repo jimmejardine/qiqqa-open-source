@@ -16,8 +16,8 @@ namespace Utilities
         // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         public const string QiqqaDevProjectDir = "Z:/lib/tooling/qiqqa/Utilities/";
         public const string QiqqaDevSolutionDir = "Z:/lib/tooling/qiqqa/";
-        public const string QiqqaDevTargetDir = "Z:/lib/tooling/qiqqa/Utilities/bin/Debug/";
-        public const string QiqqaDevBuild = "Debug";
+        public const string QiqqaDevTargetDir = "Z:/lib/tooling/qiqqa/Utilities/bin/Release/";
+        public const string QiqqaDevBuild = "Release";
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         // These 4 constants are live-patched by the Pre-build task (Qiqqa.Build/patch_settings_file.js)
 

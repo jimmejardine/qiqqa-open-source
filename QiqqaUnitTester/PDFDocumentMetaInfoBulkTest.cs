@@ -93,10 +93,10 @@ namespace QiqqaUnitTester.PDFDocument
 
         internal string ProduceJSONtext4Comparison(PDFDocumentMuPDFMetaInfo info)
         {
-            string raw_text = info.raw_multipurp_text;
+            string raw_text = info.raw_metadump_text;
 
             info.raw_decoded_json = null;
-            info.raw_multipurp_text = null;
+            info.raw_metadump_text = null;
 
             PDFDocumentMuPDFMetaInfoEx4Test data = new PDFDocumentMuPDFMetaInfoEx4Test();
             data.info = info;

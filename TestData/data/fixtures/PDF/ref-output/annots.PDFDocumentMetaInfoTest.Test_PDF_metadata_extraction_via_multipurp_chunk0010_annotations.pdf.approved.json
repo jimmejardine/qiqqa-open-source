@@ -28,12 +28,12 @@
     "EmbeddedJavaScriptFilesCount": 0,
     "DocumentIsCorrupted": false,
     "errors": [],
-    "raw_multipurp_text": null,
+    "raw_metadump_text": null,
     "raw_decoded_json": null
   },
   "complete_json_doc": [
     {
-      "DocumentFilePath": "W:\\Projects\\sites\\library.visyond.gov\\80\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\annots.pdf",
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\annots.pdf",
       "GlobalInfo": {
         "Version": "PDF-1.6",
         "Info": {
@@ -46,12 +46,11 @@
         },
         "Metadata": {
           "type": "stream",
-          "raw_data": "<?xpacket begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>\n<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"Adobe XMP Core 4.2.1-c043 52.372728, 2009/01/18-15:08:04        \">\n   <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n      <rdf:Description rdf:about=\"\"\n            xmlns:pdf=\"http://ns.adobe.com/pdf/1.3/\">\n         <pdf:Producer>Acrobat Distiller 4.0 for Windows</pdf:Producer>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:xmp=\"http://ns.adobe.com/xap/1.0/\">\n         <xmp:ModifyDate>2012-02-08T09:40:57-08:00</xmp:ModifyDate>\n         <xmp:CreateDate>2000-04-20T23:11:30Z</xmp:CreateDate>\n         <xmp:CreatorTool>ADOBEPS4.DRV Version 4.24</xmp:CreatorTool>\n         <xmp:MetadataDate>2012-02-08T09:40:57-08:00</xmp:MetadataDate>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:xmpMM=\"http://ns.adobe.com/xap/1.0/mm/\">\n         <xmpMM:DocumentID>uuid:0ee05235-ad59-4342-ad1f-19e874b7dff8</xmpMM:DocumentID>\n         <xmpMM:InstanceID>uuid:fc329a92-b58a-4e4a-9187-9eff997c2860</xmpMM:InstanceID>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n         <dc:format>application/pdf</dc:format>\n         <dc:title>\n            <rdf:Alt>\n               <rdf:li xml:lang=\"x-default\">Microsoft Word - Links.doc</rdf:li>\n            </rdf:Alt>\n         </dc:title>\n         <dc:creator>\n            <rdf:Seq>\n               <rdf:li>August D. Coby</rdf:li>\n            </rdf:Seq>\n         </dc:creator>\n      </rdf:Description>\n   </rdf:RDF>\n</x:xmpmeta>\n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                           \n<?xpacket end=\"w\"?>",
-          "parsed_data": "(xmpmeta\n=x:xmptk Adobe XMP Core 4.2.1-c043 52.372728, 2009/01/18-15:08:04        \n=xmlns:x adobe:ns:meta/\n  (RDF\n  =xmlns:rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#\n    (Description\n    =xmlns:pdf http://ns.adobe.com/pdf/1.3/\n    =rdf:about \n      (Producer\n        \"Acrobat Distiller 4.0 for Windows\"\n      )Producer\n    )Description\n    (Description\n    =xmlns:xmp http://ns.adobe.com/xap/1.0/\n    =rdf:about \n      (ModifyDate\n        \"2012-02-08T09:40:57-08:00\"\n      )ModifyDate\n      (CreateDate\n        \"2000-04-20T23:11:30Z\"\n      )CreateDate\n      (CreatorTool\n        \"ADOBEPS4.DRV Version 4.24\"\n      )CreatorTool\n      (MetadataDate\n        \"2012-02-08T09:40:57-08:00\"\n      )MetadataDate\n    )Description\n    (Description\n    =xmlns:xmpMM http://ns.adobe.com/xap/1.0/mm/\n    =rdf:about \n      (DocumentID\n        \"uuid:0ee05235-ad59-4342-ad1f-19e874b7dff8\"\n      )DocumentID\n      (InstanceID\n        \"uuid:fc329a92-b58a-4e4a-9187-9eff997c2860\"\n      )InstanceID\n    )Description\n    (Description\n    =xmlns:dc http://purl.org/dc/elements/1.1/\n    =rdf:about \n      (format\n        \"application/pdf\"\n      )format\n      (title\n        (Alt\n          (li\n          =xml:lang x-default\n            \"Microsoft Word - Links.doc\"\n          )li\n        )Alt\n      )title\n      (creator\n        (Seq\n          (li\n            \"August D. Coby\"\n          )li\n        )Seq\n      )creator\n    )Description\n  )RDF\n)xmpmeta\n"
+          "raw_data": "(error: data dump is restricted due to size)",
+          "__MuPDFRestrictedXMLDisplay__": true
         },
         "Pages": 6,
         "Chapters": 1,
-        "DocumentOutlines": [],
         "AttachedFiles": {
           "AP": {
             "type": "R",
@@ -76,6 +75,7 @@
               ]
             }
           ],
+          "FontsCount": 1,
           "Fonts": [
             {
               "Page": 1,
@@ -90,6 +90,7 @@
             612,
             792
           ],
+          "AnnotationsCount": 1,
           "Annotations": [
             {
               "AnnotNumber": 587,
@@ -476,7 +477,11 @@
                 423.48
               ]
             }
-          ]
+          ],
+          "LinksInPageCount": 20,
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 2,
@@ -491,6 +496,7 @@
               ]
             }
           ],
+          "FontsCount": 1,
           "Fonts": [
             {
               "Page": 2,
@@ -505,6 +511,7 @@
             612,
             792
           ],
+          "AnnotationsCount": 36,
           "Annotations": [
             {
               "AnnotNumber": 207,
@@ -2666,7 +2673,10 @@
               },
               "Contents": ""
             }
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 3,
@@ -2681,6 +2691,7 @@
               ]
             }
           ],
+          "FontsCount": 1,
           "Fonts": [
             {
               "Page": 3,
@@ -2695,6 +2706,7 @@
             612,
             792
           ],
+          "AnnotationsCount": 14,
           "Annotations": [
             {
               "AnnotNumber": 283,
@@ -3550,7 +3562,10 @@
               },
               "Contents": ""
             }
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 4,
@@ -3565,6 +3580,7 @@
               ]
             }
           ],
+          "FontsCount": 1,
           "Fonts": [
             {
               "Page": 4,
@@ -3579,6 +3595,7 @@
             612,
             792
           ],
+          "AnnotationsCount": 11,
           "Annotations": [
             {
               "AnnotNumber": 313,
@@ -4251,7 +4268,10 @@
               },
               "Contents": ""
             }
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 5,
@@ -4266,6 +4286,7 @@
               ]
             }
           ],
+          "FontsCount": 1,
           "Fonts": [
             {
               "Page": 5,
@@ -4280,6 +4301,7 @@
             612,
             792
           ],
+          "AnnotationsCount": 19,
           "Annotations": [
             {
               "AnnotNumber": 337,
@@ -5440,7 +5462,10 @@
               },
               "Contents": ""
             }
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 6,
@@ -5460,7 +5485,657 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageWidgetsCount": 16,
+          "PageWidgets": [
+            {
+              "WidgetNumber": 530,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                81.4446,
+                89.69202,
+                125.775,
+                135.05402
+              ],
+              "Bounds": [
+                81.4446,
+                89.69202,
+                125.775,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb1",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 529,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                144.332,
+                89.69202,
+                188.663,
+                135.05402
+              ],
+              "Bounds": [
+                144.332,
+                89.69202,
+                188.663,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb1",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 528,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                234.024,
+                89.69202,
+                278.355,
+                135.05402
+              ],
+              "Bounds": [
+                234.024,
+                89.69202,
+                278.355,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb2",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 526,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                297.943,
+                89.69202,
+                342.274,
+                135.05402
+              ],
+              "Bounds": [
+                297.943,
+                89.69202,
+                342.274,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb2",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 525,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                386.604,
+                89.69202,
+                431.966,
+                135.05402
+              ],
+              "Bounds": [
+                386.604,
+                89.69202,
+                431.966,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb3",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 524,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                449.492,
+                89.69202,
+                494.854,
+                135.05402
+              ],
+              "Bounds": [
+                449.492,
+                89.69202,
+                494.854,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb3",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 523,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                81.4446,
+                180.41498,
+                125.775,
+                224.74597
+              ],
+              "Bounds": [
+                81.4446,
+                180.41498,
+                125.775,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb4",
+              "FieldValue": "no",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 522,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                144.332,
+                180.41498,
+                188.663,
+                224.74597
+              ],
+              "Bounds": [
+                144.332,
+                180.41498,
+                188.663,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb4",
+              "FieldValue": "no",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 521,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                234.024,
+                180.41498,
+                279.386,
+                224.74597
+              ],
+              "Bounds": [
+                234.024,
+                180.41498,
+                279.386,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb5",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 520,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                296.912,
+                180.41498,
+                342.274,
+                224.74597
+              ],
+              "Bounds": [
+                296.912,
+                180.41498,
+                342.274,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb4",
+              "FieldValue": "no",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 519,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                386.604,
+                180.41498,
+                431.966,
+                224.74597
+              ],
+              "Bounds": [
+                386.604,
+                180.41498,
+                431.966,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb6",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 518,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                449.492,
+                180.41498,
+                494.854,
+                224.74597
+              ],
+              "Bounds": [
+                449.492,
+                180.41498,
+                494.854,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb6",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 517,
+              "WidgetType": "Button",
+              "BoundsInDocument": [
+                81.4446,
+                279.386,
+                125.775,
+                323.717
+              ],
+              "Bounds": [
+                81.4446,
+                279.386,
+                125.775,
+                323.717
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "pushbutton",
+              "FieldKey": "b1",
+              "FieldValue": "",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 516,
+              "WidgetType": "Button",
+              "BoundsInDocument": [
+                144.332,
+                279.386,
+                188.663,
+                323.717
+              ],
+              "Bounds": [
+                144.332,
+                279.386,
+                188.663,
+                323.717
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "pushbutton",
+              "FieldKey": "b2",
+              "FieldValue": "",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 513,
+              "WidgetType": "Checkbox",
+              "BoundsInDocument": [
+                234.024,
+                279.386,
+                279.386,
+                324.748
+              ],
+              "Bounds": [
+                234.024,
+                279.386,
+                279.386,
+                324.748
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "cb1",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 512,
+              "WidgetType": "Combobox",
+              "BoundsInDocument": [
+                81.4446,
+                395.883,
+                251.551,
+                422.687
+              ],
+              "Bounds": [
+                81.4446,
+                395.883,
+                251.551,
+                422.687
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "combo",
+              "FieldKey": "cx1",
+              "FieldValue": "3Jan-81",
+              "Contents": ""
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": [],
+          "GatheredErrors": {
+            "Log": "Widget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\n",
+            "LogOverflow": false
+          }
         }
       ],
       "DocumentGeneralInfo": {
@@ -5489,6 +6164,65 @@
         "WasRepaired": false,
         "NeedsPassword": false,
         "WasCryptedWithEmptyPassword": false
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 1035,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "0",
+        "OverprintingModes": "1",
+        "BlendModes": "0",
+        "ContentBoundsSmallest": "(empty)",
+        "ContentBoundsLargest": [
+          0,
+          0,
+          592.56106,
+          783.6011
+        ],
+        "LayerNamesCount": 4,
+        "LayerNames": [
+          "DocumentSetup",
+          "Layer",
+          "Attribute",
+          "Tx"
+        ],
+        "FillPathCount": 900,
+        "StrokePathCount": 95,
+        "ClipPathCount": 239,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 40,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 0,
+        "FillShadeCount": 0,
+        "FillImageCount": 0,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 0,
+        "ClipCount": 239,
+        "ClipDepth": 4,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 0,
+        "GroupDepth": 0,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 0,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 103,
+        "LayerCount": 4,
+        "LayerDepth": 2,
+        "StackDepth": 4,
+        "GreyColorspaceCount": 432,
+        "RgbColorspaceCount": 179,
+        "CmykColorspaceCount": 519,
+        "IndexedColorspaceCount": 317,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 317
       }
     }
   ]

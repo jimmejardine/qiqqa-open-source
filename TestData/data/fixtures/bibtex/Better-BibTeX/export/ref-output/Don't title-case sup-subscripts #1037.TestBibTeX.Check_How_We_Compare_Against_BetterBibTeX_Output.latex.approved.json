@@ -1,0 +1,93 @@
+﻿{
+  "Items": [
+    {
+      "Type": "article",
+      "Key": "ref1",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name, Name",
+        "date": "2018",
+        "title": "1 O\\textsubscriptabcde"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "ref2",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name, Name",
+        "date": "2018",
+        "title": "2 O\\textsubscriptabcde Test"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "ref3",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name, Name",
+        "date": "2018",
+        "title": "O\\textsubscriptabcde"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "ref4",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name, Name",
+        "date": "2018",
+        "title": "O\\textsubscriptx"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "ref5",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name, Name",
+        "date": "2018",
+        "title": "O\\textsubscriptx Test"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "ref6",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name, Name",
+        "date": "2018",
+        "title": "O\\textsubscriptx"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "ref7",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name, Name",
+        "date": "2018",
+        "title": "O\\textsubscript7-x"
+      }
+    },
+    {
+      "Type": "article",
+      "Key": "ref8",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Name, Name",
+        "date": "2018",
+        "title": "O\\textsubscript7-x Test"
+      }
+    }
+  ],
+  "Comments": []
+}

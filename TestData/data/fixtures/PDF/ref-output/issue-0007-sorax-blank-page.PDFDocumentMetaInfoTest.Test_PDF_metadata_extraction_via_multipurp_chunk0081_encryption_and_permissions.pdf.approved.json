@@ -1,0 +1,1089 @@
+﻿{
+  "info": {
+    "PageCount": 14,
+    "PDFVersion": "PDF-1.4",
+    "Chapters": 0,
+    "ChapterPages": null,
+    "Title": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+    "Author": "On Semiconductor",
+    "Format": "PDF 1.4",
+    "Encryption": "Standard V5 R5 256-bit AES",
+    "PDFCreator": null,
+    "PDFProducer": "iText® 5.3.1 ©2000-2012 1T3XT BVBA (AGPL-version)",
+    "Subject": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+    "Keywords": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+    "Creation_Date": "2017-10-28T01:33:52Z",
+    "Modification_Date": "2017-10-28T01:33:52Z",
+    "Permissions": "print, annotate",
+    "PDFStatus": "PDF document with 1 update.",
+    "DocumentUpdateCount": 1,
+    "ChangeHistoryValidation": "Change history seems valid.",
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": "Document changes conform to permissions",
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": true,
+    "HasDocumentOutlines": false,
+    "AttachedFilesCount": 0,
+    "EmbeddedJavaScriptFilesCount": 0,
+    "DocumentIsCorrupted": true,
+    "errors": [
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[0].Images[0].ImageFilter', line 76, position 24.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[0].Images[1].ImageFilter', line 86, position 22.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[1].Images[0].ImageFilter', line 165, position 24.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[2].Images[0].ImageFilter', line 224, position 24.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[3].Images[0].ImageFilter', line 286, position 24.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[4].Images[0].ImageFilter', line 336, position 24.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[5].Images[0].ImageFilter', line 398, position 24.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[6].Images[0].ImageFilter', line 460, position 24.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[7].Images[0].ImageFilter', line 522, position 24.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[8].Images[0].ImageFilter', line 584, position 24.",
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[9].Images[0].ImageFilter', line 652, position 24.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[13].Images[0].ImageFilter', line 753, position 22."
+    ],
+    "raw_metadump_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\issue-0007-sorax-blank-page.pdf",
+      "GlobalInfo": {
+        "Version": "PDF-1.4",
+        "Info": {
+          "Producer": "iText® 5.3.1 ©2000-2012 1T3XT BVBA (AGPL-version)",
+          "Title": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+          "Keywords": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+          "Subject": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+          "ModDate": "D:20171027203352-05'00'",
+          "Author": "On Semiconductor",
+          "CreationDate": "D:20171027203352-05'00'"
+        },
+        "Encryption": {
+          "EncryptMetadata": false,
+          "CF": {
+            "StdCF": {
+              "CFM": "AESV3",
+              "AuthEvent": "DocOpen",
+              "Length": 32
+            }
+          },
+          "StmF": "StdCF",
+          "U": "8D 66 6E A6 E7 55 C9 1C 86 F8 F1 A0 9A CB 17 5B 78 C2 3E CA 37 D2 6F 78 18 7A 0B 63 73 DE 46 A3 88 9D 35 93 3E 0C F0 F8 62 D0 B7 A7 B5 53 4B AE",
+          "V": 5,
+          "Length": 256,
+          "O": "51 F6 3C 7F 2E 25 67 7E 54 27 A6 FA 8F AD 14 A2 38 60 40 8C 26 AC D7 0D DC 0D 3B B2 23 41 15 3E 06 C7 82 56 B2 D6 0B FC 38 13 39 13 4F FB A3 36",
+          "P": -1564,
+          "UE": "63 F0 F3 82 2F 18 6A 98 89 8A B1 73 5B 0E 7C D4 EA 20 37 E8 3E 5A BA 53 57 81 E9 17 BC 0D FF C8",
+          "R": 5,
+          "Perms": "C1 19 8F 8C F7 09 65 DB 08 E8 A8 F5 A9 74 54 24",
+          "StrF": "StdCF",
+          "Filter": "Standard",
+          "OE": "80 70 3A 6D 67 9E 7D 5C 91 0D B4 B8 2F EA C5 05 FE 8A 99 87 30 32 AD 06 30 4B E4 11 1E 6B 37 64"
+        },
+        "Pages": 14,
+        "Chapters": 1
+      },
+      "FirstPage": 1,
+      "LastPage": 14,
+      "PageInfo": [
+        {
+          "PageNumber": 1,
+          "Mediaboxes": [
+            {
+              "Page": 1,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 3,
+          "Fonts": [
+            {
+              "Page": 1,
+              "FontType": "TrueType",
+              "FontName": "IJROVV+ArialMT",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "TrueType",
+              "FontName": "IJROVV+Arial-BoldMT",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "IJROVV+FranklinGothic-BookCmpr",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "ImagesCount": 2,
+          "Images": [
+            {
+              "Page": 1,
+              "ImageFilter": "Flate",
+              "ImageWidth": 410,
+              "ImageHeight": 197,
+              "ImageDimensions": {
+                "W": 410,
+                "H": 197
+              },
+              "ImageBPC": 8,
+              "ImageCS": "DevRGB",
+              "ImageColorSpace": "DeviceRGB"
+            },
+            {
+              "Page": 1,
+              "ImageFilter": "DCT",
+              "ImageWidth": 455,
+              "ImageHeight": 455,
+              "ImageDimensions": {
+                "W": 455,
+                "H": 455
+              },
+              "ImageBPC": 8,
+              "ImageCS": "DevRGB",
+              "ImageColorSpace": "DeviceRGB"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "LinksInPage": [
+            {
+              "LinkType": "External",
+              "Url": "http://www.onsemi.com",
+              "LinkBounds": [
+                451.353,
+                606.13,
+                536.931,
+                618.48306
+              ]
+            },
+            {
+              "LinkType": "External",
+              "Url": "mailto:Fairchild_questions%40onsemi.com?subject=System%20Intergration",
+              "LinkBounds": [
+                308.707,
+                619.33,
+                473.943,
+                631.683
+              ]
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 2,
+          "Mediaboxes": [
+            {
+              "Page": 2,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 6,
+          "Fonts": [
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "CCDLEM+ZapfDingbats",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "CCDLEN+Symbol",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "CCDLGP+Helvetica-Bold",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 2,
+              "FontType": "Type1",
+              "FontName": "CCDLJC+Helvetica",
+              "FontEncoding": "MacRomanEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 2,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 1,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": [
+            {
+              "PageSeparationName": "PANTONE 485 CVC",
+              "PageSeparationBehaviour": "Composite"
+            }
+          ]
+        },
+        {
+          "PageNumber": 3,
+          "Mediaboxes": [
+            {
+              "Page": 3,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 4,
+          "Fonts": [
+            {
+              "Page": 3,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 3,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 3,
+              "FontType": "Type1",
+              "FontName": "CCDLGP+Helvetica-Bold",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 3,
+              "FontType": "Type1",
+              "FontName": "CCDLJC+Helvetica",
+              "FontEncoding": "MacRomanEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 3,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 4,
+          "Mediaboxes": [
+            {
+              "Page": 4,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 5,
+          "Fonts": [
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "CCDLEN+Symbol",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "CCDLGP+Helvetica-Bold",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 4,
+              "FontType": "Type1",
+              "FontName": "CCDLJC+Helvetica",
+              "FontEncoding": "MacRomanEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 4,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 5,
+          "Mediaboxes": [
+            {
+              "Page": 5,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 3,
+          "Fonts": [
+            {
+              "Page": 5,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 5,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 5,
+              "FontType": "Type1",
+              "FontName": "CCDLEN+Symbol",
+              "FontEncoding": ""
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 5,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 6,
+          "Mediaboxes": [
+            {
+              "Page": 6,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 5,
+          "Fonts": [
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "CCDLGP+Helvetica-Bold",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "CCDLJC+Helvetica",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 6,
+              "FontType": "Type1",
+              "FontName": "CCEDOI+Symbol",
+              "FontEncoding": ""
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 6,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 7,
+          "Mediaboxes": [
+            {
+              "Page": 7,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 5,
+          "Fonts": [
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "CCDLJC+Helvetica",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "CCDLGP+Helvetica-Bold",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "CCEDOI+Symbol",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 7,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 7,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 8,
+          "Mediaboxes": [
+            {
+              "Page": 8,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 5,
+          "Fonts": [
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "CCDLJC+Helvetica",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "CCDLGP+Helvetica-Bold",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 8,
+              "FontType": "Type0",
+              "FontName": "EIWAPA+ArialMT",
+              "FontEncoding": "Identity-H"
+            },
+            {
+              "Page": 8,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 8,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 9,
+          "Mediaboxes": [
+            {
+              "Page": 9,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 5,
+          "Fonts": [
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "CCEMIB+Symbol",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "CCDLJC+Helvetica",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 9,
+              "FontType": "Type0",
+              "FontName": "EIWAPA+ArialMT",
+              "FontEncoding": "Identity-H"
+            },
+            {
+              "Page": 9,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 9,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 10,
+          "Mediaboxes": [
+            {
+              "Page": 10,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 6,
+          "Fonts": [
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "CCDKOG+Arial-BoldMT",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "CCDLJC+Helvetica",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "CCDLGP+Helvetica-Bold",
+              "FontEncoding": "MacRomanEncoding"
+            },
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "CCDLEN+Symbol",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 10,
+              "FontType": "Type0",
+              "FontName": "EIWAPA+ArialMT",
+              "FontEncoding": "Identity-H"
+            },
+            {
+              "Page": 10,
+              "FontType": "Type1",
+              "FontName": "CCDKOH+ArialMT",
+              "FontEncoding": "MacRomanEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 10,
+              "ImageFilter": "Flate",
+              "ImageWidth": 648,
+              "ImageHeight": 689,
+              "ImageDimensions": {
+                "W": 648,
+                "H": 689
+              },
+              "ImageBPC": 8,
+              "ImageCS": "Idx",
+              "ImageColorSpace": "Indexed",
+              "ImageColorMode": "DeviceCMYK"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 11,
+          "Mediaboxes": [
+            {
+              "Page": 11,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 12,
+          "Mediaboxes": [
+            {
+              "Page": 12,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 13,
+          "Mediaboxes": [
+            {
+              "Page": 13,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 14,
+          "Mediaboxes": [
+            {
+              "Page": 14,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 4,
+          "Fonts": [
+            {
+              "Page": 14,
+              "FontType": "Type1",
+              "FontName": "HOLJHA+Symbol",
+              "FontEncoding": ""
+            },
+            {
+              "Page": 14,
+              "FontType": "TrueType",
+              "FontName": "HOLJEP+Helvetica-Bold",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 14,
+              "FontType": "TrueType",
+              "FontName": "HOLJGA+Helvetica",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 14,
+              "FontType": "Type0",
+              "FontName": "HOLJDO+Helvetica",
+              "FontEncoding": "Identity-H"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 14,
+              "ImageFilter": "DCT",
+              "ImageWidth": 45,
+              "ImageHeight": 46,
+              "ImageDimensions": {
+                "W": 45,
+                "H": 46
+              },
+              "ImageBPC": 8,
+              "ImageCS": "DevGray",
+              "ImageColorSpace": "DeviceGray"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "LinksInPage": [
+            {
+              "LinkType": "External",
+              "Url": "file:// http://www.onsemi.com/",
+              "LinkBounds": [
+                267.817,
+                748.687,
+                343.502,
+                757.304
+              ]
+            },
+            {
+              "LinkType": "External",
+              "Url": "file://www.onsemi.com/site/pdf/Patent-Marking.pdf",
+              "LinkBounds": [
+                150.009,
+                584.447,
+                271.446,
+                590.173
+              ]
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        }
+      ],
+      "DocumentGeneralInfo": {
+        "Title": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+        "Author": "On Semiconductor",
+        "Format": "PDF 1.4",
+        "Encryption": "Standard V5 R5 256-bit AES",
+        "PDF_Producer": "iText® 5.3.1 ©2000-2012 1T3XT BVBA (AGPL-version)",
+        "Subject": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+        "Keywords": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+        "Creation_Date": "D:20171027203352-05'00'",
+        "Modification_Date": "D:20171027203352-05'00'",
+        "MetaInfoDictionary": {
+          "Producer": "iText® 5.3.1 ©2000-2012 1T3XT BVBA (AGPL-version)",
+          "Title": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+          "Keywords": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+          "Subject": "H11F1M, H11F2M, H11F3M — Photo FET Optocouplers",
+          "ModDate": "D:20171027203352-05'00'",
+          "Author": "On Semiconductor",
+          "CreationDate": "D:20171027203352-05'00'"
+        },
+        "Permissions": "print, annotate",
+        "Status": "PDF document with 1 update.",
+        "DocWasLinearized": false,
+        "DocumentUpdateCount": 1,
+        "ChangeHistoryValidation": "Change history seems valid.",
+        "UpdatesStatus": "Document changes conform to permissions",
+        "WasRepaired": false,
+        "NeedsPassword": false,
+        "WasCryptedWithEmptyPassword": true
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 5560,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "1",
+        "OverprintingModes": "1",
+        "BlendModes": "1",
+        "ContentBoundsSmallest": "(empty)",
+        "ContentBoundsLargest": [
+          -1,
+          -1.0000017,
+          612,
+          794.89199
+        ],
+        "LayerNamesCount": 5,
+        "LayerNames": [
+          "Span",
+          "Figure",
+          "EmbeddedDocument",
+          "Document",
+          "TouchUp_TextEdit"
+        ],
+        "FillPathCount": 3612,
+        "StrokePathCount": 1324,
+        "ClipPathCount": 15,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 611,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 0,
+        "FillShadeCount": 0,
+        "FillImageCount": 12,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 1,
+        "ClipCount": 16,
+        "ClipDepth": 1,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 1,
+        "GroupDepth": 1,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 1,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 14,
+        "LayerCount": 43,
+        "LayerDepth": 2,
+        "StackDepth": 1,
+        "GreyColorspaceCount": 3871,
+        "RgbColorspaceCount": 20,
+        "CmykColorspaceCount": 1392,
+        "IndexedColorspaceCount": 321,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 321
+      }
+    }
+  ]
+}

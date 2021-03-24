@@ -1,0 +1,24 @@
+﻿{
+  "Items": [
+    {
+      "Type": "InCollection",
+      "Key": "Madelung_1998_LB_10681727_56",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "title": "Cuprous oxide (Cu$_2$O) crystal structure, lattice parameters",
+        "author": "Madelung, O. and others",
+        "booktitle": "Landolt-Börnstein",
+        "publisher": "Springer-Verlag",
+        "year": "1998",
+        "editor": "Madelung, O. and Rössler, U. and Schulz, M.",
+        "series": "SpringerMaterials - The Landolt-Börnstein Database",
+        "volume": "III/41c",
+        "doi": "10.1007/10681727_56",
+        "owner": "Francesco",
+        "timestamp": "2010.02.22"
+      }
+    }
+  ],
+  "Comments": []
+}

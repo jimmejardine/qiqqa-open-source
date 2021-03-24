@@ -4782,7 +4782,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Krapp",
-        "title": "\\TeX at Calma R\\thinspace\\&\\thinspace D",
+        "title": "\\TeX at Calma Rþinspace\\&þinspace D",
         "journal": "j-TUGboat",
         "volume": "4",
         "number": "1",
@@ -4806,7 +4806,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Norman Naugle and Bart Childs",
-        "title": "\\TeX at Texas A\\thinspace\\&\\thinspace M\r\n                 University",
+        "title": "\\TeX at Texas Aþinspace\\&þinspace M\r\n                 University",
         "journal": "j-TUGboat",
         "volume": "4",
         "number": "1",
@@ -8085,7 +8085,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Lance Carnes",
-        "title": "PC\\thinspace\\TeX",
+        "title": "PCþinspace\\TeX",
         "journal": "j-TUGboat",
         "volume": "6",
         "number": "1",
@@ -8421,7 +8421,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Personal \\TeX, Inc.\\Dash PC\\thinspace\\TeX",
+        "title": "Personal \\TeX, Inc.\\Dash PCþinspace\\TeX",
         "journal": "j-TUGboat",
         "volume": "6",
         "number": "1",
@@ -9257,7 +9257,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Personal \\TeX, Inc.\\Dash PC\\thinspace\\TeX is\r\n                 here",
+        "title": "Personal \\TeX, Inc.\\Dash PCþinspace\\TeX is\r\n                 here",
         "journal": "j-TUGboat",
         "volume": "6",
         "number": "2",
@@ -9900,7 +9900,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Leslie Lamport",
-        "title": "Announcement of \\LaTeX Version 2.09",
+        "title": "Announcement of ŁaTeX Version 2.09",
         "journal": "j-TUGboat",
         "volume": "6",
         "number": "3",
@@ -9972,7 +9972,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Reinhard Wonneberger",
-        "title": "Stream lists and related list types for \\LaTeX",
+        "title": "Stream lists and related list types for ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "6",
         "number": "3",
@@ -9996,7 +9996,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\LaTeX command summary (Version 2.05) available\r\n                 from TUG",
+        "title": "ŁaTeX command summary (Version 2.05) available\r\n                 from TUG",
         "journal": "j-TUGboat",
         "volume": "6",
         "number": "3",
@@ -10259,7 +10259,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Personal \\TeX, Inc.\\Dash PC\\thinspace\\TeX",
+        "title": "Personal \\TeX, Inc.\\Dash PCþinspace\\TeX",
         "journal": "j-TUGboat",
         "volume": "6",
         "number": "3",
@@ -10592,7 +10592,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Leslie Lamport",
-        "title": "\\LaTeX input to ACM journals",
+        "title": "ŁaTeX input to ACM journals",
         "journal": "j-TUGboat",
         "volume": "7",
         "number": "1",
@@ -10784,7 +10784,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Leslie Lamport",
-        "title": "\\LaTeX News",
+        "title": "ŁaTeX News",
         "journal": "j-TUGboat",
         "volume": "7",
         "number": "1",
@@ -10952,7 +10952,7 @@
       "Warnings": [],
       "Fields": {
         "author": "A. Trevorrow",
-        "title": "DVIto\\kern-.15em VDU: A \\TeX\\ page previewer",
+        "title": "DVItoęrn-.15em VDU: A \\TeX\\ page previewer",
         "journal": "j-TUGboat",
         "volume": "7",
         "number": "1",
@@ -11000,7 +11000,7 @@
       "Warnings": [],
       "Fields": {
         "author": "D. Maus and B. Baker",
-        "title": "DVILASER/PS extensions to \\LaTeX",
+        "title": "DVILASER/PS extensions to ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "7",
         "number": "1",
@@ -11358,7 +11358,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Kathy Hornbach",
-        "title": "\\VAX\\ Language Sensitive Editor Templates and Guide\r\n                 for use with \\LaTeX",
+        "title": "\\VAX\\ Language Sensitive Editor Templates and Guide\r\n                 for use with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "7",
         "number": "2",
@@ -11718,7 +11718,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jim Ludden",
-        "title": "Post-\\LaTeX Index Formatting",
+        "title": "Post-ŁaTeX Index Formatting",
         "journal": "j-TUGboat",
         "volume": "7",
         "number": "2",
@@ -12627,7 +12627,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Leslie Lamport",
-        "title": "\\LaTeX bugs",
+        "title": "ŁaTeX bugs",
         "journal": "j-TUGboat",
         "volume": "7",
         "number": "3",
@@ -12675,7 +12675,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Thomas Hofmann",
-        "title": "A \\LaTeX addition for formatting indexes",
+        "title": "A ŁaTeX addition for formatting indexes",
         "journal": "j-TUGboat",
         "volume": "7",
         "number": "3",
@@ -13486,7 +13486,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Andrew Trevorrow",
-        "title": "DVIto\\kern-.1emVDU 1.7 and PSPRINT 1.1",
+        "title": "DVItoęrn-.1emVDU 1.7 and PSPRINT 1.1",
         "journal": "j-TUGboat",
         "volume": "8",
         "number": "1",
@@ -13726,7 +13726,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ken Yap",
-        "title": "Contents of \\LaTeX style collection as of 15th\r\n                 February 1987",
+        "title": "Contents of ŁaTeX style collection as of 15th\r\n                 February 1987",
         "journal": "j-TUGboat",
         "volume": "8",
         "number": "1",
@@ -13774,7 +13774,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Maurizio Zocchi",
-        "title": "\\LaTeX's Index Processing",
+        "title": "ŁaTeX's Index Processing",
         "journal": "j-TUGboat",
         "volume": "8",
         "number": "1",
@@ -13870,7 +13870,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jennifer Dyck",
-        "title": "APA style in \\LaTeX",
+        "title": "APA style in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "8",
         "number": "1",
@@ -15138,7 +15138,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ken Yap",
-        "title": "Contents of \\LaTeX style collection as of 15th May\r\n                 1987",
+        "title": "Contents of ŁaTeX style collection as of 15th May\r\n                 1987",
         "journal": "j-TUGboat",
         "volume": "8",
         "number": "2",
@@ -15162,7 +15162,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Richard Aurbach",
-        "title": "Automated index generation for \\LaTeX",
+        "title": "Automated index generation for ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "8",
         "number": "2",
@@ -16120,7 +16120,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ken Yap",
-        "title": "Contents of \\LaTeX style collection as of 15th\r\n                 September 1987",
+        "title": "Contents of ŁaTeX style collection as of 15th\r\n                 September 1987",
         "journal": "j-TUGboat",
         "volume": "8",
         "number": "3",
@@ -16144,7 +16144,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX user's column",
+        "title": "The ŁaTeX user's column",
         "journal": "j-TUGboat",
         "volume": "8",
         "number": "3",
@@ -17150,7 +17150,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ken Yap",
-        "title": "Contents of \\LaTeX style collection as of 4th\r\n                 February 1988",
+        "title": "Contents of ŁaTeX style collection as of 4th\r\n                 February 1988",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "1",
@@ -17174,7 +17174,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX user's column",
+        "title": "The ŁaTeX user's column",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "1",
@@ -17198,7 +17198,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Kent McPherson",
-        "title": "Page layout in \\LaTeX",
+        "title": "Page layout in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "1",
@@ -18058,7 +18058,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX user's column",
+        "title": "The ŁaTeX user's column",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "2",
@@ -18082,7 +18082,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ken Yap",
-        "title": "Contents of \\LaTeX style collection as of 19th June\r\n                 1988",
+        "title": "Contents of ŁaTeX style collection as of 19th June\r\n                 1988",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "2",
@@ -18106,7 +18106,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Stephan v. Bechtolsheim",
-        "title": "A note on processing parts with \\LaTeX",
+        "title": "A note on processing parts with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "2",
@@ -18130,7 +18130,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Kent McPherson",
-        "title": "Page layout in \\LaTeX: Erratum",
+        "title": "Page layout in ŁaTeX: Erratum",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "2",
@@ -18511,7 +18511,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Joachim Schrod",
-        "title": "\\LaTeX fonts and suggested magnifications",
+        "title": "ŁaTeX fonts and suggested magnifications",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "3",
@@ -18991,7 +18991,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Michael DeCorte",
-        "title": "Contents of \\LaTeX style collection as of 24\r\n                 September 1988",
+        "title": "Contents of ŁaTeX style collection as of 24\r\n                 September 1988",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "3",
@@ -19015,7 +19015,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX column",
+        "title": "The ŁaTeX column",
         "journal": "j-TUGboat",
         "volume": "9",
         "number": "3",
@@ -20018,7 +20018,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Kim Kubik",
-        "title": "Amiga\\TeX\\dots or How envy was resisted and\r\n                 knowledge found on the road to Öӧç",
+        "title": "Amiga\\TeX\\dots or How envy was resisted and\r\n                 knowledge found on the road to Ööç",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "1",
@@ -20042,7 +20042,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Michael Modest",
-        "title": "Using \\TeX and \\LaTeX with WordPerfect 5.0",
+        "title": "Using \\TeX and ŁaTeX with WordPerfect 5.0",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "1",
@@ -20138,7 +20138,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Michael DeCorte",
-        "title": "Contents of \\LaTeX style collection as of 16\r\n                 January 1989",
+        "title": "Contents of ŁaTeX style collection as of 16\r\n                 January 1989",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "1",
@@ -20162,7 +20162,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach",
-        "title": "``A new implementation of the array --- and tabular\r\n                 --- environments of \\LaTeX'' (\\TUB 9\\#3)\\Dash\r\n                 addenda",
+        "title": "``A new implementation of the array --- and tabular\r\n                 --- environments of ŁaTeX'' (\\TUB 9\\#3)\\Dash\r\n                 addenda",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "1",
@@ -20186,7 +20186,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Rainer Schöpf",
-        "title": "Drawing histogram bars inside the \\LaTeX\r\n                 picture--environment",
+        "title": "Drawing histogram bars inside the ŁaTeX\r\n                 picture--environment",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "1",
@@ -20234,7 +20234,7 @@
       "Warnings": [],
       "Fields": {
         "author": "C. G. van der Laan",
-        "title": "Typesetting bridge via \\LaTeX",
+        "title": "Typesetting bridge via ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "1",
@@ -21144,7 +21144,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Dezső Nagy",
-        "title": "A bar chart in \\LaTeX",
+        "title": "A bar chart in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "2",
@@ -21168,7 +21168,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Hubert Partl",
-        "title": "Producing on-line information files with \\LaTeX",
+        "title": "Producing on-line information files with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "2",
@@ -21288,7 +21288,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\LaTeX course book in Dutch",
+        "title": "ŁaTeX course book in Dutch",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "2",
@@ -22294,7 +22294,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Rainer Schöpf",
-        "title": "Towards \\LaTeX 2.10",
+        "title": "Towards ŁaTeX 2.10",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "3",
@@ -22318,7 +22318,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Johannes Braams and Victor Eijkhout and Nico\r\n                 Poppelier",
-        "title": "The development of national \\LaTeX styles",
+        "title": "The development of national ŁaTeX styles",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "3",
@@ -22366,7 +22366,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach",
-        "title": "An extension of the \\LaTeX theorem environment",
+        "title": "An extension of the ŁaTeX theorem environment",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "3",
@@ -22904,7 +22904,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anita Z. Hoover",
-        "title": "Using WordPerfect 5.0 to create \\TeX and \\LaTeX\r\n                 documents",
+        "title": "Using WordPerfect 5.0 to create \\TeX and ŁaTeX\r\n                 documents",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "4",
@@ -23204,7 +23204,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Rainer Schöpf",
-        "title": "With \\LaTeX into the nineties",
+        "title": "With ŁaTeX into the nineties",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "4",
@@ -23254,7 +23254,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bill Cheswick",
-        "title": "A permuted index for \\TeX and \\LaTeX",
+        "title": "A permuted index for \\TeX and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "4",
@@ -23279,7 +23279,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Steve Sydoriak",
-        "title": "\\LaTeX memos and letters",
+        "title": "ŁaTeX memos and letters",
         "journal": "j-TUGboat",
         "volume": "10",
         "number": "4",
@@ -24005,7 +24005,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX column",
+        "title": "The ŁaTeX column",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "1",
@@ -24029,7 +24029,7 @@
       "Warnings": [],
       "Fields": {
         "author": "C. G. van der Laan",
-        "title": "Announcing two reports: SGML-\\LaTeX and Journal\r\n                 style guidelines",
+        "title": "Announcing two reports: SGML-ŁaTeX and Journal\r\n                 style guidelines",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "1",
@@ -24053,7 +24053,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Joachim Schrod",
-        "title": "International \\LaTeX is ready to use",
+        "title": "International ŁaTeX is ready to use",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "1",
@@ -24077,7 +24077,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Rainer Schöpf",
-        "title": "The new font family selection\\Dash User interface to\r\n                 standard \\LaTeX",
+        "title": "The new font family selection\\Dash User interface to\r\n                 standard ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "1",
@@ -24101,7 +24101,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Nico Poppelier and Johannes Braams",
-        "title": "A style option to adapt the standard \\LaTeX\r\n                 document styles to A4 paper",
+        "title": "A style option to adapt the standard ŁaTeX\r\n                 document styles to A4 paper",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "1",
@@ -24557,7 +24557,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Len Schwer",
-        "title": "Including Macintosh graphics in \\LaTeX documents",
+        "title": "Including Macintosh graphics in ŁaTeX documents",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "2",
@@ -24893,7 +24893,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX column",
+        "title": "The ŁaTeX column",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "2",
@@ -24941,7 +24941,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Georg Denk",
-        "title": "An easy way to make slides with \\LaTeX",
+        "title": "An easy way to make slides with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "2",
@@ -24965,7 +24965,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Rainer Schöpf",
-        "title": "A new implementation of the \\LaTeX \\tt verbatim\r\n                 and \\tt verbatim* environments",
+        "title": "A new implementation of the ŁaTeX \\tt verbatim\r\n                 and \\tt verbatim* environments",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "2",
@@ -24989,7 +24989,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Rainer Schöpf",
-        "title": "Reprint: The new font family selection\\Dash User\r\n                 interface to standard \\LaTeX",
+        "title": "Reprint: The new font family selection\\Dash User\r\n                 interface to standard ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "2",
@@ -25702,7 +25702,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach",
-        "title": "\\LaTeX 2.10",
+        "title": "ŁaTeX 2.10",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "3",
@@ -27016,7 +27016,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX column",
+        "title": "The ŁaTeX column",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "4",
@@ -27040,7 +27040,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Andreas Geyer-Schulz and Josef Matulka and Gustaf\r\n                 Neumann",
-        "title": "A \\LaTeX document style option for typesetting\r\n                 APL",
+        "title": "A ŁaTeX document style option for typesetting\r\n                 APL",
         "journal": "j-TUGboat",
         "volume": "11",
         "number": "4",
@@ -27523,7 +27523,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Johannes Braams and Victor Eijkhout and Nico\r\n                 Poppelier",
-        "title": "The Dutch national \\LaTeX effort",
+        "title": "The Dutch national ŁaTeX effort",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "1",
@@ -27573,7 +27573,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Thomas Kneser",
-        "title": "\\LaTeX-paragraphs floating around figures",
+        "title": "ŁaTeX-paragraphs floating around figures",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "1",
@@ -27773,7 +27773,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Rainer Schöpf",
-        "title": "Towards \\LaTeX 3.0",
+        "title": "Towards ŁaTeX 3.0",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "1",
@@ -28585,7 +28585,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Karl Berry and Kathy Hargreaves",
-        "title": "Review of \\it 3\\thinspace:\\thinspace16 Bible Texts\r\n                 Illuminated",
+        "title": "Review of \\it 3þinspace:þinspace16 Bible Texts\r\n                 Illuminated",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "2",
@@ -28609,7 +28609,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Nico Poppelier",
-        "title": "Review of \\it \\LaTeX for engineers and\r\n                 scientists",
+        "title": "Review of \\it ŁaTeX for engineers and\r\n                 scientists",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "2",
@@ -28945,7 +28945,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX column",
+        "title": "The ŁaTeX column",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "2",
@@ -28969,7 +28969,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Nico Poppelier",
-        "title": "A comment on The \\LaTeX column",
+        "title": "A comment on The ŁaTeX column",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "2",
@@ -28993,7 +28993,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Glenn L. Swonk",
-        "title": "\\LaTeX tree drawer",
+        "title": "ŁaTeX tree drawer",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "2",
@@ -29041,7 +29041,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Johannes Braams",
-        "title": "Babel, a multilingual style-option system for use\r\n                 with \\LaTeX's standard document styles",
+        "title": "Babel, a multilingual style-option system for use\r\n                 with ŁaTeX's standard document styles",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "2",
@@ -30256,7 +30256,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Clarkson (\\LaTeX styles)",
+        "title": "Clarkson (ŁaTeX styles)",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "2",
@@ -31047,7 +31047,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frederick H. Bartlett",
-        "title": "Contra-\\LaTeX, or what really works in the\r\n                 publishing world",
+        "title": "Contra-ŁaTeX, or what really works in the\r\n                 publishing world",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "3/4",
@@ -31197,7 +31197,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anita Z. Hoover",
-        "title": "\\LaTeX/\\TeX user: A typist, or typesetter?",
+        "title": "ŁaTeX/\\TeX user: A typist, or typesetter?",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "3/4",
@@ -31296,7 +31296,7 @@
       "Warnings": [],
       "Fields": {
         "author": "C. M. Sperberg-McQueen",
-        "title": "Specifying document structure: Differences in\r\n                 \\LaTeX and TEI markup",
+        "title": "Specifying document structure: Differences in\r\n                 ŁaTeX and TEI markup",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "3/4",
@@ -31670,7 +31670,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Mark A. Roth",
-        "title": "Typesetting forms with \\LaTeX",
+        "title": "Typesetting forms with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "12",
         "number": "3/4",
@@ -32305,7 +32305,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Nico Poppelier",
-        "title": "New books on \\LaTeX",
+        "title": "New books on ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "1",
@@ -32473,7 +32473,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Piet Tutelaers",
-        "title": "A font and a style for typesetting chess using\r\n                 \\LaTeX or \\TeX",
+        "title": "A font and a style for typesetting chess using\r\n                 ŁaTeX or \\TeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "1",
@@ -32521,7 +32521,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "The \\LaTeX column",
+        "title": "The ŁaTeX column",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "1",
@@ -32569,7 +32569,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Chris Rowley",
-        "title": "\\LaTeX 2.09 $ \\hookrightarrow $ \\LaTeX3",
+        "title": "ŁaTeX 2.09 $ \\hookrightarrow $ ŁaTeX3",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "1",
@@ -33024,7 +33024,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Marisa Luvisetto and Massimo Calvani",
-        "title": "Book review: An Italian guide to \\LaTeX (by Claudio\r\n                 Beccari)",
+        "title": "Book review: An Italian guide to ŁaTeX (by Claudio\r\n                 Beccari)",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "2",
@@ -33048,7 +33048,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Nico Poppelier",
-        "title": "Book reviews: Jane Hahn, \\it \\LaTeX for\r\n                 Everyone\\/; Eric van Herwijnen, \\it Practical\r\n                 SGML\\/",
+        "title": "Book reviews: Jane Hahn, \\it ŁaTeX for\r\n                 Everyone\\/; Eric van Herwijnen, \\it Practical\r\n                 SGML\\/",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "2",
@@ -33240,7 +33240,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Maria Luisa Luvisetto and Enzo Ugolini",
-        "title": "From \\TeX to \\LaTeX",
+        "title": "From \\TeX to ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "2",
@@ -33264,7 +33264,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter J. Cameron",
-        "title": "Geometric diagrams in \\LaTeX",
+        "title": "Geometric diagrams in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "2",
@@ -33288,7 +33288,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Hubert Partl",
-        "title": "How to change the layout with \\LaTeX 2.09",
+        "title": "How to change the layout with ŁaTeX 2.09",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "2",
@@ -33774,7 +33774,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Kresten Krab Thorup",
-        "title": "GNU emacs as a front end to \\LaTeX",
+        "title": "GNU emacs as a front end to ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "3",
@@ -33824,7 +33824,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jackie Damrau",
-        "title": "Discovering graphics in \\LaTeX documents",
+        "title": "Discovering graphics in ŁaTeX documents",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "3",
@@ -33924,7 +33924,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Timo Knuutila",
-        "title": "How to combine multiple languages, \\PS, and\r\n                 \\LaTeX",
+        "title": "How to combine multiple languages, \\PS, and\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "3",
@@ -33974,7 +33974,7 @@
       "Warnings": [],
       "Fields": {
         "author": "James L. Hafner",
-        "title": "Foil\\TeX, a \\LaTeX-like system for typesetting\r\n                 foils",
+        "title": "Foil\\TeX, a ŁaTeX-like system for typesetting\r\n                 foils",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "3",
@@ -34049,7 +34049,7 @@
       "Warnings": [],
       "Fields": {
         "author": "T. V. Raman",
-        "title": "An audio view of (\\La)\\TeX documents",
+        "title": "An audio view of (Ła)\\TeX documents",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "3",
@@ -34074,7 +34074,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Dennis S. Arnon and Isabelle Attali and Paul\r\n                 Franchi-Zannettacci",
-        "title": "Model-based conversions of \\LaTeX documents",
+        "title": "Model-based conversions of ŁaTeX documents",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "3",
@@ -34099,7 +34099,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Chris Rowley",
-        "title": "\\LaTeX3 update",
+        "title": "ŁaTeX3 update",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "3",
@@ -34708,7 +34708,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ray Seyfarth",
-        "title": "Diag: a drawing preprocessor for \\LaTeX",
+        "title": "Diag: a drawing preprocessor for ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "4",
@@ -34972,7 +34972,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Chris Rowley and Michael Downes",
-        "title": "Volunteer work for the \\LaTeX3 project",
+        "title": "Volunteer work for the ŁaTeX3 project",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "4",
@@ -34996,7 +34996,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Mike Piff",
-        "title": "Correction sheets in \\LaTeX",
+        "title": "Correction sheets in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "4",
@@ -35020,7 +35020,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Mike Piff",
-        "title": "Text merges in \\TeX and \\LaTeX",
+        "title": "Text merges in \\TeX and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "13",
         "number": "4",
@@ -35592,7 +35592,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Rafał Żbikowski",
-        "title": "Hacker's Guide to \\AmSFonts and NFSS in the Context\r\n                 of \\LaTeX",
+        "title": "Hacker's Guide to \\AmSFonts and NFSS in the Context\r\n                 of ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "14",
         "number": "1",
@@ -35951,7 +35951,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "The A-in-\\LaTeX Contest: Deadline extended",
+        "title": "The A-in-ŁaTeX Contest: Deadline extended",
         "journal": "j-TUGboat",
         "volume": "14",
         "number": "2",
@@ -36071,7 +36071,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Nico Poppelier",
-        "title": "Review of recent \\LaTeX books",
+        "title": "Review of recent ŁaTeX books",
         "journal": "j-TUGboat",
         "volume": "14",
         "number": "2",
@@ -36506,7 +36506,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank G. Bennett, Jr.",
-        "title": "\\LexiTeX: context-sensitive legal citations for\r\n                 \\LaTeX",
+        "title": "ŁexiTeX: context-sensitive legal citations for\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "14",
         "number": "3",
@@ -37684,7 +37684,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Richard Bland",
-        "title": "Relative moves in \\LaTeX\\ pictures",
+        "title": "Relative moves in ŁaTeX\\ pictures",
         "journal": "j-TUGboat",
         "volume": "14",
         "number": "4",
@@ -38331,7 +38331,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Chris Rowley",
-        "title": "\\LaTeXe update, dateline: 31 January 1994",
+        "title": "ŁaTeXe update, dateline: 31 January 1994",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "1",
@@ -38355,7 +38355,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Rhead",
-        "title": "Addenda: A suggested ``operational requirement'' for\r\n                 \\LaTeX3's treatment of bibliographic references\r\n                 (\\tubissue 14(4), pp.\\ 425-433)",
+        "title": "Addenda: A suggested ``operational requirement'' for\r\n                 ŁaTeX3's treatment of bibliographic references\r\n                 (\\tubissue 14(4), pp.\\ 425-433)",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "1",
@@ -38760,7 +38760,7 @@
       "Warnings": [],
       "Fields": {
         "author": "R. Ramasubramanian and R. W. D. Nickalls and M. A.\r\n                 Reed",
-        "title": "ASCII.sty: A new style-option and encoded font with\r\n                 IBM graphics control characters for use with \\TeX and\r\n                 \\LaTeX",
+        "title": "ASCII.sty: A new style-option and encoded font with\r\n                 IBM graphics control characters for use with \\TeX and\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "2",
@@ -38784,7 +38784,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David M. Jones and David E. Wald",
-        "title": "Michel Goossens, Frank Mittelbach, and Alexander\r\n                 Samarin, \\it The \\LaTeX Companion",
+        "title": "Michel Goossens, Frank Mittelbach, and Alexander\r\n                 Samarin, \\it The ŁaTeX Companion",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "2",
@@ -38832,7 +38832,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jacques André",
-        "title": "Christian Rolland, \\it \\LaTeX guide pratique",
+        "title": "Christian Rolland, \\it ŁaTeX guide pratique",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "2",
@@ -38904,7 +38904,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bernard Gaulle",
-        "title": "\\LaTeX V3: philology \\& typography, reports to\r\n                 read, reports to do",
+        "title": "ŁaTeX V3: philology \\& typography, reports to\r\n                 read, reports to do",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "2",
@@ -38928,7 +38928,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Claudio Beccari",
-        "title": "Tough table becomes easy with \\PiCTeX, but it's\r\n                 even easier with \\LaTeX",
+        "title": "Tough table becomes easy with \\PiCTeX, but it's\r\n                 even easier with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "2",
@@ -39363,7 +39363,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Michel Goossens",
-        "title": "Real life book production\\Dash lessons learned from\r\n                 \\it The \\LaTeX Companion",
+        "title": "Real life book production\\Dash lessons learned from\r\n                 \\it The ŁaTeX Companion",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "3",
@@ -39563,7 +39563,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Sebastian Rahtz and Michel Goossens",
-        "title": "Simple colour design with \\LaTeXe",
+        "title": "Simple colour design with ŁaTeXe",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "3",
@@ -39663,7 +39663,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jon Stenerson",
-        "title": "A \\LaTeX style file generator",
+        "title": "A ŁaTeX style file generator",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "3",
@@ -39688,7 +39688,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Johannes Braams",
-        "title": "Document classes and packages in \\LaTeXe",
+        "title": "Document classes and packages in ŁaTeXe",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "3",
@@ -39713,7 +39713,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Alan Jeffrey",
-        "title": "\\PS font support in \\LaTeXe",
+        "title": "\\PS font support in ŁaTeXe",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "3",
@@ -40063,7 +40063,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous and John Plaice",
-        "title": "First applications of $ \\Omega $: Adobe Poetica,\r\n                 Arabic, Greek, Khmer",
+        "title": "First applications of $ Ømega $: Adobe Poetica,\r\n                 Arabic, Greek, Khmer",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "3",
@@ -40238,7 +40238,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Henry Baragar and Gail E. Harris",
-        "title": "An example of a special purpose input language to\r\n                 \\LaTeX",
+        "title": "An example of a special purpose input language to\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "3",
@@ -40867,7 +40867,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Abstracts of the \\it Proceedings of the Eighth\r\n                 European \\TeX Conference, Gda\\'nsk, September\r\n                 1994",
+        "title": "Abstracts of the \\it Proceedings of the Eighth\r\n                 European \\TeX Conference, Gdańsk, September\r\n                 1994",
         "journal": "j-TUGboat",
         "volume": "15",
         "number": "4",
@@ -41147,7 +41147,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Claudio Beccari",
-        "title": "Configuring \\TeX or \\LaTeX for typesetting in\r\n                 several languages",
+        "title": "Configuring \\TeX or ŁaTeX for typesetting in\r\n                 several languages",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "1",
@@ -41648,7 +41648,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Geeti Granger",
-        "title": "The inside story of life at Wiley with \\SGML,\r\n                 \\LaTeX and Acrobat",
+        "title": "The inside story of life at Wiley with \\SGML,\r\n                 ŁaTeX and Acrobat",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "2",
@@ -41720,7 +41720,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous and Sebastian Rahtz",
-        "title": "\\LaTeX, hypertext and \\PDF, \\it or the entry of\r\n                 \\TeX into the world of hypertext",
+        "title": "ŁaTeX, hypertext and \\PDF, \\it or the entry of\r\n                 \\TeX into the world of hypertext",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "2",
@@ -41985,7 +41985,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Alan Hoenig",
-        "title": "The Poetica family: fancy fonts with \\TeX and\r\n                 \\LaTeX",
+        "title": "The Poetica family: fancy fonts with \\TeX and\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "3",
@@ -42085,7 +42085,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Matthew Swift",
-        "title": "Modularity in \\LaTeX",
+        "title": "Modularity in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "3",
@@ -42235,7 +42235,7 @@
       "Warnings": [],
       "Fields": {
         "author": "T. V. Raman",
-        "title": "An audio view of (\\La)\\TeX documents --- part II",
+        "title": "An audio view of (Ła)\\TeX documents --- part II",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "3",
@@ -42260,7 +42260,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Sebastian Rahtz",
-        "title": "Another look at \\LaTeX to \\SGML conversion",
+        "title": "Another look at ŁaTeX to \\SGML conversion",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "3",
@@ -42720,7 +42720,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Sebastian Rahtz",
-        "title": "Whatever is wrong with my \\LaTeX file?",
+        "title": "Whatever is wrong with my ŁaTeX file?",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "4",
@@ -42768,7 +42768,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous and John Plaice and Johannes\r\n                 Braams",
-        "title": "Never again active characters! $ \\Omega\r\n                 $-Babel",
+        "title": "Never again active characters! $ Ømega\r\n                 $-Babel",
         "journal": "j-TUGboat",
         "volume": "16",
         "number": "4",
@@ -43384,7 +43384,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Keith Reckdahl",
-        "title": "Using \\acroEPS graphics in \\LaTeXe documents,\r\n                 Part 1: the ßf graphics and ßf graphicx\r\n                 packages",
+        "title": "Using \\acroEPS graphics in ŁaTeXe documents,\r\n                 Part 1: the ßf graphics and ßf graphicx\r\n                 packages",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "1",
@@ -43456,7 +43456,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Carlisle",
-        "title": "A \\LaTeX tour, Part 1: The basic distribution",
+        "title": "A ŁaTeX tour, Part 1: The basic distribution",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "1",
@@ -43835,7 +43835,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Fukui Rei",
-        "title": "ßf TIPA: A system for processing phonetic\r\n                 symbols in \\LaTeX",
+        "title": "ßf TIPA: A system for processing phonetic\r\n                 symbols in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "2",
@@ -43910,7 +43910,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous",
-        "title": "$ \\Omega $Times and $ \\Omega $Helvetica fonts under\r\n                 development: Step One",
+        "title": "$ Ømega $Times and $ Ømega $Helvetica fonts under\r\n                 development: Step One",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "2",
@@ -44060,7 +44060,7 @@
       "Warnings": [],
       "Fields": {
         "author": "John Plaice and Yannis Haralambous",
-        "title": "The latest developments in $ \\Omega $",
+        "title": "The latest developments in $ Ømega $",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "2",
@@ -44109,7 +44109,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Gabriel Valiente Feruglio",
-        "title": "Do journals honor \\LaTeX submissions?",
+        "title": "Do journals honor ŁaTeX submissions?",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "2",
@@ -44259,7 +44259,7 @@
       "Warnings": [],
       "Fields": {
         "author": "A. S. Berdnikov and O. A. Grineva and S. B. Turtia",
-        "title": "Some useful macros which extend the \\LaTeX \\tt\r\n                 picture environment",
+        "title": "Some useful macros which extend the ŁaTeX \\tt\r\n                 picture environment",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "2",
@@ -44548,7 +44548,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Sebastian Rahtz",
-        "title": "\\LaTeX, \\it dvips, \\acroEPS and the Web\r\n                 \\dots",
+        "title": "ŁaTeX, \\it dvips, \\acroEPS and the Web\r\n                 \\dots",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "3",
@@ -44644,7 +44644,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Robin Fairbairns",
-        "title": "The new (\\LaTeXe) \\TUB macros",
+        "title": "The new (ŁaTeXe) \\TUB macros",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "3",
@@ -44668,7 +44668,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Keith Reckdahl",
-        "title": "Using \\acroEPS graphics in \\LaTeXe documents,\r\n                 Part 2: Floating figures, boxed figures, captions, and\r\n                 math in figures",
+        "title": "Using \\acroEPS graphics in ŁaTeXe documents,\r\n                 Part 2: Floating figures, boxed figures, captions, and\r\n                 math in figures",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "3",
@@ -44740,7 +44740,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Carlisle",
-        "title": "A \\LaTeX tour, Part 2: The ßf tools and ßf\r\n                 graphics distributions",
+        "title": "A ŁaTeX tour, Part 2: The ßf tools and ßf\r\n                 graphics distributions",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "3",
@@ -45236,7 +45236,7 @@
       "Warnings": [],
       "Fields": {
         "author": "George Grätzer",
-        "title": "Suggestions wanted for new edition of \\it Math into\r\n                 \\LaTeX",
+        "title": "Suggestions wanted for new edition of \\it Math into\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "17",
         "number": "4",
@@ -45709,7 +45709,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Michael D. Sofka",
-        "title": "\\it Writing with \\TeX, and \\it \\TeX\\& \\LaTeX:\r\n                 Drawing \\& Literate Programming, by Eitan M. Gurari",
+        "title": "\\it Writing with \\TeX, and \\it \\TeX\\& ŁaTeX:\r\n                 Drawing \\& Literate Programming, by Eitan M. Gurari",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "1",
@@ -45757,7 +45757,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Carlisle",
-        "title": "A \\LaTeX Tour, part 3: ßf mfnfss, ßf psnfss\r\n                 and ßf babel",
+        "title": "A ŁaTeX Tour, part 3: ßf mfnfss, ßf psnfss\r\n                 and ßf babel",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "1",
@@ -46182,7 +46182,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Sidney Chow",
-        "title": "Features for a \\acroWYSIWYG \\LaTeX editor",
+        "title": "Features for a \\acroWYSIWYG ŁaTeX editor",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "2",
@@ -46324,8 +46324,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX\\,3 Project Team",
-        "title": "Modifying \\LaTeX",
+        "author": "ŁaTeX\\,3 Project Team",
+        "title": "Modifying ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "2",
@@ -46349,7 +46349,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "News from the \\LaTeX\\,3 Project Team",
+        "title": "News from the ŁaTeX\\,3 Project Team",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "2",
@@ -46783,7 +46783,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach and Chris Rowley",
-        "title": "The \\LaTeX3 Project",
+        "title": "The ŁaTeX3 Project",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "3",
@@ -47216,7 +47216,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David F. Rogers",
-        "title": "\\it The \\LaTeX Graphics Companion, by Michel\r\n                 Goossens, Sebastian Rahtz and Frank Mittelbach",
+        "title": "\\it The ŁaTeX Graphics Companion, by Michel\r\n                 Goossens, Sebastian Rahtz and Frank Mittelbach",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "4",
@@ -47263,7 +47263,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Hán Thê\\llap\\raise 0.5ex\\hbox\\'\\relax\r\n                 Thánh and Sebastian Rahtz",
+        "author": "Hán Thêłlap\\raise 0.5ex\\hbox\\'\\relax\r\n                 Thánh and Sebastian Rahtz",
         "title": "The pdf\\TeX user manual",
         "journal": "j-TUGboat",
         "volume": "18",
@@ -47431,7 +47431,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Pedro J. Aphalo",
-        "title": "A proposal for citation commands in \\LaTeX 3",
+        "title": "A proposal for citation commands in ŁaTeX 3",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "4",
@@ -47455,7 +47455,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Carlisle and Chris Rowley and Frank Mittelbach",
-        "title": "The \\LaTeX3 Programming Language\\Dash a proposed\r\n                 system for \\TeX macro programming",
+        "title": "The ŁaTeX3 Programming Language\\Dash a proposed\r\n                 system for \\TeX macro programming",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "4",
@@ -47479,7 +47479,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach",
-        "title": "A regression test suite for \\LaTeXe",
+        "title": "A regression test suite for ŁaTeXe",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "4",
@@ -47503,7 +47503,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "News from the \\LaTeX3 Project Team",
+        "title": "News from the ŁaTeX3 Project Team",
         "journal": "j-TUGboat",
         "volume": "18",
         "number": "4",
@@ -48553,7 +48553,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
+        "author": "ŁaTeX Project Team",
         "title": "Default docstrip headers",
         "journal": "j-TUGboat",
         "volume": "19",
@@ -48577,8 +48577,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX News, Issue 9, June 1998",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX News, Issue 9, June 1998",
         "journal": "j-TUGboat",
         "volume": "19",
         "number": "2",
@@ -48701,7 +48701,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Robert S. Sutor and Samuel S. Dooley",
-        "title": "\\TeX and \\LaTeX on the Web via IBM \\sf\r\n                 techexplorer",
+        "title": "\\TeX and ŁaTeX on the Web via IBM \\sf\r\n                 techexplorer",
         "journal": "j-TUGboat",
         "volume": "19",
         "number": "2",
@@ -48726,7 +48726,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Amy Hendrickson",
-        "title": "Real Life \\LaTeX: Adventures of a \\TeX\r\n                 consultant",
+        "title": "Real Life ŁaTeX: Adventures of a \\TeX\r\n                 consultant",
         "journal": "j-TUGboat",
         "volume": "19",
         "number": "2",
@@ -48751,7 +48751,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Alan J. Hoenig",
-        "title": "Typesetting with \\TeX and \\LaTeX",
+        "title": "Typesetting with \\TeX and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "19",
         "number": "2",
@@ -48822,7 +48822,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ross Moore",
-        "title": "Presenting mathematics and languages in Web-pages,\r\n                 using \\LaTeX2\\acroHTML",
+        "title": "Presenting mathematics and languages in Web-pages,\r\n                 using ŁaTeX2\\acroHTML",
         "journal": "j-TUGboat",
         "volume": "19",
         "number": "2",
@@ -49487,7 +49487,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Daniel Taupin",
-        "title": "\\tt ltx2rtf: Exporting \\LaTeX documents to Word\r\n                 addicts",
+        "title": "\\tt ltx2rtf: Exporting ŁaTeX documents to Word\r\n                 addicts",
         "journal": "j-TUGboat",
         "volume": "19",
         "number": "3",
@@ -50143,7 +50143,7 @@
       "Warnings": [],
       "Fields": {
         "author": "A. Berdnikov and O. Lapko and M. Kolodin and A.\r\n                 Janishevsky and A. Burykin",
-        "title": "Cyrillic encodings for \\LaTeXe multi-language\r\n                 documents",
+        "title": "Cyrillic encodings for ŁaTeXe multi-language\r\n                 documents",
         "journal": "j-TUGboat",
         "volume": "19",
         "number": "4",
@@ -50167,7 +50167,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anshuman Pandey",
-        "title": "Romanized Indic and \\LaTeX",
+        "title": "Romanized Indic and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "19",
         "number": "4",
@@ -50686,8 +50686,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX News, Issue 10, December 1998",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX News, Issue 10, December 1998",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "1",
@@ -52028,7 +52028,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Flynn",
-        "title": "The ßf vulcan package: A repair patch for\r\n                 \\LaTeX",
+        "title": "The ßf vulcan package: A repair patch for\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "3",
@@ -52053,7 +52053,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Carlisle and Frank Mittelbach and Chris Rowley",
-        "title": "New interfaces for \\LaTeX class design, Parts I and\r\n                 II",
+        "title": "New interfaces for ŁaTeX class design, Parts I and\r\n                 II",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "3",
@@ -52550,7 +52550,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Eitan Gurari and Sebastian Rahtz",
-        "title": "\\LaTeX to \\XML/Math\\acroML",
+        "title": "ŁaTeX to \\XML/Math\\acroML",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "3",
@@ -52574,7 +52574,7 @@
       "Warnings": [],
       "Fields": {
         "author": "D. P. Story",
-        "title": "How to create quality interactive \\acroPDF\r\n                 documents for the \\acroWWW using \\LaTeX",
+        "title": "How to create quality interactive \\acroPDF\r\n                 documents for the \\acroWWW using ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "3",
@@ -52624,7 +52624,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anita Hoover",
-        "title": "Converting a \\LaTeX 2.09 style to a \\LaTeXe\r\n                 class",
+        "title": "Converting a ŁaTeX 2.09 style to a ŁaTeXe\r\n                 class",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "3",
@@ -52699,7 +52699,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Arthur Ogawa",
-        "title": "The Future of \\LaTeX",
+        "title": "The Future of ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "3",
@@ -52773,7 +52773,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\acroGUTenberg\\,2000\\Dash\\LaTeX and \\XML:\r\n                 Cooperating with the Internet",
+        "title": "\\acroGUTenberg\\,2000\\DashŁaTeX and \\XML:\r\n                 Cooperating with the Internet",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "3",
@@ -53182,7 +53182,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bill Casselman",
-        "title": "\\it The \\LaTeX Graphics Companion\\/ and \\it\r\n                 \\TeX Unbound\\Dash A review of two books",
+        "title": "\\it The ŁaTeX Graphics Companion\\/ and \\it\r\n                 \\TeX Unbound\\Dash A review of two books",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "4",
@@ -53349,8 +53349,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX News, Issue 12, December 1999",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX News, Issue 12, December 1999",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "4",
@@ -53374,7 +53374,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bruce Shawyer",
-        "title": "Scaled pictures in \\LaTeX",
+        "title": "Scaled pictures in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "20",
         "number": "4",
@@ -54437,8 +54437,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX News, Issue 13, June 2000",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX News, Issue 13, June 2000",
         "journal": "j-TUGboat",
         "volume": "21",
         "number": "2",
@@ -54967,7 +54967,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Michael Downes",
-        "title": "The \\tt amsrefs \\LaTeX package and the \\tt\r\n                 amsxport \\BibTeX style",
+        "title": "The \\tt amsrefs ŁaTeX package and the \\tt\r\n                 amsxport \\BibTeX style",
         "journal": "j-TUGboat",
         "volume": "21",
         "number": "3",
@@ -55092,7 +55092,7 @@
       "Warnings": [],
       "Fields": {
         "author": "M. Y. Kolodin and O. V. Eterevksy and O. G. Lapko and\r\n                 I. A. Makhovaya",
-        "title": "``Russian style'' with \\LaTeX and ßf babel:\r\n                 what does it look like and how does it work\r\n                 \\Abstract",
+        "title": "``Russian style'' with ŁaTeX and ßf babel:\r\n                 what does it look like and how does it work\r\n                 \\Abstract",
         "journal": "j-TUGboat",
         "volume": "21",
         "number": "3",
@@ -55167,7 +55167,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bernice Sacks Lipkin",
-        "title": "\\LaTeX and the personal database",
+        "title": "ŁaTeX and the personal database",
         "journal": "j-TUGboat",
         "volume": "21",
         "number": "3",
@@ -55192,7 +55192,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach",
-        "title": "Formatting documents with floats: A new algorithm\r\n                 for \\LaTeXe",
+        "title": "Formatting documents with floats: A new algorithm\r\n                 for ŁaTeXe",
         "journal": "j-TUGboat",
         "volume": "21",
         "number": "3",
@@ -55217,7 +55217,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Timothy Murphy",
-        "title": "The Penrose notation: a \\LaTeX challenge\r\n                 \\Abstract",
+        "title": "The Penrose notation: a ŁaTeX challenge\r\n                 \\Abstract",
         "journal": "j-TUGboat",
         "volume": "21",
         "number": "3",
@@ -55867,7 +55867,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "How \\AllTeX changed the face of mathematics: An\r\n                 ßf E-interview with Leslie Lamport, the author of\r\n                 \\LaTeX",
+        "title": "How \\AllTeX changed the face of mathematics: An\r\n                 ßf E-interview with Leslie Lamport, the author of\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "1/2",
@@ -55986,7 +55986,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Laura Elizabeth Jackson and Herbert Voß",
-        "title": "\\LyX --- An Open Source document processor",
+        "title": "ŁyX --- An Open Source document processor",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "1/2",
@@ -56178,7 +56178,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Sjouke Mauw and Victor Bos",
-        "title": "Drawing message sequence charts with \\LaTeX",
+        "title": "Drawing message sequence charts with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "1/2",
@@ -56685,7 +56685,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Tulett",
-        "title": "\\LaTeX for Windows: a user's perspective",
+        "title": "ŁaTeX for Windows: a user's perspective",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "3",
@@ -56709,7 +56709,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Hán Thê\\llap\\raise 0.5ex\\hbox\\'\\relax\r\n                 Thánh",
+        "author": "Hán Thêłlap\\raise 0.5ex\\hbox\\'\\relax\r\n                 Thánh",
         "title": "Margin kerning and font expansion with pdf\\TeX",
         "journal": "j-TUGboat",
         "volume": "22",
@@ -56784,7 +56784,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Donald P. Story",
-        "title": "Techniques of introducing document-level JavaScript\r\n                 into a \\acroPDF file from a \\LaTeX source",
+        "title": "Techniques of introducing document-level JavaScript\r\n                 into a \\acroPDF file from a ŁaTeX source",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "3",
@@ -56934,7 +56934,7 @@
       "Warnings": [],
       "Fields": {
         "author": "William Hammond",
-        "title": "\\acroGELLMU: A bridge for authors from \\LaTeX to\r\n                 \\acroXML",
+        "title": "\\acroGELLMU: A bridge for authors from ŁaTeX to\r\n                 \\acroXML",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "3",
@@ -57376,7 +57376,7 @@
       "Warnings": [],
       "Fields": {
         "author": "D. P. Story",
-        "title": "\\tt execJS: A new technique for introducing\r\n                 discardable JavaScript into a \\acroPDF file from a\r\n                 \\LaTeX source",
+        "title": "\\tt execJS: A new technique for introducing\r\n                 discardable JavaScript into a \\acroPDF file from a\r\n                 ŁaTeX source",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "4",
@@ -57400,7 +57400,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Michel Goossens",
-        "title": "\\LaTeX, \\acroSVG, fonts",
+        "title": "ŁaTeX, \\acroSVG, fonts",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "4",
@@ -57736,7 +57736,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David M. Tulett",
-        "title": "Highlighting in the \\LaTeX picture environment",
+        "title": "Highlighting in the ŁaTeX picture environment",
         "journal": "j-TUGboat",
         "volume": "22",
         "number": "4",
@@ -58355,7 +58355,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous and John Plaice",
-        "title": "Low-level Devan\\=agar\\=\\i support for\r\n                 Omega\\Dash Adapting \\tt devnag",
+        "title": "Low-level Devanāgar\\=\\i support for\r\n                 Omega\\Dash Adapting \\tt devnag",
         "journal": "j-TUGboat",
         "volume": "23",
         "number": "1",
@@ -58379,7 +58379,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Kastrup",
-        "title": "Revisiting \\acroWYSIWYG paradigms for authoring\r\n                 \\LaTeX",
+        "title": "Revisiting \\acroWYSIWYG paradigms for authoring\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "23",
         "number": "1",
@@ -58807,7 +58807,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Flynn",
-        "title": "Formatting information:\\hfil A beginner's\r\n                 introduction to typesetting with \\LaTeX",
+        "title": "Formatting information:\\hfil A beginner's\r\n                 introduction to typesetting with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "23",
         "number": "2",
@@ -59082,7 +59082,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Claudio Beccari",
-        "title": "The \\sf teubner \\LaTeX package: Typesetting\r\n                 classical Greek philology",
+        "title": "The \\sf teubner ŁaTeX package: Typesetting\r\n                 classical Greek philology",
         "journal": "j-TUGboat",
         "volume": "23",
         "number": "3/4",
@@ -59128,7 +59128,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jonathan Kuhn",
-        "title": "interactiveworkbook: \\LaTeX-based interactive\r\n                 \\acroPDF on the Web",
+        "title": "interactiveworkbook: ŁaTeX-based interactive\r\n                 \\acroPDF on the Web",
         "journal": "j-TUGboat",
         "volume": "23",
         "number": "3/4",
@@ -59220,7 +59220,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Walter Schmidt",
-        "title": "Euler-\\kern-1pt VM: Generic math fonts for use with\r\n                 \\LaTeX",
+        "title": "Euler-ęrn-1pt VM: Generic math fonts for use with\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "23",
         "number": "3/4",
@@ -59962,7 +59962,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Francesco Costanzo and Gary Gray",
-        "title": "Creating labeled stand-alone figures in \\LaTeX\r\n                 using \\warmreader and Adobe Illustrator under\r\n                 Mac\\,OS\\,X",
+        "title": "Creating labeled stand-alone figures in ŁaTeX\r\n                 using \\warmreader and Adobe Illustrator under\r\n                 Mac\\,OS\\,X",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "1",
@@ -59986,7 +59986,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Kalle Saastamoinen and Jaakko Ketola and Tuukka Kurppa\r\n                 and Liisa Torikka",
-        "title": "Enabling Web access to a database of calculus\r\n                 problems using \\LaTeX, PHP and \\LaTeX2HTML",
+        "title": "Enabling Web access to a database of calculus\r\n                 problems using ŁaTeX, PHP and ŁaTeX2HTML",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "1",
@@ -60297,7 +60297,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Giuseppe Bilotta",
-        "title": "Math in \\ConTeXt: Bridging the gap with\r\n                 (\\kern-.1emAMS\\kern.05em-)\\LaTeX",
+        "title": "Math in \\ConTeXt: Bridging the gap with\r\n                 (ęrn-.1emAMSęrn.05em-)ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "1",
@@ -60345,7 +60345,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Gary Gray and Francesco Costanzo",
-        "title": "Experiences and lessons learned teaching \\LaTeX to\r\n                 university students",
+        "title": "Experiences and lessons learned teaching ŁaTeX to\r\n                 university students",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "1",
@@ -60762,7 +60762,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Robin Fairbairns and Jim Hefferon and Rainer\r\n                 Schӧpf and Joachim Schrod and Graham Williams and\r\n                 Reinhard Zierke",
+        "author": "Robin Fairbairns and Jim Hefferon and Rainer\r\n                 Schöpf and Joachim Schrod and Graham Williams and\r\n                 Reinhard Zierke",
         "title": "\\acroCTAN plans",
         "journal": "j-TUGboat",
         "volume": "24",
@@ -60809,7 +60809,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Walden",
-        "title": "Writing a big book\\Dash A first experience with\r\n                 \\LaTeX",
+        "title": "Writing a big book\\Dash A first experience with\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "2",
@@ -60832,7 +60832,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Apostolos Syropoulos",
-        "title": "Designing packages for $ \\Lambda $: An overview",
+        "title": "Designing packages for $ Łambda $: An overview",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "2",
@@ -60854,8 +60854,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX news, issues 14--16, 2001--2003",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX news, issues 14--16, 2001--2003",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "2",
@@ -60878,7 +60878,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Uwe Lück",
-        "title": "\\sf ednotes\\Dash critical edition typesetting with\r\n                 \\LaTeX",
+        "title": "\\sf ednotes\\Dash critical edition typesetting with\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "2",
@@ -60947,7 +60947,7 @@
       "Warnings": [],
       "Fields": {
         "author": "S. E. Talole and S. B. Phadke",
-        "title": "Generating \\LaTeX documents through Matlab",
+        "title": "Generating ŁaTeX documents through Matlab",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "2",
@@ -61039,7 +61039,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Claudio Beccari",
-        "title": "The \\LaTeX Companion, Second Edition",
+        "title": "The ŁaTeX Companion, Second Edition",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "2",
@@ -61062,7 +61062,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Douglas Waud and Mimi Burbank",
-        "title": "Guide to \\LaTeX, \\nth4 Edition",
+        "title": "Guide to ŁaTeX, \\nth4 Edition",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "2",
@@ -61154,7 +61154,7 @@
       "Warnings": [],
       "Fields": {
         "author": "S. A. Katre and Manjusha Joshi",
-        "title": "Report on the Pune workshop on \\LaTeX and free\r\n                 mathematical software",
+        "title": "Report on the Pune workshop on ŁaTeX and free\r\n                 mathematical software",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "2",
@@ -61662,7 +61662,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous and John Plaice",
-        "title": "X\\LaTeX, a \\acroDTD/schema which is very close to\r\n                 \\LaTeX",
+        "title": "XŁaTeX, a \\acroDTD/schema which is very close to\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "3",
@@ -61686,7 +61686,7 @@
       "Warnings": [],
       "Fields": {
         "author": "José Grimm",
-        "title": "Tralics, a \\LaTeX to \\XML translator",
+        "title": "Tralics, a ŁaTeX to \\XML translator",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "3",
@@ -61875,7 +61875,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jean-Pierre Sutto and Pier Daniele Napolitani",
-        "title": "L'utilisation du Mauro\\kern.1em-\\TeX pour\r\n                 l'édition critique de Francesco Maurolico",
+        "title": "L'utilisation du Mauroęrn.1em-\\TeX pour\r\n                 l'édition critique de Francesco Maurolico",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "3",
@@ -61898,7 +61898,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Péter Szabó",
+        "author": "Péter Szabό",
         "title": "Inserting external figures with GraphicP",
         "journal": "j-TUGboat",
         "volume": "24",
@@ -61945,7 +61945,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frédéric Boulanger",
-        "title": "Printing digital photographs with \\LaTeX",
+        "title": "Printing digital photographs with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "3",
@@ -62111,7 +62111,7 @@
       "Warnings": [],
       "Fields": {
         "author": "John Plaice and Yannis Haralambous",
-        "title": "Generating multiple outputs from \\OMEGA",
+        "title": "Generating multiple outputs from ØMEGA",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "3",
@@ -62230,7 +62230,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anish Mehta and Gábor Bella and Yannis\r\n                 Haralambous",
-        "title": "Adapting \\OMEGA to OpenType fonts",
+        "title": "Adapting ØMEGA to OpenType fonts",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "3",
@@ -62301,7 +62301,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bogusław Jackowski and Janusz Nowacki and Piotr\r\n                 Strzelczyk",
-        "title": "Programming \\PS Type 1 fonts using Meta\\kern-.1em\r\n                 Type1: Auditing, enhancing, creating",
+        "title": "Programming \\PS Type 1 fonts using Metaęrn-.1em\r\n                 Type1: Auditing, enhancing, creating",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "3",
@@ -62325,7 +62325,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Wai Wong and Candy L. K. Yiu and Kelvin C. F. Ng",
-        "title": "Typesetting rare Chinese characters in \\LaTeX",
+        "title": "Typesetting rare Chinese characters in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "24",
         "number": "3",
@@ -63149,7 +63149,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\sl The \\LaTeX Companion, \\nth2 edition, by\r\n                 Frank Mittelbach et al.",
+        "title": "\\sl The ŁaTeX Companion, \\nth2 edition, by\r\n                 Frank Mittelbach et al.",
         "journal": "j-TUGboat",
         "volume": "25",
         "number": "1",
@@ -63385,7 +63385,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Steve Peter",
-        "title": "\\csstarttext: Practical \\ConTeXt",
+        "title": "şstarttext: Practical \\ConTeXt",
         "journal": "j-TUGboat",
         "volume": "25",
         "number": "2",
@@ -63500,7 +63500,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Scott Pakin",
-        "title": "Perl\\TeX: Defining \\LaTeX macros using Perl",
+        "title": "Perl\\TeX: Defining ŁaTeX macros using Perl",
         "journal": "j-TUGboat",
         "volume": "25",
         "number": "2",
@@ -63592,7 +63592,7 @@
       "Warnings": [],
       "Fields": {
         "author": "J. P. Hagon",
-        "title": "\\LaTeX in 3D: \\sf OpenDX annotations",
+        "title": "ŁaTeX in 3D: \\sf OpenDX annotations",
         "journal": "j-TUGboat",
         "volume": "25",
         "number": "2",
@@ -63615,7 +63615,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Massimiliano Dominici",
-        "title": "\\sf dramatist: Another package for typesetting drama\r\n                 with \\LaTeX",
+        "title": "\\sf dramatist: Another package for typesetting drama\r\n                 with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "25",
         "number": "2",
@@ -63638,7 +63638,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Simon Law",
-        "title": "Variable width boxes in \\LaTeX",
+        "title": "Variable width boxes in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "25",
         "number": "2",
@@ -64266,7 +64266,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Flom",
-        "title": "A \\LaTeX fledgling struggles to take flight",
+        "title": "A ŁaTeX fledgling struggles to take flight",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "1",
@@ -64290,7 +64290,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anita Schwartz",
-        "title": "The art of \\LaTeX problem solving",
+        "title": "The art of ŁaTeX problem solving",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "1",
@@ -64314,7 +64314,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Klaus Höppner",
-        "title": "Strategies for including graphics in \\LaTeX\r\n                 documents",
+        "title": "Strategies for including graphics in ŁaTeX\r\n                 documents",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "1",
@@ -64362,7 +64362,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Flynn",
-        "title": "\\LaTeX on the Web",
+        "title": "ŁaTeX on the Web",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "1",
@@ -64434,7 +64434,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Ignat",
-        "title": "Word to \\LaTeX for a large, multi-author scientific\r\n                 paper",
+        "title": "Word to ŁaTeX for a large, multi-author scientific\r\n                 paper",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "1",
@@ -64713,7 +64713,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\sl The \\LaTeX Companion, \\nth2 edition, by\r\n                 Frank Mittelbach et al.",
+        "title": "\\sl The ŁaTeX Companion, \\nth2 edition, by\r\n                 Frank Mittelbach et al.",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "1",
@@ -64929,7 +64929,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Javier Rodr\\'\\iguez Laguna",
-        "title": "Hóng-Z\\kern.05em\\`\\i: A Chinese \\MF",
+        "title": "Hόng-Zęrn.05em\\`\\i: A Chinese \\MF",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "2",
@@ -65394,7 +65394,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jim Hefferon",
-        "title": "Minutes in less than hours: Using \\LaTeX\r\n                 resources",
+        "title": "Minutes in less than hours: Using ŁaTeX\r\n                 resources",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "3",
@@ -65416,7 +65416,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Steve Peter",
-        "title": "\\csstarttext: Swelled rules and MetaPost",
+        "title": "şstarttext: Swelled rules and MetaPost",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "3",
@@ -65504,7 +65504,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ioannis Vamvakas and Panagiotis Kotopoulis",
-        "title": "ByZ\\LaTeX: A package for typesetting\r\n                 ``Byzantine'' music",
+        "title": "ByZŁaTeX: A package for typesetting\r\n                 ``Byzantine'' music",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "3",
@@ -65724,7 +65724,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Hendri Adriaens and Christopher Ellison",
-        "title": "\\sf powerdot\\Dash making presentations with\r\n                 \\LaTeX",
+        "title": "\\sf powerdot\\Dash making presentations with\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "3",
@@ -65746,7 +65746,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Enrico Gregorio",
-        "title": "Horrors in \\LaTeX: How to misuse \\LaTeX and make a\r\n                 \\it copy editor\\/ unhappy",
+        "title": "Horrors in ŁaTeX: How to misuse ŁaTeX and make a\r\n                 \\it copy editor\\/ unhappy",
         "journal": "j-TUGboat",
         "volume": "26",
         "number": "3",
@@ -66203,7 +66203,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Katalin Fried \\lowercaseet al.",
+        "author": "Katalin Fried łowercaseet al.",
         "title": "The colourful side of \\TeX",
         "journal": "j-TUGboat",
         "volume": "27",
@@ -66388,7 +66388,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Thierry Bouche",
-        "title": "A pdf\\LaTeX-based automated journal production\r\n                 system",
+        "title": "A pdfŁaTeX-based automated journal production\r\n                 system",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "1",
@@ -66410,8 +66410,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "István Bencze and Balázs Fark and\r\n                 László Hatala and Péter Jeszenszky",
-        "title": "Server side \\PDF generation based on \\LaTeX\r\n                 templates",
+        "author": "István Bencze and Balázs Fark and\r\n                 Lászlό Hatala and Péter Jeszenszky",
+        "title": "Server side \\PDF generation based on ŁaTeX\r\n                 templates",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "1",
@@ -66434,7 +66434,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Péter Szabό and András Hraskό",
-        "title": "Managing a math exercise database with \\LaTeX",
+        "title": "Managing a math exercise database with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "1",
@@ -66572,7 +66572,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous and Gábor Bella and Atif\r\n                 Gulzar",
-        "title": "Open-belly surgery in $ \\Omega_2 $",
+        "title": "Open-belly surgery in $ Ømega_2 $",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "1",
@@ -66595,7 +66595,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous",
-        "title": "New hyphenation techniques in $ \\Omega_2 $",
+        "title": "New hyphenation techniques in $ Ømega_2 $",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "1",
@@ -66775,7 +66775,7 @@
       "Warnings": [],
       "Fields": {
         "author": "John Owens",
-        "title": "The installation and use of OpenType fonts in\r\n                 \\LaTeX",
+        "title": "The installation and use of OpenType fonts in\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "2",
@@ -66844,7 +66844,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Alex A. J.",
-        "title": "Typesetting Malayalam using \\OMEGA",
+        "title": "Typesetting Malayalam using ØMEGA",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "2",
@@ -67051,7 +67051,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Apostolos Syropoulos",
-        "title": "\\LaTeX as a tool for the typographic reproduction of\r\n                 ancient texts",
+        "title": "ŁaTeX as a tool for the typographic reproduction of\r\n                 ancient texts",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "2",
@@ -67097,7 +67097,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Adrian Frischauf and Paul Libbrecht",
-        "title": "\\acrosl DVI\\/2\\/\\acrosl SVG: Using \\LaTeX\r\n                 layout on the Web",
+        "title": "\\acrosl DVI\\/2\\/\\acrosl SVG: Using ŁaTeX\r\n                 layout on the Web",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "2",
@@ -67120,7 +67120,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Claudio Beccari",
-        "title": "\\LaTeXe, \\tt pict2e and complex numbers",
+        "title": "ŁaTeXe, \\tt pict2e and complex numbers",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "2",
@@ -67143,7 +67143,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Morten Høgholm",
-        "title": "Page design in \\LaTeX3",
+        "title": "Page design in ŁaTeX3",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "2",
@@ -67258,7 +67258,7 @@
       "Warnings": [],
       "Fields": {
         "author": "F. Mounayerji and M. A. Naal",
-        "title": "Arabic font building for \\LaTeX",
+        "title": "Arabic font building for ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "2",
@@ -67484,7 +67484,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Charles Goldie",
-        "title": "\\acroUKTUG sponsors day of \\LaTeX",
+        "title": "\\acroUKTUG sponsors day of ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "27",
         "number": "2",
@@ -67734,7 +67734,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Ignacio Llopis Tortosa and Mar\\'\\ia José\r\n                 Castro Bleda",
-        "title": "paper\\TeX: Creating newspapers using \\LaTeXe",
+        "title": "paper\\TeX: Creating newspapers using ŁaTeXe",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -67756,8 +67756,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX news, issue 17",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX news, issue 17",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -67871,7 +67871,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jon Breitenbucher",
-        "title": "\\LaTeX at a liberal arts college",
+        "title": "ŁaTeX at a liberal arts college",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -67894,7 +67894,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Design of presentations: Notes on principles and\r\n                 \\LaTeX implementation",
+        "title": "Design of presentations: Notes on principles and\r\n                 ŁaTeX implementation",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -68032,7 +68032,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Flynn",
-        "title": "Rolling your own Document Class: Using \\LaTeX to\r\n                 keep away from the Dark Side",
+        "title": "Rolling your own Document Class: Using ŁaTeX to\r\n                 keep away from the Dark Side",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -68055,7 +68055,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jim Hefferon",
-        "title": "\\LaTeX resources",
+        "title": "ŁaTeX resources",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -68078,7 +68078,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Flom",
-        "title": "\\LaTeX for academics and researchers who (think\r\n                 they) don't need it",
+        "title": "ŁaTeX for academics and researchers who (think\r\n                 they) don't need it",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -68101,7 +68101,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Federico Garcia",
-        "title": "Hypertext capabilities with pdf\\/\\LaTeX",
+        "title": "Hypertext capabilities with pdf\\/ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -68147,7 +68147,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Abstracts (Adams, Garcia, Hӧppner, Hummel, Moye,\r\n                 Peter, Wetmore)",
+        "title": "Abstracts (Adams, Garcia, Höppner, Hummel, Moye,\r\n                 Peter, Wetmore)",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "1",
@@ -68727,7 +68727,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Federico Garcia",
-        "title": "\\LaTeX and the different bibliography styles",
+        "title": "ŁaTeX and the different bibliography styles",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "2",
@@ -68749,7 +68749,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Walter Schmidt",
-        "title": "Font selection in \\LaTeX: The most frequently\r\n                 asked questions",
+        "title": "Font selection in ŁaTeX: The most frequently\r\n                 asked questions",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "2",
@@ -68859,7 +68859,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 2006/1--2007/1",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 2006/1--2007/1",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "2",
@@ -69243,7 +69243,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Barry MacKichan",
-        "title": "Design decisions for a structured front end to\r\n                 \\LaTeX",
+        "title": "Design decisions for a structured front end to\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "3",
@@ -69311,8 +69311,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Klaus Hӧppner",
-        "title": "Typesetting tables with \\LaTeX",
+        "author": "Klaus Höppner",
+        "title": "Typesetting tables with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "3",
@@ -69358,7 +69358,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Eitan Gurari",
-        "title": "\\LaTeX conversion into normalized forms and speech",
+        "title": "ŁaTeX conversion into normalized forms and speech",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "3",
@@ -69539,7 +69539,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Springer: \\sl More Math Into \\LaTeX; \\ von\r\n                 Hoerner \\& Sulger; O'Reilly",
+        "title": "Springer: \\sl More Math Into ŁaTeX; \\ von\r\n                 Hoerner \\& Sulger; O'Reilly",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "3",
@@ -69562,7 +69562,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "MacKichan: Scientific WorkPlace, Scientific Word;\r\n                 Addison-Wesley: \\sl The \\LaTeX Graphics\r\n                 Companion",
+        "title": "MacKichan: Scientific WorkPlace, Scientific Word;\r\n                 Addison-Wesley: \\sl The ŁaTeX Graphics\r\n                 Companion",
         "journal": "j-TUGboat",
         "volume": "28",
         "number": "3",
@@ -69723,7 +69723,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Andrzej Tomaszewski",
-        "title": "Designing a special book: With both pleasure and\r\n                 \\ldots\\,fear",
+        "title": "Designing a special book: With both pleasure and\r\n                 łdots\\,fear",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -69884,7 +69884,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Karel Horák",
-        "title": "Those obscure accents \\ldots",
+        "title": "Those obscure accents łdots",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -69906,7 +69906,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Klaus Hӧppner",
+        "author": "Klaus Höppner",
         "title": "Creation of a PostScript Type\\,1 logo font with\r\n                 MetaType\\,1",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -69929,7 +69929,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Karel P\\'\\i\\vska",
+        "author": "Karel P\\'\\iška",
         "title": "Procedures for font comparison",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -69952,7 +69952,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Karel P\\'\\i\\vska",
+        "author": "Karel P\\'\\iška",
         "title": "Comments and suggestions about the Latin Modern\r\n                 fonts",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -69976,7 +69976,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jerzy Ludwichowski and Karl Berry",
-        "title": "The \\acroGUST Font License: An application of\r\n                 the \\LaTeX Project Public License",
+        "title": "The \\acroGUST Font License: An application of\r\n                 the ŁaTeX Project Public License",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70044,7 +70044,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Joanna Ludmi\\la Ry\\'cko",
+        "author": "Joanna Ludmiła Ryćko",
         "title": "\\TeX Clinic",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -70159,7 +70159,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jean-Michel Hufflen",
-        "title": "Introducing \\LaTeX users to \\acroXSL-FO",
+        "title": "Introducing ŁaTeX users to \\acroXSL-FO",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70181,7 +70181,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Tomasz \\Luczak",
+        "author": "Tomasz Łuczak",
         "title": "Using \\TeX in a wiki",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -70204,7 +70204,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Sojka and Michal R\\ru\\vzi\\vcka",
+        "author": "Petr Sojka and Michal Růžička",
         "title": "Single-source publishing in multiple formats for\r\n                 different output devices",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -70227,7 +70227,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Péter Szabó",
+        "author": "Péter Szabό",
         "title": "Practical journal and proceedings publication on paper\r\n                 and on the web",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -70319,7 +70319,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Martin Schrӧder",
+        "author": "Martin Schröder",
         "title": "pdf\\TeX 1.40: What's new",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -70434,8 +70434,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Tomasz \\Luczak",
-        "title": "\\LyX: An editor not just for secretaries",
+        "author": "Tomasz Łuczak",
+        "title": "ŁyX: An editor not just for secretaries",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70457,8 +70457,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Péter Szabó",
-        "title": "Automated \\DVD menu authoring with pdf\\LaTeX",
+        "author": "Péter Szabό",
+        "title": "Automated \\DVD menu authoring with pdfŁaTeX",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70481,7 +70481,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Zofia Walczak",
-        "title": "Graphics in \\LaTeX using \\TikZ",
+        "title": "Graphics in ŁaTeX using \\TikZ",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70550,7 +70550,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Johannes Große",
-        "title": "MathPSfrag: \\LaTeX labels in Mathematica plots",
+        "title": "MathPSfrag: ŁaTeX labels in Mathematica plots",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70572,7 +70572,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Kastrup",
-        "title": "\\tt makematch, a \\LaTeX package for pattern\r\n                 matching with wildcards",
+        "title": "\\tt makematch, a ŁaTeX package for pattern\r\n                 matching with wildcards",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70595,7 +70595,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Kastrup",
-        "title": "\\tt qstest, a \\LaTeX package for unit tests",
+        "title": "\\tt qstest, a ŁaTeX package for unit tests",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70663,7 +70663,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Pawe\\l Jackowski",
+        "author": "Paweł Jackowski",
         "title": "\\TeX beauties and oddities: A permanent call for\r\n                 \\TeX pearls",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -70710,7 +70710,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Abstracts (Hagen, Hoekwater, Kastrup, Lotz, Moore,\r\n                 Ry\\'cko, Tomaszewski)",
+        "title": "Abstracts (Hagen, Hoekwater, Kastrup, Lotz, Moore,\r\n                 Ryćko, Tomaszewski)",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "1",
@@ -70953,7 +70953,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Claudio Beccari and Andrea Guadagni",
-        "title": "Designing and producing a reference book with\r\n                 \\LaTeX: \\sl The Engineer's Quick Reference\r\n                 Handbook",
+        "title": "Designing and producing a reference book with\r\n                 ŁaTeX: \\sl The Engineer's Quick Reference\r\n                 Handbook",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "2",
@@ -71041,7 +71041,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Claudio Beccari",
-        "title": "\\sf lxfonts: \\LaTeX slide fonts revived",
+        "title": "\\sf lxfonts: ŁaTeX slide fonts revived",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "2",
@@ -71216,7 +71216,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Pawe\\l Jackowski",
+        "author": "Paweł Jackowski",
         "title": "Interesting loops and iterations\\Dash second helping",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -71239,7 +71239,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Wilson",
-        "title": "Glisterings: More on paragraphs regular; \\LaTeX's\r\n                 defining triumvirate; \\TeX's dictator",
+        "title": "Glisterings: More on paragraphs regular; ŁaTeX's\r\n                 defining triumvirate; \\TeX's dictator",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "2",
@@ -71305,7 +71305,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bernd Schroeder",
-        "title": "Software review: \\TeX\\kern-.02em\\acroCAD for\r\n                 Windows",
+        "title": "Software review: \\TeXęrn-.02em\\acroCAD for\r\n                 Windows",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "2",
@@ -71371,7 +71371,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 2007/2--2008/1",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 2007/2--2008/1",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "2",
@@ -71775,7 +71775,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Joe McCool",
-        "title": "A newbie's experiences with Lilypond,\r\n                 Lilypond-book, \\LaTeX and Perl",
+        "title": "A newbie's experiences with Lilypond,\r\n                 Lilypond-book, ŁaTeX and Perl",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "3",
@@ -71796,7 +71796,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Krisztián Pócza and Mihály Biczó and\r\n                 Zoltán Porkoláb",
+        "author": "Krisztián Pόcza and Mihály Biczό and\r\n                 Zoltán Porkoláb",
         "title": "docx2tex: Word 2007 to \\TeX",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -71888,7 +71888,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Karel P\\'\\i\\vska",
+        "author": "Karel P\\'\\iška",
         "title": "Creating cuneiform fonts with MetaType1 and\r\n                 FontForge",
         "journal": "j-TUGboat",
         "volume": "29",
@@ -72026,8 +72026,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Stanislav Jan \\vSarman",
-        "title": "Writing Gregg Shorthand with \\MF and \\LaTeX",
+        "author": "Stanislav Jan Šarman",
+        "title": "Writing Gregg Shorthand with \\MF and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "29",
         "number": "3",
@@ -72387,8 +72387,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jan P\\vrichystal",
-        "title": "\\TeXon\\kern-.03em Web",
+        "author": "Jan Přichystal",
+        "title": "\\TeXonęrn-.03em Web",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "1",
@@ -72498,7 +72498,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Lapo Mori",
-        "title": "Managing bibliographies with \\LaTeX",
+        "title": "Managing bibliographies with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "1",
@@ -72586,7 +72586,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Wilson",
-        "title": "Glisterings: Reprise; MetaPost and\r\n                 pdf\\/\\LaTeX; Spidrons",
+        "title": "Glisterings: Reprise; MetaPost and\r\n                 pdf\\/ŁaTeX; Spidrons",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "1",
@@ -72673,8 +72673,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX3 news, issues 1--2",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX3 news, issues 1--2",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "1",
@@ -72696,7 +72696,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Joseph Wright",
-        "title": "\\LaTeX3 programming: External perspectives",
+        "title": "ŁaTeX3 programming: External perspectives",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "1",
@@ -72739,7 +72739,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "V\\'\\it Z\\'yka",
+        "author": "V\\'\\it Zýka",
         "title": "Current typesetting position in pdf\\TeX",
         "journal": "j-TUGboat",
         "volume": "30",
@@ -72871,7 +72871,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 2008/2--2009/2",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 2008/2--2009/2",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "1",
@@ -73179,7 +73179,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "\\LaTeX class writing for wizard apprentices",
+        "title": "ŁaTeX class writing for wizard apprentices",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "2",
@@ -73202,7 +73202,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Arthur Reutenauer",
-        "title": "Lua\\TeX for the \\LaTeX user: An introduction",
+        "title": "Lua\\TeX for the ŁaTeX user: An introduction",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "2",
@@ -73386,7 +73386,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bob Neveln and Bob Alps",
-        "title": "ProofCheck: Writing and checking complete proofs\r\n                 in \\LaTeX",
+        "title": "ProofCheck: Writing and checking complete proofs\r\n                 in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "2",
@@ -73454,7 +73454,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Klaus Hӧppner",
+        "author": "Klaus Höppner",
         "title": "Introduction to \\MP",
         "journal": "j-TUGboat",
         "volume": "30",
@@ -73776,7 +73776,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issue 2009/3",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issue 2009/3",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "2",
@@ -74251,7 +74251,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anne-Marie Aebischer and Bruno Aebischer and\r\n                 Jean-Michel Hufflen and François Pétiard",
-        "title": "Introducing new French-speaking users to \\LaTeX\r\n                 quickly and convincingly",
+        "title": "Introducing new French-speaking users to ŁaTeX\r\n                 quickly and convincingly",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "3",
@@ -74296,8 +74296,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Stanislav Jan \\vSarman",
-        "title": "Writing Pitman shorthand with \\MF and \\LaTeX",
+        "author": "Stanislav Jan Šarman",
+        "title": "Writing Pitman shorthand with \\MF and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "3",
@@ -74319,7 +74319,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Péter Szabó",
+        "author": "Péter Szabό",
         "title": "Optimizing PDF output size of \\TeX documents",
         "journal": "j-TUGboat",
         "volume": "30",
@@ -74435,7 +74435,7 @@
       "Warnings": [],
       "Fields": {
         "author": "John Trapp",
-        "title": "Using \\LaTeX as a computing language",
+        "title": "Using ŁaTeX as a computing language",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "3",
@@ -74481,7 +74481,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "Abstracts (Hagen, Lemmes, Walczak, Fine, Kew,\r\n                 Yatskovsky, Schrӧder, Hoekwater, Ludwichowski,\r\n                 Jackowski, P\\'\\i\\vska, Miklavec \\& Reutenauer)",
+        "title": "Abstracts (Hagen, Lemmes, Walczak, Fine, Kew,\r\n                 Yatskovsky, Schröder, Hoekwater, Ludwichowski,\r\n                 Jackowski, P\\'\\iška, Miklavec \\& Reutenauer)",
         "journal": "j-TUGboat",
         "volume": "30",
         "number": "3",
@@ -74594,7 +74594,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Evan Wessler",
-        "title": "An argument for learning \\LaTeX: The benefits of\r\n                 typesetting and beyond",
+        "title": "An argument for learning ŁaTeX: The benefits of\r\n                 typesetting and beyond",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "1",
@@ -74869,8 +74869,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX news, issue 19",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX news, issue 19",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "1",
@@ -74916,7 +74916,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Jacek Kmiecik",
-        "title": "Tuning \\LaTeX to one's own needs",
+        "title": "Tuning ŁaTeX to one's own needs",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "1",
@@ -74939,7 +74939,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Luca Merciadri",
-        "title": "Some misunderstood or unknown \\LaTeXe tricks",
+        "title": "Some misunderstood or unknown ŁaTeXe tricks",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "1",
@@ -74961,8 +74961,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX3 news, issue 3",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX3 news, issue 3",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "1",
@@ -75146,7 +75146,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 2009/4--2010/2",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 2009/4--2010/2",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "1",
@@ -75589,7 +75589,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Pavneet Arora",
-        "title": "Using \\LaTeX to generate dynamic mathematics\r\n                 worksheets for the web",
+        "title": "Using ŁaTeX to generate dynamic mathematics\r\n                 worksheets for the web",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "2",
@@ -75613,7 +75613,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Walter Gander",
-        "title": "Writing the first \\LaTeX book",
+        "title": "Writing the first ŁaTeX book",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "2",
@@ -75661,7 +75661,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Didier Verna",
-        "title": "Classes, styles, conflicts: The biological realm of\r\n                 \\LaTeX",
+        "title": "Classes, styles, conflicts: The biological realm of\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "2",
@@ -75805,7 +75805,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Uwe Ziegenhagen",
-        "title": "Dynamic reporting with R\\slash Sweave and \\LaTeX",
+        "title": "Dynamic reporting with R\\slash Sweave and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "2",
@@ -75853,7 +75853,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Idris Samawi Hamid",
-        "title": "Qur\\ringhalfrighti\\=anic typography comes of age:\r\n                 Æsthetics, layering, and paragraph optimization\r\n                 in \\ConTeXt",
+        "title": "Qur\\ringhalfrightiānic typography comes of age:\r\n                 Æsthetics, layering, and paragraph optimization\r\n                 in \\ConTeXt",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "2",
@@ -75925,7 +75925,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Will Robertson",
-        "title": "Unicode mathematics in \\LaTeX: Advantages and\r\n                 challenges",
+        "title": "Unicode mathematics in ŁaTeX: Advantages and\r\n                 challenges",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "2",
@@ -76021,7 +76021,7 @@
       "Warnings": [],
       "Fields": {
         "author": "William Hammond",
-        "title": "\\LaTeX profiles as objects in the category of markup\r\n                 languages",
+        "title": "ŁaTeX profiles as objects in the category of markup\r\n                 languages",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "2",
@@ -76392,7 +76392,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Luca Merciadri",
-        "title": "Some misunderstood or unknown \\LaTeXe tricks\r\n                 II",
+        "title": "Some misunderstood or unknown ŁaTeXe tricks\r\n                 II",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "3",
@@ -76414,8 +76414,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX3 news, issue 3",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX3 news, issue 3",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "3",
@@ -76714,7 +76714,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issue 2010/3",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issue 2010/3",
         "journal": "j-TUGboat",
         "volume": "31",
         "number": "3",
@@ -77035,7 +77035,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Andrew Hwang",
-        "title": "\\LaTeX at Distributed Proofreaders and the\r\n                 electronic preservation of mathematical literature at\r\n                 Project Gutenberg",
+        "title": "ŁaTeX at Distributed Proofreaders and the\r\n                 electronic preservation of mathematical literature at\r\n                 Project Gutenberg",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "1",
@@ -77057,7 +77057,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Pavel Fará\\vr",
+        "author": "Pavel Farář",
         "title": "Introducing the \\acroPT Sans and \\acroPT\r\n                 Serif typefaces",
         "journal": "j-TUGboat",
         "volume": "32",
@@ -77195,7 +77195,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Pawe\\l Jackowski",
+        "author": "Paweł Jackowski",
         "title": "Luna\\Dash my side of the moon",
         "journal": "j-TUGboat",
         "volume": "32",
@@ -77219,7 +77219,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach",
-        "title": "Reflections on the history of the \\LaTeX Project\r\n                 Public License (\\acroLPPL)\\DashA software license\r\n                 for \\LaTeX and more",
+        "title": "Reflections on the history of the ŁaTeX Project\r\n                 Public License (\\acroLPPL)\\DashA software license\r\n                 for ŁaTeX and more",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "1",
@@ -77288,7 +77288,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Luca Merciadri",
-        "title": "Some misunderstood or unknown \\LaTeXe tricks\r\n                 III",
+        "title": "Some misunderstood or unknown ŁaTeXe tricks\r\n                 III",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "1",
@@ -77310,8 +77310,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX3 news, issue 5",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX3 news, issue 5",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "1",
@@ -77334,7 +77334,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book review: \\sl Typesetting tables with \\LaTeX",
+        "title": "Book review: \\sl Typesetting tables with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "1",
@@ -77472,7 +77472,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 4/2010--1/2011",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 4/2010--1/2011",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "1",
@@ -77724,7 +77724,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Stefan Lӧffler",
+        "author": "Stefan Löffler",
         "title": "\\TeXworks\\Dash As you like it",
         "journal": "j-TUGboat",
         "volume": "32",
@@ -77793,8 +77793,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Krzysztof Pszczo\\la",
-        "title": "Teaching \\LaTeX to the students of mathematics\\Dash\r\n                 the experience from The Jan Kochanowski University",
+        "author": "Krzysztof Pszczoła",
+        "title": "Teaching ŁaTeX to the students of mathematics\\Dash\r\n                 the experience from The Jan Kochanowski University",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "2",
@@ -78185,7 +78185,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book review: \\sl \\LaTeX Beginner's Guide",
+        "title": "Book review: \\sl ŁaTeX Beginner's Guide",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "2",
@@ -78254,7 +78254,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 4/2010--1/2011",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 4/2010--1/2011",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "2",
@@ -78463,7 +78463,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Kannan Moudgalya",
-        "title": "\\LaTeX training through spoken tutorials",
+        "title": "ŁaTeX training through spoken tutorials",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78487,7 +78487,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Alan Wetmore",
-        "title": "e-Readers and \\LaTeX",
+        "title": "e-Readers and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78535,7 +78535,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Rishi T.",
-        "title": "\\LaTeX to ePub",
+        "title": "ŁaTeX to ePub",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78559,7 +78559,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Manjusha Joshi",
-        "title": "A dream of computing and \\LaTeXing together: A\r\n                 reality with Sage\\TeX",
+        "title": "A dream of computing and ŁaTeXing together: A\r\n                 reality with Sage\\TeX",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78630,7 +78630,7 @@
       "Warnings": [],
       "Fields": {
         "author": "S. Sankar and S. Mahalakshmi and L. Ganesh",
-        "title": "An \\XML model of \\CSS3 as an\r\n                 X\\LaTeX-\\TeX\\acroML-\\HTML5 stylesheet language",
+        "title": "An \\XML model of \\CSS3 as an\r\n                 XŁaTeX-\\TeX\\acroML-\\HTML5 stylesheet language",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78726,7 +78726,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Didier Verna",
-        "title": "Towards \\LaTeX coding standards",
+        "title": "Towards ŁaTeX coding standards",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78750,7 +78750,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\acroTUG 2011 abstracts \\ (Bazargan,\r\n                 Crossland, Radhakrishnan, Doumont, Mittelbach,\r\n                 Moore, Rishi, Skoup\\'y, Sojka, Wujastyk)",
+        "title": "\\acroTUG 2011 abstracts \\ (Bazargan,\r\n                 Crossland, Radhakrishnan, Doumont, Mittelbach,\r\n                 Moore, Rishi, Skoupý, Sojka, Wujastyk)",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78773,8 +78773,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX news, issue 20",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX news, issue 20",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78798,7 +78798,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Brian Beitzel",
-        "title": "The \\tt meetingmins \\LaTeX class: Hierarchically\r\n                 organized meeting agendas and minutes",
+        "title": "The \\tt meetingmins ŁaTeX class: Hierarchically\r\n                 organized meeting agendas and minutes",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78822,7 +78822,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Igor Ruiz-Agundez",
-        "title": "Collaborative \\LaTeX writing with Google Docs",
+        "title": "Collaborative ŁaTeX writing with Google Docs",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78870,7 +78870,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Luca Merciadri",
-        "title": "Some \\LaTeXe tricks and tips (\\acroIV)",
+        "title": "Some ŁaTeXe tricks and tips (\\acroIV)",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -78917,7 +78917,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Wiktor Dziubi\\'nski and Marcin Woli\\'nski and\r\n                 Grzegorz Murzynowski",
+        "author": "Wiktor Dziubiński and Marcin Woliński and\r\n                 Grzegorz Murzynowski",
         "title": "\\acroPARCAT\\Dash Applying \\TeX in industry",
         "journal": "j-TUGboat",
         "volume": "32",
@@ -78989,7 +78989,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book review: \\sl \\LaTeX and Friends",
+        "title": "Book review: \\sl ŁaTeX and Friends",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -79061,7 +79061,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issue 3/2011",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issue 3/2011",
         "journal": "j-TUGboat",
         "volume": "32",
         "number": "3",
@@ -79389,7 +79389,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Philip Kime",
-        "title": "Biber\\Dashthe next generation backend processor for\r\n                 \\Bib\\LaTeX",
+        "title": "Biber\\Dashthe next generation backend processor for\r\n                 \\BibŁaTeX",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "1",
@@ -79481,7 +79481,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Brian Beitzel",
-        "title": "The \\tt apa6 \\LaTeX class: Challenges\r\n                 encountered updating to new requirements",
+        "title": "The \\tt apa6 ŁaTeX class: Challenges\r\n                 encountered updating to new requirements",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "1",
@@ -79527,7 +79527,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Luca Merciadri",
-        "title": "Some \\LaTeXe tricks and tips (\\acroV)",
+        "title": "Some ŁaTeXe tricks and tips (\\acroV)",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "1",
@@ -79549,8 +79549,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX3 news, issues 6--7",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX3 news, issues 6--7",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "1",
@@ -79573,7 +79573,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Troy Henderson",
-        "title": "User-friendly web utilities for generating \\LaTeX\r\n                 output and MetaPost graphics",
+        "title": "User-friendly web utilities for generating ŁaTeX\r\n                 output and MetaPost graphics",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "1",
@@ -79687,7 +79687,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Bogus\\law Jackowski",
+        "author": "Bogusław Jackowski",
         "title": "Computing the area and winding number for a\r\n                 Bézier curve",
         "journal": "j-TUGboat",
         "volume": "33",
@@ -79848,7 +79848,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 4/2011--1/2012",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 4/2011--1/2012",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "1",
@@ -80105,8 +80105,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX3 news, issue 8",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX3 news, issue 8",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "2",
@@ -80130,7 +80130,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Latchman",
-        "title": "Preparing your thesis in \\LaTeX",
+        "title": "Preparing your thesis in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "2",
@@ -80178,7 +80178,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Bart Childs",
-        "title": "\\LaTeX source from word processors",
+        "title": "ŁaTeX source from word processors",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "2",
@@ -80346,7 +80346,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Amy Hendrickson",
-        "title": "The joy of\\/ \\cscsname...\\csendcsname",
+        "title": "The joy of\\/ şcsname...şendcsname",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "2",
@@ -80678,7 +80678,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Thomas Thurnherr",
-        "title": "Changing the font size in \\LaTeX",
+        "title": "Changing the font size in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "3",
@@ -80701,7 +80701,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Robert Fuster",
-        "title": "The \\tt calculator and \\tt calculus packages:\r\n                 Arithmetic and functional calculations inside\r\n                 \\LaTeX",
+        "title": "The \\tt calculator and \\tt calculus packages:\r\n                 Arithmetic and functional calculations inside\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "3",
@@ -80747,7 +80747,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Peter Pupalaikis",
-        "title": "A patent application design flow in \\LaTeX and\r\n                 \\LyX",
+        "title": "A patent application design flow in ŁaTeX and\r\n                 ŁyX",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "3",
@@ -81023,7 +81023,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book review: \\sl \\slnine PSTricks: Graphics and\r\n                 PostScript for \\TeX and \\LaTeX",
+        "title": "Book review: \\sl \\slnine PSTricks: Graphics and\r\n                 PostScript for \\TeX and ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "3",
@@ -81069,7 +81069,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Les Cahiers \\slnine GUT\\kern-.03emenberg\\/:\r\n                 Contents of issue 56 (2011) (simultaneously published\r\n                 as \\slnine MAPS 43 and \\it Zpravodaj\\/\r\n                 2--4/2011)",
+        "title": "\\it Les Cahiers \\slnine GUTęrn-.03emenberg\\/:\r\n                 Contents of issue 56 (2011) (simultaneously published\r\n                 as \\slnine MAPS 43 and \\it Zpravodaj\\/\r\n                 2--4/2011)",
         "journal": "j-TUGboat",
         "volume": "33",
         "number": "3",
@@ -81458,7 +81458,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Thomas Thurnherr",
-        "title": "Side-by-side figures in \\LaTeX",
+        "title": "Side-by-side figures in ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "1",
@@ -81618,7 +81618,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Ol\\vsák",
+        "author": "Petr Olšák",
         "title": "New \\CSplain of 2012",
         "journal": "j-TUGboat",
         "volume": "34",
@@ -81641,7 +81641,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Petr Ol\\vsák",
+        "author": "Petr Olšák",
         "title": "OPmac: Macros for plain \\TeX",
         "journal": "j-TUGboat",
         "volume": "34",
@@ -81711,7 +81711,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book review: \\sl The Computer Science of \\TeX and\r\n                 \\LaTeX",
+        "title": "Book review: \\sl The Computer Science of \\TeX and\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "1",
@@ -81734,7 +81734,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 4/2012--1/2013",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 4/2012--1/2013",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "1",
@@ -82191,7 +82191,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Dirk Hünniger",
-        "title": "Converting Wikipedia articles to \\LaTeX",
+        "title": "Converting Wikipedia articles to ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "2",
@@ -82351,8 +82351,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Pawe\\l \\Lupkowski and Mariusz Urba\\'nski",
-        "title": "Preparing for scientific conferences with \\LaTeX:\r\n                 A short practical how-to",
+        "author": "Paweł Łupkowski and Mariusz Urbański",
+        "title": "Preparing for scientific conferences with ŁaTeX:\r\n                 A short practical how-to",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "2",
@@ -82443,7 +82443,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Bogus\\law Jackowski",
+        "author": "Bogusław Jackowski",
         "title": "Typographers, programmers and mathematicians, or the\r\n                 case of an æsthetically pleasing interpolation",
         "journal": "j-TUGboat",
         "volume": "34",
@@ -82467,7 +82467,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Kevin Donnelly",
-        "title": "Representing linguistic pitch in\r\n                 (\\Xe\\kern-1pt)\\LaTeX",
+        "title": "Representing linguistic pitch in\r\n                 (\\Xeęrn-1pt)ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "2",
@@ -82490,7 +82490,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book review: \\it Learning \\LaTeX",
+        "title": "Book review: \\it Learning ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "2",
@@ -82559,7 +82559,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book review: \\it \\LaTeX Quick Reference",
+        "title": "Book review: \\it ŁaTeX Quick Reference",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "2",
@@ -82582,7 +82582,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book review: \\it Presentations with \\LaTeX",
+        "title": "Book review: \\it Presentations with ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "2",
@@ -82628,7 +82628,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issue 2/2013",
+        "title": "\\it Die \\TeX nische Komödie\\/: Contents of\r\n                 issue 2/2013",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "2",
@@ -82855,7 +82855,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Didier Verna",
-        "title": "The incredible tale of the author who didn't want to\r\n                 do the publisher's job, $ \\ldots $",
+        "title": "The incredible tale of the author who didn't want to\r\n                 do the publisher's job, $ łdots $",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "3",
@@ -83239,7 +83239,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Aleksandra Hankus and Zofia Walczak",
-        "title": "\\LaTeX and graphics: Basics and packages",
+        "title": "ŁaTeX and graphics: Basics and packages",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "3",
@@ -83263,7 +83263,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman and Leyla Akhmadeeva",
-        "title": "Plots in \\LaTeX: Gnuplot, Octave, make",
+        "title": "Plots in ŁaTeX: Gnuplot, Octave, make",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "3",
@@ -83359,7 +83359,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\sl Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 3--4/2013",
+        "title": "\\sl Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 3--4/2013",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "3",
@@ -83455,7 +83455,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Clerk Ma",
-        "title": "Book review: \\sl Introduction to \\LaTeX",
+        "title": "Book review: \\sl Introduction to ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "34",
         "number": "3",
@@ -83709,8 +83709,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX3 news, issue 9",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX3 news, issue 9",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "1",
@@ -83825,7 +83825,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Michiel Helvensteijn",
-        "title": "The \\tt pkgloader and \\tt lt3graph packages:\r\n                 Toward simple and powerful package management for\r\n                 \\LaTeX",
+        "title": "The \\tt pkgloader and \\tt lt3graph packages:\r\n                 Toward simple and powerful package management for\r\n                 ŁaTeX",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "1",
@@ -83871,7 +83871,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Juan Montijano and Mario Pérez and Luis Rández\r\n                 and Juan Luis Varona",
-        "title": "Numerical methods with Lua\\LaTeX",
+        "title": "Numerical methods with LuaŁaTeX",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "1",
@@ -84032,7 +84032,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frederik Schlupkothen",
-        "title": "\\HTML to \\LaTeX transformation",
+        "title": "\\HTML to ŁaTeX transformation",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "1",
@@ -84124,7 +84124,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\sl Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issue 1/2014",
+        "title": "\\sl Die \\TeX nische Komödie\\/: Contents of\r\n                 issue 1/2014",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "1",
@@ -84170,7 +84170,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Boris Veytsman",
-        "title": "Book reviews: \\it \\LaTeX for Complete Novices\r\n                 and \\it Using \\LaTeX to Write a PhD Thesis, by\r\n                 Nicola Talbot",
+        "title": "Book reviews: \\it ŁaTeX for Complete Novices\r\n                 and \\it Using ŁaTeX to Write a PhD Thesis, by\r\n                 Nicola Talbot",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "1",
@@ -84736,7 +84736,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Keiichiro Shikano",
-        "title": "xml2tex: An easy way to define \\XML-to-\\LaTeX\r\n                 converters",
+        "title": "xml2tex: An easy way to define \\XML-to-ŁaTeX\r\n                 converters",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "2",
@@ -84784,7 +84784,7 @@
       "Warnings": [],
       "Fields": {
         "author": "William Hammond",
-        "title": "Can \\LaTeX profiles be rendered adequately with\r\n                 static \\CSS?",
+        "title": "Can ŁaTeX profiles be rendered adequately with\r\n                 static \\CSS?",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "2",
@@ -85063,7 +85063,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Thomas Thurnherr",
-        "title": "\\LaTeX document class options",
+        "title": "ŁaTeX document class options",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "3",
@@ -85086,7 +85086,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Frank Mittelbach",
-        "title": "How to influence the position of float environments\r\n                 like figure and table in \\LaTeX?",
+        "title": "How to influence the position of float environments\r\n                 like figure and table in ŁaTeX?",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "3",
@@ -85155,7 +85155,7 @@
       "Warnings": [],
       "Fields": {
         "author": "David Walden",
-        "title": "Every \\LaTeX document brings new programming\r\n                 issues",
+        "title": "Every ŁaTeX document brings new programming\r\n                 issues",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "3",
@@ -85247,7 +85247,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yannis Haralambous",
-        "title": "A simple Arabic typesetting system for mixed\r\n                 Latin/Arabic documents: \\emph\\dd\\=ad",
+        "title": "A simple Arabic typesetting system for mixed\r\n                 Latin/Arabic documents: \\emph\\ddād",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "3",
@@ -85292,7 +85292,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Frank Mittelbach and Will Robertson and \\LaTeX3\r\n                 team",
+        "author": "Frank Mittelbach and Will Robertson and ŁaTeX3\r\n                 team",
         "title": "\\textttl3build\\Dash A modern Lua test suite for\r\n                 \\TeX programming",
         "journal": "j-TUGboat",
         "volume": "35",
@@ -85408,7 +85408,7 @@
       "Warnings": [],
       "Fields": {
         "author": "William Adams",
-        "title": "Book review: \\sl Practical \\LaTeX, by George\r\n                 Grätzer",
+        "title": "Book review: \\sl Practical ŁaTeX, by George\r\n                 Grätzer",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "3",
@@ -85477,7 +85477,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Nicola Talbot",
-        "title": "Book review: \\sl Let's Learn \\LaTeX, by S.\r\n                 Parthasarathy",
+        "title": "Book review: \\sl Let's Learn ŁaTeX, by S.\r\n                 Parthasarathy",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "3",
@@ -85500,7 +85500,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\sl Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 2--3/2014",
+        "title": "\\sl Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 2--3/2014",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "3",
@@ -85523,7 +85523,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\it Les Cahiers \\slnine GUT\\kern-.03emenberg\\/:\r\n                 Contents of issue 57 (2012)",
+        "title": "\\it Les Cahiers \\slnine GUTęrn-.03emenberg\\/:\r\n                 Contents of issue 57 (2012)",
         "journal": "j-TUGboat",
         "volume": "35",
         "number": "3",
@@ -86003,8 +86003,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "\\LaTeX Project Team",
-        "title": "\\LaTeX news, issue 21, May 2014",
+        "author": "ŁaTeX Project Team",
+        "title": "ŁaTeX news, issue 21, May 2014",
         "journal": "j-TUGboat",
         "volume": "36",
         "number": "1",
@@ -86072,8 +86072,8 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Pawe\\l \\Lupkowski",
-        "title": "Online \\LaTeX editors and other resources",
+        "author": "Paweł Łupkowski",
+        "title": "Online ŁaTeX editors and other resources",
         "journal": "j-TUGboat",
         "volume": "36",
         "number": "1",
@@ -86303,7 +86303,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Anonymous",
-        "title": "\\sl Die \\TeX nische Komӧdie\\/: Contents of\r\n                 issues 4/2014--1/2015",
+        "title": "\\sl Die \\TeX nische Komödie\\/: Contents of\r\n                 issues 4/2014--1/2015",
         "journal": "j-TUGboat",
         "volume": "36",
         "number": "1",

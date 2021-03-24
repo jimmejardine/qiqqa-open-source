@@ -503,7 +503,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Tom Terrific",
-        "title": "An $O(n \\log n / \\! \\log\\log n)$ Sorting Algorithm",
+        "title": "An $O(n łog n / \\! łogłog n)$ Sorting Algorithm",
         "institution": "Fanstord University",
         "year": "1988"
       }
@@ -515,7 +515,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Tom Térrific",
-        "title": "An $O(n \\log n / \\! \\log\\log n)$ Sorting Algorithm",
+        "title": "An $O(n łog n / \\! łogłog n)$ Sorting Algorithm",
         "institution": "Fanstord University",
         "type": "Wishful Research Result",
         "number": "7",

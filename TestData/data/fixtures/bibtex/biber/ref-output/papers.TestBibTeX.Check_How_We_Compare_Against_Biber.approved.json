@@ -14396,7 +14396,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Alan M. Gibbons and Amos Israeli and Wojciech Rytter",
-        "title": "Parallel $O(\\log n)$ time edge-coloring of trees and Halin\r\nGraphs",
+        "title": "Parallel $O(łog n)$ time edge-coloring of trees and Halin\r\nGraphs",
         "journal": "ipl",
         "volume": "27",
         "year": "1988",
@@ -15630,7 +15630,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Srabani Sen Gupta and Bhabani P. Sinha",
-        "title": "A simple $O(\\log N)$ time parallel algorithm for testing\r\nisomorphism of maximal outerplanar graphs",
+        "title": "A simple $O(łog N)$ time parallel algorithm for testing\r\nisomorphism of maximal outerplanar graphs",
         "journal": "jpdc",
         "volume": "56",
         "year": "1999",
@@ -16186,7 +16186,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Torben Hagerup",
-        "title": "Planar Depth-First Search in $O(\\log n)$ Parallel Time",
+        "title": "Planar Depth-First Search in $O(łog n)$ Parallel Time",
         "journal": "siamjc",
         "volume": "19",
         "pages": "678-704",
@@ -16284,7 +16284,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Yijie Han",
-        "title": "A note of an $O(n^3 / \\log n)$ time algorithm for all pairs shortest paths",
+        "title": "A note of an $O(n^3 / łog n)$ time algorithm for all pairs shortest paths",
         "journal": "ipl",
         "volume": "105",
         "year": "2008",
@@ -27234,7 +27234,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Y. Shiloach and U. Vishkin",
-        "title": "An $O(n \\log n )$ parallel connectivity algorithm",
+        "title": "An $O(n łog n )$ parallel connectivity algorithm",
         "journal": "ja",
         "year": "1982",
         "pages": "57-67"
@@ -27522,7 +27522,7 @@
       "Warnings": [],
       "Fields": {
         "author": "A. P. Sprague",
-        "title": "An $O(n \\log n)$ algorithm for the bandwidth of interval graphs",
+        "title": "An $O(n łog n)$ algorithm for the bandwidth of interval graphs",
         "journal": "sjdm",
         "volume": "7",
         "year": "1994",

@@ -53,29 +53,29 @@ namespace Utilities.PDF.MuPDF
         /// </summary>
         public List<string> errors = new List<string>();
         /// <summary>
-        /// the data as produced by `mutool multipurp`
+        /// the data as produced by `mutool metadump`
         /// </summary>
-        public string raw_multipurp_text = null;
+        public string raw_metadump_text = null;
         /// <summary>
-        /// the `mutool multipurp` data, as decoded by the JSON parser a.k.a. deserializer
+        /// the `mutool metadump` data, as decoded by the JSON parser a.k.a. deserializer
         /// </summary>
         public List<MultiPurpDocumentInfoObject> raw_decoded_json = new List<MultiPurpDocumentInfoObject>();
 
         /// <summary>
         /// Erase the raw content to help save heap space.
         ///
-        /// This will nuke the `raw_multipurp_text` and `raw_decoded_json` members.
+        /// This will nuke the `raw_metadump_text` and `raw_decoded_json` members.
         /// This will also *clear* the `errors` list.
         /// </summary>
         public void ClearRawContent()
         {
             errors.Clear();
-            raw_multipurp_text = null;
+            raw_metadump_text = null;
             raw_decoded_json = null;
         }
     }
 
-    // MuPDF mutool multipurp JSON output classes ------------------------------------------------------------------------------------------------------------------------------------------------
+    // MuPDF mutool metadump JSON output classes ------------------------------------------------------------------------------------------------------------------------------------------------
 
     public class MultiPurpGatheredErrors
     {
@@ -322,7 +322,7 @@ namespace Utilities.PDF.MuPDF
         public MultiPurpDocumentGeneralInfo DocumentGeneralInfo;
         public MultiPurpGatheredErrors GatheredErrors;
 
-        // and when we have a severe failure in multipurp, a second 'crash record' may be output carrying these fields:
+        // and when we have a severe failure in metadump, a second 'crash record' may be output carrying these fields:
         public string Type;
         public string FailureMessage;
     }
@@ -472,7 +472,7 @@ namespace Utilities.PDF.MuPDF
                 date_str = date_str.Replace("D:", "");
 
             // now there's a couple formats we've seen out there, next to our own 
-            // multipurp "D:%Y%m%d%H%M%SZ" strftime() and "D:%Y-%m-%d %H:%M:%S UTC" fz_printf("%T") outputs:
+            // metadump "D:%Y%m%d%H%M%SZ" strftime() and "D:%Y-%m-%d %H:%M:%S UTC" fz_printf("%T") outputs:
             // "D:%Y%m%d%H%M%S[-+]TZ'TZ'" for timezoned timestamps, e.g. "D:20120208094057-08'00'" or "D:20090612163852+02'00'"
             DateTime t;
 
@@ -501,7 +501,7 @@ namespace Utilities.PDF.MuPDF
         {
             PDFDocumentMuPDFMetaInfo rv = new PDFDocumentMuPDFMetaInfo();
 
-            rv.raw_multipurp_text = json;
+            rv.raw_metadump_text = json;
 
             rv.raw_decoded_json = JsonConvert.DeserializeObject<List<MultiPurpDocumentInfoObject>>(json,
                 new JsonSerializerSettings
@@ -623,7 +623,7 @@ namespace Utilities.PDF.MuPDF
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             string process_parameters = String.Format(
-                $"multipurp -m 1 -o -"
+                $"metadump -m 1 -o -"
                 + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
                 + " " + '"' + pdf_filename + '"'
                 );
@@ -631,7 +631,7 @@ namespace Utilities.PDF.MuPDF
             string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mutool.exe"));
             if (!File.Exists(exe))
             {
-                throw new Exception($"PDF metadata gathering: missing modern MuPDF 'mudraw.exe': it does not exist in the expected path: '{exe}'");
+                throw new Exception($"PDF metadata gathering: missing modern MuPDF 'mutool': it does not exist in the expected path: '{exe}'");
             }
             if (!File.Exists(pdf_filename))
             {

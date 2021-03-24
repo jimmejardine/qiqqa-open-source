@@ -1,0 +1,234 @@
+﻿{
+  "info": {
+    "PageCount": 1,
+    "PDFVersion": "PDF-1.7",
+    "Chapters": 0,
+    "ChapterPages": null,
+    "Title": "TCPDF Example 016",
+    "Author": "Nicola Asuni",
+    "Format": "PDF 1.7",
+    "Encryption": "Standard V1 R2 40-bit RC4",
+    "PDFCreator": "TCPDF",
+    "PDFProducer": "TCPDF 6.2.11 (http://www.tcpdf.org)",
+    "Subject": "TCPDF Tutorial",
+    "Keywords": "TCPDF, PDF, example, test, guide",
+    "Creation_Date": "2015-08-02T12:22:15Z",
+    "Modification_Date": "2015-08-02T12:22:15Z",
+    "Permissions": "edit, annotate",
+    "PDFStatus": "PDF document with 1 update.",
+    "DocumentUpdateCount": 1,
+    "ChangeHistoryValidation": "Change history seems valid.",
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": "Document changes conform to permissions",
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": true,
+    "HasDocumentOutlines": false,
+    "AttachedFilesCount": 0,
+    "EmbeddedJavaScriptFilesCount": 0,
+    "DocumentIsCorrupted": true,
+    "errors": [
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[0].Images[0].ImageFilter', line 73, position 22."
+    ],
+    "raw_metadump_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\tcpdf\\example_016.bad.XML-metadata-SHOULD-have-been-crypted.pdf",
+      "GlobalInfo": {
+        "Version": "PDF-1.7",
+        "Info": {
+          "Title": "TCPDF Example 016",
+          "Author": "Nicola Asuni",
+          "Subject": "TCPDF Tutorial",
+          "Keywords": "TCPDF, PDF, example, test, guide",
+          "Creator": "TCPDF",
+          "Producer": "TCPDF 6.2.11 (http://www.tcpdf.org)",
+          "CreationDate": "D:20150802122215+00'00'",
+          "ModDate": "D:20150802122215+00'00'",
+          "Trapped": "False"
+        },
+        "Encryption": {
+          "Filter": "Standard",
+          "V": 1,
+          "Length": 40,
+          "R": 2,
+          "O": "EC C1 B2 78 4B B9 5F 99 75 2F 1E 46 7F BC 90 FD 81 F4 D0 C7 A4 9E BF 13 2A B4 AA 13 04 51 AC 99",
+          "U": "83 1E B6 77 03 E4 7F BA 78 71 7C 71 71 D0 53 A7 84 CD A3 A8 93 FB 6B E6 08 E9 C9 84 51 BF AB 44",
+          "P": 2147421992,
+          "EncryptMetadata": true
+        },
+        "Metadata": {
+          "type": "stream",
+          "raw_data": "(error: data dump is restricted due to size)",
+          "__MuPDFRestrictedXMLDisplay__": true
+        },
+        "Pages": 1,
+        "Chapters": 1,
+        "AttachedFiles": {}
+      },
+      "FirstPage": 1,
+      "LastPage": 1,
+      "PageInfo": [
+        {
+          "PageNumber": 1,
+          "Mediaboxes": [
+            {
+              "Page": 1,
+              "Bounds": [
+                0,
+                0,
+                595.276,
+                841.89
+              ]
+            }
+          ],
+          "FontsCount": 3,
+          "Fonts": [
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "Helvetica",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "Times-Roman",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "Helvetica-Bold",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 1,
+              "ImageFilter": "DCT",
+              "ImageWidth": 354,
+              "ImageHeight": 118,
+              "ImageDimensions": {
+                "W": 354,
+                "H": 118
+              },
+              "ImageBPC": 8,
+              "ImageCS": "DevRGB",
+              "ImageColorSpace": "DeviceRGB"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            595.276,
+            841.89
+          ],
+          "LinksInPage": [
+            {
+              "LinkType": "External",
+              "Url": "http://www.tcpdf.org",
+              "LinkBounds": [
+                2.835,
+                839.734,
+                19.005,
+                840.89
+              ]
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        }
+      ],
+      "DocumentGeneralInfo": {
+        "Title": "TCPDF Example 016",
+        "Author": "Nicola Asuni",
+        "Format": "PDF 1.7",
+        "Encryption": "Standard V1 R2 40-bit RC4",
+        "PDF_Creator": "TCPDF",
+        "PDF_Producer": "TCPDF 6.2.11 (http://www.tcpdf.org)",
+        "Subject": "TCPDF Tutorial",
+        "Keywords": "TCPDF, PDF, example, test, guide",
+        "Creation_Date": "D:20150802122215+00'00'",
+        "Modification_Date": "D:20150802122215+00'00'",
+        "MetaInfoDictionary": {
+          "Title": "TCPDF Example 016",
+          "Author": "Nicola Asuni",
+          "Subject": "TCPDF Tutorial",
+          "Keywords": "TCPDF, PDF, example, test, guide",
+          "Creator": "TCPDF",
+          "Producer": "TCPDF 6.2.11 (http://www.tcpdf.org)",
+          "CreationDate": "D:20150802122215+00'00'",
+          "ModDate": "D:20150802122215+00'00'",
+          "Trapped": "False"
+        },
+        "Permissions": "edit, annotate",
+        "Status": "PDF document with 1 update.",
+        "DocWasLinearized": false,
+        "DocumentUpdateCount": 1,
+        "ChangeHistoryValidation": "Change history seems valid.",
+        "UpdatesStatus": "Document changes conform to permissions",
+        "WasRepaired": false,
+        "NeedsPassword": false,
+        "WasCryptedWithEmptyPassword": true
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 10,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "0",
+        "OverprintingModes": "0",
+        "BlendModes": "1",
+        "ContentBoundsSmallest": "(empty)",
+        "ContentBoundsLargest": [
+          0,
+          0,
+          595.276,
+          841.89
+        ],
+        "LayerNamesCount": 0,
+        "FillPathCount": 0,
+        "StrokePathCount": 2,
+        "ClipPathCount": 1,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 6,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 1,
+        "FillShadeCount": 0,
+        "FillImageCount": 1,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 0,
+        "ClipCount": 1,
+        "ClipDepth": 1,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 1,
+        "GroupDepth": 1,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 1,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 1,
+        "LayerCount": 0,
+        "LayerDepth": 0,
+        "StackDepth": 1,
+        "GreyColorspaceCount": 3,
+        "RgbColorspaceCount": 8,
+        "CmykColorspaceCount": 1,
+        "IndexedColorspaceCount": 1,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 1
+      }
+    }
+  ]
+}

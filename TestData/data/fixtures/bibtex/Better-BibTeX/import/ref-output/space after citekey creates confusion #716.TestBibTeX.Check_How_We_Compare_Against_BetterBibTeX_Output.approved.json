@@ -1,0 +1,25 @@
+﻿{
+  "Items": [
+    {
+      "Type": "Article",
+      "Key": "HoSp-87",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "author": "Hoffmann",
+        "title": "Phase transitions"
+      }
+    },
+    {
+      "Type": "Book",
+      "Key": "HoSp-90",
+      "Exceptions": [],
+      "Warnings": [],
+      "Fields": {
+        "editor": "Sprekels",
+        "title": "Free Boundary Problems"
+      }
+    }
+  ],
+  "Comments": []
+}

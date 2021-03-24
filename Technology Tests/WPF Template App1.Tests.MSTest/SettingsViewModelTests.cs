@@ -50,7 +50,7 @@ namespace WPF_Template_App1.Tests.MSTest
             var settingsVm = new SettingsViewModel(mockAppConfig.Object, mockThemeSelectorService.Object, mockSystemService.Object, mockApplicationInfoService.Object, mockUserDataService.Object, mockIdentityService.Object);
             settingsVm.OnNavigatedTo(null);
 
-            Assert.AreEqual($"WPF_Template_App1 - {testVersion}", settingsVm.VersionDescription);
+            Assert.AreEqual($"WPF Template App1 - {testVersion}", settingsVm.VersionDescription);
         }
 
         [TestMethod]

@@ -130,10 +130,10 @@ namespace QiqqaUnitTester.PDFDocument
             PDFDocumentMuPDFMetaInfo info = MuPDFRenderer.GetDocumentMetaInfo(pdf_filename, null, ProcessPriorityClass.Normal);
             ASSERT.AreEqual<int>(8, info.PageCount);
             ASSERT.AreEqual<bool>(false, info.DocumentIsCorrupted);
-            ASSERT.IsLessOrEqual(10000, info.raw_multipurp_text.Length);
+            ASSERT.IsLessOrEqual(10000, info.raw_metadump_text.Length);
             TestJSONoutputIsCorrectForPDFdoc1(info.raw_decoded_json);
 
-            object json_doc = JsonConvert.DeserializeObject(info.raw_multipurp_text);
+            object json_doc = JsonConvert.DeserializeObject(info.raw_metadump_text);
             string json_text = JsonConvert.SerializeObject(json_doc, Formatting.Indented).Replace("\r\n", "\n");
 
             // Perform comparison via ApprovalTests->BeyondCompare (that's what I use for *decades* now)
@@ -144,7 +144,7 @@ namespace QiqqaUnitTester.PDFDocument
             );
 
             info.ClearRawContent();
-            ASSERT.IsNull(info.raw_multipurp_text);
+            ASSERT.IsNull(info.raw_metadump_text);
             ASSERT.IsNull(info.raw_decoded_json);
         }
 
@@ -157,10 +157,10 @@ namespace QiqqaUnitTester.PDFDocument
 
         internal string ProduceJSONtext4Comparison(PDFDocumentMuPDFMetaInfo info)
         {
-            string raw_text = info.raw_multipurp_text;
+            string raw_text = info.raw_metadump_text;
 
             info.raw_decoded_json = null;
-            info.raw_multipurp_text = null;
+            info.raw_metadump_text = null;
 
             PDFDocumentMuPDFMetaInfoEx4Test data = new PDFDocumentMuPDFMetaInfoEx4Test();
             data.info = info;
@@ -273,7 +273,7 @@ namespace QiqqaUnitTester.PDFDocument
             // MAYBE that will improve our load/deserialize timings significantly for huge JSON streams (such as the one
             // produced by html-standard.pdf, currently clocking at about ~50MByte!)
             //
-            // [Edit:] turns out the most time is spent in multipurp itself in `pdf_load_page()` which is
+            // [Edit:] turns out the most time is spent in metadump itself in `pdf_load_page()` which is
             // used to obtain the more advanced metadata bits (annotations and such).
             //
             // ... Now how about performance when we wish to only dig out the PageCount from an already

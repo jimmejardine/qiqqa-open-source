@@ -1,0 +1,241 @@
+﻿{
+  "info": {
+    "PageCount": 1,
+    "PDFVersion": "PDF-1.7",
+    "Chapters": 0,
+    "ChapterPages": null,
+    "Title": null,
+    "Author": "Brad Gashler",
+    "Format": "PDF 1.7",
+    "Encryption": null,
+    "PDFCreator": "Microsoft® Word for Office 365",
+    "PDFProducer": "Microsoft® Word for Office 365",
+    "Subject": null,
+    "Keywords": null,
+    "Creation_Date": "2019-06-05T04:39:42Z",
+    "Modification_Date": "2019-06-05T04:39:42Z",
+    "Permissions": "print, copy, edit, annotate",
+    "PDFStatus": "PDF document with 2 updates.",
+    "DocumentUpdateCount": 2,
+    "ChangeHistoryValidation": "Change history seems valid.",
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": "Document changes conform to permissions",
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": false,
+    "HasDocumentOutlines": false,
+    "AttachedFilesCount": 0,
+    "EmbeddedJavaScriptFilesCount": 0,
+    "DocumentIsCorrupted": true,
+    "errors": [
+      "Error converting value \"Flate\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[0].Images[0].ImageFilter', line 80, position 24."
+    ],
+    "raw_metadump_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\encrypted-with-known-passwords\\keyboard-shortcuts-windows-not-encrypted.pdf",
+      "GlobalInfo": {
+        "Version": "PDF-1.7",
+        "Info": {
+          "Author": "Brad Gashler",
+          "Creator": "Microsoft® Word for Office 365",
+          "CreationDate": "D:20190604213942-07'00'",
+          "ModDate": "D:20190604213942-07'00'",
+          "Producer": "Microsoft® Word for Office 365"
+        },
+        "Metadata": {
+          "type": "stream",
+          "raw_data": "(error: data dump is restricted due to size)",
+          "__MuPDFRestrictedXMLDisplay__": true
+        },
+        "Pages": 1,
+        "Chapters": 1
+      },
+      "FirstPage": 1,
+      "LastPage": 1,
+      "PageInfo": [
+        {
+          "PageNumber": 1,
+          "Mediaboxes": [
+            {
+              "Page": 1,
+              "Bounds": [
+                0,
+                0,
+                792,
+                612
+              ]
+            }
+          ],
+          "FontsCount": 7,
+          "Fonts": [
+            {
+              "Page": 1,
+              "FontType": "TrueType",
+              "FontName": "BCDEEE+Calibri",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "TrueType",
+              "FontName": "BCDFEE+SegoeUI-Semibold",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "TrueType",
+              "FontName": "BCDGEE+SegoeUI",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type0",
+              "FontName": "BCDHEE+SegoeUI",
+              "FontEncoding": "Identity-H"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type0",
+              "FontName": "BCDIEE+SegoeUI-Semibold",
+              "FontEncoding": "Identity-H"
+            },
+            {
+              "Page": 1,
+              "FontType": "TrueType",
+              "FontName": "BCDJEE+SegoeUI-Light",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type0",
+              "FontName": "BCDKEE+Calibri",
+              "FontEncoding": "Identity-H"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 1,
+              "ImageFilter": "Flate",
+              "ImageWidth": 669,
+              "ImageHeight": 100,
+              "ImageDimensions": {
+                "W": 669,
+                "H": 100
+              },
+              "ImageBPC": 8,
+              "ImageCS": "DevRGB",
+              "ImageColorSpace": "DeviceRGB"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            792,
+            612
+          ],
+          "LinksInPage": [
+            {
+              "LinkType": "External",
+              "Url": "http://aka.ms/vscodekeybindings",
+              "LinkBounds": [
+                651.6,
+                584.111,
+                743.17,
+                602.6501
+              ]
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        }
+      ],
+      "DocumentGeneralInfo": {
+        "Author": "Brad Gashler",
+        "Format": "PDF 1.7",
+        "Encryption": "None",
+        "PDF_Creator": "Microsoft® Word for Office 365",
+        "PDF_Producer": "Microsoft® Word for Office 365",
+        "Creation_Date": "D:20190604213942-07'00'",
+        "Modification_Date": "D:20190604213942-07'00'",
+        "MetaInfoDictionary": {
+          "Author": "Brad Gashler",
+          "Creator": "Microsoft® Word for Office 365",
+          "CreationDate": "D:20190604213942-07'00'",
+          "ModDate": "D:20190604213942-07'00'",
+          "Producer": "Microsoft® Word for Office 365"
+        },
+        "Permissions": "print, copy, edit, annotate",
+        "Status": "PDF document with 2 updates.",
+        "DocWasLinearized": false,
+        "DocumentUpdateCount": 2,
+        "ChangeHistoryValidation": "Change history seems valid.",
+        "UpdatesStatus": "Document changes conform to permissions",
+        "WasRepaired": false,
+        "NeedsPassword": false,
+        "WasCryptedWithEmptyPassword": false
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 1218,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "0",
+        "OverprintingModes": "0",
+        "BlendModes": "1",
+        "ContentBoundsSmallest": "(empty)",
+        "ContentBoundsLargest": [
+          0,
+          0,
+          792,
+          612
+        ],
+        "LayerNamesCount": 3,
+        "LayerNames": [
+          "P",
+          "Artifact",
+          "Span"
+        ],
+        "FillPathCount": 517,
+        "StrokePathCount": 0,
+        "ClipPathCount": 955,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 699,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 0,
+        "FillShadeCount": 0,
+        "FillImageCount": 1,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 0,
+        "ClipCount": 955,
+        "ClipDepth": 2,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 1,
+        "GroupDepth": 1,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 1,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 1,
+        "LayerCount": 638,
+        "LayerDepth": 1,
+        "StackDepth": 2,
+        "GreyColorspaceCount": 1215,
+        "RgbColorspaceCount": 4,
+        "CmykColorspaceCount": 1,
+        "IndexedColorspaceCount": 1,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 1
+      }
+    }
+  ]
+}

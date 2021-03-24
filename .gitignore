@@ -51,3 +51,4 @@ Release*/
 
 *.log
 *.diagsession
+/Technology Tests/TypeScript VueJS App/dist

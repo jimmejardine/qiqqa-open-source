@@ -28,12 +28,12 @@
     "EmbeddedJavaScriptFilesCount": 0,
     "DocumentIsCorrupted": false,
     "errors": [],
-    "raw_multipurp_text": null,
+    "raw_metadump_text": null,
     "raw_decoded_json": null
   },
   "complete_json_doc": [
     {
-      "DocumentFilePath": "W:\\Projects\\sites\\library.visyond.gov\\80\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\btxdoc.pdf",
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\btxdoc.pdf",
       "GlobalInfo": {
         "Version": "PDF-1.5",
         "Info": {
@@ -45,8 +45,7 @@
           "PTEX.Fullbanner": "This is pdfTeX, Version 3.1415926-1.40.11-2.2 (TeX Live 2010) kpathsea version 6.0.0"
         },
         "Pages": 16,
-        "Chapters": 1,
-        "DocumentOutlines": []
+        "Chapters": 1
       },
       "FirstPage": 1,
       "LastPage": 16,
@@ -64,6 +63,7 @@
               ]
             }
           ],
+          "FontsCount": 7,
           "Fonts": [
             {
               "Page": 1,
@@ -113,7 +113,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 2,
@@ -128,6 +131,7 @@
               ]
             }
           ],
+          "FontsCount": 5,
           "Fonts": [
             {
               "Page": 2,
@@ -165,7 +169,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 3,
@@ -180,6 +187,7 @@
               ]
             }
           ],
+          "FontsCount": 3,
           "Fonts": [
             {
               "Page": 3,
@@ -205,7 +213,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 4,
@@ -220,6 +231,7 @@
               ]
             }
           ],
+          "FontsCount": 4,
           "Fonts": [
             {
               "Page": 4,
@@ -251,7 +263,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 5,
@@ -266,6 +281,7 @@
               ]
             }
           ],
+          "FontsCount": 5,
           "Fonts": [
             {
               "Page": 5,
@@ -303,7 +319,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 6,
@@ -318,6 +337,7 @@
               ]
             }
           ],
+          "FontsCount": 4,
           "Fonts": [
             {
               "Page": 6,
@@ -349,7 +369,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 7,
@@ -364,6 +387,7 @@
               ]
             }
           ],
+          "FontsCount": 7,
           "Fonts": [
             {
               "Page": 7,
@@ -413,7 +437,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 8,
@@ -428,6 +455,7 @@
               ]
             }
           ],
+          "FontsCount": 5,
           "Fonts": [
             {
               "Page": 8,
@@ -465,7 +493,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 9,
@@ -480,6 +511,7 @@
               ]
             }
           ],
+          "FontsCount": 5,
           "Fonts": [
             {
               "Page": 9,
@@ -517,7 +549,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 10,
@@ -532,6 +567,7 @@
               ]
             }
           ],
+          "FontsCount": 5,
           "Fonts": [
             {
               "Page": 10,
@@ -569,7 +605,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 11,
@@ -584,6 +623,7 @@
               ]
             }
           ],
+          "FontsCount": 7,
           "Fonts": [
             {
               "Page": 11,
@@ -633,7 +673,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 12,
@@ -648,6 +691,7 @@
               ]
             }
           ],
+          "FontsCount": 5,
           "Fonts": [
             {
               "Page": 12,
@@ -685,7 +729,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 13,
@@ -700,6 +747,7 @@
               ]
             }
           ],
+          "FontsCount": 5,
           "Fonts": [
             {
               "Page": 13,
@@ -737,7 +785,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 14,
@@ -752,6 +803,7 @@
               ]
             }
           ],
+          "FontsCount": 4,
           "Fonts": [
             {
               "Page": 14,
@@ -783,7 +835,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 15,
@@ -798,6 +853,7 @@
               ]
             }
           ],
+          "FontsCount": 5,
           "Fonts": [
             {
               "Page": 15,
@@ -835,7 +891,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         },
         {
           "PageNumber": 16,
@@ -850,6 +909,7 @@
               ]
             }
           ],
+          "FontsCount": 6,
           "Fonts": [
             {
               "Page": 16,
@@ -893,7 +953,10 @@
             0,
             612,
             792
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         }
       ],
       "DocumentGeneralInfo": {
@@ -920,6 +983,64 @@
         "WasRepaired": false,
         "NeedsPassword": false,
         "WasCryptedWithEmptyPassword": false
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 16,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "0",
+        "OverprintingModes": "0",
+        "BlendModes": "0",
+        "ContentBoundsSmallest": [
+          146.3594,
+          174.8089,
+          479.23506,
+          690.6838
+        ],
+        "ContentBoundsLargest": [
+          0,
+          0,
+          479.99885,
+          690.90316
+        ],
+        "LayerNamesCount": 0,
+        "FillPathCount": 0,
+        "StrokePathCount": 0,
+        "ClipPathCount": 0,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 16,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 0,
+        "FillShadeCount": 0,
+        "FillImageCount": 0,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 0,
+        "ClipCount": 0,
+        "ClipDepth": 0,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 0,
+        "GroupDepth": 0,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 0,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 16,
+        "LayerCount": 0,
+        "LayerDepth": 0,
+        "StackDepth": 0,
+        "GreyColorspaceCount": 32,
+        "RgbColorspaceCount": 16,
+        "CmykColorspaceCount": 16,
+        "IndexedColorspaceCount": 16,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 16
       }
     }
   ]

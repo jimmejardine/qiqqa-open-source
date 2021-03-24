@@ -26,14 +26,16 @@
     "HasDocumentOutlines": false,
     "AttachedFilesCount": 1,
     "EmbeddedJavaScriptFilesCount": 1,
-    "DocumentIsCorrupted": false,
-    "errors": [],
-    "raw_multipurp_text": null,
+    "DocumentIsCorrupted": true,
+    "errors": [
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[0].Images[0].ImageFilter', line 121, position 22."
+    ],
+    "raw_metadump_text": null,
     "raw_decoded_json": null
   },
   "complete_json_doc": [
     {
-      "DocumentFilePath": "W:\\Projects\\sites\\library.visyond.gov\\80\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\attachment.formular.pdf",
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\attachment.formular.pdf",
       "GlobalInfo": {
         "Version": "PDF-1.7",
         "Info": {
@@ -45,12 +47,11 @@
         },
         "Metadata": {
           "type": "stream",
-          "raw_data": "<?xpacket begin=\"﻿\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>\n<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"Adobe XMP Core 4.0-c316 44.253921, Sun Oct 01 2006 17:14:39\">\n   <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n      <rdf:Description rdf:about=\"\"\n            xmlns:pdf=\"http://ns.adobe.com/pdf/1.3/\">\n         <pdf:Keywords/>\n         <pdf:Producer>Adobe Acrobat 8.1</pdf:Producer>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:xap=\"http://ns.adobe.com/xap/1.0/\">\n         <xap:ModifyDate>2009-06-12T16:38:52+02:00</xap:ModifyDate>\n         <xap:CreateDate>2006-07-06T17:50:33+02:00</xap:CreateDate>\n         <xap:MetadataDate>2009-06-12T16:38:52+02:00</xap:MetadataDate>\n         <xap:CreatorTool>Adobe Acrobat 8.1 Combine Files</xap:CreatorTool>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n         <dc:format>application/pdf</dc:format>\n      </rdf:Description>\n      <rdf:Description rdf:about=\"\"\n            xmlns:xapMM=\"http://ns.adobe.com/xap/1.0/mm/\">\n         <xapMM:DocumentID>uuid:3d3402c6-6ee3-49ef-9a5f-a9ac7513955f</xapMM:DocumentID>\n         <xapMM:InstanceID>uuid:a7750e65-88ad-4d14-a8f2-973b5f57fd75</xapMM:InstanceID>\n      </rdf:Description>\n   </rdf:RDF>\n</x:xmpmeta>\n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                                                                                                    \n                           \n<?xpacket end=\"w\"?>",
-          "parsed_data": "(xmpmeta\n=x:xmptk Adobe XMP Core 4.0-c316 44.253921, Sun Oct 01 2006 17:14:39\n=xmlns:x adobe:ns:meta/\n  (RDF\n  =xmlns:rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#\n    (Description\n    =xmlns:pdf http://ns.adobe.com/pdf/1.3/\n    =rdf:about \n      (Keywords\n      )Keywords\n      (Producer\n        \"Adobe Acrobat 8.1\"\n      )Producer\n    )Description\n    (Description\n    =xmlns:xap http://ns.adobe.com/xap/1.0/\n    =rdf:about \n      (ModifyDate\n        \"2009-06-12T16:38:52+02:00\"\n      )ModifyDate\n      (CreateDate\n        \"2006-07-06T17:50:33+02:00\"\n      )CreateDate\n      (MetadataDate\n        \"2009-06-12T16:38:52+02:00\"\n      )MetadataDate\n      (CreatorTool\n        \"Adobe Acrobat 8.1 Combine Files\"\n      )CreatorTool\n    )Description\n    (Description\n    =xmlns:dc http://purl.org/dc/elements/1.1/\n    =rdf:about \n      (format\n        \"application/pdf\"\n      )format\n    )Description\n    (Description\n    =xmlns:xapMM http://ns.adobe.com/xap/1.0/mm/\n    =rdf:about \n      (DocumentID\n        \"uuid:3d3402c6-6ee3-49ef-9a5f-a9ac7513955f\"\n      )DocumentID\n      (InstanceID\n        \"uuid:a7750e65-88ad-4d14-a8f2-973b5f57fd75\"\n      )InstanceID\n    )Description\n  )RDF\n)xmpmeta\n"
+          "raw_data": "(error: data dump is restricted due to size)",
+          "__MuPDFRestrictedXMLDisplay__": true
         },
         "Pages": 1,
         "Chapters": 1,
-        "DocumentOutlines": [],
         "AttachedFiles": {
           "JavaScript": {
             "Names": [
@@ -109,7 +110,14 @@
               }
             ]
           }
-        }
+        },
+        "EmbeddedJavaScripts": [
+          {
+            "JSFilePath": "Root/Names/JavaScript/Names/2/JS",
+            "JSScriptLength": 1443,
+            "JSScriptContent": "var v = app.viewerVersion;\nif (v < 7)\n{\n\tvar n = 0;\n\tif (this.dataObjects != null)\n\t\tn = this.dataObjects.length;\n\tif (v >= 5 && v < 6 && n > 0 && (app.viewerVariation == \"Full\" || app.viewerVariation == \"Fill-In\"))\n\t{\n\t\tif (this.external)\n\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen klicken Sie auf \"Speichern\", um eine Kopie des Dokuments zu speichern. Öffnen Sie die Kopie in Adobe Acrobat, und wählen Sie \"Datei\" > \"Dokumenteigenschaften\" > \"Eingebettete Datenobjekte\".\", 3, 0);\n\t\telse\n\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen wählen Sie \"Datei\" > \"Dokumenteigenschaften\" > \"Eingebettete Datenobjekte\".\", 3, 0);\n\t}\n\telse if (v >= 6 && v < 7)\n\t{\n\t\tif (n == 0)\n\t\t{\n\t\t\tvar np = this.numPages;\n\t\t\tsyncAnnotScan();\n\t\t\tfor (var p = 0; p < np && n == 0; ++p)\n\t\t\t{\n\t\t\t\tvar annots = this.getAnnots(p);\n\t\t\t\tif (annots != null)\n\t\t\t\t{\n\t\t\t\t\tfor (var i = 0; i < annots.length; ++i)\n\t\t\t\t\t{\n\t\t\t\t\t\tif (annots[i].type == \"FileAttachment\")\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tn = 1;\n\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif (n > 0)\n\t\t{\n\t\t\tif (this.external)\n\t\t\t\tapp.alert(\"Dieses Dokument hat  Dateianlagen. Zum Anzeigen der Anlagen klicken Sie oben in der vertikalen Bildlaufleiste des Dokumentfensters auf das schwarze Dreieck und wählen \"Dateianlagen\".\", 3, 0);\n\t\t\telse\n\t\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen wählen Sie \"Dokument\" > \"Dateianlagen\".\", 3, 0);\n\t\t}\n\t}\n}\n"
+          }
+        ]
       },
       "FirstPage": 1,
       "LastPage": 1,
@@ -127,6 +135,7 @@
               ]
             }
           ],
+          "FontsCount": 3,
           "Fonts": [
             {
               "Page": 1,
@@ -147,12 +156,11 @@
               "FontEncoding": "WinAnsiEncoding"
             }
           ],
+          "ImagesCount": 1,
           "Images": [
             {
               "Page": 1,
-              "ImageFilter": {
-                "Filter": "DCT"
-              },
+              "ImageFilter": "DCT",
               "ImageWidth": 576,
               "ImageHeight": 360,
               "ImageDimensions": {
@@ -161,21 +169,7 @@
               },
               "ImageBPC": 8,
               "ImageCS": "DevGray",
-              "Image": {
-                "type": "stream",
-                "raw_data": {
-                  "Intent": "RelativeColorimetric",
-                  "Subtype": "Image",
-                  "Length": 3388,
-                  "Filter": "DCTDecode",
-                  "Name": "X",
-                  "BitsPerComponent": 8,
-                  "ColorSpace": "DeviceGray",
-                  "Width": 576,
-                  "Height": 360,
-                  "Type": "XObject"
-                }
-              }
+              "ImageColorSpace": "DeviceGray"
             }
           ],
           "PageBounds": [
@@ -205,7 +199,10 @@
                 269.387
               ]
             }
-          ]
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
         }
       ],
       "DocumentGeneralInfo": {
@@ -232,6 +229,64 @@
         "WasRepaired": false,
         "NeedsPassword": false,
         "WasCryptedWithEmptyPassword": false
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 24,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "1",
+        "OverprintingModes": "1",
+        "BlendModes": "0",
+        "ContentBoundsSmallest": "(empty)",
+        "ContentBoundsLargest": [
+          0,
+          0,
+          576,
+          360
+        ],
+        "LayerNamesCount": 3,
+        "LayerNames": [
+          "Figure",
+          "PlacedGraphic",
+          "Span"
+        ],
+        "FillPathCount": 1,
+        "StrokePathCount": 4,
+        "ClipPathCount": 3,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 18,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 0,
+        "FillShadeCount": 0,
+        "FillImageCount": 1,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 0,
+        "ClipCount": 3,
+        "ClipDepth": 3,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 0,
+        "GroupDepth": 0,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 0,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 1,
+        "LayerCount": 20,
+        "LayerDepth": 2,
+        "StackDepth": 3,
+        "GreyColorspaceCount": 1,
+        "RgbColorspaceCount": 1,
+        "CmykColorspaceCount": 1,
+        "IndexedColorspaceCount": 24,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 24
       }
     }
   ]
