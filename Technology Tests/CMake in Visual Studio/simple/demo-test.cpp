@@ -1,7 +1,7 @@
 ﻿// Can We Talk - Node B.cpp : Defines the entry point for the application.
 //
 
-#include "Can We Talk - Node B.h"
+#include "demo-test.h"
 
 using namespace std;
 
