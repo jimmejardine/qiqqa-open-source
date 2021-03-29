@@ -31,4 +31,16 @@ Check the source code.
 
 
 
+-—
+
+## \[Update 2021/03/29]
+
+This whole "page count" and "rendering (semi-)crypted PDFs" hassle is now tackled by the MuPDF toolset (`mutool metadump` and `mutool draw`, mostly), yet text extraction + OCR through that toolchain (via `mutool draw`) is still under development, as the old `mudraw -tt` output from way back when isn't available with the new tools and we reconsider what is best to use from now on as this should (*possibly*) also help fix several mark&select issues when working with PDFs in Qiqqa: the (*hidden*) text overlay is often flawed and the new text extract process isn't powerful enough to attack these issues as it is, either. 
+To be continued…
+
+Anyway, the `qpdf` tool won't bee needed any longer, as current `mutool draw` et al can deliver the same (or better) results, while `mutool metadump` delivers all the available metadata and then some!
+
+
+
+
 

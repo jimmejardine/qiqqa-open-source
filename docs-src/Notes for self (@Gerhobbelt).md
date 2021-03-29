@@ -1,4 +1,4 @@
-﻿
+
 # Notes for self ([@Gerhobbelt](https://github.com/GerHobbelt))
 
 - This whole bunch is "written while thinking" and therefor, ["*LEADERSHIP LAB: The Craft of Writing Effectively*"](https://www.youtube.com/watch?v=vtIzMaLkCaM) applies in full force. I know. It still happens.   :-(    Need to **reorg & rewrite**.

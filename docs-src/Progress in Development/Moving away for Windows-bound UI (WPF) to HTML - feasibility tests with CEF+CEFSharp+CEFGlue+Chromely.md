@@ -1,15 +1,15 @@
-# Moving away for Windows-bound UI (WPF) to HTML :: feasibility tests with CEF / CEFSharp / CEFGlue / Chromely
+# Moving away for Windows-bound UI (WPF) to HTML :: feasibility tests with [CEF](https://bitbucket.org/chromiumembedded/cef/src/master/) / [CEFSharp](https://cefsharp.github.io/) / [CEFGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) / [Chromely](https://chromely.net/) / [WebView2](https://docs.microsoft.com/en-us/microsoft-edge/webview2/)
 
 As stated elsewhere in these documents, several major components must be migrated to allow Qiqqa to become cross-platform portable software (or at least approach that goal, so that the maintenance effort is manageable for such a multi-platform app).
 
-One of the troublesome areas is the UI framework used: WPF. Microsoft's WPF is not available outside Windows (though a derivative/approximation of it allegedly is: Avalonia).
+One of the troublesome areas is the UI framework used: WPF. Microsoft's WPF is not available outside Windows (though a derivative/approximation of it allegedly is: [Avalonia](http://avaloniaui.net/)).
 
 As noted elsewhere, various tech solutions have been considered and the one with the best prospects of longevity is migrating to HTML/CSS, i.e. ultimately discarding the WPF code entirely.
 
-While this surely will smell like "Second System Syndrome" to some (it does to *me*), here are the considerations:
+While this surely will smell like "[Second System Syndrome](https://en.wikipedia.org/wiki/Second-system_effect)" to some (it does to *me*), here are the considerations:
 
 - do I want to ditch the C# code completely? No, not necessarily. Quite a bit of it can and will be done elsewhere, but I like C# at least for the "business layer", i.e. the glue logic. 
-- Heavy processing should be done in C/C++ (and that stuff is moving into the mupdf-derivative/clone).
+- Heavy processing should be done in C/C++ (and that stuff is moving into the [mupdf-derivative/clone](https://github.com/GerHobbelt/mupdf)).
 - most of the UI X-plat stuff out there is either fresh, new, young and not surviving for long. Or rather: when you pick one, how do you know you're betting on the horse that will still be running great in 5-10 years time? Microsoft is cycling through ideas almost as quickly as Google (labs), when it comes to UI frameworks. Besides, most of the new stuff is way too focused on "mobile", i.e. sample POS style applications, not the more complex desktop applications.
 - then there's the *Fun Factor*: what do I like? (As right now I'm still the main dev for all this, so personal motivation is an issue. When others join in, these preferences must be mixed with theirs.
   - UWP? not for complex desktop applications. 
@@ -22,7 +22,7 @@ While this surely will smell like "Second System Syndrome" to some (it does to *
   - electron.NET: that's electron + ASP.NET: no fun as I would be moving from WPF to ASP.NET. Motivation.
   - Chromely: viable as it's CEF plus C# backend. We'll have a look at this one (see below)
 
-## Having a look at Chromely :: feasibility for Qiqqa (and a few words about electron et al)
+## Having a look at Chromely :: feasibility for Qiqqa (and a few words about [electron](https://www.electronjs.org/) et al)
 
 As mentioned elsewhere, I still don't see Chromely as having enough "installed base" / "momentum" to jump the longevity barrier, but it's close.
 
@@ -30,23 +30,23 @@ So the question then becomes: when the shit hits the fan, how well will I be abl
 
 This is \[one of the reasons] why I always want source code level access to my libraries.
 
-### Chromely and the others: electron, NW.js, ...
+### Chromely and the others: [electron](https://www.electronjs.org/), [NW.js](https://nwjs.io/), ...
 
-While I was considering Chromely, I also looked at electron et al. Only later did I reconsider NW.js as possibly more viable, when I found out that electron basically is a webbrowser with a webserver (nodejs) jammed together in a single package, when I started looking at the answers they provide for this question:
+While I was considering Chromely, I also looked at electron et al. Only later did I reconsider [NW.js](https://nwjs.io/) as possibly more viable, when I found out that [electron](https://www.electronjs.org/) basically is a webbrowser with a ([NodeJS](https://nodejs.org/en/)) webserver jammed together in a single package, when I started looking at the answers they provide for this question:
 
-**How doees the "backend layer" communicate with the "frontend layer" (i.e. CEF i.e. Chromium browser core)?**
+**How does the "backend layer" communicate with the "frontend layer" (i.e. CEF i.e. Chromium browser core)?**
 
-- electron does this via PostMessage and a few other means, all of which are socket-based IPC on the local machine. Nice, but not the fastest possible means. As some describe it: electron is nodeJS kicking up a browser and talking to it (as a webserver).
+- electron does this via [PostMessage](https://github.com/electron/electron/blob/master/docs/api/web-contents.md#user-content-contentssendchannel-args) and a few other means, all of which are socket-based IPC on the local machine. Nice, but not the fastest possible means. As some describe it: [electron is nodeJS kicking up a browser and talking to it](https://hackernoon.com/why-i-prefer-nw-js-over-electron-2018-comparison-e60b7289752) (as a webserver).
 
-  I don't need or want to that using JavaScript (TypeScript) for the backend layer i.e. "business logic": I'm fine with using C# for that and if I don't want to do a 100% rewrite of Qiqqa at once, then that extra NodeJS layer will only be sitting there, hogging space and time between my own C# "server code" and the frontend I'm trying to reach: CEF/Chromium.
+  I don't need or want to use JavaScript (TypeScript) for the backend layer i.e. "business logic": I'm fine with using C# for that and if I don't want to do a 100% rewrite of Qiqqa at once, then that extra NodeJS layer will only be sitting there, hogging space and time between my own C# "server code" and the frontend I'm trying to reach: CEF/Chromium.
   
-- NW.js popped up as a possibly better candidate then as it's the other way around: Chromium (frontend) calling a backend JavaScript layer, which is more tighly integrated: not a "web server" per se.
+- NW.js popped up as a possibly better candidate then as it's the other way around: Chromium (frontend) calling a backend JavaScript layer, which is more tightly integrated: not a "web server" per se.
 
-  However, it shares the same "total Qiqqa rewrite" concern with electron. (Of course, moving to anything but WPF and given the quite interwoven/entangled state of the current code, one might wonder how close to a "total rewrite" *any sort of UI migration* would be. The frank answer? Pretty close.
+  However, it shares the same "total Qiqqa rewrite" concern with electron. (Of course, moving to anything but WPF and given the quite interwoven/entangled state of the current code, one might wonder how close to a "total rewrite" *any sort of UI migration* would be. The frank answer? *Pretty close.*
   
 - Chromely was, after initial rejection due to "lack of momentum", reconsidered as electron turned out to be too "hoggy" to my taste and I'd rather keep the C# business layer (or whatever will be left of it when the dust has settled).
 
-  Chromely is electron, but now with Chromium as frontend and a .NET layer as backend. The communications, again, are mostly socket-based IPC again, so no difference there in terms of potential performance.
+  Chromely fundamentally is electron, but now with Chromium as frontend and a .NET layer as backend. The communications, again, are mostly socket-based IPC again, so no difference there in terms of potential performance.
   
   So far, it's the best candidate for migrating the Qiqqa codebase as I can do the UI in HTML/CSS and keep the business logic in C# as much as I want.
   
@@ -60,9 +60,15 @@ Also I **do not** want to be restricted to **releases only** as that nukes my ab
 
 So I took Chromely for a spin and wanted it to build from source in one go, as much as possible.
 
-That ook about 2 days (1.5 to be precise) until I can to the conclusion that **somewhere** in there is something nasty that I don't see and is making this process **extremely brittle**. (This is **non-conventional** use: I do not use the packages, but the source code straight away, bundling it in ways so that I can debug into and through all the layers. The only compromise I was willing to accept was having CEF itself in binary DLL form only. The rest must be buildable and debuggable from source as one compound build.
+That took about 2 days (1.5 to be precise) until I came to the conclusion that **somewhere** in there something nasty lurks that I don't see and is making this process **extremely brittle**. Be aware this is **non-conventional** use: I do not use the packages, but the source code straight away, bundling it in ways so that I can debug into and through all the layers. The only compromise I was willing to accept was having CEF itself in binary DLL form only. The rest must be buildable and debuggable from source as one compound build.
 
-Suffice to say that didn't fly. I got *close*, but there was always *something* breaking the result when I started fiddling with it, which makes this stuff pretty brittle from my perspective. (And **I know** I'll have to fiddle with CEF quite a bit for **one of the most important Qiqqa components to be ported to this is the Sniffer**, which requires pretty intimate access to the DOM, caching and network traffic boundaries of CEF/Chromium. (The old xulrunner didn't allow access to its cache, which caused certain *unfixable* bugs/issues when reloading pages to retry downloads over loweer quality connections. Seen that, struggled with it a lot, not wishing to revisit and not be able to do something about it then.
+Suffice to say that didn't fly. 
+I got *close*, but there was always *something* breaking the result when I started fiddling with it, which makes this stuff pretty brittle from my perspective.
+
+> And **I know** I'll have to fiddle with CEF quite a bit for **one of the most important Qiqqa components to be ported to this is the Sniffer**, which requires pretty intimate access to the DOM, caching and network traffic boundaries of CEF/Chromium. 
+>
+> > The old xulrunner didn't allow access to its cache, which caused certain *unfixable* bugs/issues when reloading pages to retry downloads over lower quality connections. 
+> > Seen that, struggled with it a lot, not wishing to revisit and not be able to do something about it then.
 
 ## Considering slightly less desirable alternatives?
 
@@ -70,7 +76,7 @@ Given this result, the question had to be adjusted a little so we might consider
 
 How about using CEFSharp and CEFGlue straight away, out of the box? After all, there was a time when I considered riding on top of C/C++ CEF raw and having a basic C#-based webserver as a separate process anyway!
 
-CEFSharp worked out of the box (while very nice and *cute* for development, the auto-downloading and installing of the proper CEF DLLs, etc. is not all that great from my point of view in production: what if users install Qiqqa whilee off-net? Everything should be in the installer, so you have a single download and then you're *done* until you *want* to go onto the network (Sniffer activity, f.e.)
+CEFSharp worked out of the box (while very nice and *cute* for development, the auto-downloading and installing of the proper CEF DLLs, etc. is not all that great from my point of view in production: what if users install Qiqqa while off-net? Everything should be in the installer, so you have a single download and then you're *done* until you *want* to go onto the network (Sniffer activity, f.e.)
 
 CEFSharp is also Windows-only. The consideration here was: "what if I go and use that one, port the majority of UI into HTML/CSS, and then, when others want to, they can do an easier port from CEFSharp to CEFGlue or Chromely (if it's viable by then) to get Qiqqa on Linux or Mac."
 
@@ -78,7 +84,7 @@ CEFGlue was, in my memory/recall, quite inactive and down on its luck. That was 
 
 The benefit of using CEFGlue is two-fold:
 
-- CEFGluee is also available on Linux (and from what I see in the commit tree/forks, work on Mac is done there too, in combination with Chromely)
+- CEFGlue is also available on Linux (and from what I see in the commit tree/forks, work on Mac is done there too, in combination with Chromely)
 - CEFGlue *promises* as tighter and more complete integration with CEF, meaning I may expect better luck re those additional interface planes I need for Qiqqa sniffer: DOM access, HTML page I/O including cache access and page-driven network traffic.
 
 CEFGlue is available for Windows. The only thing that bothers me is Gitlab, which has a horrible interface for when you want to look into work done by others besides mainstream (which is something I often too: having a peek at others' work to see if there's anything useful in there, so I can go a invent other wheels instead of *those*.
@@ -88,7 +94,7 @@ Not a big problem, just a nuisance, that one. Anyway, there are forks on github,
 
 CEFSharp builds out of the box, quite nicely.
 
-Also hooking it up to the CEF library **source part of the distro** (lidcef_dll_wrapper source code) was relatively easy, though note:
+Also hooking it up to the CEF library **source part of the distro** (libcef_dll_wrapper source code) was relatively easy, though note:
 
 - download CEF tar
 - unpack
@@ -140,6 +146,34 @@ CEFGlue works on both Windows and Linux (and Mac?). This makes the *cross-platfo
 All UI migration options are considered very costly as it's a migration from WPF to another system (and the devil is always in the \[UI] details), however, anything that's purely HTML/CSS (plus JS support) based is deemed far more *fun* and therefor *motivating* than moving to other tek such as ASP.NET, Blazor, MAUI/Xamarin, what-not.
 
 
+## \[Update 2021/03/29] WebView2 feasibility tests part 1
+
+While [WebView2](https://docs.microsoft.com/en-us/microsoft-edge/webview2/) is NOT cross-platform, it was considered as part of an *intermediate step* towards migrating the entire Qiqqa application: as Microsoft is hot on developing WebView2 into becoming something *nice* and *usable*, it would enable me to at least migrate the Qiqqa Windows application from the current WPF-based intertwined codebase to something that's closer to the "separation of concerns" architectural ideal, using IPC on the local machine and getting a new UI based in current web technologies (HTML5/CSS3/JS/TS), thus becoming a compound application like I envisioned which would be far *easier* to port to Linux and Apple Mac later on as the WPF UI+intertwined business logic wouldn't be a total showstopper any more.
+
+### Why did I even consider WebView2 when CEFGlue and CEFSharp are available on Windows already?
+
+Frankly, I don't know *exactly why*. I had a look at WebView2 intro pages because of the multitude of pages out there lamenting the memory consumption of the others, even for small applications, and I wondered how much of this was actually true or *skewed perspective*. Knowing full well that I need a full-fledged, *enhanced* *web browser* in Qiqqa anyway (*Qiqqa Sniffer*!), the "memory hog" complaints shouldn't keep me away from CEF et al as I'll have a "hogging" web browser in there anyhow. Blame it on my unbounded curiosity, perhaps?
+
+Anyhow, the result of this has been a bit of fiddling around with the provided WebView2 example projects, which proved to be the memory hogs I expected them to be, but had indeed *very small binary executable sizes* as thee "browser component" (CEF) didn't have to be included as it is provided by Microsoft system-wide. All cute 'n' all, but not near what I need yet.
+
+Enter another Microsoft-provided sample project: [WebView2Browser](https://docs.microsoft.com/en-us/samples/microsoftedge/webview2browser/webview2browser/): now *that baby* has the *multiple WebView instances* I need done up already; you can't see that tek bit from the UI but their UI (top bar, utility dropdown menu and web page view rectangle) consists of three(3) WebViews, proving to me that you can safely run multiple WebView2 instances within a single C++/Win32 API-based executable. *That* is an important datum to me as it means they show in their WebView2Browser example project something that the CEFSharp/CEFGlue examples did not include off the shelf: what must be done to make multiple CEF/Browser rectangles co-exist within a single executable: that is one rectangle for the public webpage (dangerous content may enter there!) and (at least) one rectangle for our own Qiqqa UI, over which we have full control.
+
+One thing to note here too: they have **hardcoded** the view rectangles: the dropdown utility menu size is hardcoded and so is the *height* of the top navigation bar UI, so there's plenty work left to do, but at least this shows the viability of the approach where we have multiple WebViews rendering our complete UI *at speed*. 
+
+The minimally tweaked WebView2Browser project is here: https://github.com/GerHobbelt/WebView2Browser
+
+I consider that a decent *potential target*, even while this whole thing is riding the very *edge* as Microsoft is still working on their WebView2 core component.
+
+The whole darn thing is COM-based (sigh… don't recall *good times* with that crap, long ago – praise Allah it's not DCOM at least. What horrors, that one!) so the core Win32 message handling C/C++ code is definitely **non-portable**.
+
+[Hmmmm.…](https://ibob.github.io/slides/html5-gui/#/) **maybe** I should go and take the idea of their WebView2Browser multi-webview based UI and see how easy it is to port that example project to [CEF itself](https://bitbucket.org/chromiumembedded/cef/wiki/Tutorial). (I have not really looking into CEF itself yet; [maybe](https://github.com/chromiumembedded/cef-project) [something](https://github.com/chromiumembedded/cef/tree/master/tests/cefsimple) like this is already there. After all, this shows my mind is considering relegating the C# business logic to its own "server component" using local IPC again, so we might as well look into a C/C++ solution on that side of the fence...)
+
+Some bad noises are to be read here: https://developer.x-plane.com/2018/04/lets-talk-about-cef/ – I've seen CEF cross-version update woes already while tracking CEFSharp for a while as 谷歌中央委员会主席 decided to ditch some features in Chromium last year and flip a bit of API burger on the go. Hm. Hmmm.
+
+
+
+
+
 
 ## References
 
@@ -151,5 +185,16 @@ All UI migration options are considered very costly as it's a migration from WPF
 - https://stackoverflow.com/questions/23509356/node-webkit-vs-electron#:~:text=In%20NW.,js%20file%20in%20the%20package.&text=While%20in%20Electron%2C%20the%20entry,in%20it%20with%20corresponding%20API.
 - http://my2iu.blogspot.com/2017/06/nwjs-vs-electron.html
 - https://github.com/nwjs/nw.js
+- https://docs.microsoft.com/en-us/microsoft-edge/webview2/
+- https://www.freecodecamp.org/news/the-python-desktop-application-3a66b4a128d3/
+- https://ibob.github.io/slides/html5-gui/
+- https://austingwalters.com/simple-web-browser-in-cpp-using-qt/
+- http://arkenthera.github.io/blog/Enabling-CEF-to-Screen-Share-using-getUserMedia-API/
+- https://knowledge.kofax.com/Robotic_Process_Automation/Troubleshooting/How_to_enable_Debugging_Tools_for_the_Chromium_browser_(CEF)
+- http://www.naughter.com/cefwrappers.html
+- https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-Browser-in-an-MFC-Application
+- https://bitbucket.org/chromiumembedded/cef/wiki/GeneralUsage.md
+- https://developer.x-plane.com/2018/04/lets-talk-about-cef/
+
 
  

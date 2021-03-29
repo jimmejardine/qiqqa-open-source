@@ -1,4 +1,4 @@
-﻿# Problems with running the installer on your Microsoft Windows machine
+# Problems with running the installer on your Microsoft Windows machine
 
 > ---
 >
@@ -82,4 +82,4 @@ where you click "Yes" to remove the ADS data.
 
 
 
-  [1]: Installing%20Qiqqa%20-%20Updating%20Qiqqa.md
+  [1]: [[Installing Qiqqa - Updating Qiqqa]]

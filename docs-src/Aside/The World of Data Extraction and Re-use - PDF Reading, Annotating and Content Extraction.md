@@ -3,7 +3,7 @@ If you want to do more with PDFs than merely *read* them on screen^[for which th
 
 ## Searchable text anyone?
 
-Here are a few articles which discuss the banana peels on your pedestrian path when you need to *extract data from tthe PDF*, whether it's for search or other purposes: things are *not* rosy when you don't need OCR to get anything potentially legible, as the next article will show you: here's a bunch of journalists who wrestle with this file format on a daily basis:
+Here are a few articles which discuss the banana peels on your pedestrian path when you need to *extract data from the PDF*, whether it's for search or other purposes: things are *not* rosy when you don't need OCR to get anything potentially legible, as the next article will show you: here's a bunch of journalists who wrestle with this file format on a daily basis:
 
 
 
@@ -31,7 +31,7 @@ https://www.propublica.org/nerds/heart-of-nerd-darkness-why-dollars-for-docs-was
 
 
 
-Bulletfroofing Your Data
+Bulletproofing Your Data
 
 https://github.com/propublica/guides/blob/master/data-bulletproofing.md
 

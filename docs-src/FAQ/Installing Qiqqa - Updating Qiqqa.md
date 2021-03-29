@@ -150,8 +150,7 @@ Bye bye!
 ---
 ---
 
-## Qiqqa and Qiqqa Cloud libraries, a.k.a. Qiqqa Web Libraries <br/>
-<small>from the time you were using Commercial Qiqqa and had a *paid account* which included Qiqqa-specific cloud storage and an access management website to manage your cloud libraries</small>
+## Qiqqa and Qiqqa Cloud libraries, a.k.a. Qiqqa Web Libraries <br/><small>from the time you were using Commercial Qiqqa and had a *paid account* which included Qiqqa-specific cloud storage and an access management website to manage your cloud libraries</small>
 
 The way Commercial Qiqqa worked was to keep a local copy of your Cloud-stored libraries, which you have to *sync* when you work on mutiple machines and/or were collaborating with other folks on those same libraries.
 
