@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Qiqqa.Documents.PDF.PDFRendering;
+using Utilities.PDF.Sorax;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -27,11 +28,9 @@ namespace Qiqqa.Documents.PDF
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
         public event OnPageTextAvailableDelegate OnPageTextAvailable;
 
-        private SoraxPDFRenderer sorax_pdf_renderer;
-
         internal byte[] GetPageByDPIAsImage(int page, int dpi)
         {
-            return sorax_pdf_renderer.GetPageByDPIAsImage(page, dpi);
+            return SoraxPDFRenderer.GetPageByDPIAsImage(page, dpi);
             //return MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
         }
 
