@@ -75,7 +75,7 @@ namespace Qiqqa.DocumentLibrary
 
         public event OnLibraryLoadedHandler OnLibraryLoaded;
 
-        public bool LibraryIsLoaded
+        public bool XLibraryIsLoaded
         {
             get
             {
@@ -217,7 +217,7 @@ namespace Qiqqa.DocumentLibrary
             try
             {
                 // short-circuit the work when this library instance has already been loaded via this call before:
-                if (LibraryIsLoaded)
+                if (XLibraryIsLoaded)
                 {
                     return;
                 }
@@ -371,7 +371,7 @@ namespace Qiqqa.DocumentLibrary
             }
             finally
             {
-                LibraryIsLoaded = true;
+                XLibraryIsLoaded = true;
 
                 if (!LibraryIsKilled)
                 {

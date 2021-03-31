@@ -316,7 +316,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ObjCarousel.Visibility = Visibility.Collapsed;
             ObjEmptyLibraryGrid.Visibility = Visibility.Collapsed;
 
-            if (null == web_library_detail || web_library_detail.Xlibrary == null || !web_library_detail.Xlibrary.LibraryIsLoaded)
+            if (!WebLibraryDetail.LibraryIsLoaded(web_library_detail))
             {
                 return;
             }

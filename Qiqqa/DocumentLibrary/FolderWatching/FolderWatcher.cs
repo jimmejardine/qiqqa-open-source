@@ -243,7 +243,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         public void ExecuteBackgroundProcess(Daemon daemon)
         {
             // We don't want to start watching files until the library is loaded...
-            if (!(LibraryRef?.Xlibrary.LibraryIsLoaded ?? false))
+            if (!WebLibraryDetail.LibraryIsLoaded(LibraryRef))
             {
                 Logging.Info("Library is not yet loaded, so waiting before watching...");
 

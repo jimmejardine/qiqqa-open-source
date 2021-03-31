@@ -75,6 +75,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             set;
         }
 
+        public static bool LibraryIsLoaded(WebLibraryDetail lib)
+        {
+            return lib?.Xlibrary?.XLibraryIsLoaded ?? false;
+        }
+        public static bool LibraryIsLoaded(Library lib)
+        {
+            return lib?.XLibraryIsLoaded ?? false;
+        }
+
         public override string ToString()
         {
             return String.Format("Library {0}: {1}", Id, Title);

@@ -229,7 +229,7 @@ namespace Qiqqa.AnnotationsReportBuilding.LegacyAnnotationConvertorStuff
         public static void Test()
         {
             Library library = Library.GuestInstance;
-            while (!library.LibraryIsLoaded)
+            while (!WebLibraryDetail.LibraryIsLoaded(library))
             {
                 Thread.Sleep(100);
             }

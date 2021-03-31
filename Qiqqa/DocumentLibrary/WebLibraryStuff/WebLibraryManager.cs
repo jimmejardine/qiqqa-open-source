@@ -309,7 +309,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             // Import the Qiqqa manuals in the background, waiting until the library has loaded...
             SafeThreadPool.QueueAsyncUserWorkItem(async () =>
             {
-                while (!guest_web_library_detail.Xlibrary.LibraryIsLoaded)
+                while (!WebLibraryDetail.LibraryIsLoaded(guest_web_library_detail))
                 {
                     if (ShutdownableManager.Instance.IsShuttingDown)
                     {

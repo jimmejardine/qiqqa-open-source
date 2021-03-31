@@ -217,12 +217,12 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
-                Library library = web_library_detail.Xlibrary;
-
-                if (library == null || !library.LibraryIsLoaded)
+                if (WebLibraryDetail.LibraryIsLoaded(web_library_detail))
                 {
                     continue;
                 }
+
+                Library library = web_library_detail.Xlibrary;
 
                 try
                 {

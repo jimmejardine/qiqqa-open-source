@@ -368,7 +368,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         public static void TestHarness()
         {
             Library library = Library.GuestInstance;
-            while (!library.LibraryIsLoaded)
+            while (!WebLibraryDetail.LibraryIsLoaded(library))
             {
                 Thread.Sleep(1000);
             }
