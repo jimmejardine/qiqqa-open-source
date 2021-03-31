@@ -13,3 +13,6 @@
 [submodule "docs-src/_meta/fonts"]
 	path = docs-src/_meta/fonts
 	url = git@github.com:GerHobbelt/qiqqa-site-selected-web-fonts.git
+[submodule "thirdparty/High-Speed-Priority-Queue-for-C-Sharp"]
+	path = thirdparty/High-Speed-Priority-Queue-for-C-Sharp
+	url = git@github.com:GerHobbelt/High-Speed-Priority-Queue-for-C-Sharp.git

@@ -151,6 +151,7 @@
     <Compile Include="LIFO-and-FIFO-performance-testing.cs" />
     <Compile Include="PDFDocumentMetaInfoBulkTest.cs" />
     <Compile Include="PDFDocumentMetaInfoTest.cs" />
+    <Compile Include="PriorityExecutionQueueTests.cs" />
     <Compile Include="TestBibTeX.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
     <Compile Include="UnitTest1.cs" />
