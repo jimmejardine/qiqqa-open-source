@@ -1937,70 +1937,6 @@
       <Link>pdfdraw.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-convert-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-convert-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-environment-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-environment-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-filesystem-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-filesystem-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-heap-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-heap-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-locale-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-locale-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-math-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-math-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-runtime-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-runtime-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-stdio-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-stdio-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-string-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-string-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-time-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-time-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\api-ms-win-crt-utility-l1-1-0.dll">
-      <Link>qpdf\api-ms-win-crt-utility-l1-1-0.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\msvcp140.dll">
-      <Link>qpdf\msvcp140.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\qpdf.exe">
-      <Link>qpdf\qpdf.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\qpdf26.dll">
-      <Link>qpdf\qpdf26.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\vcruntime140.dll">
-      <Link>qpdf\vcruntime140.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\bin\zlib-flate.exe">
-      <Link>qpdf\zlib-flate.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\libs\SPdf.dll">
       <Link>SPdf.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -2047,10 +1983,6 @@
     </Content>
     <Content Include="..\libs\xulrunner-33.1.1.en-US.win32.zip">
       <Link>xulrunner-33.1.1.en-US.win32.zip</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\libs\qpdf\README.md">
-      <Link>qpdf\README.md</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="..\.editorconfig">
