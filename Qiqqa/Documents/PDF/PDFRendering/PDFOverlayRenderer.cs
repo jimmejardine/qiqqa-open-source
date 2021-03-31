@@ -24,7 +24,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Render onto a scratch image in solid
-            Bitmap bitmap = new Bitmap(width, height);     // <--- must b Dispose()d by caller
+            Bitmap bitmap = new Bitmap(width, height);     // <--- must be Dispose()d by caller
 
             using (Graphics graphics = Graphics.FromImage(bitmap))
             {
@@ -33,7 +33,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 double last_bottom = Double.NegativeInfinity;
                 PointF[] adjoinment_points = new PointF[4];
 
-                // TODO: next call can be very costly; MUST run in background!
+                // Next call can be very costly; MUST run in background!
                 var highlights = pdf_document.Highlights.GetHighlightsForPage(page);
 
                 foreach (PDFHighlight highlight in highlights)
