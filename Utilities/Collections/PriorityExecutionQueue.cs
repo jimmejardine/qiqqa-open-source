@@ -9,9 +9,7 @@ namespace Utilities.Collections
     /// <summary>
     /// LIFO for high priority, FIFO for low prio tasks.
     /// 
-    /// Use an array for storing the queue/stack, 
-    /// using cycling start+end indexes for keeping track of 
-    /// the begin and end of the queued set.
+    /// Use an array for storing the queue/stack.
     /// </summary>
     class PriorityExecutionQueue
     {
