@@ -18,7 +18,7 @@ namespace Utilities.PDF.Sorax
 
         // ------------------------------------------------------------------------------------------------------------------------
 
-        public byte[] GetPageByHeightAsImage(int page, double height, double width)
+        public byte[] GetPageByHeightAsImage(int page, double height)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -29,7 +29,7 @@ namespace Utilities.PDF.Sorax
                 byte[] bitmap = cache.Get(page, height);
                 if (null == bitmap)
                 {
-                    bitmap = SoraxPDFRendererDLLWrapper.GetPageByHeightAsImage(pdf_filename, pdf_owner_password, pdf_user_password, page, height, width);
+                    bitmap = SoraxPDFRendererDLLWrapper.GetPageByHeightAsImage(pdf_filename, pdf_owner_password, pdf_user_password, page, height);
                     cache.Put(page, height, bitmap);
                 }
                 return bitmap;

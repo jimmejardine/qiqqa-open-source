@@ -27,9 +27,12 @@ namespace Qiqqa.Documents.PDF
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
         public event OnPageTextAvailableDelegate OnPageTextAvailable;
 
+        private SoraxPDFRenderer sorax_pdf_renderer;
+
         internal byte[] GetPageByDPIAsImage(int page, int dpi)
         {
-            return MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
+            return sorax_pdf_renderer.GetPageByDPIAsImage(page, dpi);
+            //return MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
         }
 
         public void CauseAllPDFPagesToBeOCRed()
