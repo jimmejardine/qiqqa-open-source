@@ -871,6 +871,10 @@
       <Project>{85A0A46C-5068-4D2C-A799-5373EAED5028}</Project>
       <Name>icons</Name>
     </ProjectReference>
+    <ProjectReference Include="..\thirdparty\High-Speed-Priority-Queue-for-C-Sharp\Priority Queue\Priority Queue.csproj">
+      <Project>{1531c1ea-bd53-41d1-a34b-cfcdf79d2651}</Project>
+      <Name>Priority Queue</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
