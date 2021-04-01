@@ -337,7 +337,7 @@ namespace Utilities.PDF.MuPDF
 
         public int exitCode = -1;
         public bool stdoutIsBinary;
-        public MemoryStream stdoutStream;
+        public byte[] stdoutBinaryData;
         public ProcessOutputDump errOutputDump;
     }
 
@@ -384,7 +384,7 @@ namespace Utilities.PDF.MuPDF
         private static int render_count = 0;
         private static object draw_lock = new object();
 
-        private static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
+        private static byte[] RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -413,24 +413,17 @@ namespace Utilities.PDF.MuPDF
 
                 if (rv.error != null)
                 {
-                    rv.stdoutStream?.Close();
                     throw rv.error;
                 }
-                return rv.stdoutStream;
+                return rv.stdoutBinaryData;
             }
         }
 
         public static byte[] RenderPDFPageAsByteArray(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
-            using (MemoryStream ms = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class))
-            {
-                ms.Seek(0, SeekOrigin.Begin);
+            byte[] img = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class);
 
-                // Read all the bytes in the stream from its current location to a byte[] array
-                byte[] img = ms.ToArray();
-
-                return img;
-            }
+            return img;
         }
 
 #if false
@@ -448,10 +441,10 @@ namespace Utilities.PDF.MuPDF
         }
 #endif
 
-#if false
+#if true
         public static Bitmap RenderPage_AsBitmap(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
-            using (MemoryStream ms = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class))
+            using (MemoryStream ms = new MemoryStream(RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class)))
             {
                 Bitmap bitmap = new Bitmap(ms);
 
@@ -641,10 +634,9 @@ namespace Utilities.PDF.MuPDF
             var execResult = ReadEntireStandardOutput(exe, process_parameters, binary_output: false, priority_class);
             try
             {
-                using (MemoryStream ms = execResult.stdoutStream)
+                using (MemoryStream ms = new MemoryStream(execResult.stdoutBinaryData))
                 {
-                    ms.Seek(0, SeekOrigin.Begin);
-                    using (StreamReader sr = new StreamReader(ms))
+                    using (StreamReader sr = new StreamReader(ms, Encoding.UTF8))
                     {
                         string json = sr.ReadToEnd();
                         //string json = Encoding.UTF8.GetString(txt);
@@ -691,10 +683,9 @@ namespace Utilities.PDF.MuPDF
 
             var execResult = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, binary_output: false, priority_class);
 
-            using (MemoryStream ms = execResult.stdoutStream)
+            using (MemoryStream ms = new MemoryStream(execResult.stdoutBinaryData))
             {
-                ms.Seek(0, SeekOrigin.Begin);
-                using (StreamReader sr_lines = new StreamReader(ms))
+                using (StreamReader sr_lines = new StreamReader(ms, Encoding.UTF8))
                 {
                     List<TextChunk> text_chunks = new List<TextChunk>();
 
@@ -925,81 +916,79 @@ namespace Utilities.PDF.MuPDF
                 using (ProcessOutputReader process_output_reader = new ProcessOutputReader(process, stdout_is_binary: true))
                 {
                     // Read image from stdout
-                    using (StreamReader sr = process.StandardOutput)
+                    long elapsed = clk.ElapsedMilliseconds;
+                    Logging.Debug("PDFDRAW :: ReadEntireStandardOutput setup time: {0} ms for parameters:\n    {1}", elapsed, process_parameters);
+
+                    // Check that the process has exited properly
+                    if (!process.WaitForExit(1000))
                     {
-                        using (FileStream fs = (FileStream)sr.BaseStream)
+                        throw new Exception($"Aborting process due to timeout. Commandline:\n    {pdfDrawExe} {process_parameters}");
+                    }
+                    long elapsed2 = clk.ElapsedMilliseconds;
+
+                    if (!process.HasExited)
+                    {
+                        Logging.Debug("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpStrings().stderr);
+
+                        try
                         {
-                            long elapsed = clk.ElapsedMilliseconds;
-                            Logging.Debug("PDFDRAW :: ReadEntireStandardOutput setup time: {0} ms for parameters:\n    {1}", elapsed, process_parameters);
+                            process.Kill();
 
-                            rv.stdoutStream = new MemoryStream(1024 * 1024);
-                            int total_size = StreamToFile.CopyStreamToStream(fs, rv.stdoutStream);
+                            // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
+                            process.WaitForExit(3000);
+                        }
+                        catch (Exception ex)
+                        {
+                            long elapsed3 = clk.ElapsedMilliseconds;
+                            Logging.Error(ex, "There was a problem killing the PDFRenderer process after timeout ({0} ms)", elapsed3);
+                        }
 
-                            long elapsed2 = clk.ElapsedMilliseconds;
-                            Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    {4} {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters, pdfDrawExe);
+                        // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
+                        var outs = process_output_reader.GetOutputsDumpStrings();
+                        rv.errOutputDump = outs;
 
-                            // Check that the process has exited properly
-                            process.WaitForExit(1000);
+                        Logging.Error($"PDFRenderer process did not terminate, so killed it. Commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
 
-                            if (!process.HasExited)
-                            {
-                                Logging.Debug("PDFRenderer process did not terminate, so killing it.\n{0}", process_output_reader.GetOutputsDumpStrings().stderr);
-
-                                try
-                                {
-                                    process.Kill();
-
-                                    // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
-                                    process.WaitForExit(3000);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Logging.Error(ex, "There was a problem killing the PDFRenderer process after timeout ({0} ms)", elapsed2 + 1000);
-                                }
-
-                                // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
-                                var outs = process_output_reader.GetOutputsDumpStrings();
-                                rv.errOutputDump = outs;
-
-                                Logging.Error($"PDFRenderer process did not terminate, so killed it. Commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
-
-                                rv.error = new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: {pdfDrawExe} {process_parameters}");
-                                rv.exitCode = 0;
-                                if (process.HasExited)
-                                {
-                                    rv.exitCode = process.ExitCode;
-                                }
-                                if (rv.exitCode == 0)
-                                {
-                                    rv.exitCode = -666;  // timeout
-                                }
-                            }
-                            else if (process.ExitCode != 0)
-                            {
-                                // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
-                                var outs = process_output_reader.GetOutputsDumpStrings();
-                                rv.errOutputDump = outs;
-
-                                Logging.Error($"MuPDF did fail with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
-
-                                rv.error = new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: {pdfDrawExe} {process_parameters}");
-                                rv.exitCode = process.ExitCode;
-                            }
-                            else
-                            {
-                                // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
-                                var outs = process_output_reader.GetOutputsDumpStrings();
-                                rv.errOutputDump = outs;
-
-                                Logging.Error($"MuPDF did SUCCEED with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
-
-                                rv.error = null;
-                                rv.exitCode = process.ExitCode;
-                            }
-
-                            return rv;
+                        rv.error = new ApplicationException($"PDFRenderer process did not terminate, so killed it.\n    Commandline: {pdfDrawExe} {process_parameters}");
+                        rv.exitCode = 0;
+                        if (process.HasExited)
+                        {
+                            rv.exitCode = process.ExitCode;
+                        }
+                        if (rv.exitCode == 0)
+                        {
+                            rv.exitCode = -666;  // timeout
                         }
                     }
+                    else if (process.ExitCode != 0)
+                    {
+                        // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
+                        var outs = process_output_reader.GetOutputsDumpStrings();
+                        rv.errOutputDump = outs;
+
+                        Logging.Error($"MuPDF did fail with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
+
+                        rv.error = new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: {pdfDrawExe} {process_parameters}");
+                        rv.exitCode = process.ExitCode;
+                    }
+                    else
+                    {
+                        // grab stderr output for successful runs and log it anyway: MuPDF diagnostics, etc. come this way:
+                        var outs = process_output_reader.GetOutputsDumpStrings();
+                        rv.errOutputDump = outs;
+
+                        Logging.Error($"MuPDF did SUCCEED with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
+
+                        rv.error = null;
+                        rv.exitCode = process.ExitCode;
+
+                        rv.stdoutBinaryData = process_output_reader.BinaryOutput;
+                        int total_size = rv.stdoutBinaryData.Length;
+
+                        Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    {4} {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters, pdfDrawExe);
+                    }
+
+                    return rv;
                 }
             }
         }

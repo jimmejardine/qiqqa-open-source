@@ -32,7 +32,8 @@ namespace Utilities.ProcessTools
 
             Process process = new Process();
             process.StartInfo = process_start_info;
-            process.Start();
+            process.EnableRaisingEvents = true;
+            //process.Start();
 
             try
             {

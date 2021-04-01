@@ -151,9 +151,10 @@
       <Link>Utilities\Internet\GoogleScholar\GoogleScholarScraper.cs</Link>
     </Compile>
     <Compile Include="DebugAndReleaseBinariesExecTest.cs" />
+    <Compile Include="MuToolProcessSpawningTest.cs" />
     <Compile Include="TestJSONDeserializeFromArbitrary.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="UnitTest2.cs" />
     <Compile Include="UnitTestProjectConfig.cs" />
     <Compile Include="Utilities\PDFDocument\TestPDFDocumentSerialization.cs" />

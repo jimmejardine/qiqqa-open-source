@@ -222,7 +222,7 @@ namespace Utilities.GUI
                         }
                         catch (Exception ex)
                         {
-                            Logging.Error("InvokeInUIThread::finalFallback: Error occurred.");
+                            Logging.Error(ex, "InvokeInUIThread::finalFallback: Error occurred.");
                         }
                     }
                 }
