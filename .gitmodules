@@ -16,3 +16,9 @@
 [submodule "thirdparty/High-Speed-Priority-Queue-for-C-Sharp"]
 	path = thirdparty/High-Speed-Priority-Queue-for-C-Sharp
 	url = git@github.com:GerHobbelt/High-Speed-Priority-Queue-for-C-Sharp.git
+[submodule "thirdparty/netmq"]
+	path = thirdparty/netmq
+	url = git@github.com:GerHobbelt/netmq.git
+[submodule "thirdparty/clrzmq4"]
+	path = thirdparty/clrzmq4
+	url = git@github.com:GerHobbelt/clrzmq4.git
