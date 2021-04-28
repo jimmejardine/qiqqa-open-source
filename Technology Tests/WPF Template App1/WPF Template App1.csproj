@@ -11,9 +11,9 @@
     <None Remove="Assets\DefaultIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fluent.Ribbon" Version="8.0.2" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.10" />
+    <PackageReference Include="Fluent.Ribbon" Version="8.0.3" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Toolkit.Wpf.UI.Controls.WebView" Version="6.1.2" />
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />

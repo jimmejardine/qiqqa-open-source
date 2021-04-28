@@ -983,7 +983,7 @@ namespace Utilities.PDF.MuPDF
                         rv.exitCode = process.ExitCode;
 
                         rv.stdoutBinaryData = process_output_reader.BinaryOutput;
-                        int total_size = rv.stdoutBinaryData.Length;
+                        int total_size = rv.stdoutBinaryData?.Length ?? 0;
 
                         Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    {4} {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters, pdfDrawExe);
                     }

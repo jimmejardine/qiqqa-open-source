@@ -9,7 +9,11 @@ using tessnet2;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
+#if !HAS_MUPDF_PAGE_RENDERER
+using Utilities.PDF.Sorax;
+#else
 using Utilities.PDF.MuPDF;
+#endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;

@@ -111,6 +111,7 @@ namespace Qiqqa.Documents.Common
                         return;
                     }
 
+                    // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
                     if (breathing_time.ElapsedMilliseconds > FolderWatcher.MAX_SECONDS_PER_ITERATION)
                     {
                         ShutdownableManager.Sleep(FolderWatcher.SECONDS_TO_RELAX_PER_ITERATION);

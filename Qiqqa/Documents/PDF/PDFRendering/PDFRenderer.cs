@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Qiqqa.Documents.PDF.PDFRendering;
+#if !HAS_MUPDF_PAGE_RENDERER
 using Utilities.PDF.Sorax;
+#endif
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -30,8 +32,20 @@ namespace Qiqqa.Documents.PDF
 
         internal byte[] GetPageByDPIAsImage(int page, int dpi)
         {
-            return SoraxPDFRenderer.GetPageByDPIAsImage(page, dpi);
-            //return MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
+#if !HAS_MUPDF_PAGE_RENDERER
+            return SoraxPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
+#else
+            return MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
+#endif
+        }
+
+        internal byte[] GetPageByHeightAsImage(int page, int height, int width)
+        {
+#if !HAS_MUPDF_PAGE_RENDERER
+            return SoraxPDFRenderer.GetPageByHeightAsImage(DocumentPath, PDFPassword, page, height);
+#else
+            return MuPDFRenderer.GetPageByHeightAsImage(DocumentPath, PDFPassword, page, height, width);
+#endif
         }
 
         public void CauseAllPDFPagesToBeOCRed()

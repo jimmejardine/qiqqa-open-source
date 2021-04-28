@@ -876,10 +876,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         private bool failureMaybeDueToEncryptedPDF(OCRExecReport report)
         {
             // TODO
-            if (report.OCRStdioOutput.Contains("Sorax.SoraxPDFRendererDLLWrapper.HDOCWrapper") || report.OCRStdioOutput.Contains("Sorax.SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage"))
+#if !HAS_MUPDF_PAGE_RENDERER
+            if (report.OCRStdioOut.stderr.Contains("Sorax.SoraxPDFRendererDLLWrapper.HDOCWrapper") || report.OCRStdioOut.stderr.Contains("Sorax.SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage"))
             {
                 return true;
             }
+#endif
             return false;
         }
 

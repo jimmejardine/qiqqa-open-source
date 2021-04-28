@@ -100,7 +100,34 @@ namespace Utilities.ProcessTools
 
                 lock (io_buffers_lock)
                 {
-                    Error.Add($"--EXIT:{process.ExitCode}--");
+                    try
+                    {
+                        // under rare circumstances this line can crash:
+                        /*
+                          System.InvalidOperationException
+                          HResult = 0x80131509
+                          Message = No process is associated with this object.
+                            Source = System
+                          StackTrace:
+                           at System.Diagnostics.Process.EnsureState(State state)
+                           at System.Diagnostics.Process.get_HasExited()
+                           at System.Diagnostics.Process.EnsureState(State state)
+                           at System.Diagnostics.Process.get_ExitCode()
+                           at Utilities.ProcessTools.ProcessOutputReader.<> c__DisplayClass9_0.<< -ctor > b__2 > d.MoveNext() in Z:\lib\tooling\qiqqa\Utilities\ProcessTools\ProcessOutputReader.cs:line 103
+
+                          This exception was originally thrown at this call stack:
+                            [External Code]
+                            Utilities.ProcessTools.ProcessOutputReader..ctor.AnonymousMethod__2(object, System.EventArgs) in ProcessOutputReader.cs
+                        */
+                        int rv = process.ExitCode;
+                        Error.Add($"--EXIT:{process.ExitCode}--");
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "ProcessOutputReader::process.ErrorDataReceived handler event borked.");
+
+                        Error.Add($"--EXIT:FAILED TO PRODUCE AN EXITCODE--");
+                    }
                 }
 
                 CancelToken.Cancel();

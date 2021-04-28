@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Threading;
 using Utilities.GUI;
 
+#if !HAS_MUPDF_PAGE_RENDERER
 namespace Utilities.PDF.Sorax
 {
     public class SoraxPDFRendererDLLWrapper
@@ -152,3 +153,4 @@ namespace Utilities.PDF.Sorax
         }
     }
 }
+#endif

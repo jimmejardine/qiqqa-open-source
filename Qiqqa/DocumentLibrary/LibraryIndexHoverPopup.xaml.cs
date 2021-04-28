@@ -12,7 +12,6 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
-using Utilities.PDF.MuPDF;
 using Image = System.Drawing.Image;
 
 namespace Qiqqa.DocumentLibrary
@@ -116,7 +115,7 @@ namespace Qiqqa.DocumentLibrary
                         const double IMAGE_PERCENTAGE = 0.5;
                         BitmapSource image_page = null;
 
-                        using (MemoryStream ms = new MemoryStream(MuPDFRenderer.GetPageByHeightAsImage(pdf_document.DocumentPath, pdf_document.PDFPassword, page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
+                        using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByHeightAsImage(page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
                         {
                             using (Bitmap image = (Bitmap)Image.FromStream(ms))
                             {
