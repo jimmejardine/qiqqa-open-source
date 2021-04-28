@@ -24,7 +24,8 @@ namespace Qiqqa.Documents.PDF
             Directory.CreateDirectory(BASE_PATH_DEFAULT);
         }
 
-        private int num_pages = -1;        // signal: -3 and below: failed permanently (2 + attempts to diagnose); -2: failed permanently due to absent PDF file; -1: not yet determined; 0: empty document (rare/weird!); > 0: number of actual pages in document
+        private int num_pages = PDFTools.PAGECOUNT_PENDING;        // signal: -1 and below: pending/error; 0: empty document (rare/weird!); > 0: number of actual pages in document
+        private bool heuristic_retry_pagecount_at_startup_done = false;
 
         /// <summary>
         /// This is an approximate response: it takes a *fast* shortcut to check if the given
@@ -136,7 +137,7 @@ namespace Qiqqa.Documents.PDF
         {
             get
             {
-                if (num_pages == -1)
+                if (num_pages == PDFTools.PAGECOUNT_PENDING)
                 {
                     WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -172,75 +173,91 @@ namespace Qiqqa.Documents.PDF
                 Logging.Warn(ex, "There was a problem loading the cached page count.");
             }
 
-            // Nuke the cache file, iff it exists. When we get here, it contained undesirable data anyway.
-            FileTools.Delete(cached_count_filename);
-
-            // If we get here, either the pagecount-file doesn't exist, or there was an exception
-            Logging.Debug特("Calculating PDF page count for file {0}", DocumentPath);
-
-            if (!DocumentExists)
+            if (!heuristic_retry_pagecount_at_startup_done)
             {
-                num = -2;
-            }
-            else
-            {
-                num = PDFTools.CountPDFPages(DocumentPath, PDFPassword);
+                heuristic_retry_pagecount_at_startup_done = true;
 
-                Logging.Info("The result is {1} for using calculated PDF page count for file {0}", DocumentPath, num);
-                if (num > 0)
+                // Nuke the cache file, iff it exists. When we get here, it contained undesirable data anyway.
+                FileTools.Delete(cached_count_filename);
+
+                // If we get here, either the pagecount-file doesn't exist, or there was an exception
+                Logging.Debug特("Calculating PDF page count for file {0}", DocumentPath);
+
+                if (!DocumentExists)
                 {
-                    try
-                    {
-                        Directory.CreateDirectory(Path.GetDirectoryName(cached_count_filename));
-                        string outputText = Convert.ToString(num, 10);
-                        File.WriteAllText(cached_count_filename, outputText);
+                    num = PDFTools.PAGECOUNT_DOCUMENT_DOES_NOT_EXIST;
 
-                        // Open the file and read back what was written: we don't do a file lock for this one, but reckon all threads who
-                        // do this, will produce the same number = file content.
-                        //
-                        // Besides, we don't know if WriteAllText() is atomic; it probably is not.
-                        // Hence we read back to verify written content and if there's anything off about it, we
-                        // blow it out of the water and retry later, possibly.
-                        string readText = File.ReadAllText(cached_count_filename);
-                        if (readText != outputText)
-                        {
-                            throw new IOException("CountPDFPages: cache content as read back from cache file does not match written data. Cache file is untrustworthy.");
-                        }
-
-                        return num;
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "There was a problem using calculated PDF page count for file {0} / {1}", DocumentPath, cached_count_filename);
-
-                        FileTools.Delete(cached_count_filename);
-
-                        // we know the *calculated* pagecount is A-okay, so we can pass that on.
-                        // It's just the file I/O for caching the value that may have gone awry,
-                        // so we should retry that the next time we (re)calculate the pagecount number
-                        // as it is a heavy operation!
-                        //
-                        //num = 0;
-
-                        return num;
-                    }
+                    SavePageCountToCache(num);
                 }
+                else
+                {
+                    // PDFTools.CountPDFPages() is a very costly call: we DEFER that one until later and return 
+                    // a signal we're waiting instead.
+                    num = PDFTools.PAGECOUNT_PENDING;
 
-                // Special case: when the CountPDFPages() API does not deliver a sane, that is positive, page count,
-                // then we've got a PDF file issue on our hands, very probably a damaged PDF.
-                //
-                // Damaged PDF files SHOULD NOT burden us forever, hence we introduce the heuristic of Retry At Restart:
-                // all "suspect" page counts are used as is for now, but when the application is restarted at any time
-                // later, those documents will be inspected once again.
-                //
-                // we DO NOT count I/O errors around the cache file.
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-                ASSERT.Test(num <= 0);
+                        int num = PDFTools.CountPDFPages(DocumentPath, PDFPassword);
 
-                Logging.Warn("Marking this PDF Document as uncompromisingly stubborn in its failure to be inspected for file {0}. Page count code: {1}", DocumentPath, num);
+                        Logging.Info("The result is {1} for using calculated PDF page count for file {0}", DocumentPath, num);
+
+                        // Special case: when the CountPDFPages() API does not deliver a sane, that is positive, page count,
+                        // then we've got a PDF file issue on our hands, very probably a damaged PDF.
+                        //
+                        // Damaged PDF files SHOULD NOT burden us forever, hence we introduce the heuristic of Retry At Restart:
+                        // all "suspect" page counts are used as is for now, but when the application is restarted at any time
+                        // later, those documents will be inspected once again.
+                        //
+                        // we DO NOT count I/O errors around the cache file.
+
+                        SavePageCountToCache(num);
+                    });
+                }
             }
 
             return num;
+        }
+
+        private void SavePageCountToCache(int num)
+        {
+            if (num != PDFTools.PAGECOUNT_PENDING)
+            {
+                string cached_count_filename = MakeFilename_PageCount();
+
+                try
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(cached_count_filename));
+                    string outputText = Convert.ToString(num, 10);
+                    File.WriteAllText(cached_count_filename, outputText);
+
+                    // Open the file and read back what was written: we don't do a file lock for this one, but reckon all threads who
+                    // do this, will produce the same number = file content.
+                    //
+                    // Besides, we don't know if WriteAllText() is atomic; it probably is not.
+                    // Hence we read back to verify written content and if there's anything off about it, we
+                    // blow it out of the water and retry later, possibly.
+                    string readText = File.ReadAllText(cached_count_filename);
+                    if (readText != outputText)
+                    {
+                        throw new IOException("CountPDFPages: cache content as read back from cache file does not match written data. Cache file is untrustworthy.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "There was a problem using calculated PDF page count for file {0} / {1}", DocumentPath, cached_count_filename);
+
+                    FileTools.Delete(cached_count_filename);
+
+                    // we know the *calculated* pagecount is A-okay, so we can pass that on.
+                    // It's just the file I/O for caching the value that may have gone awry,
+                    // so we should retry that the next time we (re)calculate the pagecount number
+                    // as it is a heavy operation!
+                    //
+                    //num = 0;
+                }
+            }
         }
     }
 }
