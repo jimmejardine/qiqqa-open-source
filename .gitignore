@@ -52,3 +52,6 @@ Release*/
 *.log
 *.diagsession
 /Technology Tests/TypeScript VueJS App/dist
+
+# Zettlr
+.ztr-directory

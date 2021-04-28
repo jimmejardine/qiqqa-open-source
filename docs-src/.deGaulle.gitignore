@@ -1,0 +1,13 @@
+# ...
+# 
+_meta/
+
+# deGaulle config & helper files
+docs-src.js
+dummy.md.include
+
+
+# build files
+*.vcxproj*
+site-builder\.*
+Makefile

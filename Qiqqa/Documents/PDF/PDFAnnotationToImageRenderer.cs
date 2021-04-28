@@ -19,7 +19,7 @@ namespace Qiqqa.Documents.PDF
             {
                 Image cropped_image = null;
                 Image resized_image = null;
-                    Image image = Image.FromStream(ms);
+                Image image = Image.FromStream(ms);
 
                 try
                 {

@@ -5,8 +5,8 @@ REM echo "ARGS: %1 %2 %3"
 
 cd "%3"
 cd ..\MuPDF\platform\win32
-rem go with the 32-bit builds for now.
-cd "%2-32"
+rem go with the 64-bit builds.
+cd "%2-64"
 
 echo "MuPDF source directory for the binaries:"
 cd
