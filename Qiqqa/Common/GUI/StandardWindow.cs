@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
@@ -195,6 +196,7 @@ namespace Qiqqa.Common.GUI
             else if (IsMeasureValid && IsInitialized)
             {
                 string name_to_find = Name;
+                Debug.Assert(!String.IsNullOrEmpty(name_to_find));
 
                 if (String.IsNullOrEmpty(name_to_find))
                 {
@@ -214,7 +216,6 @@ namespace Qiqqa.Common.GUI
                 string position = String.Format("{0}|{1}|{2}|{3}|{4}", rc.X, rc.Y, rc.Width, rc.Height, WindowState);
 
                 // Format: Name=X|Y|W|H|M::...
-                // Exception to the rule for backwards compatibility: first record is for main window and has no name.
                 string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position;
 
                 bool got_it = false;
@@ -287,6 +288,7 @@ namespace Qiqqa.Common.GUI
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             string name_to_find = Name;
+            Debug.Assert(!String.IsNullOrEmpty(name_to_find));
             bool done = false;
 
             if (!String.IsNullOrEmpty(name_to_find))
@@ -296,7 +298,6 @@ namespace Qiqqa.Common.GUI
                     if (Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
                     {
                         // Format: Name=X|Y|W|H|M::...
-                        // Exception to the rule for backwards compatibility: first record is for main window and has no name.
                         string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position ?? "";
                         List<string> cfgarr = new List<string>(cfg.Split(new string[] { "::" }, StringSplitOptions.None));
                         string position = String.Empty;
