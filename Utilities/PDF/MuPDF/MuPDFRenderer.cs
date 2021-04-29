@@ -15,9 +15,51 @@ using System.Text;
 
 namespace Utilities.PDF.MuPDF
 {
+    public class PDFErrors
+    {
+        public const int PAGECOUNT_PENDING = -10;
+
+        public const int PAGECOUNT_TOOL_MISSING = -6;                       // mutool missing?!?!
+        public const int PAGECOUNT_DOCUMENT_IS_BAD_HTML_DOWNLOAD = -5;      // PDF file is a HTML file instead, probably due to a b0rked download
+        public const int PAGECOUNT_DOCUMENT_TIMEOUT = -4;                   // PDF failed to deliver during the time alloted. Smells like Very Bad Juju in your PDF!
+        public const int DOCUMENT_IS_CORRUPTED = -3;
+        public const int DOCUMENT_DOES_NOT_EXIST = -2;
+        public const int PAGECOUNT_GENERAL_FAILURE = -1;
+
+        public static string ToString(int errcode)
+        {
+            switch (errcode)
+            {
+                case PAGECOUNT_PENDING:
+                    return "<pending>";
+
+                case PAGECOUNT_TOOL_MISSING:
+                    return "<Tool MISSING?!>";
+
+                case PAGECOUNT_DOCUMENT_IS_BAD_HTML_DOWNLOAD:
+                    return "<bad HTML download?>";
+
+                case PAGECOUNT_DOCUMENT_TIMEOUT:
+                    return "<tool TIMEOUT>";
+
+                case DOCUMENT_IS_CORRUPTED:
+                    return "<corrupt doc>";
+
+                case DOCUMENT_DOES_NOT_EXIST:
+                    return "<file missing>";
+
+                case PAGECOUNT_GENERAL_FAILURE:
+                    return "<general fail>";
+
+                default:
+                    return null;
+            }
+        }
+    }
+
     public class PDFDocumentMuPDFMetaInfo
     {
-        public int PageCount = -1;
+        public int PageCount = PDFErrors.PAGECOUNT_PENDING;
         public string PDFVersion;
         public int Chapters = -1;
         public List<int> ChapterPages;
@@ -45,6 +87,7 @@ namespace Utilities.PDF.MuPDF
         public int EmbeddedJavaScriptFilesCount = 0;
 
         public bool DocumentIsCorrupted = false;
+        public int DocumentErrorCode = 0;
 
         // ---- RAW content + error feedback items: --------------------------------------------------
 
@@ -498,16 +541,23 @@ namespace Utilities.PDF.MuPDF
 
             rv.raw_metadump_text = json;
 
-            rv.raw_decoded_json = JsonConvert.DeserializeObject<List<MultiPurpDocumentInfoObject>>(json,
-                new JsonSerializerSettings
-                {
-                    Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+            if (!String.IsNullOrWhiteSpace(json))
+            {
+                rv.raw_decoded_json = JsonConvert.DeserializeObject<List<MultiPurpDocumentInfoObject>>(json,
+                    new JsonSerializerSettings
                     {
-                        rv.errors.Add(args.ErrorContext.Error.Message);
-                        args.ErrorContext.Handled = true;
-                    },
-                    //Converters = { new IsoDateTimeConverter() }
-                });
+                        Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
+                        {
+                            rv.errors.Add(args.ErrorContext.Error.Message);
+                            args.ErrorContext.Handled = true;
+                        },
+                        //Converters = { new IsoDateTimeConverter() }
+                    });
+            }
+            else
+            {
+                rv.raw_decoded_json = null;
+            }
 
             if (rv.raw_decoded_json != null)
             {
@@ -523,12 +573,14 @@ namespace Utilities.PDF.MuPDF
                     if ((raw_infos.PageInfo?.Count ?? 0) > 0 && (raw_infos.DocumentGeneralInfo?.WasRepaired ?? false))
                     {
                         rv.DocumentIsCorrupted = true;
+                        rv.DocumentErrorCode = PDFErrors.DOCUMENT_IS_CORRUPTED;
                     }
 
                     // when we have ZERO pages, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
                     if ((raw_infos.PageInfo?.Count ?? 0) == 0)
                     {
                         rv.DocumentIsCorrupted = true;
+                        rv.DocumentErrorCode = PDFErrors.DOCUMENT_IS_CORRUPTED;
                     }
 
                     // when we have an outer error block, then the errors were severe and we surely have a corrupted (or at least a very untrustworthy!) PDF:
@@ -539,6 +591,7 @@ namespace Utilities.PDF.MuPDF
                         {
                             rv.errors.Add($"GatheredError: {errmsg}");
                             rv.DocumentIsCorrupted = true;
+                            rv.DocumentErrorCode = PDFErrors.DOCUMENT_IS_CORRUPTED;
                         }
                     }
 
@@ -546,12 +599,14 @@ namespace Utilities.PDF.MuPDF
                     {
                         rv.errors.Add($"MuPDF FailureMessage: { raw_infos.FailureMessage }");
                         rv.DocumentIsCorrupted = true;
+                        rv.DocumentErrorCode = PDFErrors.DOCUMENT_IS_CORRUPTED;
                     }
 
                     // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
                     if (rv.errors.Count > 0)
                     {
                         rv.DocumentIsCorrupted = true;
+                        rv.DocumentErrorCode = PDFErrors.DOCUMENT_IS_CORRUPTED;
                     }
 
                     // now collect the basic info summary datums:
@@ -606,7 +661,9 @@ namespace Utilities.PDF.MuPDF
             else
             {
                 // when we have JSON parse errors, then the errors must have been severe and we surely have a corrupted (or at least a very untrustworthy!) PDF analysis:
+                rv.PageCount = 0;
                 rv.DocumentIsCorrupted = true;
+                rv.DocumentErrorCode = PDFErrors.PAGECOUNT_GENERAL_FAILURE;
             }
 
             return rv;
@@ -626,16 +683,25 @@ namespace Utilities.PDF.MuPDF
             string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mutool.exe"));
             if (!File.Exists(exe))
             {
-                throw new Exception($"PDF metadata gathering: missing modern MuPDF 'mutool': it does not exist in the expected path: '{exe}'");
+                PDFDocumentMuPDFMetaInfo rv = ParseDocumentMetaInfo(null);
+                rv.errors = new List<string>() { $"PDF metadata gathering: missing modern MuPDF 'mutool': it does not exist in the expected path: '{exe}'" };
+                rv.DocumentIsCorrupted = true;
+                rv.DocumentErrorCode = PDFErrors.PAGECOUNT_TOOL_MISSING;
+                return rv;
             }
             if (!File.Exists(pdf_filename))
             {
-                throw new Exception($"PDF metadata gathering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
+                PDFDocumentMuPDFMetaInfo rv = ParseDocumentMetaInfo(null);
+                rv.errors = new List<string>() { $"PDF metadata gathering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'" };
+                rv.DocumentIsCorrupted = true;
+                rv.DocumentErrorCode = PDFErrors.DOCUMENT_DOES_NOT_EXIST;
+                return rv;
             }
 
-            var execResult = ReadEntireStandardOutput(exe, process_parameters, binary_output: false, priority_class);
+            ExecResultAggregate execResult = null;
             try
             {
+                execResult = ReadEntireStandardOutput(exe, process_parameters, binary_output: false, priority_class);
                 using (MemoryStream ms = new MemoryStream(execResult.stdoutBinaryData))
                 {
                     using (StreamReader sr = new StreamReader(ms, Encoding.UTF8))
@@ -651,7 +717,19 @@ namespace Utilities.PDF.MuPDF
             {
                 Logging.Error(ex, $"Failed to process the output from the command:\n     { execResult.executable } { execResult.process_parameters }\n --->\n    exitCode: { execResult.exitCode }\n    stderr: { execResult.errOutputDump.stderr }\n    runtime error: { execResult.error }");
 
-                throw;
+                string errstr = execResult.errOutputDump.stderr ?? "";
+                PDFDocumentMuPDFMetaInfo rv = ParseDocumentMetaInfo(null);
+                rv.DocumentIsCorrupted = true;
+                rv.errors = new List<string>() { errstr };
+                rv.DocumentErrorCode = PDFErrors.PAGECOUNT_GENERAL_FAILURE;
+
+                // apply some damaged PDF heuristics:
+                if (execResult.exitCode == 1 && (errstr.IndexOf("<!DOCTYPE html") >= 0 || errstr.IndexOf("<html") >= 0))
+                {
+                    rv.DocumentErrorCode = PDFErrors.PAGECOUNT_DOCUMENT_IS_BAD_HTML_DOWNLOAD;
+                }
+
+                return rv;
             }
         }
 
@@ -955,11 +1033,11 @@ namespace Utilities.PDF.MuPDF
                         rv.exitCode = 0;
                         if (process.HasExited)
                         {
-                            rv.exitCode = process.ExitCode;
+                            rv.exitCode = Math.Abs(process.ExitCode);
                         }
                         if (rv.exitCode == 0)
                         {
-                            rv.exitCode = -666;  // timeout
+                            rv.exitCode = PDFErrors.PAGECOUNT_DOCUMENT_TIMEOUT;  // timeout
                         }
                     }
                     else if (process.ExitCode != 0)
@@ -971,7 +1049,7 @@ namespace Utilities.PDF.MuPDF
                         Logging.Error($"MuPDF did fail with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
 
                         rv.error = new ApplicationException($"PDFRenderer::PDFDRAW did fail with exit code {process.ExitCode}.\n    Commandline: {pdfDrawExe} {process_parameters}");
-                        rv.exitCode = process.ExitCode;
+                        rv.exitCode = Math.Abs(process.ExitCode);
                     }
                     else
                     {
@@ -982,7 +1060,7 @@ namespace Utilities.PDF.MuPDF
                         Logging.Error($"MuPDF did SUCCEED with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
 
                         rv.error = null;
-                        rv.exitCode = process.ExitCode;
+                        rv.exitCode = Math.Abs(process.ExitCode);
 
                         rv.stdoutBinaryData = process_output_reader.BinaryOutput;
                         int total_size = rv.stdoutBinaryData?.Length ?? 0;
@@ -995,7 +1073,7 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
-#region --- Test ------------------------------------------------------------------------
+        #region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void TestHarness_TEXT_RENDER()
@@ -1131,6 +1209,6 @@ namespace Utilities.PDF.MuPDF
         }
 #endif
 
-#endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        #endregion ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

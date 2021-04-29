@@ -23,6 +23,7 @@ namespace Qiqqa.Documents.PDF
 
                 try
                 {
+#if false
                     // resize image to given dpi
                     int new_width = (int)Math.Round(image.Width * dpi / image.HorizontalResolution);
                     int new_height = (int)Math.Round(image.Height * dpi / image.VerticalResolution);
@@ -33,6 +34,7 @@ namespace Qiqqa.Documents.PDF
                         image = resized_image;
                         resized_image = null;
                     }
+#endif
 
                     PDFOverlayRenderer.RenderHighlights(image, pdf_document, pdf_annotation.Page);
                     PDFOverlayRenderer.RenderInks(image, pdf_document, pdf_annotation.Page);

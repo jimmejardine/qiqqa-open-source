@@ -242,7 +242,7 @@ namespace QiqqaOCR
         {
             Logging.Info("+Rendering page {1} for PDF file {0}", pdf_filename, page_number);
 #if !HAS_MUPDF_PAGE_RENDERER
-            MemoryStream ms = new MemoryStream(SoraxPDFRenderer.GetPageByHeightAsImage(pdf_filename, pdf_user_password, page_number, 300 * 12, 300 * 12));
+            MemoryStream ms = new MemoryStream(SoraxPDFRenderer.GetPageByHeightAsImage(pdf_filename, pdf_user_password, page_number, 300 * 12));
 #else
             MemoryStream ms = new MemoryStream(MuPDFRenderer.GetPageByHeightAsImage(pdf_filename, pdf_user_password, page_number, 300 * 12, 300 * 12));
 #endif

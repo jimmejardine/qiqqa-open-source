@@ -11,11 +11,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 {
     public static class PDFTools
     {
-        public const int PAGECOUNT_PENDING = -4;
-        public const int PAGECOUNT_DOCUMENT_IS_CORRUPTED = -3;
-        public const int PAGECOUNT_DOCUMENT_DOES_NOT_EXIST = -2;
-        public const int PAGECOUNT_GENERAL_FAILURE = -1;
-
         public static int CountPDFPages(string filename, string password)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
@@ -23,26 +18,42 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             try
             {
                 Logging.Debug("+CountPDFPages_MuPDF: {0}", filename);
-                var metadata = MuPDFRenderer.GetDocumentMetaInfo(filename, password, ProcessPriorityClass.Normal);
-                int page_count = metadata?.PageCount ?? PAGECOUNT_GENERAL_FAILURE;
-                if (page_count <= 0)
+                int page_count;
+                PDFDocumentMuPDFMetaInfo metadata = null;
+                if (!File.Exists(filename))
                 {
-                    if (!File.Exists(filename))
+                    page_count = PDFErrors.DOCUMENT_DOES_NOT_EXIST;
+                }
+                else
+                {
+                    metadata = MuPDFRenderer.GetDocumentMetaInfo(filename, password, ProcessPriorityClass.Normal);
+                    page_count = metadata?.PageCount ?? PDFErrors.PAGECOUNT_GENERAL_FAILURE;
+
+                    if (page_count <= 0)
                     {
-                        page_count = PAGECOUNT_DOCUMENT_DOES_NOT_EXIST;
-                    }
-                    else if (metadata.DocumentIsCorrupted)
-                    {
-                        page_count = PAGECOUNT_DOCUMENT_IS_CORRUPTED;
+                        if (metadata?.DocumentIsCorrupted ?? false)
+                        {
+                            if (metadata.DocumentErrorCode < 0)
+                            {
+                                page_count = metadata.DocumentErrorCode;
+                                Debug.Assert(page_count != PDFErrors.PAGECOUNT_PENDING);
+                                //Debug.Assert(false);
+                            }
+                            else
+                            {
+                                page_count = PDFErrors.DOCUMENT_IS_CORRUPTED;
+                            }
+                        }
                     }
                 }
-                Logging.Debug("-CountPDFPages_MuPDF '{1}' -> ({0} pages)", page_count, filename);
+                string error_report = metadata != null ? "\n" + String.Join("\n", metadata.errors.ToArray()) : "";
+                Logging.Debug($"-CountPDFPages_MuPDF '{ filename }' -> ({ page_count } pages){0}", error_report);
                 return page_count;
             }
             catch (Exception ex)
             {
                 Logging.Warn(ex, "Error while counting pages in CountPDFPages_MuPDF for file: {0}", filename);
-                return PAGECOUNT_GENERAL_FAILURE;
+                return PDFErrors.PAGECOUNT_GENERAL_FAILURE;
             }
         }
     }

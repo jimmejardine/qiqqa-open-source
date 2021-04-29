@@ -43,7 +43,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
             StatusManager.Instance.UpdateStatus("PDFPrinter", String.Format("Printing page {0} of {1}", page_zero_based + 1, PageCount), page_zero_based + 1, PageCount, true);
 
             // Render a page at 300 DPI...
-            using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByDPIAsImage(page, 300)))
+            using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByHeightAsImage(page, 300 * 12, 300 * 12)))
             {
                 using (Image image = Image.FromStream(ms))
                 {

@@ -20,8 +20,9 @@ namespace Utilities.PDF.Sorax
             public Dictionary<int, LinkedListNode<CacheEntry>> pages = new Dictionary<int, LinkedListNode<CacheEntry>>();
         }
 
-        private static readonly int CACHE_SIZE = 153;
+        private static readonly int CACHE_SIZE_MBYTE = 50;
         //private static long current_use_time_tick = 1;  // counter representing "current access time" in the cache.
+        private static long current_cache_fill = 0;
 
         private Dictionary<string, FileCacheHashSlot> cache_entries = new Dictionary<string, FileCacheHashSlot>();
         // We keep track of 'most recent usage' in the timeline double-linked-list below.
@@ -42,11 +43,13 @@ namespace Utilities.PDF.Sorax
             }
             else
             {
+                long image_size = image.Length;
+
                 // We have to bump someone from the cache...
                 //
                 // cache_timeline.Count is O(1): https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.linkedlist-1?view=netframework-4.8
                 // --> "Because the list also maintains an internal count, getting the Count property is an O(1) operation."
-                if (cache_timeline.Count > CACHE_SIZE)
+                while (image_size + current_cache_fill > CACHE_SIZE_MBYTE * 1024 * 1024)
                 {
                     // get the oldest slot and discard it.
                     // remove it from the "timeline", i.e. the age monitor.
@@ -62,6 +65,8 @@ namespace Utilities.PDF.Sorax
                         // drop the entire file slot:
                         cache_entries.Remove(oldest.filepath);
                     }
+
+                    current_cache_fill -= oldest.image.Length;
                 }
 
                 // ...and add the new guy
@@ -78,6 +83,8 @@ namespace Utilities.PDF.Sorax
                 if (fileslot.pages.TryGetValue(page, out pageslot))
                 {
                     CacheEntry data = pageslot.Value;
+                    current_cache_fill -= data.image.Length;
+
                     data.height = height;
                     data.image = image;
 
@@ -95,12 +102,15 @@ namespace Utilities.PDF.Sorax
                         height = height,
                         image = image
                     };
+
                     // add to front of timeline (front is most recent):
                     pageslot = cache_timeline.AddFirst(data);
 
                     // inject it into the page hash table for this file
                     fileslot.pages.Add(page, pageslot);
                 }
+
+                current_cache_fill += image_size;
 
                 // and move the current time forward
                 //current_use_time_tick++;

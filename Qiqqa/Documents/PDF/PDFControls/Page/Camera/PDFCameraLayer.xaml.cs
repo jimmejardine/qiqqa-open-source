@@ -134,7 +134,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             BitmapSource cropped_image_page = null;
 
-            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.GetPageByHeightAsImage(page_info.page, page_info.ActualHeight, page_info.ActualWidth)))
+            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.GetPageByHeightAsImage(page_info.page, (int)Math.Round(page_info.ActualHeight), (int)Math.Round(page_info.ActualWidth))))
             {
                 PngBitmapDecoder decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                 BitmapSource image_page = decoder.Frames[0];

@@ -18,6 +18,7 @@ using Utilities.BibTex.Parsing;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.PDF.MuPDF;
 using Utilities.Reflection;
 using Utilities.Strings;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -127,28 +128,22 @@ namespace Qiqqa.Documents.PDF
             get
             {
                 int n = PageCount;
-                switch (n)
+                if (n < 0)
                 {
-                    case PDFTools.PAGECOUNT_DOCUMENT_DOES_NOT_EXIST:
-                        return "<PDF missing>";
-
-                    case PDFTools.PAGECOUNT_DOCUMENT_IS_CORRUPTED:
-                        return "<corrupted PDF>";
-
-                    case PDFTools.PAGECOUNT_GENERAL_FAILURE:
-                        return "<general fail>";
-
-                    case PDFTools.PAGECOUNT_PENDING:
-                        return "<pending>";
-
-                    case 0:
-                        if (IsVanillaReference) return "<vanilla ref>";
-                        if (IsCorruptedDocument) return "<corrupted PDF>";
-                        return "<empty document>";
-
-                    default:
-                        return n.ToString();
+                    string rv = PDFErrors.ToString(n);
+                    if (rv != null)
+                    {
+                        return rv;
+                    }
+                    return $"<ERROR { n }>";
                 }
+                if (n == 0)
+                {
+                    if (IsVanillaReference) return "<vanilla ref>";
+                    if (IsCorruptedDocument) return "<corrupted PDF>";
+                    return "<empty document>";
+                }
+                return n.ToString();
             }
         }
 

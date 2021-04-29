@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.ServiceModel.Security;
 using System.Threading;
@@ -8,6 +9,7 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.PDF.MuPDF;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -24,7 +26,7 @@ namespace Qiqqa.Documents.PDF
             Directory.CreateDirectory(BASE_PATH_DEFAULT);
         }
 
-        private int num_pages = PDFTools.PAGECOUNT_PENDING;        // signal: -1 and below: pending/error; 0: empty document (rare/weird!); > 0: number of actual pages in document
+        private int num_pages = PDFErrors.PAGECOUNT_PENDING;        // signal: -1 and below: pending/error; 0: empty document (rare/weird!); > 0: number of actual pages in document
         private bool heuristic_retry_pagecount_at_startup_done = false;
 
         /// <summary>
@@ -137,7 +139,7 @@ namespace Qiqqa.Documents.PDF
         {
             get
             {
-                if (num_pages == PDFTools.PAGECOUNT_PENDING)
+                if (num_pages == PDFErrors.PAGECOUNT_PENDING)
                 {
                     WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -160,7 +162,7 @@ namespace Qiqqa.Documents.PDF
                 if (File.Exists(cached_count_filename))
                 {
                     num = Convert.ToInt32(File.ReadAllText(cached_count_filename));
-                    if (num > 0)
+                    if (num > 0 || heuristic_retry_pagecount_at_startup_done)
                     {
                         return num;
                     }
@@ -173,12 +175,10 @@ namespace Qiqqa.Documents.PDF
                 Logging.Warn(ex, "There was a problem loading the cached page count.");
             }
 
-            num = PDFTools.PAGECOUNT_PENDING;
+            num = PDFErrors.PAGECOUNT_PENDING;
 
             if (!heuristic_retry_pagecount_at_startup_done)
             {
-                heuristic_retry_pagecount_at_startup_done = true;
-
                 // Nuke the cache file, iff it exists. When we get here, it contained undesirable data anyway.
                 FileTools.Delete(cached_count_filename);
 
@@ -187,7 +187,7 @@ namespace Qiqqa.Documents.PDF
 
                 if (!DocumentExists)
                 {
-                    num = PDFTools.PAGECOUNT_DOCUMENT_DOES_NOT_EXIST;
+                    num = PDFErrors.DOCUMENT_DOES_NOT_EXIST;
 
                     SavePageCountToCache(num);
                 }
@@ -222,7 +222,8 @@ namespace Qiqqa.Documents.PDF
 
         private void SavePageCountToCache(int num)
         {
-            if (num != PDFTools.PAGECOUNT_PENDING)
+            Debug.Assert(num != PDFErrors.PAGECOUNT_PENDING);
+            if (num != PDFErrors.PAGECOUNT_PENDING)
             {
                 string cached_count_filename = MakeFilename_PageCount();
 
@@ -243,6 +244,8 @@ namespace Qiqqa.Documents.PDF
                     {
                         throw new IOException("CountPDFPages: cache content as read back from cache file does not match written data. Cache file is untrustworthy.");
                     }
+
+                    heuristic_retry_pagecount_at_startup_done = true;
                 }
                 catch (Exception ex)
                 {
@@ -257,6 +260,10 @@ namespace Qiqqa.Documents.PDF
                     //
                     //num = 0;
                 }
+            }
+            else
+            {
+                Logging.Debug("urk");
             }
         }
     }
