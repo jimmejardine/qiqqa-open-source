@@ -173,6 +173,8 @@ namespace Qiqqa.Documents.PDF
                 Logging.Warn(ex, "There was a problem loading the cached page count.");
             }
 
+            num = PDFTools.PAGECOUNT_PENDING;
+
             if (!heuristic_retry_pagecount_at_startup_done)
             {
                 heuristic_retry_pagecount_at_startup_done = true;
@@ -193,8 +195,6 @@ namespace Qiqqa.Documents.PDF
                 {
                     // PDFTools.CountPDFPages() is a very costly call: we DEFER that one until later and return 
                     // a signal we're waiting instead.
-                    num = PDFTools.PAGECOUNT_PENDING;
-
                     SafeThreadPool.QueueUserWorkItem(o =>
                     {
                         WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
