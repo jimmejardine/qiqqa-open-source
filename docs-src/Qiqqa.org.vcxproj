@@ -64,39 +64,31 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>
-    </NMakeBuildCommandLine>
-    <NMakeOutput>
-    </NMakeOutput>
-    <NMakeCleanCommandLine>
-    </NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>
-    </NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:build</NMakeBuildCommandLine>
+    <NMakeOutput>$(SolutionDir)docs\index.html</NMakeOutput>
+    <NMakeCleanCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <NMakeBuildCommandLine>cd .. &amp;&amp; npm run docs:build</NMakeBuildCommandLine>
-    <NMakeOutput>index.html</NMakeOutput>
-    <NMakeCleanCommandLine>cd .. &amp;&amp; npm run docs:clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>cd .. &amp;&amp; npm run docs:build</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:build</NMakeBuildCommandLine>
+    <NMakeOutput>$(SolutionDir)docs\index.html</NMakeOutput>
+    <NMakeCleanCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>
-    </NMakeBuildCommandLine>
-    <NMakeOutput>
-    </NMakeOutput>
-    <NMakeCleanCommandLine>
-    </NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>
-    </NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:build</NMakeBuildCommandLine>
+    <NMakeOutput>$(SolutionDir)docs\index.html</NMakeOutput>
+    <NMakeCleanCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <NMakeBuildCommandLine>cd .. &amp;&amp; npm run docs:build</NMakeBuildCommandLine>
-    <NMakeOutput>index.html</NMakeOutput>
-    <NMakeCleanCommandLine>cd .. &amp;&amp; npm run docs:clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>cd .. &amp;&amp; npm run docs:build</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:build</NMakeBuildCommandLine>
+    <NMakeOutput>$(SolutionDir)docs\index.html</NMakeOutput>
+    <NMakeCleanCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>cd $(SolutionDir) &amp;&amp; echo npm run docs:build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <ItemDefinitionGroup>
