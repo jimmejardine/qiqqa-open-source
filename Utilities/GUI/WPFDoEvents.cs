@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -132,6 +133,14 @@ namespace Utilities.GUI
             {
                 repaint_done = EmptyDelegate;
             }
+            else
+            {
+                Action wrapper_action = () =>
+                {
+                    WPFDoEvents.SafeExec(repaint_done, $"RepaintUIElement::{uiElement}");
+                };
+                repaint_done = wrapper_action;
+            }
             uiElement.Dispatcher.Invoke(DispatcherPriority.Render, repaint_done);
         }
 
@@ -198,37 +207,45 @@ namespace Utilities.GUI
                 {
                     if (!override_dispatcher.CheckAccess())
                     {
-                        override_dispatcher.Invoke(action, priority);
+                        Action wrapper_action = () =>
+                        {
+                            WPFDoEvents.SafeExec(action, "InvokeInUIThread::override_dispatcher");
+                        };
+                        override_dispatcher.Invoke(wrapper_action, priority);
                     }
                     else
                     {
-                        action.Invoke();
+                        action();
                     }
                 }
                 else if (!CurrentThreadIsUIThread())
                 {
                     if (Application.Current != null)
                     {
-                        Application.Current.Dispatcher.Invoke(action, priority);
+                        Action wrapper_action = () =>
+                        {
+                            WPFDoEvents.SafeExec(action, "InvokeInUIThread");
+                        };
+                        Application.Current.Dispatcher.Invoke(wrapper_action, priority);
                     }
-                    else 
+                    else
                     {
                         // Pray to the Big Kahuna; we're (probably) shutting down and don't know / cannot know any more if we're in UI thread or other.
                         //
                         // Fire off and pray...
                         try
                         {
-                            action.Invoke();
+                            action();
                         }
                         catch (Exception ex)
                         {
-                            Logging.Error(ex, "InvokeInUIThread::finalFallback: Error occurred.");
+                            Logging.Error(ex, "InvokeInUIThread::finalFallback: Error occurred while there's no current known UI thread.");
                         }
                     }
                 }
                 else
                 {
-                    action.Invoke();
+                    action();
                 }
             }
             catch (Exception ex)
@@ -241,7 +258,12 @@ namespace Utilities.GUI
         {
             if (Application.Current != null)
             {
-                Application.Current.Dispatcher.BeginInvoke(action, priority);
+                // wrap invoked code in exception catcher/handler so we don't get spurious unhandled exceptions in the UI.
+                Action wrapper_action = () =>
+                {
+                    WPFDoEvents.SafeExec(action, "InvokeAsyncInUIThread");
+                };
+                Application.Current.Dispatcher.BeginInvoke(wrapper_action, priority);
             }
             else
             {
@@ -288,7 +310,7 @@ namespace Utilities.GUI
             }
         }
 
-        public static void SafeExec(Action f, string trace = null)
+        public static void SafeExec(Action f, string trace = null, [CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
         {
             // exec in same thread:
             try
@@ -302,17 +324,78 @@ namespace Utilities.GUI
                 // it's okay when we're *that far* into the application termination phase.
                 if (!Logging.HasShutDown)
                 {
+                    var func_call_str = GetInvokingFunctionName(callerName, sourceFilePath, sourceLineNumber);
                     if (!String.IsNullOrEmpty(trace))
                     {
-                        trace = $" -- Invoker call trace:\n{trace}";
+                        trace = $" -- Invoker call trace:\n{func_call_str}\n{trace}";
                     }
                     else
                     {
-                        trace = "";
+                        trace = $" -- Invoker call trace:\n{func_call_str}";
                     }
                     Logging.Error(ex, $"Failed safe-exec.{trace}");
                 }
             }
+        }
+
+#if DEBUG
+        public static void TestAsyncErrorHandling()
+        {
+            Action bad_f = () =>
+            {
+                throw new Exception("boom!");
+            };
+
+            SafeExec(bad_f);
+            WPFDoEvents.InvokeInUIThread(bad_f);
+            WPFDoEvents.InvokeInUIThread(() =>
+            {
+                SafeExec(bad_f, "TestAsyncErrorHandling::InvokeInUIThread");
+            });
+            WPFDoEvents.InvokeInUIThread(() =>
+            {
+                WPFDoEvents.InvokeInUIThread(bad_f);
+                WPFDoEvents.InvokeAsyncInUIThread(bad_f);
+            });
+            WPFDoEvents.InvokeAsyncInUIThread(bad_f);
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            {
+                WPFDoEvents.InvokeInUIThread(bad_f);
+                WPFDoEvents.InvokeAsyncInUIThread(bad_f);
+            });
+
+            // this is the only one which is expected to invoke the Unhandled Exception Handler code
+#if false
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                bad_f();
+            });
+#endif
+
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                SafeExec(bad_f, "TestAsyncErrorHandling::QueueUserWorkItem");
+            });
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                WPFDoEvents.InvokeInUIThread(bad_f);
+                WPFDoEvents.InvokeAsyncInUIThread(bad_f);
+            });
+        }
+#endif
+
+        // Get us the name of the function which calls this member. As such it serves to provide
+        // us with the "currently executing function".
+        //
+        // Derived from https://stackoverflow.com/a/15310053/1635910
+        // via https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method/15310053#15310053
+        // and https://stackoverflow.com/questions/2652460/how-to-get-the-name-of-the-current-method-from-code
+        public static string GetInvokingFunctionName([CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            string[] arr = sourceFilePath.Split('\\');
+            string[] arr2 = new string[4];
+            Array.Copy(arr, Math.Max(0, arr.Length - 4), arr2, 0, 4);
+            return $"{callerName ?? "???"}::...{String.Join("/", arr2)}@{sourceLineNumber}";
         }
     }
 }

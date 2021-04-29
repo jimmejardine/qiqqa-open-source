@@ -195,7 +195,7 @@ namespace Qiqqa.Documents.PDF
                 {
                     // PDFTools.CountPDFPages() is a very costly call: we DEFER that one until later and return 
                     // a signal we're waiting instead.
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueUserWorkItem(() =>
                     {
                         WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 

@@ -59,7 +59,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             string db_title = TxtTitle.Text;
             string db_description = TxtDescription.Text;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 try
                 {

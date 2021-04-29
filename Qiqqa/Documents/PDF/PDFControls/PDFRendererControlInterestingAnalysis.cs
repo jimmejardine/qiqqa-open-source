@@ -27,14 +27,14 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 return;
             }
 
-            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_DuplicatesAndCitations(pdf_reading_control, pdf_document));
+            SafeThreadPool.QueueUserWorkItem(() => DoInterestingAnalysis_DuplicatesAndCitations(pdf_reading_control, pdf_document));
             // Only bother Google Scholar with a query when we want to:
             if (ConfigurationManager.IsEnabled(nameof(DoInterestingAnalysis_GoogleScholar)))
             {
-                SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_GoogleScholar(pdf_reading_control, pdf_document));
+                SafeThreadPool.QueueUserWorkItem(() => DoInterestingAnalysis_GoogleScholar(pdf_reading_control, pdf_document));
             }
-            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_TagCloud(pdf_reading_control, pdf_document));
-            SafeThreadPool.QueueUserWorkItem(o => DoInterestingAnalysis_SimilarAuthors(pdf_reading_control, pdf_document));
+            SafeThreadPool.QueueUserWorkItem(() => DoInterestingAnalysis_TagCloud(pdf_reading_control, pdf_document));
+            SafeThreadPool.QueueUserWorkItem(() => DoInterestingAnalysis_SimilarAuthors(pdf_reading_control, pdf_document));
         }
 
         private static void DoInterestingAnalysis_DuplicatesAndCitations(PDFReadingControl pdf_reading_control, PDFDocument pdf_document)

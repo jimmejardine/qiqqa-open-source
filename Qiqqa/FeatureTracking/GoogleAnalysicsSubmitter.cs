@@ -28,7 +28,7 @@ namespace Qiqqa.FeatureTracking
             if (15 > DateTime.UtcNow.Subtract(last_ga_failure_time).TotalMinutes) return;
 
             // Queue in background
-            SafeThreadPool.QueueUserWorkItem(o => Submit_BACKGROUND(feature));
+            SafeThreadPool.QueueUserWorkItem(() => Submit_BACKGROUND(feature));
         }
 
         private static void Submit_BACKGROUND(Feature feature)

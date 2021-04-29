@@ -33,7 +33,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
             {
                 for (int page = 1; page <= pdf_document.PageCount; ++page)
                 {
-                    string msg = $"Exporting page {page}/{pdf_document.PageCountAsString}";
+                    string msg = $"Exporting page { page }/{ pdf_document.PageCountAsString }";
 
                     StatusManager.Instance.UpdateStatus("ExportToWord", msg, page, Math.Max(1, pdf_document.PageCount));
 

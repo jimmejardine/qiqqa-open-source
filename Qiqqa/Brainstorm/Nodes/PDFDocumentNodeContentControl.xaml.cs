@@ -382,7 +382,7 @@ namespace Qiqqa.Brainstorm.Nodes
             switch (e.Key)
             {
                 case Key.I:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandCitationsInbound(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -390,7 +390,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.O:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandCitationsOutbound(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -398,7 +398,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.A:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandAuthors(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -406,7 +406,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.T:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandTags(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -414,7 +414,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.G:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandAutoTags(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -422,7 +422,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.N:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandAnnotations(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -430,7 +430,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.M:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandThemes(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -438,7 +438,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.S:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandSimilars(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -446,7 +446,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.R:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandRelevants(pdf_document_node_content.PDFDocument, node_control);
                     });

@@ -224,7 +224,7 @@ SourceURL: {0}
         {
             popup.Close();
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 int imported_count = 0;
 
@@ -252,7 +252,7 @@ SourceURL: {0}
         {
             popup.Close();
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Library_ForgetLegacyAnnotations);
                 foreach (var pdf_document in pdf_documents)
@@ -290,7 +290,7 @@ SourceURL: {0}
                 "language", language
                 );
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 foreach (var pdf_document in pdf_documents)
                 {
@@ -308,7 +308,7 @@ SourceURL: {0}
 
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ClearOCR);
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 foreach (var pdf_document in pdf_documents)
                 {
@@ -421,7 +421,7 @@ SourceURL: {0}
             // Copying / Moving PDFDocuments takes a while, particularly if it's a large set.
             //
             // Hence this WORK should be executed by a background task.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 FeatureTrackingManager.Instance.UseFeature(feature);
 

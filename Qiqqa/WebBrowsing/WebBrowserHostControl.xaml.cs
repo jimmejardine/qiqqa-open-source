@@ -305,7 +305,7 @@ namespace Qiqqa.WebBrowsing
             string url = CurrentUri.ToString();
 
             // This was the code that does the magic locally on the client...
-            SafeThreadPool.QueueUserWorkItem(o => HTMLToPDFConversion.GrabWebPage(title, url));
+            SafeThreadPool.QueueUserWorkItem(() => HTMLToPDFConversion.GrabWebPage(title, url));
         }
 
         private void TabWebBrowserControls_OnActiveItemChanged(FrameworkElement newItemContent)

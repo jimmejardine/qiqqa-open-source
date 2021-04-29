@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,7 +80,14 @@ namespace Utilities.GUI.Notifications
                     return;
                 }
                 //  give this to the thread pool
-                SafeThreadPool.QueueUserWorkItem((WaitCallback)button.Tag);
+                var t = button.Tag;
+                var cb = t as WaitCallback;
+                var f = t as Action;
+                Debug.Assert(cb != null);
+                SafeThreadPool.QueueUserWorkItem(() =>
+                {
+                    cb(null);
+                });
             }
             catch (Exception ex)
             {

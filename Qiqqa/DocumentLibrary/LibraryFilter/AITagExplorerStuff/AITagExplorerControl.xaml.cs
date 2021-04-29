@@ -93,7 +93,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         private void ButtonRefreshTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.AITagManager.Regenerate(AITagsRegenerated_NON_GUI_THREAD));
+            SafeThreadPool.QueueUserWorkItem(() => web_library_detail.Xlibrary.AITagManager.Regenerate(AITagsRegenerated_NON_GUI_THREAD));
         }
 
         private void AITagsRegenerated_NON_GUI_THREAD(IAsyncResult ar)

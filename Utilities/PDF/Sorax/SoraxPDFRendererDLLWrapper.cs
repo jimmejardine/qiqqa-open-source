@@ -110,6 +110,7 @@ namespace Utilities.PDF.Sorax
         }
 
 
+#if false
         public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, float dpi)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
@@ -119,7 +120,7 @@ namespace Utilities.PDF.Sorax
                 return GetPageByDPIAsImage_LOCK(hdoc, page, dpi);
             }
         }
-
+#endif
         private static byte[] GetPageByDPIAsImage_LOCK(HDOCWrapper hdoc, int page, float dpi)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();

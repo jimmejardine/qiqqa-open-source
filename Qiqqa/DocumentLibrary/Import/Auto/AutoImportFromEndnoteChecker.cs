@@ -56,7 +56,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             }
         }
 
-        private static void DoImportMyDocuments(object obj)
+        private static void DoImportMyDocuments()
         {
             if (null == mdd)
             {
@@ -77,7 +77,7 @@ namespace Qiqqa.DocumentLibrary.Import.Auto
             }
         }
 
-        private static void DoNoThanks(object obj)
+        private static void DoNoThanks()
         {
             ConfigurationManager.Instance.ConfigurationRecord.ImportFromEndnoteAutoDisabled = true;
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.ImportFromEndnoteAutoDisabled));

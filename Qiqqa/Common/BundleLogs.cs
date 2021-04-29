@@ -54,7 +54,7 @@ namespace Qiqqa.Common
                 const int MAX_PROGRESS = 100;
                 StatusManager.Instance.UpdateStatus("LogBundler", "Bundling the logfile. Please wait...", progress, MAX_PROGRESS);
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     string environment_details_filename = null;
 

@@ -966,7 +966,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void UseAsBibTeX(string text)
         {
-            SafeThreadPool.QueueUserWorkItem(o => PostBibTeXToAggregator(text));
+            SafeThreadPool.QueueUserWorkItem(() => PostBibTeXToAggregator(text));
 
             if (null != pdf_document)
             {

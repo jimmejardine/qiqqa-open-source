@@ -410,7 +410,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public void NotifyOfChangeToWebLibraryDetail()
         {
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 SaveKnownWebLibraries();
             },

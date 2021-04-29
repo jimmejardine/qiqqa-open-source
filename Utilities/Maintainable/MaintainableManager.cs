@@ -50,7 +50,7 @@ namespace Utilities.Maintainable
             }
 
             // Then go and wait for all to really terminate.
-            shutdown_cleanup_action = new WaitCallback(o =>
+            shutdown_cleanup_action = new Action(() =>
             {
                 Logging.Debug("+Stopping MaintainableManager tasks (async wait callback)");
 
@@ -63,7 +63,7 @@ namespace Utilities.Maintainable
             SafeThreadPool.QueueUserWorkItem(shutdown_cleanup_action, skip_task_at_app_shutdown: false);
         }
 
-        private WaitCallback shutdown_cleanup_action = null;
+        private Action shutdown_cleanup_action = null;
 
         private bool CleanupOnShutdown()
         {

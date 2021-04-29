@@ -40,7 +40,7 @@ namespace Qiqqa.Marketing
                     ));
         }
 
-        private static void FindOutMore(object obj)
+        private static void FindOutMore()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Marketing_AlternativeTo);
             WebsiteAccess.OpenWebsite(WebsiteAccess.Url_AlternativeTo);

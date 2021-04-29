@@ -57,7 +57,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
             }
 
             // Kick off the downloader
-            SafeThreadPool.QueueUserWorkItem(o => ManageDownload(manifest));
+            SafeThreadPool.QueueUserWorkItem(() => ManageDownload(manifest));
 
             Close();
         }

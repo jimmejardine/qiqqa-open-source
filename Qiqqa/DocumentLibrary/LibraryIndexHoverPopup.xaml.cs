@@ -106,11 +106,11 @@ namespace Qiqqa.DocumentLibrary
                 return;
             }
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 try
                 {
-                    if (pdf_document.DocumentExists)
+                    if (pdf_document?.DocumentExists ?? false)
                     {
                         const double IMAGE_PERCENTAGE = 0.5;
                         BitmapSource image_page = null;

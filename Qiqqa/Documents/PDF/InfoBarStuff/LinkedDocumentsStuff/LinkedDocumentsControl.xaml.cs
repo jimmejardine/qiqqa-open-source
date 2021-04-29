@@ -78,7 +78,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
                 string query = ObjSearchBox.Text;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     ReSearch(doc, query);
                     RepopulatePanels(doc);
@@ -150,7 +150,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
             var doc = this.pdf_document;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 RepopulatePanels(doc);
             });
@@ -163,7 +163,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
                 var doc = this.pdf_document;
                 string query = ObjSearchBox.Text;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     ReSearch(doc, query);
                 });

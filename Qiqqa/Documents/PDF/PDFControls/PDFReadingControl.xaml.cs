@@ -241,7 +241,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             TagCloud.TagClick += TagCloud_TagClick;
 
             JumpToPageNumber.Text = "" + 1;
-            JumpToPageNumberMax.Text = $" of {pdf_document.PageCountAsString}";
+            JumpToPageNumberMax.Text = $" of { pdf_document.PageCountAsString }";
             JumpToPageNumber.KeyDown += JumpToPageNumber_KeyDown;
             JumpToPageNumber.KeyUp += JumpToPageNumber_KeyUp;
             JumpToPageNumber.GotFocus += JumpToPageNumber_GotFocus;
@@ -266,7 +266,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ObjDocumentMetadataControlsPanel.SelectedPageChanged += ObjDocumentMetadataControlsPanel_ObjDocumentMetadataControlsPanel_SelectedPageChanged;
 
             // Kick off a thread that populates the interesting analysis
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 PDFRendererControlInterestingAnalysis.DoInterestingAnalysis(this, pdf_renderer_control, pdf_document);
             });
@@ -578,7 +578,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 if (pdf_document != null)
                 {
                     JumpToPageNumber.Text = "" + page;
-                    JumpToPageNumberMax.Text = $" of {pdf_document.PageCountAsString}";
+                    JumpToPageNumberMax.Text = $" of { pdf_document.PageCountAsString }";
                 }
             });
         }
@@ -632,7 +632,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     pdf_renderer_control.MoveSelectedPageAbsolute(page_number);
 
                     JumpToPageNumber.Text = "" + page_number;
-                    JumpToPageNumberMax.Text = $" of {pdf_document.PageCountAsString}";
+                    JumpToPageNumberMax.Text = $" of { pdf_document.PageCountAsString }";
                     JumpToPageNumber.SelectAll();
                 }
             }
@@ -1153,7 +1153,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 PDFDocument source_pdf_document = pdf_document;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail);
                     ASSERT.Test(cloned_pdf_document != null);

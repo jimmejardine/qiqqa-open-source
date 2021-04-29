@@ -40,7 +40,7 @@ namespace Qiqqa.Exporting
                     ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder = base_path;
                     ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder));
 
-                    SafeThreadPool.QueueUserWorkItem(o => Export(web_library_detail, pdf_documents, base_path));
+                    SafeThreadPool.QueueUserWorkItem(() => Export(web_library_detail, pdf_documents, base_path));
                 }
             }
         }

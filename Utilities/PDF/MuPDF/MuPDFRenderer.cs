@@ -353,6 +353,7 @@ namespace Utilities.PDF.MuPDF
         }
 
 
+#if false
         public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, int page, int dpi)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
@@ -361,6 +362,7 @@ namespace Utilities.PDF.MuPDF
 
             return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, page, dpi, 0, 0);
         }
+#endif
 
         private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, int page, int dpi, int height, int width)
         {

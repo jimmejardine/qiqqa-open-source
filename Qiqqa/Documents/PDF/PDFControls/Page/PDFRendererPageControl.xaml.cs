@@ -159,7 +159,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 Effect = dse;
             }
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 

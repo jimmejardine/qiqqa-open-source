@@ -554,7 +554,7 @@ namespace Qiqqa.InCite
                     if (!context_thread_running)
                     {
                         context_thread_running = true;
-                        SafeThreadPool.QueueUserWorkItem(o => word_connector_ContextChanged_BACKGROUND_FindRecommendations());
+                        SafeThreadPool.QueueUserWorkItem(() => word_connector_ContextChanged_BACKGROUND_FindRecommendations());
                     }
                 }
             });

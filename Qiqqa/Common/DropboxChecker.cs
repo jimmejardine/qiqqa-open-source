@@ -55,7 +55,7 @@ namespace Qiqqa.Common
             }
         }
 
-        private static void IUnderstand(object obj)
+        private static void IUnderstand()
         {
             try
             {

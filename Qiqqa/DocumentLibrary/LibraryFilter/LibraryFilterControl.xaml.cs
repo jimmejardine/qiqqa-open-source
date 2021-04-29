@@ -543,7 +543,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 }
             }
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 List<PDFDocument> pdf_documents = null;
                 // If there are no filters, use all document

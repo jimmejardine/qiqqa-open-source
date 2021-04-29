@@ -290,7 +290,7 @@ namespace Qiqqa.Brainstorm.Nodes
 
             string library_fingerprint = theme_node_content.Underlying.library_fingerprint;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 

@@ -61,7 +61,7 @@ namespace QiqqaSystemTester
             string PDFPassword = null;
             int page = 1;
             int dpi = 80;
-            byte[] imgbytes = MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
+            byte[] imgbytes = MuPDFRenderer.GetPageByHeightAsImage(DocumentPath, PDFPassword, page, dpi * 12);
             ASSERT.IsGreaterOrEqual(imgbytes.Length, 256);
 
             using (MemoryStream ms = new MemoryStream(imgbytes))

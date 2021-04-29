@@ -100,7 +100,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void CmdExport_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -267,7 +267,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             bool sort_objects = ObjSort.IsChecked ?? false;
             string search_filter_terms = TxtSearchTermsFilter.Text;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 MultiMapSet<string, string> tags_with_fingerprints_ALL = GetNodeItems(web_library_detail, null);
                 MultiMapSet<string, string> tags_with_fingerprints = tags_with_fingerprints_ALL;

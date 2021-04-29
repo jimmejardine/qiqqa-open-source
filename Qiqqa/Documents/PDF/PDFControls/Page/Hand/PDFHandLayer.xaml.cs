@@ -37,11 +37,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             int start_page_offset = pdf_renderer_control_stats.StartPageOffset;
             if (0 != start_page_offset)
             {
-                ObjPageNumberControl.SetPageNumber(String.Format("{2} ({0}/{1})", page, pdf_renderer_control_stats.pdf_document.PageCountAsString, (page + start_page_offset - 1)));
+                ObjPageNumberControl.SetPageNumber($"{ (page + start_page_offset - 1) } ({ page }/{ pdf_renderer_control_stats.pdf_document.PageCountAsString })");
             }
             else
             {
-                ObjPageNumberControl.SetPageNumber(String.Format("{0}/{1}", page, pdf_renderer_control_stats.pdf_document.PageCountAsString));
+                ObjPageNumberControl.SetPageNumber($"{ page }/{ pdf_renderer_control_stats.pdf_document.PageCountAsString }");
             }
 
             MouseDown += PDFHandLayer_MouseDown;

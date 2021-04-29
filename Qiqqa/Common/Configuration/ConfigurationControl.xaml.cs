@@ -361,7 +361,7 @@ namespace Qiqqa.Common.Configuration
 
         private void ButtonGarbageCollect_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 Logging.Info("+Before Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(false));
                 GC.WaitForPendingFinalizers();

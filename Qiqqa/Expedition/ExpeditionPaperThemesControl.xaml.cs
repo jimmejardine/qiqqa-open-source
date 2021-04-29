@@ -54,7 +54,7 @@ namespace Qiqqa.Expedition
 
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
 

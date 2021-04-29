@@ -269,7 +269,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                 // Populate the linked documents
                 PDFDocument pdf_document = PDFDocumentBindable.Underlying;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                 {
                     WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 

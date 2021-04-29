@@ -511,7 +511,7 @@ namespace Qiqqa.AnnotationsReportBuilding
         private static void BackgroundRenderImages(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptions annotation_report_options)
         {
             // Render the images in the background
-            SafeThreadPool.QueueUserWorkItem(o => BackgroundRenderImages_BACKGROUND(flow_document, annotation_works, annotation_report_options));
+            SafeThreadPool.QueueSafeExecUserWorkItem(() => BackgroundRenderImages_BACKGROUND(flow_document, annotation_works, annotation_report_options));
         }
 
         private static void BackgroundRenderImages_BACKGROUND(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptions annotation_report_options)

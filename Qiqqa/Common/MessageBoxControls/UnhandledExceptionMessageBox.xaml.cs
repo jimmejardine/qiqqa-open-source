@@ -48,7 +48,7 @@ namespace Qiqqa.Common.MessageBoxControls
             }
 
             // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 // Collect all generations of memory.
                 GC.WaitForPendingFinalizers();

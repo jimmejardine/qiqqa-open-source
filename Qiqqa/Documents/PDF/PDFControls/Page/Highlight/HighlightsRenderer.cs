@@ -63,7 +63,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             double scaled_capped_width = Math.Min(Width, 300);
             double scaled_capped_height = Height * scaled_capped_width / Width;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 BitmapSource bmp;
 

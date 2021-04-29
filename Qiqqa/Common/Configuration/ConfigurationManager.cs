@@ -307,7 +307,7 @@ namespace Qiqqa.Common.Configuration
                 // Saving the config on property change is non-essential as another save action will be triggered
                 // from the application shutdown handler anyway. Therefor we delegate the inherent file I/O to
                 // a background task:
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                 {
                     SaveConfigurationRecord();
                 }, skip_task_at_app_shutdown: true);

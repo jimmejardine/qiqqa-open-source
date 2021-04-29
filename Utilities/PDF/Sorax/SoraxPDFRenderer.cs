@@ -27,10 +27,12 @@ namespace Utilities.PDF.Sorax
             }
         }
 
+#if false
         static public byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, int page, float dpi)
         {
             return SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage(filename, pdf_user_password, pdf_user_password, page, dpi);
         }
+#endif
 
         static public void Flush()
         {

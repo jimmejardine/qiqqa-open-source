@@ -82,7 +82,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             this.manifest_latest = manifest_latest;
         }
 
-        public void Download(object obj)
+        public void Download()
         {
             WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
@@ -91,7 +91,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             );
         }
 
-        public void NoThanks(object obj)
+        public void NoThanks()
         {
             web_library_detail.LastBundleManifestIgnoreVersion = manifest_latest.Version;
             WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();

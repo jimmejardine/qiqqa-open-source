@@ -94,7 +94,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             string parameters = String.Format("a -tzip -mm=Deflate -mmt=on -mx9 \"{0}\" \"{1}\" {2}", target_filename_bundle, source_directory, directory_exclusion_parameter);
 
             // Watch the zipper
-            SafeThreadPool.QueueUserWorkItem(o => TailZIPProcess(manifest, parameters));
+            SafeThreadPool.QueueUserWorkItem(() => TailZIPProcess(manifest, parameters));
         }
 
         private static void TailZIPProcess(BundleLibraryManifest manifest, string parameters)
@@ -147,18 +147,21 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         private void CmdThemes_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.ExpeditionManager.RebuildExpedition(web_library_detail.Xlibrary.ExpeditionManager.RecommendedThemeCount, true, true, null));
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+            {
+                    web_library_detail.Xlibrary.ExpeditionManager.RebuildExpedition(web_library_detail.Xlibrary.ExpeditionManager.RecommendedThemeCount, true, true, null);
+            });
         }
 
         private void CmdAutoTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.AITagManager.Regenerate());
+            SafeThreadPool.QueueSafeExecUserWorkItem(() => web_library_detail.Xlibrary.AITagManager.Regenerate());
         }
 
         private void CmdCrossReference_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(web_library_detail));
+            SafeThreadPool.QueueSafeExecUserWorkItem(() => CitationFinder.FindCitations(web_library_detail));
         }
 
         private void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)

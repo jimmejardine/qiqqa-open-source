@@ -253,7 +253,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
             if (null != web_library_detail)
             {
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     WebLibraryManager.Instance.ForgetKnownWebLibraryFromIntranet(web_library_detail);
                 });
@@ -337,7 +337,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     if (!have_generated_charts)
                     {
                         have_generated_charts = true;
-                        SafeThreadPool.QueueUserWorkItem(o => UpdateLibraryStatistics_Stats_Background_Charts(web_library_detail));
+                        SafeThreadPool.QueueUserWorkItem(() => UpdateLibraryStatistics_Stats_Background_Charts(web_library_detail));
                     }
                 }
 
@@ -348,7 +348,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     if (!have_generated_cover_flow)
                     {
                         have_generated_cover_flow = true;
-                        SafeThreadPool.QueueUserWorkItem(o => UpdateLibraryStatistics_Stats_Background_CoverFlow(web_library_detail));
+                        SafeThreadPool.QueueUserWorkItem(() => UpdateLibraryStatistics_Stats_Background_CoverFlow(web_library_detail));
                     }
                 }
             }
@@ -573,7 +573,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 {
                     UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws);
 
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueUserWorkItem(() =>
                     {
                         try
                         {

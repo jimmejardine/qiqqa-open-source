@@ -71,7 +71,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                         ActualWidth = @ActualWidth
                     };
 
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueUserWorkItem(() =>
                     {
                         // GetSnappedImage() invokes the background renderer, hence run it in a background thread itself:
                         BitmapSource image = GetSnappedImage(page_info, mouse_up_point, mouse_down_point);
@@ -134,7 +134,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             BitmapSource cropped_image_page = null;
 
-            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.GetPageByDPIAsImage(page_info.page, 150)))
+            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.GetPageByHeightAsImage(page_info.page, page_info.ActualHeight, page_info.ActualWidth)))
             {
                 PngBitmapDecoder decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                 BitmapSource image_page = decoder.Frames[0];

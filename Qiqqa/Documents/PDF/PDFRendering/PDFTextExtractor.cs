@@ -984,7 +984,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             Logging.Debug特("PDFTextExtractor::Shutdown: flushing the queue ({0} + {1} items discarded)", job_queue_group_count, job_queue_single_count);
             FlushAllJobs();
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 Logging.Info("+Stopping PDFTextExtractor threads (async)");
 

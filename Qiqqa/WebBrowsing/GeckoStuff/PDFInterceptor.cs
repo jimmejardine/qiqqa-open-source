@@ -151,7 +151,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                     string temp_pdf_filename = TempFile.GenerateTempFilename("pdf");
                     File.WriteAllBytes(temp_pdf_filename, captured_data);
 
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueUserWorkItem(() =>
                     {
                         PDFDocument pdf_document = Library.GuestInstance.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, Library.GuestInstance, document_source_filename, document_source_url, null, null, null, true);
                         File.Delete(temp_pdf_filename);
@@ -177,7 +177,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
             });
         }
 
-        private void DownloadAndInstallAcrobatReader(object obj)
+        private void DownloadAndInstallAcrobatReader()
         {
             WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_AdobeAcrobatDownload, true));
         }

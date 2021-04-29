@@ -261,8 +261,8 @@ namespace Qiqqa.Common
 
                     resp_housekeeping.clk2Test = Stopwatch.StartNew();
                 }
-                SafeThreadPool.QueueUserWorkItem(o => MeasureUIResponsivenessNormal());
-                SafeThreadPool.QueueUserWorkItem(o => MeasureUIResponsivenessBackground());
+                SafeThreadPool.QueueUserWorkItem(() => MeasureUIResponsivenessNormal());
+                SafeThreadPool.QueueUserWorkItem(() => MeasureUIResponsivenessBackground());
             }
         }
 

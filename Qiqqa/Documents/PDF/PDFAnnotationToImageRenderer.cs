@@ -15,7 +15,7 @@ namespace Qiqqa.Documents.PDF
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByDPIAsImage(pdf_annotation.Page, dpi)))
+            using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByHeightAsImage(pdf_annotation.Page, dpi * 12, dpi * 12)))
             {
                 Image cropped_image = null;
                 Image resized_image = null;

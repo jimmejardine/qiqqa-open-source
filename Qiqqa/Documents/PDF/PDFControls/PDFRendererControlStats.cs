@@ -133,7 +133,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     continue;
                 }
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 

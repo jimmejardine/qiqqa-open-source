@@ -55,7 +55,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, params string[] filenames)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibrary_SYNCHRONOUS(web_library_detail, suppress_notifications, filenames));
+            SafeThreadPool.QueueUserWorkItem(() => AddNewPDFDocumentsToLibrary_SYNCHRONOUS(web_library_detail, suppress_notifications, filenames));
         }
 
         public static PDFDocument AddNewPDFDocumentsToLibrary_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, params string[] filenames)
@@ -74,7 +74,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, FilenameWithMetadataImport[] filename_with_metadata_imports)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, filename_with_metadata_imports));
+            SafeThreadPool.QueueUserWorkItem(() => AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, filename_with_metadata_imports));
         }
 
         public static PDFDocument AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, FilenameWithMetadataImport[] filename_with_metadata_imports)
@@ -193,7 +193,7 @@ namespace Qiqqa.DocumentLibrary
                     {
                         // once the user has ack'ed or nack'ed the message, that handler
                         // will RESET the 'showing' counter and the party can start all over again!
-                        SafeThreadPool.QueueUserWorkItem(o => AlertUserAboutProblematicImports());
+                        SafeThreadPool.QueueUserWorkItem(() => AlertUserAboutProblematicImports());
                     }
                 }
             }
@@ -259,7 +259,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(WebLibraryDetail web_library_detail, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(web_library_detail, root_folder, recurse_subfolders, import_tags_from_subfolder_names, suppress_notifications));
+            SafeThreadPool.QueueUserWorkItem(() => AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(web_library_detail, root_folder, recurse_subfolders, import_tags_from_subfolder_names, suppress_notifications));
         }
 
         /// <summary>
@@ -324,7 +324,7 @@ namespace Qiqqa.DocumentLibrary
             // (Ignore the search engine 'base' URLs, which may be fed into here)
             if (!urls_which_are_guaranteed_to_be_NOT_a_download.Contains(download_url))
             {
-                SafeThreadPool.QueueUserWorkItem(o => AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(web_library_detail, download_url));
+                SafeThreadPool.QueueUserWorkItem(() => AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(web_library_detail, download_url));
             }
         }
 
@@ -506,7 +506,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail)
         {
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail);
             });
@@ -514,7 +514,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(List<PDFDocument> existing_pdf_document, WebLibraryDetail web_library_detail, ActionPerClonedDocument doneActionPerDocument = null)
         {
-            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail, doneActionPerDocument));
+            SafeThreadPool.QueueUserWorkItem(() => ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail, doneActionPerDocument));
         }
 
         public delegate void ActionPerClonedDocument(PDFDocument target, PDFDocument source);

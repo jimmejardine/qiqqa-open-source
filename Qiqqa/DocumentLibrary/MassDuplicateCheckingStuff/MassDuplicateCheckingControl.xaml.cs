@@ -91,7 +91,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                 }
             }
 
-            SafeThreadPool.QueueUserWorkItem(o => FindDuplicates_BACKGROUND(web_library_detail));
+            SafeThreadPool.QueueUserWorkItem(() => FindDuplicates_BACKGROUND(web_library_detail));
         }
 
         private void FindDuplicates_BACKGROUND(WebLibraryDetail web_library_detail)

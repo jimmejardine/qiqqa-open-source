@@ -50,7 +50,7 @@ namespace Qiqqa.Synchronisation.GUI
                         Debug.Assert(library_sync_detail.web_library_detail.IsIntranetLibrary);
                     }
 #if false
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueUserWorkItem(() =>
                     {
                         bool validation_successful = EnsureIntranetLibraryExists(db_base_path, db_title, db_description);
 

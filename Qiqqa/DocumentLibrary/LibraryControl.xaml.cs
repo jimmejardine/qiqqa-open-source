@@ -411,7 +411,7 @@ namespace Qiqqa.DocumentLibrary
         private void ButtonGenerateReferences_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(web_library_detail));
+            SafeThreadPool.QueueUserWorkItem(() => CitationFinder.FindCitations(web_library_detail));
         }
 
         private void ButtonFindDuplicates_Click(object sender, RoutedEventArgs e)

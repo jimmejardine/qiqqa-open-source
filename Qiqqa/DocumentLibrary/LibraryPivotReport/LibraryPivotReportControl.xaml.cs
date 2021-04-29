@@ -128,7 +128,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             string map_x_axis_name = (string)ObjXAxis.SelectedItem;
             string identifier_name = (string)ObjIdentifier.SelectedItem;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 MultiMapSet<string, string> map_y_axis = LibraryPivotReportBuilder.GenerateAxisMap(map_y_axis_name, LibraryRef, parent_fingerprints);
                 MultiMapSet<string, string> map_x_axis = LibraryPivotReportBuilder.GenerateAxisMap(map_x_axis_name, LibraryRef, parent_fingerprints);

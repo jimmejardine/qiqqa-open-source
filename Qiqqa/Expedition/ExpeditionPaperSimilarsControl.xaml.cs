@@ -59,7 +59,7 @@ namespace Qiqqa.Expedition
 
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(pdf_document, NumberOfRelevantPapersToDisplay);
 

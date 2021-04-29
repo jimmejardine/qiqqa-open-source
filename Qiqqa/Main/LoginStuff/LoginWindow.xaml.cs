@@ -105,7 +105,7 @@ namespace Qiqqa.Main.LoginStuff
             ProgressInfoWrapper.Visibility = String.IsNullOrEmpty(message) ? Visibility.Collapsed : Visibility.Visible;
             ProgressInfo.Text = message;
 
-            Utilities.GUI.WPFDoEvents.RepaintUIElement(ProgressInfoWrapper);
+            WPFDoEvents.RepaintUIElement(ProgressInfoWrapper);
         }
 
         private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
@@ -218,7 +218,7 @@ namespace Qiqqa.Main.LoginStuff
             ComputerStatistics.LogCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
 
             // Fire up Qiqqa!
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 try
                 {

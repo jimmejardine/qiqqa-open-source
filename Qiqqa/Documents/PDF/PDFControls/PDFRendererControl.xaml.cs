@@ -123,7 +123,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             var doc = pdf_renderer_control_stats.pdf_document;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 // Add the child pages
                 bool add_bells_and_whistles = (doc.PageCount > 0 && doc.PageCount < 50);

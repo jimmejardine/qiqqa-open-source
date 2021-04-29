@@ -129,7 +129,16 @@ namespace Qiqqa.Documents.PDF
                 int n = PageCount;
                 switch (n)
                 {
-                    case -1:
+                    case PDFTools.PAGECOUNT_DOCUMENT_DOES_NOT_EXIST:
+                        return "<PDF missing>";
+
+                    case PDFTools.PAGECOUNT_DOCUMENT_IS_CORRUPTED:
+                        return "<corrupted PDF>";
+
+                    case PDFTools.PAGECOUNT_GENERAL_FAILURE:
+                        return "<general fail>";
+
+                    case PDFTools.PAGECOUNT_PENDING:
                         return "<pending>";
 
                     case 0:
@@ -641,7 +650,7 @@ namespace Qiqqa.Documents.PDF
                 int pageCount = PageCount;
                 if (value < 0 || value > pageCount)
                 {
-                    Logging.Error("Reading an invalid PageLastRead value {0} from the database, while the total page count is {1}", dictionary["PageLastRead"], PageCountAsString);
+                    Logging.Error($"Reading an invalid PageLastRead value { dictionary["PageLastRead"] } from the database, while the total page count is { PageCountAsString }");
                     value = Math.Max(0, Math.Min(pageCount, value));
                 }
                 return value;
@@ -651,7 +660,7 @@ namespace Qiqqa.Documents.PDF
                 int pageCount = PageCount;
                 if (value < 0 || value > pageCount)
                 {
-                    Logging.Error("Setting an invalid PageLastRead value {0}, while the total page count is {1}", value, PageCountAsString);
+                    Logging.Error($"Setting an invalid PageLastRead value { value }, while the total page count is { PageCountAsString }");
                     value = Math.Max(0, Math.Min(pageCount, value));
                 }
                 dictionary["PageLastRead"] = value;
