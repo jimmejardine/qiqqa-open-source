@@ -948,7 +948,7 @@ namespace Utilities.PDF.MuPDF
                     continue;
                 }
 
-                // If its more than a letters distance across from the current word
+                // If its more than a letter's distance across from the current word
                 double average_letter_width = (current_text_chunk.x1 - current_text_chunk.x0) / current_text_chunk.text.Length;
                 double current_letter_gap = (text_chunk.x0 - current_text_chunk.x1);
                 if (current_letter_gap > average_letter_width)
