@@ -22,3 +22,6 @@
 [submodule "thirdparty/clrzmq4"]
 	path = thirdparty/clrzmq4
 	url = git@github.com:GerHobbelt/clrzmq4.git
+[submodule "thirdparty/Solr.Net"]
+	path = thirdparty/Solr.Net
+	url = git@github.com:GerHobbelt/SolrNet.git
