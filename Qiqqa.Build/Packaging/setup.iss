@@ -37,7 +37,10 @@ SetupIconFile={#AppIcon}
 Compression=lzma/Max
 SolidCompression=yes
 SetupLogging=yes
+; see https://jrsoftware.org/ishelp/index.php?topic=setup_privilegesrequired
+PrivilegesRequiredOverridesAllowed=commandline dialog
 PrivilegesRequired=admin
+UsePreviousPrivileges=no
 ; the Windows file version as reported by the Properties of the generated setup.exe:
 VersionInfoVersion={#AppFullVersion}
 
