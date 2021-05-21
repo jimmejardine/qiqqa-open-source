@@ -20,8 +20,10 @@ This is a semi-random amalgam of several subjects, extracted straight from the w
   
    Most activity seems to be around 2014, so apparently I'm 7 years *behind the curve* 😅
   
-   **NOTE** the very interesting one which **does not use rectangles for segmenting an image, but instead does the (IMO) only correct thing: pixel coloring = "pixel labeling"**: rectangles are what I consider the easy-for-the-computer UI and cause a horrible mess in busy layouts / images. pixel labeling is much akin to the coloring preprocessing done by comic artists (*colorists*) and other professionals in the painting/coloring industry (e.g. when coloring old B&W images)
+   **NOTE** the very interesting one \[Edit: search "CVAT"] which **does not use rectangles for segmenting an image, but instead does the (IMO) only correct thing: pixel coloring = "pixel labeling"**: rectangles are what I consider the easy-for-the-computer UI and cause a horrible mess in busy layouts / images. pixel labeling is much akin to the coloring preprocessing done by comic artists (*colorists*) and other professionals in the painting/coloring industry (e.g. when coloring old B&W images)
    Anyway, PDF standard has rectangles and polygons for this and generally, that's good enough there as few page layouts go beyond the "bunch of non-overlapping rectangles" approach. 🤷
+   
+   ![image segmentation done right](https://github.com/openvinotoolkit/cvat/blob/develop/site/content/en/images/cvat.jpg)
   
 2. "PDF text extraction / OCR"
 
