@@ -1,12 +1,15 @@
 REM args: targetdir build qiqqaProjectDir
 
 echo "### Copying %2 MuPDF built EXEcutables and DLLs to %1"
-REM echo "ARGS: %1 %2 %3"
+echo "### CopyMuPDFBinaries ARGS: %1 %2 %3"
 
 cd "%3"
 cd ..\MuPDF\platform\win32
+
 rem go with the 64-bit builds.
-cd "%2-64"
+
+rem cd "bin\%2-Unicode-64bit-x64"
+cd "bin\Release-Unicode-64bit-x64"
 
 echo "MuPDF source directory for the binaries:"
 cd
@@ -14,6 +17,7 @@ cd
 mkdir "%1\MuPDF"
 
 REM update the files in the target directory:
-robocopy . "%1\MuPDF" mudraw.exe mupdf*.exe mutool.exe curl.exe *.dll /PURGE /XO /NP
+robocopy . "%1\MuPDF" *.exe *.dll /PURGE /XO /NP /XF mu-office-*.exe bin2coff.exe
+
 
 echo "### Copying done! ################################################"
