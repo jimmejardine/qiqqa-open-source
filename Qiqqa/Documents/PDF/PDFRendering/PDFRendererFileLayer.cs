@@ -41,16 +41,7 @@ namespace Qiqqa.Documents.PDF
         /// </summary>
         public bool HasOCRdata()
         {
-            // BasePath:
-            string base_path = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForOCRs;
-            if (String.IsNullOrEmpty(base_path))
-            {
-                base_path = BASE_PATH_DEFAULT;
-            }
-            // string cached_count_filename = MakeFilename_PageCount(Fingerprint);
-            // return MakeFilenameWith2LevelIndirection("pagecount", "0", "txt");
-            string indirection_characters = Fingerprint.Substring(0, 2).ToUpper();
-            string cached_count_filename = Path.GetFullPath(Path.Combine(base_path, indirection_characters, String.Format("{0}.{1}.{2}.{3}", Fingerprint, @"pagecount", @"0", @"txt")));
+            string cached_count_filename = MakeFilename_PageCount();
 
             return File.Exists(cached_count_filename);
         }
