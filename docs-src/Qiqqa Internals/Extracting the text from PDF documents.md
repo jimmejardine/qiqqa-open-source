@@ -293,7 +293,7 @@ This *inferred* metadata is shown and used by Qiqqa when there is no BibTeX meta
 
 <!-- HR -->
 <br><br>
-<p align="center" style="margin-top: 50px"><img src="./images/divider-end.svg" width="200"></p>
+<p align="center" style="margin-top: 50px"><img src="../The Official Manual/assets/divider-end.svg" width="200"></p>
 <br><br><br>
 
 
