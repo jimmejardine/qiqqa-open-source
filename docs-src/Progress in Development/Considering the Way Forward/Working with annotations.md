@@ -52,7 +52,24 @@ It would take a few things to get there:
 - testing! (Are we doing the job of annotation extraction well, when user did something *externally* using app X, e.g. PDFAnnotator or FoxIt or Acrobat or ...?)
 
 
+----
 
+## Rendering and using annotations in HTML
+
+Incidentally, observe how EElsevier solved this for showing (and editing = annotating?) their PDFs in their website: https://www.sciencedirect.com/science/article/pii/S016412121630187X --> click on Download PDF to get a (current session = token-locked) PDF view with ***overlays**: note that Elsevier has (at least) 4 DIVs for the annotation work, among which are:
+
+- a text layer showing the printed/extracted text for selection (& rendering selection boxes while you click&drag your mouse over the page(s).
+
+  Do note that *deleting* this layer will not alter the rendered page view, which itself is landed in a CANVAS node. This is **very** similar to the current Qiqqa approach in WPF/Net, only now doen in HTML. absolute positioned DIV, transformed SPANs for the text words, etc.
+  
+  **Note to self**: analyze this further: it looks like you can only select per word, or it might be me, my jittery mouse hand and the quick 2 second glance at this bit in the UI and DevTools...
+  
+- a annotation layer, *specifically* for LINKS in the PDF: each link is a SECTION + A tag hierarchy to help render a link click area that hoverable and clickable. This is the last DIV and thus top-most, lacking any z-index in the CSS (I haven't checked that, just assuming defaults before taking time to analyze this further. So far, Elservier's execution matches my ideas about how to implement this.)
+
+- two more DIV layers I haven't looked at. Given t heir feature set, including ability to present a list of FIGURES in the text, I bet one of them is for figures zone / segmenetation markup.
+
+  To Be Investigated on a dull day or evening when the brain is trundling at half pace again.
+  
 
 
 

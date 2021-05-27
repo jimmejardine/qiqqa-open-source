@@ -35,4 +35,9 @@
   
   https://onlinelibrary.wiley.com/doi/pdf/10.1002/ejsp.2331 : ditto. Hm, must be something smelly in that HTML...
   
+- http://www.insightsociety.org/ojaseit/index.php/ijaseit/article/view/6566
+
+  The small link to the PDF is not the PDF itself but delivers a page, which embeds a PDF in its HTML surroundings.
+  
+  
   
