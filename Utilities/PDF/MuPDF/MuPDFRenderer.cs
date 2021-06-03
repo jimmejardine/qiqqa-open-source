@@ -486,7 +486,7 @@ namespace Utilities.PDF.MuPDF
         }
 #endif
 
-#if true
+#if false
         public static Bitmap RenderPage_AsBitmap(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             using (MemoryStream ms = new MemoryStream(RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class)))
@@ -715,6 +715,18 @@ namespace Utilities.PDF.MuPDF
             }
             catch (Exception ex)
             {
+                if (execResult == null)
+                {
+                    execResult = new ExecResultAggregate
+                    {
+                        executable = exe,
+                        process_parameters = process_parameters,
+                        stdoutIsBinary = false,
+                        error = ex,
+                        exitCode = -1,
+                    };
+                }
+
                 Logging.Error(ex, $"Failed to process the output from the command:\n     { execResult.executable } { execResult.process_parameters }\n --->\n    exitCode: { execResult.exitCode }\n    stderr: { execResult.errOutputDump.stderr }\n    runtime error: { execResult.error }");
 
                 string errstr = execResult.errOutputDump.stderr ?? "";
@@ -760,6 +772,16 @@ namespace Utilities.PDF.MuPDF
                 + " " + '"' + pdf_filename + '"'
                 + " " + page_numbers
                 );
+
+            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"pdfdraw.exe"));
+            if (!File.Exists(exe))
+            {
+                throw new Exception($"PDF Text Extraction: missing 'pdfdraw.exe': it does not exist in the expected path: '{exe}'");
+            }
+            if (!File.Exists(pdf_filename))
+            {
+                throw new Exception($"PDF Text Extraction: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
+            }
 
             var execResult = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, binary_output: false, priority_class);
 
