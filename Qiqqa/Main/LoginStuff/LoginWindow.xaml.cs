@@ -177,12 +177,10 @@ namespace Qiqqa.Main.LoginStuff
             {
                 is_closing = true;
 
-                if (!have_done_config)
+                if (have_done_config)
                 {
-                    DoGuest();
+                    StartMainApplication();
                 }
-
-                StartMainApplication();
             });
         }
 
