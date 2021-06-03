@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using System.Text;
+using Utilities.Shutdownable;
 
 namespace Utilities.PDF.MuPDF
 {
@@ -1021,11 +1022,28 @@ namespace Utilities.PDF.MuPDF
                     long elapsed = clk.ElapsedMilliseconds;
                     Logging.Debug("PDFDRAW :: ReadEntireStandardOutput setup time: {0} ms for parameters:\n    {1}", elapsed, process_parameters);
 
-                    // Check that the process has exited properly
-                    if (!process.WaitForExit(1000))
+                    long duration = 0;
+
+                    // Wait a few minutes for the Text Extract process to exit
+                    while (true)
                     {
-                        throw new Exception($"Aborting process due to timeout. Commandline:\n    {pdfDrawExe} {process_parameters}");
+                        duration = clk.ElapsedMilliseconds;
+
+                        if (ShutdownableManager.Instance.IsShuttingDown)
+                        {
+                            break;
+                        }
+                        if (process.WaitForExit(1000))
+                        {
+                            break;
+                        }
+                        if (duration >= Constants.MAX_WAIT_TIME_MS_FOR_QIQQA_OCR_TASK_TO_TERMINATE + Constants.EXTRA_TIME_MS_FOR_WAITING_ON_QIQQA_OCR_TASK_TERMINATION)
+                        {
+                            break;
+                        }
                     }
+
+                    // Check that the process has exited properly
                     long elapsed2 = clk.ElapsedMilliseconds;
 
                     if (!process.HasExited)
@@ -1037,7 +1055,7 @@ namespace Utilities.PDF.MuPDF
                             process.Kill();
 
                             // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
-                            process.WaitForExit(3000);
+                            process.WaitForExit();
                         }
                         catch (Exception ex)
                         {

@@ -901,7 +901,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     {
                         duration = clk.ElapsedMilliseconds;
 
-                        if (!ShutdownableManager.Instance.IsShuttingDown && !StillRunning)
+                        if (ShutdownableManager.Instance.IsShuttingDown || !StillRunning)
                         {
                             break;
                         }
@@ -924,17 +924,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             process.Kill();
 
                             // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
-                            process.WaitForExit(1000);
+                            process.WaitForExit();
                         }
                         catch (Exception ex)
                         {
                             Logging.Error(ex, "There was a problem killing the OCR process after timeout ({0} ms)", duration);
                         }
-                    }
-
-                    while (!process.HasExited)
-                    {
-                        process.WaitForExit(1000);
                     }
 
                     // Give it some extra settling time to let all the IO events fire:
