@@ -320,7 +320,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 return;
             }
 
-            bool library_is_empty = (0 == web_library_detail.Xlibrary.PDFDocuments_IncludingDeleted_Count);
+            bool library_is_empty = (0 == web_library_detail.Xlibrary.PDFDocuments_Count);
 
             if (!concise_view)
             {
@@ -850,12 +850,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 if (!web_library_detail.IsIntranetLibrary)
                 {
-                    TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.Xlibrary?.PDFDocuments_IncludingDeleted_Count ?? 0);
+                    TextLibraryCount.Text = String.Format("{0} document(s) in this library", web_library_detail.Xlibrary?.PDFDocuments_Count ?? 0);
                 }
                 else
                 {
                     TextLibraryCount.Text = String.Format("{0} document(s) in this library, {1}",
-                        web_library_detail.Xlibrary?.PDFDocuments_IncludingDeleted_Count ?? 0,
+                        web_library_detail.Xlibrary?.PDFDocuments_Count ?? 0,
                         web_library_detail.LastSynced.HasValue ? $"which was last synced on {web_library_detail.LastSynced.Value}" : @"which has never been synced yet");
                 }
 

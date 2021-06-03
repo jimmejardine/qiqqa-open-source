@@ -236,7 +236,7 @@ namespace Qiqqa.Main
                 ASSERT.Test(web_libary_details.Count > 0);
 
                 // Web library is small compared to guest library
-                if (WebLibraryManager.Instance.Library_Guest.Xlibrary.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].Xlibrary.PDFDocuments_IncludingDeleted_Count)
+                if (WebLibraryManager.Instance.Library_Guest.Xlibrary.PDFDocuments_Count > 2 * web_libary_details[0].Xlibrary.PDFDocuments_Count)
                 {
                     should_open_guest = true;
                 }

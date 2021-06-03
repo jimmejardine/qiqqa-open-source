@@ -97,14 +97,14 @@ namespace Qiqqa.Common
             LibraryControl existing_control = (LibraryControl)main_window.DockingManager.MakeActive(window_key);
             if (null != existing_control)
             {
-                Logging.Info("OpenLibrary: (ExistingControl) Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_IncludingDeleted_Count);
+                Logging.Info("OpenLibrary: (ExistingControl) Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_Count);
                 return existing_control;
             }
             else
             {
                 LibraryControl library_control = new LibraryControl(web_library_detail);
                 main_window.DockingManager.AddContent(window_key, web_library_detail.Title, Icons.GetAppIcon(Icons.ModuleDocumentLibrary), true, true, library_control);
-                Logging.Info("OpenLibrary: Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_IncludingDeleted_Count);
+                Logging.Info("OpenLibrary: Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_Count);
                 return library_control;
             }
         }
