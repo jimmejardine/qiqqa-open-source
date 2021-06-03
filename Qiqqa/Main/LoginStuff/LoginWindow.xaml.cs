@@ -164,7 +164,7 @@ namespace Qiqqa.Main.LoginStuff
 
         private void LoginWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Key.Escape == e.Key)
+            if (Key.Escape == e.Key || Key.Enter == e.Key || Key.Return == e.Key)
             {
                 DoGuest();
                 e.Handled = true;
