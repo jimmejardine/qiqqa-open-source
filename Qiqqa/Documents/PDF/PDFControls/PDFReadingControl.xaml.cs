@@ -426,6 +426,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonOpenLibrary_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
@@ -729,6 +731,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
@@ -740,6 +744,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonDocumentSave_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Document_Save);
 
             PDFDocument pdf_document = GetPDFDocument();
@@ -869,46 +875,56 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void Button1Up_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.Zoom1Up);
         }
 
         private void Button2Up_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.Zoom2Up);
         }
 
         private void ButtonNUp_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.ZoomNUp);
         }
 
         private void ButtonWholeUp_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.ZoomWholeUp);
         }
 
         private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.IncrementalZoom(-1);
         }
 
         private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.IncrementalZoom(+1);
         }
 
         private void ButtonInvertColours_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             pdf_renderer_control.InvertColours(ButtonInvertColours.IsChecked.Value);
         }
 
         private void ButtonRotate_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.RotatePage();
         }
 
         private void ButtonRotateAll_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.RotateAllPages();
         }
 
@@ -930,6 +946,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonExportToText_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
@@ -970,6 +988,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonSpeedRead_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Document_SpeedRead);
 
             List<string> words = new List<string>();
