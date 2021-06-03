@@ -321,6 +321,7 @@ namespace Qiqqa.InCite
 
                 chw = new StandardWindow();
                 chw.Title = "Qiqqa InCite";
+                chw.Name = "QiqqaInCiteWindow";
                 chw.Content = instance;
                 chw.Closing += chw_Closing;
                 chw.Width = 700;

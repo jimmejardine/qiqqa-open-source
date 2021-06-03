@@ -697,6 +697,7 @@ namespace Qiqqa.Common
             window.Content = src;
             window.Width = 700;
             window.Height = 340;
+            window.Name = "SpeedReadWindow";
 
             window.Show();
 
