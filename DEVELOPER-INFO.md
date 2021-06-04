@@ -91,6 +91,6 @@ There are several scripts which help to prepare the release.
 
 - `./superclean.sh` : this script cleans up everything that has been written by Visual Studio in the devtree.  
 
-  > If you run this script and restart Visual Studio afterwards, you **must** re-configure Visual Studio configuration. See that the active "Solution" is "Release+SETUP" and in dialog from menu `Build` > `Configuration Manager` for solutions nameed "Debug" and "Release" two projects "ClickOnceUninstaller" and "QiqqaPackager" would be unchecked.
+  > If you run this script and restart Visual Studio afterwards, you **must** re-configure Visual Studio configuration. See that the active "Solution" is "Release+SETUP" and in dialog from menu `Build` > `Configuration Manager` for solutions named "Debug" and "Release" two projects "ClickOnceUninstaller" and "QiqqaPackager" would be unchecked.
 
 - `./build_installer.sh` : the alternative to building the Qiqqa.Packager project and the older way to build a Qiqqa `setup.exe` installer.
