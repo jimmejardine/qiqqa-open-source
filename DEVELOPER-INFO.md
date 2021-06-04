@@ -28,7 +28,7 @@
 
 ## Building Qiqqa From Source
 
-### 1. Get the source code
+### 1. Get the source code from GitHub
 
 To fetch whole repository find `Git Bash` from Windows' start menu  and run:
 
@@ -36,6 +36,8 @@ To fetch whole repository find `Git Bash` from Windows' start menu  and run:
     cd qiqqa-open-source
 
 Or alternatively just download the source code .zip file.
+
+
 
 
 ### 2. Enable Long Filename Support in `git`
@@ -47,7 +49,28 @@ While still in the qiqqa-open-source folder, run these commands:
 
 > This is needed because the repository includes "Windows Long Filenames" (at least since commit [0cf15c0d](https://github.com/GerHobbelt/qiqqa-open-source/commit/0cf15c0d4d9377e80ddafd3063cbef038701bb3e)). See [StackOverflow](https://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows).
 
-### 3. Install required tools with `npm`
+
+### 3. Install required / optional git submodules 
+
+Qiqqa uses several libraries and tools which are managed in separate git repositories (see the `.gitmodules` file).
+
+Install/unpack the minimum required set using:
+
+    git submodule update --init
+
+
+>**Note**: for the full source tree, including MuPDF-based tools and experimental research material, you should invoke
+>
+> ```
+> git submodule update --init --recursive
+> ```
+>
+> Be aware that this will take a long time to download and install all source code libraries and may consume a serious chunk of your disk space, particularly when you then go and compile/run the various libraries and tools in the `MuPDF` tree: the Visual Studio 2019 *solution* and *project files* will automatically copy the Tesseract data set (1+ GByte) to each binary target directory for ease of use & debugging. As you can build MuPDF in *Debug* and *Release* mode for *32 bit* and *64 bit* targets, that automatic action alone will account for an extra 5-6 Gbyte of disk space.  
+>
+> However, the benefit of this approach would be far fewer surprises during initial build of the entire source tree as you won't have to selectively `git submodule update --init` install/unpack any git submodules for your build to succeed. 
+
+
+### 4. Install required tools with `npm`
 
 While still in the same folder, now run:
 
@@ -56,7 +79,7 @@ While still in the same folder, now run:
 > This will set up the Node/npm package environment for the JavaScript/NodeJS based `bash` scripts which help build Qiqqa. See below.
 
 
-### 4. Build Qiqqa
+### 5. Build Qiqqa
 
 - Open `qiqqa-open-source/Qiqqa.sln` file to open the project with Visual Studio 2019.
 
@@ -66,9 +89,9 @@ While still in the same folder, now run:
 
 - Find `setup.exe` file in folder `qiqqa-open-source/Qiqqa.Build/Packages/v82 - 20200426-212303` or similar. Done.
 
-	> The number will be `vNN-YYYYMMDD-HHMMSS` version+date of the build. 
+  > The number will be `vNN-YYYYMMDD-HHMMSS` version+date of the build. 
 The exact path is also listed at the end of the `Output` build log panel in Visual Studio when the `Rebuild Solution` action has completed.
-	> In folder `qiqqa-open-source/Qiqqa/bin/Release/` folder there will be `Qiqqa.exe` and other files if you don't need the installer.
+  > In folder `qiqqa-open-source/Qiqqa/bin/Release/` folder there will be `Qiqqa.exe` and other files if you don't need the installer.
 
 
 ## Preparing the release
