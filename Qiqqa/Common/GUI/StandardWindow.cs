@@ -193,7 +193,7 @@ namespace Qiqqa.Common.GUI
             {
                 // silently ignore: we haven't started up properly yet.
             }
-            else if (IsMeasureValid && IsInitialized)
+            else if (IsMeasureValid && IsInitialized && IsLoaded)
             {
                 string name_to_find = Name;
                 Debug.Assert(!String.IsNullOrEmpty(name_to_find));

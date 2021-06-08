@@ -386,11 +386,14 @@ namespace Qiqqa.Common.Configuration
                     // Try to load it from disk (if we are premium or premium+)
                     try
                     {
-                        if (File.Exists(SearchHistoryFilename))
+                        if (SerializeFile.Exists(SearchHistoryFilename))
                         {
-                            foreach (string search in File.ReadAllLines(SearchHistoryFilename))
+                            foreach (string search in SerializeFile.TextLoadAllLines(SearchHistoryFilename))
                             {
-                                search_history.Add(search);
+                                if (!String.IsNullOrWhiteSpace(search))
+                                {
+                                    search_history.Add(search);
+                                }
                             }
                         }
                     }
@@ -413,7 +416,7 @@ namespace Qiqqa.Common.Configuration
         {
             try
             {
-                File.WriteAllLines(SearchHistoryFilename, SearchHistory);
+                SerializeFile.TextSaveAllLines(SearchHistoryFilename, SearchHistory);
             }
             catch (Exception ex)
             {
