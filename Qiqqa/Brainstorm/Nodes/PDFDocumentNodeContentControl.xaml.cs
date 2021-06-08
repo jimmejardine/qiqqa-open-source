@@ -89,7 +89,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(doc, 10);
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -160,7 +160,7 @@ namespace Qiqqa.Brainstorm.Nodes
                             int doc_id = eds.docs_index[doc.Fingerprint];
                             TopicProbability[] topics = eds.LDAAnalysis.DensityOfTopicsInDocsSorted[doc_id];
 
-                            WPFDoEvents.InvokeInUIThread(() =>
+                            WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {
                                 for (int t = 0; t < Math.Min(topics.Length, 5); ++t)
                                 {
@@ -196,7 +196,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 List<Citation> citations = doc.PDFDocumentCitationManager.GetInboundCitations();
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -221,7 +221,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 List<Citation> citations = doc.PDFDocumentCitationManager.GetOutboundCitations();
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -249,7 +249,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 var annotations = doc.GetAnnotations();
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -276,7 +276,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 HashSet<string> tags = doc.LibraryRef.Xlibrary.AITagManager.AITags.GetTagsWithDocument(doc.Fingerprint);
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -300,7 +300,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 var tags = TagTools.ConvertTagBundleToTags(doc.Tags);
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -329,7 +329,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     return;
                 }
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 

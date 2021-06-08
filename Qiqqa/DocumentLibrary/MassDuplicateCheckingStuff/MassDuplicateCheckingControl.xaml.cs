@@ -96,9 +96,11 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
         private void FindDuplicates_BACKGROUND(WebLibraryDetail web_library_detail)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             try
             {
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     TxtLibraryName.Text = web_library_detail.Title;
                     TreeDuplicates.Items.Clear();
@@ -135,7 +137,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                     if (0 < duplicate_pdf_documents.Count)
                     {
                         have_duplicates = true;
-                        WPFDoEvents.InvokeInUIThread(() =>
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
                         {
                             TreeViewItem tvi_parent = new TreeViewItem();
                             AttachEvents(tvi_parent, pdf_document);
@@ -154,7 +156,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
                 if (!have_duplicates)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
                         TxtNoDuplicatesFound.Visibility = Visibility.Visible;
                     }

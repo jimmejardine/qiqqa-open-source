@@ -36,7 +36,7 @@ namespace Qiqqa.StartPage
 
         private void Instance_WebLibrariesChanged()
         {
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 if (ShutdownableManager.Instance.IsShuttingDown)
                 {

@@ -77,7 +77,7 @@ namespace Qiqqa.WebBrowsing
                 pdf_document.Year = Convert.ToString(DateTime.Now.Year);
                 pdf_document.DownloadLocation = url;
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
                         PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                         pdf_reading_control.EnableGuestMoveNotification();

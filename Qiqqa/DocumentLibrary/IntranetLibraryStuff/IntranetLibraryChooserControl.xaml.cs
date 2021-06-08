@@ -69,14 +69,14 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                 {
                     Logging.Error(ex, "There was a problem while trying to connect to this Intranet Library.  Are you sure you have permission to access this folder?  Your Network or System Administrator can grant you this permission.\n\nThe detailed error message is:\n" + ex.Message);
 
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
                         MessageBoxes.Error("There was a problem while trying to connect to this Intranet Library.  Are you sure you have permission to access this folder?  Your Network or System Administrator can grant you this permission.\n\nThe detailed error message is:\n" + ex.Message);
                     });
                 }
                 finally
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
                         Close();
                     });

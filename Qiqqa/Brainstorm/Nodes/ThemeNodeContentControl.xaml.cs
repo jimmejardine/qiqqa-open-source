@@ -72,7 +72,7 @@ namespace Qiqqa.Brainstorm.Nodes
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
             ASSERT.Test(eds != null);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 TextBorder.Opacity = 0.8;
                 TextBorder.Background = ThemeBrushes.GetBrushForDistribution(web_library_detail, tags_distribution.Length, tags_distribution);
@@ -83,7 +83,7 @@ namespace Qiqqa.Brainstorm.Nodes
             });
         }
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------
 
         internal void ExpandInfluentialDocuments()
         {
@@ -215,7 +215,7 @@ namespace Qiqqa.Brainstorm.Nodes
             Array.Reverse(pageranks_current);
             Array.Reverse(docs);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 // Make the nodes
                 for (int doc = 0; doc < 10 && doc < docs.Length; ++doc)
@@ -255,7 +255,7 @@ namespace Qiqqa.Brainstorm.Nodes
             // Get the most similar PDFDocuments
             int[] doc_ids = LDAAnalysisTools.GetDocumentsSimilarToDistribution(eds.LDAAnalysis, tags_distribution);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -278,7 +278,7 @@ namespace Qiqqa.Brainstorm.Nodes
             });
         }
 
-        // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------------------------------------------------
 
         private void ApplyTagsDistribution(DistributionUseDelegate distribution_use)
         {

@@ -241,16 +241,16 @@ namespace Qiqqa.Main
                     should_open_guest = true;
                 }
 
-                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0]));
+                WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0]));
 
                 // don't open the guest library *twice* so check against `web_libary_details[0].library`
                 if (should_open_guest && web_libary_details[0] != WebLibraryManager.Instance.Library_Guest)
                 {
-                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest));
+                    WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest));
                 }
 
                 // Make sure the start page is selected
-                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenStartPage());
+                WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenStartPage());
             }
 
             WPFDoEvents.InvokeInUIThread(() =>

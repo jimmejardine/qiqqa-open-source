@@ -1178,7 +1178,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail);
                     ASSERT.Test(cloned_pdf_document != null);
 
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
                         // Open the new
                         if (null != cloned_pdf_document)

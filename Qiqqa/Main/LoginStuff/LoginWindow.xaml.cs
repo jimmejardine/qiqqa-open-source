@@ -112,7 +112,7 @@ namespace Qiqqa.Main.LoginStuff
         {
             string msg = status_entry.LastStatusMessageWithProgressPercentage;
 
-            WPFDoEvents.InvokeInUIThread(() => UpdateStatusMessage(msg));
+            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateStatusMessage(msg));
         }
 
         private void LoginWindow_Closed(object sender, EventArgs e)

@@ -67,7 +67,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             // Reflect this new bundle
             WebLibraryDetail new_web_library_detail = WebLibraryManager.Instance.UpdateKnownWebLibraryFromBundleLibraryManifest(manifest, suppress_flush_to_disk: false);
 
-            WPFDoEvents.InvokeInUIThread(() => {
+            WPFDoEvents.InvokeAsyncInUIThread(() => {
                 MainWindowServiceDispatcher.Instance.OpenLibrary(new_web_library_detail);
             });
         }

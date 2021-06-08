@@ -82,7 +82,7 @@ namespace Qiqqa.Common
                                 }
                                 else
                                 {
-                                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail));
+                                    WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail));
                                 }
                             }
                             else if (restore_setting.StartsWith("PDF_DOCUMENT"))

@@ -436,7 +436,7 @@ namespace Qiqqa.Main
 
             if (!ShutdownableManager.Instance.IsShuttingDown)
             {
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     RemarkOnException_GUI_THREAD(ex, potentially_fatal);
                 }
