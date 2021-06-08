@@ -92,8 +92,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
             AllowDrop = true;
 
-            ObjSeries.MouseClick += ObjSeries_MouseClick;
-
             // Start with the chart collapsed
             Loaded += GenericLibraryExplorerControl_Loaded;
         }
@@ -157,10 +155,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void GenericLibraryExplorerControl_Loaded(object sender, RoutedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjChartRegion.Collapse();
-            });
         }
 
         private void ObjSort_Click(object sender, RoutedEventArgs e)
@@ -410,9 +404,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                     // Bind baby bind - tag list
                     TreeSearchTerms.DataContext = displayed_items;
 
-                    // Populate the chart
-                    PopulateChart(tags_with_fingerprints);
-
                     // Done in worker thread: Then we have to list the associated documents
 
                     // Done in worker thread: Implement the NEGATION
@@ -444,54 +435,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 });
             });
         }
-
-        #region --- Charting methods ------------------------------------------------------------------------------------------------------------------
-
-        private void PopulateChart(MultiMapSet<string, string> tags_with_fingerprints)
-        {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-            int N = 20;
-
-            List<KeyValuePair<string, HashSet<string>>> top_n = tags_with_fingerprints.GetTopN(N);
-
-            List<ChartItem> chart_items = new List<ChartItem>();
-            for (int i = 0; i < top_n.Count; ++i)
-            {
-                if ("(none)" != top_n[i].Key && "<Untagged>" != top_n[i].Key)
-                {
-                    chart_items.Add(
-                        new ChartItem
-                        {
-                            X = i,
-                            Caption = top_n[i].Key,
-                            Count = top_n[i].Value.Count
-                        }
-                        );
-                }
-            }
-
-            ChartSearchTerms.ToolTip = String.Format("Top {0} {1} in your library.", N, description_title);
-            ObjChartArea.PrimaryAxis.AxisVisibility = Visibility.Collapsed;
-            ObjChartArea.SecondaryAxis.AxisVisibility = Visibility.Collapsed;
-
-            ObjSeries.DataSource = chart_items;
-            ObjSeries.BindingPathX = "ID";
-            ObjSeries.BindingPathsY = new string[] { "Count" };
-        }
-
-        private void ObjSeries_MouseClick(object sender, ChartMouseEventArgs e)
-        {
-            FeatureTrackingManager.Instance.UseFeature(Features.Library_GenericExplorer_ChartItem);
-
-            ChartSegment chart_segment = e.Segment;
-            IList data_source = (IList)chart_segment.Series.DataSource;
-            ChartItem chart_item = (ChartItem)data_source[chart_segment.CorrespondingPoints[0].Index];
-            ToggleSelectItem(chart_item.Caption, KeyboardTools.IsCTRLDown() || KeyboardTools.IsShiftDown());
-        }
-
-        #endregion
-
     }
 
 

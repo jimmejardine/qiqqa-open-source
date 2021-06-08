@@ -103,10 +103,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             ButtonCoverFlow.Click += ButtonCoverFlow_Click;
             ButtonCoverFlow.ToolTip = "Click here to view recommended reading for this library.";
 
-            ObjChartArea.Header = "Your weekly activity";
-            ObjChartArea.PrimaryAxis.AxisVisibility = Visibility.Collapsed;
-            ObjChartArea.MouseDown += ObjChartArea_MouseDown;
-
             ObjCarousel.Cursor = Cursors.Hand;
             ObjCarousel.SizeChanged += ObjCarousel_SizeChanged;
             ObjCarousel.MouseDoubleClick += ObjCarousel_MouseDoubleClick;
@@ -311,7 +307,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             WebLibraryDetail web_library_detail = DataContext as WebLibraryDetail;
 
             // Reset all
-            ChartReading.Visibility = Visibility.Collapsed;
             ObjCarousel.Visibility = Visibility.Collapsed;
             ObjEmptyLibraryGrid.Visibility = Visibility.Collapsed;
 
@@ -333,7 +328,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 // Visibility of the graphs
                 if (!library_is_empty && (ButtonCharts.IsChecked ?? false))
                 {
-                    ChartReading.Visibility = Visibility.Visible;
                     if (!have_generated_charts)
                     {
                         have_generated_charts = true;
@@ -807,19 +801,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private void UpdateLibraryStatistics_Stats_Background_GUI(List<ChartItem> chart_items_read, List<ChartItem> chart_items_added)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-            {
-                ObjSeriesRead.Name = "Read";
-                ObjSeriesRead.BindingPathX = "Timestamp";
-                ObjSeriesRead.BindingPathsY = new string[] { "Count" };
-                ObjSeriesRead.DataSource = chart_items_read;
-            }
-            {
-                ObjSeriesAdded.Name = "Added";
-                ObjSeriesAdded.BindingPathX = "Timestamp";
-                ObjSeriesAdded.BindingPathsY = new string[] { "Count" };
-                ObjSeriesAdded.DataSource = chart_items_added;
-            }
         }
 
         private void UpdateLibraryStatistics_Headers()
