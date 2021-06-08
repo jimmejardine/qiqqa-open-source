@@ -37,7 +37,7 @@ namespace Qiqqa.Expedition
             {
                 ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
 
-                if (null != eds)
+                if (null == eds)
                 {
                     RegionNoExpedition.Visibility = Visibility.Visible;
                 }
