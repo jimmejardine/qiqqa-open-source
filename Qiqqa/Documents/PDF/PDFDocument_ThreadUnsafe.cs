@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Qiqqa.Common.TagManagement;
@@ -593,36 +594,81 @@ namespace Qiqqa.Documents.PDF
             set => dictionary["Comments"] = value as string;
         }
 
+        // https://bytes.com/topic/c-sharp/answers/649936-when-volatile-used-instead-lock
+        // `volatile` is NOT good enough here as there's TWO ways this variable may get updated in the code
+        // below in the `Abstract` get/set.
+        // And then the deferred writer, which pulls the abstract from the document content, can CLASH with 
+        // a user edit action, which happens to write this value when the user hits SAVE/ENTER to submit his
+        // edits. THAT can happen before the deferred abstract extractor code actually finishes or is even
+        // started (when the threadpool is heavily loaded).
+        // Hence we MUST use locking and CANNOT USE `volatile`.
+        private /* volatile */ string cached_abstract = null;
         public string Abstract
         {
             get
             {
-                // First check if there is an abstract override
+                string a;
+                lock (cached_abstract)
                 {
-                    string abstract_override = dictionary["AbstractOverride"] as string;
-                    if (!String.IsNullOrEmpty(abstract_override))
-                    {
-                        return abstract_override;
-                    }
+                    a = cached_abstract;
                 }
 
-                // Then check if there is an abstract in the bibtex
+                if (a != null)
                 {
-                    BibTexItem item = BibTexItem;
-                    if (null != item)
+                    return a;
+                }
+                else
+                {
+                    // First check if there is an abstract override
+                    lock (cached_abstract)
                     {
-                        string abstract_bibtex = item["abstract"];
-                        if (!String.IsNullOrEmpty(abstract_bibtex))
+                        string abstract_override = dictionary["AbstractOverride"] as string;
+                        if (!String.IsNullOrEmpty(abstract_override))
                         {
-                            return abstract_bibtex;
+                            cached_abstract = abstract_override;
+                            return abstract_override;
                         }
                     }
-                }
 
-                // Otherwise try get the abstract from the doc itself
-                return PDFAbstractExtraction.GetAbstractForDocument(this);
+                    // Then check if there is an abstract in the bibtex
+                    {
+                        BibTexItem item = BibTexItem;
+                        if (null != item)
+                        {
+                            string abstract_bibtex = item["abstract"];
+                            if (!String.IsNullOrEmpty(abstract_bibtex))
+                            {
+                                lock (cached_abstract)
+                                {
+                                    cached_abstract = abstract_bibtex;
+                                }
+                                return abstract_bibtex;
+                            }
+                        }
+                    }
+
+                    // Otherwise try get the abstract from the doc itself
+                    SafeThreadPool.QueueUserWorkItem(() =>
+                    {
+                        string abstract_extracted = PDFAbstractExtraction.GetAbstractForDocument(this);
+                        lock (cached_abstract)
+                        {
+                            cached_abstract = abstract_extracted;
+                        }
+                    });
+
+                    return null;    // Abstract is PENDING...
+                }
             }
-            set => dictionary["AbstractOverride"] = value as string;
+            set 
+            {
+                string v = value as string;
+                lock (cached_abstract)
+                {
+                    cached_abstract = v;
+                    dictionary["AbstractOverride"] = v;
+                }
+            }
         }
 
         public string Bookmarks
