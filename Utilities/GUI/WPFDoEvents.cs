@@ -338,7 +338,8 @@ namespace Utilities.GUI
             }
         }
 
-#if DEBUG
+#if DEBUG 
+#if false
         public static void TestAsyncErrorHandling()
         {
             Action bad_f = () =>
@@ -382,15 +383,20 @@ namespace Utilities.GUI
                 WPFDoEvents.InvokeAsyncInUIThread(bad_f);
             });
         }
+#else
+        public static void TestAsyncErrorHandling()
+        {
+        }
+#endif
 #endif
 
-        // Get us the name of the function which calls this member. As such it serves to provide
-        // us with the "currently executing function".
-        //
-        // Derived from https://stackoverflow.com/a/15310053/1635910
-        // via https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method/15310053#15310053
-        // and https://stackoverflow.com/questions/2652460/how-to-get-the-name-of-the-current-method-from-code
-        public static string GetInvokingFunctionName([CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
+            // Get us the name of the function which calls this member. As such it serves to provide
+            // us with the "currently executing function".
+            //
+            // Derived from https://stackoverflow.com/a/15310053/1635910
+            // via https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method/15310053#15310053
+            // and https://stackoverflow.com/questions/2652460/how-to-get-the-name-of-the-current-method-from-code
+            public static string GetInvokingFunctionName([CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
         {
             string[] arr = sourceFilePath.Split('\\');
             string[] arr2 = new string[4];
