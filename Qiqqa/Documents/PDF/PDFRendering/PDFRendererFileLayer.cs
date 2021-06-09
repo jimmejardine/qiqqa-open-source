@@ -132,8 +132,6 @@ namespace Qiqqa.Documents.PDF
             {
                 if (num_pages == PDFErrors.PAGECOUNT_PENDING)
                 {
-                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
                     num_pages = CountPDFPages();
                 }
                 return num_pages;
