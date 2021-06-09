@@ -190,9 +190,9 @@ namespace Qiqqa.Main
             });
         }
 
-        public override bool SetupConfiguredDimensions(Size preferred_dimensions)
+        public override bool SetupConfiguredDimensions()
         {
-            bool has_cfg = base.SetupConfiguredDimensions(preferred_dimensions);
+            bool has_cfg = base.SetupConfiguredDimensions();
 
             if (!has_cfg)
             {
