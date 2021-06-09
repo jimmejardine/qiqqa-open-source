@@ -11,8 +11,6 @@ namespace Utilities.PDF.Sorax
 
         static public byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, int page, double height)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (cache)
             {
