@@ -603,12 +603,13 @@ namespace Qiqqa.Documents.PDF
         // started (when the threadpool is heavily loaded).
         // Hence we MUST use locking and CANNOT USE `volatile`.
         private /* volatile */ string cached_abstract = null;
+        private object cached_abstract_lock = new object();
         public string Abstract
         {
             get
             {
                 string a;
-                lock (cached_abstract)
+                lock (cached_abstract_lock)
                 {
                     a = cached_abstract;
                 }
@@ -620,7 +621,7 @@ namespace Qiqqa.Documents.PDF
                 else
                 {
                     // First check if there is an abstract override
-                    lock (cached_abstract)
+                    lock (cached_abstract_lock)
                     {
                         string abstract_override = dictionary["AbstractOverride"] as string;
                         if (!String.IsNullOrEmpty(abstract_override))
@@ -638,7 +639,7 @@ namespace Qiqqa.Documents.PDF
                             string abstract_bibtex = item["abstract"];
                             if (!String.IsNullOrEmpty(abstract_bibtex))
                             {
-                                lock (cached_abstract)
+                                lock (cached_abstract_lock)
                                 {
                                     cached_abstract = abstract_bibtex;
                                 }
@@ -651,7 +652,7 @@ namespace Qiqqa.Documents.PDF
                     SafeThreadPool.QueueUserWorkItem(() =>
                     {
                         string abstract_extracted = PDFAbstractExtraction.GetAbstractForDocument(this);
-                        lock (cached_abstract)
+                        lock (cached_abstract_lock)
                         {
                             cached_abstract = abstract_extracted;
                         }
@@ -663,7 +664,7 @@ namespace Qiqqa.Documents.PDF
             set 
             {
                 string v = value as string;
-                lock (cached_abstract)
+                lock (cached_abstract_lock)
                 {
                     cached_abstract = v;
                     dictionary["AbstractOverride"] = v;
