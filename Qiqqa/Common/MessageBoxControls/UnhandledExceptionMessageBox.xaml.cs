@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -52,6 +53,7 @@ namespace Qiqqa.Common.MessageBoxControls
             {
                 // Collect all generations of memory.
                 GC.WaitForPendingFinalizers();
+                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
             });
 

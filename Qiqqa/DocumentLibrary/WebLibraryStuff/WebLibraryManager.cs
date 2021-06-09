@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -351,6 +352,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             guest_web_library_detail = null;
 
             GC.WaitForPendingFinalizers();
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             GC.Collect(100, GCCollectionMode.Forced, true, true);
             Logging.Info("UnloadAllLibraries: Heap after forced GC compacting at the end: {0}", GC.GetTotalMemory(false));
         }

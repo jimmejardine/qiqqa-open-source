@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -390,6 +391,7 @@ namespace Qiqqa.Main
                 min_rounds--)
             {
                 GC.WaitForPendingFinalizers();
+                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
                 Logging.Info($"-static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): {GC.GetTotalMemory(false)} Bytes, {SafeThreadPool.RunningThreadCount} tasks active, {ComputerStatistics.GetTotalRunningThreadCount()} threads running");
 
@@ -455,6 +457,7 @@ namespace Qiqqa.Main
                 {
                     // Collect all generations of memory.
                     GC.WaitForPendingFinalizers();
+                    GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                     GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
                 });
 
