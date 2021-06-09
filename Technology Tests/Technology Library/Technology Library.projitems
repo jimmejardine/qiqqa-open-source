@@ -11,4 +11,8 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Pluriform_Prioritized_Threadpool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CodeFile1.cs" />
+  </ItemGroup>
 </Project>

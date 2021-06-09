@@ -16,4 +16,7 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source.cpp" />
+  </ItemGroup>
 </Project>
