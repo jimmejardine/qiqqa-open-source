@@ -78,10 +78,22 @@ namespace Qiqqa.Documents.PDF
             return MakeFilenameWith2LevelIndirection("text", page_number, "txt");
         }
 
+        public void CalcTextGroupPageRange(int page, out int page_range_start, out int page_range_end)
+        {
+            ASSERT.Test(page >= 1);
+            page_range_start = ((page - 1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
+            page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
+            ASSERT.Test(PageCount >= 0);
+            page_range_end = Math.Min(page_range_end, PageCount);
+            page_range_start = Math.Min(page_range_start, PageCount);
+            ASSERT.Test(page_range_start <= page_range_end);
+        }
+
         internal string MakeFilename_TextGroup(int page)
         {
-            int page_range_start = ((page - 1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
-            int page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
+            int page_range_start;
+            int page_range_end;
+            CalcTextGroupPageRange(page, out page_range_start, out page_range_end);
             string page_range = string.Format("{0:000}_to_{1:000}", page_range_start, page_range_end);
             return MakeFilenameWith2LevelIndirection(@"textgroup", page_range, @"txt");
         }
@@ -101,7 +113,7 @@ namespace Qiqqa.Documents.PDF
             OnPageTextAvailable?.Invoke(page, page);
         }
 
-        internal void StorePageTextGroup(int page, int TEXT_PAGES_PER_GROUP, string source_filename)
+        internal void StorePageTextGroup(int page, string source_filename)
         {
             string filename = MakeFilename_TextGroup(page);
             Directory.CreateDirectory(Path.GetDirectoryName(filename));
@@ -110,10 +122,9 @@ namespace Qiqqa.Documents.PDF
 
             if (null != OnPageTextAvailable)
             {
-                int page_range_start = ((page - 1) / TEXT_PAGES_PER_GROUP) * TEXT_PAGES_PER_GROUP + 1;
-                int page_range_end = page_range_start + TEXT_PAGES_PER_GROUP - 1;
-                page_range_end = Math.Min(page_range_end, PageCount);
-
+                int page_range_start;
+                int page_range_end;
+                CalcTextGroupPageRange(page, out page_range_start, out page_range_end);
                 OnPageTextAvailable?.Invoke(page_range_start, page_range_end);
             }
         }
@@ -186,7 +197,7 @@ namespace Qiqqa.Documents.PDF
                 {
                     // PDFTools.CountPDFPages() is a very costly call: we DEFER that one until later and return 
                     // a signal we're waiting instead.
-                    SafeThreadPool.QueueUserWorkItem(() =>
+                    PDFTextExtractor.Job job = new PDFTextExtractor.Job(this, PDFTextExtractor.JobType.PageCount, () =>
                     {
                         WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -205,6 +216,7 @@ namespace Qiqqa.Documents.PDF
 
                         SavePageCountToCache(num);
                     });
+                    PDFTextExtractor.QueueJobMisc(job);
                 }
             }
 

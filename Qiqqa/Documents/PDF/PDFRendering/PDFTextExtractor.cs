@@ -17,6 +17,103 @@ using Utilities.Shutdownable;
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
+        public enum JobType
+        {
+            OCR         = 1,
+            ExtractText = 2,
+            PageCount   = 3,
+        };
+
+        public class Job : IComparable<Job>
+        {
+            public PDFDocument doc;
+        public Int64 clock;
+        public int pageNum;
+            public int priority;
+            public JobType jobType;
+
+        public bool force_job;
+        public string language;
+        public Action f;
+
+        // As this used together with a SortedDictionary<T> to act as a priority queue,
+        // we sort by priority before anything else:
+        public int CompareTo(Job other)
+            {
+                // higher priority means FIRST (contrary to classic priority queues)
+                int diff = this.priority - other.priority;
+                if (diff != 0)
+                    return diff;
+                // more recent addition to the queue comes FIRST (which makes this more a PRIORITY STACK (LIFO) than a PRIORITY QUEUE (FIFO))
+                Int64 diff64 = this.clock - other.clock;
+                if (diff64 > 0)
+                    return 1;
+            if (diff64 < 0)
+                return -1;
+            // then gather all jobs for the same document together:
+            diff = this.doc.Fingerprint.CompareTo(other.doc.Fingerprint);
+                if (diff != 0)
+                    return diff;
+                // higher numbered JobType comes FIRST.
+                // In particular, PageCount has to be determined before any of the TextExtract/OCR actions can be performed!
+                diff = this.jobType - other.jobType;
+                if (diff != 0)
+                    return diff;
+                // lower page numbers come FIRST
+                diff = this.pageNum - other.pageNum;
+                return -diff;
+            }
+
+            public static Int64 latestClockTick = 0;
+
+        public static void IncrementClock()
+        {
+            ++latestClockTick;
+        }
+
+        public Job(PDFDocument pdf_document, JobType taskType, int page, int prio = 0)
+            {
+                doc = pdf_document;
+                pageNum = page;
+
+                priority = prio;
+                clock = latestClockTick;
+
+                jobType = taskType;
+
+                force_job = false;
+                language = null;
+                f = null;
+            }
+
+        public Job(PDFDocument pdf_document, JobType taskType, Action exec, int prio = 0)
+        {
+            doc = pdf_document;
+            pageNum = 0;
+
+            priority = prio;
+            clock = latestClockTick;
+
+            jobType = taskType;
+
+            force_job = false;
+            language = null;
+            f = exec;
+        }
+
+        public override string ToString()
+            {
+                return String.Format($"PDF:{doc.Fingerprint} Id:{jobType} Page:{pageNum} Clock:{clock} Forced:{force_job} Language:{language}");
+            }
+
+            public void Clear()
+            {
+                doc = null;
+                language = null;
+                f = null;
+            }
+        }
+
     public class PDFTextExtractor
     {
         public static PDFTextExtractor Instance = new PDFTextExtractor();
@@ -44,10 +141,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         private Daemon[] threads;
 
         private object queue_lock = new object();
-        private Dictionary<string, Job> job_queue_group = new Dictionary<string, Job>();
-        private Dictionary<string, Job> job_queue_single = new Dictionary<string, Job>();
-        private HashSet<string> current_jobs_group = new HashSet<string>();
-        private HashSet<string> current_jobs_single = new HashSet<string>();
+        private SortedSet<Job> job_queue = new SortedSet<Job>();
         private HashSet<string> failed_pdf_group_tokens = new HashSet<string>();
 
         public void GetJobCounts(out int job_queue_group_count, out int job_queue_single_count)
@@ -59,129 +153,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 //l1_clk.LockPerfTimerStop();
                 job_queue_group_count = job_queue_group.Count;
                 job_queue_single_count = job_queue_single.Count;
-            }
-        }
-
-        public class Job
-        {
-            public const int TEXT_PAGES_PER_GROUP = PDFDocument.TEXT_PAGES_PER_GROUP;
-
-            public PDFDocument pdf_renderer;
-            public int page;
-            public bool force_job;
-            public string language;
-
-            public Job(PDFDocument pdf_renderer, int page)
-            {
-                this.pdf_renderer = pdf_renderer;
-                this.page = page;
-
-                force_job = false;
-                language = "";
-            }
-
-            public override string ToString()
-            {
-                return String.Format("PDF:{0} Page:{1} Forced:{2} Language:{3}", pdf_renderer, page, force_job, language);
-            }
-
-            public void Clear()
-            {
-                pdf_renderer = null;
-                language = String.Empty;
-            }
-        }
-
-        private class NextJob : IDisposable
-        {
-            private PDFTextExtractor pdf_text_extractor;
-
-            public Job job;
-            public bool is_group;
-
-            internal NextJob(PDFTextExtractor pdf_text_extractor, Job job, bool is_group, object queue_lock_reminder)
-            {
-                this.pdf_text_extractor = pdf_text_extractor;
-                this.job = job;
-                this.is_group = is_group;
-
-                pdf_text_extractor.RecordThatJobHasStarted_LOCK(this, queue_lock_reminder);
-            }
-
-            #region --- IDisposable ------------------------------------------------------------------------
-
-            ~NextJob()
-            {
-                Logging.Debug("~NextJob()");
-                Dispose(false);
-            }
-
-            public void Dispose()
-            {
-                Logging.Debug("Disposing NextJob");
-                Dispose(true);
-                GC.SuppressFinalize(this);
-            }
-
-            private int dispose_count = 0;
-            protected virtual void Dispose(bool disposing)
-            {
-                Logging.Debug("NextJob::Dispose({0}) @{1}", disposing, dispose_count);
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    if (dispose_count == 0)
-                    {
-                        // Notify that this job is done...
-                        pdf_text_extractor.RecordThatJobHasCompleted(this);
-
-                        //job?.Clear();
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    pdf_text_extractor = null;
-                    job = null;
-                });
-
-                ++dispose_count;
-            }
-
-            #endregion
-
-            /// <summary>
-            /// Use this for getting a unique token for the job+page
-            /// </summary>
-            /// <param name="job"></param>
-            /// <returns></returns>
-            public static string GetQueuedJobToken(Job job)
-            {
-                return job.pdf_renderer.Fingerprint + "." + job.page;
-            }
-
-            /// <summary>
-            /// Use this for determining if a job group is running
-            /// </summary>
-            /// <param name="job"></param>
-            /// <param name="is_group"></param>
-            /// <returns></returns>
-            public static string GetCurrentJobToken(Job job, bool is_group)
-            {
-                if (is_group)
-                {
-                    int job_group_start_page = ((job.page - 1) / Job.TEXT_PAGES_PER_GROUP) * Job.TEXT_PAGES_PER_GROUP + 1;
-                    return job.pdf_renderer.Fingerprint + "." + job_group_start_page;
-                }
-                else
-                {
-                    return job.pdf_renderer.Fingerprint + "." + job.page;
-                }
-            }
-
-            public override string ToString()
-            {
-                return String.Format("Group:{0} Job:{1}", is_group, job);
             }
         }
 
@@ -217,37 +188,17 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             }
         }
 
-        public void QueueJobGroup(Job job)
+        public void QueueJob(Job job)
         {
-            string token = NextJob.GetQueuedJobToken(job);
-
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
                 //l1_clk.LockPerfTimerStop();
-
-                // Only add the job if it is not already queued, OR if we are queuing a FORCE job, which has priority
-                if (!job_queue_group.ContainsKey(token) || job.force_job)
+                if (job_queue.Contains(job))
                 {
-                    job_queue_group[token] = job;
+                    job_queue.Remove(job);
                 }
-            }
-        }
-
-        public void QueueJobSingle(Job job)
-        {
-            string token = NextJob.GetQueuedJobToken(job);
-
-            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (queue_lock)
-            {
-                //l1_clk.LockPerfTimerStop();
-
-                // Only add the job if it is not already queued, OR if we are queuing a FORCE job, which has priority
-                if (!job_queue_single.ContainsKey(token) || job.force_job)
-                {
-                    job_queue_single[token] = job;
-                }
+                job_queue.Add(job);
             }
         }
 
@@ -266,10 +217,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             current_jobs.Add(token);
         }
 
-        private void RecordThatJobHasCompleted(NextJob next_job)
+        private void RecordThatJobHasCompleted(Job job)
         {
-            string token = NextJob.GetCurrentJobToken(next_job.job, next_job.is_group);
-
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (queue_lock)
             {
@@ -318,7 +267,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         private int prev_ocr_count = 0;
         private int prev_textify_count = 0;
 
-        private NextJob GetNextJob()
+        private Job GetNextJob()
         {
             // Check if OCR is disabled
             if (!(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
@@ -332,7 +281,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                     int ocr_count = job_queue_single.Count;
                     int textify_count = job_queue_group.Count;
-                    double current_ratio = ocr_count / (textify_count + 1E-9);
+                    double current_ratio = ocr_count / Math.Max(1, textify_count);
                     current_ratio *= 0.01;
 
                     // noise the target ratio: choose such that the user will observe the numbers changing most often
@@ -523,7 +472,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             {
                 //l1_clk.LockPerfTimerStop();
 
-                job_queue_group.Clear();
+                job_queue.Clear();
                 job_queue_single.Clear();
             }
         }
@@ -576,8 +525,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     continue;
                 }
 
-                using (NextJob next_job = GetNextJob())
+                NextJob next_job = null;
+
+                try
                 {
+                    next_job = GetNextJob();
+
+                    pdf_text_extractor.RecordThatJobHasStarted_LOCK(this, queue_lock_reminder);
+
                     if (null != next_job)
                     {
                         did_some_ocr_since_last_iteration = true;
@@ -728,6 +683,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         daemon.Sleep(500);
                     }
                 }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "There was a problem processing job {0}", next_job?.job);
+                }
+                finally
+                {
+                    pdf_text_extractor.RecordThatJobHasCompleted(this);
+
+                    next_job?.Finish();
+                }
             }
         }
 
@@ -739,9 +704,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 // Build up the page numbers string
                 string page_numbers_string;
                 {
-                    int page_range_start = ((next_job.job.page - 1) / Job.TEXT_PAGES_PER_GROUP) * Job.TEXT_PAGES_PER_GROUP + 1;
-                    int page_range_end = page_range_start + Job.TEXT_PAGES_PER_GROUP - 1;
-                    page_range_end = Math.Min(page_range_end, next_job.job.pdf_renderer.PageCount);
+                    int page_range_start;
+                    int page_range_end;
+                    next_job.job.pdf_renderer.CalcTextGroupPageRange(next_job.job.page, out page_range_start, out page_range_end);
 
                     StringBuilder sb = new StringBuilder();
                     for (int page = page_range_start; page <= page_range_end; ++page)
@@ -771,7 +736,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 // https://stackoverflow.com/questions/2870544/c-sharp-4-0-optional-out-ref-arguments
                 if (CheckOCRProcessSuccess(ocr_parameters, out _))
                 {
-                    next_job.job.pdf_renderer.StorePageTextGroup(next_job.job.page, Job.TEXT_PAGES_PER_GROUP, temp_ocr_result_filename);
+                    next_job.job.pdf_renderer.StorePageTextGroup(next_job.job.page, temp_ocr_result_filename);
                 }
                 else
                 {
