@@ -4,6 +4,10 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Threading;
 using Utilities.GUI;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 #if !HAS_MUPDF_PAGE_RENDERER
 namespace Utilities.PDF.Sorax

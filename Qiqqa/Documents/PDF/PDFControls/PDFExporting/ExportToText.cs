@@ -5,6 +5,10 @@ using System.Text;
 using Qiqqa.UtilisationTracking;
 using Utilities.Files;
 using Utilities.OCR;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
 {

@@ -15,6 +15,10 @@ using Utilities.DateTimeTools;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Shutdownable;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common.MessageBoxControls
 {

@@ -6,6 +6,10 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.PDF;
 using Utilities.PDF.MuPDF;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {

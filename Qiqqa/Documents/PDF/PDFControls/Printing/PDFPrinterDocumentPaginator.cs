@@ -11,6 +11,10 @@ using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
 using Size = System.Windows.Size;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFControls.Printing
 {

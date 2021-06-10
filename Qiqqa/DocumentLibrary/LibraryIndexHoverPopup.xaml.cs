@@ -13,6 +13,10 @@ using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
 using Image = System.Drawing.Image;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary
 {

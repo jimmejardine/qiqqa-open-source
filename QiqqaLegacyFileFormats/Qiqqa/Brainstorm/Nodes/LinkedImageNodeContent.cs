@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using System.IO;
 using System.Windows.Media.Imaging;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Brainstorm.Nodes
 {

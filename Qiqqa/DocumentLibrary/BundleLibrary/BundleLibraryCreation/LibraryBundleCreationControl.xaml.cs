@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
@@ -15,6 +14,9 @@ using Utilities.Misc;
 using Utilities.ProcessTools;
 using Utilities.Shutdownable;
 using UserControl = System.Windows.Controls.UserControl;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 {

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.InteropServices;
 using Gecko;
 using Qiqqa.Common.Configuration;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
