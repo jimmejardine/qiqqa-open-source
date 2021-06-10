@@ -851,7 +851,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, documentFingerprint));
+                    Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, documentFingerprint));
                 }
             }
         }
