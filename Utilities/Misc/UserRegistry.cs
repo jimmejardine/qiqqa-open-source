@@ -1,5 +1,6 @@
 using System.Globalization;
 using Microsoft.Win32;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Utilities.Misc
 {
@@ -21,30 +22,53 @@ namespace Utilities.Misc
 
         public string AppKeyDescription()
         {
-            using (RegistryKey app_key = GetAppKey())
+            if (!portable_mode)
             {
-                return app_key.ToString();
+                using (RegistryKey app_key = GetAppKey())
+                {
+                    return app_key.ToString();
+                }
+            }
+            else
+            {
+                return "abacadabra";
             }
         }
 
         public void Write(string key, string data)
         {
-            using (RegistryKey app_key = GetAppKey())
+            if (!portable_mode)
             {
-                app_key.SetValue(key, data);
-                app_key.Close();
+                using (RegistryKey app_key = GetAppKey())
+                {
+                    app_key.SetValue(key, data);
+                    app_key.Close();
+                }
             }
         }
 
         public string Read(string key)
         {
-            using (RegistryKey app_key = GetAppKey())
+            if (!portable_mode)
             {
-                string data = (string)app_key.GetValue(key);
-                app_key.Close();
+                using (RegistryKey app_key = GetAppKey())
+                {
+                    string data = (string)app_key.GetValue(key);
+                    app_key.Close();
 
-                if (null == data) data = "";
-                return data;
+                    if (null == data) data = "";
+                    return data;
+                }
+            }
+            else
+            {
+                if (key == "DebugConsole")
+                    return "false";
+                if (key == "AllowMultipleQiqqaInstances")
+                    return "true";
+                if (key == "BaseDataDirectory")
+                    return Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../My.Qiqqa.Libraries"));
+                return "";
             }
         }
 
@@ -62,29 +86,53 @@ namespace Utilities.Misc
 
         public void Write(string section, string key, string data)
         {
-            using (RegistryKey app_key = GetAppKey())
+            if (!portable_mode)
             {
-                using (RegistryKey sub_app_key = app_key.CreateSubKey(section))
+                using (RegistryKey app_key = GetAppKey())
                 {
-                    sub_app_key.SetValue(key, data);
-                    sub_app_key.Close();
+                    using (RegistryKey sub_app_key = app_key.CreateSubKey(section))
+                    {
+                        sub_app_key.SetValue(key, data);
+                        sub_app_key.Close();
+                    }
                 }
             }
         }
 
         public string Read(string section, string key)
         {
-            using (RegistryKey app_key = GetAppKey())
+            if (!portable_mode)
             {
-                using (RegistryKey sub_app_key = app_key.CreateSubKey(section))
+                using (RegistryKey app_key = GetAppKey())
                 {
-                    string data = (string)sub_app_key.GetValue(key);
-                    sub_app_key.Close();
+                    using (RegistryKey sub_app_key = app_key.CreateSubKey(section))
+                    {
+                        string data = (string)sub_app_key.GetValue(key);
+                        sub_app_key.Close();
 
-                    if (null == data) data = "";
-                    return data;
+                        if (null == data) data = "";
+                        return data;
+                    }
                 }
             }
+            else
+            {
+                return "";
+            }
+        }
+
+        // ----------------------------------------------
+
+        private static bool portable_mode = false;
+
+        public void SetPortableApplicationMode(string cfg_file_path)
+        {
+            portable_mode = true;
+        }
+
+        public bool GetPortableApplicationMode()
+        {
+            return portable_mode;
         }
     }
 }

@@ -86,6 +86,39 @@ namespace Qiqqa.Main
 
             Thread.CurrentThread.Name = "Main";
 
+            // Check if we're running in "Portable Application" mode:
+#if false
+            {
+                string[] app_paths = new string[] {
+                    Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"Qiqqa.Developer.Settings.json5"),
+                    Path.Combine(System.AppContext.BaseDirectory, @"x"),
+                    Process.GetCurrentProcess().MainModule.FileName,
+                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().Location).LocalPath,
+                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath,
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"x"),
+                    Environment.GetCommandLineArgs()[0]
+                };
+
+                foreach (string app_path in app_paths)
+                {
+                    string p = Path.GetFullPath(app_path);
+                    p = Path.GetDirectoryName(p);
+                    p = Path.Combine(p, @"Qiqqa.Portable.Settings.json5");
+                    if (File.Exists(p))
+                    {
+                        Logging.Info(p);
+                    }
+                }
+            }
+#endif
+            {
+                string portable_app_config_path = Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"Qiqqa.Portable.Settings.json5");
+                if (File.Exists(portable_app_config_path))
+                {
+                    RegistrySettings.Instance.SetPortableApplicationMode(portable_app_config_path);
+                }
+            }
+
             if (RegistrySettings.Instance.IsSet(RegistrySettings.DebugConsole))
             {
                 Console.Instance.Init();
@@ -114,14 +147,14 @@ namespace Qiqqa.Main
 
 #if CEFSHARP
 
-            #region CEFsharp setup
+#region CEFsharp setup
 
             // CEFsharp setup for AnyPC as per https://github.com/cefsharp/CefSharp/issues/1714:
             AppDomain.CurrentDomain.AssemblyResolve += CefResolver;
 
             InitCef();
 
-            #endregion CEFsharp setup
+#endregion CEFsharp setup
 
 #endif
 
