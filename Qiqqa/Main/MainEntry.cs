@@ -90,7 +90,7 @@ namespace Qiqqa.Main
 #if false
             {
                 string[] app_paths = new string[] {
-                    Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"Qiqqa.Developer.Settings.json5"),
+                    Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"x"),
                     Path.Combine(System.AppContext.BaseDirectory, @"x"),
                     Process.GetCurrentProcess().MainModule.FileName,
                     new Uri(System.Reflection.Assembly.GetExecutingAssembly().Location).LocalPath,

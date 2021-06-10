@@ -52,7 +52,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Common.Configuratio
 
         private ConfigurationManager()
         {
-            ResetConfigurationRecordToGuest();
+            ResetConfigurationRecord();
         }
 
         private Stopwatch lastSaveTimestamp = null;
@@ -92,7 +92,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Common.Configuratio
             }
         }
 
-#region --- Search history ----------------------------------------------------------------------------------------
+    #region --- Search history ----------------------------------------------------------------------------------------
 
         private HashSet<string> search_history = new HashSet<string>();
         private HashSet<string> search_history_from_disk = null;
@@ -151,11 +151,9 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Common.Configuratio
             }
         }
 
-#endregion
+    #endregion
 
-#region --- Public accessors ----------------------------------------------------------------------------------------
-
-        public bool IsGuest => is_guest;
+    #region --- Public accessors ----------------------------------------------------------------------------------------
 
         public Visibility NoviceVisibility => ConfigurationRecord.GUI_IsNovice ? Visibility.Collapsed : Visibility.Visible;
 
@@ -171,7 +169,7 @@ namespace QiqqaLegacyFileFormats          // namespace Qiqqa.Common.Configuratio
             }
         }
 
-#endregion
+    #endregion
     }
 
 #endif

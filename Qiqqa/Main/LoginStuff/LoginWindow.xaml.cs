@@ -16,6 +16,9 @@ using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Main.LoginStuff
 {
@@ -158,7 +161,11 @@ namespace Qiqqa.Main.LoginStuff
             IsEnabled = false;
 
             ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
-            ConfigurationManager.Instance.ResetConfigurationRecordToGuest();
+            ConfigurationManager.Instance.ResetConfigurationRecord();
+
+            // Create the base directory in case it doesn't exist
+            Directory.CreateDirectory(ConfigurationManager.Instance.BaseDirectoryForUser);
+
             CloseToContinue();
         }
 

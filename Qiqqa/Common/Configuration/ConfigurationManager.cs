@@ -58,9 +58,6 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        private string user_guid;
-        private bool is_guest;
-
         private readonly Lazy<string> __startupDirectoryForQiqqa = new Lazy<string>(() => UnitTestDetector.StartupDirectoryForQiqqa);
         public string StartupDirectoryForQiqqa => __startupDirectoryForQiqqa.Value;
 
@@ -157,7 +154,7 @@ namespace Qiqqa.Common.Configuration
             {
                 if (BaseDirectoryForQiqqaIsFixedFromNowOn)
                 {
-                    throw new AccessViolationException($"Internal Error: Rewriting Qiqqa Base Path to '{value}' after it was locked for writing is indicative of erroneous use of the setter, i.e. setter is useed too late in the game!");
+                    throw new AccessViolationException($"Internal Error: Rewriting Qiqqa Base Path to '{value}' after it was locked for writing is indicative of erroneous use of the setter, i.e. setter is used too late in the game!");
                 }
                 __BaseDirectoryForQiqqa = new Lazy<string>(() => Path.GetFullPath(value));
                 RegistrySettings.Instance.Write(RegistrySettings.BaseDataDirectory, value);
@@ -166,7 +163,7 @@ namespace Qiqqa.Common.Configuration
 
         public string BaseDirectoryForUser
         {
-            get => Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, user_guid));
+            get => Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, "Guest"));
         }
 
         private string ConfigFilenameForUser
@@ -204,7 +201,7 @@ namespace Qiqqa.Common.Configuration
             UConf.GetWebUserAgent = () => ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
             UConf.GetProxy = () => ConfigurationManager.Instance.Proxy;
 
-            ResetConfigurationRecordToGuest();
+            ResetConfigurationRecord();
         }
 
         private void Shutdown()
@@ -214,21 +211,14 @@ namespace Qiqqa.Common.Configuration
             SaveSearchHistory();
         }
 
-        private void ResetConfigurationRecord(string user_guid_, bool is_guest_)
+        public void ResetConfigurationRecord()
         {
-            Logging.Info("Resetting configuration settings to {0}", user_guid_);
+            Logging.Info("Resetting/reloading configuration settings.");
 
             if (null != configuration_record_bindable)
             {
                 configuration_record_bindable.PropertyChanged -= configuration_record_bindable_PropertyChanged;
             }
-
-            // Create the new user_guid
-            user_guid = user_guid_;
-            is_guest = is_guest_;
-
-            // Create the base directory in case it doesn't exist
-            Directory.CreateDirectory(BaseDirectoryForUser);
 
             // Try loading any pre-existing config file
             try
@@ -426,23 +416,7 @@ namespace Qiqqa.Common.Configuration
 
         #endregion
 
-        #region --- Public initialisation ----------------------------------------------------------------------------------------
-
-        public void ResetConfigurationRecordToGuest()
-        {
-            ResetConfigurationRecord("Guest", true);
-        }
-
-        public void ResetConfigurationRecordToUser(string user_guid_)
-        {
-            ResetConfigurationRecord(user_guid_, false);
-        }
-
-        #endregion
-
         #region --- Public accessors ----------------------------------------------------------------------------------------
-
-        public bool IsGuest => is_guest;
 
         public Visibility NoviceVisibility => ConfigurationRecord.GUI_IsNovice ? Visibility.Collapsed : Visibility.Visible;
 
@@ -453,7 +427,7 @@ namespace Qiqqa.Common.Configuration
                 if (null == configuration_record)
                 {
                     Logging.Warn("Accessing ConfigurationRecord before it has been initialized by Qiqqa: running as Guest for now");
-                    ResetConfigurationRecordToGuest();
+                    ResetConfigurationRecord();
                 }
                 return configuration_record;
             }
@@ -556,7 +530,6 @@ namespace Qiqqa.Common.Configuration
                 rv.Add("Program7ZIP", cfg.Program7ZIP);
                 rv.Add("ProgramHTMLToPDF", cfg.ProgramHTMLToPDF);
                 rv.Add("DeveloperTestSettingsFilename", cfg.DeveloperTestSettingsFilename);
-                rv.Add("IsGuest", $"{cfg.IsGuest}");
                 rv.Add("NoviceVisibility", $"{cfg.NoviceVisibility}");
                 rv.Add("SearchHistory", string.Join("\n", cfg.SearchHistory));
 

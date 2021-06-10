@@ -17,7 +17,14 @@ namespace Utilities.Misc
 
         private RegistryKey GetAppKey()
         {
-            return Registry.CurrentUser.CreateSubKey("Software").CreateSubKey(company_name).CreateSubKey(app_name);
+            if (!portable_mode)
+            {
+                return Registry.CurrentUser.CreateSubKey("Software").CreateSubKey(company_name).CreateSubKey(app_name);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public string AppKeyDescription()
