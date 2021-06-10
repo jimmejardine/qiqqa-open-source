@@ -70,6 +70,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
                 using (Bitmap raster_bitmap = PDFOverlayRenderer.RenderHighlights((int)scaled_capped_width, (int)scaled_capped_height, pdf_document, page))
                 {
                     bmp = BitmapImageTools.FromBitmap(raster_bitmap);
+                    ASSERT.Test(bmp.IsFrozen);
                 }
 
                 WPFDoEvents.InvokeAsyncInUIThread(() =>

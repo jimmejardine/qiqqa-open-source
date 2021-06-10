@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Media.Imaging;
 using Qiqqa.Brainstorm.Common.Searching;
 using Utilities.Images;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -38,6 +39,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 if (null == bitmap_source)
                 {
                     bitmap_source = BitmapImageTools.LoadFromFile(image_path);
+                    ASSERT.Test(bitmap_source.IsFrozen);
                 }
                 return bitmap_source;
             }

@@ -11,6 +11,7 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Images;
+using Utilities.Misc;
 using Image = System.Drawing.Image;
 
 namespace Qiqqa.Brainstorm.Nodes
@@ -112,6 +113,7 @@ namespace Qiqqa.Brainstorm.Nodes
                 using (Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, actual_resolution))
                 {
                     cropped_image_page = BitmapImageTools.FromImage(annotation_image, (int)(annotation_image.Width * resolution_rescale_factor), (int)(annotation_image.Height * resolution_rescale_factor));
+                    ASSERT.Test(cropped_image_page.IsFrozen);
                 }
 
                 ImageIcon.Source = cropped_image_page;
