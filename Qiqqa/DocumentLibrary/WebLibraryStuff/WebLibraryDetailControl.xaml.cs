@@ -572,7 +572,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         try
                         {
                             // Now render each document
-                            using (Font font = new Font("Times New Roman", 11.0f))
+                            using (Font font = new Font("Times New Roman", 9.0f))
                             {
                                 using (StringFormat string_format = new StringFormat
                                 {
@@ -618,18 +618,20 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                                                     break;
                                                             }
 
-                                                            Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi);
-                                                            g.SmoothingMode = SmoothingMode.AntiAlias;
-                                                            g.DrawImage(
-                                                                starburst_image,
-                                                                new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
-                                                                0,
-                                                                0,
-                                                                starburst_image.Width,
-                                                                starburst_image.Height,
-                                                                GraphicsUnit.Pixel,
-                                                                image_attributes
-                                                            );
+                                                            using (Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi))
+                                                            {
+                                                                g.SmoothingMode = SmoothingMode.AntiAlias;
+                                                                g.DrawImage(
+                                                                    starburst_image,
+                                                                    new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
+                                                                    0,
+                                                                    0,
+                                                                    starburst_image.Width,
+                                                                    starburst_image.Height,
+                                                                    GraphicsUnit.Pixel,
+                                                                    image_attributes
+                                                                );
+                                                            }
                                                         }
 
                                                         using (Matrix mat = new Matrix())
@@ -879,6 +881,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         try
                         {
                             ObjTitleImage.Source = BitmapImageTools.FromImage(ImageLoader.Load(image_filename));
+                            ASSERT.Test(ObjTitleImage.Source.IsFrozen);
                         }
                         catch (Exception ex)
                         {
