@@ -1,4 +1,5 @@
 ﻿using System;
+using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.GUI;
@@ -26,7 +27,7 @@ namespace Qiqqa.Main
             }
             catch (Exception ex)
             {
-                if (Qiqqa.Common.RegistrySettings.Instance.GetPortableApplicationMode())
+                if (RegistrySettings.GetPortableApplicationMode())
                 {
                     string msg = $"The Qiqqa Portable Application failed to register the 'qiqqa://' URI type and Qiqqa-associated file extensions. This means the Portable Application will not respond to qiqqa://... links in web pages and elsewhere, and Qiqqa Portable Application will not automatically start again when you doubleclick on a qiqqa backup archive file to have it restore your libraries' backup.\n\nThe cause of this issue is probably tightly restricted user access rights on your machine. More info may be found and reported at the Qiqqa support website & issue tracker: { WebsiteAccess.Url_Support4Qiqqa }";
                     Logging.Error(ex, msg);

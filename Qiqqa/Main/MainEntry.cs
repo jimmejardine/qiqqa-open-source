@@ -111,13 +111,24 @@ namespace Qiqqa.Main
                 }
             }
 #endif
+
+            UserRegistry.DetectPortableApplicationMode();
+
             {
-                string portable_app_config_path = Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"Qiqqa.Portable.Settings.json5");
-                if (File.Exists(portable_app_config_path))
+                if (UserRegistry.GetPortableApplicationMode())
                 {
-                    RegistrySettings.Instance.SetPortableApplicationMode(portable_app_config_path);
+                    // set up defaults when they are absent:
+                    object v = null;
+                    UserRegistry.DeveloperOverridesDB.TryGetValue("BaseDataDirectory", out v);
+                    if (string.IsNullOrEmpty(v as string))
+                    {
+                        UserRegistry.DeveloperOverridesDB.Add("BaseDataDirectory", Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../My.Qiqqa.Libraries")));
+                    }
                 }
             }
+
+            // now also check for a developer override config file in the Basedirectory and add those overrides to the set:
+            RegistrySettings.AugmentDeveloperOverridesDB();
 
             if (RegistrySettings.Instance.IsSet(RegistrySettings.DebugConsole))
             {

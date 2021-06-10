@@ -185,12 +185,11 @@ namespace Qiqqa.Common.Configuration
             get => Path.Combine(StartupDirectoryForQiqqa, @"wkhtmltopdf.exe");
         }
 
-        public string DeveloperTestSettingsFilename
+        public string DeveloperTestSettingsFilename_2_LibsBase
         {
             get => Path.Combine(BaseDirectoryForQiqqa, @"Qiqqa.Developer.Settings.json5");
         }
 
-        private Dictionary<string, object> developer_test_settings = null;
         private ConfigurationRecord configuration_record;
         private AugmentedBindable<ConfigurationRecord> configuration_record_bindable;
 
@@ -257,37 +256,6 @@ namespace Qiqqa.Common.Configuration
                 configuration_record.Feedback_GATrackingCode = Guid.NewGuid().ToString();
             }
 #endif
-
-            // Also see if we have a Developer Test Settings file, which contains development/test environment overrides:
-            try
-            {
-                if (File.Exists(DeveloperTestSettingsFilename))
-                {
-                    Logging.Info("Loading developer test settings file {0}", DeveloperTestSettingsFilename);
-
-                    // see also https://www.newtonsoft.com/json/help/html/SerializationErrorHandling.htm
-
-                    List<string> errors = new List<string>();
-
-                    developer_test_settings = JsonConvert.DeserializeObject<Dictionary<string, object>>(
-                        File.ReadAllText(DeveloperTestSettingsFilename),
-                        new JsonSerializerSettings
-                        {
-                            Error = delegate (object sender, ErrorEventArgs args)
-                            {
-                                errors.Add(args.ErrorContext.Error.Message);
-                                args.ErrorContext.Handled = true;
-                            },
-                            //Converters = { new IsoDateTimeConverter() }
-                        });
-
-                    Logging.Info("Loaded developer test settings file {0}: {1}", DeveloperTestSettingsFilename, errors.Count == 0 ? "no errors" : errors.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "There was a problem loading developer test settings file {0}", DeveloperTestSettingsFilename);
-            }
         }
 
         private void configuration_record_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -441,32 +409,27 @@ namespace Qiqqa.Common.Configuration
         /// <returns>`true` by default (ENabled), unless the loaded developer overrides file explicitly set this key to `false`.</returns>
         public static bool IsEnabled(string key)
         {
-            if (null != Instance.developer_test_settings)
+            ASSERT.Test(null != UserRegistry.DeveloperOverridesDB);
+
+            if (UserRegistry.DeveloperOverridesDB.TryGetValue(key, out var val))
             {
-                if (Instance.developer_test_settings.TryGetValue(key, out var val))
-                {
-                    bool? rv = val as bool?;
-                    return rv ?? (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
-                }
+                bool? rv = val as bool?;
+                return rv ?? (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
             }
+
             return (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
         }
 
         public static void ResetDeveloperSettings()
         {
-            if (null != Instance.developer_test_settings)
-            {
-                Instance.developer_test_settings.Clear();
-            }
+            ASSERT.Test(null != UserRegistry.DeveloperOverridesDB);
+
+            UserRegistry.DeveloperOverridesDB.Clear();
         }
 
         public static Dictionary<string, object> GetDeveloperSettingsReference()
         {
-            if (null == Instance.developer_test_settings)
-            {
-                Instance.developer_test_settings = new Dictionary<string, object>();
-            }
-            return Instance.developer_test_settings;
+            return UserRegistry.DeveloperOverridesDB;
         }
 
         public static void ThrowWhenActionIsNotEnabled(string key)
@@ -529,9 +492,11 @@ namespace Qiqqa.Common.Configuration
                 rv.Add("SearchHistoryFilename", cfg.SearchHistoryFilename);
                 rv.Add("Program7ZIP", cfg.Program7ZIP);
                 rv.Add("ProgramHTMLToPDF", cfg.ProgramHTMLToPDF);
-                rv.Add("DeveloperTestSettingsFilename", cfg.DeveloperTestSettingsFilename);
+                rv.Add("DeveloperTestSettingsFilename (Application Level)", UnitTestDetector.DeveloperTestSettingsFilename_1_App);
+                rv.Add("DeveloperTestSettingsFilename (BaseDirectory Level)", cfg.DeveloperTestSettingsFilename_2_LibsBase);
                 rv.Add("NoviceVisibility", $"{cfg.NoviceVisibility}");
                 rv.Add("SearchHistory", string.Join("\n", cfg.SearchHistory));
+                rv.Add("IsPortableApplication", RegistrySettings.GetPortableApplicationMode().ToString());
 
                 StringBuilder s = new StringBuilder();
                 foreach (var rec in cfg.ConfigurationRecord.GetCurrentConfigInfos())
