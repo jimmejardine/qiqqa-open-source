@@ -8,6 +8,7 @@ using System.Threading;
 using tessnet2;
 using Utilities;
 using Utilities.Encryption;
+using Utilities.GUI;
 using Utilities.OCR;
 #if !HAS_MUPDF_PAGE_RENDERER
 using Utilities.PDF.Sorax;
@@ -94,6 +95,15 @@ namespace QiqqaOCR
                 Logging.Info("Defaulting to language eng");
                 language = "eng";
             }
+
+            // Some code is shared with the Qiqqa GUI and the WPFDoEvents.* assertions expect a WPF environment...
+            // https://stackoverflow.com/questions/35902815/why-does-application-current-null-in-a-winforms-application
+            if (null == System.Windows.Application.Current)
+            {
+                new System.Windows.Application();
+            }
+
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // When should the various processes die?
             Stopwatch clk = Stopwatch.StartNew();
