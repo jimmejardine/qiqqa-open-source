@@ -226,7 +226,7 @@ namespace Qiqqa.Common.GUI
                         !Double.IsNaN(Height) && 0 < Height && Height < 1E6)
                     {
                         rc = new Rect(Left, Top, Width, Height);
-                        ASSERT.Test(rc.IntersectsWith(RestoreBounds));
+                        ASSERT.Test(RestoreBounds.IsEmpty || rc.IntersectsWith(RestoreBounds));
                     }
                     else 
                     {
