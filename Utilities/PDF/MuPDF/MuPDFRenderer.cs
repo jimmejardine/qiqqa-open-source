@@ -443,7 +443,7 @@ namespace Utilities.PDF.MuPDF
                 render_count++;
 
                 string process_parameters = String.Format(
-                    $"draw -T0 -stmf -w {width} -h {height} -r {dpi} -o -"
+                    $"draw -T0 -stmf -w {width} -h {height} -r {dpi} -F png -o -"
                     + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
                     + " " + '"' + pdf_filename + '"'
                     + " " + page_number
