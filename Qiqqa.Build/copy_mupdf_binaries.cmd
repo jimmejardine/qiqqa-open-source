@@ -9,7 +9,8 @@ cd ..\MuPDF\platform\win32
 rem go with the 64-bit builds.
 
 rem cd "bin\%2-Unicode-64bit-x64"
-cd "bin\Release-Unicode-64bit-x64"
+rem cd "bin\Release-Unicode-64bit-x64"
+cd "bin\%2-Unicode-32bit-x86"
 
 echo "MuPDF source directory for the binaries:"
 cd
