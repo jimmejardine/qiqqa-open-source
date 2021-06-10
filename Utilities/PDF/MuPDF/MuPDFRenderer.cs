@@ -707,6 +707,10 @@ namespace Utilities.PDF.MuPDF
             try
             {
                 execResult = ReadEntireStandardOutput(exe, process_parameters, binary_output: false, priority_class);
+                if (execResult.stdoutBinaryData == null && execResult.error != null)
+                {
+                    throw execResult.error;
+                }
                 using (MemoryStream ms = new MemoryStream(execResult.stdoutBinaryData))
                 {
                     using (StreamReader sr = new StreamReader(ms, Encoding.UTF8))
@@ -789,6 +793,10 @@ namespace Utilities.PDF.MuPDF
             }
 
             var execResult = ReadEntireStandardOutput("pdfdraw.exe", process_parameters, binary_output: false, priority_class);
+            if (execResult.stdoutBinaryData == null && execResult.error != null)
+            {
+                throw execResult.error;
+            }
 
             using (MemoryStream ms = new MemoryStream(execResult.stdoutBinaryData))
             {
