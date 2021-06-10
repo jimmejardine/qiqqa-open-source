@@ -431,42 +431,38 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
-        private static int render_count = 0;
-        private static object draw_lock = new object();
+        private static volatile int render_count = 0;
 
         private static byte[] RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            lock (draw_lock)
+            render_count++;
+
+            string process_parameters = String.Format(
+                $"draw -T0 -stmf -w {width} -h {height} -r {dpi} -F png -o -"
+                + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
+                + " " + '"' + pdf_filename + '"'
+                + " " + page_number
+                );
+
+            string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mutool.exe"));
+            if (!File.Exists(exe))
             {
-                render_count++;
-
-                string process_parameters = String.Format(
-                    $"draw -T0 -stmf -w {width} -h {height} -r {dpi} -F png -o -"
-                    + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
-                    + " " + '"' + pdf_filename + '"'
-                    + " " + page_number
-                    );
-
-                string exe = Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"MuPDF/mutool.exe"));
-                if (!File.Exists(exe))
-                {
-                    throw new Exception($"PDF Page Rendering: missing modern MuPDF 'mutool.exe': it does not exist in the expected path: '{exe}'");
-                }
-                if (!File.Exists(pdf_filename))
-                {
-                    throw new Exception($"PDF Page Rendering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
-                }
-
-                ExecResultAggregate rv = ReadEntireStandardOutput(exe, process_parameters, binary_output: true, priority_class);
-
-                if (rv.error != null)
-                {
-                    throw rv.error;
-                }
-                return rv.stdoutBinaryData;
+                throw new Exception($"PDF Page Rendering: missing modern MuPDF 'mutool.exe': it does not exist in the expected path: '{exe}'");
             }
+            if (!File.Exists(pdf_filename))
+            {
+                throw new Exception($"PDF Page Rendering: INTERNAL ERROR: missing PDF: it does not exist in the expected path: '{pdf_filename}'");
+            }
+
+            ExecResultAggregate rv = ReadEntireStandardOutput(exe, process_parameters, binary_output: true, priority_class);
+
+            if (rv.error != null)
+            {
+                throw rv.error;
+            }
+            return rv.stdoutBinaryData;
         }
 
         public static byte[] RenderPDFPageAsByteArray(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
