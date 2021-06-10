@@ -78,7 +78,7 @@ Here's an example which lists all supported settings:
 
 #### Defaults
 
-Note that all settings in this file are assumed to be `true` by default, i.e. anything you don't mentionexplicitly in there is assumed to be `true`.
+Note that all settings in this file are assumed to be `true` by default, i.e. anything you don't mention explicitly in there is assumed to be `true`.
 
 
 
