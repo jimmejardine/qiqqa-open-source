@@ -395,52 +395,31 @@ namespace Utilities.PDF.MuPDF
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            // TODO: check if we have a higher size image cached already: use that one instead of bothering the PDF renderer again
-
-            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, page, dpi: 0, height, width);
-        }
-
-
-#if false
-        public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, int page, int dpi)
-        {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            // TODO: check if we have a higher size image cached already: use that one instead of bothering the PDF renderer again
-
-            return GetPageByDPIAsImage_LOCK(filename, pdf_user_password, page, dpi, 0, 0);
-        }
-#endif
-
-        private static byte[] GetPageByDPIAsImage_LOCK(string filename, string pdf_user_password, int page, int dpi, int height, int width)
-        {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             try
             {
                 // sample command (PNG written to stdout for page #2, width and height are limiting/reducing, dpi-resolution is driving):
                 //
                 //      mudraw -q -o - -F png -r 600 -w 1920 -h 1280 G:\Qiqqa\evil\Guest\documents\1\1A9760F3917A107AC46E6E292B9C839364F09E73.pdf  2
-                var img = RenderPDFPageAsByteArray(filename, page, dpi, height, width, pdf_user_password, ProcessPriorityClass.BelowNormal);
+                var img = RenderPDFPage(filename, page, height, width, pdf_user_password, ProcessPriorityClass.BelowNormal);
 
                 return img;
             }
             catch (Exception ex)
             {
-                throw new GenericException(ex, $"PDF Render: Error while rasterising page {page} at {dpi}dpi / {height}x{width} pixels of '{filename}'");
+                throw new GenericException(ex, $"PDF Render: Error while rasterising page {page} at {height}x{width} pixels of '{filename}'");
             }
         }
 
         private static volatile int render_count = 0;
 
-        private static byte[] RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
+        private static byte[] RenderPDFPage(string pdf_filename, int page_number, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             render_count++;
 
             string process_parameters = String.Format(
-                $"draw -T0 -stmf -w {width} -h {height} -r {dpi} -F png -o -"
+                $"draw -T0 -stmf -w {width} -h {height} -F png -o -"
                 + " " + (String.IsNullOrEmpty(password) ? "" : "-p " + password)
                 + " " + '"' + pdf_filename + '"'
                 + " " + page_number
@@ -464,40 +443,6 @@ namespace Utilities.PDF.MuPDF
             }
             return rv.stdoutBinaryData;
         }
-
-        public static byte[] RenderPDFPageAsByteArray(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
-        {
-            byte[] img = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class);
-
-            return img;
-        }
-
-#if false
-        public static BitmapImage RenderPage_AsBitmapImage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
-        {
-            using (MemoryStream ms = RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class))
-            {
-                BitmapImage bitmap_image = new BitmapImage();
-
-                bitmap_image.BeginInit();
-                bitmap_image.StreamSource = ms;
-                bitmap_image.EndInit();
-                return bitmap_image;
-            }
-        }
-#endif
-
-#if false
-        public static Bitmap RenderPage_AsBitmap(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
-        {
-            using (MemoryStream ms = new MemoryStream(RenderPDFPage(pdf_filename, page_number, dpi, height, width, password, priority_class)))
-            {
-                Bitmap bitmap = new Bitmap(ms);
-
-                return bitmap;
-            }
-        }
-#endif
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------
 

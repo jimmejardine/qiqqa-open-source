@@ -30,17 +30,6 @@ namespace Qiqqa.Documents.PDF
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
         public event OnPageTextAvailableDelegate OnPageTextAvailable;
 
-#if false
-        internal byte[] GetPageByDPIAsImage(int page, int dpi)
-        {
-#if !HAS_MUPDF_PAGE_RENDERER
-            return SoraxPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
-#else
-            return MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
-#endif
-        }
-#endif
-
         internal byte[] GetPageByHeightAsImage(int page, int height, int width)
         {
 #if !HAS_MUPDF_PAGE_RENDERER
