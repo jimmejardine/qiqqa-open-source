@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Qiqqa.Documents.PDF;
 using Utilities.OCR;
 
@@ -14,10 +15,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             for (int page = 1; page <= 3; ++page)
             {
                 string result = GetAbstractForDocument(pdf_document, page);
-                if (CANT_LOCATE != result) return result;
+                if (!String.IsNullOrWhiteSpace(result)) return result;
             }
 
-            return CANT_LOCATE;
+            return null;
         }
 
         private static string GetAbstractForDocument(PDFDocument pdf_document, int page)
@@ -26,7 +27,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             {
                 // Get the OCR
                 WordList word_list = pdf_document.GetOCRText(page);
-                if (null == word_list) return CANT_LOCATE;
+                if (null == word_list) return null;
 
                 // First find all the locations
                 int abstract_start = -1;
@@ -126,7 +127,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             }
 
             // If we get here we have failed...
-            return CANT_LOCATE;
+            return null;
         }
 
         private static string BuildFromRange(WordList word_list, int start_inclusive, int finish_exclusive)

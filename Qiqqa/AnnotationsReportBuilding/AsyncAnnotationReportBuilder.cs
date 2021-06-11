@@ -251,7 +251,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                             if (annotation_report_options.IncludeAbstract)
                             {
                                 string abstract_text = pdf_document.Abstract;
-                                if (PDFAbstractExtraction.CANT_LOCATE != abstract_text)
+                                if (!String.IsNullOrEmpty(abstract_text))
                                 {
                                     have_document_details = true;
 

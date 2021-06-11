@@ -64,14 +64,12 @@ namespace Utilities.Images
 
         public static BitmapSource LoadFromFile(string filename)
         {
-            double maximum_height;
-            return LoadFromBytes(File.ReadAllBytes(filename), null, out maximum_height);
+            return LoadFromBytes(File.ReadAllBytes(filename), null, out double _);
         }
 
         public static BitmapSource LoadFromBytes(byte[] image_data)
         {
-            double maximum_height;
-            return LoadFromBytes(image_data, null, out maximum_height);
+            return LoadFromBytes(image_data, null, out double _);
         }
 
         private static bool VOID_CALLBACK_METHOD() { return false; }

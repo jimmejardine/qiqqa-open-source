@@ -375,8 +375,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     }
                 }
 
-                ASSERT.Test(details.Count > 0);
-
                 return details;
             }
         }

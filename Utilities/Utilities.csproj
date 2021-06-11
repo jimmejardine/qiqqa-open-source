@@ -753,6 +753,7 @@
     <Compile Include="Misc\FastSmartWeakEvent.cs" />
     <Compile Include="Misc\KeyPressCodes.cs" />
     <Compile Include="Misc\NotificationManager.cs" />
+    <Compile Include="Misc\ProgressiveContent.cs" />
     <Compile Include="Misc\ProgressLogger.cs" />
     <Compile Include="Misc\QiqqaAssertTestException.cs" />
     <Compile Include="Misc\QuantisleUserRegistry.cs" />

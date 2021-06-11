@@ -25,8 +25,6 @@ namespace Qiqqa.Documents.PDF
         private Dictionary<int, TypedWeakReference<WordList>> texts = new Dictionary<int, TypedWeakReference<WordList>>();
         private object texts_lock = new object();
 
-        //List<int> pages_to_render = new List<int>();
-
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
         public event OnPageTextAvailableDelegate OnPageTextAvailable;
 
