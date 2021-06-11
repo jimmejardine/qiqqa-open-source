@@ -331,7 +331,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     if (!have_generated_charts)
                     {
                         have_generated_charts = true;
-                        SafeThreadPool.QueueUserWorkItem(() => UpdateLibraryStatistics_Stats_Background_Charts(web_library_detail));
+                        SafeThreadPool.QueueUserWorkItem(() =>
+                        {
+                            UpdateLibraryStatistics_Stats_Background_Charts(web_library_detail);
+                        });
                     }
                 }
 
@@ -342,7 +345,10 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     if (!have_generated_cover_flow)
                     {
                         have_generated_cover_flow = true;
-                        SafeThreadPool.QueueUserWorkItem(() => UpdateLibraryStatistics_Stats_Background_CoverFlow(web_library_detail));
+                        SafeThreadPool.QueueUserWorkItem(() =>
+                        {
+                            UpdateLibraryStatistics_Stats_Background_CoverFlow(web_library_detail);
+                        });
                     }
                 }
             }
@@ -558,27 +564,35 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            {
+                UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws);
+            });
+
             // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
             //
             bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels");
 
             if (!allow)
             {
-                foreach (DocumentDisplayWork ddw in ddwm.ddws)
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    try
+                    foreach (DocumentDisplayWork ddw in ddwm.ddws)
                     {
-                        var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
-                        ddw.page_bitmap_source = img;
+                        try
+                        {
+                            var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
+                            ddw.page_bitmap_source = img;
 
-                        UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
+                            UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
+                            Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
-                        Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
-                    }
-                }
+                });
             }
 
             WPFDoEvents.InvokeAsyncInUIThread(() =>
@@ -588,8 +602,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 // And fill the placeholders
                 try
                 {
-                    UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws);
-
                     // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
                     //
                     bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels");
@@ -809,8 +821,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 ddw.image.Source = ddw.page_bitmap_source ?? Backgrounds.GetBackground(Backgrounds.PageRenderingFailed_Relax);
                 ddw.image.Stretch = Stretch.Uniform;
+
+                ddw.border.Visibility = Visibility.Visible;
             }
-            ddw.border.Visibility = Visibility.Visible;
         }
 
         private void ObjCarousel_MouseDoubleClick(object sender, MouseButtonEventArgs e)

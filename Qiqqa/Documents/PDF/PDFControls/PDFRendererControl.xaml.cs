@@ -124,7 +124,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             var doc = pdf_renderer_control_stats.pdf_document;
 
             // Add the child pages
-            bool add_bells_and_whistles = (doc.PageCount > 0 && doc.PageCount < 50);
+            bool add_bells_and_whistles = (doc.PageCount < 50);
 
             Logging.Info("+Creating child page controls");
             for (int page = 1; page <= doc.PageCount; ++page)

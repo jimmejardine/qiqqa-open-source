@@ -420,8 +420,8 @@
     <Resource Include="Backgrounds\green-dice-for-fail.jpg" />
     <Resource Include="Backgrounds\qiqqa-page-render-fail-news-page.jpg" />
     <Resource Include="Backgrounds\qiqqa-page-render-fail-poster.jpg" />
-    <Content Include="Backgrounds\flask-for-pending-2.jpg" />
-    <Content Include="Backgrounds\golden-toad-for-pending-1.jpg" />
+    <Resource Include="Backgrounds\flask-for-pending-2.jpg" />
+    <Resource Include="Backgrounds\golden-toad-for-pending-1.jpg" />
     <Content Include="License.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

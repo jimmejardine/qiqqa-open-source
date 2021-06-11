@@ -59,6 +59,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             Loaded += PDFHighlightLayer_Loaded;
             //Unloaded += PDFHighlightLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
+            // prefetch the text layer data: the words + coordinates:
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                //PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
+                //PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
+                ASSERT.Test(pdf_document != null);
+
+                if (pdf_document != null)
+                {
+                    _ = pdf_document.GetOCRText(page);
+                }
+            });
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)

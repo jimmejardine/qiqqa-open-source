@@ -85,6 +85,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             set
             {
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                 _currently_showing_image = value;
                 if (null != _currently_showing_image)
                 {
@@ -159,12 +161,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 Effect = dse;
             }
 
-            SafeThreadPool.QueueUserWorkItem(() =>
-            {
-                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-                PopulateNeededLayers();
-            });
+            PopulateNeededLayers();
 
             //Unloaded += PDFRendererPageControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
@@ -416,7 +413,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         private void PopulateNeededLayers()
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            //WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
             ASSERT.Test(pdf_renderer_control != null);
@@ -425,26 +422,26 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             if (pdf_document != null)
             {
-                bool need_annots = PDFAnnotationLayer.IsLayerNeeded(pdf_document, page);
-                bool need_inks = PDFInkLayer.IsLayerNeeded(pdf_document, page);
-                bool need_highlights = PDFHighlightLayer.IsLayerNeeded(pdf_document, page);
+                //bool need_annots = PDFAnnotationLayer.IsLayerNeeded(pdf_document, page);
+                //bool need_inks = PDFInkLayer.IsLayerNeeded(pdf_document, page);
+                //bool need_highlights = PDFHighlightLayer.IsLayerNeeded(pdf_document, page);
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                //WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     Stopwatch clk = Stopwatch.StartNew();
                     Logging.Info("+PopulateNeededLayers for document {0}", pdf_document.Fingerprint);
 
                     try
                     {
-                        if (need_annots)
+                        //if (need_annots)
                         {
                             _ = CanvasAnnotation;
                         }
-                        if (need_inks)
+                        //if (need_inks)
                         {
                             _ = CanvasInk;
                         }
-                        if (need_highlights)
+                        //if (need_highlights)
                         {
                             _ = CanvasHighlight;
                         }
@@ -455,7 +452,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     }
 
                     Logging.Info("-PopulateNeededLayers for document {1} (time spent: {0} ms)", clk.ElapsedMilliseconds, pdf_document.Fingerprint);
-                });
+                }
+                //);
             }
         }
 
@@ -467,6 +465,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 // The image layer
                 Children.Add(ImagePage_HIDDEN);
+
+                // TODO: assign CurrentlyShowingImage and use CurrentlyShowingImage.Image, while tracking the work done in
+                // a ProgressiveWork tracker.
+                //
+                ImagePage_HIDDEN.Source = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
 
                 // Make the curly layer
                 if (add_bells_and_whistles)
@@ -702,21 +705,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
                     if (pdf_renderer_control_stats != null)
                     {
-                        if (page_is_in_view)
-                        {
-                            int desired_rescaled_image_height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
-                            int desired_rescaled_image_width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
-                            if (null != CurrentlyShowingImage && (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width))
-                            {
-                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;  // TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
-                                //ImagePage_HIDDEN.Stretch = Stretch.None;
-                            }
-                            else
-                            {
-                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;
-                            }
-                        }
-
                         //
                         // WARNING: we MAY be executing this bit of code while the control
                         // has just been Dispose()d!
@@ -829,15 +817,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                             // Recalculate the aspect ratio
                             if (null != CurrentlyShowingImage)
                             {
-                                if (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width)
-                                {
-                                    ImagePage_HIDDEN.Stretch = Stretch.Uniform;  // TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
-                                }
-                                else
-                                {
-                                    ImagePage_HIDDEN.Stretch = Stretch.Uniform;
-                                }
-
                                 remembered_image_height = BASIC_PAGE_HEIGHT;
                                 remembered_image_width = BASIC_PAGE_HEIGHT * CurrentlyShowingImage.Image.Width / CurrentlyShowingImage.Image.Height;
                                 pdf_renderer_control_stats.largest_page_image_width = Math.Max(pdf_renderer_control_stats.largest_page_image_width, remembered_image_width);

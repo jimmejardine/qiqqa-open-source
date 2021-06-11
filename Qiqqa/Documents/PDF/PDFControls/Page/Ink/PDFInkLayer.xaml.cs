@@ -10,6 +10,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Animation;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -45,7 +46,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
             ObjInkCanvas.RequestBringIntoView += ObjInkCanvas_RequestBringIntoView;
 
-            RebuildInks(page, pdf_document.Inks);
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                RebuildInks(page, pdf_document.Inks);
+            });
 
             RaiseInkChange(InkCanvasEditingMode.Ink);
 
@@ -80,7 +84,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             StrokeCollection stroke_collection = pdf_ink_list.GetInkStrokeCollection(page);
             if (null != stroke_collection)
             {
-                ObjInkCanvas.Strokes = stroke_collection;
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    ObjInkCanvas.Strokes = stroke_collection;
+                });
             }
         }
 
