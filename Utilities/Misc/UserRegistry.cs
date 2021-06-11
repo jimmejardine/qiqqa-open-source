@@ -72,27 +72,27 @@ namespace Utilities.Misc
 
         public string Read(string key)
         {
+            string rv = "";
+
+            if (DeveloperOverridesDB.TryGetValue(key, out object v))
+            {
+                string data = v as string;
+                if (null == data) data = "";
+                rv = data;
+            }
+
             if (!portable_mode)
             {
                 using (RegistryKey app_key = GetAppKey())
                 {
-                    string data = (string)app_key.GetValue(key);
+                    string data = (string)app_key.GetValue(key, rv);
                     app_key.Close();
 
                     if (null == data) data = "";
                     return data;
                 }
             }
-            else
-            {
-                if (DeveloperOverridesDB.TryGetValue(key, out object v))
-                {
-                    string data = v as string;
-                    if (null == data) data = "";
-                    return data;
-                }
-                return "";
-            }
+            return rv;
         }
 
         public bool IsSet(string key)
@@ -100,6 +100,7 @@ namespace Utilities.Misc
             string value = Read(key);
             if (null == key) return false;
             value = value.ToLower();
+            if (0 == value.CompareTo("1")) return true;
             if (0 == value.CompareTo("y")) return true;
             if (0 == value.CompareTo("t")) return true;
             if (0 == value.CompareTo("yes")) return true;
@@ -137,13 +138,23 @@ namespace Utilities.Misc
 
         public string Read(string section, string key)
         {
+            string rv = "";
+            string compound_key = $"{ section }/{ key }";
+
+            if (DeveloperOverridesDB.TryGetValue(compound_key, out object v))
+            {
+                string data = v as string;
+                if (null == data) data = "";
+                rv = data;
+            }
+
             if (!portable_mode)
             {
                 using (RegistryKey app_key = GetAppKey())
                 {
                     using (RegistryKey sub_app_key = app_key.CreateSubKey(section))
                     {
-                        string data = (string)sub_app_key.GetValue(key);
+                        string data = (string)sub_app_key.GetValue(key, rv);
                         sub_app_key.Close();
 
                         if (null == data) data = "";
@@ -151,17 +162,8 @@ namespace Utilities.Misc
                     }
                 }
             }
-            else
-            {
-                string compound_key = $"{ section }/{ key }";
-                if (DeveloperOverridesDB.TryGetValue(compound_key, out object v))
-                {
-                    string data = v as string;
-                    if (null == data) data = "";
-                    return data;
-                }
-                return "";
-            }
+
+            return rv;
         }
 
         // ----------------------------------------------
