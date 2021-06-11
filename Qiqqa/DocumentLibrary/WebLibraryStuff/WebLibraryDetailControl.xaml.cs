@@ -66,7 +66,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             ButtonMain.Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
-            RenderOptions.SetBitmapScalingMode(ObjTitleImage, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ObjTitleImage, BitmapScalingMode.HighQuality);
             ObjTitleImage.Opacity = BACKGROUND_IMAGE_OPACITY_INACTIVE;
             ObjTitleImage.Stretch = Stretch.UniformToFill;
 
@@ -851,7 +851,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 // The icon stuff
                 {
-                    RenderOptions.SetBitmapScalingMode(ButtonIcon, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(ButtonIcon, BitmapScalingMode.HighQuality);
                     ButtonIcon.Width = 64;
                     ButtonIcon.Height = 64;
 

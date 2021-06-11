@@ -60,9 +60,9 @@ namespace Qiqqa.DocumentLibrary
             InitializeComponent();
 
             ImageLibraryEmptyAddFiles.Source = Icons.GetAppIcon(Icons.LibraryEmptyAddFiles);
-            RenderOptions.SetBitmapScalingMode(ImageLibraryEmptyAddFiles, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageLibraryEmptyAddFiles, BitmapScalingMode.HighQuality);
             ImageLibraryMissingBibTeX.Source = Icons.GetAppIcon(Icons.BibTexSniffer);
-            RenderOptions.SetBitmapScalingMode(ImageLibraryMissingBibTeX, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageLibraryMissingBibTeX, BitmapScalingMode.HighQuality);
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
 

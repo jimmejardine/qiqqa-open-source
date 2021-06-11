@@ -45,7 +45,7 @@ namespace Qiqqa.Brainstorm.Nodes
             Focusable = true;
 
             ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormPDFAnnotation);
-            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             ImageIcon.Width = NodeThemes.image_width;
             TextBorder.CornerRadius = NodeThemes.corner_radius;

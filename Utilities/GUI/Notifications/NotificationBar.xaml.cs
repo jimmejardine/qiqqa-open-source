@@ -21,7 +21,7 @@ namespace Utilities.GUI.Notifications
         {
             InitializeComponent();
 
-            RenderOptions.SetBitmapScalingMode(NotificationImage, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(NotificationImage, BitmapScalingMode.HighQuality);
 
             CloseButton.Source = Icons.GetAppIcon(Icons.NotificationBarClose);
 

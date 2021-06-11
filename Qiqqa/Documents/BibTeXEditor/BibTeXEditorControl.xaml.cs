@@ -196,7 +196,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXParseErrorButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXParseError2);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
             }
 
@@ -218,7 +218,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXModeToggleButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
                 BibTeXModeToggleButton.Cursor = Cursors.Hand;
 #if false
@@ -246,7 +246,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXUndoEditButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.Previous2);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
             }
         }

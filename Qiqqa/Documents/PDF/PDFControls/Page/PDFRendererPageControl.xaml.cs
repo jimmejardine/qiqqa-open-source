@@ -54,7 +54,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
                     // THIS MUST BE IN PLACE SO THAT WE HAVE PIXEL PERFECT RENDERING
                     ImagePage_HIDDEN.SnapsToDevicePixels = true;
-                    RenderOptions.SetBitmapScalingMode(ImagePage_HIDDEN, BitmapScalingMode.NearestNeighbor);
+                    //RenderOptions.SetBitmapScalingMode(ImagePage_HIDDEN, BitmapScalingMode.NearestNeighbor);
                     RenderOptions.SetEdgeMode(ImagePage_HIDDEN, EdgeMode.Aliased);
                 }
 

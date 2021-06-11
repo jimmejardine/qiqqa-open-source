@@ -63,9 +63,9 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             TreeSearchTerms.Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
             ObjImageRefresh.Source = Icons.GetAppIcon(Icons.Refresh);
-            RenderOptions.SetBitmapScalingMode(ObjImageRefresh, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ObjImageRefresh, BitmapScalingMode.HighQuality);
             ObjImageRefresh.ToolTip = "Refresh this list to reflect your latest documents and annotations.";
-            ObjImageRefresh.Cursor = Cursors.Hand;
+            //ObjImageRefresh.Cursor = Cursors.Hand;
             ObjImageRefresh.MouseUp += ObjImageRefresh_MouseUp;
 
             ObjBooleanAnd.ToolTip = "Choose this to display the documents that contain ALL the tags you have selected (more and more exclusive).\nYou can select/deselect multiple tags by toggling the checkbox or holding down SHIFT or CTRL while you click additional tags.";

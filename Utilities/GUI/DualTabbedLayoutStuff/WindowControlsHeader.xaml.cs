@@ -34,9 +34,9 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageMaximize.Source = Icons.GetAppIcon(Icons.DualTabbed_Maximize);
             ImageClose.Source = Icons.GetAppIcon(Icons.DualTabbed_Close);
 
-            RenderOptions.SetBitmapScalingMode(ImageMinimize, BitmapScalingMode.HighQuality);
-            RenderOptions.SetBitmapScalingMode(ImageMaximize, BitmapScalingMode.HighQuality);
-            RenderOptions.SetBitmapScalingMode(ImageClose, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageMinimize, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageMaximize, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageClose, BitmapScalingMode.HighQuality);
 
             ImageClose.Visibility = item.can_close ? Visibility.Visible : Visibility.Collapsed;
 

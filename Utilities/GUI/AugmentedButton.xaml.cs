@@ -34,7 +34,7 @@ namespace Utilities.GUI
             TextCaption.HorizontalAlignment = HorizontalAlignment.Stretch;
             TextCaption.VerticalAlignment = VerticalAlignment.Stretch;
 
-            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             IsEnabledChanged += AugmentedButton_IsEnabledChanged;
 

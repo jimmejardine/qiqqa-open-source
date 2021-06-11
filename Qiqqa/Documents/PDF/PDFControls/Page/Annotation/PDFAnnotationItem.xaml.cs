@@ -48,7 +48,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             ButtonAnnotationDetails.Source = Icons.GetAppIcon(Icons.Metadata);
             ButtonAnnotationDetails.Width = 32;
             ButtonAnnotationDetails.ToolTip = "Edit this annotation.";
-            RenderOptions.SetBitmapScalingMode(ButtonAnnotationDetails, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ButtonAnnotationDetails, BitmapScalingMode.HighQuality);
 
             TextAnnotationText.Background = Brushes.Transparent;
             TextAnnotationText.GotFocus += TextAnnotationText_GotFocus;

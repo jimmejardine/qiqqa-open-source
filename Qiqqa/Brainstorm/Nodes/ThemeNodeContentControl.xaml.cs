@@ -41,7 +41,7 @@ namespace Qiqqa.Brainstorm.Nodes
             Focusable = true;
 
             ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormAttractorTheme);
-            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             TextBorder.CornerRadius = NodeThemes.corner_radius;
         }
