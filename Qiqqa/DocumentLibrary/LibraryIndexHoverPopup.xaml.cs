@@ -16,7 +16,8 @@ using Image = System.Drawing.Image;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-
+using Qiqqa.Common.Configuration;
+using icons;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -110,6 +111,15 @@ namespace Qiqqa.DocumentLibrary
                 return;
             }
 
+            // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
+            //
+            bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels");
+
+            if (!allow)
+            {
+                ImageThumbnail.Source = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
+            }
+
             SafeThreadPool.QueueUserWorkItem(() =>
             {
                 try
@@ -127,8 +137,8 @@ namespace Qiqqa.DocumentLibrary
                                 PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
                                 PDFOverlayRenderer.RenderInks(image, pdf_document, page);
 
-                                    image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-                                    ASSERT.Test(image_page.IsFrozen);
+                                image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
+                                ASSERT.Test(image_page.IsFrozen);
                             }
                         }
 

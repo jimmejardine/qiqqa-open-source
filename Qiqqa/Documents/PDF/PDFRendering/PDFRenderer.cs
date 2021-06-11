@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Windows.Media.Imaging;
+using icons;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFRendering;
 #if !HAS_MUPDF_PAGE_RENDERER
 using Utilities.PDF.Sorax;
@@ -30,6 +34,17 @@ namespace Qiqqa.Documents.PDF
 
         internal byte[] GetPageByHeightAsImage(int page, int height, int width)
         {
+            // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
+            //
+            bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForReading") ||
+                ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels") ||
+                ConfigurationManager.IsEnabled("RenderPDFPagesForOCR");
+
+            if (!allow)
+            {
+                return Backgrounds.GetBackgroundAsByteArray(Backgrounds.PageRenderingDisabled);
+            }
+
 #if !HAS_MUPDF_PAGE_RENDERER
             return SoraxPDFRenderer.GetPageByHeightAsImage(DocumentPath, PDFPassword, page, height);
 #else

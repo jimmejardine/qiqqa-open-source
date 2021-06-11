@@ -558,6 +558,29 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
+            // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
+            //
+            bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels");
+
+            if (!allow)
+            {
+                foreach (DocumentDisplayWork ddw in ddwm.ddws)
+                {
+                    try
+                    {
+                        var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
+                        ddw.page_bitmap_source = img;
+
+                        UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
+                        Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
+                    }
+                }
+            }
+
             WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
@@ -566,6 +589,29 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 try
                 {
                     UpdateLibraryStatistics_Stats_Background_GUI_AddAllPlaceHolders(ddwm.ddws);
+
+                    // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
+                    //
+                    bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels");
+
+                    if (!allow)
+                    {
+                        foreach (DocumentDisplayWork ddw in ddwm.ddws)
+                        {
+                            try
+                            {
+                                var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_2);
+                                ddw.page_bitmap_source = img;
+
+                                UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Error(ex, "UpdateLibraryStatistics_Stats_Background_CoverFlow: Error occurred.");
+                                Logging.Warn(ex, "There was a problem loading a preview image for document {0}", ddw.pdf_document.Fingerprint);
+                            }
+                        }
+                    }
 
                     SafeThreadPool.QueueUserWorkItem(() =>
                     {

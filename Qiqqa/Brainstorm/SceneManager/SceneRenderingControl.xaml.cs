@@ -435,12 +435,12 @@ namespace Qiqqa.Brainstorm.SceneManager
             {
                 BitmapSource bitmap = Clipboard.GetImage();
 
-                string filename = TempFile.GenerateTempFilename("jpg");
+                string filename = TempFile.GenerateTempFilename("png");
                 using (FileStream stream = File.Create(filename))
                 {
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    PngBitmapEncoder encoder = new PngBitmapEncoder();
                     TextBlock myTextBlock = new TextBlock();
-                    encoder.QualityLevel = 80;
+                    //encoder.QualityLevel = 80;                         // JPEG specific
                     encoder.Frames.Add(BitmapFrame.Create(bitmap));
                     encoder.Save(stream);
                 }

@@ -559,7 +559,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                     try
                     {
                         // Clear the waiting for processing text
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                         {
                             annotation_work.processing_error.Text = "";
                         });
@@ -570,7 +570,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                             // Fill in the paragraph text
                             if (null != annotation_work.annotation_paragraph)
                             {
-                                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                                WPFDoEvents.InvokeInUIThread(() =>
                                 {
                                     BuildAnnotationWork_FillAnnotationText(pdf_document, pdf_annotation, annotation_work);
                                 });
@@ -588,7 +588,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                                         ASSERT.Test(cropped_image_page.IsFrozen);
                                     }
 
-                                    WPFDoEvents.InvokeAsyncInUIThread(() =>
+                                    WPFDoEvents.InvokeInUIThread(() =>
                                     {
                                         annotation_work.report_image.Source = cropped_image_page;
                                         annotation_work.report_floater.Width = new FigureLength(cropped_image_page.PixelWidth / 1);
@@ -597,7 +597,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                                 catch (Exception ex)
                                 {
                                     Logging.Warn(ex, "There was a problem while rendering an annotation.");
-                                    WPFDoEvents.InvokeAsyncInUIThread(() =>
+                                    WPFDoEvents.InvokeInUIThread(() =>
                                     {
                                         annotation_work.report_image.Source = Icons.GetAppIcon(Icons.AnnotationReportImageError);
                                         annotation_work.processing_error.Text = "There was a problem while rendering this annotation.";
@@ -608,7 +608,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                         }
                         else
                         {
-                            WPFDoEvents.InvokeAsyncInUIThread(() =>
+                            WPFDoEvents.InvokeInUIThread(() =>
                             {
                                 if (null != annotation_work.report_image)
                                 {
@@ -623,7 +623,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                     {
                         Logging.Error(ex, "There was an error while rendering page {0} for document {1} for the annotation report", pdf_annotation.Page, pdf_annotation.DocumentFingerprint);
 
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                         {
                             if (null != annotation_work.report_image)
                             {

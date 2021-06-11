@@ -123,22 +123,16 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             var doc = pdf_renderer_control_stats.pdf_document;
 
-            SafeThreadPool.QueueUserWorkItem(() =>
-            {
-                // Add the child pages
-                bool add_bells_and_whistles = (doc.PageCount > 0 && doc.PageCount < 50);
+            // Add the child pages
+            bool add_bells_and_whistles = (doc.PageCount > 0 && doc.PageCount < 50);
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                {
-                    Logging.Info("+Creating child page controls");
-                    for (int page = 1; page <= doc.PageCount; ++page)
-                    {
-                        PDFRendererPageControl page_control = new PDFRendererPageControl(this, page, add_bells_and_whistles);
-                        ObjPagesPanel.Children.Add(page_control);
-                    }
-                    Logging.Info("-Creating child page controls");
-                });
-            });
+            Logging.Info("+Creating child page controls");
+            for (int page = 1; page <= doc.PageCount; ++page)
+            {
+                PDFRendererPageControl page_control = new PDFRendererPageControl(this, page, add_bells_and_whistles);
+                ObjPagesPanel.Children.Add(page_control);
+            }
+            Logging.Info("-Creating child page controls");
 
             Logging.Info("+Setting initial viewport");
             ReconsiderOperationMode(OperationMode.Hand);

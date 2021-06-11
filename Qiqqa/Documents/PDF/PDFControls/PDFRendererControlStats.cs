@@ -5,6 +5,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Media.Imaging;
+using icons;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.Page;
 using Utilities;
 using Utilities.BibTex.Parsing;
@@ -136,6 +138,18 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 {
                     continue;
                 }
+
+
+                // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
+                //
+                bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForReading");
+
+                if (!allow)
+                {
+                    var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
+                    resized_page_image_item_request.callback(img, resized_page_image_item_request.height, resized_page_image_item_request.width);
+                }
+
 
                 SafeThreadPool.QueueUserWorkItem(() =>
                 {

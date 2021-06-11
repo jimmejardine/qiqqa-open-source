@@ -50,7 +50,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 if (null == ImagePage_HIDDEN_)
                 {
                     ImagePage_HIDDEN_ = new Image();
-                    ImagePage_HIDDEN.Stretch = Stretch.None;
+                    ImagePage_HIDDEN.Stretch = Stretch.Uniform;
 
                     // THIS MUST BE IN PLACE SO THAT WE HAVE PIXEL PERFECT RENDERING
                     ImagePage_HIDDEN.SnapsToDevicePixels = true;
@@ -659,7 +659,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     RefreshPage_INTERNAL_FAST();
                 });
             }
-            if (call_slow)
+            else if (call_slow)
             {
                 WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
