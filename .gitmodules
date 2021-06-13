@@ -1,32 +1,32 @@
 [submodule "MuPDF"]
 	path = MuPDF
-	url = git@github.com:GerHobbelt/mupdf.git
+	url = https://github.com/GerHobbelt/mupdf.git
 	ignore = dirty
 [submodule "Qiqqa.Build/Packaging/InnoDependencyInstaller"]
 	path = Qiqqa.Build/Packaging/InnoDependencyInstaller
-	url = git@github.com:GerHobbelt/InnoDependencyInstaller.git
+	url = https://github.com/GerHobbelt/InnoDependencyInstaller.git
 [submodule "Qiqqa.Build/Packaging/dotnet-deployment-tools"]
 	path = Qiqqa.Build/Packaging/dotnet-deployment-tools
-	url = git@github.com:GerHobbelt/deployment-tools.git
+	url = https://github.com/GerHobbelt/deployment-tools.git
 [submodule "thirdparty/WpfScreenHelper"]
 	path = thirdparty/WpfScreenHelper
-	url = git@github.com:GerHobbelt/WpfScreenHelper.git
+	url = https://github.com/GerHobbelt/WpfScreenHelper.git
 [submodule "docs-src/_meta/fonts"]
 	path = docs-src/_meta/fonts
-	url = git@github.com:GerHobbelt/qiqqa-site-selected-web-fonts.git
+	url = https://github.com/GerHobbelt/qiqqa-site-selected-web-fonts.git
 	ignore = dirty
 [submodule "thirdparty/High-Speed-Priority-Queue-for-C-Sharp"]
 	path = thirdparty/High-Speed-Priority-Queue-for-C-Sharp
-	url = git@github.com:GerHobbelt/High-Speed-Priority-Queue-for-C-Sharp.git
+	url = https://github.com/GerHobbelt/High-Speed-Priority-Queue-for-C-Sharp.git
 [submodule "thirdparty/netmq"]
 	path = thirdparty/netmq
-	url = git@github.com:GerHobbelt/netmq.git
+	url = https://github.com/GerHobbelt/netmq.git
 [submodule "thirdparty/clrzmq4"]
 	path = thirdparty/clrzmq4
-	url = git@github.com:GerHobbelt/clrzmq4.git
+	url = https://github.com/GerHobbelt/clrzmq4.git
 [submodule "thirdparty/Solr.Net"]
 	path = thirdparty/Solr.Net
-	url = git@github.com:GerHobbelt/SolrNet.git
+	url = https://github.com/GerHobbelt/SolrNet.git
 [submodule "thirdparty/libWebP.Net"]
 	path = thirdparty/libWebP.Net
-	url = git@github.com:GerHobbelt/libwebp-net.git
+	url = https://github.com/GerHobbelt/libwebp-net.git
