@@ -27,6 +27,3 @@
 [submodule "thirdparty/Solr.Net"]
 	path = thirdparty/Solr.Net
 	url = https://github.com/GerHobbelt/SolrNet.git
-[submodule "thirdparty/libWebP.Net"]
-	path = thirdparty/libWebP.Net
-	url = https://github.com/GerHobbelt/libwebp-net.git
