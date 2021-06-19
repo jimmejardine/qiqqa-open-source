@@ -1,9 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Can_We_Talk___Node_A</RootNamespace>
   </PropertyGroup>
+
+  <Import Project="..\Shared CSharp\Shared CSharp.projitems" Label="Shared" />
 
 </Project>

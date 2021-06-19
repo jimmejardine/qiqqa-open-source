@@ -59,3 +59,4 @@ Release*/
 # audio-recorded review/comments/interchange of the manual development (writing)
 /docs-src/The Official Manual (v80-89 Open Source)/audio-review/
 
+/Technology Tests/WPF Template App1.Packaging/*.cache

@@ -98,7 +98,7 @@
     <None Include="Properties\app.manifest" />
     <None Include="README.md" />
   </ItemGroup>
-  <Import Project="..\Technology Library\Technology Library.projitems" Label="Shared" />
+  <Import Project="..\Shared CSharp\Shared CSharp.projitems" Label="Shared" />
   <PropertyGroup>
     <StartArguments />
   </PropertyGroup>

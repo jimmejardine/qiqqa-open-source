@@ -410,10 +410,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D3 Visualization With Qiqqa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bulk PDF Inspection Tool", "Technology Tests\Bulk PDF Inspection Tool\Bulk PDF Inspection Tool.csproj", "{81EB0FCD-2A16-4046-B6D5-FDE3B1543BD8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Technology Library", "Technology Tests\Technology Library\Technology Library.vcxitems", "{70B0B1FD-2DFC-43D2-930E-27862481C2D0}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Technology Library", "Technology Tests\Technology Library\Technology Library.shproj", "{379D85AC-C18A-4033-B4A7-262DAD1AF922}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Used Libraries", "Used Libraries", "{AFF7A134-A4FC-4885-B210-82F2660CAA5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CEFSharp", "CEFSharp", "{19E7F6D9-FDD2-4741-BA3B-1F1B541945B5}"
@@ -529,19 +525,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imazen.WebP", "MuPDF\thirdp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imazen.Test.Webp", "MuPDF\thirdparty\libWebP.Net\src\Imazen.Test.Webp\Imazen.Test.Webp.csproj", "{6C57E3C1-C04F-4C96-AD90-CDA79AE53574}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared CSharp", "Technology Tests\Shared CSharp\Shared CSharp.shproj", "{444EC2DB-FFFD-4BF4-B973-4361875DA065}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shared C++", "Technology Tests\Shared C++\Shared C++.vcxitems", "{B24A8D63-228A-4459-8786-3D5C3C70D52C}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Technology Tests\Technology Library\Technology Library.projitems*{0622a008-98a6-4e78-93b5-2875a486c390}*SharedItemsImports = 5
-		Technology Tests\Technology Library\Technology Library.projitems*{22eccf4f-7ed0-48b3-a244-07863fb4b81e}*SharedItemsImports = 4
-		Technology Tests\Technology Library\Technology Library.projitems*{27ce9293-3ba0-4ce6-8bfd-396ee0353791}*SharedItemsImports = 4
-		Technology Tests\Technology Library\Technology Library.projitems*{31a26f7a-aaf4-4af4-b237-5a84167d32af}*SharedItemsImports = 4
-		Technology Tests\Technology Library\Technology Library.projitems*{379d85ac-c18a-4033-b4a7-262dad1af922}*SharedItemsImports = 13
-		Technology Tests\Technology Library\Technology Library.projitems*{4b176b4a-0169-492b-9f4f-a7f9958dc5f0}*SharedItemsImports = 4
-		Technology Tests\Technology Library\Technology Library.vcxitems*{70b0b1fd-2dfc-43d2-930e-27862481c2d0}*SharedItemsImports = 9
-		Technology Tests\Technology Library\Technology Library.projitems*{7d895c92-95ff-4489-ac8b-5652bf1873f9}*SharedItemsImports = 4
-		Technology Tests\Technology Library\Technology Library.projitems*{806015d1-83c3-4df4-b6f0-8674fece51a3}*SharedItemsImports = 4
-		Technology Tests\Technology Library\Technology Library.projitems*{81eb0fcd-2a16-4046-b6d5-fde3b1543bd8}*SharedItemsImports = 4
-		Technology Tests\Technology Library\Technology Library.projitems*{959e52dd-e073-4bb9-8437-ab2400bbbd22}*SharedItemsImports = 4
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{0622a008-98a6-4e78-93b5-2875a486c390}*SharedItemsImports = 5
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{22eccf4f-7ed0-48b3-a244-07863fb4b81e}*SharedItemsImports = 4
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{27ce9293-3ba0-4ce6-8bfd-396ee0353791}*SharedItemsImports = 4
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{31a26f7a-aaf4-4af4-b237-5a84167d32af}*SharedItemsImports = 4
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{444ec2db-fffd-4bf4-b973-4361875da065}*SharedItemsImports = 13
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{4b176b4a-0169-492b-9f4f-a7f9958dc5f0}*SharedItemsImports = 4
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{7d895c92-95ff-4489-ac8b-5652bf1873f9}*SharedItemsImports = 4
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{806015d1-83c3-4df4-b6f0-8674fece51a3}*SharedItemsImports = 4
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{81eb0fcd-2a16-4046-b6d5-fde3b1543bd8}*SharedItemsImports = 4
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{959e52dd-e073-4bb9-8437-ab2400bbbd22}*SharedItemsImports = 4
+		Technology Tests\Shared C++\Shared C++.vcxitems*{9c9a7d0c-7241-4543-ac47-357f3520353e}*SharedItemsImports = 4
+		Technology Tests\Shared C++\Shared C++.vcxitems*{b24a8d63-228a-4459-8786-3d5c3c70d52c}*SharedItemsImports = 9
+		Technology Tests\Shared CSharp\Shared CSharp.projitems*{cc415553-b2cc-4a94-a68c-d809a2308b45}*SharedItemsImports = 5
+		Technology Tests\Shared C++\Shared C++.vcxitems*{dbc808c6-907b-485e-93f8-f4c8155bab24}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4434,8 +4437,6 @@ Global
 		{4B176B4A-0169-492B-9F4F-A7F9958DC5F0} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{27CE9293-3BA0-4CE6-8BFD-396EE0353791} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{81EB0FCD-2A16-4046-B6D5-FDE3B1543BD8} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
-		{70B0B1FD-2DFC-43D2-930E-27862481C2D0} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
-		{379D85AC-C18A-4033-B4A7-262DAD1AF922} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{AFF7A134-A4FC-4885-B210-82F2660CAA5A} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 		{19E7F6D9-FDD2-4741-BA3B-1F1B541945B5} = {AFF7A134-A4FC-4885-B210-82F2660CAA5A}
 		{22ECCF4F-7ED0-48B3-A244-07863FB4B81E} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
@@ -4467,6 +4468,8 @@ Global
 		{8E506476-FFAE-46B2-977D-45EB25ECF394} = {A641717E-DD60-4E51-9973-D57D1CDAFB69}
 		{92F607A3-2F04-4536-8346-B6FEF8B774FF} = {0BB76DA8-553C-47E2-BD86-B58490247111}
 		{6C57E3C1-C04F-4C96-AD90-CDA79AE53574} = {0BB76DA8-553C-47E2-BD86-B58490247111}
+		{444EC2DB-FFFD-4BF4-B973-4361875DA065} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
+		{B24A8D63-228A-4459-8786-3D5C3C70D52C} = {E36F5BCC-074B-48E3-AB29-26E1D21A3FBB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1053AC46-6C10-40DE-8F81-A31A1C28ACDC}

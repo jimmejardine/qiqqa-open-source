@@ -94,6 +94,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <Import Project="..\Technology Library\Technology Library.projitems" Label="Shared" />
+  <Import Project="..\Shared CSharp\Shared CSharp.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
