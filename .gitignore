@@ -55,3 +55,7 @@ Release*/
 
 # Zettlr
 .ztr-directory
+
+# audio-recorded review/comments/interchange of the manual development (writing)
+/docs-src/The Official Manual (v80-89 Open Source)/audio-review/
+
