@@ -1,4 +1,4 @@
-﻿# Installing Qiqqa / Updating Qiqqa
+# Installing Qiqqa / Updating Qiqqa
 
 ## Before I update: will my data remain intact?
 
