@@ -58,7 +58,7 @@ I still wonder if this is a setting in `dvips` or other PDF-excreting tools some
 
 *Duh*!
 
-*Uh Unh!* No sir! Not the easy-peasy embedded TIFF, PNG or JPEG ones! I’m talking about those (scientific papers all, BTW) where, when you tool up and extract the images, you’re looking at **100% black fill** center stage! Turns out these PDFs had *additional* images serving as **image masks** and the text (and graphics; and formula’s) were rendered in thee *masks*, rather than the content images themselves.
+*Uh Unh!* No sir! Not the easy-peasy embedded TIFF, PNG or JPEG ones! I’m talking about those (scientific papers all, BTW) where, when you tool up and extract the images, you’re looking at **100% black fill** center stage! Turns out these PDFs had *additional* images serving as **image masks** and the text (and graphics; and formula’s) were rendered in these *masks*, rather than the content images themselves.
 
 Funny really: you take a black sheet and define a mask where the black is allowed to “shine through”, so to say, and you end up with a page which looks perfectly fine in a screen reader or in print.
 
@@ -85,10 +85,10 @@ If you thought images are these rectangular areas ablaze with pixels, you’re c
 
 Turns out some PDFs do their image rendering a *scanline* at a time and, boy, let they know it in their output.
 
-This means that a regular picture image of, say, 100pt height, would bee presented as 100 (sic!) images of 1pt height each. Again, not a problem when you *render* the page for viewing or printing, but when you think you can do some easy, simple content analysis on the PDF to help improve text extraction rates, you’re in for a surprise there: turns out these PDFs come in tripple flavours *at least*:
+This means that a regular picture image of, say, 100pt height, would be presented as 100 (sic!) images of 1pt height each. Again, not a problem when you *render* the page for viewing or printing, but when you think you can do some easy, simple content analysis on the PDF to help improve text extraction rates, you’re in for a surprise there: turns out these PDFs come in tripple flavours *at least*:
 
 - the *easy* ones are where the text is still text (phew!) but the images are *striped* (“scanlined”) and it’s up to you and your heuristics to combine adjacent image strips into a single (rectangular) picture where applicable.
-- then there’s a variation on this theme for arbitrary shaped images, e.g. a camel which had its background masked entirely: in that case you’ll get the *full scanline treatment*: that one camel will show up as a slice of ears, then slices of the head (still the images will bee adjacent vertically but their horizontal offsets will shift, *obviously*) and then not-so-surprisingly you get the hump of the dromedary showing up in the sequence as that would be the next this thee *scanline* would hit while zipping across the page, right?
+- then there’s a variation on this theme for arbitrary shaped images, e.g. a camel which had its background masked entirely: in that case you’ll get the *full scanline treatment*: that one camel will show up as a slice of ears, then slices of the head (still the images will be adjacent vertically but their horizontal offsets will shift, *obviously*) and then not-so-surprisingly you get the hump of the dromedary showing up in the sequence as that would be the next this thee *scanline* would hit while zipping across the page, right?
    
    If you’re into extracting *images* alongside the page text, you’ve got a bit more work to do in your picture recombination heuristic logic routine right there.
    
