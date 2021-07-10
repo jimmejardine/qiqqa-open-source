@@ -56,7 +56,7 @@ It would take a few things to get there:
 
 ## Rendering and using annotations in HTML
 
-Incidentally, observe how EElsevier solved this for showing (and editing = annotating?) their PDFs in their website: https://www.sciencedirect.com/science/article/pii/S016412121630187X --> click on Download PDF to get a (current session = token-locked) PDF view with ***overlays**: note that Elsevier has (at least) 4 DIVs for the annotation work, among which are:
+Incidentally, observe how Elsevier solved this for showing (and editing = annotating?) their PDFs in their website: https://www.sciencedirect.com/science/article/pii/S016412121630187X --> click on Download PDF to get a (current session = token-locked) PDF view with ***overlays**: note that Elsevier has (at least) 4 DIVs for the annotation work, among which are:
 
 - a text layer showing the printed/extracted text for selection (& rendering selection boxes while you click&drag your mouse over the page(s).
 
