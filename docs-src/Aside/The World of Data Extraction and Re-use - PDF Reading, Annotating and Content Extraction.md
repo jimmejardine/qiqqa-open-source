@@ -1,16 +1,16 @@
 
-If you want to do more with PDFs than merely *read* them on screen^[for which there's Adobe Acrobat and if you don't like it, there's a plethora of PDF *Viewers* out there, e.g. SumatraPDF.], there's trouble ahead.
+If you want to do more with PDFs than merely *read* them on screen^[for which there's Adobe Acrobat and if you don't like it, there's a plethora of PDF *Viewers* out there, e.g. [SumatraPDF](https://github.com/sumatrapdfreader/sumatrapdf).], there's trouble ahead.
 
 ## Searchable text anyone?
 
-Here are a few articles which discuss the banana peels on your pedestrian path when you need to *extract data from the PDF*, whether it's for search or other purposes: things are *not* rosy when you don't need OCR to get anything potentially legible, as the next article will show you: here's a bunch of journalists who wrestle with this file format on a daily basis:
+Here are a few articles which discuss the banana peels on your pedestrian path when you need to *extract data from the PDF*, whether it's for search or other purposes: things are *not* rosy when you don't use OCR^[or when your OCR machinery fails to deliver high quality output] to get anything potentially legible, as the next article will show you: here's a bunch of journalists who wrestle with this file format on a daily basis:
 
 
 
 
 
 
-Heart of Nerd Darkness: Why Updating Dollars for Docs Was So Difficult
+[Heart of Nerd Darkness: Why Updating Dollars for Docs Was So Difficult](https://www.propublica.org/nerds/heart-of-nerd-darkness-why-dollars-for-docs-was-so-difficult)
 
 --Quote--
 
