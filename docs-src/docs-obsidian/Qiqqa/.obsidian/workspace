@@ -1,0 +1,151 @@
+{
+  "main": {
+    "id": "3d18c473e256b68b",
+    "type": "split",
+    "children": [
+      {
+        "id": "cef04972432b42a8",
+        "type": "leaf",
+        "state": {
+          "type": "graph",
+          "state": {}
+        }
+      },
+      {
+        "id": "3427f5788c6101a8",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "README.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "229b27554984ea3f",
+    "type": "split",
+    "children": [
+      {
+        "id": "ff90afcb611fba50",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8a77c6225efa401f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "e4e2bbfd0ef00ea4",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "48fd714e5dea4cca",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "e78548407efe4e2f",
+    "type": "split",
+    "children": [
+      {
+        "id": "ff3bc625aae7f942",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ba5220b986cf83a8",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": true,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "58f9051f8f9ab7f3",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "7a872d19db22e1f0",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "cc928e61eae567b6",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "active": "3427f5788c6101a8",
+  "lastOpenFiles": [
+    "README.md",
+    "Qiqqa Internals & Progress in Development.md",
+    "Qiqqa Internals/qiqqa-video-text-pages.md",
+    "OCR / text extract engine.md",
+    "Progress in Development/Considering the Way Forward/IPC - transferring and storing data in bulk between C++, C.md",
+    "Technology/Odds 'n' Ends/PDFs in the Wild/Testing - Nasty URLs for PDFs.md",
+    "BLAKE3+BASE58 - Qiqqa Fingerprint 2.0.md",
+    "Progress in Development/OCR text extract engine - thoughts on the new design.md",
+    "BLAKE3+BASE58.md",
+    "SHA1B - Qiqqa Fingerprint 1.0 Classic.md"
+  ]
+}
