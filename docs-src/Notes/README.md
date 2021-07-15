@@ -1,6 +1,10 @@
+---
+alias: index root
+---
+
 # Qiqqa
 
-You can [[The Qiqqa Manual|read the manual by clicking here]].
+You can [read the manual by clicking here](../The Official Manual (v79 Old Commercial)/) -- while [the new manual is under development here](../The Official Manual (v80-89 Open Source)/).
 
 
 ::: warning
@@ -21,8 +25,9 @@ We're working on it to improve this state of affairs...
 
 # Pages...
 
-- [[The Qiqqa Manual]]
-  - [[The Qiqqa Manual reference]]
+- The Qiqqa Manual
+  - [The old Commercial Qiqqa Reference Manual](../The Official Manual (v79 Old Commercial)/)
+  - [the new manual is under development here](../The Official Manual (v80-89 Open Source)/)
 - FAQ
   - [[Where To Get Them|Software Releases :: Where To Get Them?]]
   - [[How to locate your Qiqqa Base Directory]]

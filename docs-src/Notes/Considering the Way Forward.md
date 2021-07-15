@@ -12,6 +12,4 @@
 + [[Citations and ways to feed and sync those with the documents you write]]
 
 
-### The Nice To Haves :: Allowing The Mind To Dream
-+ [[scripting the OCR + text extraction process]]
-+ [[Notes On Embedding a Scripting Language In Your Application]]
+![[The Nice To Haves/Allowing The Mind To Dream]]

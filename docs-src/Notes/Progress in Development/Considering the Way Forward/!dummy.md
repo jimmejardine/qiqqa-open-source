@@ -57,4 +57,6 @@ And using the *Insert an Image* toolbar button in MM:
 
 plugin include:
 
-#include (../../dummy.md.include)
+![../../dummy.md.include]
+
+

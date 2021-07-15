@@ -4,21 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "87321c208eb596fc",
-        "type": "leaf",
-        "state": {
-          "type": "graph",
-          "state": {}
-        }
-      },
-      {
-        "id": "cc9238d1b6a89a08",
+        "id": "0c40e7cf0a8438df",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Progress in Development/Considering the Way Forward/Working with annotations.md",
-            "mode": "source"
+            "file": "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
+            "mode": "preview"
           }
         }
       }
@@ -84,7 +76,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Progress in Development/Considering the Way Forward/Working with annotations.md",
+                "file": "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -101,7 +93,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Progress in Development/Considering the Way Forward/Working with annotations.md",
+                "file": "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,7 +116,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Progress in Development/Considering the Way Forward/Working with annotations.md"
+                "file": "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md"
               }
             }
           }
@@ -134,17 +126,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "cc9238d1b6a89a08",
+  "active": "0c40e7cf0a8438df",
   "lastOpenFiles": [
-    "Progress in Development/Considering the Way Forward/Working with annotations.md",
     "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
-    "Progress in Development/Fingerprinting, Linking and Libraries.md",
-    "Aside/The World of Data Extraction and Re-use - PDF Reading, Annotating and Content Extraction.md",
-    "Qiqqa Internals & Progress in Development.md",
-    "Notes From The Trenches.md",
+    "The Qiqqa Manual reference.md",
+    "Progress in Development/Using and Tuning SOLR as a better replacement for current (old) Lucene.NET.md",
+    "Progress in Development/scripting the OCR + text extraction process.md",
+    "The Nice To Haves/Allowing The Mind To Dream.md",
+    "The Nice To Haves/Tagging Woes - Maybe another approach needed.md",
+    "Considering the Way Forward.md",
     "Progress in Development.md",
-    "Qiqqa Internals.md",
-    "BLAKE3+BASE58 - Qiqqa Fingerprint 2.0.md",
-    "The Official Manual (v79 Old Commercial)/The Qiqqa Manual.md"
+    "Qiqqa Internals & Progress in Development.md",
+    "README.md"
   ]
 }
