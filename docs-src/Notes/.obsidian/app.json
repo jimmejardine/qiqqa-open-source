@@ -22,6 +22,10 @@
     "datasheets",
     "codebase",
     "webserver",
-    "hacky"
+    "hacky",
+    "datasheet",
+    "preprocessing",
+    "hardcopy",
+    "binarization"
   ]
 }

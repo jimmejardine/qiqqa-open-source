@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
-            "mode": "preview"
+            "file": "Progress in Development/Considering the Way Forward/Specific Tools and Tasks to Research and Produce for Cross-platform Qiqqa.md",
+            "mode": "source"
           }
         }
       }
@@ -76,7 +76,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
+                "file": "Progress in Development/Considering the Way Forward/Specific Tools and Tasks to Research and Produce for Cross-platform Qiqqa.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -93,7 +93,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
+                "file": "Progress in Development/Considering the Way Forward/Specific Tools and Tasks to Research and Produce for Cross-platform Qiqqa.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -116,7 +116,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md"
+                "file": "Progress in Development/Considering the Way Forward/Specific Tools and Tasks to Research and Produce for Cross-platform Qiqqa.md"
               }
             }
           }
@@ -128,15 +128,15 @@
   },
   "active": "0c40e7cf0a8438df",
   "lastOpenFiles": [
+    "Progress in Development/Considering the Way Forward/Untitled.md",
+    "Progress in Development/scripting the OCR + text extraction process.md",
     "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
+    "Qiqqa Internals/Configuration Overrides for Developers and Testers.md",
+    "Qiqqa Internals/Extracting the text from PDF documents.md",
+    "Qiqqa Internals/Papers and their metadata, where to find papers, all about papers' aspects.md",
+    "Technology/Odds 'n' Ends/Network Troubles, NAS and SQLite.md",
     "The Qiqqa Manual reference.md",
     "Progress in Development/Using and Tuning SOLR as a better replacement for current (old) Lucene.NET.md",
-    "Progress in Development/scripting the OCR + text extraction process.md",
-    "The Nice To Haves/Allowing The Mind To Dream.md",
-    "The Nice To Haves/Tagging Woes - Maybe another approach needed.md",
-    "Considering the Way Forward.md",
-    "Progress in Development.md",
-    "Qiqqa Internals & Progress in Development.md",
-    "README.md"
+    "The Nice To Haves/Allowing The Mind To Dream.md"
   ]
 }

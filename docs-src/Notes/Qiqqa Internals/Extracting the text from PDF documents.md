@@ -13,7 +13,7 @@ Before we dive in, there's one important question to ask:
 ### TL;DR
 
 1. the original PDF, *renamed* using the *content hash*.
-2. the extracted text (as a series of words plus box coordinates in a propietary text format)
+2. the extracted text (as a series of words plus box coordinates in a proprietary text format)
 
 
 
@@ -255,7 +255,7 @@ The result here is that Qiqqa will continuously re-attempt the same (failing) OC
 
 Qiqqa v82 (and later, I expect 😉) has added a Stage 3: when Stage 1 and Stage 2 have failed to deliver any words for the given page, then we are sure that either the PDF page has no text or at the very least Qiqqa is currently incapable of retrieving any text on that page. To prevent Qiqqa from running heavy CPU loading OCR tasks indefinitely (= until you quit the application), we "fake it" by storing a specific "magic sequence" in the Stage 2 OCR text cache file. 🤷
 
-> Future versions of Qiqqa SHOULD have improved OCR capabilities and will find and detect these "faked pages" and erase them before re-doing the OCR process then. But tthat is, at this very moment (2020-03-22 AD) still future music: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160)
+> Future versions of Qiqqa SHOULD have improved OCR capabilities and will find and detect these "faked pages" and erase them before re-doing the OCR process then. But that is, at this very moment (2020-03-22 AD) still future music: [#160](https://github.com/jimmejardine/qiqqa-open-source/issues/160)
 
 
 
