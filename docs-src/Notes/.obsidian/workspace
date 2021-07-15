@@ -17,7 +17,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Qiqqa Internals & Progress in Development.md",
+            "file": "Progress in Development/Considering the Way Forward/Working with annotations.md",
             "mode": "source"
           }
         }
@@ -84,7 +84,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qiqqa Internals & Progress in Development.md",
+                "file": "Progress in Development/Considering the Way Forward/Working with annotations.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -101,7 +101,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Qiqqa Internals & Progress in Development.md",
+                "file": "Progress in Development/Considering the Way Forward/Working with annotations.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,7 +124,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qiqqa Internals & Progress in Development.md"
+                "file": "Progress in Development/Considering the Way Forward/Working with annotations.md"
               }
             }
           }
@@ -136,15 +136,15 @@
   },
   "active": "cc9238d1b6a89a08",
   "lastOpenFiles": [
+    "Progress in Development/Considering the Way Forward/Working with annotations.md",
+    "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
+    "Progress in Development/Fingerprinting, Linking and Libraries.md",
+    "Aside/The World of Data Extraction and Re-use - PDF Reading, Annotating and Content Extraction.md",
     "Qiqqa Internals & Progress in Development.md",
     "Notes From The Trenches.md",
     "Progress in Development.md",
     "Qiqqa Internals.md",
     "BLAKE3+BASE58 - Qiqqa Fingerprint 2.0.md",
-    "The Official Manual (v79 Old Commercial)/The Qiqqa Manual.md",
-    "README.md",
-    "Progress in Development/Considering the Way Forward/Links to Stuff To Look At.md",
-    "Progress in Development/Qiqqa Functionalities & Technology Areas.md",
-    "Progress in Development/Considering the Way Forward/IPC - transferring and storing data in bulk between C++, C.md"
+    "The Official Manual (v79 Old Commercial)/The Qiqqa Manual.md"
   ]
 }

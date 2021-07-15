@@ -41,7 +41,7 @@ Should we have a Guest lib at all? How about we all start with a unique lib? Ah!
 
    Or do we just mark a library as 'initial/starter'? Or do we provide the user with an up-front choice, whether they want to create a demo/guest lib or not? (Answer: they wouldn't want one created on their second/third/etc. machines if they plan to sync the boxes next.) How do we register in Qiqqa that the guest lib has been created? (Answer: simple marker file in the base directory root? That's enough to flag this thing has happened somewhere in the past. So... we should provide the user with the option to create a demo library? No/Yes, that's very close to offering to create an empty *unsynced* library anyway: just add the tick box "add demo content" or not and we're golden.)
   
-4. How would Qiqqa with a roll-back? Answer: well, an older Qiqqa would not recognize this for it is and create a Guest library anyway. Ah well, we can always go and delete that one when we roll forward again. Still *binary compatible* that way. With a little side note for the situation when you roll back.
+4. How would Qiqqa cope with a roll-back? Answer: well, an older Qiqqa would not recognize this for it is and create a Guest library anyway. Ah well, we can always go and delete that one when we roll forward again. Still *binary compatible* that way. With a little side note for the situation when you roll back.
  
 
 

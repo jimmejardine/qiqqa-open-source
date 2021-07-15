@@ -4,8 +4,9 @@ If you want to do more with PDFs than merely *read* them on screen^[for which th
 
 ## Searchable text, anyone?
 
-Here are a few articles which discuss the banana peels on your pedestrian path when you need to *extract data from the PDF*, whether it's for search or other purposes: things are *not* rosy, even when you can grab the raw content text without any need for OCR, as the next article will show you: here's a bunch of journalists who wrestle with this file format on a daily basis:
+Here are a few articles which discuss the banana peels on your pedestrian path when you need to *extract data from the PDF*, whether it's for search or other purposes: things are *not* rosy, even when you can grab the raw content text without any need for OCR[^1], as the next article will show you: here's a bunch of journalists who wrestle with this file format on a daily basis:
 
+[^1]: It can go *truly* pear-shaped when your OCR machinery fails to deliver high quality output, though! *Then* it requires a lot of manual labor to produce a satisfactory, reasonably high quality metadata collection from your obnoxious PDF documents, running up creation costs, whether you do the work yourself or through Mechanical Turk-like team efforts.
 
 
 - [Heart of Nerd Darkness: Why Updating Dollars for Docs Was So Difficult](https://www.propublica.org/nerds/heart-of-nerd-darkness-why-dollars-for-docs-was-so-difficult)

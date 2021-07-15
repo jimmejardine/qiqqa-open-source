@@ -8,5 +8,20 @@
   "newFileLocation": "current",
   "showUnsupportedFiles": true,
   "attachmentFolderPath": "/assets/",
-  "promptDelete": false
+  "promptDelete": false,
+  "spellcheckDictionary": [
+    "renderer",
+    "pixeled",
+    "scanline",
+    "Scanlines",
+    "etcetera",
+    "postprocessing",
+    "thresholding",
+    "criterium",
+    "toolchain",
+    "datasheets",
+    "codebase",
+    "webserver",
+    "hacky"
+  ]
 }
