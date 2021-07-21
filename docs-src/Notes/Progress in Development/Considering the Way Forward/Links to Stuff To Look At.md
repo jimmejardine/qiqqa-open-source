@@ -218,7 +218,7 @@ https://github.com/WittmannF/sort-google-scholar
 
 This Python code ranks publications data from Google Scholar by the number of citations. It is useful for finding relevant papers in a specific field.
 
-The data acquired from Google Scholar is Title, Citations, Links and Rank. A new columns with the number of citations per year is also included. The example of the code will look for the top 100 papers related to the keyword, and rank them by the number of citations. This keyword can eiter be included in the command line terminal ($python sortgs.py --kw 'my keyword') or edited in the original file. As output, a .csv file will be returned with the name of the chosen keyword ranked by the number of citations.
+The data acquired from Google Scholar is Title, Citations, Links and Rank. A new columns with the number of citations per year is also included. The example of the code will look for the top 100 papers related to the keyword, and rank them by the number of citations. This keyword can either be included in the command line terminal ($python sortgs.py --kw 'my keyword') or edited in the original file. As output, a .csv file will be returned with the name of the chosen keyword ranked by the number of citations.
 
 **GOOGLE COLAB**: Try running the code using Google Colab! No install requirements! Limitations: Can't handle robot checking, so use it carefully.
 
@@ -277,7 +277,7 @@ A "supervised" parser for Google Scholar, written in Python.
 
 PyScholar is a command line tool written in python that implements a querier and parser for Google Scholar's output. This project is inspired by scholar.py, in fact there is a lot of code from that project, the main difference is that scholar.py makes use of the urllib modules, thus, so no javascript, and given that people at big G don't like you to scrape their search results, when the server responses the "I'm not a robot" page, you simply get no output from scholar.py, for a long time. Instead PyScholar makes use of selenium webdriver giving the ability to see what's going on and in case the "I'm not a robot" shows up you can simply pass the challenge manually and let the scraper continue his job.
 
-Also there are some other new features I inclulded from my scholar.py fork, that are: json exporting of the reults, "starting result" option, and the potential ability to get an unlimited number results, even if it seems that results are limited on server-side to approximately one thousand.
+Also there are some other new features I included from my scholar.py fork, that are: json exporting of the results, "starting result" option, and the potential ability to get an unlimited number results, even if it seems that results are limited on server-side to approximately one thousand.
 
 ### Analysis Notes
 
@@ -290,7 +290,7 @@ Interesting. Should be tested...
 ## edsu/etudier: Extract a citation network from Google Scholar
 https://github.com/edsu/etudier
 
-étudier is a small Python program that uses Selenium and requests-html to drive a non-headless browser to collect a citation graph around a particular Google Scholar citation or set of search results. The resulting network is written out as a Gephi file and a D3 visualization using networkx. The D3 visualization could use some work, so if you add style to it please submit a pull request.
+étudier is a small Python program that uses Selenium and requests-html to drive a non-headless browser to collect a citation graph around a particular Google Scholar citation or set of search results. The resulting network is written out as a Gephi file and a D3 visualization using networks. The D3 visualization could use some work, so if you add style to it please submit a pull request.
 
 If you are wondering why it uses a non-headless browser it's because [Google is quite protective of this data](https://www.quora.com/Are-there-technological-or-logistical-challenges-that-explain-why-Google-does-not-have-an-official-API-for-Google-Scholar) and routinely will ask you to solve a captcha (identifying street signs, cars, etc in photos). étudier will allow you to complete these tasks when they occur and then will continue on its way collecting data.
 
@@ -334,7 +334,7 @@ If you are wondering why it uses a non-headless browser it's because [Google is 
 >
 > [A Parser for Google Scholar](https://www.icir.org/christian/scholar.html)
 >
-> The other thing to note is that Microsoft Academic Search does offer an API. You need to request a key, but other than that, it provides full programatic access to what the application returns using the web interface.
+> The other thing to note is that Microsoft Academic Search does offer an API. You need to request a key, but other than that, it provides full programmatic access to what the application returns using the web interface.
 >
 > [Microsoft Academic Search API](https://www.microsoft.com/en-us/research/project/academic/articles/sign-academic-knowledge-api/)
 
@@ -505,7 +505,7 @@ The following config parameters are used to control the tor client using the bui
 
 
 
-## yufree/scifetch: webpage crawling tools for pubmed, google scholar and rss
+## yufree/scifetch: webpage crawling tools for PubMed, google scholar and rss
 https://github.com/yufree/scifetch
 
 ### Analysis Notes
@@ -520,7 +520,7 @@ https://github.com/pykong/PyperGrabber
 
 Fetches PubMed article IDs (PMIDs) from email inbox, then crawls **PubMed**, **Google Scholar** and **Sci-Hub** for respective PDF files.
 
-PubMed can send you regular update on new articles matching your specified search criteria. PyperGrabber will automatically download thoe papers, saving you much time tracking on downloading those manually. When no PDF article is found PyperGrabber will save the PubMed abstract of the respective article to PDF. All files are named after PMID for convenience.
+PubMed can send you regular update on new articles matching your specified search criteria. PyperGrabber will automatically download those papers, saving you much time tracking on downloading those manually. When no PDF article is found PyperGrabber will save the PubMed abstract of the respective article to PDF. All files are named after PMID for convenience.
 
 #### NOTES:
 - _Messy code ahead!_ 
@@ -1042,7 +1042,7 @@ https://github.com/brunojus/google-scholar-crawler
 Selenium driver based Scholar URL querying.
 
 
-## siwalan/google-scholar-citation-scrapper: Simple scrapper for Google Scholar Data
+## siwalan/google-scholar-citation-scrapper: Simple scraper for Google Scholar Data
 https://github.com/siwalan/google-scholar-citation-scrapper
 
 ### Analysis Notes
@@ -1051,9 +1051,9 @@ egotrip style app. Vanilla code.
 
 From the README:
 
-This is a simple scrapper for Google Scholar Data, you can input a Google Scholar ID and it will return all the publications related to the said ID and citation data for the last 3 years. You can easily modify it to get data from only the last year, last five years, or all years the publication has been cited.
+This is a simple scraper for Google Scholar Data, you can input a Google Scholar ID and it will return all the publications related to the said ID and citation data for the last 3 years. You can easily modify it to get data from only the last year, last five years, or all years the publication has been cited.
 
-The program works by inputing a list of Google Scholar ID on the file called dosen.csv (you can change the file name, to add/remove scholars please just add or remove data in the row) and running all the ipynb cell. The ipynb will create a .xlsx file as the result containing all the publication from the said Google Scholar ID and the citations data for the last 3 years.
+The program works by inputting a list of Google Scholar ID on the file called dosen.csv (you can change the file name, to add/remove scholars please just add or remove data in the row) and running all the ipynb cell. The ipynb will create a .xlsx file as the result containing all the publication from the said Google Scholar ID and the citations data for the last 3 years.
 
 
 ## lucgerrits/google-scholar-scraper: Basic Google Scholar scraper written in python.
@@ -1129,7 +1129,7 @@ https://github.com/liusida/Google-Scholar-Trends
 
 - uses a full set of faked headers (FireFox) to access the Scholar site: see https://github.com/liusida/Google-Scholar-Trends/blob/master/Google-Scholar-Trends.ipynb near the top.
 
-- warns about Scholar: 2 secondd dealy between requests is advised in the README.
+- warns about Scholar: 2 second delay between requests is advised in the README.
 
 
 ## erkamozturk/Python-Google-Scholar
@@ -1229,7 +1229,7 @@ https://github.com/Ngogabill/About-Google-Scholar
 
 From the README:
 
-This project consists of building a webpage similar to the original webpage of About google scholar . heres where u can find the orginal site.
+This project consists of building a webpage similar to the original webpage of About google scholar . here's where you can find the original site.
 
 
 
@@ -1334,7 +1334,7 @@ Uses Selenium driver approach.
 
 TODO from the README:
 
-Proxy and Tor: Not fullfilled. Google can identify robots even if I use proxy and Tor.
+Proxy and Tor: Not fulfilled. Google can identify robots even if I use proxy and Tor.
 
 
 ## vignif/crawler-google-scholar: Download automatically statistics and pictures from google scholar's researchers.
@@ -1357,11 +1357,11 @@ this simple approach comes with the expense of time complexity O(N), meaning as 
 
 This problem has a bottleneck in the speed which is the network, crawling the web is time expensive and the amount of request accepted by servers is limited and has to be respected.
 
-A method to avoid the system staying idle while the web server responds is to allow multple tasks to run simultaneously.
+A method to avoid the system staying idle while the web server responds is to allow multiple tasks to run simultaneously.
 
 get_stats_coroutine.py wants to exploit this strategy.
 
-A proper timing sleep function must be setted inside each file in order to avoid rejection by the server.
+A proper timing sleep function must be set inside each file in order to avoid rejection by the server.
 If we are requesting informations too fast, the server will answer always with an [Error 429 Too Many Requests].
 
 The serial script has been tested to query at a speed of 0,7 researcher per second.
@@ -1456,7 +1456,7 @@ Features
 
 * Extracts Authors, Title, Year, Journal, and Url.
 * Exports to CSV, JSON and BibTeX.
-* Cookie and referer support for higher query volumes.
+* Cookie and referrer support for higher query volumes.
 * Optimistically tries the next page in case of server errors.
 * Supports the full Google Scholar query syntax for authors, title, exclusions, inclusions, etc. Check out those [search tips].
 
@@ -1655,7 +1655,7 @@ https://github.com/ukalwa/scholarly
 
 ### Analysis Notes
 
-TypeScript module. Certainly DOES NOT have the features of `scholarly` (the Python module) as this one uses straight URL querying via cheeerio.
+TypeScript module. Certainly DOES NOT have the features of `scholarly` (the Python module) as this one uses straight URL querying via cheerio.
 
 From the README:
 
@@ -1801,7 +1801,7 @@ ampersands as an attempt to background the process.
 ### --pages
 
 By default *étudier* will collect the 10 citations on that page and then look at
-the top 10 citatations that reference each one. So you will end up with no more
+the top 10 citations that reference each one. So you will end up with no more
 than 100 citations being collected (10 on each page * 10 citations).
 
 If you would like to get more than one page of results use the `--pages`. For
@@ -1895,7 +1895,7 @@ Quoting a bit here (emphasis mine):
 > 
 > One or two days.
 
-And there you have it: that's basically what we're fighting: it's a tug of war with the Google engineers. Personally, I think `scholarly` is closest to a workable/usable scraper (there's the "Scraper API" mentioned elsewhere in this doc, which turns out to be a commercial SaaS version of that one AFAICT from their blurbs. Maybe with some added Mechanical Turk if you buy the more expensive licenses of theirs, but otherwise just `scholarly` and that's it. Note ny own findings / guestimates regarding VPN IP blocking: Google doesn't need to maintain a blacklist manually there: all they have to do is monitor the incoming IP addresses and do a DNS reverse lookup to see if an IP address that's frequenting their Scholar site belongs to a VPN company like NordVPN and then it's down to counting requests and 'downgrading' those IP numbers when you encounter them. At least that's what *I* would do if I were in their shoes: it's fast, doesn't need manual maintenance and all you have to do is be more strict enforcing your limits on these 'suspect' IP numbers. Since you have no published limits on Scholar anyway, you can get away with throttling the suspect ones and if someone complains the ball is in their court to proove that they are **not** using a VPN or proxy for their Scholar visits. Which leaves the rather more fluid(?) `tor` network... Which' exit nodes can be detected too, I suppose. Hm. I wonder what FSF's panopticon would say about the fingerprint of such a proxied visit: is it recognizable from a regular Chrome browser visit? I suppose so, as I seem to recall some older NSA/FBI work re 'cracking' darknet origins by monitoring tor exit nodes... Though I must say I don't recall how that one was done back in the day -- it's been a few years.)
+And there you have it: that's basically what we're fighting: it's a tug of war with the Google engineers. Personally, I think `scholarly` is closest to a workable/usable scraper (there's the "Scraper API" mentioned elsewhere in this doc, which turns out to be a commercial SaaS version of that one AFAICT from their blurbs. Maybe with some added Mechanical Turk if you buy the more expensive licenses of theirs, but otherwise just `scholarly` and that's it. Note ny own findings / guesstimates regarding VPN IP blocking: Google doesn't need to maintain a blacklist manually there: all they have to do is monitor the incoming IP addresses and do a DNS reverse lookup to see if an IP address that's frequenting their Scholar site belongs to a VPN company like NordVPN and then it's down to counting requests and 'downgrading' those IP numbers when you encounter them. At least that's what *I* would do if I were in their shoes: it's fast, doesn't need manual maintenance and all you have to do is be more strict enforcing your limits on these 'suspect' IP numbers. Since you have no published limits on Scholar anyway, you can get away with throttling the suspect ones and if someone complains the ball is in their court to prove that they are **not** using a VPN or proxy for their Scholar visits. Which leaves the rather more fluid(?) `tor` network... Which' exit nodes can be detected too, I suppose. Hm. I wonder what FSF's panopticon would say about the fingerprint of such a proxied visit: is it recognizable from a regular Chrome browser visit? I suppose so, as I seem to recall some older NSA/FBI work re 'cracking' darknet origins by monitoring tor exit nodes... Though I must say I don't recall how that one was done back in the day -- it's been a few years.)
 
 
 
@@ -2282,7 +2282,7 @@ Awesome list for Microsoft Academic Graph (MAG)
 - [Cost of tracking research trends and impacts with Microsoft Academic Graph (Feb 2019)](https://www.microsoft.com/en-us/research/project/academic/articles/cost-of-tracking-research-trends-and-impacts-with-microsoft-academic-graph/)
 - [Publish or Perish version 6 (Nov 2017)](https://harzing.com/blog/2017/11/publish-or-perish-version-6)
 - [Microsoft Academic: A multidisciplinary comparison of citation counts with Scopus and Mendeley for 29 journals (Nov, 2017)](https://arxiv.org/ftp/arxiv/papers/1711/1711.08767.pdf)
-- [The coverage of Microsoft Academic: Analyzing the publication output of auniversity (Sep 2017)](https://arxiv.org/ftp/arxiv/papers/1703/1703.05539.pdf)
+- [The coverage of Microsoft Academic: Analyzing the publication output of a university (Sep 2017)](https://arxiv.org/ftp/arxiv/papers/1703/1703.05539.pdf)
 - [An Analysis of the Microsoft Academic Graph (Sept 2016)](http://www.dlib.org/dlib/september16/herrmannova/09herrmannova.html)
 - [Eight Years of WSDM: Increasing Influence and Diversifying Heritage (Feb 2016)](http://cm.cecs.anu.edu.au/post/citation_analysis/)
 <!-- - [Comparison of Microsoft Academic (Graph) with Web of Science, Scopus and Google Scholar](https://eprints.soton.ac.uk/408647/1/microsoft_academic_msc.pdf) -->
@@ -2295,11 +2295,11 @@ Awesome list for Microsoft Academic Graph (MAG)
 - [Analytics & Visualization Samples for Academic Graph](https://github.com/Azure-Samples/academic-knowledge-analytics-visualization)
 - [China to Overtake US in AI Research (March, 2019)](https://medium.com/ai2-blog/china-to-overtake-us-in-ai-research-8b6b1fe30595)
 - [Microsoft Academic: Is the Phoenix getting wings? (Nov 2017)](https://mdxminds.com/2016/11/17/microsoft-academic-is-the-phoenix-getting-wings/)
-- [A Century of Science: Globalization of Scientific Collaborations,Citations, and Innovationsi (Aug, 2017)](https://arxiv.org/pdf/1704.05150.pdf)
+- [A Century of Science: Globalization of Scientific Collaborations,Citations, and Innovations (Aug, 2017)](https://arxiv.org/pdf/1704.05150.pdf)
 - [PR-Index: Using the h-Index and PageRank for Determining True Impact (Sept, 2016)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5023123/)
 - [Visualizing Citation Patterns of Computer Science Conferences (Aug, 2016)](http://cm.cecs.anu.edu.au/post/citation_vis/)
 - [Investigations on Rating Computer Sciences Conferences: An Experiment with the Microsoft Academic Graph Dataset (Apr, 2016)](https://dl.acm.org/citation.cfm?doid=2872518.2890525)
-- [WSDM Cup 2016: Entity Ranking Challengei (Feb, 2016)](https://dl.acm.org/citation.cfm?doid=2835776.2855119)
+- [WSDM Cup 2016: Entity Ranking Challenge (Feb, 2016)](https://dl.acm.org/citation.cfm?doid=2835776.2855119)
 - [An Overview of Microsoft Academic Service (MAS) and Applications (May, 2015)](http://www.www2015.it/documents/proceedings/companion/p243.pdf)
 - [Citation recommendation of 80 Million papers using Graph DB(Neo-4J)](http://abhie19.github.io/MS_Academic_Graph/)
 
@@ -2551,7 +2551,7 @@ The codes concern the analysis and prediction of citation count of papers in a s
 ## deepakmunjal15/Research-Paper-Extractor-Tool: Created a Research Paper Data Extractor Tool using Microsoft Academic API. Skills Used: Python
 https://github.com/deepakmunjal15/Research-Paper-Extractor-Tool
 
-## michaelfaerber/makg-linking: Creating owl:sameAs links beteen the Microsoft Academic Knowledge Graph (MAKG) and other Linked Open Data sources (OpenCitations, Wikidata, ...)
+## michaelfaerber/makg-linking: Creating owl:sameAs links between the Microsoft Academic Knowledge Graph (MAKG) and other Linked Open Data sources (OpenCitations, Wikidata, ...)
 https://github.com/michaelfaerber/makg-linking
 
 
@@ -2620,7 +2620,7 @@ https://github.com/ninyancat13/deepfake-detection-challenge
 
 Deepfake techniques, which present realistic AI-generated videos of people doing and saying fictional things, have the potential to have a significant impact on how people determine the legitimacy of information presented online. These content generation and modification technologies may affect the quality of public discourse and the safeguarding of human rights—especially given that deepfakes may be used maliciously as a source of misinformation, manipulation, harassment, and persuasion. Identifying manipulated media is a technically demanding and rapidly evolving challenge that requires collaborations across the entire tech industry and beyond. AWS, Facebook, Microsoft, the Partnership on AI’s Media Integrity Steering Committee, and academics have come together to build the Deepfake Detection Challenge (DFDC). The goal of the challenge is to spur researchers around the world to build innovative new technologies that can help detect deepfakes and manipulated media. 
 
-- Kaggle Competiton Summary (https://www.kaggle.com/c/deepfake-detection-challenge)
+- Kaggle Competition Summary (https://www.kaggle.com/c/deepfake-detection-challenge)
 
 ### Analysis Notes
 
@@ -2643,7 +2643,7 @@ Pull the citation network from:
 - ISWC: 360
 - IPAW: 2113
 - 2242 PSSS Practical and Scalable Semantic Systems
-- 3 IAWTIC International Conference on Intelligent Agents, Web Technologiesand Internet Commerce
+- 3 IAWTIC International Conference on Intelligent Agents, Web Technologies and Internet Commerce
 - 46 ICWE International Conference on Web Engineering
 - 49 ICWS International Conference on Web Services
 - 476 WAIM Web-Age Information Management
@@ -3002,7 +3002,7 @@ https://github.com/joesingo/paperfinder
 
 Given a URL to a paper on a publisher's website, find its DOI and a BibTex citation. Output can be given as plain text or JSON.
 
-This takes some of the pain out of dealing with publishers' websites. Of course, it is possible to pair this tool with SciHub to get the actual PDF (go to https://sci-hub.se/\<DOI>), but I could not possibly endorse piracy in this way...
+This takes some of the pain out of dealing with publishers' websites. Of course, it is possible to pair this tool with SciHub to get the actual PDF (go to https://sci-hub.se/\<DOI\>), but I could not possibly endorse piracy in this way...
 
 Note that pf works for a very small number of publishers, and may break if publisher web pages or URLs change.
 
@@ -3146,7 +3146,7 @@ Errors in the paper
 
 - the paper does not find mixed types as a candidate keywords. I've added mixed types as a candidates key words
 
-- Non english language
+- Non English language
 
 TODO :
 
@@ -3226,7 +3226,7 @@ NMF : Non-Negative Matrix Factorization (NMF) - Find two non-negative matrices (
 ## WuLC/KeywordExtraction: Implementation of algorithm in keyword extraction,including TextRank,TF-IDF and the combination of both
 https://github.com/WuLC/KeywordExtraction
 
-Implementation of serveral algorithms for keyword extraction,including TextRank,TF-IDF,TextRank along with TFTF-IDF.Cutting words and filtering stop words are relied on HanLP
+Implementation of several algorithms for keyword extraction,including TextRank,TF-IDF,TextRank along with TFTF-IDF.Cutting words and filtering stop words are relied on HanLP
 
 ## hankcs/HanLP: Han Language Processing
 https://github.com/hankcs/HanLP
@@ -3326,7 +3326,7 @@ https://github.com/pozhidaevsa/ExtractionKeywords
 ## csurfer/rake-nltk: Python implementation of the Rapid Automatic Keyword Extraction algorithm using NLTK.
 https://github.com/csurfer/rake-nltk
 
-RAKE short for Rapid Automatic Keyword Extraction algorithm, is a domain independent keyword extraction algorithm which tries to determine key phrases in a body of text by analyzing the frequency of word appearance and its co-occurance with other words in the text.
+RAKE short for Rapid Automatic Keyword Extraction algorithm, is a domain independent keyword extraction algorithm which tries to determine key phrases in a body of text by analyzing the frequency of word appearance and its co-occurrence with other words in the text.
 
 
 ## AidenHuen/SMP-Keyword-Extraction: CSDN博客的关键词提取算法，融合TF，IDF，词性，位置等多特征。该项目用于参加2017 SMP用户画像测评，排名第四,在验证集中精度为59.9%，在最终集中精度为58.7%。模型并未使用机器学习的方法，具有较强的泛化能力。
@@ -3417,10 +3417,10 @@ This module is possible in large part to the very hard work of the Piwik team. S
 
 
 
-## singularity014/Keyword-Extraction-Bidirectional-LSTM: Deep learning LSTM + BERT based approach for labelling a corpus with keywords, then training a model to extract keywords.
+## singularity014/Keyword-Extraction-Bidirectional-LSTM: Deep learning LSTM + BERT based approach for labeling a corpus with keywords, then training a model to extract keywords.
 https://github.com/singularity014/Keyword-Extraction-Bidirectional-LSTM
 
-Deep learning Bi-LSTM based approach for labelling a corpus with keywords, then training a model to extract keywords.
+Deep learning Bi-LSTM based approach for labeling a corpus with keywords, then training a model to extract keywords.
 
 Article was late published in pprints.
 

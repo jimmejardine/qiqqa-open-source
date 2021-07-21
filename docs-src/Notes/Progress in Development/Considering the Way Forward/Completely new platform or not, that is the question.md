@@ -1,3 +1,4 @@
+# Code Qiqqa on a completely new platform or not, that is the question
 
 (from chat)
 

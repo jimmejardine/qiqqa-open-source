@@ -17,7 +17,7 @@ in a way that is agreeable to users?
 
 ## MSWord
 
-Well, I guess we stick with the exsting plugin as long as it lasts (some folks use Office 365 and I don't know if that one's still compatible).
+Well, I guess we stick with the existing plugin as long as it lasts (some folks use Office 365 and I don't know if that one's still compatible).
 
 - https://github.com/zotero/zotero-word-for-windows-integration
 - https://www.zotero.org/support/word_processor_plugin_manual_installation
@@ -47,8 +47,8 @@ Sigh.
 
 So I am considering going through Zotero or someone else to channel their work into getting any citations into any Libre/OpenOffice workflow, as all my enthousiasm there is revolving around a imaginary .45 and some heavy flossing. Good God, and there I thought Qiqqa had some *issues*. Face. Palm.
 
-- http://www.ocsmag.com/2018/11/30/replacing-libreoffices-bibliography-tool-with-zotero/ -- that page describes a lot of the bad stuff that I discovered and made me very angry before I ran into that one. TL;DR: If you're sane: Fuck it and ditch thee LibreOffice functionality; use an external plugin instead (Zotero, Mendely, what-ever you got)! So I guess we'll have to add Qiqqa to that list of 're-doing the hard way what the Libre/OpenOffice *(censored)* monkeys should have enabled already via database import/export or other quick list add/update means.
-- https://academictips.org/mla-format/mla-format-openoffice/ -- useless page but comes up in lot of queries I lauched, so Hail their SEO. Or whatever. LibreOffice gave me a raging case of PMS; guess you notice?...
+- http://www.ocsmag.com/2018/11/30/replacing-libreoffices-bibliography-tool-with-zotero/ -- that page describes a lot of the bad stuff that I discovered and made me very angry before I ran into that one. TL;DR: If you're sane: Fuck it and ditch thee LibreOffice functionality; use an external plugin instead (Zotero, Mendeley, what-ever you got)! So I guess we'll have to add Qiqqa to that list of 're-doing the hard way what the Libre/OpenOffice *(censored)* monkeys should have enabled already via database import/export or other quick list add/update means.
+- https://academictips.org/mla-format/mla-format-openoffice/ -- useless page but comes up in lot of queries I launched, so Hail their SEO. Or whatever. LibreOffice gave me a raging case of PMS; guess you notice?...
 - https://wiki.documentfoundation.org/Referencing_Systems_in_LibreOffice
 - https://isg.beel.org/blog/2014/03/11/docear4libreoffice-docear4openoffice-call-for-donation-2500/ -- so I guess the 'market value' is around 2500 quid. Brave man.
 - https://extensions.libreoffice.org/en/extensions/show/zotero-libreoffice-integration -- Hmmm. Might not be the brightest idea I had tonight to consider taking that one for a ride.
@@ -116,4 +116,4 @@ I hope I can get away with outputting a generic copy&paste text-based 'footnote'
 
 # General idea about workflow
 
-I considered coming up with a 'Project' type where you gather all your citations so we can generate and then *re*-generate them whenever you want, but then I decided a 'Project' like that is just another library: what I want to have anyway is a 'sharing among libraries' where metadata done in onee is 'synced/shared' with all your libraries which carry the same document, i.e. "edit in one; see everywhere". (Hm, maybe not for annotations, but definitely for the BibTeX, and *that* is what goes into the citations anyhow.
+I considered coming up with a 'Project' type where you gather all your citations so we can generate and then *re*-generate them whenever you want, but then I decided a 'Project' like that is just another library: what I want to have anyway is a 'sharing among libraries' where metadata done in one is 'synced/shared' with all your libraries which carry the same document, i.e. "edit in one; see everywhere". (Hm, maybe not for annotations, but definitely for the BibTeX, and *that* is what goes into the citations anyhow.

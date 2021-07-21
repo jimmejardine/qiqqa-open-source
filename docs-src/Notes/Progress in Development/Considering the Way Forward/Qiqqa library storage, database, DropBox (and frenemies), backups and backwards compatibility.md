@@ -4,7 +4,7 @@
 
 ### The MD5 hash that isn't
 
-Currently Qiqqa employs a (botched) MD5 ^[or was it SHA1 after all? Check the sourcecode. Writing off the top of your head isn't always... uh...] checksum to **uniquely identify** every document stored in the Qiqqa library.
+Currently Qiqqa employs a (botched) MD5^[or was it SHA1 after all? Check the sourcecode. Writing off the top of your head isn't always... uh...] checksum to **uniquely identify** every document stored in the Qiqqa library.
 
 While the hash is botched (see source code comment about dropped '0's in hex strings for bytes' representation) it's okay enough to cope with a decent library, but given that there **do exist** PDF files which exhibit a **hash collision** for MD5, I think it's time to consider migrating that bit too, if only for the pathological case where I wish to be able to store both those PDFs and have Qiqqa identify them as *different*, like Qiqqa *should* but currently does *not*!
 
@@ -25,7 +25,7 @@ Hence the thought is, here and now, to keep the old SQLite database table as-is,
 
 ## Backups to cloud storage
 
-Currently Qiqqa copies the Sqlite DB to cloud using SQlite, which is not very smart as this can break the database due to potential collisions with other accessors ^[you or other user accesing the same cloud starage spot and thus shared DB over network, if only for a short moment]: the idea there is to always **binary file copy** the database to cloud storage and only ever let Sqlite access the DB that sits in local *private* storage.
+Currently Qiqqa copies the Sqlite DB to cloud using SQlite, which is not very smart as this can break the database due to potential collisions with other accessors^[you or other user accesing the same cloud starage spot and thus shared DB over network, if only for a short moment]: the idea there is to always **binary file copy** the database to cloud storage and only ever let Sqlite access the DB that sits in local *private* storage.
 
 Multi-user access over cloud storage is a persistent problem as there's no solid file locking solution for such systems: not for basic networking and certainly not for cloud storage systems (such as Google Drive or DropBox, which have their own proprietary ways of 'syncing' files and none of them will be happy with *shared use* of such files while they 'sync').
 
@@ -58,7 +58,7 @@ Note that cloud storage is not transactional; the only guarantee that DropBox, G
 
 Hence we might conclude that step 3 is sufficient to provide a safe and repeatable sharing function **iff step 1 acts as described** -- which it does not. At least not today!
 We have currently no way to detect which metadata entry (local or cloud) is the more recent / more valid one and we always pick the cloud copy. ^[ check the source code. Anyway, even if this line is wrong, it's still trouble as the point is: Qiqqa cannot determine which entry **should** win, be it ours or theirs.]
-Given that our step 2 **can fail**, while we do **not** have a reliable network-wide clock, there's always the risk of losing records during sync... unless we introduce some sort of record update versioning scheme, i.e. unless we more to a metadata store that has features similar to `git`: if we encounter any edit history that is not ours, we need to merge it. And then, in those rarest of cases, we of course hit the same snag as `git`: a merge collision. Which requires user activity to 'merge' correctly. So... should we simply go and use git for meta storage in the cloud sync space there at least, or do we code our own crude re-imagening of a git-like VCS there?
+Given that our step 2 **can fail**, while we do **not** have a reliable network-wide clock, there's always the risk of losing records during sync... unless we introduce some sort of record update versioning scheme, i.e. unless we more to a metadata store that has features similar to `git`: if we encounter any edit history that is not ours, we need to merge it. And then, in those rarest of cases, we of course hit the same snag as `git`: a merge collision. Which requires user activity to 'merge' correctly. So... should we simply go and use git for meta storage in the cloud sync space there at least, or do we code our own crude re-imagining of a git-like VCS there?
 It's bothersome, either way. Still, better than git+torrents as that was a cool idea just there but fraught with security/privacy issues re *outsiders*.
 
 ---

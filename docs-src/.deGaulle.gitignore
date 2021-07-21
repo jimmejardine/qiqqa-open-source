@@ -11,3 +11,6 @@ dummy.md.include
 *.vcxproj*
 site-builder\.*
 Makefile
+
+# review feedback files
+The Official Manual (v80-89 Open Source)/audio-review/

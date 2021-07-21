@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "The Nice To Haves/Tagging Woes - Maybe another approach needed.md",
+            "file": "Progress in Development/Considering the Way Forward/Qiqqa Sniffer - or how to access Google Scholar et al.md",
             "mode": "source"
           }
         }
@@ -76,7 +76,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "The Nice To Haves/Tagging Woes - Maybe another approach needed.md",
+                "file": "Progress in Development/Considering the Way Forward/Qiqqa Sniffer - or how to access Google Scholar et al.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -93,7 +93,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "The Nice To Haves/Tagging Woes - Maybe another approach needed.md",
+                "file": "Progress in Development/Considering the Way Forward/Qiqqa Sniffer - or how to access Google Scholar et al.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -116,7 +116,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "The Nice To Haves/Tagging Woes - Maybe another approach needed.md"
+                "file": "Progress in Development/Considering the Way Forward/Qiqqa Sniffer - or how to access Google Scholar et al.md"
               }
             }
           }
@@ -128,15 +128,15 @@
   },
   "active": "0c40e7cf0a8438df",
   "lastOpenFiles": [
-    "The Nice To Haves/Tagging Woes - Maybe another approach needed.md",
-    "The Nice To Haves/Allowing The Mind To Dream.md",
-    "Progress in Development/Considering the Way Forward/Untitled.md",
-    "Progress in Development/scripting the OCR + text extraction process.md",
-    "Progress in Development/Unexpected Hurdles Producing Decent Text And Images From PDF Documents.md",
-    "Qiqqa Internals/Configuration Overrides for Developers and Testers.md",
-    "Qiqqa Internals/Extracting the text from PDF documents.md",
-    "Qiqqa Internals/Papers and their metadata, where to find papers, all about papers' aspects.md",
-    "Technology/Odds 'n' Ends/Network Troubles, NAS and SQLite.md",
-    "The Qiqqa Manual reference.md"
+    "Progress in Development/Considering the Way Forward/Qiqqa Sniffer - or how to access Google Scholar et al.md",
+    "Progress in Development/Considering the Way Forward/Qiqqa library storage, database, DropBox (and frenemies), backups and backwards compatibility.md",
+    "Progress in Development/Considering the Way Forward/Notes On Embedding a Scripting Language In Your Application.md",
+    "Progress in Development/Considering the Way Forward/Multiprocessing and IPC.md",
+    "Progress in Development/Considering the Way Forward/Links to Stuff To Look At.md",
+    "Progress in Development/Considering the Way Forward/IPC - transferring and storing data.md",
+    "Progress in Development/Considering the Way Forward/Full-Text Search Engines.md",
+    "Progress in Development/Considering the Way Forward/Essential yet hard(er) to port UI features.md",
+    "Progress in Development/Considering the Way Forward/Completely new platform or not, that is the question.md",
+    "Progress in Development/Considering the Way Forward/Citations and ways to feed and sync those with the documents you write.md"
   ]
 }
