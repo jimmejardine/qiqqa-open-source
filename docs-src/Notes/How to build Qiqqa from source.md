@@ -71,3 +71,5 @@ If you want to build Qiqqa from scratch yourself and/or wish to participate in i
 
 
 Read the [[Misc notes for developers]] and browse the repository for more information on the internals and operation of Qiqqa and the related tools.
+
+
