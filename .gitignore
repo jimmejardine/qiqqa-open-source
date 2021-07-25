@@ -62,7 +62,7 @@ Release*/
 /Technology Tests/WPF Template App1.Packaging/*.cache
 
 # Obsidian vault
-/docs-src/.obsidian/workplace
+/docs-src/.obsidian/workspace
 /docs-src/.obsidian/appearance.json
 /docs-src/.obsidian/core-plugins.json
 /docs-src/.obsidian/hotkeys.json
