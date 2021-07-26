@@ -33,7 +33,7 @@ namespace Qiqqa.Documents.PDF
             }
         }
 
-        private bool AddHighlight_Internal(PDFHighlight highlight)
+        private void AddHighlight_Internal(PDFHighlight highlight)
         {
             HashSet<PDFHighlight> highlights_for_page;
             if (!highlights.TryGetValue(highlight.Page, out highlights_for_page))
@@ -43,12 +43,11 @@ namespace Qiqqa.Documents.PDF
             }
 
             highlights_for_page.Add(highlight);
-            return true;
         }
 
-        public bool __AddUpdatedHighlight(PDFHighlight highlight)
+        public void __AddUpdatedHighlight(PDFHighlight highlight)
         {
-            return AddHighlight_Internal(highlight);
+            AddHighlight_Internal(highlight);
         }
 
         public void __RemoveUpdatedHighlight(PDFHighlight highlight)

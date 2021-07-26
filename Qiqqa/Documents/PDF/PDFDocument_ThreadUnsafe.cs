@@ -965,19 +965,19 @@ namespace Qiqqa.Documents.PDF
 
         internal PDFHightlightList GetHighlights(Dictionary<string, byte[]> library_items_highlights_cache)
         {
-            if (null == highlights)
+            lock (access_lock)
             {
-                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-                lock (access_lock)
+                if (null == highlights)
                 {
+                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                     highlights = new PDFHightlightList();
                     PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
                     dirtyNeedsReindexing = true;
                 }
-            }
 
-            return highlights;
+                return (PDFHightlightList)highlights.Clone();
+            }
         }
 
         public string GetHighlightsAsJSON()
@@ -1003,10 +1003,8 @@ namespace Qiqqa.Documents.PDF
         {
             lock (access_lock)
             {
-                if (highlights.__AddUpdatedHighlight(highlight))
-            {
-                    dirtyNeedsReindexing = true;
-                }
+                highlights.__AddUpdatedHighlight(highlight);
+                dirtyNeedsReindexing = true;
             }
         }
 
