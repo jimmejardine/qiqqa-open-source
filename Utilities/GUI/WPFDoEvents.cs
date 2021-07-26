@@ -183,7 +183,11 @@ namespace Utilities.GUI
             {
                 // when we at the end of application lifetime, after signaling shutdown, at some point this mix shows up:
                 //     [Q] WARN[Main][198.658M] Running in odd context @ STA / False / False / True / ..... / True
+                //
+                //            STA(state)/False(pooled)/False(bg)/True(appl.curr)/True(isShuttingdown)/False(isMainDisp)/True(isUI)/True(accNotUI)/True(mix)
+#if false
                 Logging.Warn($"Running in odd context @ {state}/{pooled}/{bg}/{ (Application.Current == null) }/{ ShutdownableManager.Instance.IsShuttingDown }/{ isMainDispatcher }/{ isUI }/{ (acc != isUI) }/{ !(pooled || bg || state != ApartmentState.STA) }");
+#endif
             }
 
             if (acc)
@@ -338,7 +342,7 @@ namespace Utilities.GUI
             }
         }
 
-#if DEBUG 
+#if DEBUG
 #if false
         public static void TestAsyncErrorHandling()
         {
