@@ -41,7 +41,15 @@ namespace Utilities.ProcessTools
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "There was a problem setting the process priority class for {0} (it has probably already exited)", executable_filename);
+                System.InvalidOperationException ex2 = ex as System.InvalidOperationException;
+                if (ex2 != null && (uint)ex2.HResult == 0x80131509)
+                {
+                    // ignore: Message: No process is associated with this object.
+                }
+                else
+                {
+                    Logging.Warn(ex, "There was a problem setting the process priority class for {0} (it has probably already exited)", executable_filename);
+                }
             }
 
             return process;
