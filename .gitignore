@@ -62,8 +62,14 @@ Release*/
 /Technology Tests/WPF Template App1.Packaging/*.cache
 
 # Obsidian vault
-/docs-src/.obsidian/workspace
-/docs-src/.obsidian/appearance.json
-/docs-src/.obsidian/core-plugins.json
-/docs-src/.obsidian/hotkeys.json
+/docs-src/Notes/.obsidian/appearance.json
+/docs-src/Notes/.obsidian/core-plugins.json
+/docs-src/Notes/.obsidian/daily-notes.json
+/docs-src/Notes/.obsidian/graph.json
+/docs-src/Notes/.obsidian/hotkeys.json
+/docs-src/Notes/.obsidian/switcher.json
+/docs-src/Notes/.obsidian/templates.json
+/docs-src/Notes/.obsidian/workspace
 
+# Intel VTune Profiler
+/Qiqqa/VTune Profiler Results/
