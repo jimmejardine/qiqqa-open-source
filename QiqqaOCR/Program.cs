@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading;
 using Utilities;
+using Utilities.Shutdownable;
 
 namespace QiqqaOCR
 {
@@ -45,6 +46,7 @@ namespace QiqqaOCR
 
             try
             {
+                ShutdownableManager.Instance.ConsoleApplicationIgnoresAutoAppShutdownDetection = true;
                 Thread.CurrentThread.Name = "Main";
 
                 // Check that we were given the right number of parameters
