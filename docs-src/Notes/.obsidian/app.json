@@ -86,6 +86,9 @@
     "multithreading",
     "decrypting",
     "accessors",
-    "untrusted"
+    "untrusted",
+    "executables",
+    "Qiqqa",
+    "submodule"
   ]
 }
