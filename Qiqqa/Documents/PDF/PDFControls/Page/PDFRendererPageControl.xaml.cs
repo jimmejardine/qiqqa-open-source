@@ -429,7 +429,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 //WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     Stopwatch clk = Stopwatch.StartNew();
-                    Logging.Info("+PopulateNeededLayers for document {0}", pdf_document.Fingerprint);
+                    Logging.Info("+PopulateNeededLayers for document {0}, page {1} (in view: {2})", pdf_document.Fingerprint, page, page_is_in_view);
 
                     try
                     {
