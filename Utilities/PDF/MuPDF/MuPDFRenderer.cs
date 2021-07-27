@@ -1050,7 +1050,7 @@ namespace Utilities.PDF.MuPDF
                         var outs = process_output_reader.GetOutputsDumpStrings();
                         rv.errOutputDump = outs;
 
-                        Logging.Error($"MuPDF did SUCCEED with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
+                        Logging.Info($"MuPDF did SUCCEED with exit code {process.ExitCode} for commandline:\n    {pdfDrawExe} {process_parameters}\n{outs.stderr}");
 
                         rv.error = null;
                         rv.exitCode = Math.Abs(process.ExitCode);
