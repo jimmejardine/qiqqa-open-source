@@ -455,7 +455,7 @@ namespace Utilities.PDF.MuPDF
             if (date_str.StartsWith("D:"))
                 date_str = date_str.Replace("D:", "");
 
-            // now there's a couple formats we've seen out there, next to our own 
+            // now there's a couple of formats we've seen out there, next to our own 
             // metadump "D:%Y%m%d%H%M%SZ" strftime() and "D:%Y-%m-%d %H:%M:%S UTC" fz_printf("%T") outputs:
             // "D:%Y%m%d%H%M%S[-+]TZ'TZ'" for timezoned timestamps, e.g. "D:20120208094057-08'00'" or "D:20090612163852+02'00'"
             DateTime t;
