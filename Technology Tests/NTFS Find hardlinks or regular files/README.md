@@ -1,26 +1,26 @@
-﻿# NTFS Directory Scanner
+﻿# NTFS Directory Scanner, a.k.a. *DirScanner*
 
 ## Purpose
 
-We needed tool, specifically for Windows/NTFS, which would scan a directory tree 
+We needed a tool, specifically for Windows/NTFS, which would scan a directory tree 
 
 > (d'uh! why do your own?! Well... there's this:...)
 
 but we *know* that our PDF directories are full of duplicates, which I took care of by running tools to have them converted to NTFS hardlinks so the dupes do NOT take up useless space on the SSD disk.
 
-Works great, but now that the bulk tests for my MuPDF tooling (to be used in Qiqqa) are running full-out, the bulk test prep scripts encounter a few problems, including the *invisible* one where we happen to test the same file multiple times, thanks to it existing in multiple places.
+Works great, but now that the bulk tests for my MuPDF tooling (to be used in Qiqqa) are running full-out, the bulk test prep scripts encounter a few problems, including the *invisible* problem where we happen to test the same file multiple times, thanks to it existing in multiple places.
 
 This DirScanner tool is **special** in that it has these non-trivial abilities:
 
-- reports *all* NTFS/Windows File System attributes, not just the ubiquitous AHSR+D (Archive, Hidden, System, RadOnly + Directory) from the DOS Days.
+- reports *all* NTFS/Windows File System attributes, not just the ubiquitous AHSR+D (Archive, Hidden, System, ReadOnly + Directory) from the DOS Days.
 - detects and reports HardLinks in a UNIX "sense": the L+X attributes. 
 
-  NOTE that Windows/NTFS considers *every* file a hardlink! We're talking multiple file paths which point at the same *file content*. In Windows, you can find those only by invoking other APIs and counting the number of "hardlinks" for a file: when there's more than 1 (i.e. 2 opr more), *only then do we hardlinks* (or may we call those "duplicate references"?) as you would expect on UNIX file systems.
+  NOTE that Windows/NTFS considers *every* file a hardlink! We're talking multiple file paths which point at the same *file content*. In Windows, you can find those only by invoking other APIs and counting the number of "hardlinks" for a file: when there's more than 1 (i.e. 2 or more), *only then do we report hardlinks* (or may we call those "duplicate references"?) as you would expect on UNIX file systems.
 - ability to filter on any attribute mix, **including the emulated UNIX-style hardlink L/X attributes**
 - ability to scan multiple disjoint directory trees all together, producing one consolidated output.
 - ability to write the file paths to file in UTF8, while file paths are checked against glaring Unicode issues.
 
-This allows us to scan the directory trees (which also some *very nasty* named files) and get a list of **unique files** for us to process in the bulk test runner scripts, etc.
+This allows us to scan the directory trees (which also contain some *very nasty* named files) and get a list of **unique files** for us to process in the bulk test runner scripts, etc.
 
 This tool also allows to get a list of "duplicates" which have been "hardlinked".
 

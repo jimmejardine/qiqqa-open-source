@@ -1,9 +1,9 @@
 
-# FAQ : Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors
+# FAQ : Qiqqa Sniffer, BibTeX grazing, Google Scholar RECAPTCHA and Access Denied site blocking errors
 
 ## Is Qiqqa Sniffer broken since Qiqqa went Open Source or when?
 
-The correct answer here is that **all versions of Qiqqa suffer the same issue** as this is not a Qiqqa issue but something **caused by Google and Google Scholar in particular: Google does not want any *robots* (computer applications with or without human supervision) to connect to their Scholar data**. 
+The correct answer here is that **all versions of Qiqqa suffer the same issue** as this is not a Qiqqa issue but something **caused by Google and Google Scholar in particular: Google does not want any *robots* (computer applications *with* or without human supervision) to connect to their Scholar data**. 
 
 Read on if you want to know more.
 
@@ -17,7 +17,7 @@ which are my quick notes while looking into what everybody else has been doing a
 
 - via anything but a regular, well-known, browser such as Chrome, Safari, FireFox or Microsoft Edge. 
 
-  Anything that ever so slightly *smells like it **might** not be a regular mainstream browser* for *direct use* by a *human being* is automatically penalized by the Google Scholar site. You'll get RECAPTCHA's *sooner* and *more often* and when you happen to search a bit too long or fast to the discerning tastes of the Google management, you'll be **blocked** for quite a while -- timeout limit is currently unknown to me and certainly subject to change as that's one of the undocumented knobs Google can twiddle if it gets upset about your behaviour.
+  Anything that ever so slightly *smells like it **might** not be a regular mainstream browser* for *direct use* by a *human being* is automatically penalized by the Google Scholar site. You'll get RECAPTCHA's *sooner* and *more often* and when you happen to search a bit too long or fast to the discerning tastes of the Google management, you'll be **blocked** for quite a while -- the timeout limit is currently unknown to me and certainly subject to change as that's one of the undocumented knobs Google can twiddle if it gets upset about your behaviour.
   
   Qiqqa has an **embedded browser**, which is, given some effort -- and Google expends of *lot of effort* on this -- differentiable from a mainline browser like Chrome. 
   
@@ -27,7 +27,7 @@ which are my quick notes while looking into what everybody else has been doing a
   > its change in behaviour over time and the question "how would *you* do it, if you were *them*?" I'm betting on them having *all* non-invasive fingerprinting tech 
   > included in their code: they don't need consent for that and it's what a browser transmits anyway -- unless it is filtered or altered 
   > and those two modes happen to be of particular interest to a business like Google which has *ads* as a major revenue stream: 
-  > if you altered or filtered your browser fingerprint, you're **very probably** also filtering ads. 1+1=no-Scholar. 
+  > if you altered or filtered your browser fingerprint, you're **very probably** also filtering ads. 1+1=no-Scholar-for-you. 
   >
   > Since this whole endeavour is bathed in *probability*, Google cannot be absolutely 100% sure about their conclusions about you being an alleged robot/automaton/undesirable-user and 
   > the easiest answer to the conundrum what to do about *that* uncertainty is to severely limit the number of Scholar requests for any such entity. If it's a 'live one' (clicking human with a 'good' browser) then too bad, but they get a sip and that's good enough. If they want more, they'll quickly find it works out for them to move to Chrome. Yay! Meanwhile we (Google) make sure the bots don't get our stuff in a 1000 years. Yay! × 2! 
@@ -43,7 +43,7 @@ which are my quick notes while looking into what everybody else has been doing a
 
 ## Is this a Qiqqa problem or a Google Scholar issue or maybe *both*?
 
-Do note that this is not a Qiqqa-specific issue, though Qiqqa happens to be currently worse at it than a few others, who are up-to-date in their war-of-tugs with Scholar's anti-automaton/anti-embedding detection and blockage logic. 
+Do note that **this is not a Qiqqa-specific issue**, though Qiqqa happens to be currently worse at it than a few others, who are up-to-date in their war-of-tugs with Scholar's anti-automaton/anti-embedding detection and blockage logic. 
 
 Qiqqa is hit badly by this because Qiqqa currently uses an old Mozilla browser internally (XULrunner), which' technology is about on par with FireFox version 33.
 
@@ -82,11 +82,11 @@ So, yes, all the wild stuff on the Net makes the logic on the Google Scholar ser
 
 That is why you get less hassle from Google when you log into your google account and access Scholar while being logged in.
 
-## That's all dandy, but I cannot log into my google account inside the Qiqqa Sniffer!
+## That's all dandy, but I cannot log into my Google account inside the Qiqqa Sniffer!
 
 Yep, that's the 'old embedded browser' kicking in: Google doesn't allow logins in 'outdated' / 'outmoded' or otherwise *unsupported* browsers, and XULrunner happens to be one of those, alas. Hence we have [issue #2](https://github.com/jimmejardine/qiqqa-open-source/issues/2) which is, regrettably, a lot of work to accomplish, so it will take a while before that one is done.
 
-**Note**:  it looks like the User-Agent tweak in Qiqqa v82 allows you to log into your google account inside the Qiqqa Sniffer, but that only succeeds anyway when the planets are aligned or what-not. It worked kinda okay back in Q4 2019, but, like with all other things Scholar Access, its success rate seems to decline, so YMMV. Now, at the start of Q3 2021, this trick is dead in the water, regrettably.
+**Note**:  it looks like the User-Agent tweak in Qiqqa v82 allows you to log into your Google account inside the Qiqqa Sniffer, but that only succeeds anyway when the planets are aligned or what-not. It worked kinda okay back in Q4 2019, but, like with all other things Scholar Access, its success rate seems to decline, so YMMV. Now, at the start of Q3 2021, this trick is dead in the water, regrettably.
 
 
 ## But you can tell Google that you are a modern-day Chrome, right? There's the User-Agent!
@@ -111,23 +111,10 @@ Given that caveat, here's a list of things to try:
 
   Expected Result: you might get lucky and be able to do more searches before you're hit with RECAPTCHA or Access Denied.
   
-- try to 'Add to Library' inside google and then extract the BibTeX from there. Convoluted way to access BibTeX, I'll grant you, but sometimes that works when regular BibTeX grabbing off Scholar fails.
+- try to 'Add to Library' inside Google Scholar (assuming you could log in) and then extract the BibTeX from there. Convoluted way to access BibTeX, I'll grant you, but sometimes that works when regular BibTeX grabbing off Scholar fails.
 
 - [try the other suggestions listed in the comments for issue #113](https://github.com/jimmejardine/qiqqa-open-source/issues/113)
 
 - try an anonymizing VPN or SOCKS proxy.
 
 Always: YMMV.
-
-
-
-
-
-
-
-
-
-
-
-
-

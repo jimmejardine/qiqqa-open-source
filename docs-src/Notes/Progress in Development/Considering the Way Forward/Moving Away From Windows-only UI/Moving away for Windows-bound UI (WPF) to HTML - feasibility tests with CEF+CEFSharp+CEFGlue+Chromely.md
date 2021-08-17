@@ -1,4 +1,4 @@
-# Moving away for Windows-bound UI (WPF) to HTML :: feasibility tests with [CEF](https://bitbucket.org/chromiumembedded/cef/src/master/) / [CEFSharp](https://cefsharp.github.io/) / [CEFGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) / [Chromely](https://chromely.net/) / [WebView2](https://docs.microsoft.com/en-us/microsoft-edge/webview2/)
+# Moving away for Windows-bound UI (WPF) to HTML :: feasibility tests with [CEF](https://bitbucket.org/chromiumembedded/cef/src/master/) / [CEFSharp](https://cefsharp.github.io/) / [CEFGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) / [Chromely](https://chromely.net/) / [WebView2](https://docs.microsoft.com/en-us/microsoft-edge/webview2/) / [electron](https://www.electronjs.org/)
 
 As stated elsewhere in these documents, several major components must be migrated to allow Qiqqa to become cross-platform portable software (or at least approach that goal, so that the maintenance effort is manageable for such a multi-platform app).
 
@@ -170,6 +170,26 @@ The whole darn thing is COM-based (sigh… don't recall *good times* with that c
 
 Some bad noises are to be read here: https://developer.x-plane.com/2018/04/lets-talk-about-cef/ – I've seen CEF cross-version update woes already while tracking CEFSharp for a while as 谷歌中央委员会主席 decided to ditch some features in Chromium last year and flip a bit of API burger on the go. Hm. Hmmm.
 
+
+## \[Update 2021/08/16] Looking at [electron](https://www.electronjs.org/) anyway...
+
+Okay. No matter which solution we choose (we've consider a minimal UI core using wxWindows plus WebView2/CEF as end result), we always end up with one common issue: we need **at least** two(**2**) independent web views in the application: one for generic browsing in the Qiqqa Sniffer at least (lower half of the UI) which can safely browse the Wild Web without risking all kinds of security breaches, while a *second* webview is required to render the rest of the UI.
+
+My thinking to date is:
+- wxWindows: basic menus + toolbars (top bar) and "status bar" (bottom bar) for quit and terse "live" progress reports. Not spending too much dev time there, thank you.
+- One WebView for the top half of the Sniffer: PDF view, BibTeX/metadata editor, side panel, Controls Strip above the Bottom half, i.e. "sniffer browser controls".
+- One WebView for the bottom half: the one that browses the Wild Web and visits the Search Engines while you're *sniffing*.
+
+But dev speed is currently slow, so I keep wondering about *electron*: could it all be done in that one, so that we can at least postpone the wxWindows wrapper till later and still get some viable product out?
+
+There was the WebView issue in electron: we need at least two of them in the same screen/UI window and the electron documentation says to **not use `webview` but use `BrowserView` instead**. However, my Google Fu didn't deliver any useful answer about *being successful* achieving that; plenty counter-examples did show up as open questions and bug complaints though.
+
+Until today: these two are essential to getting this done
+
+- https://stackoverflow.com/questions/55344701/how-to-stop-electron-windows-sharing-cookies
+- https://stackoverflow.com/questions/55023882/two-browsers-in-the-same-electron-window?noredirect=1&lq=1
+
+Worth a try and I expect these to be still useful when we go the wxWindows + multiple CEF/WebView2 way...
 
 
 
