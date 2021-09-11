@@ -46,15 +46,6 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 #if DEBUG
             {
                 string abs_uri = channel.Uri.AbsoluteUri;
-                string disp_hdr = "(not specified)";
-                try
-                {
-                    disp_hdr = channel.ContentDispositionHeader;
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Gecko ContentDispositionHeader b0rk at {0}", abs_uri);
-                }
                 string mimetype = channel.ContentType;
                 uint rvc = channel.ResponseStatus;
                 var hdrs = channel.GetResponseHeadersDict();
@@ -72,6 +63,18 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                         else
                             hdrs_str += ";";
                         hdrs_str += elv;
+                    }
+                }
+                string disp_hdr = "(not specified)";
+                if (hdrs_str.Contains("Content-Disposition:"))
+                {
+                    try
+                    {
+                        disp_hdr = channel.ContentDispositionHeader;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Gecko ContentDispositionHeader b0rk at {0}", abs_uri);
                     }
                 }
                 Logging.Info("PDFInterceptor::Response URI: {0} ; disposition: {1}; mime: {2}; status: {3}; headers:\n{4}", abs_uri, disp_hdr, mimetype, rvc, hdrs_str);
