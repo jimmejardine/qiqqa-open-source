@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Utilities;
+using Utilities.GUI;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
@@ -72,6 +73,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
         private void AddItemChild_Largest(WordList[] word_lists, string section)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             double largest_height = double.MinValue;
             int largest_page = 0;
 

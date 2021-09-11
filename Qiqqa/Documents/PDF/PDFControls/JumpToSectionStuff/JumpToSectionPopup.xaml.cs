@@ -15,6 +15,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
         public JumpToSectionPopup(PDFReadingControl pdf_reading_control)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             InitializeComponent();
 
             this.pdf_reading_control = pdf_reading_control;
