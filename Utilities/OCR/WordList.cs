@@ -158,7 +158,8 @@ namespace Utilities.OCR
 
             if (ignored_spaces_as_word > 0)
             {
-                Logging.Debug特("Ignored {0} words which consisted entirely of WHITESPACE for page {1} in file {2}.", ignored_spaces_as_word, default_page, filename);
+                Logging.Debug特("Ignored {0} words which consisted entirely of WHITESPACE for page {1} in file {2}.", ignored_spaces_as_word, current_page, filename);
+                ignored_spaces_as_word = 0;
             }
 
             return word_lists;
