@@ -297,11 +297,16 @@ namespace Qiqqa.Common
 
         private void OnShowTagOptionsComplete(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
-            AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report)
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
-                ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
-                string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
-                OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
+                AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report)
+                {
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                    ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
+                    string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
+                    OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
+                });
             });
         }
 

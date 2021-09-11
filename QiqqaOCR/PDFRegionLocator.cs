@@ -27,14 +27,12 @@ namespace QiqqaOCR
         }
 
 
-        public Bitmap bitmap;
         public List<Region> regions;
         public int width_x;
 
         public PDFRegionLocator(Bitmap bitmap)
         {
-            this.bitmap = bitmap;
-            GetRegions(this.bitmap, out regions, out width_x);
+            GetRegions(bitmap, out regions, out width_x);
         }
 
 #if INCLUDE_UNUSED
@@ -64,7 +62,7 @@ namespace QiqqaOCR
             {
                 int test_y = last_good_y + direction;
 
-                // Test that we havent gone off the page
+                // Test that we haven't gone off the page
                 if (0 > test_y) break;
                 if (bitmap_height <= test_y) break;
 

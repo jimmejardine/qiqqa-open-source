@@ -131,18 +131,19 @@ namespace Utilities.PDF.Sorax
             try
             {
                 IntPtr hbitmap = SoraxDLL.SPD_GetPageBitmap(hdoc.HDOC, HDC_HDC, page, 0, dpi);
-                Bitmap bitmap = Image.FromHbitmap(hbitmap);
-                SoraxDLL.DeleteObject(hbitmap);
+                using (Bitmap bitmap = Image.FromHbitmap(hbitmap))
+                {
+                    SoraxDLL.DeleteObject(hbitmap);
 
-                //using (FileStream fs = new FileStream(@"C:\temp\aax.png", FileMode.Create))
-                //{
-                //    bitmap.Save(fs, ImageFormat.Png);
-                //}
+                    //using (FileStream fs = new FileStream(@"C:\temp\aax.png", FileMode.Create))
+                    //{
+                    //    bitmap.Save(fs, ImageFormat.Png);
+                    //}
 
-                MemoryStream ms = new MemoryStream();
-                bitmap.Save(ms, ImageFormat.Png);
-                bitmap.Dispose();
-                return ms.ToArray();
+                    MemoryStream ms = new MemoryStream();
+                    bitmap.Save(ms, ImageFormat.Png);
+                    return ms.ToArray();
+                }
             }
             catch (Exception ex)
             {

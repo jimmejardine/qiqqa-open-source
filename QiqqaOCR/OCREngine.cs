@@ -258,136 +258,137 @@ namespace QiqqaOCR
 #endif
             using (ms)
             {
-                Bitmap bitmap = (Bitmap)Image.FromStream(ms);
-
-                Logging.Info("-Rendering page #{0}", page_number);
-
-                Logging.Info("Startup directory is {0}", Environment.CurrentDirectory);
-                Logging.Info("Language is '{0}'", language);
-
-                using (Tesseract ocr = new Tesseract())
+                using (Bitmap bitmap = (Bitmap)Image.FromStream(ms))
                 {
-                    ocr.Init(null, language, false);
+                    Logging.Info("-Rendering page #{0}", page_number);
 
-                    Logging.Info("+Doing OCR");
+                    Logging.Info("Startup directory is {0}", Environment.CurrentDirectory);
+                    Logging.Info("Language is '{0}'", language);
 
-                    const int MIN_WIDTH = 0;
-
-                    // Build a list of all the rectangles to process
-                    PDFRegionLocator pdf_region_locator = new PDFRegionLocator(bitmap);
-                    PDFRegionLocator.Region last_region = pdf_region_locator.regions[0];
-                    List<Rectangle> rectangles = new List<Rectangle>();
-                    Rectangle last_rectangle = new Rectangle();
-                    foreach (PDFRegionLocator.Region region in pdf_region_locator.regions)
+                    using (Tesseract ocr = new Tesseract())
                     {
-                        int rect_height = region.y - last_region.y;
-                        bool alarming_height = (rect_height <= 0);
+                        ocr.Init(null, language, false);
 
-                        Rectangle rectangle = new Rectangle();
+                        Logging.Info("+Doing OCR");
 
-                        if (last_region.state == PDFRegionLocator.SegmentState.BLANKS)
+                        const int MIN_WIDTH = 0;
+
+                        // Build a list of all the rectangles to process
+                        PDFRegionLocator pdf_region_locator = new PDFRegionLocator(bitmap);
+                        PDFRegionLocator.Region last_region = pdf_region_locator.regions[0];
+                        List<Rectangle> rectangles = new List<Rectangle>();
+                        Rectangle last_rectangle = new Rectangle();
+                        foreach (PDFRegionLocator.Region region in pdf_region_locator.regions)
                         {
-                            // LHS
+                            int rect_height = region.y - last_region.y;
+                            bool alarming_height = (rect_height <= 0);
+
+                            Rectangle rectangle = new Rectangle();
+
+                            if (last_region.state == PDFRegionLocator.SegmentState.BLANKS)
                             {
-                                rectangle = new Rectangle(0, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
+                                // LHS
+                                {
+                                    rectangle = new Rectangle(0, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
+                                }
+                                // RHS
+                                {
+                                    rectangle = new Rectangle(bitmap.Width / 2, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
+                                }
                             }
-                            // RHS
+                            else if (last_region.state == PDFRegionLocator.SegmentState.PIXELS)
                             {
-                                rectangle = new Rectangle(bitmap.Width / 2, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
+                                // Full column
+                                {
+                                    rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_WIDTH, rect_height));
+                                }
                             }
-                        }
-                        else if (last_region.state == PDFRegionLocator.SegmentState.PIXELS)
-                        {
-                            // Full column
+
+                            if (alarming_height || rectangle.Height <= 0)
                             {
-                                rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_WIDTH, rect_height));
+                                Logging.Warn("Calculated region height is negative or zero: {0} :: Calculated region {1} <-- CURRENT:{2} - LAST:{3}", rect_height, rectangle, region, last_region);
+
+                                // skip rectangle
                             }
-                        }
-
-                        if (alarming_height || rectangle.Height <= 0)
-                        {
-                            Logging.Warn("Calculated region height is negative or zero: {0} :: Calculated region {1} <-- CURRENT:{2} - LAST:{3}", rect_height, rectangle, region, last_region);
-
-                            // skip rectangle
-                        }
-                        else if (last_rectangle.X == rectangle.X && last_rectangle.Y == rectangle.Y)
-                        {
-                            Logging.Warn("Overlapping subsequent rectangles will be merged :: CURRENT:{0} - LAST:{1}", rectangle, last_rectangle);
-                            last_rectangle.Width = Math.Max(last_rectangle.Width, rectangle.Width);
-                            last_rectangle.Height = Math.Max(last_rectangle.Height, rectangle.Height);
-                            Logging.Warn("--> Updated 'last' rectangle:{0}", last_rectangle);
-                        }
-                        else
-                        {
-                            rectangles.Add(rectangle);
-                            last_rectangle = rectangle;
-                        }
-
-                        last_region = region;
-                    }
-
-                    // DEBUG CODE: Draw in the region rectangles
-                    //
-                    // When we run in NOKILL mode, we "know" we're running in a debugger or stand-alone environment
-                    // intended for testing this code. Hence we should dump the regions image as part of the process.
-                    if (no_kill)
-                    {
-                        string bitmap_diag_path = pdf_filename + @"." + page_number + @"-ocr.png";
-
-                        Logging.Info("Dumping regions-augmented page {0} PNG image to file {1}", page_number, bitmap_diag_path);
-                        Graphics g = Graphics.FromImage(bitmap);
-                        foreach (Rectangle rectangle in rectangles)
-                        {
-                            if (rectangle.Width <= MIN_WIDTH && rectangle.Height > MIN_WIDTH)
+                            else if (last_rectangle.X == rectangle.X && last_rectangle.Y == rectangle.Y)
                             {
-                                DrawRectangleOutline(g, Pens.Purple, rectangle);
-                            }
-                            else if (rectangle.Width > MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
-                            {
-                                DrawRectangleOutline(g, Pens.PowderBlue, rectangle);
-                            }
-                            else if (rectangle.Width <= MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
-                            {
-                                DrawRectangleOutline(g, Pens.Red, rectangle);
+                                Logging.Warn("Overlapping subsequent rectangles will be merged :: CURRENT:{0} - LAST:{1}", rectangle, last_rectangle);
+                                last_rectangle.Width = Math.Max(last_rectangle.Width, rectangle.Width);
+                                last_rectangle.Height = Math.Max(last_rectangle.Height, rectangle.Height);
+                                Logging.Warn("--> Updated 'last' rectangle:{0}", last_rectangle);
                             }
                             else
                             {
-                                DrawRectangleOutline(g, Pens.LawnGreen, rectangle);
+                                rectangles.Add(rectangle);
+                                last_rectangle = rectangle;
                             }
+
+                            last_region = region;
                         }
 
-                        bitmap.Save(bitmap_diag_path, ImageFormat.Png);
-                    }
-
-                    // Do the OCR on each of the rectangles
-                    WordList word_list = new WordList();
-                    foreach (Rectangle rectangle in rectangles)
-                    {
-                        if (0 == rectangle.Width || 0 == rectangle.Height)
+                        // DEBUG CODE: Draw in the region rectangles
+                        //
+                        // When we run in NOKILL mode, we "know" we're running in a debugger or stand-alone environment
+                        // intended for testing this code. Hence we should dump the regions image as part of the process.
+                        if (no_kill)
                         {
-                            Logging.Info("Skipping zero extent rectangle {0}", rectangle.ToString());
-                            continue;
+                            string bitmap_diag_path = pdf_filename + @"." + page_number + @"-ocr.png";
+
+                            Logging.Info("Dumping regions-augmented page {0} PNG image to file {1}", page_number, bitmap_diag_path);
+                            Graphics g = Graphics.FromImage(bitmap);
+                            foreach (Rectangle rectangle in rectangles)
+                            {
+                                if (rectangle.Width <= MIN_WIDTH && rectangle.Height > MIN_WIDTH)
+                                {
+                                    DrawRectangleOutline(g, Pens.Purple, rectangle);
+                                }
+                                else if (rectangle.Width > MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
+                                {
+                                    DrawRectangleOutline(g, Pens.PowderBlue, rectangle);
+                                }
+                                else if (rectangle.Width <= MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
+                                {
+                                    DrawRectangleOutline(g, Pens.Red, rectangle);
+                                }
+                                else
+                                {
+                                    DrawRectangleOutline(g, Pens.LawnGreen, rectangle);
+                                }
+                            }
+
+                            bitmap.Save(bitmap_diag_path, ImageFormat.Png);
                         }
 
-                        Logging.Info("Doing OCR for region {0} on bitmap WxH: {1}x{2}", rectangle.ToString(), bitmap.Width, bitmap.Height);
-                        List<Word> result = ocr.DoOCR(bitmap, rectangle);
-                        Logging.Info("Got {0} words", result.Count);
-                        word_list.AddRange(ConvertToWordList(result, rectangle, bitmap));
-                    }
+                        // Do the OCR on each of the rectangles
+                        WordList word_list = new WordList();
+                        foreach (Rectangle rectangle in rectangles)
+                        {
+                            if (0 == rectangle.Width || 0 == rectangle.Height)
+                            {
+                                Logging.Info("Skipping zero extent rectangle {0}", rectangle.ToString());
+                                continue;
+                            }
 
-                    Logging.Info("-Doing OCR");
+                            Logging.Info("Doing OCR for region {0} on bitmap WxH: {1}x{2}", rectangle.ToString(), bitmap.Width, bitmap.Height);
+                            List<Word> result = ocr.DoOCR(bitmap, rectangle);
+                            Logging.Info("Got {0} words", result.Count);
+                            word_list.AddRange(ConvertToWordList(result, rectangle, bitmap));
+                        }
+
+                        Logging.Info("-Doing OCR");
 
 
-                    Logging.Info("Found {0} words ({1} @ #{2})", word_list.Count, pdf_filename, page_number);
+                        Logging.Info("Found {0} words ({1} @ #{2})", word_list.Count, pdf_filename, page_number);
 
 #if false
-                    Logging.Info("+Reordering words for columns");
-                    WordList word_list_ordered = ColumnWordOrderer.ReorderWords(word_list);
-		            Logging.Info("-Reordering words for columns");
-		            word_list_ordered.WriteToFile(ocr_output_filename);
+                        Logging.Info("+Reordering words for columns");
+                        WordList word_list_ordered = ColumnWordOrderer.ReorderWords(word_list);
+		                Logging.Info("-Reordering words for columns");
+		                word_list_ordered.WriteToFile(ocr_output_filename);
 #endif
 
-                    return word_list;
+                        return word_list;
+                    }
                 }
             }
         }

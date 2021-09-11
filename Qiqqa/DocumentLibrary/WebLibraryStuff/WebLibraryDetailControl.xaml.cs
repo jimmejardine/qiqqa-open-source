@@ -582,6 +582,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         try
                         {
                             var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
+                            ASSERT.Test(img.IsFrozen);
                             ddw.page_bitmap_source = img;
 
                             UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
@@ -613,6 +614,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                             try
                             {
                                 var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_2);
+                                ASSERT.Test(img.IsFrozen);
                                 ddw.page_bitmap_source = img;
 
                                 UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
@@ -650,65 +652,68 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                             {
                                                 using (MemoryStream ms = new MemoryStream(ddw.pdf_document.GetPageByHeightAsImage(1, (int)Math.Round(PREVIEW_IMAGE_HEIGHT / PREVIEW_IMAGE_PERCENTAGE), (int)Math.Round(PREVIEW_IMAGE_WIDTH / PREVIEW_IMAGE_PERCENTAGE))))
                                                 {
-                                                    Bitmap page_bitmap = (Bitmap)System.Drawing.Image.FromStream(ms);
-                                                    page_bitmap = page_bitmap.Clone(new RectangleF { Width = page_bitmap.Width, Height = (int)Math.Round(page_bitmap.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap.PixelFormat);
-
-                                                    using (Graphics g = Graphics.FromImage(page_bitmap))
+                                                    using (Bitmap page_bitmap_ms = (Bitmap)System.Drawing.Image.FromStream(ms))
                                                     {
-                                                        int CENTER = 60;
-                                                        int RADIUS = 60;
-
+                                                        using (Bitmap page_bitmap = page_bitmap_ms.Clone(new RectangleF { Width = page_bitmap_ms.Width, Height = (int)Math.Round(page_bitmap_ms.Height * PREVIEW_IMAGE_PERCENTAGE) }, page_bitmap_ms.PixelFormat))
                                                         {
-                                                            BitmapImage starburst_bi = null;
-                                                            switch (ddw.starburst_color)
+                                                            using (Graphics g = Graphics.FromImage(page_bitmap))
                                                             {
-                                                                case DocumentDisplayWork.StarburstColor.Blue:
-                                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
-                                                                    break;
-                                                                case DocumentDisplayWork.StarburstColor.Green:
-                                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
-                                                                    break;
-                                                                case DocumentDisplayWork.StarburstColor.Pink:
-                                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
-                                                                    break;
-                                                                default:
-                                                                    starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
-                                                                    break;
+                                                                int CENTER = 60;
+                                                                int RADIUS = 60;
+
+                                                                {
+                                                                    BitmapImage starburst_bi = null;
+                                                                    switch (ddw.starburst_color)
+                                                                    {
+                                                                        case DocumentDisplayWork.StarburstColor.Blue:
+                                                                            starburst_bi = Icons.GetAppIcon(Icons.PageCornerBlue);
+                                                                            break;
+                                                                        case DocumentDisplayWork.StarburstColor.Green:
+                                                                            starburst_bi = Icons.GetAppIcon(Icons.PageCornerGreen);
+                                                                            break;
+                                                                        case DocumentDisplayWork.StarburstColor.Pink:
+                                                                            starburst_bi = Icons.GetAppIcon(Icons.PageCornerPink);
+                                                                            break;
+                                                                        default:
+                                                                            starburst_bi = Icons.GetAppIcon(Icons.PageCornerOrange);
+                                                                            break;
+                                                                    }
+
+                                                                    using (Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi))
+                                                                    {
+                                                                        g.SmoothingMode = SmoothingMode.AntiAlias;
+                                                                        g.DrawImage(
+                                                                            starburst_image,
+                                                                            new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
+                                                                            0,
+                                                                            0,
+                                                                            starburst_image.Width,
+                                                                            starburst_image.Height,
+                                                                            GraphicsUnit.Pixel,
+                                                                            image_attributes
+                                                                        );
+                                                                    }
+                                                                }
+
+                                                                using (Matrix mat = new Matrix())
+                                                                {
+                                                                    mat.RotateAt(-50, new PointF(CENTER / 2, CENTER / 2));
+                                                                    g.Transform = mat;
+
+                                                                    string wrapped_caption = ddw.starburst_caption;
+                                                                    wrapped_caption = wrapped_caption.ToLower();
+                                                                    wrapped_caption = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(wrapped_caption);
+                                                                    wrapped_caption = wrapped_caption.Replace(" ", "\n");
+                                                                    g.DrawString(wrapped_caption, font, Brushes.Black, new PointF(CENTER / 2, CENTER / 2), string_format);
+                                                                }
                                                             }
 
-                                                            using (Bitmap starburst_image = BitmapImageTools.ConvertBitmapSourceToBitmap(starburst_bi))
-                                                            {
-                                                                g.SmoothingMode = SmoothingMode.AntiAlias;
-                                                                g.DrawImage(
-                                                                    starburst_image,
-                                                                    new Rectangle(CENTER - RADIUS, CENTER - RADIUS, 2 * RADIUS, 2 * RADIUS),
-                                                                    0,
-                                                                    0,
-                                                                    starburst_image.Width,
-                                                                    starburst_image.Height,
-                                                                    GraphicsUnit.Pixel,
-                                                                    image_attributes
-                                                                );
-                                                            }
-                                                        }
+                                                            BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
+                                                            ASSERT.Test(page_bitmap_source.IsFrozen);
 
-                                                        using (Matrix mat = new Matrix())
-                                                        {
-                                                            mat.RotateAt(-50, new PointF(CENTER / 2, CENTER / 2));
-                                                            g.Transform = mat;
-
-                                                            string wrapped_caption = ddw.starburst_caption;
-                                                            wrapped_caption = wrapped_caption.ToLower();
-                                                            wrapped_caption = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(wrapped_caption);
-                                                            wrapped_caption = wrapped_caption.Replace(" ", "\n");
-                                                            g.DrawString(wrapped_caption, font, Brushes.Black, new PointF(CENTER / 2, CENTER / 2), string_format);
+                                                            ddw.page_bitmap_source = page_bitmap_source;
                                                         }
                                                     }
-
-                                                    BitmapSource page_bitmap_source = BitmapImageTools.CreateBitmapSourceFromImage(page_bitmap);
-                                                    ASSERT.Test(page_bitmap_source.IsFrozen);
-
-                                                    ddw.page_bitmap_source = page_bitmap_source;
                                                 }
 
 #if false  // do this bit further below, all at once for all entries, in the UI thread!
@@ -801,6 +806,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 border.Child = image;
                 border.Visibility = Visibility.Collapsed;
 
+                ASSERT.Test(image.Source == null);
                 ddw.image = image;
                 ddw.border = border;
 
@@ -821,6 +827,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 ddw.image.Source = ddw.page_bitmap_source ?? Backgrounds.GetBackground(Backgrounds.PageRenderingFailed_Relax);
                 ddw.image.Stretch = Stretch.Uniform;
+                ASSERT.Test(ddw.image.Source.IsFrozen);
 
                 ddw.border.Visibility = Visibility.Visible;
             }

@@ -28,8 +28,10 @@ namespace Utilities.Images
 
         public static Bitmap CropImageRegion(Image image, double left, double top, double width, double height)
         {
-            Bitmap bitmap = new Bitmap(image);
-            return CropBitmapRegion(bitmap, left, top, width, height);
+            using (Bitmap bitmap = new Bitmap(image))
+            {
+                return CropBitmapRegion(bitmap, left, top, width, height);
+            }
         }
 
         public static Bitmap CropBitmapRegion(Bitmap bitmap, double left, double top, double width, double height)
@@ -50,16 +52,20 @@ namespace Utilities.Images
 
         public static Bitmap LoadImageRegion(string filename, double left, double top, double width, double height)
         {
-            Bitmap bitmap = (Bitmap)Image.FromFile(filename);
-            Rectangle rectangle = new Rectangle((int)(bitmap.Width * left), (int)(bitmap.Height * top), (int)(bitmap.Width * width), (int)(bitmap.Height * height));
-            return bitmap.Clone(rectangle, bitmap.PixelFormat);
+            using (Bitmap bitmap = (Bitmap)Image.FromFile(filename))
+            {
+                Rectangle rectangle = new Rectangle((int)(bitmap.Width * left), (int)(bitmap.Height * top), (int)(bitmap.Width * width), (int)(bitmap.Height * height));
+                return bitmap.Clone(rectangle, bitmap.PixelFormat);
+            }
         }
 
         [Obsolete("Use the byte[] version directly", true)]
         public static BitmapSource LoadBitmapImageRegion(string filename, double left, double top, double width, double height)
         {
-            Image image = LoadImageRegion(filename, left, top, width, height);
-            return FromImage(image);
+            using (Image image = LoadImageRegion(filename, left, top, width, height))
+            {
+                return FromImage(image);
+            }
         }
 
         public static BitmapSource LoadFromFile(string filename)
