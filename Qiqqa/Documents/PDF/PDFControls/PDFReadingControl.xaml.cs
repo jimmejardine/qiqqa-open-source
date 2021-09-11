@@ -682,10 +682,21 @@ namespace Qiqqa.Documents.PDF.PDFControls
             if (null == jtsp)
             {
                 Logging.Info("Building popup for first time");
-                jtsp = new JumpToSectionPopup(this);
-            }
+                jtsp = new JumpToSectionPopup();
 
-            jtsp.Open();
+                SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+                {
+                    Logging.Info("Exec-in-background: Building popup for first time");
+
+                    jtsp.BuildSectionList(this);
+
+                    jtsp.Open();
+                });
+            }
+            else
+            {
+                jtsp.Open();
+            }
         }
 
         private void ButtonAnnotation_Click(object sender, RoutedEventArgs e)
