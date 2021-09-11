@@ -14,12 +14,12 @@ using Utilities.OCR;
 using Utilities.PDF.Sorax;
 #else
 using Utilities.PDF.MuPDF;
+using static QiqqaOCR.PDFRegionLocator;
 #endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 using Word = tessnet2.Word;
-
 
 namespace QiqqaOCR
 {
@@ -272,13 +272,14 @@ namespace QiqqaOCR
                         Logging.Info("+Doing OCR");
 
                         const int MIN_WIDTH = 0;
+                        const int MIN_HEIGHT = 0;
 
                         // Build a list of all the rectangles to process
-                        PDFRegionLocator pdf_region_locator = new PDFRegionLocator(bitmap);
-                        PDFRegionLocator.Region last_region = pdf_region_locator.regions[0];
+                        List<OCRRegion> regions = PDFRegionLocator.GetRegions(bitmap);
+                        OCRRegion last_region = regions[0];
                         List<Rectangle> rectangles = new List<Rectangle>();
                         Rectangle last_rectangle = new Rectangle();
-                        foreach (PDFRegionLocator.Region region in pdf_region_locator.regions)
+                        foreach (OCRRegion region in regions)
                         {
                             int rect_height = region.y - last_region.y;
                             bool alarming_height = (rect_height <= 0);
@@ -287,21 +288,12 @@ namespace QiqqaOCR
 
                             if (last_region.state == PDFRegionLocator.SegmentState.BLANKS)
                             {
-                                // LHS
-                                {
-                                    rectangle = new Rectangle(0, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
-                                }
-                                // RHS
-                                {
-                                    rectangle = new Rectangle(bitmap.Width / 2, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
-                                }
+                                rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_HEIGHT, rect_height));
                             }
                             else if (last_region.state == PDFRegionLocator.SegmentState.PIXELS)
                             {
                                 // Full column
-                                {
-                                    rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_WIDTH, rect_height));
-                                }
+                                rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_HEIGHT, rect_height));
                             }
 
                             if (alarming_height || rectangle.Height <= 0)
@@ -338,15 +330,15 @@ namespace QiqqaOCR
                             Graphics g = Graphics.FromImage(bitmap);
                             foreach (Rectangle rectangle in rectangles)
                             {
-                                if (rectangle.Width <= MIN_WIDTH && rectangle.Height > MIN_WIDTH)
+                                if (rectangle.Width <= MIN_WIDTH && rectangle.Height > MIN_HEIGHT)
                                 {
                                     DrawRectangleOutline(g, Pens.Purple, rectangle);
                                 }
-                                else if (rectangle.Width > MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
+                                else if (rectangle.Width > MIN_WIDTH && rectangle.Height <= MIN_HEIGHT)
                                 {
                                     DrawRectangleOutline(g, Pens.PowderBlue, rectangle);
                                 }
-                                else if (rectangle.Width <= MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
+                                else if (rectangle.Width <= MIN_WIDTH && rectangle.Height <= MIN_HEIGHT)
                                 {
                                     DrawRectangleOutline(g, Pens.Red, rectangle);
                                 }

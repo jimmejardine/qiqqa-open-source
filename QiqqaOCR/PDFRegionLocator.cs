@@ -15,7 +15,7 @@ namespace QiqqaOCR
             BOTTOM
         }
 
-        public class Region
+        public class OCRRegion
         {
             public int y;
             public SegmentState state;
@@ -26,24 +26,18 @@ namespace QiqqaOCR
             }
         }
 
-
-        public List<Region> regions;
-        public int width_x;
-
-        public PDFRegionLocator(Bitmap bitmap)
+        private PDFRegionLocator()
         {
-            GetRegions(bitmap, out regions, out width_x);
         }
 
 #if INCLUDE_UNUSED
-        private static void GetRegions_FULLPAGE(Bitmap bitmap, out List<Region> regions, out int width_x)
+        private static void GetRegions_FULLPAGE(Bitmap bitmap, out List<OCRRegion> regions)
         {
             Logging.Info("Height is {0}", bitmap.Height);
-            regions = new List<Region>();
+            regions = new List<OCRRegion>();
             regions.Add(new Region { y = 0, state = SegmentState.TOP });
             regions.Add(new Region { y = 0, state = SegmentState.PIXELS });
             regions.Add(new Region { y = bitmap.Height, state = SegmentState.BOTTOM });
-            width_x = 0;
         }
 #endif
 
@@ -101,11 +95,11 @@ namespace QiqqaOCR
             return (color.R <= THRESHOLD || color.G <= THRESHOLD || color.B <= THRESHOLD);
         }
 
-        private static void GetRegions(Bitmap bitmap, out List<Region> regions, out int width_x)
+        public static List<OCRRegion> GetRegions(Bitmap bitmap)
         {
             Logging.Info("Getting regions");
 
-            width_x = bitmap.Width * 10 / 4 / 210;
+            int width_x = bitmap.Width * 10 / 4 / 210;
 
             int mid_x = bitmap.Width / 2;
             int[] y_counts = new int[bitmap.Height];
@@ -126,8 +120,8 @@ namespace QiqqaOCR
                 }
             }
 
-            regions = new List<Region>();
-            regions.Add(new Region { y = 0, state = SegmentState.TOP });
+            List<OCRRegion> regions = new List<OCRRegion>();
+            regions.Add(new OCRRegion { y = 0, state = SegmentState.TOP });
 
             // Now break them into segments
             SegmentState state = SegmentState.TOP;
@@ -136,19 +130,19 @@ namespace QiqqaOCR
                 if (0 == y_counts[y] && SegmentState.BLANKS != state)
                 {
                     state = SegmentState.BLANKS;
-                    regions.Add(new Region { y = y, state = state });
+                    regions.Add(new OCRRegion { y = y, state = state });
                     continue;
                 }
                 if (0 != y_counts[y] && SegmentState.PIXELS != state)
                 {
                     state = SegmentState.PIXELS;
-                    regions.Add(new Region { y = y, state = state });
+                    regions.Add(new OCRRegion { y = y, state = state });
                     continue;
                 }
             }
 
             // Add the bottom region
-            regions.Add(new Region { y = bitmap.Height, state = SegmentState.BOTTOM });
+            regions.Add(new OCRRegion { y = bitmap.Height, state = SegmentState.BOTTOM });
 
             // Get rid of any blank segments that are too small
             if (true)
@@ -190,12 +184,14 @@ namespace QiqqaOCR
             if (regions.Count > 30)
             {
                 regions.Clear();
-                regions.Add(new Region { y = 0, state = SegmentState.TOP });
-                regions.Add(new Region { y = 0, state = SegmentState.PIXELS });
-                regions.Add(new Region { y = bitmap.Height, state = SegmentState.BOTTOM });
+                regions.Add(new OCRRegion { y = 0, state = SegmentState.TOP });
+                regions.Add(new OCRRegion { y = 0, state = SegmentState.PIXELS });
+                regions.Add(new OCRRegion { y = bitmap.Height, state = SegmentState.BOTTOM });
             }
 
             Logging.Info("Got {0} regions", regions.Count);
+
+            return regions;
         }
     }
 }
