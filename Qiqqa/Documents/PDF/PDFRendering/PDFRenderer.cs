@@ -144,20 +144,19 @@ namespace Qiqqa.Documents.PDF
                         if (File.Exists(filename))
                         {
                             Dictionary<int, WordList> word_lists = WordList.ReadFromFile(filename);
+
+                            // cache these word lists for later queries:
                             foreach (var pair in word_lists)
                             {
                                 texts[pair.Key] = new TypedWeakReference<WordList>(pair.Value);
                             }
 
-                            TypedWeakReference<WordList> word_list_weak;
-                            texts.TryGetValue(page, out word_list_weak);
-                            if (null != word_list_weak)
+                            // now see if we've got a slot for the requested page:
+                            WordList word_list;
+                            word_lists.TryGetValue(page, out word_list);
+                            if (null != word_list)
                             {
-                                WordList word_list = word_list_weak.TypedTarget;
-                                if (null != word_list)
-                                {
-                                    return word_list;
-                                }
+                                return word_list;
                             }
                         }
                     }
