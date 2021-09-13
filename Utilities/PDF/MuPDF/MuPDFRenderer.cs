@@ -1164,6 +1164,7 @@ namespace Utilities.PDF.MuPDF
             HashSet<int> processed_pages = new HashSet<int>();
             bool ignore_repeated_page_content = false;
             bool metrics_for_this_line_have_been_collected = false;
+            bool must_word_break_immediately = false;
             int previous_page = -1;
 
             for (int index = 0, len = text_chunks_original.Count; index < len; index++)
@@ -1171,11 +1172,6 @@ namespace Utilities.PDF.MuPDF
                 TextChunk text_chunk = text_chunks_original[index];
 
                 ASSERT.Test(prev_text_chunk != text_chunk);
-
-                if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
-                {
-                    Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
-                }
 
                 // If it's a space
                 if (String.IsNullOrWhiteSpace(text_chunk.text))
@@ -1190,6 +1186,40 @@ namespace Utilities.PDF.MuPDF
                     // it a separator nevertheless.
 
                     current_text_chunk = null;
+                    continue;
+                }
+
+                if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                {
+                    Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
+
+                    previous_page = text_chunk.page;
+
+                    current_text_chunk = null;
+                    prev_text_chunk = null;
+
+                    metrics_for_this_line_have_been_collected = false;
+                    must_word_break_immediately = true;
+                    if (DEBUG)
+                    {
+                        text_chunk.post_diagnostic += "(*BAD-BBOX*)";
+                    }
+
+                    text_chunks.Add(text_chunk);
+                    continue;
+                }
+                if (must_word_break_immediately)
+                {
+                    must_word_break_immediately = false;
+
+                    current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
+                    kerning_heuristics.Reset(text_chunk);
+                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                    metrics_for_this_line_have_been_collected = true;
+
+                    text_chunks.Add(text_chunk);
                     continue;
                 }
 
@@ -1406,13 +1436,10 @@ namespace Utilities.PDF.MuPDF
                     double d1 = (text_chunk.y0 - current_text_chunk.y1) / line_height;
                     double d2 = (text_chunk.y1 - current_text_chunk.y0) / line_height;
 
-                    if (true)
-                    {
-                        Logging.Warn($"Unexpected GAP ({ current_letter_gap }) between characters in the line. node: { text_chunk } vs. WORD chunk: { current_text_chunk }, offset={ gap_offset }, estimated space width={ estimated_space_width }, chkval={ chkval }, gap_compare_value={ overdoing_it }; vertical movement perunages: DOWN={ d1 }, UP={ d2 }");
-                    }
-
                     if (DEBUG)
                     {
+                        Logging.Warn($"Unexpected GAP ({ current_letter_gap }) between characters in the line. node: { text_chunk } vs. WORD chunk: { current_text_chunk }, offset={ gap_offset }, estimated space width={ estimated_space_width }, chkval={ chkval }, gap_compare_value={ overdoing_it }; vertical movement perunages: DOWN={ d1 }, UP={ d2 }");
+
                         current_text_chunk.post_diagnostic += String.Format("(*UNEXPECTED.GAP:{0:0.0000} >= {1:0.0000} @ GAP:{2:0.0000},OFFSET:{3:0.0000},SPACE:{4:0.0000}*)", -chkval, -overdoing_it, -current_letter_gap, -gap_offset, estimated_space_width);
                     }
 
