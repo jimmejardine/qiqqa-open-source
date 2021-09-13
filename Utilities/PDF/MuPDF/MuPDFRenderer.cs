@@ -16,7 +16,7 @@ using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-
+using Utilities.Misc;
 
 namespace Utilities.PDF.MuPDF
 {
@@ -702,6 +702,7 @@ namespace Utilities.PDF.MuPDF
         public class TextChunk
         {
             public string text;
+            public string post_diagnostic;
             public string font_name;
             public double font_size;
             public int page;
@@ -710,7 +711,7 @@ namespace Utilities.PDF.MuPDF
 
             public override string ToString()
             {
-                return String.Format("{0} p{5}{6} {1:.0000},{2:.0000} {3:.0000},{4:.0000} ", text, x0, y0, x1, y1, page, pageStart ? "!" : "");
+                return String.Format($"{{0}} {post_diagnostic} p{page}{(pageStart ? "!" : "")} {{1:.0000}},{{2:.0000}} {{3:.0000}},{{4:.0000}} ", text, x0, y0, x1, y1);
             }
         }
 
@@ -896,13 +897,25 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
+        // Heuristic: multiple reams of text (lines of text) can *slightly* overlap/intersect
+        // when the layout is bunched vertically. To account for this possibility we set the
+        // maximum overlap perunage which still makes us decide the investigated text is on 
+        // a NEW line, rather than the current one.
+        //
+        // (The height perunage is taken relative to the currently tracked word node's height.)
+        const double MAX_LINE_VERTICAL_OVERLAP_PERUNAGE = 0.1;   // 10%
+
+        const double HEURISTIC_SPACE_WIDTH_FACTOR = 1.0;
+
+
         internal class KerningHeuristics
         {
-            public TextChunk current_font_and_size;
-            public StringBuilder char_width_scratch_str;
-            public double char_width_scratch_cumulative_width;
-            public double char_cumulative_overlap;
-            public int char_cumulative_overlap_count;
+            private TextChunk current_font_and_size;
+            private StringBuilder char_width_scratch_str;
+            private double char_width_scratch_cumulative_width;
+            private double char_cumulative_overlap;
+            private double line_height;
+            private int char_cumulative_overlap_count;
 
             public KerningHeuristics()
             {
@@ -911,15 +924,17 @@ namespace Utilities.PDF.MuPDF
                 char_width_scratch_cumulative_width = 0;
                 char_cumulative_overlap = 0;
                 char_cumulative_overlap_count = 0;
+                line_height = 0;
             }
 
-            public void Reset(TextChunk mark = null)
+            public void Reset(TextChunk mark)
             {
                 current_font_and_size = mark;
                 char_width_scratch_str = new StringBuilder();
                 char_width_scratch_cumulative_width = 0;
                 char_cumulative_overlap = 0;
                 char_cumulative_overlap_count = 0;
+                line_height = 0;
             }
 
             public bool IsFontChange(TextChunk mark)
@@ -948,21 +963,177 @@ namespace Utilities.PDF.MuPDF
 
             public double CalcMinimumSpaceWidthEstimate(TextChunk word, TextChunk next)
             {
-                const double HEURISTIC_SPACE_WIDTH_FACTOR = 1.0;
-
                 int scratch_cumulative_string_length = char_width_scratch_str.ToString().Length;
                 int current_text_length = word.text.Length;
-                int next_text_length = word.text.Length;
-                double average_letter_width1 = (word.x1 - word.x0) / current_text_length;
-                double average_letter_width3 = (next.x1 - next.x0) / next_text_length;
-                double average_letter_width2 = char_width_scratch_cumulative_width / scratch_cumulative_string_length;
+                int next_text_length = next.text.Length;
+                double average_letter_width1 = char_width_scratch_cumulative_width;
+                double average_letter_width2 = (word.x1 - word.x0);
+                double average_letter_width3 = (next.x1 - next.x0);
                 // Heuristic: longest text ream dominates the space character width estimate: weigh both values based on their
                 // merit (= string length):
-                double average_letter_width = (average_letter_width1 * current_text_length + average_letter_width3 * next_text_length + average_letter_width2 * scratch_cumulative_string_length) / (current_text_length + next_text_length + scratch_cumulative_string_length);
+                double total_length = current_text_length + next_text_length + scratch_cumulative_string_length;
+                double average_letter_width = total_length == 0 ? 0 : (average_letter_width1 + average_letter_width2 + average_letter_width3) / total_length;
                 // ... and adjust by the heuristic factor: spaces can be quite a bit smaller than your average x-width
                 // when the text on the line has been tightened up!
                 average_letter_width *= HEURISTIC_SPACE_WIDTH_FACTOR;
                 return average_letter_width;
+            }
+
+            public double CalcYLineMargin()
+            {
+                return line_height * MAX_LINE_VERTICAL_OVERLAP_PERUNAGE;
+            }
+
+            public double CalcLineHeight()
+            {
+                return line_height;
+            }
+
+            public double CalcRoughCharWidth(TextChunk next)
+            {
+                int scratch_cumulative_string_length = char_width_scratch_str.ToString().Length;
+                int next_text_length = next.text.Length;
+                double average_letter_width1 = char_width_scratch_cumulative_width;
+                double average_letter_width2 = (next.x1 - next.x0);
+                // Heuristic: longest text ream dominates the space character width estimate: weigh both values based on their
+                // merit (= string length):
+                double total_length = next_text_length + scratch_cumulative_string_length;
+                double average_letter_width = total_length == 0 ? 0 : (average_letter_width1 + average_letter_width2) / total_length;
+                return average_letter_width;
+            }
+
+            public void LookAheadAndGatherMetricsForThisLineOfText(List<TextChunk> text_chunks_original, int currentIndex, TextChunk sol_marker)
+            {
+                TextChunk prev_text_chunk = null;
+
+                if (sol_marker == null)
+                {
+                    sol_marker = text_chunks_original[currentIndex];
+                }
+
+                line_height = Math.Abs(sol_marker.y1 - sol_marker.y0);
+
+                for (int index = currentIndex, len = text_chunks_original.Count; index < len; index++)
+                {
+                    TextChunk text_chunk = text_chunks_original[index];
+
+                    ASSERT.Test(prev_text_chunk != text_chunk);
+
+                    line_height = Math.Max(line_height, Math.Abs(sol_marker.y1 - sol_marker.y0));
+                    double y_margin = CalcYLineMargin();
+
+                    if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                    {
+                        // Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
+                        return;
+                    }
+
+                    // If it's a space
+                    if (String.IsNullOrWhiteSpace(text_chunk.text))
+                    {
+                        continue;
+                    }
+
+                        // stop at font changes: there the metrics will change significantly anyway!
+                        if (IsFontChange(text_chunk))
+                        {
+                            return;
+                        }
+
+                    if (index != currentIndex)
+                    {
+                        // If it's on a different page (or an inadvertent *re-extract* of the same page)...
+                        if (text_chunk.page != sol_marker.page || text_chunk.pageStart)
+                        {
+                            return;
+                        }
+                    }
+
+                    // If its substantially below the current chunk: *most probably* a new line of content
+                    if (text_chunk.y0 >= sol_marker.y1 - y_margin)
+                    {
+                        return;
+                    }
+
+                    // If its substantially above the current chunk:
+                    // that's odd! superscript is ruled out as it's *entirely above* the current text.
+                    if (text_chunk.y1 <= sol_marker.y0 + y_margin)
+                    {
+                        return;
+                    }
+
+                    if (prev_text_chunk != null)
+                    {
+                        double d1 = (text_chunk.y0 - prev_text_chunk.y1) / line_height;
+                        double d2 = (text_chunk.y1 - prev_text_chunk.y0) / line_height;
+                        double ya = (text_chunk.y1 + text_chunk.y0) / 2;
+                        double xa = (text_chunk.x1 + text_chunk.x0) / 2;
+                        double xb = (prev_text_chunk.x1 + prev_text_chunk.x0) / 2;
+                        double yb = (prev_text_chunk.y1 + prev_text_chunk.y0) / 2;
+                        double distance2 = (xa - xb) * (xa - xb) + (ya - yb) * (ya - yb);
+
+                        double average_letter_width_rough = CalcRoughCharWidth(text_chunk);
+                        double distance2_ref = 2 * 2 * average_letter_width_rough * average_letter_width_rough;
+
+                        // when we're quite a distance away from our predecessor and we're not
+                        // really moving forward, then we're at the end of the line (in a pretty weird way).
+                        if (distance2 > distance2_ref && xb > xa)
+                        {
+                            return;
+                        }
+                    }
+
+                    // If it is substantially to the left of the current chunk:
+                    // The 'below this line' check above should have caught this one already, but plenty PDFs out there
+                    // have their lines bunched together so much that the bounding box of the lines of type ever-so-slightly
+                    // intersect. That's what this one will catch: a new line of text!
+                    if (text_chunk.x1 < sol_marker.x0)
+                    {
+                        return;
+                    }
+
+                    // update the cumulative character width heuristic helpers as well:
+                    CollectCharWidthData(text_chunk);
+
+                    if (prev_text_chunk != null)
+                    {
+                        double current_letter_gap = (text_chunk.x0 - prev_text_chunk.x1);  // negative gap means OVERLAP!
+
+                        double offset = CalcGapOffset();  // positive offset means OVERLAP!
+
+                        double average_letter_width_rough = CalcRoughCharWidth(text_chunk);
+                        double initial_estimate = average_letter_width_rough * HEURISTIC_SPACE_WIDTH_FACTOR / 2;
+
+                        // ignore POSITIVE outliers: those are spaces we're jumping!
+                        if (current_letter_gap <= initial_estimate)
+                        {
+                            double overdoing_it = - average_letter_width_rough / 2;
+                            if (current_letter_gap <= overdoing_it)
+                            {
+                                // ignore
+                                if (false)
+                                {
+                                    Logging.Warn($"Unexpected GAP ({ current_letter_gap }) between characters in the line. node: { text_chunk } vs. prev_text_chunk:  { prev_text_chunk }, offset={ offset }, avg.letter width={ average_letter_width_rough }, gap_compare_value={ overdoing_it }");
+                                }
+
+                                prev_text_chunk = null;
+                                
+                                continue;
+                                // 
+                                // as the 'unexpected gap' may be *anything*, we assume the end of the line here
+                                // and let the caller recover later on when they run into this node by having them
+                                // call this look-ahead function again for the remainder of the line, what-ever it may be.
+                                //return;
+                            }
+                            else
+                            {
+                                CollectCharOverlapData(-current_letter_gap);
+                            }
+                        }
+                    }
+
+                    prev_text_chunk = text_chunk;
+                }
             }
         }
 
@@ -983,6 +1154,7 @@ namespace Utilities.PDF.MuPDF
             List<TextChunk> text_chunks = new List<TextChunk>();
 
             TextChunk current_text_chunk = null;
+            TextChunk prev_text_chunk = null;
 
             KerningHeuristics kerning_heuristics = new KerningHeuristics();
 
@@ -991,11 +1163,14 @@ namespace Utilities.PDF.MuPDF
             // of that spurious scenario:
             HashSet<int> processed_pages = new HashSet<int>();
             bool ignore_repeated_page_content = false;
+            bool metrics_for_this_line_have_been_collected = false;
             int previous_page = -1;
 
             for (int index = 0, len = text_chunks_original.Count; index < len; index++)
             {
                 TextChunk text_chunk = text_chunks_original[index];
+
+                ASSERT.Test(prev_text_chunk != text_chunk);
 
                 if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
                 {
@@ -1021,11 +1196,18 @@ namespace Utilities.PDF.MuPDF
                 // are we already tracking the current font and size? if not, please do.
                 if (kerning_heuristics.IsFontChange(text_chunk))
                 {
-                    kerning_heuristics.Reset(text_chunk);
-                }
+                    previous_page = text_chunk.page;
 
-                // update the cumulative character width heuristic helpers as well:
-                kerning_heuristics.CollectCharWidthData(text_chunk);
+                    current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
+                    kerning_heuristics.Reset(text_chunk);
+                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                    metrics_for_this_line_have_been_collected = true;
+
+                    text_chunks.Add(text_chunk);
+                    continue;
+                }
 
                 // If it's on a different page (or an inadvertent *re-extract* of the same page)...
                 if (text_chunk.page != previous_page || text_chunk.pageStart)
@@ -1033,6 +1215,8 @@ namespace Utilities.PDF.MuPDF
                     if (processed_pages.Contains(text_chunk.page))
                     {
                         ignore_repeated_page_content = true;
+
+                        metrics_for_this_line_have_been_collected = false;
                     }
                     else
                     {
@@ -1044,12 +1228,15 @@ namespace Utilities.PDF.MuPDF
                             processed_pages.Add(previous_page);
                         }
 
-                        current_text_chunk = text_chunk;
-                        text_chunks.Add(text_chunk);
+                        if (DEBUG)
+                        {
+                            current_text_chunk.post_diagnostic += "(*PAGE-BREAK*)";
+                        }
+
+                        current_text_chunk = null;
+
                         previous_page = text_chunk.page;
                     }
-                    kerning_heuristics.Reset();
-                    continue;
                 }
                 if (ignore_repeated_page_content)
                 {
@@ -1060,55 +1247,184 @@ namespace Utilities.PDF.MuPDF
                 if (null == current_text_chunk)
                 {
                     current_text_chunk = text_chunk;
+                    if (prev_text_chunk == null)
+                    {
+                        prev_text_chunk = text_chunk;
+                    }
+
+                    if (!metrics_for_this_line_have_been_collected)
+                    {
+                        kerning_heuristics.Reset(text_chunk);
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
+                    }
+
                     text_chunks.Add(text_chunk);
                     continue;
                 }
 
+                double y_margin = kerning_heuristics.CalcYLineMargin();
+
                 // If its substantially below the current chunk: *most probably* a new line of content
-                if (text_chunk.y0 > current_text_chunk.y1)
+                if (text_chunk.y0 >= current_text_chunk.y1 - y_margin)
                 {
+                    if (DEBUG)
+                    {
+                        current_text_chunk.post_diagnostic += "(*NEWLINE*)";
+                    }
+
                     current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
                     kerning_heuristics.Reset(text_chunk);
+                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                    metrics_for_this_line_have_been_collected = true;
+
                     text_chunks.Add(text_chunk);
                     continue;
                 }
 
                 // If its substantially above the current chunk:
                 // that's odd! superscript is ruled out as it's *entirely above* the current text.
-                if (text_chunk.y1 < current_text_chunk.y0)
+                if (text_chunk.y1 <= current_text_chunk.y0 + y_margin)
                 {
-                    current_text_chunk = text_chunk;
+                    double line_height = kerning_heuristics.CalcLineHeight();
+                    double d2 = (text_chunk.y1 - current_text_chunk.y0) / line_height;
+
+                    Logging.Warn($"Upwards movement will be treated as word end and line end: current WORD node: { current_text_chunk }, current node { text_chunk } @ index { index }; vertical movement perunages: UP={ d2 }");
 
                     if (DEBUG)
                     {
-                        text_chunk.text = "*ABOVE*." + text_chunk.text;
+                        current_text_chunk.post_diagnostic += "(*ABOVE*)";
                     }
+
+                    current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
                     kerning_heuristics.Reset(text_chunk);
+                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                    metrics_for_this_line_have_been_collected = true;
+
                     text_chunks.Add(text_chunk);
                     continue;
                 }
 
+                if (prev_text_chunk != null)
+                {
+                    double line_height = kerning_heuristics.CalcLineHeight();
+                    double d1 = (text_chunk.y0 - prev_text_chunk.y1) / line_height;
+                    double d2 = (text_chunk.y1 - prev_text_chunk.y0) / line_height;
+                    double ya = (text_chunk.y1 + text_chunk.y0) / 2;
+                    double xa = (text_chunk.x1 + text_chunk.x0) / 2;
+                    double xb = (prev_text_chunk.x1 + prev_text_chunk.x0) / 2;
+                    double yb = (prev_text_chunk.y1 + prev_text_chunk.y0) / 2;
+                    double distance2 = (xa - xb) * (xa - xb) + (ya - yb) * (ya - yb);
+
+                    double average_letter_width_rough = kerning_heuristics.CalcRoughCharWidth(text_chunk);
+                    double distance2_ref = 2 * 2 * average_letter_width_rough * average_letter_width_rough;
+
+                    // when we're quite a distance away from our predecessor and we're not
+                    // really moving forward, then we're at the end of the line (in a pretty weird way).
+                    if (distance2 > distance2_ref && xb > xa)
+                    {
+                        Logging.Warn($"Odd movement will be treated as word end and line end: distance={ Math.Sqrt(distance2) } > char.ref.distance(x2)={ Math.Sqrt(distance2_ref) }, previous node: { prev_text_chunk }, current node { text_chunk } @ index { index }; vertical movement perunages: DOWN={ d1 }, UP={ d2 }");
+
+                        if (DEBUG)
+                        {
+                            current_text_chunk.post_diagnostic += String.Format("(*WEIRD-BREAK: DISTANCE:{0:0.0000} > {1:0.0000}, UP:{2:0.0000}, DOWN:{3:0.0000}*)", Math.Sqrt(distance2), Math.Sqrt(distance2_ref), d1, d2);
+                        }
+
+                        current_text_chunk = text_chunk;
+                        prev_text_chunk = text_chunk;
+
+                        kerning_heuristics.Reset(text_chunk);
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
+
+                        text_chunks.Add(text_chunk);
+                        continue;
+                    }
+                }
+                
                 // If it is substantially to the left of the current chunk:
                 // The 'below this line' check above should have caught this one already, but plenty PDFs out there
                 // have their lines bunched together so much that the bounding box of the lines of type ever-so-slightly
                 // intersect. That's what this one will catch: a new line of text!
-                if (text_chunk.x1 < current_text_chunk.x0)
+                if (text_chunk.x1 <= current_text_chunk.x0)
                 {
+                    if (DEBUG)
+                    {
+                        current_text_chunk.post_diagnostic += "(*JUMP-LEFT*)";
+                    }
+
                     current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
                     kerning_heuristics.Reset(text_chunk);
+                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                    metrics_for_this_line_have_been_collected = true;
+
                     text_chunks.Add(text_chunk);
                     continue;
                 }
 
-                double average_letter_width = kerning_heuristics.CalcMinimumSpaceWidthEstimate(current_text_chunk, text_chunk);
-
-                double current_letter_gap = (text_chunk.x0 - current_text_chunk.x1);
-                double gap_offset = kerning_heuristics.CalcGapOffset();
-
-                // If its more than a letter's distance across from the current word...
-                if (current_letter_gap + gap_offset > average_letter_width)
+                if (!metrics_for_this_line_have_been_collected)
                 {
+                    kerning_heuristics.Reset(text_chunk);
+                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, current_text_chunk);
+                    metrics_for_this_line_have_been_collected = true;
+                }
+
+                double estimated_space_width = kerning_heuristics.CalcMinimumSpaceWidthEstimate(current_text_chunk, text_chunk);
+
+                double current_letter_gap = (text_chunk.x0 - current_text_chunk.x1);  // negative gap means OVERLAP!
+                double gap_offset = kerning_heuristics.CalcGapOffset();  // positive offset means OVERLAP!
+
+                // If its more than a space's distance across from the current word...
+                double chkval = current_letter_gap + gap_offset;
+                if (chkval > estimated_space_width)
+                {
+                    if (DEBUG)
+                    {
+                        current_text_chunk.post_diagnostic += String.Format("(*JUMP:{0:0.0000} > {1:0.0000}*)", chkval, estimated_space_width);
+                    }
+
+                    // ... then it's another word starting now.
                     current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
+                    text_chunks.Add(text_chunk);
+                    continue;
+                }
+
+                // When the text is overdoing the OVERLAP...
+                double overdoing_it = -0.5 * estimated_space_width;
+                if (chkval <= overdoing_it)
+                {
+                    // ignore
+                    double line_height = kerning_heuristics.CalcLineHeight();
+                    double d1 = (text_chunk.y0 - current_text_chunk.y1) / line_height;
+                    double d2 = (text_chunk.y1 - current_text_chunk.y0) / line_height;
+
+                    if (true)
+                    {
+                        Logging.Warn($"Unexpected GAP ({ current_letter_gap }) between characters in the line. node: { text_chunk } vs. WORD chunk: { current_text_chunk }, offset={ gap_offset }, estimated space width={ estimated_space_width }, chkval={ chkval }, gap_compare_value={ overdoing_it }; vertical movement perunages: DOWN={ d1 }, UP={ d2 }");
+                    }
+
+                    if (DEBUG)
+                    {
+                        current_text_chunk.post_diagnostic += String.Format("(*UNEXPECTED.GAP:{0:0.0000} >= {1:0.0000} @ GAP:{2:0.0000},OFFSET:{3:0.0000},SPACE:{4:0.0000}*)", -chkval, -overdoing_it, -current_letter_gap, -gap_offset, estimated_space_width);
+                    }
+
+                    // ... then we treat it as yet another word starting now.
+                    current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
+                    // re-establish some line metrics as the 'unexpected gap' may be *anything*...
+                    kerning_heuristics.Reset(text_chunk);
+                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                    metrics_for_this_line_have_been_collected = true;
+
                     text_chunks.Add(text_chunk);
                     continue;
                 }
@@ -1124,21 +1440,24 @@ namespace Utilities.PDF.MuPDF
                 if (Char.IsLetterOrDigit(c0) && IsAnyOf(c_prev, ",;|=]})>"))
                 {
                     current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
                     text_chunks.Add(text_chunk);
                     continue;
                 }
                 if (Char.IsLetterOrDigit(c_prev) && IsAnyOf(c0, ",;|=[{(<"))
                 {
                     current_text_chunk = text_chunk;
+                    prev_text_chunk = text_chunk;
+
                     text_chunks.Add(text_chunk);
                     continue;
                 }
 
-                kerning_heuristics.CollectCharOverlapData(-current_letter_gap);
-
                 // If we get here we aggregate
                 {
-                    current_text_chunk.text = current_text_chunk.text + text_chunk.text;
+                    current_text_chunk.text += text_chunk.text;
+                    current_text_chunk.post_diagnostic += text_chunk.post_diagnostic;
                     current_text_chunk.x0 = Math.Min(current_text_chunk.x0, Math.Min(text_chunk.x0, text_chunk.x1));
                     current_text_chunk.y0 = Math.Min(current_text_chunk.y0, Math.Min(text_chunk.y0, text_chunk.y1));
                     current_text_chunk.x1 = Math.Max(current_text_chunk.x1, Math.Max(text_chunk.x0, text_chunk.x1));
@@ -1149,6 +1468,8 @@ namespace Utilities.PDF.MuPDF
                 {
                     Logging.Warn("Bad bounding box for aggregated text chunk ({0})", debug_cli_info);
                 }
+                
+                prev_text_chunk = text_chunk;
             }
 
             return text_chunks;

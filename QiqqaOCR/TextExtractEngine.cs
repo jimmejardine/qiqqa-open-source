@@ -219,6 +219,10 @@ namespace QiqqaOCR
                 // Create the new word
                 Word word = new Word();
                 word.Text = text_chunk.text;
+                if (!String.IsNullOrEmpty(text_chunk.post_diagnostic))
+                {
+                    word.Text += "\t\t\t" + text_chunk.post_diagnostic;
+                }
                 word.Confidence = 1.0;
                 word.Left = text_chunk.x0;
                 word.Top = text_chunk.y0;
