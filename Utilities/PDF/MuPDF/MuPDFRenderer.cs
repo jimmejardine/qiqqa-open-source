@@ -948,7 +948,7 @@ namespace Utilities.PDF.MuPDF
 
             public double CalcMinimumSpaceWidthEstimate(TextChunk word, TextChunk next)
             {
-                const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.5;
+                const double HEURISTIC_SPACE_WIDTH_FACTOR = 1.0;
 
                 int scratch_cumulative_string_length = char_width_scratch_str.ToString().Length;
                 int current_text_length = word.text.Length;
