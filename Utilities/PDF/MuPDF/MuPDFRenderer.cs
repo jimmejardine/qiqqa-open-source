@@ -704,14 +704,15 @@ namespace Utilities.PDF.MuPDF
             public double font_size;
             public int page;
             public double x0, y0, x1, y1;
+            public bool pageStart;
 
             public override string ToString()
             {
-                return String.Format("{0} p{5} {1:.000},{2:.000} {3:.000},{4:.000} ", text, x0, y0, x1, y1, page);
+                return String.Format("{0} p{5}{6} {1:.0000},{2:.0000} {3:.0000},{4:.0000} ", text, x0, y0, x1, y1, page, pageStart ? "!" : "");
             }
         }
 
-        public static List<TextChunk> GetEmbeddedText(string pdf_filename, string page_numbers, string password, ProcessPriorityClass priority_class)
+        public static List<TextChunk> GetEmbeddedText(string pdf_filename, string page_numbers, string password, ProcessPriorityClass priority_class, string dbg_output_file_template = null)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -743,8 +744,10 @@ namespace Utilities.PDF.MuPDF
             {
                 using (StreamReader sr_lines = new StreamReader(ms, Encoding.UTF8))
                 {
+                    StringBuilder dbgInput = new StringBuilder();
                     List<TextChunk> text_chunks = new List<TextChunk>();
 
+                    bool pageStart = true;
                     int page = 0;
                     double page_x0 = 0;
                     double page_y0 = 0;
@@ -758,6 +761,8 @@ namespace Utilities.PDF.MuPDF
                     string line;
                     while (null != (line = sr_lines.ReadLine()))
                     {
+                        dbgInput.AppendLine(line);
+
                         // Look for a character element (note that even a " can be the character in the then malformed XML)
                         {
                             Match match = Regex.Match(line, "char ucs=\"(.*)\" bbox=\"\\[(\\S*) (\\S*) (\\S*) (\\S*)\\]");
@@ -772,10 +777,24 @@ namespace Utilities.PDF.MuPDF
                                 ResolveRotation(page_rotation, ref word_x0, ref word_y0, ref word_x1, ref word_y1);
 
                                 // safety measure: discard zero-width and zero-height "words" as those only cause trouble down the line:
-                                if (word_x0 == word_x1 || word_y0 == word_y1)
+                                if (word_y0 == word_y1)
                                 {
-                                    Logging.Warn("Zero-width/height bounding box for text chunk: ignoring this 'word' @ {0}.", line);
-                                    continue;
+                                    Logging.Warn("Zero-height bounding box for text chunk: ignoring this 'word' \"{1}\" @ {0}.", line, text);
+                                        continue;
+                                }
+                                if (word_x0 == word_x1)
+                                {
+                                    // heuristic: ignore whitespace / TABs that are reported as zero-width.
+                                    // Do report the others though (and tweak them, so they get included in the output anyway).
+                                    if (!String.IsNullOrWhiteSpace(text))
+                                    {
+                                        Logging.Warn("Zero-width bounding box for text chunk: ignoring this 'word' \"{1}\" @ {0}.", line, text);
+                                        word_x1 = word_x0 + 0.00042;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
                                 }
 
                                 // Position this little grubber
@@ -784,6 +803,9 @@ namespace Utilities.PDF.MuPDF
                                 text_chunk.font_name = current_font_name;
                                 text_chunk.font_size = current_font_size;
                                 text_chunk.page = page;
+                                text_chunk.pageStart = pageStart;
+                                pageStart = false;
+
                                 text_chunk.x0 = (word_x0 - page_x0) / (page_x1 - page_x0);
                                 text_chunk.y0 = 1 - (word_y0 - page_y0) / (page_y1 - page_y0);
                                 text_chunk.x1 = (word_x1 - page_x0) / (page_x1 - page_x0);
@@ -835,6 +857,7 @@ namespace Utilities.PDF.MuPDF
                             Match match = Regex.Match(line, @"\[Page (.+) X0 (\S+) Y0 (\S+) X1 (\S+) Y1 (\S+) R (\S+)\]");
                             if (Match.Empty != match)
                             {
+                                pageStart = true;
                                 page = Convert.ToInt32(match.Groups[1].Value, Internationalization.DEFAULT_CULTURE);
                                 page_x0 = Convert.ToDouble(match.Groups[2].Value, Internationalization.DEFAULT_CULTURE);
                                 page_y0 = Convert.ToDouble(match.Groups[3].Value, Internationalization.DEFAULT_CULTURE);
@@ -847,6 +870,11 @@ namespace Utilities.PDF.MuPDF
                                 continue;
                             }
                         }
+                    }
+
+                    if (null != dbg_output_file_template)
+                    {
+                        File.WriteAllText($"{ dbg_output_file_template }.raw", dbgInput.ToString());
                     }
 
                     text_chunks = AggregateOverlappingTextChunks(text_chunks, process_parameters);
@@ -870,11 +898,87 @@ namespace Utilities.PDF.MuPDF
             List<TextChunk> text_chunks = new List<TextChunk>();
 
             TextChunk current_text_chunk = null;
+            TextChunk current_font_and_size = null;
+            StringBuilder char_width_scratch_str = null;
+            double char_width_scratch_cumulative_width = 0;
+            double char_cumulative_overlap = 0;
+            int char_cumulative_overlap_count = 0;
+
+            // When we inadvertently provide the improper command to pdfdraw, it MAY re-render a *last actual page*
+            // multiple times (instead of the non-existing requested page). These bits are here to take care
+            // of that spurious scenario:
+            HashSet<int> processed_pages = new HashSet<int>();
+            bool ignore_repeated_page_content = false;
+            int previous_page = -1;
+
             foreach (TextChunk text_chunk in text_chunks_original)
             {
                 if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
                 {
                     Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
+                }
+
+                // If it's a space
+                if (String.IsNullOrWhiteSpace(text_chunk.text))
+                {
+                    // Before we RESET the `current_text_chunk` and other trackers:
+                    // some PDFs are really nasty and deliver character widths which are *consistently* too wide,
+                    // resulting in our "is this distance a space?" heuristic check further below
+                    // failing miserably: that's why we track the average character overlap as well.
+                    //
+                    // Nothing to do there, but *here* we can detect at least if this space is immediately following
+                    // the current word-under-construction on the same line, and if it is, we should consider
+                    // it a separator nevertheless.
+
+                    current_text_chunk = null;
+                    continue;
+                }
+
+                // are we already tracking the current font and size? if not, please do.
+                if (null == current_font_and_size || 
+                    current_font_and_size.font_name != text_chunk.font_name ||
+                    current_font_and_size.font_size != text_chunk.font_size
+                   )
+                {
+                    current_font_and_size = text_chunk;
+
+                    char_width_scratch_str = new StringBuilder();
+                    char_width_scratch_cumulative_width = 0;
+                    char_cumulative_overlap = 0;
+                    char_cumulative_overlap_count = 0;
+                }
+
+                // update the cumulative character width heuristic helpers as well:
+                char_width_scratch_str.Append(text_chunk.text);
+                char_width_scratch_cumulative_width += Math.Max(0, text_chunk.x1 - text_chunk.x0);
+
+                // If it's on a different page (or an inadvertent *re-extract* of the same page)...
+                if (text_chunk.page != previous_page || text_chunk.pageStart)
+                {
+                    if (processed_pages.Contains(text_chunk.page))
+                    {
+                        ignore_repeated_page_content = true;
+                    }
+                    else
+                    {
+                        ignore_repeated_page_content = false;
+
+                        // now that we're done with that page, do register as 'completely processed':
+                        if (previous_page >= 0)
+                        {
+                            processed_pages.Add(previous_page);
+                        }
+
+                        current_text_chunk = text_chunk;
+                        text_chunks.Add(text_chunk);
+                        previous_page = text_chunk.page;
+                    }
+                    current_font_and_size = null;
+                    continue;
+                }
+                if (ignore_repeated_page_content)
+                {
+                    continue;
                 }
 
                 // If we flushed the last word
@@ -885,22 +989,7 @@ namespace Utilities.PDF.MuPDF
                     continue;
                 }
 
-                // If it's a space
-                if (0 == text_chunk.text.CompareTo(" "))
-                {
-                    current_text_chunk = null;
-                    continue;
-                }
-
-                // If it's on a different page...
-                if (text_chunk.page != current_text_chunk.page)
-                {
-                    current_text_chunk = text_chunk;
-                    text_chunks.Add(text_chunk);
-                    continue;
-                }
-
-                // If its substantially below the current chunk
+                // If its substantially below the current chunk: *most probably* a new line of content
                 if (text_chunk.y0 > current_text_chunk.y1)
                 {
                     current_text_chunk = text_chunk;
@@ -908,15 +997,20 @@ namespace Utilities.PDF.MuPDF
                     continue;
                 }
 
-                // If its substantially above the current chunk
+                // If its substantially above the current chunk:
+                // that's odd! superscript is ruled out as it's *entirely above* the current text.
                 if (text_chunk.y1 < current_text_chunk.y0)
                 {
                     current_text_chunk = text_chunk;
+                    text_chunk.text = "*ABOVE*." + text_chunk.text;
                     text_chunks.Add(text_chunk);
                     continue;
                 }
 
-                // If it is substantially to the left of the current chunk
+                // If it is substantially to the left of the current chunk:
+                // The 'below this line' check above should have caught this one already, but plenty PDFs out there
+                // have their lines bunched together so much that the bounding box of the lines of type ever-so-slightly
+                // intersect. That's what this one will catch: a new line of text!
                 if (text_chunk.x1 < current_text_chunk.x0)
                 {
                     current_text_chunk = text_chunk;
@@ -925,14 +1019,30 @@ namespace Utilities.PDF.MuPDF
                 }
 
                 // If its more than a letter's distance across from the current word
-                double average_letter_width = (current_text_chunk.x1 - current_text_chunk.x0) / current_text_chunk.text.Length;
+                const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.5;
+                int scratch_cumulative_string_length = char_width_scratch_str.ToString().Length;
+                int current_text_length = current_text_chunk.text.Length;
+                double average_letter_width1 = (current_text_chunk.x1 - current_text_chunk.x0) / current_text_length;
+                double average_letter_width2 = char_width_scratch_cumulative_width / scratch_cumulative_string_length;
+                // Heuristic: longest text ream dominates the space character width estimate: weigh both values based on their
+                // merit (= string length):
+                double average_letter_width = (average_letter_width1 * current_text_length + average_letter_width2 * scratch_cumulative_string_length) / (current_text_length + scratch_cumulative_string_length);
+                // ... and adjust by the heuristic factor: spaces can be quite a bit smaller than your average x-width
+                // when the text on the line has been tightened up!
+                average_letter_width *= HEURISTIC_SPACE_WIDTH_FACTOR;
+
                 double current_letter_gap = (text_chunk.x0 - current_text_chunk.x1);
-                if (current_letter_gap > average_letter_width)
+                double gap_offset = char_cumulative_overlap_count == 0 ? 0 : char_cumulative_overlap / char_cumulative_overlap_count;
+
+                if (current_letter_gap + gap_offset > average_letter_width)
                 {
                     current_text_chunk = text_chunk;
                     text_chunks.Add(text_chunk);
                     continue;
                 }
+
+                char_cumulative_overlap += -current_letter_gap;
+                char_cumulative_overlap_count++;
 
                 // If we get here we aggregate
                 {

@@ -81,7 +81,17 @@ namespace QiqqaOCR
                 {
                     if (null != word_lists_text_extract)
                     {
-                        Logging.Info("We have a text extract word list of length {0}", word_lists_text_extract.Count);
+                        int pageCount = word_lists_text_extract.Count;
+                        int[] wordCountPerPage = new int[Math.Max(1, pageCount)];
+
+                        int pg = 0;
+                        foreach(var el in word_lists_text_extract)
+                        {
+                            var wl = el.Value;
+                            wordCountPerPage[pg] = wl.Count;
+                        }
+
+                        Logging.Info("We have a text extract word list: page count: {0}, word count: {1}", pageCount, pageCount > 0 ? String.Join(",", wordCountPerPage) : "---");
                         break;
                     }
                 }
@@ -154,7 +164,7 @@ namespace QiqqaOCR
         {
             try
             {
-                Dictionary<int, WordList> word_lists = DoOCR(pdf_filename, page_numbers, pdf_user_password);
+                Dictionary<int, WordList> word_lists = DoOCR(pdf_filename, page_numbers, pdf_user_password, $"{ ocr_output_filename }.dbg");
                 bool word_lists_text_extract_credible = WordListCredibility.Instance.IsACredibleWordList(word_lists);
                 if (word_lists_text_extract_credible)
                 {
@@ -181,9 +191,9 @@ namespace QiqqaOCR
             }
         }
 
-        public static Dictionary<int, WordList> DoOCR(string pdf_filename, string page_numbers, string pdf_user_password)
+        public static Dictionary<int, WordList> DoOCR(string pdf_filename, string page_numbers, string pdf_user_password, string dbg_output_file_template)
         {
-            List<MuPDFRenderer.TextChunk> text_chunks = MuPDFRenderer.GetEmbeddedText(pdf_filename, page_numbers, pdf_user_password, ProcessPriorityClass.BelowNormal);
+            List<MuPDFRenderer.TextChunk> text_chunks = MuPDFRenderer.GetEmbeddedText(pdf_filename, page_numbers, pdf_user_password, ProcessPriorityClass.BelowNormal, dbg_output_file_template);
             Dictionary<int, WordList> word_lists = ConvertToWordList(text_chunks);
             return word_lists;
         }

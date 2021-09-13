@@ -43,6 +43,7 @@ namespace QiqqaOCR
             // This is used to return any errors to the OS
             int exit_code = 0;
             bool no_kill = (args.Length > 6 && 0 == args[6].ToUpper().CompareTo("NOKILL"));
+            Logging.Info("\n\n============================================== Starting QiqqaOCR ===============================================\n");
 
             try
             {
