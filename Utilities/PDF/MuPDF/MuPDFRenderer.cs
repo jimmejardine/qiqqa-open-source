@@ -896,16 +896,84 @@ namespace Utilities.PDF.MuPDF
             }
         }
 
+        internal class KerningHeuristics
+        {
+            public TextChunk current_font_and_size;
+            public StringBuilder char_width_scratch_str;
+            public double char_width_scratch_cumulative_width;
+            public double char_cumulative_overlap;
+            public int char_cumulative_overlap_count;
+
+            public KerningHeuristics()
+            {
+                current_font_and_size = null;
+                char_width_scratch_str = null;
+                char_width_scratch_cumulative_width = 0;
+                char_cumulative_overlap = 0;
+                char_cumulative_overlap_count = 0;
+            }
+
+            public void Reset(TextChunk mark = null)
+            {
+                current_font_and_size = mark;
+                char_width_scratch_str = new StringBuilder();
+                char_width_scratch_cumulative_width = 0;
+                char_cumulative_overlap = 0;
+                char_cumulative_overlap_count = 0;
+            }
+
+            public bool IsFontChange(TextChunk mark)
+            {
+                return (null == current_font_and_size ||
+                    current_font_and_size.font_name != mark.font_name ||
+                    current_font_and_size.font_size != mark.font_size);
+            }
+
+            public void CollectCharWidthData(TextChunk mark)
+            {
+                char_width_scratch_str.Append(mark.text);
+                char_width_scratch_cumulative_width += Math.Max(0, mark.x1 - mark.x0);
+            }
+
+            public void CollectCharOverlapData(double current_letter_gap)
+            {
+                char_cumulative_overlap += current_letter_gap;
+                char_cumulative_overlap_count++;
+            }
+
+            public double CalcGapOffset()
+            {
+                return char_cumulative_overlap_count == 0 ? 0 : char_cumulative_overlap / char_cumulative_overlap_count;
+            }
+
+            public double CalcMinimumSpaceWidthEstimate(TextChunk word, TextChunk next)
+            {
+                const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.5;
+
+                int scratch_cumulative_string_length = char_width_scratch_str.ToString().Length;
+                int current_text_length = word.text.Length;
+                int next_text_length = word.text.Length;
+                double average_letter_width1 = (word.x1 - word.x0) / current_text_length;
+                double average_letter_width3 = (next.x1 - next.x0) / next_text_length;
+                double average_letter_width2 = char_width_scratch_cumulative_width / scratch_cumulative_string_length;
+                // Heuristic: longest text ream dominates the space character width estimate: weigh both values based on their
+                // merit (= string length):
+                double average_letter_width = (average_letter_width1 * current_text_length + average_letter_width3 * next_text_length + average_letter_width2 * scratch_cumulative_string_length) / (current_text_length + next_text_length + scratch_cumulative_string_length);
+                // ... and adjust by the heuristic factor: spaces can be quite a bit smaller than your average x-width
+                // when the text on the line has been tightened up!
+                average_letter_width *= HEURISTIC_SPACE_WIDTH_FACTOR;
+                return average_letter_width;
+            }
+        }
+    
+
         private static List<TextChunk> AggregateOverlappingTextChunks(List<TextChunk> text_chunks_original, string debug_cli_info)
         {
             List<TextChunk> text_chunks = new List<TextChunk>();
 
             TextChunk current_text_chunk = null;
-            TextChunk current_font_and_size = null;
-            StringBuilder char_width_scratch_str = null;
-            double char_width_scratch_cumulative_width = 0;
-            double char_cumulative_overlap = 0;
-            int char_cumulative_overlap_count = 0;
+
+            KerningHeuristics kerning_heuristics = new KerningHeuristics();
 
             // When we inadvertently provide the improper command to pdfdraw, it MAY re-render a *last actual page*
             // multiple times (instead of the non-existing requested page). These bits are here to take care
@@ -914,8 +982,10 @@ namespace Utilities.PDF.MuPDF
             bool ignore_repeated_page_content = false;
             int previous_page = -1;
 
-            foreach (TextChunk text_chunk in text_chunks_original)
+            for (int index = 0, len = text_chunks_original.Count; index < len; index++)
             {
+                TextChunk text_chunk = text_chunks_original[index];
+
                 if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
                 {
                     Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
@@ -938,22 +1008,13 @@ namespace Utilities.PDF.MuPDF
                 }
 
                 // are we already tracking the current font and size? if not, please do.
-                if (null == current_font_and_size || 
-                    current_font_and_size.font_name != text_chunk.font_name ||
-                    current_font_and_size.font_size != text_chunk.font_size
-                   )
+                if (kerning_heuristics.IsFontChange(text_chunk))
                 {
-                    current_font_and_size = text_chunk;
-
-                    char_width_scratch_str = new StringBuilder();
-                    char_width_scratch_cumulative_width = 0;
-                    char_cumulative_overlap = 0;
-                    char_cumulative_overlap_count = 0;
+                    kerning_heuristics.Reset(text_chunk);
                 }
 
                 // update the cumulative character width heuristic helpers as well:
-                char_width_scratch_str.Append(text_chunk.text);
-                char_width_scratch_cumulative_width += Math.Max(0, text_chunk.x1 - text_chunk.x0);
+                kerning_heuristics.CollectCharWidthData(text_chunk);
 
                 // If it's on a different page (or an inadvertent *re-extract* of the same page)...
                 if (text_chunk.page != previous_page || text_chunk.pageStart)
@@ -976,7 +1037,7 @@ namespace Utilities.PDF.MuPDF
                         text_chunks.Add(text_chunk);
                         previous_page = text_chunk.page;
                     }
-                    current_font_and_size = null;
+                    kerning_heuristics.Reset();
                     continue;
                 }
                 if (ignore_repeated_page_content)
@@ -996,6 +1057,7 @@ namespace Utilities.PDF.MuPDF
                 if (text_chunk.y0 > current_text_chunk.y1)
                 {
                     current_text_chunk = text_chunk;
+                    kerning_heuristics.Reset(text_chunk);
                     text_chunks.Add(text_chunk);
                     continue;
                 }
@@ -1010,6 +1072,7 @@ namespace Utilities.PDF.MuPDF
                     {
                         text_chunk.text = "*ABOVE*." + text_chunk.text;
                     }
+                    kerning_heuristics.Reset(text_chunk);
                     text_chunks.Add(text_chunk);
                     continue;
                 }
@@ -1021,26 +1084,17 @@ namespace Utilities.PDF.MuPDF
                 if (text_chunk.x1 < current_text_chunk.x0)
                 {
                     current_text_chunk = text_chunk;
+                    kerning_heuristics.Reset(text_chunk);
                     text_chunks.Add(text_chunk);
                     continue;
                 }
 
-                // If its more than a letter's distance across from the current word
-                const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.5;
-                int scratch_cumulative_string_length = char_width_scratch_str.ToString().Length;
-                int current_text_length = current_text_chunk.text.Length;
-                double average_letter_width1 = (current_text_chunk.x1 - current_text_chunk.x0) / current_text_length;
-                double average_letter_width2 = char_width_scratch_cumulative_width / scratch_cumulative_string_length;
-                // Heuristic: longest text ream dominates the space character width estimate: weigh both values based on their
-                // merit (= string length):
-                double average_letter_width = (average_letter_width1 * current_text_length + average_letter_width2 * scratch_cumulative_string_length) / (current_text_length + scratch_cumulative_string_length);
-                // ... and adjust by the heuristic factor: spaces can be quite a bit smaller than your average x-width
-                // when the text on the line has been tightened up!
-                average_letter_width *= HEURISTIC_SPACE_WIDTH_FACTOR;
+                double average_letter_width = kerning_heuristics.CalcMinimumSpaceWidthEstimate(current_text_chunk, text_chunk);
 
                 double current_letter_gap = (text_chunk.x0 - current_text_chunk.x1);
-                double gap_offset = char_cumulative_overlap_count == 0 ? 0 : char_cumulative_overlap / char_cumulative_overlap_count;
+                double gap_offset = kerning_heuristics.CalcGapOffset();;
 
+                // If its more than a letter's distance across from the current word...
                 if (current_letter_gap + gap_offset > average_letter_width)
                 {
                     current_text_chunk = text_chunk;
@@ -1048,8 +1102,7 @@ namespace Utilities.PDF.MuPDF
                     continue;
                 }
 
-                char_cumulative_overlap += -current_letter_gap;
-                char_cumulative_overlap_count++;
+                kerning_heuristics.CollectCharOverlapData(-current_letter_gap);
 
                 // If we get here we aggregate
                 {
