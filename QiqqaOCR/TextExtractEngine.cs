@@ -29,6 +29,8 @@ namespace QiqqaOCR
         private static Exception exception_text_extract = null;
         private static object global_vars_access_lock = new object();
 
+        public static bool DEBUG = false;
+
         internal static void MainEntry(string[] args, bool no_kill)
         {
             // Check that we were given the right number of parameters
@@ -88,7 +90,7 @@ namespace QiqqaOCR
                         foreach(var el in word_lists_text_extract)
                         {
                             var wl = el.Value;
-                            wordCountPerPage[pg] = wl.Count;
+                            wordCountPerPage[pg++] = wl.Count;
                         }
 
                         Logging.Info("We have a text extract word list: page count: {0}, word count: {1}", pageCount, pageCount > 0 ? String.Join(",", wordCountPerPage) : "---");
@@ -164,7 +166,7 @@ namespace QiqqaOCR
         {
             try
             {
-                Dictionary<int, WordList> word_lists = DoOCR(pdf_filename, page_numbers, pdf_user_password, $"{ ocr_output_filename }.dbg");
+                Dictionary<int, WordList> word_lists = DoOCR(pdf_filename, page_numbers, pdf_user_password, DEBUG ? $"{ ocr_output_filename }.dbg" : null);
                 bool word_lists_text_extract_credible = WordListCredibility.Instance.IsACredibleWordList(word_lists);
                 if (word_lists_text_extract_credible)
                 {
@@ -191,7 +193,7 @@ namespace QiqqaOCR
             }
         }
 
-        public static Dictionary<int, WordList> DoOCR(string pdf_filename, string page_numbers, string pdf_user_password, string dbg_output_file_template)
+        public static Dictionary<int, WordList> DoOCR(string pdf_filename, string page_numbers, string pdf_user_password, string dbg_output_file_template = null)
         {
             List<MuPDFRenderer.TextChunk> text_chunks = MuPDFRenderer.GetEmbeddedText(pdf_filename, page_numbers, pdf_user_password, ProcessPriorityClass.BelowNormal, dbg_output_file_template);
             Dictionary<int, WordList> word_lists = ConvertToWordList(text_chunks);

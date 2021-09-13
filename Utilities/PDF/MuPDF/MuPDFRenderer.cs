@@ -391,6 +391,8 @@ namespace Utilities.PDF.MuPDF
 
     public static class MuPDFRenderer
     {
+        public static bool DEBUG = false;
+
         public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, int page, int height, int width)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
@@ -872,6 +874,7 @@ namespace Utilities.PDF.MuPDF
                         }
                     }
 
+                    // debug mode? dump raw data to file:
                     if (null != dbg_output_file_template)
                     {
                         File.WriteAllText($"{ dbg_output_file_template }.raw", dbgInput.ToString());
@@ -1002,7 +1005,11 @@ namespace Utilities.PDF.MuPDF
                 if (text_chunk.y1 < current_text_chunk.y0)
                 {
                     current_text_chunk = text_chunk;
-                    text_chunk.text = "*ABOVE*." + text_chunk.text;
+
+                    if (DEBUG)
+                    {
+                        text_chunk.text = "*ABOVE*." + text_chunk.text;
+                    }
                     text_chunks.Add(text_chunk);
                     continue;
                 }
