@@ -965,7 +965,18 @@ namespace Utilities.PDF.MuPDF
                 return average_letter_width;
             }
         }
-    
+
+
+        private static bool IsAnyOf(char needle, string haystack)
+        {
+            for (int i = 0, len = haystack.Length; i < len; i++)
+            {
+                if (needle == haystack[i])
+                    return true;
+            }
+            return false;
+        }
+
 
         private static List<TextChunk> AggregateOverlappingTextChunks(List<TextChunk> text_chunks_original, string debug_cli_info)
         {
@@ -1092,10 +1103,31 @@ namespace Utilities.PDF.MuPDF
                 double average_letter_width = kerning_heuristics.CalcMinimumSpaceWidthEstimate(current_text_chunk, text_chunk);
 
                 double current_letter_gap = (text_chunk.x0 - current_text_chunk.x1);
-                double gap_offset = kerning_heuristics.CalcGapOffset();;
+                double gap_offset = kerning_heuristics.CalcGapOffset();
 
                 // If its more than a letter's distance across from the current word...
                 if (current_letter_gap + gap_offset > average_letter_width)
+                {
+                    current_text_chunk = text_chunk;
+                    text_chunks.Add(text_chunk);
+                    continue;
+                }
+
+                // Heuristic: a *word* is never carrying a comma (,) or semicolon (;) inside, so we'll split the words
+                // when we discover such punctuation is at the end of the collected word-thus-far.
+                //
+                // Note: we *intend* to keep URIs in the text whole, so anything that's legal in an URI should pass
+                // unscathed.
+                // (**Exception**: we *do* extract bracketed (sub-)words, while brackets are legal in URIs. So be it.)
+                char c_prev = current_text_chunk.text[current_text_chunk.text.Length - 1];
+                char c0 = text_chunk.text[0];
+                if (Char.IsLetterOrDigit(c0) && IsAnyOf(c_prev, ",;|=]})>"))
+                {
+                    current_text_chunk = text_chunk;
+                    text_chunks.Add(text_chunk);
+                    continue;
+                }
+                if (Char.IsLetterOrDigit(c_prev) && IsAnyOf(c0, ",;|=[{(<"))
                 {
                     current_text_chunk = text_chunk;
                     text_chunks.Add(text_chunk);
