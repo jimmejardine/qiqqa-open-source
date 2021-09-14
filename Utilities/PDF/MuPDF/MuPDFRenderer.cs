@@ -711,13 +711,34 @@ namespace Utilities.PDF.MuPDF
 
             public override string ToString()
             {
-                return String.Format($"{{0}} {post_diagnostic} p{page}{(pageStart ? "!" : "")} {{1:.0000}},{{2:.0000}} {{3:.0000}},{{4:.0000}} ", text, x0, y0, x1, y1);
+                bool need_quotes = (text != null && (text.Length == 0 || text != text.Trim()));
+                return String.Format($"[{{0}} {post_diagnostic} p{page}{(pageStart ? "!" : "")} {{1:.0000}},{{2:.0000}} {{3:.0000}},{{4:.0000}}]", (text == null ? "(NULL)" : need_quotes ? $"'{text}'" : text), x0, y0, x1, y1);
+            }
+        }
+
+        public const double MINIMUM_SANE_WORD_WIDTH = 1.1E-4;  // related to the fact we're printing these values to 4 digits beyond the decimal dot.
+
+        public const int MAX_LOG_REPEATS = 10;
+
+        public static void SanitizationPostprocess(ref List<TextChunk> text_chunks)
+        {
+            foreach (MuPDFRenderer.TextChunk text_chunk in text_chunks)
+            {
+                double w = text_chunk.x1 - text_chunk.x0;
+                double h = text_chunk.y1 - text_chunk.y0;
+                if (w < MINIMUM_SANE_WORD_WIDTH)
+                {
+                    // fake a width:
+                    text_chunk.x1 = text_chunk.x0 + 1.1 * MINIMUM_SANE_WORD_WIDTH; // multiply with 1.1 to make sure IEEE754 inaccuracies don't kill us later
+                }
             }
         }
 
         public static List<TextChunk> GetEmbeddedText(string pdf_filename, string page_numbers, string password, ProcessPriorityClass priority_class, string dbg_output_file_template = null)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            int[] logged = new int[5];
 
             string process_parameters = String.Format(
                 ""
@@ -780,10 +801,15 @@ namespace Utilities.PDF.MuPDF
                                 ResolveRotation(page_rotation, ref word_x0, ref word_y0, ref word_x1, ref word_y1);
 
                                 // safety measure: discard zero-width and zero-height "words" as those only cause trouble down the line:
+                                bool is_zero_width = false;
                                 if (word_y0 == word_y1)
                                 {
-                                    Logging.Warn("Zero-height bounding box for text chunk: ignoring this 'word' \"{1}\" @ {0}.", line, text);
-                                        continue;
+                                    if (logged[0]++ < MAX_LOG_REPEATS || DEBUG)
+                                    {
+                                        Logging.Warn("Zero-height bounding box for text chunk: ignoring this 'word' \"{1}\" @ {0}.", line, text);
+                                    }
+                                    
+                                    continue;
                                 }
                                 if (word_x0 == word_x1)
                                 {
@@ -791,8 +817,12 @@ namespace Utilities.PDF.MuPDF
                                     // Do report the others though (and tweak them, so they get included in the output anyway).
                                     if (!String.IsNullOrWhiteSpace(text))
                                     {
-                                        Logging.Warn("Zero-width bounding box for text chunk: ignoring this 'word' \"{1}\" @ {0}.", line, text);
-                                        word_x1 = word_x0 + 0.00042;
+                                        if (logged[1]++ < MAX_LOG_REPEATS || DEBUG)
+                                        {
+                                            Logging.Warn("Zero-width bounding box for text chunk: ignoring this 'word' \"{1}\" @ {0}.", line, text);
+                                        }
+
+                                        is_zero_width = true;
                                     }
                                     else
                                     {
@@ -803,6 +833,13 @@ namespace Utilities.PDF.MuPDF
                                 // Position this little grubber
                                 TextChunk text_chunk = new TextChunk();
                                 text_chunk.text = text;
+                                if (is_zero_width)
+                                {
+                                    if (DEBUG)
+                                    {
+                                        text_chunk.post_diagnostic = "(*ZERO-WIDTH*)";
+                                    }
+                                }
                                 text_chunk.font_name = current_font_name;
                                 text_chunk.font_size = current_font_size;
                                 text_chunk.page = page;
@@ -831,9 +868,40 @@ namespace Utilities.PDF.MuPDF
                                     Swap.swap(ref text_chunk.y0, ref text_chunk.y1);
                                 }
 
-                                if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                                if (is_zero_width)
                                 {
-                                    Logging.Warn("Bad bounding box for text chunk ({0})", process_parameters);
+                                    // handled above. Will percolate through the system as-is.
+                                }
+                                else if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                                {
+                                    if (logged[2]++ < MAX_LOG_REPEATS || DEBUG)
+                                    {
+                                        Logging.Warn("Bad bounding box for text chunk ({0}). node: {1}", process_parameters, text_chunk);
+                                    }
+                                }
+                                else if (text_chunk.x1 - text_chunk.x0 < MINIMUM_SANE_WORD_WIDTH)
+                                {
+                                    if (logged[3]++ < MAX_LOG_REPEATS || DEBUG)
+                                    {
+                                        Logging.Warn("Surprisingly THIN bounding box (width={3}) for text chunk ({0}). node: {1}", process_parameters, text_chunk, text_chunk.x1 - text_chunk.x0);
+                                    }
+
+                                    if (DEBUG)
+                                    {
+                                        text_chunk.post_diagnostic += "(*BAD-BBOX:WIDTH*)";
+                                    }
+                                }
+                                else if (text_chunk.y1 - text_chunk.y0 < MINIMUM_SANE_WORD_WIDTH)
+                                {
+                                    if (logged[4]++ < MAX_LOG_REPEATS || DEBUG)
+                                    {
+                                        Logging.Warn("Surprisingly THIN bounding box (height={3}) for text chunk ({0}). node: {1}", process_parameters, text_chunk, text_chunk.y1 - text_chunk.y0);
+                                    }
+
+                                    if (DEBUG)
+                                    {
+                                        text_chunk.post_diagnostic += "(*BAD-BBOX:HEIGHT*)";
+                                    }
                                 }
 
                                 // And add him to the result list
@@ -882,6 +950,7 @@ namespace Utilities.PDF.MuPDF
                     }
 
                     text_chunks = AggregateOverlappingTextChunks(text_chunks, process_parameters);
+                    SanitizationPostprocess(ref text_chunks);
                     return text_chunks;
                 }
             }
@@ -1019,7 +1088,7 @@ namespace Utilities.PDF.MuPDF
 
             public double CalcGapOffset()
             {
-                return char_cumulative_overlap_count == 0 ? 0 : (char_cumulative_overlap / char_cumulative_overlap_count) * HEURISTIC_SPACE_OFFSET_FACTOR;
+                return char_cumulative_overlap_count == 0 ? 0 : (char_cumulative_overlap / char_cumulative_overlap_count);
             }
 
             public double CalcMinimumSpaceWidthEstimate(TextChunk word, TextChunk next)
@@ -1045,9 +1114,6 @@ namespace Utilities.PDF.MuPDF
                 int total_length = current_text_length + next_text_length + scratch_cumulative_string_length + LC_scratch_cumulative_string_length * LOWERCASE_AVERAGE_IMPACT_FACTOR;
                 double total_width = average_letter_width1 + average_letter_width2 + average_letter_width3 + average_letter_width4 * LOWERCASE_AVERAGE_IMPACT_FACTOR;
                 double average_letter_width = total_length == 0 ? 0 : total_width / total_length;
-                // ... and adjust by the heuristic factor: spaces can be quite a bit smaller than your average x-width
-                // when the text on the line has been tightened up!
-                average_letter_width *= HEURISTIC_SPACE_WIDTH_FACTOR;
                 return average_letter_width;
             }
 
@@ -1058,7 +1124,7 @@ namespace Utilities.PDF.MuPDF
 
             public double CalcLineHeight()
             {
-                return line_height;
+                return Math.Max(1E-6, line_height); // return value is used as divisor, so make sure we never produce ZERO.
             }
 
             public double CalcRoughCharWidth(TextChunk next)
@@ -1189,9 +1255,10 @@ namespace Utilities.PDF.MuPDF
                             if (current_letter_gap <= overdoing_it)
                             {
                                 // ignore
-                                if (false)
+
+                                if (DEBUG)
                                 {
-                                    Logging.Warn($"Unexpected GAP ({ current_letter_gap }) between characters in the line. node: { text_chunk } vs. prev_text_chunk:  { prev_text_chunk }, offset={ offset }, avg.letter width={ average_letter_width_rough }, gap_compare_value={ overdoing_it }");
+                                    Logging.Warn($"Unexpected OVERDOING GAP ({ current_letter_gap }) between characters in the line. node: { text_chunk } vs. prev_text_chunk:  { prev_text_chunk }, offset={ offset }, avg.letter width={ average_letter_width_rough }, gap_compare_value={ overdoing_it }");
                                 }
 
                                 prev_text_chunk = null;
@@ -1260,7 +1327,7 @@ namespace Utilities.PDF.MuPDF
                         continue;
                     }
 
-                    if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                    if (text_chunk.x1 - text_chunk.x0 < MINIMUM_SANE_WORD_WIDTH || text_chunk.y1 - text_chunk.y0 < MINIMUM_SANE_WORD_WIDTH)
                     {
                         // Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
                         return index > first_vertical_index + 1 ? index : -1;
@@ -1386,7 +1453,7 @@ namespace Utilities.PDF.MuPDF
                     {
                         TextChunk text_chunk = text_chunks_original[index];
 
-                        if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                        if (text_chunk.x1 - text_chunk.x0 < MINIMUM_SANE_WORD_WIDTH || text_chunk.y1 - text_chunk.y0 < MINIMUM_SANE_WORD_WIDTH)
                         {
                             // Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
                             return rv;
@@ -1418,6 +1485,8 @@ namespace Utilities.PDF.MuPDF
 
         private static List<TextChunk> AggregateOverlappingTextChunks(List<TextChunk> text_chunks_original, string debug_cli_info)
         {
+            int[] logged = new int[6];
+
             List<TextChunk> text_chunks = new List<TextChunk>();
 
             TextChunk current_text_chunk = null;
@@ -1456,9 +1525,12 @@ namespace Utilities.PDF.MuPDF
                     continue;
                 }
 
-                if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                if (text_chunk.x1 - text_chunk.x0 < MINIMUM_SANE_WORD_WIDTH || text_chunk.y1 - text_chunk.y0 < MINIMUM_SANE_WORD_WIDTH)
                 {
-                    Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
+                    if (logged[0]++ < MAX_LOG_REPEATS || DEBUG)
+                    {
+                        Logging.Warn("Bad bounding box for raw text chunk ({0}). node: {1}", debug_cli_info, text_chunk);
+                    }
 
                     previous_page = text_chunk.page;
 
@@ -1631,7 +1703,10 @@ namespace Utilities.PDF.MuPDF
                     double line_height = kerning_heuristics.CalcLineHeight();
                     double d2 = (text_chunk.y1 - current_text_chunk.y0) / line_height;
 
-                    Logging.Warn($"Upwards movement will be treated as word end and line end: current WORD node: { current_text_chunk }, current node { text_chunk } @ index { index }; vertical movement perunages: UP={ d2 }");
+                    if (logged[1]++ < MAX_LOG_REPEATS || DEBUG)
+                    {
+                        Logging.Warn($"Upwards movement will be treated as word end and line end: current WORD node: { current_text_chunk }, current node { text_chunk } @ index { index }; vertical movement perunages: UP={ d2 }");
+                    }
 
                     if (DEBUG)
                     {
@@ -1676,7 +1751,10 @@ namespace Utilities.PDF.MuPDF
                     // really moving forward, then we're at the end of the line (in a pretty weird way).
                     if (distance2 > distance2_ref && xb > xa)
                     {
-                        Logging.Warn($"Odd movement will be treated as word end and line end: distance={ Math.Sqrt(distance2) } > char.ref.distance(x2)={ Math.Sqrt(distance2_ref) }, previous node: { prev_text_chunk }, current node { text_chunk } @ index { index }; vertical movement perunages: DOWN={ d1 }, UP={ d2 }");
+                        if (logged[2]++ < MAX_LOG_REPEATS || DEBUG)
+                        {
+                            Logging.Warn($"Odd movement will be treated as word end and line end: distance={ Math.Sqrt(distance2) } > char.ref.distance(x2)={ Math.Sqrt(distance2_ref) }, previous node: { prev_text_chunk }, current node { text_chunk } @ index { index }; vertical movement perunages: DOWN={ d1 }, UP={ d2 }");
+                        }
 
                         if (DEBUG)
                         {
@@ -1757,13 +1835,30 @@ namespace Utilities.PDF.MuPDF
                 double current_letter_gap = (text_chunk.x0 - current_text_chunk.x1);  // negative gap means OVERLAP!
                 double gap_offset = kerning_heuristics.CalcGapOffset();  // positive offset means OVERLAP!
 
+                bool insane_overlap = (estimated_space_width < gap_offset * 3);
+                if (insane_overlap)
+                {
+                    if (logged[3]++ < MAX_LOG_REPEATS || DEBUG)
+                    {
+                        Logging.Warn($"Unexpected overly large OVERLAP factor { (gap_offset != 0 ? String.Format("{0:0.0000}", estimated_space_width / gap_offset) : "INFINITY") }; offset={ gap_offset } vs. estimated character width { estimated_space_width }) discovered. Ignoring the offset compensation for this one.   node: { text_chunk } vs. WORD chunk: { current_text_chunk }");
+                    }
+
+                    gap_offset = 0;
+                }
+
+                estimated_space_width -= gap_offset; // correct estimated width with the inter-character overlap.
+
+                // ... and adjust by the heuristic factor: spaces can be quite a bit smaller than your average x-width
+                // when the text on the line has been tightened up!
+
                 // If it's more than a space's distance across from the current word...
-                double chkval = current_letter_gap + gap_offset;
-                if (chkval > estimated_space_width)
+                double chkval = current_letter_gap + gap_offset * HEURISTIC_SPACE_OFFSET_FACTOR;
+                double space_width_heuristic = estimated_space_width * HEURISTIC_SPACE_WIDTH_FACTOR;
+                if (chkval > space_width_heuristic)
                 {
                     if (DEBUG)
                     {
-                        current_text_chunk.post_diagnostic += String.Format("(*JUMP:{0:0.0000} > {1:0.0000}; GAP:{2:0.0000},OFFSET:{3:0.0000}*)", chkval, estimated_space_width, current_letter_gap, gap_offset);
+                        current_text_chunk.post_diagnostic += String.Format("(*JUMP:{0:0.0000} > {1:0.0000}; GAP:{2:0.0000},OFFSET:{3:0.0000},SPACE:{4:0.0000},SANE={5}*)", chkval, space_width_heuristic, current_letter_gap, gap_offset, estimated_space_width, !insane_overlap);
                     }
 
                     // ... then it's another word starting now.
@@ -1784,11 +1879,14 @@ namespace Utilities.PDF.MuPDF
                     double d1 = (text_chunk.y0 - current_text_chunk.y1) / line_height;
                     double d2 = (text_chunk.y1 - current_text_chunk.y0) / line_height;
 
+                    if (logged[4]++ < MAX_LOG_REPEATS || DEBUG)
+                    {
+                        Logging.Warn($"Unexpected OVERDOING GAP ({ current_letter_gap }) between characters in the line. node: { text_chunk } vs. WORD chunk: { current_text_chunk }, offset={ gap_offset }, estimated space width={ estimated_space_width }, chkval={ chkval }, gap_compare_value={ overdoing_it }; vertical movement perunages: DOWN={ d1 }, UP={ d2 }");
+                    }
+
                     if (DEBUG)
                     {
-                        Logging.Warn($"Unexpected GAP ({ current_letter_gap }) between characters in the line. node: { text_chunk } vs. WORD chunk: { current_text_chunk }, offset={ gap_offset }, estimated space width={ estimated_space_width }, chkval={ chkval }, gap_compare_value={ overdoing_it }; vertical movement perunages: DOWN={ d1 }, UP={ d2 }");
-
-                        current_text_chunk.post_diagnostic += String.Format("(*UNEXPECTED.GAP:{0:0.0000} >= {1:0.0000} @ GAP:{2:0.0000},OFFSET:{3:0.0000},SPACE:{4:0.0000}*)", -chkval, -overdoing_it, -current_letter_gap, -gap_offset, estimated_space_width);
+                        current_text_chunk.post_diagnostic += String.Format("(*UNEXPECTED.GAP:{0:0.0000} >= {1:0.0000} @ GAP:{2:0.0000},OFFSET:{3:0.0000},SPACE:{4:0.0000},SANE={5}*)", -chkval, -overdoing_it, -current_letter_gap, -gap_offset, estimated_space_width, !insane_overlap);
                     }
 
                     // ... then we treat it as yet another word starting now.
@@ -1852,7 +1950,10 @@ namespace Utilities.PDF.MuPDF
 
                 if (current_text_chunk.x1 <= current_text_chunk.x0 || current_text_chunk.y1 <= current_text_chunk.y0)
                 {
-                    Logging.Warn("Bad bounding box for aggregated text chunk ({0})", debug_cli_info);
+                    if (logged[5]++ < MAX_LOG_REPEATS || DEBUG)
+                    {
+                        Logging.Warn("Bad bounding box for aggregated text chunk ({0}). node: {1}", debug_cli_info, current_text_chunk);
+                    }
                 }
                 
                 prev_text_chunk = text_chunk;

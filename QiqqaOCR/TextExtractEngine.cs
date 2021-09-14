@@ -196,11 +196,11 @@ namespace QiqqaOCR
         public static Dictionary<int, WordList> DoOCR(string pdf_filename, string page_numbers, string pdf_user_password, string dbg_output_file_template = null)
         {
             List<MuPDFRenderer.TextChunk> text_chunks = MuPDFRenderer.GetEmbeddedText(pdf_filename, page_numbers, pdf_user_password, ProcessPriorityClass.BelowNormal, dbg_output_file_template);
-            Dictionary<int, WordList> word_lists = ConvertToWordList(text_chunks);
+            Dictionary<int, WordList> word_lists = ConvertToWordList(text_chunks, pdf_filename);
             return word_lists;
         }
 
-        private static Dictionary<int, WordList> ConvertToWordList(List<MuPDFRenderer.TextChunk> text_chunks)
+        private static Dictionary<int, WordList> ConvertToWordList(List<MuPDFRenderer.TextChunk> text_chunks, string pdf_filename)
         {
             Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
             int current_page = 0;
@@ -228,6 +228,10 @@ namespace QiqqaOCR
                 word.Top = text_chunk.y0;
                 word.Width = text_chunk.x1 - text_chunk.x0;
                 word.Height = text_chunk.y1 - text_chunk.y0;
+                if (word.Width < MuPDFRenderer.MINIMUM_SANE_WORD_WIDTH || word.Height < MuPDFRenderer.MINIMUM_SANE_WORD_WIDTH)
+                {
+                    throw new Exception(String.Format("OCR file '{0}': format error: zero word width/height @PAGE {1}", pdf_filename, current_page));
+                }
 
                 // And add it to the word list
                 current_word_list.Add(word);
