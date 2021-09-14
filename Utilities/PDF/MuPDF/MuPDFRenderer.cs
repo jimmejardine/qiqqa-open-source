@@ -974,7 +974,7 @@ namespace Utilities.PDF.MuPDF
         // (The height perunage is taken relative to the currently tracked word node's height.)
         const double MAX_LINE_VERTICAL_OVERLAP_PERUNAGE = 0.1;   // 10%
 
-        const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.3;
+        const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.35;
         const double HEURISTIC_SPACE_OFFSET_FACTOR = 1.12;
 
         const double MAX_VERTICAL_TEXT_WORD_STRETCHING_PERUNAGE = 0.1;   // 10%
@@ -1756,11 +1756,12 @@ namespace Utilities.PDF.MuPDF
                     double distance2 = (xa - xb) * (xa - xb) + (ya - yb) * (ya - yb);
 
                     double average_letter_width_rough = kerning_heuristics.CalcRoughCharWidth(text_chunk);
-                    double distance2_ref = 2 * 2 * average_letter_width_rough * average_letter_width_rough;
+                    double distance2_ref = average_letter_width_rough * average_letter_width_rough;
+                    const double factor = 3.5;
 
                     // when we're quite a distance away from our predecessor and we're not
                     // really moving forward, then we're at the end of the line (in a pretty weird way).
-                    if (distance2 > distance2_ref && xb > xa)
+                    if (distance2 > distance2_ref * factor * factor && xb > xa)
                     {
                         if (logged[2]++ < MAX_LOG_REPEATS || DEBUG)
                         {
@@ -1769,7 +1770,8 @@ namespace Utilities.PDF.MuPDF
 
                         if (DEBUG)
                         {
-                            current_text_chunk.post_diagnostic += String.Format("(*WEIRD-BREAK: DISTANCE:{0:0.0000} > {1:0.0000}, UP:{2:0.0000}, DOWN:{3:0.0000}*)", Math.Sqrt(distance2), Math.Sqrt(distance2_ref), d1, d2);
+                            double ratio = Math.Sqrt(distance2) / Math.Max(1E-6, Math.Sqrt(distance2_ref));
+                            current_text_chunk.post_diagnostic += String.Format("(*WEIRD-BREAK: DISTANCE:{0:0.0000} > {1:0.0000}, RATIO:{2:0.0000}, UP:{3:0.0000}, DOWN:{4:0.0000}*)", Math.Sqrt(distance2), Math.Sqrt(distance2_ref), ratio, d1, d2);
                         }
 
                         current_text_chunk = text_chunk;
