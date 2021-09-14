@@ -1521,6 +1521,11 @@ namespace Utilities.PDF.MuPDF
                     // the current word-under-construction on the same line, and if it is, we should consider
                     // it a separator nevertheless.
 
+                    if (DEBUG && current_text_chunk != null)
+                    {
+                        current_text_chunk.post_diagnostic += "(*SPACE*)";
+                    }
+
                     current_text_chunk = null;
                     continue;
                 }
@@ -1532,6 +1537,11 @@ namespace Utilities.PDF.MuPDF
                         Logging.Warn("Bad bounding box for raw text chunk ({0}). node: {1}", debug_cli_info, text_chunk);
                     }
 
+                    if (DEBUG)
+                    {
+                        text_chunk.post_diagnostic += "(*BAD-BBOX*)";
+                    }
+
                     previous_page = text_chunk.page;
 
                     current_text_chunk = null;
@@ -1539,10 +1549,6 @@ namespace Utilities.PDF.MuPDF
 
                     metrics_for_this_line_have_been_collected = false;
                     must_word_break_immediately = true;
-                    if (DEBUG)
-                    {
-                        text_chunk.post_diagnostic += "(*BAD-BBOX*)";
-                    }
 
                     text_chunks.Add(text_chunk);
                     continue;
@@ -1576,6 +1582,11 @@ namespace Utilities.PDF.MuPDF
                 // are we already tracking the current font and size? if not, please do.
                 if (kerning_heuristics.IsFontChange(text_chunk))
                 {
+                    if (DEBUG)
+                    {
+                        text_chunk.post_diagnostic += "(*FONT-CHANGE*)";
+                    }
+
                     previous_page = text_chunk.page;
 
                     current_text_chunk = text_chunk;
@@ -1840,7 +1851,14 @@ namespace Utilities.PDF.MuPDF
                 {
                     if (logged[3]++ < MAX_LOG_REPEATS || DEBUG)
                     {
-                        Logging.Warn($"Unexpected overly large OVERLAP factor { (gap_offset != 0 ? String.Format("{0:0.0000}", estimated_space_width / gap_offset) : "INFINITY") }; offset={ gap_offset } vs. estimated character width { estimated_space_width }) discovered. Ignoring the offset compensation for this one.   node: { text_chunk } vs. WORD chunk: { current_text_chunk }");
+                        string gap_factor = (gap_offset != 0 ? String.Format("{0:0.0000}", estimated_space_width / gap_offset) : "INFINITY");
+
+                        Logging.Warn($"Unexpected overly large OVERLAP factor { gap_factor }; offset={ gap_offset } vs. estimated character width { estimated_space_width }) discovered. Ignoring the offset compensation for this one.   node: { text_chunk } vs. WORD chunk: { current_text_chunk }");
+
+                        if (DEBUG)
+                        {
+                            current_text_chunk.post_diagnostic += $"(*INSANE-GAP;RATIO:{ gap_factor }*)";
+                        }
                     }
 
                     gap_offset = 0;
@@ -1921,6 +1939,11 @@ namespace Utilities.PDF.MuPDF
                 char c0 = text_chunk.text[0];
                 if (Char.IsLetterOrDigit(c0) && IsAnyOf(c_prev, ",;|=]})>"))
                 {
+                    if (DEBUG)
+                    {
+                        current_text_chunk.post_diagnostic += "(*WORD-BOUNDARY A*)";
+                    }
+
                     current_text_chunk = text_chunk;
                     ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
@@ -1930,6 +1953,11 @@ namespace Utilities.PDF.MuPDF
                 }
                 if (Char.IsLetterOrDigit(c_prev) && IsAnyOf(c0, ",;|=[{(<"))
                 {
+                    if (DEBUG)
+                    {
+                        current_text_chunk.post_diagnostic += "(*WORD-BOUNDARY B*)";
+                    }
+
                     current_text_chunk = text_chunk;
                     ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
