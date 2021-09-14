@@ -905,7 +905,7 @@ namespace Utilities.PDF.MuPDF
         // (The height perunage is taken relative to the currently tracked word node's height.)
         const double MAX_LINE_VERTICAL_OVERLAP_PERUNAGE = 0.1;   // 10%
 
-        const double HEURISTIC_SPACE_WIDTH_FACTOR = 1.0;
+        const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.75;
 
         const double MAX_VERTICAL_TEXT_WORD_STRETCHING_PERUNAGE = 0.1;   // 10%
 
@@ -1662,7 +1662,7 @@ namespace Utilities.PDF.MuPDF
                 {
                     if (DEBUG)
                     {
-                        current_text_chunk.post_diagnostic += String.Format("(*JUMP:{0:0.0000} > {1:0.0000}*)", chkval, estimated_space_width);
+                        current_text_chunk.post_diagnostic += String.Format("(*JUMP:{0:0.0000} > {1:0.0000}; GAP:{2:0.0000},OFFSET:{3:0.0000}*)", chkval, estimated_space_width, current_letter_gap, gap_offset);
                     }
 
                     // ... then it's another word starting now.
