@@ -1582,9 +1582,9 @@ namespace Utilities.PDF.MuPDF
                 // are we already tracking the current font and size? if not, please do.
                 if (kerning_heuristics.IsFontChange(text_chunk))
                 {
-                    if (DEBUG)
+                    if (DEBUG && current_text_chunk != null)
                     {
-                        text_chunk.post_diagnostic += "(*FONT-CHANGE*)";
+                        current_text_chunk.post_diagnostic += "(*FONT-CHANGE*)";
                     }
 
                     previous_page = text_chunk.page;
