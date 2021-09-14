@@ -221,7 +221,7 @@ namespace QiqqaOCR
                 word.Text = text_chunk.text;
                 if (!String.IsNullOrEmpty(text_chunk.post_diagnostic))
                 {
-                    word.Text += "\t\t\t" + text_chunk.post_diagnostic;
+                    word.Text = word.Text.PadRight(32) + "\t\t\t" + text_chunk.post_diagnostic;
                 }
                 word.Confidence = 1.0;
                 word.Left = text_chunk.x0;

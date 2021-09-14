@@ -907,6 +907,8 @@ namespace Utilities.PDF.MuPDF
 
         const double HEURISTIC_SPACE_WIDTH_FACTOR = 1.0;
 
+        const double MAX_VERTICAL_TEXT_WORD_STRETCHING_PERUNAGE = 0.1;   // 10%
+
 
         internal class KerningHeuristics
         {
@@ -1034,11 +1036,11 @@ namespace Utilities.PDF.MuPDF
                         continue;
                     }
 
-                        // stop at font changes: there the metrics will change significantly anyway!
-                        if (IsFontChange(text_chunk))
-                        {
-                            return;
-                        }
+                    // stop at font changes: there the metrics will change significantly anyway!
+                    if (IsFontChange(text_chunk))
+                    {
+                        return;
+                    }
 
                     if (index != currentIndex)
                     {
@@ -1107,7 +1109,7 @@ namespace Utilities.PDF.MuPDF
                         // ignore POSITIVE outliers: those are spaces we're jumping!
                         if (current_letter_gap <= initial_estimate)
                         {
-                            double overdoing_it = - average_letter_width_rough / 2;
+                            double overdoing_it = -average_letter_width_rough / 2;
                             if (current_letter_gap <= overdoing_it)
                             {
                                 // ignore
@@ -1117,7 +1119,7 @@ namespace Utilities.PDF.MuPDF
                                 }
 
                                 prev_text_chunk = null;
-                                
+
                                 continue;
                                 // 
                                 // as the 'unexpected gap' may be *anything*, we assume the end of the line here
@@ -1135,8 +1137,184 @@ namespace Utilities.PDF.MuPDF
                     prev_text_chunk = text_chunk;
                 }
             }
-        }
 
+            private int CheckForVerticalLineOfText(List<TextChunk> text_chunks_original, int currentIndex, TextChunk sol_marker)
+            {
+                TextChunk prev_text_chunk = null;
+                int first_vertical_index = currentIndex;
+
+                if (sol_marker == null)
+                {
+                    sol_marker = text_chunks_original[currentIndex];
+                }
+                else if (text_chunks_original[currentIndex] != sol_marker && sol_marker.text.Length == 1)
+                {
+                    prev_text_chunk = sol_marker;
+                    first_vertical_index = currentIndex - 1;
+                }
+
+                double x_base = sol_marker.x0;
+                double vert_line_height = (sol_marker.x1 - sol_marker.x0);
+
+                string scratch_str = sol_marker.text;
+                double scratch_cumulative_width = Math.Abs(sol_marker.y1 - sol_marker.y0);
+
+                for (int index = currentIndex, len = text_chunks_original.Count; index < len; index++)
+                {
+                    TextChunk text_chunk = text_chunks_original[index];
+
+                    ASSERT.Test(prev_text_chunk != text_chunk);
+
+                    if (sol_marker == text_chunk)
+                    {
+                        prev_text_chunk = text_chunk;
+                        continue;
+                    }
+
+                    if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                    {
+                        // Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
+                        return index > first_vertical_index + 1 ? index : -1;
+                    }
+
+                    // If it's a space
+                    if (String.IsNullOrWhiteSpace(text_chunk.text))
+                    {
+                        return index > first_vertical_index + 1 ? index : -1;
+                    }
+
+                    // stop when we hit a node that's not a single char/code
+                    if (text_chunk.text.Length != 1)
+                    {
+                        return index > first_vertical_index + 1 ? index : -1;
+                    }
+
+                    // stop at font changes: there the metrics will change significantly anyway!
+                    if (IsFontChange(text_chunk))
+                    {
+                        return index > first_vertical_index + 1 ? index : -1;
+                    }
+
+                    if (index != currentIndex)
+                    {
+                        // If it's on a different page (or an inadvertent *re-extract* of the same page)...
+                        if (text_chunk.page != sol_marker.page || text_chunk.pageStart)
+                        {
+                            return index > first_vertical_index + 1 ? index : -1;
+                        }
+                    }
+
+                    double vert_line_height2 = (text_chunk.x1 - text_chunk.x0);
+                    if (vert_line_height2 != vert_line_height || text_chunk.x0 != x_base)
+                    {
+                        return index > first_vertical_index + 1 ? index : -1;
+                    }
+
+                    scratch_str += text_chunk.text;
+                    scratch_cumulative_width += Math.Abs(text_chunk.y1 - text_chunk.y0);
+
+                    ASSERT.Test(prev_text_chunk != null);
+                    double wa = (text_chunk.y1 + text_chunk.y0) / 2;
+                    // All x coordinates match among the nodes, so their delta will be zero. No need to calc them here.
+                    double wb = (prev_text_chunk.y1 + prev_text_chunk.y0) / 2;
+                    double distance = Math.Abs(wa - wb);
+
+                    double average_letter_width_rough = scratch_cumulative_width / scratch_str.Length;
+                    double distance_ref = average_letter_width_rough * (1 + MAX_VERTICAL_TEXT_WORD_STRETCHING_PERUNAGE);
+
+                    // when we're quite a distance away from our predecessor 
+                    // then we're at the end of the word.
+                    if (distance > distance_ref)
+                    {
+                        return index > first_vertical_index + 1 ? index : -1;
+                    }
+
+                    prev_text_chunk = text_chunk;
+                }
+
+                return text_chunks_original.Count;
+            }
+
+            public bool CheckForVerticalLineOfTextAndRewriteNodes(ref List<TextChunk> dst_text_chunks, List<TextChunk> text_chunks_original, ref int currentIndex, TextChunk sol_marker)
+            {
+                bool rv = false;
+                int index = currentIndex;
+
+                if (sol_marker == null)
+                {
+                    //sol_marker = text_chunks_original[currentIndex];
+                }
+                else if (sol_marker.text.Length != 1)
+                {
+                    return false;
+                }
+
+                while (index < text_chunks_original.Count)
+                {
+                    int end_index = CheckForVerticalLineOfText(text_chunks_original, index, sol_marker);
+                    if (end_index < 0)
+                    {
+                        return rv;
+                    }
+                    ASSERT.Test(end_index > index + 1);
+
+                    if (sol_marker == null)
+                    {
+                        sol_marker = text_chunks_original[index];
+                        dst_text_chunks.Add(sol_marker);
+                    }
+
+                    // merge nodes into sol_marker; nil the merged ones so we do NOT change the node COUNT, keeping the caller's loop iter happy!
+                    for (; index < end_index; index++)
+                    {
+                        TextChunk text_chunk = text_chunks_original[index];
+
+                        if (sol_marker == text_chunk)
+                        {
+                            continue;
+                        }
+
+                        sol_marker.text += text_chunk.text;
+                        sol_marker.y0 = Math.Min(sol_marker.y0, Math.Min(text_chunk.y0, text_chunk.y1));
+                        sol_marker.y1 = Math.Max(sol_marker.y1, Math.Max(text_chunk.y0, text_chunk.y1));
+
+                        text_chunk.text = null;
+                    }
+
+                    if (DEBUG)
+                    {
+                        sol_marker.post_diagnostic += "(*VERTICAL*)";
+                    }
+
+                    // update markers before we go looking for the next vertical word
+                    sol_marker = null;
+                    ASSERT.Test(index == end_index);
+                    rv = true;
+                    currentIndex = end_index - 1;  // feed the last RANGE-INCLUSIVE vertical node index back to the caller.
+
+                    // skip whitespace:
+                    for (int len = text_chunks_original.Count; index < len; index++)
+                    {
+                        TextChunk text_chunk = text_chunks_original[index];
+
+                        if (text_chunk.x1 <= text_chunk.x0 || text_chunk.y1 <= text_chunk.y0)
+                        {
+                            // Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
+                            return rv;
+                        }
+
+                        // If it's a space
+                        if (String.IsNullOrWhiteSpace(text_chunk.text))
+                        {
+                            continue;
+                        }
+
+                        break;
+                    }
+                }
+                return rv;
+            }
+        }
 
         private static bool IsAnyOf(char needle, string haystack)
         {
@@ -1216,10 +1394,18 @@ namespace Utilities.PDF.MuPDF
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
-                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
-                    metrics_for_this_line_have_been_collected = true;
+                    if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                    {
+                        must_word_break_immediately = true;
+                        metrics_for_this_line_have_been_collected = false;
+                    }
+                    else
+                    {
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
 
-                    text_chunks.Add(text_chunk);
+                        text_chunks.Add(text_chunk);
+                    }
                     continue;
                 }
 
@@ -1232,10 +1418,18 @@ namespace Utilities.PDF.MuPDF
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
-                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
-                    metrics_for_this_line_have_been_collected = true;
+                    if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                    {
+                        must_word_break_immediately = true;
+                        metrics_for_this_line_have_been_collected = false;
+                    }
+                    else
+                    {
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
 
-                    text_chunks.Add(text_chunk);
+                        text_chunks.Add(text_chunk);
+                    }
                     continue;
                 }
 
@@ -1285,8 +1479,18 @@ namespace Utilities.PDF.MuPDF
                     if (!metrics_for_this_line_have_been_collected)
                     {
                         kerning_heuristics.Reset(text_chunk);
-                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
-                        metrics_for_this_line_have_been_collected = true;
+                        if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                        {
+                            must_word_break_immediately = true;
+                            metrics_for_this_line_have_been_collected = false;
+
+                            continue;
+                        }
+                        else
+                        {
+                            kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                            metrics_for_this_line_have_been_collected = true;
+                        }
                     }
 
                     text_chunks.Add(text_chunk);
@@ -1307,10 +1511,18 @@ namespace Utilities.PDF.MuPDF
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
-                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
-                    metrics_for_this_line_have_been_collected = true;
+                    if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                    {
+                        must_word_break_immediately = true;
+                        metrics_for_this_line_have_been_collected = false;
+                    }
+                    else
+                    {
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
 
-                    text_chunks.Add(text_chunk);
+                        text_chunks.Add(text_chunk);
+                    }
                     continue;
                 }
 
@@ -1332,10 +1544,18 @@ namespace Utilities.PDF.MuPDF
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
-                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
-                    metrics_for_this_line_have_been_collected = true;
+                    if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                    {
+                        must_word_break_immediately = true;
+                        metrics_for_this_line_have_been_collected = false;
+                    }
+                    else
+                    {
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
 
-                    text_chunks.Add(text_chunk);
+                        text_chunks.Add(text_chunk);
+                    }
                     continue;
                 }
 
@@ -1368,10 +1588,18 @@ namespace Utilities.PDF.MuPDF
                         prev_text_chunk = text_chunk;
 
                         kerning_heuristics.Reset(text_chunk);
-                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
-                        metrics_for_this_line_have_been_collected = true;
+                        if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                        {
+                            must_word_break_immediately = true;
+                            metrics_for_this_line_have_been_collected = false;
+                        }
+                        else
+                        {
+                            kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                            metrics_for_this_line_have_been_collected = true;
 
-                        text_chunks.Add(text_chunk);
+                            text_chunks.Add(text_chunk);
+                        }
                         continue;
                     }
                 }
@@ -1391,18 +1619,36 @@ namespace Utilities.PDF.MuPDF
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
-                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
-                    metrics_for_this_line_have_been_collected = true;
+                    if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                    {
+                        must_word_break_immediately = true;
+                        metrics_for_this_line_have_been_collected = false;
+                    }
+                    else
+                    {
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
 
-                    text_chunks.Add(text_chunk);
+                        text_chunks.Add(text_chunk);
+                    }
                     continue;
                 }
 
                 if (!metrics_for_this_line_have_been_collected)
                 {
                     kerning_heuristics.Reset(text_chunk);
-                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, current_text_chunk);
-                    metrics_for_this_line_have_been_collected = true;
+                    if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                    {
+                        must_word_break_immediately = true;
+                        metrics_for_this_line_have_been_collected = false;
+
+                        continue;
+                    }
+                    else
+                    {
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, current_text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
+                    }
                 }
 
                 double estimated_space_width = kerning_heuristics.CalcMinimumSpaceWidthEstimate(current_text_chunk, text_chunk);
@@ -1449,10 +1695,18 @@ namespace Utilities.PDF.MuPDF
 
                     // re-establish some line metrics as the 'unexpected gap' may be *anything*...
                     kerning_heuristics.Reset(text_chunk);
-                    kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
-                    metrics_for_this_line_have_been_collected = true;
+                    if (kerning_heuristics.CheckForVerticalLineOfTextAndRewriteNodes(ref text_chunks, text_chunks_original, ref index, text_chunk))
+                    {
+                        must_word_break_immediately = true;
+                        metrics_for_this_line_have_been_collected = false;
+                    }
+                    else
+                    {
+                        kerning_heuristics.LookAheadAndGatherMetricsForThisLineOfText(text_chunks_original, index, text_chunk);
+                        metrics_for_this_line_have_been_collected = true;
 
-                    text_chunks.Add(text_chunk);
+                        text_chunks.Add(text_chunk);
+                    }
                     continue;
                 }
 
