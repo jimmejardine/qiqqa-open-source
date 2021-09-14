@@ -1482,6 +1482,20 @@ namespace Utilities.PDF.MuPDF
             return false;
         }
 
+        private static bool AreBothSidesSuitableForMerging(TextChunk left, TextChunk right)
+        {
+            if (left == null || right == null || left.text.Length == 0 || right.text.Length == 0)
+                return true;
+
+            char cl = left.text[left.text.Length - 1];
+            char cr = right.text[0];
+
+            bool keepl = (Char.IsLetterOrDigit(cl) || (cl > ' ' && cl < 0x7F));
+            bool keepr = (Char.IsLetterOrDigit(cr) || (cr > ' ' && cr < 0x7F));
+
+            return !(keepl && keepr);
+        }
+
 
         private static List<TextChunk> AggregateOverlappingTextChunks(List<TextChunk> text_chunks_original, string debug_cli_info)
         {
@@ -1580,7 +1594,7 @@ namespace Utilities.PDF.MuPDF
                 }
 
                 // are we already tracking the current font and size? if not, please do.
-                if (kerning_heuristics.IsFontChange(text_chunk) && false)
+                if (kerning_heuristics.IsFontChange(text_chunk) && AreBothSidesSuitableForMerging(current_text_chunk, text_chunk))
                 {
                     if (DEBUG && current_text_chunk != null)
                     {
