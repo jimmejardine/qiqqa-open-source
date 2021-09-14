@@ -1094,9 +1094,6 @@ namespace Utilities.PDF.MuPDF
                         return;
                     }
 
-                    // update the cumulative character width heuristic helpers as well:
-                    CollectCharWidthData(text_chunk);
-
                     if (prev_text_chunk != null)
                     {
                         double current_letter_gap = (text_chunk.x0 - prev_text_chunk.x1);  // negative gap means OVERLAP!
@@ -1104,10 +1101,10 @@ namespace Utilities.PDF.MuPDF
                         double offset = CalcGapOffset();  // positive offset means OVERLAP!
 
                         double average_letter_width_rough = CalcRoughCharWidth(text_chunk);
-                        double initial_estimate = average_letter_width_rough * HEURISTIC_SPACE_WIDTH_FACTOR / 2;
+                        double initial_estimate = average_letter_width_rough * HEURISTIC_SPACE_WIDTH_FACTOR / 4;
 
                         // ignore POSITIVE outliers: those are spaces we're jumping!
-                        if (current_letter_gap <= initial_estimate)
+                        if (current_letter_gap <= Math.Max(0, initial_estimate - offset))
                         {
                             double overdoing_it = -average_letter_width_rough / 2;
                             if (current_letter_gap <= overdoing_it)
@@ -1129,9 +1126,17 @@ namespace Utilities.PDF.MuPDF
                             }
                             else
                             {
+                                // update the cumulative character width heuristic helpers as well:
+                                CollectCharWidthData(text_chunk);
+
                                 CollectCharOverlapData(-current_letter_gap);
                             }
                         }
+                    }
+                    else
+                    {
+                        // update the cumulative character width heuristic helpers as well:
+                        CollectCharWidthData(text_chunk);
                     }
 
                     prev_text_chunk = text_chunk;
