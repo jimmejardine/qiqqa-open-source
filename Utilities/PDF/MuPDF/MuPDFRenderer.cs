@@ -906,6 +906,7 @@ namespace Utilities.PDF.MuPDF
         const double MAX_LINE_VERTICAL_OVERLAP_PERUNAGE = 0.1;   // 10%
 
         const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.75;
+        const double HEURISTIC_SPACE_OFFSET_FACTOR = 0.5;
 
         const double MAX_VERTICAL_TEXT_WORD_STRETCHING_PERUNAGE = 0.1;   // 10%
 
@@ -960,7 +961,7 @@ namespace Utilities.PDF.MuPDF
 
             public double CalcGapOffset()
             {
-                return char_cumulative_overlap_count == 0 ? 0 : char_cumulative_overlap / char_cumulative_overlap_count;
+                return char_cumulative_overlap_count == 0 ? 0 : (char_cumulative_overlap / char_cumulative_overlap_count) * HEURISTIC_SPACE_OFFSET_FACTOR;
             }
 
             public double CalcMinimumSpaceWidthEstimate(TextChunk word, TextChunk next)
@@ -1395,7 +1396,10 @@ namespace Utilities.PDF.MuPDF
                 {
                     must_word_break_immediately = false;
 
+                    previous_page = text_chunk.page;
+
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
@@ -1420,6 +1424,7 @@ namespace Utilities.PDF.MuPDF
                     previous_page = text_chunk.page;
 
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
@@ -1479,6 +1484,7 @@ namespace Utilities.PDF.MuPDF
                 if (null == current_text_chunk)
                 {
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     if (prev_text_chunk == null)
                     {
                         prev_text_chunk = text_chunk;
@@ -1516,6 +1522,7 @@ namespace Utilities.PDF.MuPDF
                     }
 
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
@@ -1549,6 +1556,7 @@ namespace Utilities.PDF.MuPDF
                     }
 
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
@@ -1593,6 +1601,7 @@ namespace Utilities.PDF.MuPDF
                         }
 
                         current_text_chunk = text_chunk;
+                        ASSERT.Test(current_text_chunk.page == previous_page);
                         prev_text_chunk = text_chunk;
 
                         kerning_heuristics.Reset(text_chunk);
@@ -1624,6 +1633,7 @@ namespace Utilities.PDF.MuPDF
                     }
 
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     kerning_heuristics.Reset(text_chunk);
@@ -1675,6 +1685,7 @@ namespace Utilities.PDF.MuPDF
 
                     // ... then it's another word starting now.
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     text_chunks.Add(text_chunk);
@@ -1699,6 +1710,7 @@ namespace Utilities.PDF.MuPDF
 
                     // ... then we treat it as yet another word starting now.
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     // re-establish some line metrics as the 'unexpected gap' may be *anything*...
@@ -1729,6 +1741,7 @@ namespace Utilities.PDF.MuPDF
                 if (Char.IsLetterOrDigit(c0) && IsAnyOf(c_prev, ",;|=]})>"))
                 {
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     text_chunks.Add(text_chunk);
@@ -1737,6 +1750,7 @@ namespace Utilities.PDF.MuPDF
                 if (Char.IsLetterOrDigit(c_prev) && IsAnyOf(c0, ",;|=[{(<"))
                 {
                     current_text_chunk = text_chunk;
+                    ASSERT.Test(current_text_chunk.page == previous_page);
                     prev_text_chunk = text_chunk;
 
                     text_chunks.Add(text_chunk);
