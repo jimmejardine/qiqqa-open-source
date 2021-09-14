@@ -906,7 +906,7 @@ namespace Utilities.PDF.MuPDF
         const double MAX_LINE_VERTICAL_OVERLAP_PERUNAGE = 0.1;   // 10%
 
         const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.75;
-        const double HEURISTIC_SPACE_OFFSET_FACTOR = 0.5;
+        const double HEURISTIC_SPACE_OFFSET_FACTOR = 1.0;
 
         const double MAX_VERTICAL_TEXT_WORD_STRETCHING_PERUNAGE = 0.1;   // 10%
 
@@ -915,6 +915,7 @@ namespace Utilities.PDF.MuPDF
         {
             private TextChunk current_font_and_size;
             private StringBuilder char_width_scratch_str;
+            private double char_width_scratch_last_x1;
             private double char_width_scratch_cumulative_width;
             private double char_cumulative_overlap;
             private double line_height;
@@ -924,6 +925,7 @@ namespace Utilities.PDF.MuPDF
             {
                 current_font_and_size = null;
                 char_width_scratch_str = null;
+                char_width_scratch_last_x1 = -1;
                 char_width_scratch_cumulative_width = 0;
                 char_cumulative_overlap = 0;
                 char_cumulative_overlap_count = 0;
@@ -934,6 +936,7 @@ namespace Utilities.PDF.MuPDF
             {
                 current_font_and_size = mark;
                 char_width_scratch_str = new StringBuilder();
+                char_width_scratch_last_x1 = -1;
                 char_width_scratch_cumulative_width = 0;
                 char_cumulative_overlap = 0;
                 char_cumulative_overlap_count = 0;
@@ -950,7 +953,14 @@ namespace Utilities.PDF.MuPDF
             public void CollectCharWidthData(TextChunk mark)
             {
                 char_width_scratch_str.Append(mark.text);
-                char_width_scratch_cumulative_width += Math.Max(0, mark.x1 - mark.x0);
+                double correction = 0;
+                if (char_width_scratch_last_x1 > mark.x0)
+                {
+                    correction = char_width_scratch_last_x1 - mark.x0;
+                }
+                double dist = mark.x1 - mark.x0 - correction;
+                char_width_scratch_cumulative_width += Math.Max(0, dist);
+                char_width_scratch_last_x1 = mark.x1;
             }
 
             public void CollectCharOverlapData(double current_letter_gap)
