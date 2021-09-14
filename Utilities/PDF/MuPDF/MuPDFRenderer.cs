@@ -1446,6 +1446,8 @@ namespace Utilities.PDF.MuPDF
                     {
                         ignore_repeated_page_content = false;
 
+                        metrics_for_this_line_have_been_collected = false;
+
                         // now that we're done with that page, do register as 'completely processed':
                         if (previous_page >= 0)
                         {
@@ -1458,6 +1460,7 @@ namespace Utilities.PDF.MuPDF
                         }
 
                         current_text_chunk = null;
+                        prev_text_chunk = null;
 
                         previous_page = text_chunk.page;
                     }
