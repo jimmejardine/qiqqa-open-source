@@ -1580,7 +1580,7 @@ namespace Utilities.PDF.MuPDF
                 }
 
                 // are we already tracking the current font and size? if not, please do.
-                if (kerning_heuristics.IsFontChange(text_chunk))
+                if (kerning_heuristics.IsFontChange(text_chunk) && false)
                 {
                     if (DEBUG && current_text_chunk != null)
                     {
@@ -1630,7 +1630,7 @@ namespace Utilities.PDF.MuPDF
                             processed_pages.Add(previous_page);
                         }
 
-                        if (DEBUG)
+                        if (DEBUG && current_text_chunk != null)
                         {
                             current_text_chunk.post_diagnostic += "(*PAGE-BREAK*)";
                         }
