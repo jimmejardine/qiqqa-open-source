@@ -1757,7 +1757,7 @@ namespace Utilities.PDF.MuPDF
 
                     double average_letter_width_rough = kerning_heuristics.CalcRoughCharWidth(text_chunk);
                     double distance2_ref = average_letter_width_rough * average_letter_width_rough;
-                    const double factor = 3.5;
+                    const double factor = 4.5;
 
                     // when we're quite a distance away from our predecessor and we're not
                     // really moving forward, then we're at the end of the line (in a pretty weird way).
