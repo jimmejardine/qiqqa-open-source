@@ -975,7 +975,7 @@ namespace Utilities.PDF.MuPDF
         const double MAX_LINE_VERTICAL_OVERLAP_PERUNAGE = 0.1;   // 10%
 
         const double HEURISTIC_SPACE_WIDTH_FACTOR = 0.3;
-        const double HEURISTIC_SPACE_OFFSET_FACTOR = 1.4;
+        const double HEURISTIC_SPACE_OFFSET_FACTOR = 1.12;
 
         const double MAX_VERTICAL_TEXT_WORD_STRETCHING_PERUNAGE = 0.1;   // 10%
 
