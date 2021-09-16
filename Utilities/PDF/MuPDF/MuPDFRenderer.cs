@@ -1330,24 +1330,28 @@ namespace Utilities.PDF.MuPDF
                     if (text_chunk.x1 - text_chunk.x0 < MINIMUM_SANE_WORD_WIDTH || text_chunk.y1 - text_chunk.y0 < MINIMUM_SANE_WORD_WIDTH)
                     {
                         // Logging.Warn("Bad bounding box for raw text chunk ({0})", debug_cli_info);
+                        ASSERT.Test(index > first_vertical_index + 1 ? index > currentIndex + 1 : true);
                         return index > first_vertical_index + 1 ? index : -1;
                     }
 
                     // If it's a space
                     if (String.IsNullOrWhiteSpace(text_chunk.text))
                     {
+                        ASSERT.Test(index > first_vertical_index + 1 ? index > currentIndex + 1 : true);
                         return index > first_vertical_index + 1 ? index : -1;
                     }
 
                     // stop when we hit a node that's not a single char/code
                     if (text_chunk.text.Length != 1)
                     {
+                        ASSERT.Test(index > first_vertical_index + 1 ? index > currentIndex + 1 : true);
                         return index > first_vertical_index + 1 ? index : -1;
                     }
 
                     // stop at font changes: there the metrics will change significantly anyway!
                     if (IsFontChange(text_chunk))
                     {
+                        ASSERT.Test(index > first_vertical_index + 1 ? index > currentIndex + 1 : true);
                         return index > first_vertical_index + 1 ? index : -1;
                     }
 
@@ -1356,6 +1360,7 @@ namespace Utilities.PDF.MuPDF
                         // If it's on a different page (or an inadvertent *re-extract* of the same page)...
                         if (text_chunk.page != sol_marker.page || text_chunk.pageStart)
                         {
+                            ASSERT.Test(index > first_vertical_index + 1 ? index > currentIndex + 1 : true);
                             return index > first_vertical_index + 1 ? index : -1;
                         }
                     }
@@ -1363,6 +1368,7 @@ namespace Utilities.PDF.MuPDF
                     double vert_line_height2 = (text_chunk.x1 - text_chunk.x0);
                     if (vert_line_height2 != vert_line_height || text_chunk.x0 != x_base)
                     {
+                        ASSERT.Test(index > first_vertical_index + 1 ? index > currentIndex + 1 : true);
                         return index > first_vertical_index + 1 ? index : -1;
                     }
 
@@ -1382,13 +1388,18 @@ namespace Utilities.PDF.MuPDF
                     // then we're at the end of the word.
                     if (distance > distance_ref)
                     {
+                        ASSERT.Test(index > first_vertical_index + 1 ? index > currentIndex + 1 : true);
                         return index > first_vertical_index + 1 ? index : -1;
                     }
 
                     prev_text_chunk = text_chunk;
                 }
 
-                return text_chunks_original.Count;
+                {
+                    int index = text_chunks_original.Count;
+                    ASSERT.Test(index > first_vertical_index + 1 ? index > currentIndex + 1 : true);
+                    return index > first_vertical_index + 1 ? index : -1;
+                }
             }
 
             public bool CheckForVerticalLineOfTextAndRewriteNodes(ref List<TextChunk> dst_text_chunks, List<TextChunk> text_chunks_original, ref int currentIndex, TextChunk sol_marker)
