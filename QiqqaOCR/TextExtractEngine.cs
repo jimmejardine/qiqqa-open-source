@@ -33,6 +33,11 @@ namespace QiqqaOCR
 
         internal static void MainEntry(string[] args, bool no_kill)
         {
+            thread_text_extract = null;
+            word_lists_text_extract = null;
+            has_exited_text_extract = false;
+            exception_text_extract = null;
+
             // Check that we were given the right number of parameters
             if (args.Length < 6)
             {
@@ -57,7 +62,7 @@ namespace QiqqaOCR
 
             while (true)
             {
-                // --- TEST FOR STARTUP ------------------------------------------------------------------------------------------------------------------------------------------------
+                // --- TEST FOR STARTUP -----------------------------------------------------------------------------------------------------------------------
 
                 // Do we need to start the word list extractor thread?
                 bool must_start_thread;

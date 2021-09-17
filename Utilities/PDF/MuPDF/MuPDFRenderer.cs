@@ -985,7 +985,6 @@ namespace Utilities.PDF.MuPDF
         {
             private TextChunk current_font_and_size;
             private StringBuilder char_width_scratch_str;
-            private double char_width_scratch_last_x1;
             private double char_width_scratch_cumulative_width;
             private StringBuilder LC_char_width_scratch_str;
             private double LC_char_width_scratch_cumulative_width;
@@ -1000,7 +999,6 @@ namespace Utilities.PDF.MuPDF
                 current_font_and_size = null;
                 char_width_scratch_str = null;
                 LC_char_width_scratch_str = null;
-                char_width_scratch_last_x1 = -1;
                 char_width_scratch_cumulative_width = 0;
                 LC_char_width_scratch_cumulative_width = 0;
                 char_cumulative_overlap = 0;
@@ -1015,7 +1013,6 @@ namespace Utilities.PDF.MuPDF
                 current_font_and_size = mark;
                 char_width_scratch_str = new StringBuilder();
                 LC_char_width_scratch_str = new StringBuilder();
-                char_width_scratch_last_x1 = -1;
                 char_width_scratch_cumulative_width = 0;
                 LC_char_width_scratch_cumulative_width = 0;
                 char_cumulative_overlap = 0;
@@ -2120,7 +2117,7 @@ namespace Utilities.PDF.MuPDF
                         rv.error = null;
                         rv.exitCode = Math.Abs(process.ExitCode);
 
-                        rv.stdoutBinaryData = process_output_reader.BinaryOutput;
+                        rv.stdoutBinaryData = process_output_reader.GetBinaryOutput();
                         int total_size = rv.stdoutBinaryData?.Length ?? 0;
 
                         Logging.Debug("PDFDRAW image output {0} bytes in {1} ms (output copy took {2} ms) for command:\n    {4} {3}", total_size, elapsed2, elapsed2 - elapsed, process_parameters, pdfDrawExe);

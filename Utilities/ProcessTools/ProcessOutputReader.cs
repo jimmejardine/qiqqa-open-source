@@ -42,7 +42,7 @@ namespace Utilities.ProcessTools
     {
         private Process process;
         public List<string> Output = new List<string>();
-        public byte[] BinaryOutput = null;
+        private byte[] BinaryOutput = null;
         public List<string> Error = new List<string>();
         private object io_buffers_lock = new object();
         public readonly bool StdOutIsBinary;
@@ -79,7 +79,10 @@ namespace Utilities.ProcessTools
             }
             else
             {
-                BinaryOutput = null;
+                lock (io_buffers_lock)
+                {
+                    BinaryOutput = null;
+                }
             }
 
             waitErrorDataCompleted = new TaskCompletionSource<object>();
@@ -200,6 +203,14 @@ namespace Utilities.ProcessTools
                 RunAsyncReadBinaryFully(process.StandardOutput.BaseStream, this, CancelToken.Token);
             }
             process.BeginErrorReadLine();
+        }
+
+        public byte[] GetBinaryOutput()
+        {
+            lock (io_buffers_lock)
+            {
+                return BinaryOutput;
+            }
         }
 
         private static async void RunAsyncReadBinaryFully(Stream stream, ProcessOutputReader completion, CancellationToken cancellationToken)
