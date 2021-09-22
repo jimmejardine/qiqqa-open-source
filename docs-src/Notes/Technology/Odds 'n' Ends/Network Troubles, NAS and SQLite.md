@@ -26,6 +26,11 @@ Across-the-network locking is simply **not available** when you happen to intera
 
 So we need to come up with “something else”. Or at least *something that might work across the board and not suffer from the current “oddities”*.
 
+## Aside / Reminders
+
+- Currently Qiqqa doesn't support network & UNC mapped paths, e.g. `//share/path/...` (see also [#354](https://github.com/jimmejardine/qiqqa-open-source/issues/354)).
+- SQLite (**NOT** the .NET version) has experiemental code for WAL2 and other 'modes': those are also relevant for locking and network behaviour, e.g. [#354](https://github.com/jimmejardine/qiqqa-open-source/issues/354)).
+- 
 
 
 
