@@ -6,7 +6,7 @@ End result: cold hard boot was required (which gave a dreaded win10 BSOD ("Page 
 
 End result: Qiqqa + MuPDF git repos are b0rked; bad ref reports, tortoisegit crashes on startup, etc.
 
-My own (older) tooling using `gpp -c` (in-house developed scripts) didn't recover.
+My own (older) tooling using `gpp -c` ([in-house developed scripts](https://github.com/GerHobbelt/developer-utility-commands)) didn't recover.
 
 ## Pages that helped resolve:
 
