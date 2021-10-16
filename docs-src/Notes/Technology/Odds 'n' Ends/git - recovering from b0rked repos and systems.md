@@ -18,7 +18,7 @@ My own (older) tooling using `gpp -c` (in-house developed scripts) didn't recove
 - **do NOT STOP until `git fsck --full --strict` is completely satisfied and doesn't yak about anything any more!**
 - the relevant part of the `gpp -c` script:
 
-  ```
+  ```sh
   c )
   echo "--- clean up the git submodules remote references etc. ---"
   for (( i=OPTIND; i > 1; i-- )) do

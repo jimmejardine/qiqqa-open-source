@@ -1,13 +1,5 @@
 # Network Troubles, NAS and SQLite
 
-
-
-
-
-
-
-
-
 ## Whiskey and network bugs: 12 year old, cask strength. Still capped.
 
 Old SMB had a nasty network bug around file locking.

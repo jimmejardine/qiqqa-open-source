@@ -36,3 +36,9 @@
 [submodule "QiqqaSniffer"]
 	path = QiqqaSniffer
 	url = git@github.com:GerHobbelt/qiqqa-sniffer.git
+[submodule "thirdparty/docopt"]
+	path = thirdparty/docopt
+	url = git@github.com:GerHobbelt/docopt.net.git
+[submodule "thirdparty/SmartThreadPool"]
+	path = thirdparty/SmartThreadPool
+	url = git@github.com:GerHobbelt/SmartThreadPool.git

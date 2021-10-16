@@ -13,7 +13,7 @@ This document describes several surprising artifacts discovered in many PDFs out
 
 ## Captain Obvious Abound: PDFs which are a set of page images
 
-**This is about PDFs which look to be _in mint condition_ when viewed on screen or in print. See the other sections for the _others_.**
+**This is about PDFs which look to be _in mint condition_ when viewed on screen or in print. [[#Major Malorum PH Ret OG PDFs which are a set of scanned page images|See the other sections for the _others_.]]**
 
 Some do it to “protect” against copy/pasting their texts. (Those are rather *rare*, it seems.)
 

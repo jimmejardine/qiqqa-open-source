@@ -1,0 +1,84 @@
+## Extra Notes
+
+I'm currently considering also "*outsourcing*" the async render/text cache storage and management to a `memchached`-similar system, thus stripping out another tough chunk of functionality from the C#/.NET application. 
+
+However, this leads to another round-trip = *latency risk*, as I'll be introducing yet another client-server socket interface costs where there once was only object method call overhead in C#.
+
+**Why do this then?**
+
+My excuse is that I will need this type of *cache service* once I've moved the UI to HTML/CSS if I want my HTML/CSS-based UI to *stay relatively easy to maintain* by having reduced the *complicated async cache usage bits* to fundamental web requests.
+
+Another, *more acute*, reason is, while async programming is nice, at least in C#/.NET it *clings to the UI thread* unless you spend *significant additional non-trivial effort*, which already has complicated the current codebase quite a bit and clearly is a support dead end long term.
+Thus simple refactoring of once UI-locking behaviour is a *sine cure* as C# `async` is not sufficient: it merely will move the heavy calculations to another point in time, resulting in UI lockups at arbitrary times, if we hadn't expended that additional (and *code complicating*!) effort.
+
+The cache+task system needed in Qiqqa is manifold as it needs to manage all those pesky UI-triggered *actions* in the background:
+- Quite a few (render-)actions are currently triggered & queued while a user browses, i.e. moves *swiftly* through his document(s)/page(s): *many* of those render actions are *obsolete* if they cannot keep up.
+
+   In other words: many UI updates are *only relevant when done on time*: when the system cannot keep up with the user, the system **should drop older render tasks** as the user will already have moved on by the time the render result arrives. This is currently **the major UX bottleneck in Qiqqa** re UI-performance/-responsiveness.
+   
+   This is *quite different* from regular *vanilla* `async` tasks: ours only improve matters when they:
+   
+   + expire when *other* tasks of the same kind are present in the queue by the time this task is picked up for processing, and
+   + reduce-to-*nil* when the very same task is *re-scheduled* at a later point in time and the current task has been processed yet: user actions such as swiftly scrolling back & up multiple times will trigger multiple page render (to-be-cached) tasks for *the very same page*: here only the very last of those is relevant as any older task's response will be overwritten by the latest render cache feedback anyway. In other words: 
+   
+	   1. either queued tasks need to be *conscious about other pending requests* when they are picked for execution (processing) and *nil* themselves when overriding queue entries are present (a.k.a. *Check Style*), 
+	   2. or the task queueing act must itself investigate the current queue and delete or *replace* any pending tasks that would be obsoleted by the task-being-pushed (a.k.a. *Replace Style*).
+	    
+	   The latter approach would, at least in theory, be the faster one -- assuming a queue inspection can bulk-erase pending matching items, thus reducing the number of queue inspections vs. the first approach, where a task inspects the queue only upon execution and fast-returns when matching entries exist in the queue.
+- Quite a few (render-)actions require
+	1. an *immediate* and *delayed* response, where the *immediate* response would be the swiftest, simplest, render of a "please wait while I render this" user feedback behaviour, e.g. rendering only rendering only a basic, *context-independent*, page view. (Think the modern approach to fast-load web pages where text is *faked* initially by rendering a bunch of gray bars representing a chunk of text-to-be.)
+	2. plus the final page render, which may have taken some time and is prone to becoming obsolete by the user moving away from the page already before the page finished rendering or due to the user scrolling up&down repeatedly, causing the simple UI code to re-trigger this very same render task as the user re-visits the page already before is has rendered fully.
+	3. plus some data queries are sufficiently expensive (LDA-based keyword discovery, for example) that a *good UX* implies we'll be expecting *multiple updates as the backend system delivers more useful results to be added to the pick set presented to the user*. Think keyword / tag suggestions and such-like where swiftness-of-response is a *major factor for usability*: if the user still hasn't decided, we can update the list a la google Search suggestions, otherwise we can abort the costly background operation.
+	
+	While all these *could* be coded in C# now and then redone in the front-end JS-based UI (CEF/WebView-based UI in *Future Qiqqa*), I think offloading the bulk of this complexity for the relevant backend *servers* to manage would benefit the total CPU cost for a given UX responsiveness at reasonable *developer cost*: I'll need *abortable task execution* server-side anyway, due to no.3, while deciding to keep the queue management client-side implies I'll be doing the thread/CPU-load management of the relevant server *client-side* as well, as then the *client* would then dictate how many tasks are processed at the same time. Not that this is necessarily *bad*, but since I'll need *abort functionality* server-side anyway, I don't have a very good reason *not* to keep the entire queue management on that side as well.
+	
+	Another argument pro-server-side is the *way* we would respond to a user-side dictated *abort* or *nil=superseded/anulled* conclusion made there: it's generally swiftest to keep the client-server connection *open* all the time, thus *abort* and *anulled* would have to be *messages*: simply dropping the connection to signal lack-of-interest in the result is too costly, when we're talking many such task requests per second. (*And we are expecting rather high task request numbers indeed as we have both the busy user and the current background processes, such as database completion by queueing a zillion pages' worth of text extracts when processing large library imports, for example, to contend with.*)
+	
+	The consequence of *abort* and *anulled* becoming *messages*, is having to expect and process *ack responses* thereof as we need to keep the communication across the socket clean and *intact* while these happen and other tasks await (async) response from the server. This means we're essentially consigning ourselves to a *Check Style* approach, or so it seems, while we'll also need some sort of *server push* if we want those *incremental updates* to work out in a request=response communication scheme across the socket.
+	
+	Hm.
+	
+	Perhaps we should completely *uncouple* request and response there as one request can cause multiple responses over time?
+	
+	**Nyet.**
+	
+	If we file a (costly) request which *may* result in multiple responses, we *always* will (need to) know when the query has *completely finished*: it's not really *server push* that way, as our client-side request triggers the behaviour: without it, there's no reason what-so-ever to send those incremental updates. The proper way there thus would be to file the request, wait for a response (any is fine: aborted, anulled, *partial data* or *final data*) and when we happen to observe a *partial data* response form the server, submit a follow-up request message for the server to bind the next (partial or *final*) response to. 
+	
+	It also means we'll need the *client* to be able to send *abort* and *anulled* messages as it's the client who knows further server-side work is obsoleted when the user closes that particular view or *moves away*: when this happens, an "abort/anull anything related to this view" message would be much appreciated as it'd cut *ineffective* server-side CPU costs quite a bit. Think, for example, about a heavily loaded system, where a user opens a PDF reader view, scrolls a bit, thus firing multiple page & thumbnail render requests for document X, then decides otherwise and closes the view and moves to another document, thus causing *any work to-be-done on document X to be utterly useless*: here it would help greatly if the server is kept informed and receives a "no need to work on that document X stuff any more" message.
+	
+	Which, when you think about it, means we would be helped *significantly* if we can *discard* pending requests without sending a *nack response*. Thus the request=response 1:1 message exchange is *not true* anymore then: some request messages waiting for a response client side are to be killed without a response? Or should we keep the interface simple and *accept* the 1:1 rule as strict, thus resulting in an *abort this X work* message in an immediate flurry of *nack* response messages for the pending document X requests? Hmmmmmmm.... Cost would be relatively cheap, very small messages and little work that way to cleanly resolve each pending async request client-side that way, as the client-side code would not have to bother with keeping track of outstanding requests *at all*: sending an "abort this lot" message to the server would take care of all of that by way of the *nack* server responses for each of those pending client-side actions, thus causing the desired *cleanup* via the regular code path.
+	
+	That would keep the code clean and simple as then the only catastrophic abort/fail to watch for in each async request is *socket disconnect* (due to fatal server failure or special *abortive admin intervention* via the *launcher* or some such "kill all" approach).
+	
+	--> keep a strict request=response 1:1 communication message system. Just expect *any* request to produce a *nack*=aborted/anulled server response and clean up quickly following such.
+	
+	--> Unless I come up with an *easy yet smarter* communication system, all this means the *Replace Style* is not used, while it is *theoretically* more efficient in both comms and CPU costs: *Replace Style* implies I'll be expecting a 0--N responses for each request, which introduces additional bug risks: infinitely pending requests due to bugs in the client *or* server code re flagging a response as *final* (thus causing the client to wait for more) or *discarding* a pending request server-side (without expending the cost of a *nack* response) due to inappropriate client messages or server conclusions about which messages to *discard*: if the client has an ever-so-slight different *opinion* about this, there will be *either* infinitely pending requests *or* server responses arriving without a still-pending client request to match against, thus resulting in (fatal?) comms irregularities.
+	
+	**Thus 1:1 req=resp it is. And no server-push at all: all server responses are upon request.**
+	
+	### Then there's the remaining issue of in-order vs. out-of-order
+	
+	Of course, we'll still have to deal with *dispatching* server responses *client-side* as the various response costs server-side imply that responses *may very well not arrive in order*.
+	
+	Would this impact our queued requests, if those happen to be inter-related? Probably not. The server can invalidate (*anull*) any pending request for the same task, irrespective of the pending requests' *age*: we **assume** that tasks are *static* that way: same request leads to same result, no matter the time it was sent. This *static* assumption *implies* we'll need additional logic to invalidate *otherwise obsoleted outstanding requests*: say we're about updating the text for a document and wish it to update the FTS DB, then any older, still pending, text FTS update request is to be discarded. If such would exist... *That* means we'll need to process requests in-order server side, so we'll never run into this odd scenario: the older request should already have obsoleted itself when it got started before (FIFO = in-order execution of the pending queue!) and saw the later text update/submit request.
+	
+	(Very) long running tasks should check both at their *start* and *end* whether they've been obsoleted by pending requests in the queue: the check at the *end* is useful to reduce client-side processing (and re-render) costs as we can then suffice with discarding our work and sending a *nack* response instead. But only when such is actually useful for the client UX: given our 'functional programming' alike *static task* stance above, a just-finished page render *should not* discard itself when a subsequent request for the same is discovered as pending at the end of the render execution: if we would, we would add to the *latency* as we would be caching this page image, only transmitting it to the client once we pop that next request for the same off the server-side queue. Better (maybe?) to advance-flag that pending request as already-handled-via-previous-request (if the client is known to be smart enough) or rather keep it simple: when we have a severely loaded system like that, there's more troubles to contend with and we would have a fresh cache slot ready for retransmission ready for that pending request with very high probability anyway: slightly higher comms data and processing cost for a far less risky (simpler!) system.
+	
+	But when we take a exec-in-order stance, there's no 'obsoleted requests' to anull, right? Well, *no*. It would just happen via a slightly different server process: a request (task) is popped of the FIFO queue: the *at-start* check then reveals still-pending requests for the same, rendering the current active task as obsolete and thus *anulled*, so the response can be swift and easy: an immediate *nack* response without spending any time on requested work. Rinse & repeat until we arrive at the last request, which won't observe any pending *reasons to abort/anull myself* and thus commences to do the requested work.
+	
+	How about that *extra latency when rendering PDF pages*, etc.? Here the page render request *cannot* discard/anull itself when the same request is found pending in the queue: those requests-for-same must be handled by serving them from cached results to improve performance.... OR we 'trick' the system by immediately *nack*ing our pending matching request and then immediately follow up by popping the pending request-for-same requests off the queue (out-of-order!) and *nack*ing all but the last, which will get our current gathered data (page image) as its response: this way we stick with the nack-all-that-obsolete approach towards the client, while we won't have to bother image caches or other partial optimizations and *retransmissions* from such a cache: while a PDF page cache is still useful for the scenario where we need to re-render a page later, it's not needed to solve the too-fast-to-have-responded-already rerender request in a heavily loaded system: the older outstanding page requests will simply be anulled this way "as usual" in this comms scheme, thus reducing retransmission costs, while keeping *latency* to a minimum: the last page render request has been served *early* this way.
+	
+	### And how about the current Qiqqa task queue fill-up troubles?
+	
+	Current *Old Qiqqa* has issues with the CPU loading up and queues filling up with page render requests for background text extraction activity, meant to complete the FTS DB for a library that's not yet completely processed.
+	
+	This is what my previous priority-queue and then in-memory B+-tree research has been all about: prioritizing *direct user-facing requests* above all else: when viewing a PDF, those PDF pages render requests should come before any (very similar) PDF page image requests for the background OCR task.
+	
+	The situation is complicated by several direct user facing tasks requiring text extraction (by way of querying the internal document word store), which is indiscernable from background library update/completion work at the individual text extract task level. Another complication there is that we *should* improve UX by accepting incomplete or even *empty* responses for the text extract requests due to UI paint actions (--> fast response, low latency): again, *not so easy said as done* as such *acceptance* implies we'll to introduce a UI update mechanism which *repaints* the focused UI as updates arrive from the text extract task. But only if & when this does not obstruct the user's perception and activities: some updates are unwanted when the user is editing or completing a pick list as the update will probably loose us the selection-thus-far. Unless we come up with working answer for *that* conundrum. Which will have to wait until we have the UI done in HTML (and even then it'll probably remain a 'known issue' for heavily loaded systems or slow, lingering, text extraction processes)...
+	
+	
+	
+	
+
+
+	

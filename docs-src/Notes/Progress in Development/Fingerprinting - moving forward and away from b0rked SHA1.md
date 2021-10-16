@@ -4,7 +4,7 @@ Okay, it's a known fact that the SHA1-based fingerprinting used in qiqqa to iden
 
 This results in a couple of things, none of them major, but enough for me to consider moving:
 
-- the SHA1 hash is thus corrupted as-useed in Qiqqa: the nibble sequence `0A BC 0D` in a hash is indistinguishable from `AB 0C 0D` and `0A 0B CD` as all encode as `ABCD`. Thus the number of 'bits' in the hash are reduced quite a bit - not enough to cause immediate disaster, but there's more risk at collisions as the hash is not used the way it should.
+- the SHA1 hash is thus corrupted as-used in Qiqqa: the nibble sequence `0A BC 0D` in a hash is indistinguishable from `AB 0C 0D` and `0A 0B CD` as all encode as `ABCD`. Thus the number of 'bits' in the hash are reduced quite a bit - not enough to cause immediate disaster, but there's more risk at collisions as the hash is not used the way it should.
 - if I want to store both SHA1-colliding PDFs as separate documents, I can't. That's not important if I only store research papers, but when you are stretching the original goals of Qiqqa to suit your needs, you're in trouble.
  
 
