@@ -59,7 +59,7 @@ No, the ZIP files are **source code only** archives. For a while, the generated 
 
 Actual releases are available as setup*.exe installers at the afore-mentioned URLs in the **Assets** subsection(s).
 
-> It appears that there was a transition in the naming convention of the setup.exe in open source. The file no longer contains the version number. If this correct? 
+> It appears that there was a transition in the naming convention of the setup.exe in open source. The file no longer contains the version number. Is this correct? 
 
 Yes, v80 was published without a version encoded in the setup.exe; this has happened with a few experimental releases as well. Newer experimental releases follow a version scheme similar to MAJOR.minor.buildnumber, e.g. v82.0.7357.40407 (which is sometimes also referred to as v82pre9,  i.e. the 9th experimental prerelease of Qiqqa v82). The buildnumber `7357.40407` is an encoded timestamp: higher is more recent, thus newer release.
 

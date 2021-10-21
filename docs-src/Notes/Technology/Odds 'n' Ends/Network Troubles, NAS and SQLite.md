@@ -18,6 +18,11 @@ Across-the-network locking is simply **not available** when you happen to intera
 
 So we need to come up with “something else”. Or at least *something that might work across the board and not suffer from the current “oddities”*.
 
+## Aside / Reminders
+
+- Currently Qiqqa doesn't support network & UNC mapped paths, e.g. `//share/path/...` (see also [#354](https://github.com/jimmejardine/qiqqa-open-source/issues/354)).
+- SQLite (**NOT** the .NET version) has experiemental code for WAL2 and other 'modes': those are also relevant for locking and network behaviour, e.g. [#354](https://github.com/jimmejardine/qiqqa-open-source/issues/354)).
+- 
 
 
 
@@ -48,7 +53,7 @@ So we need to come up with “something else”. Or at least *something that mig
   - [Enabling or disabling oplocks and lease oplocks on the storage system](https://library.netapp.com/ecmdocs/ECMP1401220/html/GUID-526B365B-219B-4CA3-AD67-3E1E17B0DB0A.html)
   - [Improving client performance with opportunistic and lease oplocks](https://library.netapp.com/ecmdocs/ECMP1401220/html/GUID-31C39B53-077C-4ED2-8E86-BABBC0495BF7.html)
   - [Opportunistic Locking and Read Caching on Microsoft Windows Networks](https://www.cardbox.com/v2/oplocks.htm)
-  - [[How to verify and disable SMB oplocks and caching in FoxPro application startup](https://stackoverflow.com/questions/58044466/how-to-verify-and-disable-smb-oplocks-and-caching-in-foxpro-application-startup)](https://stackoverflow.com/questions/58044466/how-to-verify-and-disable-smb-oplocks-and-caching-in-foxpro-application-startup)
+  - [How to verify and disable SMB oplocks and caching in FoxPro application startup](https://stackoverflow.com/questions/58044466/how-to-verify-and-disable-smb-oplocks-and-caching-in-foxpro-application-startup)
   - [Disabling oplock/SMB2 vs FileInfoCacheLifetime](https://social.technet.microsoft.com/forums/windowsserver/en-US/67baa9fd-5eaf-438e-9cc4-dc1a531b9e19/disabling-oplocksmb2-vs-fileinfocachelifetime)
   - [Opportunistic Locking Explained](https://www.superbase.com/support/opportunistic-locking-explained/)
   - [Performance tuning for file servers](https://docs.microsoft.com/en-us/windows-server/administration/performance-tuning/role/file-server/)

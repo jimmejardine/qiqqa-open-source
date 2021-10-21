@@ -6,7 +6,7 @@ End result: cold hard boot was required (which gave a dreaded win10 BSOD ("Page 
 
 End result: Qiqqa + MuPDF git repos are b0rked; bad ref reports, tortoisegit crashes on startup, etc.
 
-My own (older) tooling using `gpp -c` (in-house developed scripts) didn't recover.
+My own (older) tooling using `gpp -c` ([in-house developed scripts](https://github.com/GerHobbelt/developer-utility-commands)) didn't recover.
 
 ## Pages that helped resolve:
 
@@ -59,6 +59,6 @@ My own (older) tooling using `gpp -c` (in-house developed scripts) didn't recove
   git remote prune origin
   ;;
   ```
-- it helps *oodles* if you previously ran the `collect_git_remote_add_recusively.sh` (in-house dev) script to generate a `util/...` shell script to *re*-register git remotes as I had to nuke the important ones locally in refs/remotes/ before I could anywhere near a fixable solution. Otherwise it's back to `git remote add ...` after the deleting when `git fetch` goes t\*ts up and you need to kill more to appease `git fsck` + `git gc`.
+- it helps *oodles* if you previously ran the `collect_git_remote_add_recusively.sh` ([in-house dev](https://github.com/GerHobbelt/developer-utility-commands)) script to generate a `util/...` shell script to *re*-register git remotes as I had to nuke the important ones locally in refs/remotes/ before I could anywhere near a fixable solution. Otherwise it's back to `git remote add ...` after the deleting when `git fetch` goes t\*ts up and you need to kill more to appease `git fsck` + `git gc`.
 - https://stackoverflow.com/questions/3765234/listing-and-deleting-git-commits-that-are-under-no-branch-dangling --> to help delete those "unreachable" blobs and commits too.
 - https://stackoverflow.com/questions/10570319/cannot-pull-git-cannot-resolve-reference-orig-head
