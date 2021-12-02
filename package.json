@@ -39,22 +39,20 @@
     "url": "https://github.com/jimmejardine/qiqqa-open-source/issues"
   },
   "homepage": "https://github.com/jimmejardine/qiqqa-open-source#readme",
-  "dependencies": {},
   "devDependencies": {
-    "@gerhobbelt/eleventy": "1.0.0-16",
     "@gerhobbelt/glob": "7.1.7-11",
     "@gerhobbelt/json5": "2.1.0-48",
-    "@gerhobbelt/live-server": "1.3.3-30",
+    "@gerhobbelt/live-server": "1.3.3-31",
     "@gerhobbelt/nomnom": "1.8.4-31",
     "@gerhobbelt/xml-beautifier": "1.0.2-1",
     "deGaulle": "file:../deGaulle",
-    "glob": "7.1.7",
-    "globby": "11.0.4",
-    "jsdom": "16.6.0",
+    "glob": "7.2.0",
+    "globby": "12.0.2",
+    "jsdom": "18.1.0",
     "moment": "2.29.1",
-    "prettier": "2.3.1",
+    "prettier": "2.4.1",
     "prettier-cli": "0.1.0",
-    "sass": "1.35.1",
+    "sass": "1.43.4",
     "semver": "7.3.5"
   }
 }

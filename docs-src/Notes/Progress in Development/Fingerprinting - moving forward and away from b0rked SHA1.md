@@ -126,6 +126,52 @@ Notes on these datums:
 - Base58 (Bitcoin / Nakamoto) efficiency number according to Wikipedia: https://en.wikipedia.org/wiki/Binary-to-text_encoding
 - Base58X: my own approach takes $58^7$ for every 41 bits, hence takes 7 output ASCII characters per 41 bits, hence a 32 *byte* hash takes $32 * 8 / 41$ chunks of 7 Blake48X output characters *each*, hence the total output size is $(32 * 8 / 41) * 7 \equiv 32 * 7 * 8 / 41 \simeq 43.7$ Base58X *characters*.
 - Base58X: same output size as Base58 while I'll have far fewer divide and modulo ops than bitcoin Base58 (Nakamoto) code as I don't treat the entire hash as one *BigInt*, but work in an intermediate 41-bit number base system instead.
+- However, note that as Nakamoto's approach to Base58 is treating the entire byte series to encode as one *BigInt* and my own approach of 7 chars per 41 bits -- which is *less space efficient* as I add gaps in my value space that way -- **should be worse than Nakamoto's**, this does *not* explain how my own growth factor of $7 * 8 /41 = 1.3658536$ is *less than* the Nakamoto factor mentioned at Wikipedia: $(1 / 0.73) = 1.3698630$?! 
+  
+  Consider a value $n$, then it would take up ${}^{g}log(n) = \frac {log(n)} {log(g)}$ *digits* in base $g$. Thus a *32 byte* number (max value: $256^32$) would cost $\frac {log(256^{32})} {log(58)}$ *digits* in Base58: $\left \lceil \frac {log(256^{32})} {log(58)} \right \rceil \equiv \left \lceil 32 \times \frac {log(256)} {log(58)} \right \rceil = \lceil 43.701 \rceil = 44$ Base58 *digits*. That's what Nakamoto's approach should produce.
+  Meanwhile, I'ld chop the 32 byte value ($32*8 = 256$ *bits*) up into $\left \lceil \frac {256}  {41} \right \rceil = \lceil 6.24 \rceil = 7$ chunks, encoding each into 7 characters, thus producing $7 \times 7 = 49$ Base58X *digits*. *Of course*, the last chunk is a *partial* one, so a smart encoder could indeed limit the cost to $\left \lceil 32 \times \frac {7 \times 8}  {41} \right \rceil = \lceil 43.7 \rceil = 44$ Base58X *digits*.
+  
+  But my concern are the growth factors. Let's have a look:
+
+  | encoding     | calculus & growth factor                   | 
+  |--------------|----------------------------|
+  | HEX:         | $log(256) / log(16) = 2$, which is expected |
+  | Base64:      | $log(256) / log(64) = 1.3333333$, as expected. |
+  | Base85:      | $log(256) / log(85) = 1.24816852$ vs. Wikipedia's $(1/0.80) = 1.25$|
+  | Base91:      | $log(256) / log(91) = 1.22929509$ vs. listed $(1/(1-0.23)) = 1.2987012987$ **ugh!**  |
+  | Base91:      | $log(256) / log(91) = 1.22929509$ vs. listed $(1/(1-0.14)) = 1.16279069767$ **ugh!** |
+  | Base58:      | $log(256) / log(58) = 1.3656582373$  vs. listed $(1/0.73) = 1.369863013699$ |
+  | **Base58X**: | $7 * 8 / 41 = 1.365853658537$       |
+
+  and there we see that Base58X is, **as expected from theory** indeed slightly worse than Base58, in the 5th significant digit of the growth factor. *Worse, if only very little*.
+  
+  And there we also see that the listed growth factors in the references simply carry too few significant digits to be *decent* here: Base58 *must* be better than *Base58X* and now you can see that is indeed true.
+  
+  Does this change our numbers and conclusions?
+  
+  *No.* The encoded 'numbers' (BLAKE3 hashes) are simply too small to make this issue matter already, but the bit of logarithm and *number base* applied theory was dearly needed to explain the observed error and *my temporary confusion*: because the numbers didn't match expected reality, I went looking for the bug, possibly in my original write-up of this, but it turns out I was correct all along, just using flawed reference numbers. *Bug found. Bug fixed.*
+  
+  
+  Anyway, these growth numbers tell us what we were curious about initially:
+  
+  - Our Base58X approach is 1.431‱ more costly than Nakamoto's Base58 in space, but saves a bundle on division and multiplication operations, thus winning big in CPU load costs. 2‱ is 2 per *10000*, BTW.
+  - Industry-ubiquitous Base64, the trivial go-to for converting binary to text, results in a 33.3% space increase. 
+   
+    > This relevant for database storage of these hashes: SQLite **does not support BIGINT, not really** as can be gleaned from section 3 ("Type Affinity") in https://www.sqlite.org/datatype3.html:
+    > 
+    > > A column with NUMERIC affinity may contain values using all five storage classes. When text data is inserted into a NUMERIC column, the storage class of the text is converted to INTEGER or REAL (in order of preference) if the text is a well-formed integer or real literal, respectively. **If the TEXT value is a well-formed integer literal that is too large to fit in a 64-bit signed integer, it is converted to REAL. For conversions between TEXT and REAL storage classes, only the first 15 significant decimal digits of the number are preserved.** If the TEXT value is not a well-formed integer or real literal, then the value is stored as TEXT. For the purposes of this paragraph, hexadecimal integer literals are not considered well-formed and are stored as TEXT. \[...]
+    >
+    >  (Emphasis in the quoted text is mine.)
+    
+  - Using Base58X instead of industry-ubiquitous, yet bothersome, Base64 (due to the characterset in the latter which may need additional escaping in several communication protocols out there, e.g. HTTP GET/POST/REST), results in an additional 2.44% space cost increase vs. Base64, which is negligible -- while we do not have any obnoxious character anywhere in our Base58X charset!
+    Meanwhile our computational encoding/decoding cost is slightly higher as we need to do a bit of judicious bit-shifting to arrive at those 41-bit chunks, plus a few more math operations to properly encode the digits in the chunk (vs. Base64 lookup table or similar means). Again, considered acceptable. Hence neglected.
+	
+  - Incidentally, given https://www.sqlite.org/datatype3.html (referenced above) and general SQL database experience through the years, we cannot have nice *pure binary data*	for indexed / *unique key* fields: `BLOB` is generally not accepted as a unique key type in databases; the 37% size increase to a *whopping* 44 characters per *key* (document hash) does not warrant very unconventional shenanigans with our SQLite database, so we'll be storing those hashes in Base58X encoded form, alas.
+   
+    Were we to use a NoSQL (e.g. LMDB) database instead, then it would potentially make sense to store the hashes in their original, *pure binary* form, clocking in at 32 bytes a-piece.
+
+
+
 
 Anyway, all this fun is more suitable food for a blog article than a commit message   :-D
 

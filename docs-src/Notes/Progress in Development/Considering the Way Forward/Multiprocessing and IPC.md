@@ -48,27 +48,6 @@ These are all *user* processes (or “actions”), which are enabled and empower
 
 
 
-## Whiskey and network bugs: 12 year old, cask strength. Still capped.
-
-Old SMB had a nasty network bug around file locking.
-NFS, much older still, also had a “known issue” re network file locking.
-Bottom linee: it doesn’t work.
-
-Empirical data / personal experience: nobody has fixed that issue. 
-That is discounting _specific network **monocultures**_ where the software involved is kept up to date and, *more importantly*, kept in sync with all the other network nodes. 
-Any **multicultural** network to date has failed to provide trustworthy network file locking. That is: any mix of Windows, UNIX boxen of any denomination, not even bothering with Macs.
-
-Database servers you say? Redundant / fail-over servers you say?
-Did you ever take a **real close look** there? 
-We’re talking **network file locking** here (as SQLite is an ISAM database, for starters) and none of the systems employed successfully in the wild employ **network file locking**: all of them use other technologies to distribute and *synchronize* tasks. All use network *communications* of some kind, mostly TCP/IP based, but *none* bet their bottom on the premise of **file locking**.
-Meanwhile, the enterprise solutions that **do work** are not available to me here as Qiqqa will run on an unknown gamut of machines and operating system versions (even while it currently only supports MS Windows, there’s the question of version, service packs and patch level there) while the “*Sync Directories*”, i.e. the file system slots where Qiqqa will attempt to *synchronize its database and all other relevant data* to, MAY reside on **anything** that’s able to connect to a Windows platform and offer some kind of filesystem interaction. This is includes cloud-based systems such as DropBox, OneDrive and Google Drive. This also includes any other efforts, such as hardware NAS systems (which often run trimmed-down, older, Linux OSes), “software NAS” (anyone who repurposed their older machines as a “free” NAS, really) and god knows what else out there.
-Across-the-network locking is simply **not available** when you happen to interact with such a wide gamut of devices.
-
-So we need to come up with “something else”. Or at least *something that might work across the board and not suffer from the current “oddities”*.
-
-
-
-
 
 # References
 
