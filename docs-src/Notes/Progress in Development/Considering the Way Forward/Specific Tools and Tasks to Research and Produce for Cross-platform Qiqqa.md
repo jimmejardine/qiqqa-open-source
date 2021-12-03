@@ -49,7 +49,7 @@
 
 - Qiqqa GUI
 	- [[wxwindows + CEF for UI - or should we go electron anyway|wxwindows + CEF for UI - or should we go `electron` anyway?]]
-	- [[The Qiqqa Sniffer UI / UX: PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine]]
+	- [[The Qiqqa Sniffer UI-UX - PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine|The Qiqqa Sniffer UI / UX: PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine]]
 	- [[Web UI/visual BibTex Editor|Web UI: visual BibTex Editor]]
 	- [[Web UI/visual Metadata Editor|Web UI: visual Metadata Editor (for abstract, title, DOI, **tags**, etc.)]]
 	- [[Web UI/ visual Tags, Ratings, Categories Editor|Web UI: visual Tags, Ratings, Categories, ... Editor]]
@@ -57,27 +57,27 @@
 	- [[Web UI/library document list view performance|Web UI: library document list view *performance*: Virtual Table technology for scrolling & jumping through 10K+ entries per library]]
 	- [[Web UI/Filtering as Search Aid|Web UI: Filtering as Search Aid: filter on title, tag(s), you-name-it...]]
 	- [[Web UI/Qiqqa Expedition, now done in web tech|Web UI: Qiqqa Expedition, now done in web tech: D3, ...]]
-- Qiqqa Core Local Server 
-	- [[anything PDF and SQLite happens on a local server|anything PDF and SQL(SQLite) happens on a local server]]
+- Qiqqa Core Local Server
+	- [[Anything PDF and SQLite happens on a local server|Anything PDF and SQL(SQLite) happens on a local server]]
 	- Qiqqa GUI Assist: PDF rendering
-		- [[PDF page image rendering for web frontend/PDF page image rendering for (web) frontend]]
+		- [[PDF page image rendering for web frontend|PDF page image rendering for (web) frontend]]
 		- [[PDF rendering performance - caching at the local server|PDF page rendering performance: *smart caching* of documents and their rendered page bitmaps to save work during the session]]
 	- PDF Automated (Bulk) Processing
 		- [[Importing PDFs]]
-		- [[Qiqqa Watch Folders now done by the core backend|Qiqqa Watch Folders: now done by the core backend]]
+		- [[Qiqqa Watch Folders/now done by the core backend|Qiqqa Watch Folders: now done by the core backend]]
 		- [[Cleaning PDFs|Cleaning PDFs: removing obnoxious banner pages, readying for OCR when deemed necessary]]
 		- [[Importing PDFs with annotations]]
 		- [[Extracting Annotations as Metadata]]
 		- [[Exporting PDFs for External Readers|Exporting PDFs for External Viewers / Readers / Editors]]
-		- [[Importing PDF Revisions|Importing PDF Revisions (Externally Edited and Resumbmitted into Qiqqa)]]
-		- [[Processing other document types: HTML]]
+		- [[Importing PDF Revisions|Importing PDF Revisions (Externally Edited and Resubmitted into Qiqqa)]]
+		- [[Processing other document types/HTML|Processing other document types: HTML]]
 	- Text Extraction
 		- [[Text Extraction/Processing regular PDFs|Text Extraction: processing regular PDFs]]
 		- [[Text Extraction/Processing obnoxious PDFs (forced) OCR|Text Extraction: processing obnoxious PDFs, i.e. (forced) OCR via tesseract]]
 		- [[Text Extraction/Cleaning Up the Extracted Content|Text Extraction: Cleaning Up the Extracted Content]]
 	- Metadata Extraction
 		- [[Metadata Extraction/Obtaining Author, Title, DOI, etc|Metadata Extraction: Obtaining Author, Title, DOI, etc. from the PDF XMP Data]]
-		- [[Metadata Extraction/*Infering* Author, Title, DOI, etc. from Content|Metadata Extraction: *Infering* Author, Title, DOI, etc. from the PDF Text Content]]
+		- [[Metadata Extraction/Infering Author, Title, DOI, etc from Content|Metadata Extraction: *Infering* Author, Title, DOI, etc. from the PDF Text Content]]
 	- Sniffer Assist: Downloading (PDF & HTML) Documents
 		- [[Using embedded cURL to download PDF or HTML document at URL]]
 		- [[Using embedded cURL to obtain Metadata for a document]]
@@ -93,10 +93,10 @@
 	- [[Automatic Setup and Running of a local SOLR instance]]
 	- [[Feeding data and metadata to SOLR]]
 	- [[Making SOLR highlighting work for us|Making SOLR highlighting work for us :: feeding the results to the Qiqqa user]]
-	- [[Example How To Use The SOLR Intance Without Qiqqa UI FrontEnd|For Users:: Example How To Use The SOLR Intance Without Qiqqa UI FrontEnd = scripting and using for your own custom purposes]]
+	- [[For Users/Example How To Use The SOLR Intance Without Qiqqa UI FrontEnd|For Users :: Example How To Use The SOLR Instance Without Qiqqa UI FrontEnd = scripting and using for your own custom purposes]]
 - Qiqqa Middleware (Sync, Import, Export?)
  
    "Middleware": where we keep the old C#/.NET code. Handy tooling on top of the Core. Aiding and abetting with the new *web-technologies*-based UI.
-	- [[MW - Exporting Metadata to XYZ|Exporting Metadata to {Fill In Application Name / File format}]]
-	- [[MW - Importing Metadata from XYZ|Importing Metadata from {Fill in Application Name / File Format}]]
+	- [[MiddleWare - Exporting Metadata to XYZ|Exporting Metadata to {Fill In Application Name / File format}]]
+	- [[MiddleWare - Importing Metadata from XYZ|Importing Metadata from {Fill in Application Name / File Format}]]
 - 

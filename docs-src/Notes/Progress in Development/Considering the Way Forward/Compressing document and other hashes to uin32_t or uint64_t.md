@@ -55,7 +55,7 @@ First, let's identify the several sources we would like to index/identify that w
   Given the amount of extra work and confusion I can see already, I'ld say: *nice thought, but not making it past the mark*. *Rejected.*
   
   > After all, *huge* Qiqqa libraries would be between 10K-100K documents, where each document would, perhaps, average at less than 100 pages, thus resulting in about 100K document hashes and 10M (100K * 100) *task hashes*, which would clock in at 480M space (sans terminating NUL bytes, etc.) if we'd kept all those hashes around forever, which is kind of ridiculous.
-  > x
+  > 
   > Hence it's *probably* far smarter to assign fast `uint32_t` indexes for hashes while the application is running and for use in the application run-time and *no persistence ever*. And that's assuming you won't be running your Qiqqa server components for several days on end... *Nah. **Cute but no cigar**!*
   
   

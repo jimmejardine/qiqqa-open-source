@@ -49,7 +49,7 @@ Example:
 
 This link leads to an on-line viewer, where the PDF can be downloaded using the provided download button.
 
-You'll need a full-fledged (*headless*?) webbrowser to grab this, curl isn't powerful enough.
+You'll need a full-fledged (*headless*?) web browser to grab this, curl isn't powerful enough.
 
 
 ## Nasty URLs: URLs that have moved
@@ -139,10 +139,14 @@ which is a bit nasty as the mimetype clearly is `application/pdf` so it would be
 
 ### Additional grievance
 
-It would also help a lot if the URL that produced the PDF is kept *with the PDF*. Either we use Windows-specific ADS (*Data Streams*: a 'Zone 3' URL) or save an `.opf` metadata file alongside, where we keep the URL. (`.opf` is used by calibre et al to keep ebook metadata, so we might want to jump on that bandwagon, but this really could be anything.)
+It would also help a lot if the URL that produced the PDF is kept *with the PDF*. Either we use Windows-specific ADS (*Data Streams*: a 'Zone 3' URL)[^1] or save [an `.opf` metadata file](http://idpf.org/epub/20/spec/OPF_2.0_latest.htm) alongside, where we keep the URL. (`.opf` is used by [calibre](https://calibre-ebook.com/) et al to keep ebook metadata, so we might want to jump on that bandwagon, but this really could be anything.)
 
 
 
 
+
+[^1]: trouble with Windows ADS is two-fold:
+   1. it's non-portable. It may serve as a metadata *source* where we can extract the download URL for a given document file when there's Zone 3 metadata stored in its ADS, but that's about the size of it when it comes to *usefulness*.
+   2. Many tools don't copy the ADS info with the file when it's moved, e.g. when using `robocopy` or other Windows commandline tools. It also looks like third-party file managers (e.g. the nice XYplorer) generally don't care much about ADS either, so the metadata attached that way is easily lost. Same goes for files which are bundled into a ZIP or other archive file and then extracted: the ADS info will be lost.
 
 

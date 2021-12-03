@@ -3,7 +3,7 @@
 Qiqqa classically uses a filesystem directory tree (2 levels, segmented by the first byte of the document content hash (a.k.a. *Document ID*), where each (PDF) *document* results in two or more files:
 
 - 1 tiny text file caching the *document page count*.
-- 1 or more text extract files (text format, but proprietary: each '*word*'in the text is encoded as a serialized tuple: `(bbox coordate x0, y0, w, h, word_text)`, resulting in a rather high overhead for the ASCII-text serialized *bbox* (bounding box) coordinates, using 5-significant-digits per coordinate, taking up 8 (text) bytes per coordinate for a positioning accuracy that's a little less that 32bit IEEE *float* -- plus it costs additional CPU serialization and deserialization overhead on write/read.
+- 1 or more text extract files (text format, but proprietary: each '*word*' in the text is encoded as a serialized tuple: `(bbox coordate x0, y0, w, h, word_text)`, resulting in a rather high overhead for the ASCII-text serialized *bbox* (bounding box) coordinates, using 5-significant-digits per coordinate, taking up 8 (text) bytes per coordinate for a positioning accuracy that's a little less that 32bit IEEE *float* -- plus it costs additional CPU serialization and deserialization overhead on write/read.
 
   An example record for an `ocr` file:
   

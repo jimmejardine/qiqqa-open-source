@@ -34,7 +34,7 @@ These are all *user* processes (or “actions”), which are enabled and empower
    For that to work, we need to ensure each document can be represented as (searchable) *text*, hence this set of machine processes is required:
    
    - document content text and metadata extraction, delivering the document and its metadata in a usable text format, feeding it to the *search engine*.
-       - this includes an optional (*enforcible*) OCR task when the document does not contain usable text yet as it *may* be an *images*/*scans* based document.
+       - this includes an optional (*enforceable*) OCR task when the document does not contain usable text yet as it *may* be an *images*/*scans* based document.
    - updating / maintaining the *search index* in the local *search engine*.
    
       > *Local* as this functionality does not want to depend on Google, Bing or other on-line-only search services: Qiqqa is engineered to be a *stand-alone*, *employ anywhere, anytime* application, which doesn't require an Internet connection for it to work – except for some very specific Internet-facing activities such as Qiqqa Sniffer, of course.
@@ -52,7 +52,7 @@ These are all *user* processes (or “actions”), which are enabled and empower
 # References
 
 - [SO :: C# read binary data from socket](https://stackoverflow.com/questions/3701637/c-sharp-read-binary-data-from-socket)
-- [ZeroMQ ](https://zeromq.org/) and other network messaging low-level protocol stuff
+- [ZeroMQ](https://zeromq.org/) and other network messaging low-level protocol stuff
     - [ClrZMQ4: .NET wrapper for `libzmq`](https://github.com/zeromq/clrzmq4)
     - [NetMQ4: ZeroMQ done in .NET](https://github.com/zeromq/netmq)
         - didn’t run reliably for me, while `clrzmq4` delivered immediately. `netmq4` MAY be the advised way to go by the folks over at ZeroMQ, but I don’t find the current state of affairs encouraging, having attempted builds and running their test set across multiple commits, including a tagged release. It may be me, but I have have the `clrmzq4` option ready to go...
@@ -66,7 +66,7 @@ These are all *user* processes (or “actions”), which are enabled and empower
     - [binaryformatter vs binaron serializer by Zach Saw](https://dotnetfiddle.net/gOqQ7p)
     - [FlatBuffers :: Writing a Schema](https://google.github.io/flatbuffers/flatbuffers_guide_writing_schema.html)
     - [FlatBuffers :: C++ Benchmarks](https://google.github.io/flatbuffers/flatbuffers_benchmarks.html)
-    - [Lessons Learned Coding Flatbuffers in Javascript](http://blog.misterblue.com/programming/notes/Javascript-and-Flatbuffers.html)
+    - [Lessons Learned Coding Flatbuffers in JavaScript](http://blog.misterblue.com/programming/notes/Javascript-and-Flatbuffers.html)
  - [Determining Whether a Directory Is a Mounted Folder](https://docs.microsoft.com/en-us/windows/win32/fileio/determining-whether-a-directory-is-a-volume-mount-point?redirectedfrom=MSDN)
  - [MvsSln :: parsing and processing MSVC solution files](https://github.com/3F/MvsSln)
  - [SQLite :: Modern C++](https://github.com/SqliteModernCpp/sqlite_modern_cpp)
