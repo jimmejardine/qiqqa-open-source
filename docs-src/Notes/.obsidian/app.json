@@ -122,6 +122,9 @@
     "filesystem",
     "NoSQL",
     "commandline",
-    "mimetype"
+    "mimetype",
+    "onwards",
+    "Tesseract",
+    "MuPDF"
   ]
 }

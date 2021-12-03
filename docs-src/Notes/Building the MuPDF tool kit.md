@@ -6,7 +6,7 @@ See also the Obsidian Vault at [the MuPDF submodule/project](file://../../MuPDF/
 
 - For Windows, the MSVC2019 (Visual Studio 2019) Solution (`.sln`) file containing all the relevant project files is at `./MuPDF/platforms/win32/mupdf.sln`. Load that one into a separate Visual Studio instance and Build All in either Debug or Release mode.
 
-### WARNING (jul/2021): build 32-bit binaries for use with Qiqqa
+### WARNING (july/2021): build 32-bit binaries for use with Qiqqa
 
 Until we have migrated Qiqqa entirely to 64-bit (or away from WPF, whichever comes first), you're stuck with using the 32-bit MuPDF/Tesseract tools as those get invoked by Qiqqa and Windows prevents 32bit applications from invoking 64bit executables.
 

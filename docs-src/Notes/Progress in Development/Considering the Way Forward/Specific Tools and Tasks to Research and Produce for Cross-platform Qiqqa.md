@@ -52,7 +52,7 @@
 	- [[The Qiqqa Sniffer UI-UX - PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine|The Qiqqa Sniffer UI / UX: PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine]]
 	- [[Web UI/visual BibTex Editor|Web UI: visual BibTex Editor]]
 	- [[Web UI/visual Metadata Editor|Web UI: visual Metadata Editor (for abstract, title, DOI, **tags**, etc.)]]
-	- [[Web UI/ visual Tags, Ratings, Categories Editor|Web UI: visual Tags, Ratings, Categories, ... Editor]]
+	- [[Web UI/visual Tags, Ratings, Categories Editor|Web UI: visual Tags, Ratings, Categories, ... Editor]]
 	- [[Web UI/library document list view|Web UI: library document list view & selection / filtering]]
 	- [[Web UI/library document list view performance|Web UI: library document list view *performance*: Virtual Table technology for scrolling & jumping through 10K+ entries per library]]
 	- [[Web UI/Filtering as Search Aid|Web UI: Filtering as Search Aid: filter on title, tag(s), you-name-it...]]
