@@ -72,5 +72,11 @@ Incidentally, observe how Elsevier solved this for showing (and editing = annota
   
 
 
+### Related projects
+
+- https://annotator.apache.org/
+- https://annotatorjs.org/
+- 
+
 
 
