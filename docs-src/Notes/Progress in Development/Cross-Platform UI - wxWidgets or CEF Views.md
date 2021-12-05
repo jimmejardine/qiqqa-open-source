@@ -21,7 +21,7 @@ From the noises there I gather *wx* doesn't suffer from that issue anymore, or v
 
 ### So whatchammagonnado?
 
-Revert to one of my oldest friends of yonder days: [TVision?](https://github.com/magiblot/tvision) **Now *that* is what I'ld call *cool* and *totally RETRO*. Utterly!**  :+1:
+*\<sarcasm\>* Revert to one of my oldest friends of yonder days: [TVision?](https://github.com/magiblot/tvision) **Now *that* is what I'ld call *cool* and *totally RETRO*. Utterly!**  :+1: *\</sarcasm\>*
 
 > But should we redo Qiqqa UI in that one? *Come on*....
 
