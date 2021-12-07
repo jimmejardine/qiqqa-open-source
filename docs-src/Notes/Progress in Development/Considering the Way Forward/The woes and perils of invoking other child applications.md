@@ -70,6 +70,7 @@
 	 
 	  > To enable the administrator account, type the command `net user administrator /active:yes`
 - https://ss64.com/nt/where.html
+- See also commit SHA-1: b0ed55110591e3c0a8437a99eb0c8acfe2027312 in our `MuPDF/thirdparty/owemdjee/subprocess/` submodule: that's where we've been testing & dealing with this stuff in the *new setting* (C/C++ library instead of C#/.NET code for Qiqqa+QiqqaOCR).
 - repositories:
 	- https://github.com/benman64/subprocess (forked)
 	- https://github.com/sheredom/subprocess.h
