@@ -27,11 +27,11 @@
   
 * Of course, trouble never travels alone: I also had some very obnoxious issues re getting hold of the child process' **exit code** and/or precise moment when the child process has indeed fully terminated: I know I still have bugs lurking deep down in the current C#/.NET code handling child process invocations.
 
-  I've spent quite some time on those and the conclusion there is that things are too opaque to perform the very detailed problem analysis that these issues require: *that* is one of the reasons why I intend to migrate the whole kaboodle to local-loopback IPC (sockets): that approach may be a tad slower, though from what I've gathered from the few banchmarks old and new floating around on the IntrNetz the performance is probably *on par*. Heck, as long as the trouble is **not** "on par", I'll be a happy camper!
+  I've spent quite some time on those and the conclusion there is that things are too opaque to perform the very detailed problem analysis that these issues require: *that* is one of the reasons why I intend to migrate the whole caboodle to local-loopback IPC (sockets): that approach may be a tad slower, though from what I've gathered from the few banchmarks old and new floating around on the *IntrNetz* the performance is probably *on par*. Heck, as long as the trouble is **not** "on par", I'll be a happy camper!
   
 * As far as I'm concerned, any stdio + child process invocating will, from now on, only be done in a precisely controlled environment that's -- at least in principle -- cross-platform: a C/C++ based library. And no P/Invoke, either. I've had it with those! 
 
-  It's all cute, until you realize the costs involved when you start pumping significant amounts of data and/or large data chunks across that marshalling interface. Total revisit of my old COM/DCOM nightmares. Such corporate crap. 
+  It's all cute, until you realize the costs involved when you start pumping significant amounts of data and/or large data chunks across that marshaling interface. Total revisit of my old COM/DCOM nightmares. Such corporate crap. 
   
   Hence: *sockets*. Portable. Fast. Ubiquitous. Well behaved.
 
@@ -105,4 +105,38 @@
   
   
   
+## Updates (further findings)
+
+### 32-bit builds in a 64-bit OS environment
+
+Turns out 32-bit vs. 64-bit is also relevant: https://stackoverflow.com/questions/2909527/i-cant-access-certain-subkeys-in-an-entry-in-the-registry
+
+Ran into this while testing the subprocess C++ library and trying to find out what was going wrong with the search PATH. :-(((   Turns out the `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\...` registry keys are largely hidden ("*sandboxed*") for 32bit API callers when the applications listed there are 64bit themselves. *Dang!* :bomb:
+
+This is probably related to the fact that you can't invoke/start a 64bit application from a 32bit one: 
+see also [[The Transitional Period#Tackling the transition from 32bit to 64bit]].
+
+
+
+
+
+
+### `echo` and similar tools only have a binary (executable) in MSYS / GitForWindows
+
+There's no `echo.exe` in a default Windows install. There *is* one in the GitForWindows `bash` environment though, but you won't ever reach that one in a plain vanilla console or other application, unless it somehow inherits the MSYS/bash environment settings.
+
+Discovering the GFW 'root directory' path is another fat effin' problem: there's no documented way to get that path (so you can add `/bin`, `/usr/bin` or `/usr/local/bin` to it to help *discover* the executable you seek) so a wide Registry scan over here revealed the following registry key as a *probable* for this:
+
+```
+Computer\HKEY_LOCAL_MACHINE\SOFTWARE\GitForWindows (+ key: InstallPath)
+```
+
+but attempting to grab that one will get you an API error when you do that in a 32bit build.
+
+> By the way: there's also this candidate (when you have that software installed, which would also provide `bash` & friends):
+> 
+> ```
+> Computer\HKEY_USERS\.DEFAULT\Software\TortoiseGit (+ key: MSysGit)
+> ```
+> 
 

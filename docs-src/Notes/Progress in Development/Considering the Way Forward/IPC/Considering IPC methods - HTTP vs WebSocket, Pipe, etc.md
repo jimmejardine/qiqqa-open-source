@@ -213,7 +213,7 @@ Then there are a few personal preferences that matter too:
 
 
 
-TO BE COMPLETEED
+# TO BE COMPLETED
 
 
 Note to self: the 5th component would be the Qiqqa Launcher: we'll need that bugger for Transitional Qiqqa at least for that's the only 'sane' way to launch both a 64bit server/Core base and a 32bit-locked .NET application that can't move until I got rid of the rest of the buggers in there.
@@ -222,6 +222,9 @@ And then, when you consider using a Launcher like that, the question pops up: wh
 Hm... which makes this the 5th component. 
 
 1=UI, 2=C/C++ core (DB, PDF, OCR, tough work), 3=SOLR, 4=remaining C#/.NET middleware.
+
+See also [[The Transitional Period#Tackling the transition from 32bit to 64bit]].
+
 
 
 
