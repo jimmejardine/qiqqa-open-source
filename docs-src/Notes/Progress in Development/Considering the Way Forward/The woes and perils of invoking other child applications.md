@@ -2,7 +2,7 @@
 
 * Windows doesn't do `fork()`. 
 
-* *`exeecv()` et al do work... *kind of*. It's when you want to receive or send data via stdio (`stdout`, `stderr`, `stdin`) that things tend to go pear-shaped in a hurry.
+* *`execv()` et al do work... *kind of*. It's when you want to receive or send data via stdio (`stdout`, `stderr`, `stdin`) that things tend to go pear-shaped in a hurry.
 
   It's *then* that `execv()` & friends are sorely lacking.
   
@@ -19,7 +19,7 @@
 
   The reason for this, it turned out, is the limited stdio pipe buffer depth on MSWindows and the dire need to fetch/flush that buffer **asynchronously** at speed, unless you want your (child or parent) application to deadlock on the data exchange across `stdin`. By the way: we only encountered it there first. The same goes for `stdout` and `stderr`, but those didn't show their wiles this early because it's the Qiqqa main application that has to manage a Windows message queue live cycle to keep things flowing, while the child applications are all of the brutal/basic console-app kind: less chance to *eff up* on that side. Or so it seemed.
   
-  **Do note** the red remarks in the Python Popen() API documentation: https://docs.python.org/3.10/library/subprocess.html -- they have struggled with those same problems I did/do, e.g.:
+  **Do note** the red remarks in the Python `Popen()` API documentation: https://docs.python.org/3.10/library/subprocess.html -- they have struggled with those same problems I did/do, e.g.:
   
   > **Warning**: Use `communicate()` rather than `.stdin.write`, `.stdout.read` or `.stderr.read` to avoid deadlocks due to any of the other OS pipe buffers filling up and blocking the child process.
 
