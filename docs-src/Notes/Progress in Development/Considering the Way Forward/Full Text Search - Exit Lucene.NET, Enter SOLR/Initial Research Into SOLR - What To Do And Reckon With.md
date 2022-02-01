@@ -1,6 +1,6 @@
 # Initial Research Into SOLR :: What To Do And Reckon With
 
-We forget about Lucene.NET. We'll have to "re-invent the wheel" using SOLR instead.
+We forget about Lucene.NET. We'll have to "re-invent the wheel" using SOLR instead. Also check [[Full Text Search Engines]] and [[Full-Text Search Engines]]
 
 ## (Expected) Benefits
 

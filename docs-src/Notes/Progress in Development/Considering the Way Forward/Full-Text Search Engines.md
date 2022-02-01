@@ -346,6 +346,14 @@ and then there's the current year in
 which indicates to me that electron is sort of steady in mind's eye, while WPF is still slowly declining -- or is that wishful thinking? 
 Anyway, back in the day I used a few frameworks, before having to land with MFC, which I kinda liked (thanks to an MSJ article by Paul diLascia which enabled me to hack the bugger to bits) and after that it's been a lot of *meh* (old wine, new bags) outside the HTML+CSS realm. Looks like we're indeed heading there...
 
+[Benchmarking the Solr Near Realtime Improvements | Lucidworks](https://lucidworks.com/post/benchmarking-the-new-solr-near-realtime-improvements/) (written in 2011 so pretty old already)
+
+[solr - lucene Fields vs. DocValues - Stack Overflow](https://stackoverflow.com/questions/28960088/lucene-fields-vs-docvalues) --> [DocValues VS Stored Fields : Apache Solr Features and Performance SmackDown (sease.io)](https://sease.io/2020/03/docvalues-vs-stored-fields-apache-solr-features-and-performance-smackdown.html)
+
+[Deleting Document in Apache Solr - javatpoint](https://www.javatpoint.com/deleting-document-in-apache-solr)
+
+
+
 
 
 
