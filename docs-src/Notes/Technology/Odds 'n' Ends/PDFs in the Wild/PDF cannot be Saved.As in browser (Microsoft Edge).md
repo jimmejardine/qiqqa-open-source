@@ -1,5 +1,13 @@
 # Odds 'n' Ends :: PDF cannot be 'Saved As' in browser (Microsoft Edge)
 
+
+> **Note**: Also check these for more PDF download/fetching woes:
+>
+> - [[curl - commandline and notes]] (sections about *nasty PDFs*)
+> - [[Testing - Nasty URLs for PDFs]]
+> - [[Testing - PDF URLs with problems]]
+> 
+ 
 Open the file [`stamp.html`](stamp.html) in your browser. It will look like it's fetching a PDF file from IEEE website (it is) and display it. The Print and Save buttons show up as usual.
 
 But when you click the Save button or pick Save As via the right-click popup menu, you'll end up with a *HTML file* instead of the PDF proper.

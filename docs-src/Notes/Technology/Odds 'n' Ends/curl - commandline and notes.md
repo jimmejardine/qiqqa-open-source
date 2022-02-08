@@ -39,6 +39,17 @@ See [Does curl have a timeout? - Unix & Linux Stack Exchange](https://unix.stack
 
 
 
+## Nasty PDFs
+
+> **Note**: Also check these for more PDF download/fetching woes:
+>
+> - [[PDF cannot be Saved.As in browser (Microsoft Edge)]]
+> - [[Testing - Nasty URLs for PDFs]]
+> - [[Testing - PDF URLs with problems]]
+> 
+ 
+
+
 ## Nasty URLs: JavaScript required for PDF download (Wiley.com)
 
 Example:

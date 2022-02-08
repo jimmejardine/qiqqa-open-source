@@ -1,5 +1,12 @@
 # Testing :: Nasty URLs for PDFs
 
+> **Note**: Also check these for more PDF download/fetching woes:
+>
+> - [[curl - commandline and notes]] (sections about *nasty PDFs*)
+> - [[PDF cannot be Saved.As in browser (Microsoft Edge)]]
+> - [[Testing - PDF URLs with problems]]
+> 
+ 
 - http://dspace.bracu.ac.bd/xmlui/bitstream/handle/10361/7620/12201001%20&%2013101230_CSE.pdf?sequence=1
 
   This link downloads/views a PDF fine in MS Edge / Chrome, but produces a HTML/404 crash page when using `curl` as in `curl -v -L http://dspace.bracu.ac.bd/xmlui/bitstream/handle/10361/7620/12201001%20&%2013101230_CSE.pdf?sequence=1 -o test.pdf`
@@ -68,5 +75,70 @@
 
 
 - FTP URI which must be surrounded by quotes or `bash` will nuke it due to the braces: ftp://nozdr.ru/biblio/kolxoz/M/MV/MVsa/Fink%20G.A.%20Markov%20models%20for%20pattern%20recognition%20(Springer,%202008)(ISBN%209783540717669)(256s)_MVsa_.pdf
--  
-  
+- [On Prediction Using Variable Order Markov Models (aaai.org)](https://www.aaai.org/Papers/JAIR/Vol22/JAIR-2212.pdf) - `wget` spits out error 403 (Forbidden) while Chrome/MSEdge does show the PDF on screen.
+- [citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.589.5772&rep=rep1&type=pdf](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.589.5772&rep=rep1&type=pdf) -- `wget` locks up?? MSEdge does ok, however...
+- https://www.microsoft.com/en-us/research/wp-content/uploads/2013/12/IEEE-ASRU-2013.pdf -- Error 403 in `wget`, view okay on MSEdge.
+- https://www.aaai.org/ocs/index.php/AAAI/AAAI15/paper/viewFile/9387/9219 -- `wget` says Error 403 Forbidden, MSEdge is okay though.
+- https://www.microsoft.com/en-us/research/wp-content/uploads/2012/01/tricks-2012.pdf -- ditto.
+- https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=2782&context=cstech -- ditto.
+- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8253764/pdf/41598_2021_Article_92992.pdf -- ditto.
+- 
+
+
+- https://repository.upenn.edu/cgi/viewcontent.cgi?article=3656&context=edissertations -- Error 400 Bad Request in `wget` but OK with MSEdge.
+- https://www.cell.com/action/showPdf?pii=S0002-9297%2807%2963913-5 -- `wget` goes bonkers and MSEdge just gives us the PDF
+- https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0009506&type=printable -- 404 vs MSEdge okay
+- [Back‐propagation neural network on Markov chains from system call sequences: a new approach for detecting Android malware with system call sequences (wiley.com)](https://ietresearch.onlinelibrary.wiley.com/doi/epdf/10.1049/iet-ifs.2015.0211)
+- [MCMC-ODPR: Primer design optimization using Markov Chain Monte Carlo sampling (nih.gov)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3561117/pdf/1471-2105-13-287.pdf/?tool=EBI) -- 403 vs. MSEdge ok.
+- https://www.aaai.org/Papers/AAAI/2002/AAAI02-081.pdf
+- [Probabilistic Tree-Edit Models with Structured Latent Variables for Textual Entailment and Question Answering (psu.edu)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.231.7244&rep=rep1&type=pdf)
+- [A Distance Measure for Bounding Probabilistic Belief Change (aaai.org)](https://www.aaai.org/Papers/AAAI/2002/AAAI02-081.pdf)
+- 
+
+
+
+* [Geigel (2013) [MTD, Barreno] Neural Network Trojan .pdf | DocDroid](https://www.docdroid.net/POLhybl/geigel-2013-mtd-barreno-neural-network-trojan-pdf) -- shows okay in MSEdge but is a HTML page wrapper when you hit CTRL+S key combo. MUST use the download button to get the PDF.
+* [Back‐propagation neural network on Markov chains from system call sequences: a new approach for detecting Android malware with system call sequences (wiley.com)](https://ietresearch.onlinelibrary.wiley.com/doi/epdf/10.1049/iet-ifs.2015.0211) -- ditto.
+* [Simulating a Skilled Typist: A Study of Skilled Cognitive‐Motor Performance (wiley.com)](https://onlinelibrary.wiley.com/doi/epdf/10.1207/s15516709cog0601_1)
+* [Probabilistic Metric Spaces for Privacy by Design Machine Learning Algorithms : Modeling Database Changes - CORE Reader](https://core.ac.uk/reader/189883540)
+* [Markov Chain‐Based Stochastic Modeling of Deep Signal Fading: Availability Assessment of Dual‐Frequency GNSS‐Based Aviation Under Ionospheric Scintillation (wiley.com)](https://agupubs.onlinelibrary.wiley.com/doi/epdf/10.1029/2020SW002655)
+* [IEEE Xplore Full-Text PDF:](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9245495)
+* 
+
+
+- [Efficient model similarity estimation with robust hashing (springer.com)](https://link.springer.com/epdf/10.1007/s10270-021-00915-9?sharing_token=v3msqOoVG1eMivJhmkW9VPe4RwlQNchNByi7wbcMAY4Tdobx2s0Z3m0cfSzm-zi7V-o745n34P_BRUDph0bTNJWQE04bVuKG3zolOy31qWgO0ZvnwjiGiAl-UBau7-o9FMZmp_jk4DGk3gcNPtoKofvpVUQnr--LEwcVrlteemc%3D) -- quacks like a PDF but IS NOT. Here, there's NO PDF TO BE HAD.
+- 
+
+
+- [Enhanced K-means Clustering Technique based Copy-Move Image Forgery Detection - ProQuest](https://www.proquest.com/openview/3da7e5d590079e3b095d17c8634e756b/1.pdf?pq-origsite=gscholar&cbl=2045096) - clicking the big DOWNLOAD button fails with 403 error, while clicking the tiny disk icon in the viewer part of the page does produce the PDF
+- [Does semantic knowledge influence event segmentation and recall of text? - ProQuest](https://www.proquest.com/openview/d46f3888619a081c134c7efca9cb31ec/1?pq-origsite=gscholar&cbl=976351) -- ditto.
+- 
+
+- [IEEE Xplore Full-Text PDF:](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8673945) - another Ctrl+S --> HTML while click on disk icon gives PDF page.
+- https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj-qOSQwOb1AhWFPOwKHQodAMMQFnoFCOQBEAE&url=https%3A%2F%2Fwww.mdpi.com%2F2073-8994%2F10%2F12%2F706%2Fpdf&usg=AOvVaw0zLUBDx6gTxMc_kTNoPLr0 - google links like these download fine in MSEdge but b0rk with Bad Request in `wget`.
+- https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj-qOSQwOb1AhWFPOwKHQodAMMQFnoFCOEBEAE&url=https%3A%2F%2Fopen.library.ubc.ca%2Fmedia%2Fdownload%2Fpdf%2F24%2F1.0073807%2F1&usg=AOvVaw23nPov3IR-hHu24w6dH3tS -- ditto
+- https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj-qOSQwOb1AhWFPOwKHQodAMMQFnoECHkQAQ&url=https%3A%2F%2Fopus4.kobv.de%2Fopus4-fau%2Ffiles%2F10952%2FVincentChristleinDissertation.pdf&usg=AOvVaw233MDZbxiltScqmyCrnwJe -- ditto.
+- https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj_06vzz-b1AhWUt6QKHay8BoQQFnoFCMkBEAE&url=https%3A%2F%2Fwww.atlantis-press.com%2Farticle%2F25868364.pdf&usg=AOvVaw2x6MeSaYlfAUgahnNmlSfD -- ditto.
+- https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjWjufs1ub1AhUWt6QKHQXHC9wQFnoFCIwBEAE&url=https%3A%2F%2Fwww.mdpi.com%2F2504-2289%2F3%2F2%2F32%2Fpdf&usg=AOvVaw14thc9G_D9Vc96Wio7G_R7 -- ditto.
+- [IEEE Xplore Full-Text PDF:](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8999509) -- ditto.
+- [IEEE Xplore Full-Text PDF:](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9449333) -- ditto.
+- [XNDDF: Towards a Framework for Flexible Near-Duplicate Document Detection Using Supervised and Unsupervised Learning (cyberleninka.org)](https://cyberleninka.org/article/n/1376468/viewer) -- ditto.
+- 
+- https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj_06vzz-b1AhWUt6QKHay8BoQQFnoECBkQAQ&url=http%3A%2F%2Ftheinternationaljournal.org%2Fojs%2Findex.php%3Fjournal%3Drjitsm%26op%3Ddownload%26page%3Darticle%26path%255B%255D%3D4982%26path%255B%255D%3Dpdf&usg=AOvVaw2H_wz7xoIlr0J5PP9_CZb0 -- ditto, *but with an additional feature:* this one is downloaded by MSEdge but marked as **unsecure**, requiring the user to pick "Keep" as the option of choice in the top-right context menu. Hence this one isn't easily obtained.
+- 
+
+
+- http://infoscience.epfl.ch/record/99373/files/Henzinger06.pdf -- an example of a PDF URL which results in a 302-Redirect before we obtain the actual data. Nothing fancy, works in both `wget` and MSEdge.
+
+- [PeerJ - 432 Error:](https://peerj.com/articles/cs-389.pdf) - interesting link: produced as-is by a google search, but gives custom 432 Error in MSEdge; after clicking on the **Article** link in there, we get at the page where the PDF may be downloaded. Not tested in `wget`. This is another example of web site behaviour I've suspected for quite a while: they have special access channels for the google bot to get at the PDF content, while others have to go "through channels". This one, at least, isn't hiding behind a paywall.
+
+- [Europe PMC](https://europepmc.org/articles/pmc8490428/bin/41598_2021_98933_moesm1_esm.pdf) -- the web page itself acts **instable** (keeps reloading) in MSEdge. No further problems downloading the PDF via the download icon, but click timing is critical as the HTML page keeps reloading.
+
+- [pdf.aspx (igi-global.com)](https://www.igi-global.com/pdf.aspx?tid=289612&ptid=278101&ctid=4&oa=true&isxn=9781683182085) -- gives a b0rked filename as download target in MSEdge. Not tested with `wget`
+
+
+
+## HTML pages with problems
+
+* [Irreducible and Aperiodic Markov Chains (uni-ulm.de)](https://www.mathematik.uni-ulm.de/stochastik/lehre/ss06/markov/skript_engl/node12.html) -- expired certificate gets you blocked
+* 
