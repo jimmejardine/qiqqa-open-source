@@ -150,7 +150,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, BOOLEAN Delete)
     HANDLE   fileHandle;
     WCHAR    streamName[MAX_PATH];
     WCHAR    fullStreamName[MAX_PATH];
-    IO_STATUS_BLOCK ioStatus;
+    IO_STATUS_BLOCK ioStatus = { 0 };
 
     //
     // Open the file
@@ -185,10 +185,11 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, BOOLEAN Delete)
     }
 
     streamInfoSize = 16384;
-    streamInfo = (PFILE_STREAM_INFORMATION)malloc(streamInfoSize);
+    streamInfo = (PFILE_STREAM_INFORMATION)calloc(1, streamInfoSize);
     status = STATUS_BUFFER_OVERFLOW;
     while (status == STATUS_BUFFER_OVERFLOW)
     {
+        memset(&ioStatus, 0, sizeof(ioStatus));
         status = NtQueryInformationFile(fileHandle, &ioStatus,
             streamInfo, streamInfoSize,
             FileStreamInformation);
@@ -196,7 +197,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, BOOLEAN Delete)
         {
             free(streamInfo);
             streamInfoSize += 16384;
-            streamInfo = (PFILE_STREAM_INFORMATION)malloc(streamInfoSize);
+            streamInfo = (PFILE_STREAM_INFORMATION)calloc(1, streamInfoSize);
         }
         else
         {
@@ -213,9 +214,9 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, BOOLEAN Delete)
         while (1)
         {
             memcpy(streamName,
-                streamInfoPtr->Name,
-                streamInfoPtr->NameLength);
-            streamName[streamInfoPtr->NameLength / 2] = 0;
+                streamInfoPtr->StreamName,
+                streamInfoPtr->StreamNameLength);
+            streamName[streamInfoPtr->StreamNameLength / 2] = 0;
 
             //
             // Skip the standard Data stream
@@ -243,15 +244,112 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, BOOLEAN Delete)
                 }
                 else
                 {
-                    wprintf(L"   %20s\t%I64d\n", streamName, streamInfoPtr->Size.QuadPart);
+                    wprintf(L"   %20s\t%I64d\n", streamName, streamInfoPtr->StreamSize.QuadPart);
+
+                    swprintf(fullStreamName, nelem(fullStreamName), L"%s%s", FileName, streamName);
+                    HANDLE adsFileHandle = CreateFile(fullStreamName, GENERIC_READ,
+                            FILE_SHARE_READ | FILE_SHARE_WRITE, NULL,
+                            OPEN_EXISTING,
+                            FILE_FLAG_BACKUP_SEMANTICS, 0);
+                    if (adsFileHandle == INVALID_HANDLE_VALUE)
+                    {
+                        wprintf(L"\rError opening %s:\n", fullStreamName);
+                        PrintWin32Error(GetLastError());
+                        return;
+                    }
+
+                    size_t content_len = streamInfoPtr->StreamSize.QuadPart;
+                    BYTE* content = (BYTE *)malloc(content_len + 8);
+                    DWORD actual_len = 0;
+
+                    BOOL rv = ReadFile(adsFileHandle, content, (DWORD)content_len + 4, &actual_len, NULL);
+                    if (!rv)
+                    {
+                        wprintf(L"   Error reading %s:\n", fullStreamName);
+                        PrintWin32Error(GetLastError());
+                        free(content);
+                        content = NULL;
+                    }
+
+                    CloseHandle(adsFileHandle);
+
+                    if (content && actual_len > 0)
+                    {
+                        if (actual_len != content_len)
+                        {
+                            wprintf(L"   Warning: actual length %zu != expected length %zu for %s.\n", (size_t)actual_len, content_len, fullStreamName);
+                        }
+                        memset(content + actual_len, 0, 4);
+
+                        // check if content is plain text or binary: use some simple heuristics for that:
+                        bool is_plain_text = true;
+                        for (size_t i = 0; i < actual_len; i++)
+                        {
+                            int c = content[i];
+                            if (c < 32 && c != '\r' && c != '\n' && c != '\t')
+                            {
+                                is_plain_text = false;
+                                break;
+                            }
+                            if (c == 127)
+                            {
+                                is_plain_text = false;
+                                break;
+                            }
+                        }
+
+                        if (is_plain_text)
+                        {
+                            // trim the trailing newlines:
+                            BYTE* end = content + content_len - 1;
+                            for (; end >= content; end--)
+                            {
+                                if (*end == '\r' || *end == '\n')
+                                    *end = 0;
+                                else
+                                    break;
+                            }
+
+                            wprintf(L"   text content:\n------------------------------------------\n%S\n------------------------------------------\n", content);
+                        }
+                        else
+                        {
+                            for (size_t i = 0; i < actual_len; i += 16)
+                            {
+                                wprintf(L"   %08zu: \n", i);
+                                for (size_t j = 0; j < 16; j++)
+                                {
+                                    if (j + i < actual_len)
+                                        wprintf(L"%02x ", content[i + j]);
+                                    else
+                                        wprintf(L"   ");
+                                }
+                                wprintf(L" | ");
+                                for (size_t j = 0; j < 16; j++)
+                                {
+                                    if (j + i < actual_len)
+                                    {
+                                        int c = content[i + j];
+                                        if (isprint(c))
+                                            wprintf(L"%c ", c);
+                                        else
+                                            wprintf(L". ");
+                                    }
+                                    else
+                                        wprintf(L"  ");
+                                }
+                                wprintf(L"\n");
+                            }
+                        }
+                    }
                 }
             }
 
-            if (!streamInfoPtr->NextEntry)
+            if (!streamInfoPtr->NextEntryOffset)
                 break;
 
             FilesWithStreams++;
-            streamInfoPtr = (PFILE_STREAM_INFORMATION)((char*)streamInfoPtr + streamInfoPtr->NextEntry);
+            streamInfoPtr = (PFILE_STREAM_INFORMATION)((char*)streamInfoPtr + streamInfoPtr->NextEntryOffset);
         }
     }
     else if (!NT_SUCCESS(status))
