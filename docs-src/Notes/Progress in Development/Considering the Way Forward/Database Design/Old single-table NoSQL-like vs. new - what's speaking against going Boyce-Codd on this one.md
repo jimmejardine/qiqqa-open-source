@@ -94,3 +94,6 @@ What about we store those metadata fields in one table all separate, thus produc
 >   Allow me some hand-waving here. No bright sparkly ideas yet; *we get there when we get there*, I guess.
 
 
+## References
+- [Standards  |  Librarians and Archivists  |  Library of Congress (loc.gov)](https://www.loc.gov/librarians/standards)
+- 
