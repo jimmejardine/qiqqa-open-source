@@ -33,7 +33,7 @@ It would double the fingerprinting work as long as we want to stay backwards com
 
 ## Any fears about "cracking the hash" in the future? Other doubts & worries?
 
-Not much. I'm not using the hash for pure cryptographic means, so a few odds and ends are not going to kill us. The fact that there exist real PDFs out there which collide on MD5 and SHA1 have made those hashes obsolete, but otherwise I believe we'll be doing fine with a reduced-strength, fast BLAKE3 for the foreseeable future.
+Not much. I'm not using the hash for pure cryptographic means, so a few odds and ends are not going to kill us. The fact that there exist real PDFs out there which collide on MD5 and SHA1 have made those hashes obsolete, but otherwise I believe we'll be doing fine with a fast BLAKE3 for the foreseeable future, even when some future research deems it cryptographically 'reduced-strength'.
 
 Again, do realize we're not doing *crypto*/*security* here: the fingerprinting is also not employed in a *legal* setting where I need to unambiguously, beyond the shadow of doubt, *prove* that my fingerprint $F$ identifies document $D$.
 The fact that I'm paranoid enough already (perfectionist?) means I'll tend to pick a fingerprint which has great expectations that way anyway and so far, BLAKE3 is looking great.
@@ -44,7 +44,7 @@ All this of course *assumes* I don't screw up the BLAKE3-based fingerprint (BLAK
 
 As you asked about my doubt & worries, here's one: I discovered last week that https://www.researchgate.net/ does something nasty (from *my* perspective): it kind-of-*personalizes* your PDF download by editing its cover page: it brags about the number of downloads and the day you downloaded the PDF, so downloading the same document *twice* (say, via Qiqqa sniffer) will get you two(2) **different fingerprints**, thus the document downloads will be filed as unique documents in Qiqqa!
 
-Sites which encode the date when you downloaded the PDF into the PDF itself (watermark/overlay) cause the same problem: multiple downloads cannot easily be identifies as duplicates through comparing their hashes!
+Sites which encode the date when you downloaded the PDF into the PDF itself (watermark/overlay) cause the same problem: multiple downloads cannot easily be identified as duplicates through comparing their hashes!
 
 That's therefor another **source of duplicates** for documents and increases the need for Qiqqa to incorporate better duplicate-detection logic (including 'probable cause of duplication' type identification, so you can observe & set *why* two documents are considered *duplicates*:
 
@@ -56,7 +56,7 @@ That's therefor another **source of duplicates** for documents and increases the
 - anniversary re-issues / reprints: some papers are reprinted after X years. Happens rarely, but they do exist. It happens more often when you include *books* in your library. *Editions* of books would, as far as I'm concerned, fall under the 'revisions/updates' type.
 - amalgam/extract: sometimes papers are published in two versions: a short and a long one. Some papers are also *incorporated* into other papers, not just referenced, but re-used/quoted almost entirely, while other content is added. This goes beyond a mere 'update'.
 - *plagiaat*: we now get into the more shady corners: some papers are copied or rephrased by others to make the publishing count ends meet. Plagiarism.
-- *retractions*: that's a special kind of update, not really a *duplicate* per se, but more an *overriding* relationship. Remember our beautiful doctor who invented the pro-vegan argument of more aggression in meat-eating peeople while waiting for his train. Then the bugger went on to write a book about his life, earning yet more kudos. (I'm proud to be Dutch!)
+- *retractions*: that's a special kind of update, not really a *duplicate* per se, but more an *overriding* relationship. Remember our beautiful doctor who invented the pro-vegan argument of more aggression in meat-eating people while waiting for his train. Then the bugger went on to write a book about his life, earning yet more kudos. (I'm proud to be Dutch!)
 
 and when we veer a little off from true duplicates that way, there's also:
 
@@ -124,11 +124,11 @@ Notes on these datums:
 - Base91 efficiency numbers are from the source: http://base91.sourceforge.net/
 - Base85 and Base91 output sizes (including the "*worst case*" numbers listed above!) DO NOT account for mandatory escaping of some of the output characters for various mediums (URL/Web, File Systems, etc.); these escapes can increase the output size cost to *twice*, possibly even *thrice* the listed size above (`%XX` URL encoding for some chars!) in rare circumstances, over which we have NO CONTROL: we can't tweak the hashes to "go around" these worst case scenarios lest we 'downgrade' to a Base58 approximation.
 - Base58 (Bitcoin / Nakamoto) efficiency number according to Wikipedia: https://en.wikipedia.org/wiki/Binary-to-text_encoding
-- Base58X: my own approach takes $58^7$ for every 41 bits, hence takes 7 output ASCII characters per 41 bits, hence a 32 *byte* hash takes $32 * 8 / 41$ chunks of 7 Blake48X output characters *each*, hence the total output size is $(32 * 8 / 41) * 7 \equiv 32 * 7 * 8 / 41 \simeq 43.7$ Base58X *characters*.
+- Base58X: my own approach takes $58^7$ for every 41 bits, hence takes 7 output ASCII characters per 41 bits, hence a 32 *byte* hash takes $32 * 8 / 41$ chunks of 7 Blake58X output characters *each*, hence the total output size is $(32 * 8 / 41) * 7 \equiv 32 * 7 * 8 / 41 \simeq 43.7$ Base58X *characters*.
 - Base58X: same output size as Base58 while I'll have far fewer divide and modulo ops than bitcoin Base58 (Nakamoto) code as I don't treat the entire hash as one *BigInt*, but work in an intermediate 41-bit number base system instead.
 - However, note that as Nakamoto's approach to Base58 is treating the entire byte series to encode as one *BigInt* and my own approach of 7 chars per 41 bits -- which is *less space efficient* as I add gaps in my value space that way -- **should be worse than Nakamoto's**, this does *not* explain how my own growth factor of $7 * 8 /41 = 1.3658536$ is *less than* the Nakamoto factor mentioned at Wikipedia: $(1 / 0.73) = 1.3698630$?! 
   
-  Consider a value $n$, then it would take up ${}^{g}log(n) = \frac {log(n)} {log(g)}$ *digits* in base $g$. Thus a *32 byte* number (max value: $256^32$) would cost $\frac {log(256^{32})} {log(58)}$ *digits* in Base58: $\left \lceil \frac {log(256^{32})} {log(58)} \right \rceil \equiv \left \lceil 32 \times \frac {log(256)} {log(58)} \right \rceil = \lceil 43.701 \rceil = 44$ Base58 *digits*. That's what Nakamoto's approach should produce.
+  Consider a value $n$, then it would take up ${}^{g}log(n) = \frac {log(n)} {log(g)}$ *digits* in base $g$. Thus a *32 byte* number (max value: $256^{32}$) would cost $\frac {log(256^{32})} {log(58)}$ *digits* in Base58: $\left \lceil \frac {log(256^{32})} {log(58)} \right \rceil \equiv \left \lceil 32 \times \frac {log(256)} {log(58)} \right \rceil = \lceil 43.701 \rceil = 44$ Base58 *digits*. That's what Nakamoto's approach should produce.
   Meanwhile, I'ld chop the 32 byte value ($32*8 = 256$ *bits*) up into $\left \lceil \frac {256}  {41} \right \rceil = \lceil 6.24 \rceil = 7$ chunks, encoding each into 7 characters, thus producing $7 \times 7 = 49$ Base58X *digits*. *Of course*, the last chunk is a *partial* one, so a smart encoder could indeed limit the cost to $\left \lceil 32 \times \frac {7 \times 8}  {41} \right \rceil = \lceil 43.7 \rceil = 44$ Base58X *digits*.
   
   But my concern are the growth factors. Let's have a look:
@@ -143,7 +143,7 @@ Notes on these datums:
   | Base58:      | $log(256) / log(58) = 1.3656582373$  vs. listed $(1/0.73) = 1.369863013699$ |
   | **Base58X**: | $7 * 8 / 41 = 1.365853658537$       |
 
-  and there we see that Base58X is, **as expected from theory** indeed slightly worse than Base58, in the 5th significant digit of the growth factor. *Worse, if only very little*.
+  and there we see that Base58X is, **as expected from theory**, indeed slightly worse than Base58, in the 5th significant digit of the growth factor. *Worse, if only very little*.
   
   And there we also see that the listed growth factors in the references simply carry too few significant digits to be *decent* here: Base58 *must* be better than *Base58X* and now you can see that is indeed true.
   
@@ -157,7 +157,7 @@ Notes on these datums:
   - Our Base58X approach is 1.431‱ more costly than Nakamoto's Base58 in space, but saves a bundle on division and multiplication operations, thus winning big in CPU load costs. 2‱ is 2 per *10000*, BTW.
   - Industry-ubiquitous Base64, the trivial go-to for converting binary to text, results in a 33.3% space increase. 
    
-    > This relevant for database storage of these hashes: SQLite **does not support BIGINT, not really** as can be gleaned from section 3 ("Type Affinity") in https://www.sqlite.org/datatype3.html:
+    > This is relevant for database storage of these hashes: SQLite **does not support BIGINT, not really** as can be gleaned from section 3 ("Type Affinity") in https://www.sqlite.org/datatype3.html:
     > 
     > > A column with NUMERIC affinity may contain values using all five storage classes. When text data is inserted into a NUMERIC column, the storage class of the text is converted to INTEGER or REAL (in order of preference) if the text is a well-formed integer or real literal, respectively. **If the TEXT value is a well-formed integer literal that is too large to fit in a 64-bit signed integer, it is converted to REAL. For conversions between TEXT and REAL storage classes, only the first 15 significant decimal digits of the number are preserved.** If the TEXT value is not a well-formed integer or real literal, then the value is stored as TEXT. For the purposes of this paragraph, hexadecimal integer literals are not considered well-formed and are stored as TEXT. \[...]
     >
@@ -166,7 +166,7 @@ Notes on these datums:
   - Using Base58X instead of industry-ubiquitous, yet bothersome, Base64 (due to the characterset in the latter which may need additional escaping in several communication protocols out there, e.g. HTTP GET/POST/REST), results in an additional 2.44% space cost increase vs. Base64, which is negligible -- while we do not have any obnoxious character anywhere in our Base58X charset!
     Meanwhile our computational encoding/decoding cost is slightly higher as we need to do a bit of judicious bit-shifting to arrive at those 41-bit chunks, plus a few more math operations to properly encode the digits in the chunk (vs. Base64 lookup table or similar means). Again, considered acceptable. Hence neglected.
 	
-  - Incidentally, given https://www.sqlite.org/datatype3.html (referenced above) and general SQL database experience through the years, we cannot have nice *pure binary data*	for indexed / *unique key* fields: `BLOB` is generally not accepted as a unique key type in databases; the 37% size increase to a *whopping* 44 characters per *key* (document hash) does not warrant very unconventional shenanigans with our SQLite database, so we'll be storing those hashes in Base58X encoded form, alas.
+  - Incidentally, given https://www.sqlite.org/datatype3.html (referenced above) and general SQL database experience through the years, we cannot have nice *pure binary data* for indexed / *unique key* fields: `BLOB` is generally not accepted as a unique key type in databases; the 37% size increase to a *whopping* 44 characters per *key* (document hash) does not warrant very unconventional shenanigans with our SQLite database, so we'll be storing those hashes in Base58X encoded form, alas.
    
     Were we to use a NoSQL (e.g. LMDB) database instead, then it would potentially make sense to store the hashes in their original, *pure binary* form, clocking in at 32 bytes a-piece.
 
@@ -197,5 +197,15 @@ Anyway, the take-away of this is that the new hash is *better* or at least *comp
 > 
 > A quick check/sampling of the performance data for a large set of PDFs shows a performance factor [range](https://en.wikipedia.org/wiki/Range_(statistics)) of 0.9 .. 4 times *faster* than SHA1B (eyeballed mean speed factor somewhere around 1.5 to 2), using the same machinery (C code, optimized "Release Build" binaries used for running the performance benchmark).
 
+
+## Post Scriptum
+
+Note the comment section at the top of the `xxx` source file, where we investigate the output size for any type of Base56 .. Base64 encoding: the conclusion is that Base58 (and Base58X) are the best option for short output (44 character 'digits' per 256 bits of binary input) when the 'output is a alphanumeric word' criterion is to be upheld: Base64 (and Base63) can deliver outputs that are 1 character shorter than this (43 'digits'), but do require the use of some non-alphanumeric characters, e.g. punctuation. This would then make such codes harder to parse in many scripting languages and would be affected by the 'encoding in URL and other foreign environments' as discussed at the start of this article.
+
+In that comment section, Base64 is the only potential contender, for it can be calculated faster than Base58(X), thanks to cheap bit-shifting replacing costly divide and modulo operations; none of the others are 'better' in any sense (same output size, same or worse calculus cost).
+
+### Use in an SQL database
+
+We *are* considering using shortened/folded 64-bit binary-numeric hash values as identifying primary keys in the new database layout, based on the consideration that the BASE58X Unique Identifier is a 44-long string and we will have quite a bit of data rows referencing that UID, e.g. annotation records, bibliography line records, etc.etc. all will be referencing the document they belong to via its UID and we can expect to run many MERGE queries: for that reason alone it might be beneficial to keep the linked index **numeric** for faster table merge and other query processing. Further thoughts on this can be read at [[Considering the database design - the trouble with a string UUID]].
 
 
