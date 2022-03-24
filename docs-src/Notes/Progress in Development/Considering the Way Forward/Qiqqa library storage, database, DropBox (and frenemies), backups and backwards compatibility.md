@@ -25,7 +25,7 @@ Hence the thought is, here and now, to keep the old SQLite database table as-is,
 
 ## Backups to cloud storage
 
-Currently Qiqqa copies the Sqlite DB to cloud using SQlite, which is not very smart as this can break the database due to potential collisions with other accessors^[you or other user accesing the same cloud starage spot and thus shared DB over network, if only for a short moment]: the idea there is to always **binary file copy** the database to cloud storage and only ever let Sqlite access the DB that sits in local *private* storage.
+Currently Qiqqa copies the Sqlite DB to cloud using SQlite, which is not very smart as this can break the database due to potential collisions with other accessors^[you or other user accessing the same cloud storage spot and thus shared DB over network, if only for a short moment]: the idea there is to always **binary file copy** the database to cloud storage and only ever let Sqlite access the DB that sits in local *private* storage.
 
 Multi-user access over cloud storage is a persistent problem as there's no solid file locking solution for such systems: not for basic networking and certainly not for cloud storage systems (such as Google Drive or DropBox, which have their own proprietary ways of 'syncing' files and none of them will be happy with *shared use* of such files while they 'sync').
 

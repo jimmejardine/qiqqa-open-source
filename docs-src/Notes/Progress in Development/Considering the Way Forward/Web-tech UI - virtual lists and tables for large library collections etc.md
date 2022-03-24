@@ -1,10 +1,10 @@
 # Web-tech UI: virtual lists and tables for large library collections, etc.
 
-We will have large and *huge* libraries, for which we'll need to display lists (tables?) of documents. Given that these libraries easily can grow into the 10K+ size realm, and the per-document row display is composed of many components (title, author, year, pagecount, publisher, rating and read status markers/icons, graphic bar representing keyword space, etc.), it is *very probably* a good idea to use *virtual lists* and *virtual tables* for this to keep the UI *fast* and responsive.
+We will have large and *huge* libraries, for which we'll need to display lists (tables?) of documents. Given that these libraries easily can grow into the 10K+ size realm, and the per-document row display is composed of many components (title, author, year, page count, publisher, rating and read status markers/icons, graphic bar representing keyword space, etc.), it is *very probably* a good idea to use *virtual lists* and *virtual tables* for this to keep the UI *fast* and responsive.
 
 For (virtual) tables, there's, of course, our old friend [SlickGrid](https://slickgrid.net/).
 
-For (virtual) lists,we might consider using the same, or some others. Check out the links below for virtual lists, tables and related issues in web tech:
+For (virtual) lists, we might consider using the same, or some others. Check out the links below for virtual lists, tables and related issues in web tech:
 
 - https://github.com/sergi/virtual-list#virtual-dom-list / https://sergimansilla.com/blog/virtual-scrolling/
 	- https://bugzilla.mozilla.org/show_bug.cgi?id=373875

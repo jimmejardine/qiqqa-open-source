@@ -22,7 +22,7 @@ Looked like we had some memory leaks in our `curl` run. Keep this in mind when c
 
 As we'll be working with reasonably complex software in that background server, we SHOULD reckon with memory leaks anyway, even if we happen to have a no-leakage situation at the time of testing...
 
---> how should we implement local *fail over* then? (Say we don't want any downtime, while we restart the server software: that would mean we would have at least *two* instances running at some point(s) in time and allow the using software (Qiqqa frontend) to address these instances in a fail-over manner, either through a proxy server (ZeroMQ!) or other means, so userland code will also be able to eeasily access these... Food for thought!)
+--> how should we implement local *fail over* then? (Say we don't want any downtime, while we restart the server software: that would mean we would have at least *two* instances running at some point(s) in time and allow the using software (Qiqqa frontend) to address these instances in a fail-over manner, either through a proxy server (ZeroMQ!) or other means, so userland code will also be able to easily access these... Food for thought!)
 
 
 ## curl waits indefinitely for unreachable sites?

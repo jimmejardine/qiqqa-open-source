@@ -16,7 +16,7 @@ Metadata extraction - from both pdfs itself and from (often less cooperative) we
 
 ## FTS aka Full Text Search 
 
-FTS aka Full Text Search or "googling your stuff locally" ;-) is done using an old lucene.Net v3 engine. Not the biggest issue, as that one is not failing yet, but would be great if we could upgrade. Meanwhile lucene.net as a project is still in v4 while tge world around has moved fast: lucene (java) is at v8.x while there's plenty layered in top that's the buzz of the town these days: solr, elasticsearch, etc. Again, not a must-have like the previous items, but has been investigated. 
+FTS aka Full Text Search or "googling your stuff locally" ;-) is done using an old lucene.Net v3 engine. Not the biggest issue, as that one is not failing yet, but would be great if we could upgrade. Meanwhile lucene.net as a project is still in v4 while the world around has moved fast: lucene (java) is at v8.x while there's plenty layered in top that's the buzz of the town these days: solr, elasticsearch, etc. Again, not a must-have like the previous items, but has been investigated. 
 
 ## Application performance 
 

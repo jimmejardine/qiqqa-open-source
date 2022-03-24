@@ -31,7 +31,7 @@ for some more info on this.
 
 Qiqqa: XULRunner --> CEFSharp
 
-As we will migrate from using old XULRunner as embedded webbrowser, we're going to use CEFSharp (which is based on Chrome). That one has the same trouble: you cannot log into your Google account from that one either, so no "Import as BibTeX" in Scholar unless the login cookies happen to work cross-browser: sometimes they do, often they don't. 
+As we will migrate from using old XULRunner as embedded web browser, we're going to use CEFSharp (which is based on Chrome). That one has the same trouble: you cannot log into your Google account from that one either, so no "Import as BibTeX" in Scholar unless the login cookies happen to work cross-browser: sometimes they do, often they don't. 
 Hence the value of the new method: it always works.
 
 

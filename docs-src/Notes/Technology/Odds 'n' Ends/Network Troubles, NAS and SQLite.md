@@ -21,7 +21,7 @@ So we need to come up with “something else”. Or at least *something that mig
 ## Aside / Reminders
 
 - Currently Qiqqa doesn't support network & UNC mapped paths, e.g. `//share/path/...` (see also [#354](https://github.com/jimmejardine/qiqqa-open-source/issues/354)).
-- SQLite (**NOT** the .NET version) has experiemental code for WAL2 and other 'modes': those are also relevant for locking and network behaviour, e.g. [#354](https://github.com/jimmejardine/qiqqa-open-source/issues/354)).
+- SQLite (**NOT** the .NET version) has experimental code for WAL2 and other 'modes': those are also relevant for locking and network behaviour, e.g. [#354](https://github.com/jimmejardine/qiqqa-open-source/issues/354)).
 - 
 
 
@@ -46,7 +46,7 @@ So we need to come up with “something else”. Or at least *something that mig
   - [SMB3 Leasing Mode](https://infusionsoftware.zendesk.com/hc/en-us/articles/360001439295-SMB3-Leasing-Mode)
   - [Disable Opportunistic Locking and SMB2](https://support.trumpetinc.com/index.php?pg=kb.page&id=2025)
         
-    > **This is for server Operating Systems that do not support SMB3(ie. Windows Server 2008 R2 or earlier), where SMB2 is enabled.**
+    > **This is for server Operating Systems that do not support SMB3(i.e. Windows Server 2008 R2 or earlier), where SMB2 is enabled.**
     >
     > Opportunistic locking and SMB2 are known to cause some really nasty file locking and data loss issues with Worldox and many other applications.  As mentioned above, this usually applies to Windows Server 2008 R2 and earlier.  If you are using SMB3 on a newer server O/S, this is not an issue.
   
@@ -92,7 +92,7 @@ So we need to come up with “something else”. Or at least *something that mig
        
   - [SQLite :: Things That Can Go Wrong](https://sqlite.org/atomiccommit.html#sect_9_0)
   - [2 Types of Linux File Locking (Advisory, Mandatory Lock Examples)](https://www.thegeekstuff.com/2012/04/linux-file-locking-types/)
-  - [flock fails on shared NFS for exclusive blocking locks from 2 different maschines](https://serverfault.com/questions/1001700/flock-fails-on-shared-nfs-for-exclusive-blocking-locks-from-2-different-maschine)
+  - [flock fails on shared NFS for exclusive blocking locks from 2 different machines](https://serverfault.com/questions/1001700/flock-fails-on-shared-nfs-for-exclusive-blocking-locks-from-2-different-maschine)
   - [OSError: Unable to open file (unable to lock file, errno = 37, error message = 'No locks available') #1101](https://github.com/h5py/h5py/issues/1101)
   - [How To Unlock Access ldb/laccdb File?](http://www.accessrepairnrecovery.com/blog/access-ldb-or-laccdb-file-unlock)
 

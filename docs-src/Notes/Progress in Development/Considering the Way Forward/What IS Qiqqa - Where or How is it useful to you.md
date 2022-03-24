@@ -6,7 +6,7 @@
 >
 > - Organize the stream-of-cons material below: 4 short items of Qiqqa processes (which I only identified while writing this; before this moment I felt my thoughts about *three** processes were both very inaccurate and exhibited a lot of "dithering about it", shall we say? (Can't recall the correct English term for the semi-random set I had: that bloody Chicago prof is so bloody right about writing it *hurts*!)
 >
-> - While I like the rythm of what came out, the music should be moved into four *movements* (sections); consider making that *five* as the fifth isn't exactly *reminiscing* (**wrong word**!) but is rather *meta* as my college nerds would say.
+> - While I like the rhythm of what came out, the music should be moved into four *movements* (sections); consider making that *five* as the fifth isn't exactly *reminiscing* (**wrong word**!) but is rather *meta* as my college nerds would say.
 >
 > - This is about the section below that's `>` blockquoted; the part above that should land in another document / chapter addressing policy / forward vision / "Where do we want to go \[after today]?" (paraphrasing MS/BG 😄)
 >
@@ -27,7 +27,7 @@ Do NOT ride on *ports* nor on *wrappers* for .NET (or any other language for tha
 While I would get a real kick out of coding some bits of this baby in C++.NET to, say, merge MuPDF (C/C++)  and Qiqqa Core (C# = .NET), that stuff, while looking *great* in code, doesn't port to UNIX -- which is an important market from my perspective on 'target audiences' for Qiqqa, while already requested in #215.
 
 There's the 20+ years of everywhere-*except*-*probably*-*automotive* IT comms & interfacing [*empirical* 😄 experience](https://en.wikipedia.org/wiki/Empirical_evidence) gathered in this brain that I shouldn't neglect. 
-In the old days, you were looking at something *fringe* (read: *fancy*) if it didn't come with an industry standard RS232 or RS422/485 port *avec du* **simple text protocol** (yes, IEEE484 is *fringe*, for example. *Very* nice stuff, but bloody expensive -- anyway, *I digress*). Since at least 1998 my unchanging opinion and "vision of the long-term future" has been: if it doesn't come with a *text-based* TCP/IP *port* based interface, you're *fringe* and often very hard to *debug* too when the shit hits the fan (hello, XML afficionados 👋 and DCOM lovers 😈 -- you know who you are! 😈 ). 
+In the old days, you were looking at something *fringe* (read: *fancy*) if it didn't come with an industry standard RS232 or RS422/485 port *avec du* **simple text protocol** (yes, IEEE484 is *fringe*, for example. *Very* nice stuff, but bloody expensive -- anyway, *I digress*). Since at least 1998 my unchanging opinion and "vision of the long-term future" has been: if it doesn't come with a *text-based* TCP/IP *port* based interface, you're *fringe* and often very hard to *debug* too when the shit hits the fan (hello, XML aficionados 👋 and DCOM lovers 😈 -- you know who you are! 😈 ). 
 
 Translation: if you cannot hook up a "generic terminal emulator of sorts" and get some decent, if maybe a bit reduced, interaction going, you're looking at an interface that's going to get you intro trouble and *hemorrhaging* weeks of concerted effort when the proverbial dung finally has arrived.
 
