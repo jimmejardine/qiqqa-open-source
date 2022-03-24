@@ -35,9 +35,9 @@ The trouble with that approach, though, is that nobody can easily search the dat
 
 > XML?! I don't like it, as a format, but it's an option... It saves on 'escapes' in string content, but then goes and bloats the entire thing with `<tag>...</tag>` repetition cruft.
 > 
-> While we *ho and hum* about it, we realize that we've been looking at the venerated `bibutils` package already and were intent on repurposing that one for our needs: when we go that route, the decision has already been made for us pretty much as the *common denominator format* used by `bibutils` internally is the US Library sanctioned MODX format, which is... XML based.
+> While we *ho and hum* about it, we realize that we've been looking at the venerated `bibutils` package already and were intent on repurposing that one for our needs: when we go that route, the decision has already been made for us pretty much as the *common denominator format* used by `bibutils` internally is the [US Library sanctioned MODS format](https://www.loc.gov/standards/mods/userguide/index.html), which is... XML based.
 > 
-> Of course, we could be a dork and turn that one into our own JSON-or-whatever-based format, just out of spite for XML overhead (*oooh! oooh! BXML! Binary Encoded XML! Yay!!!1!*), but I keep thinking the `bibutils`'s MODX format is a nice one covering it all, including any custom fields and other special sauce we may encounter along the way. (US Library doesn't recognize `@datasheet` , nor does LaTeX or BibTeX, but **me, myself & I** certainly *do*! Those are an important part of the document collection over here, as are **application notes**!)
+> Of course, we could be a dork and turn that one into our own JSON-or-whatever-based format, just out of spite for XML overhead (*oooh! oooh! BXML! Binary Encoded XML! Yay!!!1!*), but I keep thinking the `bibutils`'s MODS format is a nice one covering it all, including any custom fields and other special sauce we may encounter along the way. (US Library doesn't recognize `@datasheet` , nor does LaTeX or BibTeX, but **me, myself & I** certainly *do*! Those are an important part of the document collection over here, as are **application notes**!)
 > 
 > Cost increase estimate? At 200 fields, with field names averaging, say, 20 characters, the XML-based overhead will kick in at an *extra* $(2+2+20) \times n = 24 \times 200 = 4800 \approx 5 \text{ kByte}$ overhead per document. That's becoming a bit steep to my tastes (while I *utterly ignore* the 16TB storage disk that's inbound to these premises this week) as that would run us up an additional ${5\text{K overhead}} \times {100\text{K documents}} \approx 500 \text{MByte}$ overhead cost. **Whut?!**
 > 
@@ -50,11 +50,11 @@ The trouble with that approach, though, is that nobody can easily search the dat
 >
 > > Maybe a tad clearer would be to round it up a bit and state the storage cost estimate as $N \times (2 \times D + {10K})$, where $D$ is the average document size and $N$ the number of documents. For $D = {400K}$ and $N = {100K}$, that would then be ${100K} \times (2 \times {400K} + {10K}) = {82 \text{GByte}}$. Check.
 > 
-> Thus, using the rough estimate above, the MODX XML overhead would clock in at less than 1% of the total cost.
+> Thus, using the rough estimate above, the MODS XML overhead would clock in at less than 1% of the total cost.
 > 
-> Of course, when we (correctly) disregard the document + hOCR content (the $2 \times D$), the number gets rather more bleak, thanks to our estimated average MODX field name of 20 characters vs. content average length of only 42: the *extra* overhead, thanks to the XML format, would then be near 25% of the total. (1 fieldname: necessary; content itself is about the size of 2 average field names. Then the XML closing tag *repeats* the field name, utterly useless. That's $\frac 1 4$ of the total as **extra cost** due to using XML rather than JSON or something similar and non-repetitive.)
+> Of course, when we (correctly) disregard the document + hOCR content (the $2 \times D$), the number gets rather more bleak, thanks to our estimated average MODS field name of 20 characters vs. content average length of only 42: the *extra* overhead, thanks to the XML format, would then be near 25% of the total. (1 fieldname: necessary; content itself is about the size of 2 average field names. Then the XML closing tag *repeats* the field name, utterly useless. That's $\frac 1 4$ of the total as **extra cost** due to using XML rather than JSON or something similar and non-repetitive.)
 > 
-> When observed from *that* angle, using MODX as-is for storage isn't a very bright idea. Besides, most folks out there are used to munching JSON these days, so why not store it in JSON format while keeping it otherwise the same?
+> When observed from *that* angle, using MODS as-is for storage isn't a very bright idea. Besides, most folks out there are used to munching JSON these days, so why not store it in JSON format while keeping it otherwise the same?
 > 
 > > Meanwhile, we can ponder about using *solid archive' style compression systems* if this amount of storage is really going to bother us.
 > > 
@@ -80,7 +80,7 @@ Meanwhile, having a non-unique field index on the metadata fields table, would *
 
 Another idea is to store the metadata *twice*. Heck, it's already *encoded once more* in the FTS/SOLR system to facilitate "google style" searching there, and at an estimated cost of ${10K} / D = 10 / 400 = 1 / 40 \approx {3\%}$ of $D$, *doubling* that cost isn't high impact!
 
-What about we store those metadata fields in one table all separate, thus producing a huge search table with a compound index on `(document, fieldname)`, while the "*I want it all*" folks among us can query the second table where this data is stored in a single record, just like before, only now cleaned up and easier to parse: all the stuff together in a single field, JSON-formatted MODX, ready for quick and easy use? I think that might be good and is relatively easy to do.
+What about we store those metadata fields in one table all separate, thus producing a huge search table with a compound index on `(document, fieldname)`, while the "*I want it all*" folks among us can query the second table where this data is stored in a single record, just like before, only now cleaned up and easier to parse: all the stuff together in a single field, JSON-formatted [MODS](https://www.loc.gov/standards/mods/userguide/index.html), ready for quick and easy use? I think that might be good and is relatively easy to do.
 
 > #### Two questions remain
 > 
