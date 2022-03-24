@@ -1,7 +1,7 @@
 #! /bin/bash
 #
 
-for f in $( git remote | grep -e 'Hobbelt\|jardine$' ) ; do 
+for f in GerHobbelt jimmejardine ; do 
 	echo $f 
-	git push --all https://github.com/$f/qiqqa-open-source.git
+	git push --all git@github.com:$f/qiqqa-open-source.git
 done
