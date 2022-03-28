@@ -47,4 +47,5 @@ This question whether or not using OpenMP is a smart thing to do, applies genera
 ## References
 
 - [good accuracy but too slow, how to improve Tesseract speed · Issue #263 · tesseract-ocr/tesseract (github.com)](https://github.com/tesseract-ocr/tesseract/issues/263)
+- [RFC: Best Practices re OPENMP - for training, evaluation and recognition · Issue #3744 · tesseract-ocr/tesseract (github.com)](https://github.com/tesseract-ocr/tesseract/issues/3744)
 - 
