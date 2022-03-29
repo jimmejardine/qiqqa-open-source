@@ -31,7 +31,7 @@ See also https://eev.ee/blog/2016/04/30/embedding-lua-vs-python/ for related noi
 
 So we looked for other options: Lua and JavaScript[^not V8 mind you because that one is at about the same level of difficulty (estimated work hours) as embedding CPython properly]; here we're looking at the `mujs` JavaScript engine provided by Artifex and a few other options, which are mostly targeting embedding devices, etc.: we're not interested in maximum performance for the scripts here but ease of integration rather: they're meant to glue together native components which do the grunt work of the process that you're setting up, so this is supposed to use only a few CPU cycles from the grand total of your to-be-scripted processes.
 
-One drawback of `mujs` is its JS language support: ES5 only. `ducktape` is another well supported candidate but suffers the same issue, while `jerryscript`, which I hadn't heard about before, does look like a *modern* JS engine, language wise: [this is what @kangax has to say about that!](https://github.com/LewisJEllis/awesome-lua), so my vote goes to `jerryscript`this time. Sorry folks!
+One drawback of `mujs` is its JS language support: ES5 only. `ducktape` is another well supported candidate but suffers the same issue, while `jerryscript`, which I hadn't heard about before, does look like a *modern* JS engine, language wise: [this is what @kangax has to say about that!](https://github.com/LewisJEllis/awesome-lua), so my vote goes to `jerryscript` this time. Sorry folks!
 
 Yes, I'm quite fond of JavaScript, so I looked a little harder there. ;-)
 

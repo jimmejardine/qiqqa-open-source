@@ -4,7 +4,7 @@ Have had plenty trouble with *categorizing* / *tagging* articles, notes, etc., a
 
 Thought:
 
-- Hierarchy in tagging doesn't work for me. (I notice that reading [this zettelkasten blog article](https://zettelkasten.de/posts/object-tags-vs-topic-tags/), several others ran into the same issue. They call it 'namespacing' but it's the same thing underpinning it all: *hierarchy*)
+- Hierarchy in tagging doesn't work for me. (I notice that, reading [this zettelkasten blog article](https://zettelkasten.de/posts/object-tags-vs-topic-tags/), several others ran into the same issue. They call it 'namespacing' but it's the same thing underpinning it all: *hierarchy*)
 - There is indeed some very useful differentiation between Sascha's terms of a (_thematic_) **topic** and an (_ontological_) **object**. (See also [comments in blog](https://zettelkasten.de/posts/object-tags-vs-topic-tags/))
 
   However, that's not going to fly in my opinion, as:
@@ -46,7 +46,7 @@ Two things have been identified here (or is it three? four?):
 1. you add tags to articles without regard for *hierarchy*. The tag list assigned to an item contains both broad and precise, thematic and ontological tags. This doesn't change what we already have.
 2. Tags themselves are not a flat set structure, but they have links: thus tags should be 'categorized' by assigning other tags (*meta-tags*) to them. The *recursive* nature then dictates that those meta-tags can be 'categorized' by assigning other tags to them (meta-meta-tags).
   
-   > Do we differentiate between meta^n^ tags, i.e. are those levels each a separate set? Intuition says: NO. One set of words, the assignments determine if those are serving as tag, meta-tag, meta-meta-tag, and so forth, in the *given situation* -- otherwise we don't mind as this entire tag structure has then become a multi-dimensional graph.
+   > Do we differentiate between meta<sup>n</sup> tags, i.e. are those levels each a separate set? Intuition says: NO. One set of words, the assignments determine if those are serving as tag, meta-tag, meta-meta-tag, and so forth, in the *given situation* -- otherwise we don't mind as this entire tag structure has then become a multi-dimensional graph.
      
 3. You probably will want to *visualize* these graph-like relationships too, so that requires yet another graph-view, this time for tags.
 

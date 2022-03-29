@@ -10,7 +10,7 @@ First, let's identify the several sources we would like to index/identify that w
   That means we might have a different shorthand index value for document XYZ at machine A than at machine B. Definitely not something you would want to pollute your SQLite database with, for it would otherwise complicate Sync-Across across activity *quite a bit* as the thus-shorthand-linked data *would require transposing to the target machine*. **Ugh! *Hörk*!**
 - **document+page**. Text extracts, etc. are kept per document, per page.
  
-  Must say I don't have a particularly strong feeling towards needing a *shorthand index* for this one, though. Given [[BLAKE3+BASE58 - Qiqqa Fingerprint 2.0]], the raw, unadulterated cost[^1] would run me at: 
+  Must say I don't have a particularly strong feeling towards needing a *shorthand index* for this one, though. Given [[BLAKE3+BASE58X - Qiqqa Fingerprint 2.0]], the raw, unadulterated cost[^1] would run me at: 
   
   [^1]: see [[Fingerprinting - moving forward and away from b0rked SHA1|here for the factors]] used in the tables below
   
