@@ -1,0 +1,890 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+	<title>
+	Compare
+ - Qiqqa</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	
+
+
+<link href="../Content/css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+
+<!-- from React theme -->
+<link rel="stylesheet" type="text/css" href="http://static0.qiqqa.com/Content/css/compiled/theme.css" />
+<link rel="stylesheet" type="text/css" href="http://static0.qiqqa.com/Content/css/vendor/animate.css"/>
+
+
+<link rel="stylesheet" type="text/css" href="../Content/css/vendor/font-awesome.min.css"/>
+
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.min.css?v=3" rel="stylesheet" type="text/css" />
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+
+<link href="http://static0.qiqqa.com/Content/css/style.css?v=41" rel="stylesheet" type="text/css" />
+
+<link href="https://plus.google.com/112870752938013040898" rel="publisher" />
+
+<!-- these scripts are critical for all page operation so must come first. All others at footer so they don't delay page load -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script src="../Content/js/bootstrap/bootstrap.min.js"></script>
+
+<!-- react theme -->
+<script src="../Content/js/theme.js"></script>
+
+
+<script type="text/javascript" src="http://static0.qiqqa.com/Scripts/jquery-ui.min.js?v=4"></script>
+
+<script src="http://static0.qiqqa.com/Scripts/common.js?v=21" type="text/javascript" charset="utf-8"></script>
+
+
+<!--[if lt IE 7.]>
+<script defer="defer" type="text/javascript" src="http://static0.qiqqa.com/Scripts/pngfix.js"></script>
+<![endif]-->
+
+
+<!-- IE nonsense - making header vaguely usable -->
+<!--[if lt IE 9]>
+<style>
+.navbar-header
+{
+ display:none;
+}
+
+#headerIE
+{
+ display:block;
+}
+</style>
+<![endif]-->
+
+<script type="text/javascript">
+    var $buoop = { vs: { i: 8, f: 15, o: 12.1, s: 5.1} };
+    $buoop.ol = window.onload;
+    window.onload = function () {
+        try { if ($buoop.ol) $buoop.ol(); } catch (e) { }
+        var e = document.createElement("script");
+        e.setAttribute("type", "text/javascript");
+        e.setAttribute("src", "//browser-update.org/update.js");
+        document.body.appendChild(e);
+    } 
+</script> 
+	
+    <link rel="shortcut icon" href="../favicon.ico%3Fv=6" type="image/x-icon" />
+    <link rel="icon" href="../favicon.ico%3Fv=6" type="image/x-icon" />
+
+    <link rel="image_src" href="../Content/images/sharing.png" /> <!-- facebook -->
+    
+    <meta name="description" content="Qiqqa is award-winning research management software, designed for commercial and academic researchers. If you deal with lots of PDFs and ideas during your research, you'll love what Qiqqa can do for you." /> 
+   
+    
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#tabs").tabs({
+            
+        });
+    });
+
+</script>
+
+<style type="text/css">
+
+
+
+/* Begin Faded panel */
+.fadedPanel
+{
+	width:auto;
+}
+
+.fadedPanel td
+{
+	padding:0;
+	margin:0;
+}
+
+
+.fadedPanel .bl
+{
+	width:8px;
+	background-color:#fff;
+	background-image:url(http://static0.qiqqa.com/Content/images/PanelBgs/whitefade/bl.png) bottom left;
+	background-repeat:no-repeat;
+}
+
+.fadedPanel .panelContentBottom
+{
+	background-color:#fff;
+	background-image:url(http://static0.qiqqa.com/Content/images/PanelBgs/whitefade/bc.png) bottom center;
+	background-repeat:repeat-x;
+	padding:10px 8px 60px 8px;
+	min-height:349px;
+	vertical-align:top;
+}
+
+.fadedPanel .br
+{
+	width:7px;
+	background-color:#fff;
+	background-image:url(http://static0.qiqqa.com/Content/images/PanelBgs/whitefade/br.png) bottom right;
+	background-repeat:repeat-x;
+}
+
+/* End faded panel */
+
+
+
+.panelContent h3
+{
+	margin-top:1em;
+	margin-bottom:0;
+
+}
+
+.panelContent div
+{
+    text-align:justify;	
+	width:550px;
+	margin-bottom:1.5em;
+}
+
+
+.screenshot
+{
+	float:right;
+	margin:20px;
+}
+
+
+/* begin compare */
+
+#tblCompare
+{
+	width:100%;
+}
+
+#tblCompare th
+{
+	text-align:center;
+	padding:10px;
+	background:#fff;
+	border:0;
+	border-bottom:solid #eee 1px;
+	color:#333366;
+}
+
+#tblCompare .firstRow td
+{
+	padding-top:10px;
+}
+
+#tblCompare td
+{
+	text-align:center;
+	border:0;
+	border-bottom:dotted 1px #f8f8f8;
+	padding-right:10px;
+}
+
+
+#tblCompare td.nopad
+{
+	padding-right:0px;
+}
+
+#tblCompare td.bottomRow
+{
+	border-bottom:none;
+}
+
+
+#tblCompare td.first
+{
+    text-align:left;
+}
+
+
+
+.ui-tabs .ui-tabs-panel
+{
+	padding:0;
+}
+
+.ui-widget-content a { color: #005E9B; }
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+
+<header class="navbar navbar-inverse normal navbar-fixed-top" role="banner">
+  		<div class="container">
+    		<div class="navbar-header">
+		      	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+      			<a href="../index.html" class="navbar-brand">
+      			    <span title="Qiqqa"></span>
+      			</a>
+    		</div>
+    		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      			<ul class="nav navbar-nav navbar-right">
+                
+                
+                
+
+                
+                <li class="dropdown">
+        				<a href="Compare.html#" class="dropdown-toggle" data-toggle="dropdown">
+          					About
+          					<i class="fa fa-chevron-down"></i>
+          				</a>
+          				<ul class="dropdown-menu">
+					    <li>
+                            <a href="Tour.html"><span>Tour</span></a></li>
+
+                        <li class="nav-divider"></li>
+                        
+
+                        <li>
+                        <a href="PremiumMembership.html"><span>Premium</span></a></li>        
+                        
+                        <li>
+                        <a href="PremiumPlus.html"><span>Premium+</span></a></li>        
+                        
+                        <li>
+                        <a href="Editions.html"><span>Pricing</span></a></li>
+
+                        <li>
+                        <a href="../Champion.html"><span>Champion</span></a></li>        
+
+                        <li>
+                        <a href="PremiumForFree.html"><span>Premium for free</span></a></li>        
+                        
+                         <li class="nav-divider"></li>
+                        
+                        <li>
+                        <a class="active" href="Compare.html"><span>Compare</span></a></li>
+
+                            <li>
+                            <a href="Features.html"><span>Features</span></a></li>
+                        <li>
+                        <a href="Sync.html"><span>Sync</span></a></li>        
+                        <li>
+                        <a href="UnlimitedStorage.html"><span>Storage</span></a></li>        
+                
+                        <li class="nav-divider"></li>    
+
+                        <li><a href="http://enterprise.qiqqa.com/">Enterprise</a> </li>
+                        
+				        </ul>
+        			</li>
+      			
+                    
+                    
+                    <li class="dropdown">
+        				<a href="Compare.html#" class="dropdown-toggle" data-toggle="dropdown">
+          					Help
+          					<i class="fa fa-chevron-down"></i>
+          				</a>
+          				<ul class="dropdown-menu">
+							<li><a href="../Help.html"><span>Support</span></a></li>
+                            
+                            <li><a href="https://getsatisfaction.com/qiqqa">Forum</a></li>
+                
+                            <li><a href="../Help/Manual"><span>Manual</span></a></li>
+                            
+                            <li><a href="../Home/Screencasts.html"><span>Screencasts</span></a></li>
+                            
+                            <li><a href="../Home/Contact.html"><span>Contact Us</span></a></li>
+				        </ul>
+        			</li>
+        			
+                    
+                    
+
+        			
+                    <li>
+          				<a href="../Download.html" class="signup visible-md visible-lg">Download</a>
+        			</li>
+                
+                
+                    <li class="dropdown">
+        			<a href="Compare.html#" class="dropdown-toggle" data-toggle="dropdown">
+          				
+                        Account
+          				<i class="fa fa-chevron-down"></i>
+          			</a>
+                        
+                        
+          			<ul class="dropdown-menu">
+          				    
+                        
+                        
+                            <li><a href="../Account/LogOn.html"><span>Log On</span></a></li>
+          				    <li><a href="../Account/RegisterStart.html"><span>Register</span></a></li>
+        			    
+                        
+                            <li><a href="../Home/Newsletter.html"><span>Newsletter</span></a></li>
+                        
+				    </ul>
+        		</li>
+        		
+                </ul>
+    		</nav>
+  		</div>
+</header>
+<div id="headerIE">
+    <a href="../index.html"><img src="http://static0.qiqqa.com/Content/images/Logos/2/logo.png" alt="Qiqqa"/></a>  
+    YOUR BROWSER IS NOT CURRENTLY SUPPORTED, PLEASE <a href="http://browser-update.org/update-browser.html#14">UPGRADE</a>.
+</div>
+
+
+<div id="wrap" class="container has-navbar-fixed-top">
+<div class="row" id="flashMessagePanel">
+    <div class="col-xs-9" id="flashMessagePanelContent"></div>
+     <div class="col-xs-3">
+        <a href="Compare.html#" id="flashMessagePanelDismiss" class="pull-right">
+            <i class="glyphicon glyphicon-remove-sign"></i> DISMISS
+        </a>
+    </div>
+</div>
+
+    
+
+<div class="row pageContentHeader">
+<div class="col-xs-12">
+<h2>
+
+
+	Compare Qiqqa
+
+
+</h2>
+</div>
+</div>
+
+
+<div id="Compare" class="footerShadow">
+    
+<table class="fadedPanel" style="width:100%"> 
+<tr><td class="bl"></td>
+<td class="panelContent panelContentBottom">
+    
+<table id="tblCompare">
+
+<thead>
+<tr>
+
+<th></th>
+<th style="font-size:16px"><strong>Qiqqa&trade;</strong></th>
+<th>EndNote&reg;</th>
+<th>Zotero&trade;
+<sub>1</sub>
+</th>
+
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr class="firstRow">
+<td class="first">Annotations</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Highlighting</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Comments</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Scribbling</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr>
+<td class="first"><b>Annotation Reports</b></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td class="first">Tags</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Hierarchical Tags</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr>
+<td class="first">
+<a href="AutoTags.html">Automatically detected AutoTags</a>
+</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Automatically detected Themes</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+
+
+<tr>
+<td class="first">Built-in full-text indexed search</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td class="nopad"><img src="../Content/images/About/Compare/HalfCheck.gif" alt="Partial" />
+<sub>2</sub>
+</td>
+
+</tr>
+
+<tr>
+<td class="first">Powerful search syntax <sub>6</sub></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+
+<tr>
+<td class="first">Automatic OCR of Scanned Pages</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td class="first">Web Library</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+
+<tr>
+<td class="first">
+<a href="Sync.html">Syncing across multiple machines</a>
+</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Access library from iPhone, Android, etc.</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+
+
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr>
+<td class="first">Automatic association of citation metadata with PDFs</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Search PubMed</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Search Google Scholar</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td class="first">Send document bundle via email</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+<tr>
+<td class="first">Tweet a document</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+<tr>
+<td class="first">Tweet an annotation</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td class="first">BibTeX and LaTeX support</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Microsoft&copy; Word&trade; 2003 thru 2013 support</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td class="first">What should I read next?</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+<tr>
+<td class="first">Also by these authors</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+<tr>
+<td class="first">Cites and cited-by</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Keyword cloud</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Detect related documents</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+
+
+
+<tr>
+<td class="first">
+Visually map links between documents
+</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td class="first">Brainstorming</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Integrated web browser</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Native mobile application</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">CSL Editor</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Cross.gif" alt="No" /></td>
+
+</tr>
+
+
+
+<tr><td colspan="4">&nbsp;</td></tr>
+
+<tr>
+<td class="first">Free version</td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+<td><img src="../Content/images/About/Compare/Check.gif" alt="Yes" /></td>
+
+</tr>
+
+<tr>
+<td class="first">Premium version</td>
+<td>$119.99
+per year</td>
+
+<td>$99.95 to $299.95 once-off
+<sub>4</sub>
+</td>
+
+<td>N/A</td>
+
+
+</tr>
+
+
+</tbody>
+
+</table>
+<br /><br /><br />
+<div style="text-align:left;color:#999">
+<sub>1</sub> Zotero comparison is with Zotero 2.1 <br />
+<sub>2</sub> Requires additional application<br />
+<sub>4</sub> Offical price <a href="http://www.endnote.com/enbuy.asp" target="_blank" rel="nofollow">varies</a>. We're told an academic non-upgrade is available in physical stores for $99.95. <br />
+<sub>5</sub> £4.99pm to £9.99, GB/USD at 1/1.5 <br />
+<sub>6</sub> Including boolean, near, negation operators and similar <br />
+<br />
+Did we get anything wrong here? <a href="../Home/Contact.html">Let us know</a>. <br />
+
+<br />
+    <div class="inlineTestimonial" style="width:900px">
+"Qiqqa is awesome.  I spent a bit of time trying to decide which reference software to use before beginning my phd this fall.  I had tried citeulike for my master's dissertation and explored endnote, mendeley and others, but none of them did everything I wanted.  Qiqqa is far superior to anything else out there.  Thank you so much for making it!" - Jess</div>
+</div>
+
+    </td>
+    <td class="br"></td>
+    </tr>
+
+</table>
+
+<div style="text-align: center;padding-top:20px;padding-bottom:20px">
+      
+           <a href="../Download%3Fsrc=compare.html" class="btn btn-primary btn-large btn-primary-orange">Download Qiqqa!</a>
+          
+          <span style="margin-left:20px">Qiqqa is free, and available now. <a href="../Download.html">Click here to download</a>.
+          </span>
+
+</div>
+</div>
+
+
+</div>
+
+
+<div id="footer" class="navbar-fixed-bottom">
+	<div class="container">
+		<div class="row">
+		    <div class="col-sm-12">
+			   
+            	<ul>
+            		<li>
+            	        <img src="../Content/images/Logos/2/logo_white_icon.png" />
+                        &nbsp;
+            		</li>
+	      			<li>
+                    <a href="../Home/TandCs.html">Terms</a> 
+                    </li>
+                    <li>
+                    <a href="Privacy.html">Privacy</a>
+                    </li>
+	        		<li>
+	          			<a href="http://blog.qiqqa.com">Blog</a>
+	        		</li>
+	      		    <li>
+                        <a href="../Home/FAQ.html">FAQ</a>
+                    </li>
+	        		<li>
+	        			<a href="../Home/Contact.html">Contact</a>
+	        		</li>
+                    <li>
+                        <a href="Team.html">Team</a>
+                    </li>
+                    <li>
+                        <li><a href="http://static.qiqqa.com/downloads/presspack/QiqqaPressPack.zip"  target="_blank">PRESS PACK</a></li>
+                    </li>
+                    <li>
+                        <a href="../Champion.html">Affiliates</a> 
+                    </li>
+	      			<li>
+	          			<a href="http://youtube.com/qiqqatips">Youtube</a>
+	        		</li>
+	        		<li>
+	        			<a href="http://facebook.com/qiqqa">Facebook</a>
+	        		</li>
+	        		<li>
+	          			<a href="http://twitter.com/qiqqa">Twitter</a>
+	        		</li>
+                    <li>
+                        &copy; 2021. Quantisle
+                    </li>
+	      		</ul>
+                </div>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-16059803-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="position:fixed;bottom:0px;left:0px;width:100%;color:white;background:#6e2424;text-align:center;padding:20px" id="closing-down">
+
+After 10 years of your support we have decided to make Qiqqa open source so that it can be grown and extended by its community of thousands of active users.
+
+<br />
+
+<br />
+
+NB: We will be discontinuing Web Library support for Qiqqa at the end of 2020.  So you’ll have one year within which to install the latest version of Open Source Qiqqa (which is improving daily), <b>migrate your Web Libraries into Intranet Libraries</b>, and enjoy all the Premium and Premium+ features of Qiqqa for free (except Web Libraries)!
+
+<br />
+
+
+Go to the <a href="https://github.com/jimmejardine/qiqqa-open-source">Qiqqa Open Source GitHub website</a>.
+
+<br />
+
+<a href="Compare.html#" onclick="jQuery('#closing-down').remove()">Close</a>
+<br />
+
+<br />
+
+
+
+</div>
+
+
+
+
+
+<!-- bootstrap modernizers -->
+<!--[if lt IE 9]>
+    <script src="http://static0.qiqqa.com/Scripts/ie/html5shiv.min.js"></script>
+    <script src="http://static0.qiqqa.com/Scripts/ie/respond.min.js"></script>
+<![endif]-->
+
+
+
+<!-- MACHINE: QUANTAC3 -->
+<!-- ENVIRONMENT: Live -->
+<!-- VERSION: 0.0.0.210 -->
+<!-- MONITORINGOK -->
+</body>
+
+</html>

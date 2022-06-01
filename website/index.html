@@ -1,0 +1,880 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+	<title>Free reference manager and research manager - Qiqqa</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	
+
+
+<link href="Content/css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+
+<!-- from React theme -->
+<link rel="stylesheet" type="text/css" href="http://static0.qiqqa.com/Content/css/compiled/theme.css" />
+<link rel="stylesheet" type="text/css" href="http://static0.qiqqa.com/Content/css/vendor/animate.css"/>
+
+
+<link rel="stylesheet" type="text/css" href="Content/css/vendor/font-awesome.min.css"/>
+
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.min.css?v=3" rel="stylesheet" type="text/css" />
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+
+<link href="http://static0.qiqqa.com/Content/css/style.css?v=41" rel="stylesheet" type="text/css" />
+
+<link href="https://plus.google.com/112870752938013040898" rel="publisher" />
+
+<!-- these scripts are critical for all page operation so must come first. All others at footer so they don't delay page load -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script src="Content/js/bootstrap/bootstrap.min.js"></script>
+
+<!-- react theme -->
+<script src="Content/js/theme.js"></script>
+
+
+<script type="text/javascript" src="http://static0.qiqqa.com/Scripts/jquery-ui.min.js?v=4"></script>
+
+<script src="http://static0.qiqqa.com/Scripts/common.js?v=21" type="text/javascript" charset="utf-8"></script>
+
+
+<!--[if lt IE 7.]>
+<script defer="defer" type="text/javascript" src="http://static0.qiqqa.com/Scripts/pngfix.js"></script>
+<![endif]-->
+
+
+<!-- IE nonsense - making header vaguely usable -->
+<!--[if lt IE 9]>
+<style>
+.navbar-header
+{
+ display:none;
+}
+
+#headerIE
+{
+ display:block;
+}
+</style>
+<![endif]-->
+
+<script type="text/javascript">
+    var $buoop = { vs: { i: 8, f: 15, o: 12.1, s: 5.1} };
+    $buoop.ol = window.onload;
+    window.onload = function () {
+        try { if ($buoop.ol) $buoop.ol(); } catch (e) { }
+        var e = document.createElement("script");
+        e.setAttribute("type", "text/javascript");
+        e.setAttribute("src", "//browser-update.org/update.js");
+        document.body.appendChild(e);
+    } 
+</script> 
+	
+    <link rel="shortcut icon" href="favicon.ico%3Fv=6" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico%3Fv=6" type="image/x-icon" />
+
+    <link rel="image_src" href="Content/images/sharing.png" /> <!-- facebook -->
+    
+    <meta name="description" content="Qiqqa is award-winning research management software, designed for commercial and academic researchers. If you deal with lots of PDFs and ideas during your research, you'll love what Qiqqa can do for you." /> 
+   
+    
+    <meta name="keywords" content="Qiqqa, PDF, PDF reader, research management, reference management, brainstorm, student, university, academic research, commercial research, research management system, reference management system"/>
+
+    <style>
+        /* react theme overrides */
+        #home2 #hero .slides .slide.first .bg {
+            background-image: url("http://static0.qiqqa.com/Content/images/home/hero/guy.jpg");
+        }
+        
+        
+        /* swap video on 2nd slide for non-video */
+        #home2 #hero .slides .slide.second .cta {
+          -webkit-animation-delay: 0.6s;
+          -moz-animation-delay: 0.6s;
+          -o-animation-delay: 0.6s;
+          -ms-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+          text-align: center;
+          margin-top: 60px; }
+          #home2 #hero .slides .slide.second .cta a {
+            margin: 0px 20px; }
+            @media (max-width: 767px) {
+              #home2 #hero .slides .slide.second .cta a {
+                font-size: 14px;
+                padding: 12px 25px;
+                margin: 0px 15px 15px 0px; } }
+                
+        #home2 #hero .slides .slide.second .cta a {
+            margin: 0px 20px; }
+            @media (max-width: 767px) {
+              #home2 #hero .slides .slide.second .cta a {
+                font-size: 14px;
+                padding: 12px 25px;
+                margin: 0px 15px 15px 0px; } }
+    </style>
+
+</head>
+
+
+
+<body class="heroPage" >
+
+
+
+
+<header class="navbar navbar-inverse white" role="banner">
+  		<div class="container">
+    		<div class="navbar-header">
+		      	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+      			<a href="index.html" class="navbar-brand">
+      			    <span title="Qiqqa"></span>
+      			</a>
+    		</div>
+    		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      			<ul class="nav navbar-nav navbar-right">
+                
+                
+                
+
+                
+                <li class="dropdown">
+        				<a href="index.html#" class="dropdown-toggle" data-toggle="dropdown">
+          					About
+          					<i class="fa fa-chevron-down"></i>
+          				</a>
+          				<ul class="dropdown-menu">
+					    <li>
+                            <a href="About/Tour.html"><span>Tour</span></a></li>
+
+                        <li class="nav-divider"></li>
+                        
+
+                        <li>
+                        <a href="About/PremiumMembership.html"><span>Premium</span></a></li>        
+                        
+                        <li>
+                        <a href="About/PremiumPlus.html"><span>Premium+</span></a></li>        
+                        
+                        <li>
+                        <a href="About/Editions.html"><span>Pricing</span></a></li>
+
+                        <li>
+                        <a href="Champion.html"><span>Champion</span></a></li>        
+
+                        <li>
+                        <a href="About/PremiumForFree.html"><span>Premium for free</span></a></li>        
+                        
+                         <li class="nav-divider"></li>
+                        
+                        <li>
+                        <a href="About/Compare.html"><span>Compare</span></a></li>
+
+                            <li>
+                            <a href="About/Features.html"><span>Features</span></a></li>
+                        <li>
+                        <a href="About/Sync.html"><span>Sync</span></a></li>        
+                        <li>
+                        <a href="About/UnlimitedStorage.html"><span>Storage</span></a></li>        
+                
+                        <li class="nav-divider"></li>    
+
+                        <li><a href="http://enterprise.qiqqa.com/">Enterprise</a> </li>
+                        
+				        </ul>
+        			</li>
+      			
+                    
+                    
+                    <li class="dropdown">
+        				<a href="index.html#" class="dropdown-toggle" data-toggle="dropdown">
+          					Help
+          					<i class="fa fa-chevron-down"></i>
+          				</a>
+          				<ul class="dropdown-menu">
+							<li><a href="Help.html"><span>Support</span></a></li>
+                            
+                            <li><a href="https://getsatisfaction.com/qiqqa">Forum</a></li>
+                
+                            <li><a href="Help/Manual"><span>Manual</span></a></li>
+                            
+                            <li><a href="Home/Screencasts.html"><span>Screencasts</span></a></li>
+                            
+                            <li><a href="Home/Contact.html"><span>Contact Us</span></a></li>
+				        </ul>
+        			</li>
+        			
+                    
+                    
+
+        			
+                    <li>
+          				<a href="Download.html" class="signup visible-md visible-lg">Download</a>
+        			</li>
+                
+                
+                    <li class="dropdown">
+        			<a href="index.html#" class="dropdown-toggle" data-toggle="dropdown">
+          				
+                        Account
+          				<i class="fa fa-chevron-down"></i>
+          			</a>
+                        
+                        
+          			<ul class="dropdown-menu">
+          				    
+                        
+                        
+                            <li><a href="Account/LogOn.html"><span>Log On</span></a></li>
+          				    <li><a href="Account/RegisterStart.html"><span>Register</span></a></li>
+        			    
+                        
+                            <li><a href="Home/Newsletter.html"><span>Newsletter</span></a></li>
+                        
+				    </ul>
+        		</li>
+        		
+                </ul>
+    		</nav>
+  		</div>
+</header>
+<div id="headerIE">
+    <a href="index.html"><img src="http://static0.qiqqa.com/Content/images/Logos/2/logo.png" alt="Qiqqa"/></a>  
+    YOUR BROWSER IS NOT CURRENTLY SUPPORTED, PLEASE <a href="http://browser-update.org/update-browser.html#14">UPGRADE</a>.
+</div>
+
+
+<div id="wrap" class="">
+<div class="row" id="flashMessagePanel">
+    <div class="col-xs-9" id="flashMessagePanelContent"></div>
+     <div class="col-xs-3">
+        <a href="index.html#" id="flashMessagePanelDismiss" class="pull-right">
+            <i class="glyphicon glyphicon-remove-sign"></i> DISMISS
+        </a>
+    </div>
+</div>
+
+    
+
+<div id="home2">
+
+    <div id="hero">
+		<a class="slide-nav prev" href="index.html#">Prev</a>
+		<a class="slide-nav next" href="index.html#">Next</a>
+		<nav>
+			<a class="active" href="index.html#"></a>
+			<a href="index.html#"></a>
+			<a href="index.html#"></a>
+		</nav>
+		<div class="slides">
+			<div class="slide first active">
+				<div class="bg"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-6 info">
+							<h1 class="hero-text">
+								Your research, at your fingertips. 
+							</h1>
+							<p>
+                                Used by academics, researchers, and businesses.
+							</p>
+							<p>
+								The essential <b>free research and reference manager</b>.  
+                                Search for, read and annotate your PDFs. 
+                                Then review your work, write up and create bibliographies instantly.
+							</p>
+							<div class="cta">
+							 <a href="Download.html" class="button-outline">
+									DOWNLOAD FREE
+									<i class="fa fa-chevron-right"></i>
+								</a>
+							</div>
+						</div>
+        			</div>
+				</div>
+			</div>
+			<div class="slide second">
+				<div class="bg"></div>
+				<div class="container">
+					<h1 class="hero-text animated fadeInLeft">Used by academics, researchers, and businesses.</h1>
+					<p class="sub-text animated fadeInLeft">
+                        The essential <b>free research and reference manager</b>.  
+                                Search for, read and annotate your PDFs. 
+                                Then review your work, write up and create bibliographies instantly.
+					</p>
+                    <div class="wrap">
+                    <div class="cta animated fadeInRight">
+                        <a href="Download.html" class="button">DOWNLOAD FREE</a>
+					</div>
+                    </div>
+					
+				</div>
+			</div>
+			<div class="slide third">
+				<div class="bg"></div>
+				<div class="container">
+					<h1 class="hero-text animated fadeInRight">
+						Used by academics, researchers, and businesses.
+					</h1>
+					<p class="sub-text animated fadeInRight">
+						The essential <b>free research and reference manager</b>.  
+                                Search for, read and annotate your PDFs. 
+                                Then review your work, write up and create bibliographies instantly. 
+					</p>
+					<div class="cta animated fadeInLeft">
+                        <a href="Download.html" class="button">DOWNLOAD FREE</a>
+                        <a href="index.html#features" class="button-outline" id="btnMoreInfo">MORE INFO</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+	</div>
+
+	<div id="features">
+		<div class="container">
+			<div class="row header">
+				<div class="col-md-12">
+					<h2>Four ways Qiqqa helps you</h2>
+				</div>
+			</div>
+
+			<div class="divider"></div>
+
+			<div class="row feature">
+				<div class="col-md-6 info">
+                    <center>
+					<img src="http://static0.qiqqa.com/Content/images/Home/fourways/fourways_1.jpg" class="img-responsive" alt="Stored and secured" />
+
+					<h4>Are your PDFs littered across your desk or PC?</h4>
+					<p>
+						Qiqqa keeps all your PDFs secure and makes them instantly accessible and searchable across all your devices.
+                    </p>
+                    <p>
+                        Automatic identification, tagging and categorization of your PDFs means you never have to go hunting for that missing paper again.
+                    </p>
+                    </center>
+				</div>
+			
+
+				<div class="col-md-6 info">
+                    <center>
+					<img src="http://static0.qiqqa.com/Content/images/Home/fourways/fourways_2.jpg" class="img-responsive" alt="Annotation report" />
+
+					<h4>Do you remember where you made those important highlights?</h4>
+					<p>
+                        Capture all your tags, comments, highlights and annotations while you read your PDFs inside Qiqqa, online at your workstation or offline on the go.
+					</p>
+                    <p>
+                        Then when you want to review what you have read, use powerful annotation reports so you never again forget those important snippets of information.
+                    </p>
+                    </center>
+				</div>
+			</div>
+
+			<div class="row feature">
+				<div class="col-md-6 info">
+                    <center>
+					<img src="http://static0.qiqqa.com/Content/images/Home/fourways/fourways_3.jpg" class="img-responsive" alt="Deciding what to read" />
+
+					<h4>Can’t decide which of your hundreds of PDFs to read next?</h4>
+					<p>
+                        Qiqqa guides you through your literature by understanding your research niche.  It then highlights the most specific and the most influential papers in that niche.
+                    </p>
+					<p>
+                        Qiqqa also lets you find what next to read by following citations, authors and keywords.
+                    </p>
+                    </center>
+				</div>
+		
+
+				<div class="col-md-6 info">
+                    <center>
+					<img src="http://static0.qiqqa.com/Content/images/Home/fourways/fourways_4.jpg" class="img-responsive" alt="Writing up" />
+
+					<h4>Having trouble pulling your reading together while writing up?</h4>
+					<p>
+						Using Qiqqa's themes and annotation reports, you are literally presented with everything you should cite in each section of your paper.
+                    </p>
+                    <p>
+                        Qiqqa will even automatically reformat your bibliography for you as you add citations or change publishing style.
+					</p>
+                    </center>
+				</div>
+			</div>
+
+			<div class="divider"></div>
+
+            <div class="row feature">
+				<div class="col-md-12 info">
+                    <center>
+                    <a href="Download.html" class="button">DOWNLOAD FREE</a>
+                    <a href="About/Tour.html" class="button-outline">SEE MORE DETAILS</a>
+                    </center>
+                </div>
+            </div>
+
+		</div>		
+	</div>
+    
+    <div id="clients">
+		<div class="container">
+		    <div class="row">
+				<div class="col-md-12">
+				    <h3>Our Awards</h3>
+                    </div>
+                    </div>
+			<div class="row">
+                    <div class="col-md-12">
+					<div class="logos">
+                        <a target="_blank" href="https://www.google.com/search?q=qiqqa+cambridge+university+entrepreneurs+cue">
+                        <img src="http://static0.qiqqa.com/Content/images/About/Awards/cue.png?v=2" alt="Winner of Cambridge Entrepeneurs 2011" />
+                        </a>
+                        <a target="_blank" href="https://www.google.com/search?q=qiqqa+cutec+cambridge">
+                        <img src="http://static0.qiqqa.com/Content/images/About/Awards/cutec.png?v=2" alt="Winner of Cambridge University Technology and Enterprise Club Award 2011" />
+                        </a>
+                        <a target="_blank" href="https://www.google.com/search?q=qiqqa+cambridge+wireless">
+                        <img src="http://static0.qiqqa.com/Content/images/About/Awards/cambridgewireless.png" alt="Winner of Cambridge Wireless Startups Competition 2011" />
+                        </a>
+
+                        <br />
+                        <br />
+                        <br />
+
+                        <a target="_blank" href="https://www.google.com/search?q=santander+qiqqa+cambridge">
+                        <img src="http://static0.qiqqa.com/Content/images/About/Awards/santander.png" alt="Winner in the Santander Universities Entrepreneurship Awards 2012" />
+                        </a>
+                        <a target="_blank" href="http://www.ecampusnews.com/technologies/ecampus-news-2014-15-readers-choice-awards/4/">
+                        <img src="http://static0.qiqqa.com/Content/images/About/Awards/rca.png" alt="The eCampus News 2014-15 Readers' Choice Awards" />
+                        </a>
+
+                        
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+   
+	<div id="testimonials">
+		<div class="container">
+			<div class="row header">
+				<div class="col-md-12">
+					<h2>Trusted by students and researchers around the world</h2>
+                    <br />
+                    <br />
+				</div>
+			</div>
+
+            <div class="row text-center">
+                <img src="http://static0.qiqqa.com/Content/images/home/institutions_trust.png?v=2" alt=""/> 
+                <br /><br /><br /><br />
+            </div>
+
+			<div class="row">			    
+                
+                
+                     <div class="col-sm-6">
+					    <div class="testimonial pull-right">
+						<div class="quote">
+							#qiqqa is absolutely amazing. Who knew that thesis work could be this much fun?
+							<div class="arrow-down">
+				                <div class="arrow"></div>
+				                <div class="arrow-border"></div>
+				            </div>
+						</div>
+						<div class="author">
+							<img src="http://static0.qiqqa.com/Content/images/home/Quotes/mohit89.jpg" class="pic" alt="testimonial1" />
+							<div class="name">Mohit Agrawal</div>
+						</div>
+					</div>
+				</div>
+
+                
+                
+                
+                     <div class="col-sm-6">
+					    <div class="testimonial ">
+						<div class="quote">
+							@laurapasquini @qiqqa I've got Mac friends buying pcs or running in parallels JUST for #qiqqa. Makes sharing papers for classes a breeze, 2.
+							<div class="arrow-down">
+				                <div class="arrow"></div>
+				                <div class="arrow-border"></div>
+				            </div>
+						</div>
+						<div class="author">
+							<img src="http://static0.qiqqa.com/Content/images/home/Quotes/munoz.jpg" class="pic" alt="testimonial1" />
+							<div class="name">Charlotte Munoz</div>
+						</div>
+					</div>
+				</div>
+
+                
+                
+                
+                     <div class="col-sm-6">
+					    <div class="testimonial pull-right">
+						<div class="quote">
+							awesome FREE pdf reader/annotator! There is an annotation generator, built-in!!!
+							<div class="arrow-down">
+				                <div class="arrow"></div>
+				                <div class="arrow-border"></div>
+				            </div>
+						</div>
+						<div class="author">
+							<img src="http://static0.qiqqa.com/Content/images/home/Quotes/mete_akca.jpg" class="pic" alt="testimonial1" />
+							<div class="name">Mete Akcaoglu</div>
+						</div>
+					</div>
+				</div>
+
+                
+                
+                
+                     <div class="col-sm-6">
+					    <div class="testimonial ">
+						<div class="quote">
+							Qiqqa is an incredible piece of software. I am SO glad I found it. It does everything better than all the big qualitative research programs like NVivo and Atlas
+							<div class="arrow-down">
+				                <div class="arrow"></div>
+				                <div class="arrow-border"></div>
+				            </div>
+						</div>
+						<div class="author">
+							<img src="http://static0.qiqqa.com/Content/images/home/Quotes/razor.jpg" class="pic" alt="testimonial1" />
+							<div class="name">RazorShultzor</div>
+						</div>
+					</div>
+				</div>
+
+                
+                
+                
+                     <div class="col-sm-6">
+					    <div class="testimonial pull-right">
+						<div class="quote">
+							Qiqqa Makes Research Fun and Easy.  If there is one Swiss army knife that every college student needs, this one is it. Qiqqa, a research tool, makes writing papers a breeze.
+							<div class="arrow-down">
+				                <div class="arrow"></div>
+				                <div class="arrow-border"></div>
+				            </div>
+						</div>
+						<div class="author">
+							<img src="http://static0.qiqqa.com/Content/images/home/Quotes/universityninja.jpg" class="pic" alt="testimonial1" />
+							<div class="name">University Ninja</div>
+						</div>
+					</div>
+				</div>
+
+                
+                
+                
+                     <div class="col-sm-6">
+					    <div class="testimonial ">
+						<div class="quote">
+							Buying parallels and a version of windows for my mac literally just for @qiqqa, amazing reference management software
+							<div class="arrow-down">
+				                <div class="arrow"></div>
+				                <div class="arrow-border"></div>
+				            </div>
+						</div>
+						<div class="author">
+							<img src="http://static0.qiqqa.com/Content/images/home/Quotes/mfrmn.jpg" class="pic" alt="testimonial1" />
+							<div class="name">Michael Freeman</div>
+						</div>
+					</div>
+				</div>
+
+                
+                
+
+			</div>
+
+            <div class="row text-center">
+                <img src="http://static0.qiqqa.com/Content/images/home/institutions_trust_2.png" alt=""/> 
+                <br /><br /><br /><br />
+            </div>
+
+
+		</div>
+	</div>
+
+	<div id="cta">
+		<a href="Download.html">
+            Download Free
+		</a>
+	</div>
+
+
+	<script type="text/javascript">
+	    $(function () {
+
+	        $('#btnMoreInfo').click(function () {
+	            $.scrollTo('#features', 750);
+	            return false;
+	        });
+
+	        var $navDots = $("#hero nav a");
+	        var $next = $(".slide-nav.next");
+	        var $prev = $(".slide-nav.prev");
+	        var $slides = $("#hero .slides .slide");
+	        var actualIndex = 0;
+	        var swiping = false;
+	        var interval;
+
+	        $navDots.click(function (e) {
+	            e.preventDefault();
+	            if (swiping) { return; }
+	            swiping = true;
+
+	            actualIndex = $navDots.index(this);
+	            updateSlides(actualIndex);
+	        });
+
+	        $next.click(function (e) {
+	            e.preventDefault();
+	            if (swiping) { return; }
+	            swiping = true;
+
+	            clearInterval(interval);
+	            interval = null;
+
+	            actualIndex++;
+	            if (actualIndex >= $slides.length) {
+	                actualIndex = 0;
+	            }
+
+	            updateSlides(actualIndex);
+	        });
+
+	        $prev.click(function (e) {
+	            e.preventDefault();
+	            if (swiping) { return; }
+	            swiping = true;
+
+	            clearInterval(interval);
+	            interval = null;
+
+	            actualIndex--;
+	            if (actualIndex < 0) {
+	                actualIndex = $slides.length - 1;
+	            }
+
+	            updateSlides(actualIndex);
+	        });
+
+	        function updateSlides(index) {
+	            // update nav dots
+	            $navDots.removeClass("active");
+	            $navDots.eq(index).addClass("active");
+
+	            // update slides
+	            var $activeSlide = $("#hero .slide.active");
+	            var $nextSlide = $slides.eq(index);
+
+	            $activeSlide.fadeOut();
+	            $nextSlide.addClass("next").fadeIn();
+
+	            setTimeout(function () {
+	                $slides.removeClass("next").removeClass("active");
+	                $nextSlide.addClass("active");
+	                $activeSlide.removeAttr('style');
+	                swiping = false;
+	            }, 1000);
+	        }
+
+
+	        interval = setInterval(function () {
+	            if (swiping) { return; }
+	            swiping = true;
+
+	            actualIndex++;
+	            if (actualIndex >= $slides.length) {
+	                actualIndex = 0;
+	            }
+
+	            updateSlides(actualIndex);
+	        }, 10000);
+
+
+	        //            // demo player
+	        //	        var $videoModal = $(".video-modal");
+	        //	        $("#demo-player").click(function () {
+	        //	            $videoModal.toggleClass("active");
+	        //	            clearInterval(interval);
+	        //	            interval = null;
+	        //	        });
+
+	        //	        $videoModal.click(function() {
+	        //	            $videoModal.removeClass("active");
+	        //	            setTimeout(function() {
+	        //	                $videoModal.find(".wrap").html('<iframe src="http://www.qiqqa.com/www.youtube.com/embed/f1dfo_eQ1JA?list=UUv_iB1_aQLOqJQjuoWRxvnA" width="620" height="350" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+	        //	            }, 1000);
+	        //	        });
+	        //	        $videoModal.find(".wrap").click(function (e) {
+	        //	            e.stopPropagation();
+	        //	        });
+	    });
+	</script>
+</div>
+<br /> 
+
+
+</div>
+
+
+<div id="footer-white">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3 menu">
+				<h3>Overview</h3>
+				<ul>
+	      			<li>
+	          			<a href="Help.html">Support</a>
+	        		</li>
+                    <li>
+                    <a href="Home/TandCs.html">Terms and Conditions</a> 
+                    </li>
+                    <li>
+                    <a href="About/Privacy.html">Privacy</a>
+                    </li>
+	        		<li>
+	          			<a href="http://blog.qiqqa.com">Blog</a>
+	        		</li>
+	      		</ul>
+			</div>
+			<div class="col-sm-3 menu">
+				<h3>Qiqqa</h3>
+				<ul>
+                    <li>
+                        <a href="Home/FAQ.html">FAQ</a>
+                    </li>
+	        		<li>
+	        			<a href="Home/Contact.html">Contact</a>
+	        		</li>
+                    <li>
+                        <a href="About/Team.html">Team</a>
+                    </li>
+                    <li>
+                        <a href="Champion.html">Affiliates</a> 
+                    </li>
+                    <li><a href="http://static.qiqqa.com/downloads/presspack/QiqqaPressPack.zip"  target="_blank">PRESS PACK</a></li>
+	        		
+	      		</ul>
+			</div>
+			<div class="col-sm-2 menu">
+				<h3>Social</h3>
+				<ul>
+	      			<li>
+	          			<a href="http://youtube.com/qiqqatips">Youtube</a>
+	        		</li>
+	        		<li>
+	        			<a href="http://facebook.com/qiqqa">Facebook</a>
+	        		</li>
+	        		<li>
+	          			<a href="http://twitter.com/qiqqa">Twitter</a>
+	        		</li>
+	      		</ul>
+			</div>
+			<div class="col-sm-4 newsletter">
+				<div class="signup clearfix">
+					<p>
+						Sign up for the newsletter and we'll inform you of updates, offers and more.
+					</p>
+					<form action="Home/Newsletter.html" method="post">
+						<input type="text" name="email" class="form-control" placeholder="Your email address" style="width:100%" />
+						<input type="submit" value="Sign up" />
+					</form>
+				</div>
+                <a href="http://www.facebook.com/qiqqa">
+                    <img src="http://static0.qiqqa.com/Content/images/social/fb.png" alt="facebook" />
+                </a>
+				<a href="http://twitter.com/qiqqa">
+                    <img src="http://static0.qiqqa.com/Content/images/social/social-tw.png" alt="twitter" />
+				</a>
+			</div>
+		</div>
+		<div class="row credits">
+			<div class="col-md-12">
+				Copyright &copy; 2021. Quantisle
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-16059803-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="position:fixed;bottom:0px;left:0px;width:100%;color:white;background:#6e2424;text-align:center;padding:20px" id="closing-down">
+
+After 10 years of your support we have decided to make Qiqqa open source so that it can be grown and extended by its community of thousands of active users.
+
+<br />
+
+<br />
+
+NB: We will be discontinuing Web Library support for Qiqqa at the end of 2020.  So you’ll have one year within which to install the latest version of Open Source Qiqqa (which is improving daily), <b>migrate your Web Libraries into Intranet Libraries</b>, and enjoy all the Premium and Premium+ features of Qiqqa for free (except Web Libraries)!
+
+<br />
+
+
+Go to the <a href="https://github.com/jimmejardine/qiqqa-open-source">Qiqqa Open Source GitHub website</a>.
+
+<br />
+
+<a href="index.html#" onclick="jQuery('#closing-down').remove()">Close</a>
+<br />
+
+<br />
+
+
+
+</div>
+
+
+
+
+
+<!-- bootstrap modernizers -->
+<!--[if lt IE 9]>
+    <script src="http://static0.qiqqa.com/Scripts/ie/html5shiv.min.js"></script>
+    <script src="http://static0.qiqqa.com/Scripts/ie/respond.min.js"></script>
+<![endif]-->
+
+
+
+<!-- MACHINE: QUANTAC3 -->
+<!-- ENVIRONMENT: Live -->
+<!-- VERSION: 0.0.0.210 -->
+<!-- MONITORINGOK -->
+</body>
+
+</html>
