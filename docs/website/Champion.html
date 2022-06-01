@@ -1,0 +1,646 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+	<title>
+    Qiqqa Champion Project
+ - Qiqqa</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	
+
+
+<link href="Content/css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+
+<!-- from React theme -->
+<link rel="stylesheet" type="text/css" href="http://static0.qiqqa.com/Content/css/compiled/theme.css" />
+<link rel="stylesheet" type="text/css" href="http://static0.qiqqa.com/Content/css/vendor/animate.css"/>
+
+
+<link rel="stylesheet" type="text/css" href="Content/css/vendor/font-awesome.min.css"/>
+
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.min.css?v=3" rel="stylesheet" type="text/css" />
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+
+<link href="http://static0.qiqqa.com/Content/css/style.css?v=41" rel="stylesheet" type="text/css" />
+
+<link href="https://plus.google.com/112870752938013040898" rel="publisher" />
+
+<!-- these scripts are critical for all page operation so must come first. All others at footer so they don't delay page load -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script src="Content/js/bootstrap/bootstrap.min.js"></script>
+
+<!-- react theme -->
+<script src="Content/js/theme.js"></script>
+
+
+<script type="text/javascript" src="http://static0.qiqqa.com/Scripts/jquery-ui.min.js?v=4"></script>
+
+<script src="http://static0.qiqqa.com/Scripts/common.js?v=21" type="text/javascript" charset="utf-8"></script>
+
+
+<!--[if lt IE 7.]>
+<script defer="defer" type="text/javascript" src="http://static0.qiqqa.com/Scripts/pngfix.js"></script>
+<![endif]-->
+
+
+<!-- IE nonsense - making header vaguely usable -->
+<!--[if lt IE 9]>
+<style>
+.navbar-header
+{
+ display:none;
+}
+
+#headerIE
+{
+ display:block;
+}
+</style>
+<![endif]-->
+
+<script type="text/javascript">
+    var $buoop = { vs: { i: 8, f: 15, o: 12.1, s: 5.1} };
+    $buoop.ol = window.onload;
+    window.onload = function () {
+        try { if ($buoop.ol) $buoop.ol(); } catch (e) { }
+        var e = document.createElement("script");
+        e.setAttribute("type", "text/javascript");
+        e.setAttribute("src", "//browser-update.org/update.js");
+        document.body.appendChild(e);
+    } 
+</script> 
+	
+    <link rel="shortcut icon" href="favicon.ico%3Fv=6" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico%3Fv=6" type="image/x-icon" />
+
+    <link rel="image_src" href="Content/images/sharing.png" /> <!-- facebook -->
+    
+    <meta name="description" content="Qiqqa is award-winning research management software, designed for commercial and academic researchers. If you deal with lots of PDFs and ideas during your research, you'll love what Qiqqa can do for you." /> 
+   
+    
+    <style type="text/css">
+        .method {
+            margin-top: 10px;
+            padding-top: 0px;
+            margin-bottom: 10px;
+            padding-bottom: 20px;
+            border-bottom: dashed 1px #ccc;
+            background-repeat: no-repeat;
+            padding-left: 128px;
+            background-position: left top;
+            min-height: 100px;
+        }
+
+        #howToSpread img {
+            width: 100%;
+        }
+
+        span.quote {
+            color: #999;
+        }
+
+        #exampleEarnings li span {
+            font-size: 14px;
+            float: right;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+
+
+<header class="navbar navbar-inverse normal navbar-fixed-top" role="banner">
+  		<div class="container">
+    		<div class="navbar-header">
+		      	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+      			<a href="index.html" class="navbar-brand">
+      			    <span title="Qiqqa"></span>
+      			</a>
+    		</div>
+    		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      			<ul class="nav navbar-nav navbar-right">
+                
+                
+                
+
+                
+                <li class="dropdown">
+        				<a href="Champion.html#" class="dropdown-toggle" data-toggle="dropdown">
+          					About
+          					<i class="fa fa-chevron-down"></i>
+          				</a>
+          				<ul class="dropdown-menu">
+					    <li>
+                            <a href="About/Tour.html"><span>Tour</span></a></li>
+
+                        <li class="nav-divider"></li>
+                        
+
+                        <li>
+                        <a href="About/PremiumMembership.html"><span>Premium</span></a></li>        
+                        
+                        <li>
+                        <a href="About/PremiumPlus.html"><span>Premium+</span></a></li>        
+                        
+                        <li>
+                        <a href="About/Editions.html"><span>Pricing</span></a></li>
+
+                        <li>
+                        <a class="active" href="Champion.html"><span>Champion</span></a></li>        
+
+                        <li>
+                        <a href="About/PremiumForFree.html"><span>Premium for free</span></a></li>        
+                        
+                         <li class="nav-divider"></li>
+                        
+                        <li>
+                        <a href="About/Compare.html"><span>Compare</span></a></li>
+
+                            <li>
+                            <a href="About/Features.html"><span>Features</span></a></li>
+                        <li>
+                        <a href="About/Sync.html"><span>Sync</span></a></li>        
+                        <li>
+                        <a href="About/UnlimitedStorage.html"><span>Storage</span></a></li>        
+                
+                        <li class="nav-divider"></li>    
+
+                        <li><a href="http://enterprise.qiqqa.com/">Enterprise</a> </li>
+                        
+				        </ul>
+        			</li>
+      			
+                    
+                    
+                    <li class="dropdown">
+        				<a href="Champion.html#" class="dropdown-toggle" data-toggle="dropdown">
+          					Help
+          					<i class="fa fa-chevron-down"></i>
+          				</a>
+          				<ul class="dropdown-menu">
+							<li><a href="Help.html"><span>Support</span></a></li>
+                            
+                            <li><a href="https://getsatisfaction.com/qiqqa">Forum</a></li>
+                
+                            <li><a href="Help/Manual"><span>Manual</span></a></li>
+                            
+                            <li><a href="Home/Screencasts.html"><span>Screencasts</span></a></li>
+                            
+                            <li><a href="Home/Contact.html"><span>Contact Us</span></a></li>
+				        </ul>
+        			</li>
+        			
+                    
+                    
+
+        			
+                    <li>
+          				<a href="Download.html" class="signup visible-md visible-lg">Download</a>
+        			</li>
+                
+                
+                    <li class="dropdown">
+        			<a href="Champion.html#" class="dropdown-toggle" data-toggle="dropdown">
+          				
+                        Account
+          				<i class="fa fa-chevron-down"></i>
+          			</a>
+                        
+                        
+          			<ul class="dropdown-menu">
+          				    
+                        
+                        
+                            <li><a href="Account/LogOn.html"><span>Log On</span></a></li>
+          				    <li><a href="Account/RegisterStart.html"><span>Register</span></a></li>
+        			    
+                        
+                            <li><a href="Home/Newsletter.html"><span>Newsletter</span></a></li>
+                        
+				    </ul>
+        		</li>
+        		
+                </ul>
+    		</nav>
+  		</div>
+</header>
+<div id="headerIE">
+    <a href="index.html"><img src="http://static0.qiqqa.com/Content/images/Logos/2/logo.png" alt="Qiqqa"/></a>  
+    YOUR BROWSER IS NOT CURRENTLY SUPPORTED, PLEASE <a href="http://browser-update.org/update-browser.html#14">UPGRADE</a>.
+</div>
+
+
+<div id="wrap" class="container has-navbar-fixed-top">
+<div class="row" id="flashMessagePanel">
+    <div class="col-xs-9" id="flashMessagePanelContent"></div>
+     <div class="col-xs-3">
+        <a href="Champion.html#" id="flashMessagePanelDismiss" class="pull-right">
+            <i class="glyphicon glyphicon-remove-sign"></i> DISMISS
+        </a>
+    </div>
+</div>
+
+    
+
+<div class="row pageContentHeader">
+<div class="col-xs-12">
+<h2>
+
+    Qiqqa Champion Project
+
+</h2>
+</div>
+</div>
+
+
+
+    <div class="row">
+
+        <div class="col-xs-8">
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3>We have a Business Proposition for You...
+                    </h3>
+                </div>
+
+                <div class="panel-body">
+                    <p>
+                    It's quite simple.  Qiqqa is a lean startup that loves building tech to scale.  But we need sales people.  Lots of sales people.  <b>One at every university, school and college on this planet</b>.  
+                    </p>
+                    <p>
+                        This is where we need <b>you</b>.  
+                        To get the job done properly, we have created a meaningful income source for you if you help us bring the world to Qiqqa.
+                    </p>
+                    <p>
+                        We will pay you  25% of every purchase by someone you introduce (capped at $5,000 per month).
+                    </p>
+
+                    So:
+                    <ul class="plain">
+                        <li><span class="label label-warning">1</span> You introduce people to Qiqqa.</li>
+                        <li><span class="label label-warning">2</span> You earn 25% of any of their Qiqqa Premium purchases.</li>
+                        <li><span class="label label-warning">3</span> You earn again when they renew their membership, every year!</li>
+                    </ul>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-xs-4">
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4>Your Referral Code</h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <a href="Account/LogOn.html">Log on</a> to see your Referral Code. 
+            
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-xs-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Example Earnings
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+
+
+                    <ul class="list-group" id="exampleEarnings">
+
+                        <li class="list-group-item">
+                            <span class="label label-success">$704.88</span>
+                            50 people in your university buy a year of Premium after seeing <a href="Redir/Download/posterpack" target="_blank">your poster</a>.
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="label label-success">$7048.83</span>
+                            500 people in your university buy a year of Premium after seeing your referral link from your university library tools homepage.
+                        </li>
+
+
+                        <li class="list-group-item">
+                            <span class="label label-success">$2349.95</span>
+                            You introduce a local IT firm to Qiqqa and they buy 20 Premium+ subscriptions.
+                        </li>
+
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xs-4">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>How payment works
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <ul class="plain">
+                        <li><span class="label label-success">1</span> Your referrals must enter your Referral Code when they create their Qiqqa account.</li>
+                        <li><span class="label label-success">2</span> They must purchase or renew a Premium or Premium+ membership.</li>
+                        <li><span class="label label-success">3</span> Commission is sent periodically via PayPal.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="howToSpread">
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>How to spread the word
+                </h4>
+            </div>
+
+            <div class="panel-body">
+
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <ul>
+                            <li>
+                                <a href="Redir/Download/posterpack" target="_blank">These posters and flyers</a> will come in handy.
+                Put them up in popular places - tea rooms, computer laboratories, grad common rooms, lecture halls, bars, and libraries are a great start.
+                Don't forget to write in your referral code!!
+                            </li>
+                            <li>Go chat to your librarian or e-learning resources department and get them to include your referral link and perhaps <a href="http://enterprise.qiqqa.com/libraries/snippet_for_library_page.html" target="_blank">this short blurb</a>.
+                            </li>
+                            <li>Create a Qiqqa usergroup that meets for perhaps an hour a month to help each other out (especially the newcomers) and showcase new features.
+                            </li>
+                            <li>Use social media for wider reach.  Methods that seem popular are: an occasional Tweet, your Facebook wall or status, your email signature, your webpage.
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="col-xs-6">
+                        <img src="http://static0.qiqqa.com/Content/images/Champion/champion_campus_library.jpg" alt="" class="img-responsive" />
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+
+                        <img src="http://static0.qiqqa.com/Content/images/Champion/champion_campus_posters_1.jpg" alt="" class="img-responsive" />
+                    </div>
+                    <div class="col-xs-6">
+                        <h4>Here's how others describe Qiqqa and how it helps them:
+                        </h4>
+                        <ul>
+                            <li>How does anyone write up their research without an annotation report?!  <span class="quote">Sally, Oxford</span>
+                            </li>
+
+                            <li>A searchable library for your PDFs and notes.   <span class="quote">- James, Cambridge</span>
+                            </li>
+
+                            <li>Thanks to Qiqqa's search and tags I have never again lost papers in hundreds of PDFs and folders.  <span class="quote">- Frank, Mannheim</span>
+                            </li>
+
+                            <li>Just incredible! <span class="quote">- Matt, MIT</span>
+                            </li>
+
+                        </ul>
+
+                        <p>
+                            ...and auto populate BibTeX references with the BibTeX Sniffer, cite whilst you write up in Word, suggests the best paper to cite, discover themes with Qiqqa Expedition, explore papers in brainstorms, free cloud storage, and <a href="About/Tour.html">so on</a> and <a href="About/Features.html">so on</a>.
+                        </p>
+
+
+
+                    </div>
+
+                </div>
+
+
+                
+
+
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Resources
+                </h4>
+            </div>
+
+            <div class="panel-body">
+
+
+
+                <div class=" well">
+                    <h4>Posters</h4>
+                    <p>
+                        Download <a href="Redir/Download/posterpack" target="_blank">this link</a>
+                        for a pack of great posters. Just add your Referral Code to them, and stick them up in prominent places! 
+                
+                
+                    </p>
+                </div>
+
+
+                <div class="well">
+                    <h4>Bonus Ideas</h4>
+                    <ul>
+                        <li>Share your referral link from your university homepage.  Here is some <a href="http://enterprise.qiqqa.com/libraries/snippet_for_library_page.html" target="_blank">cover text</a>.</li>
+
+                        <li>Share an informative or fun YouTube or Vimeo video (e.g. <a href="https://player.vimeo.com/video/121750683#t=8m41s" target="_blank">this</a> or <a href="http://www.youtube.com/watch?v=PHll7sGQdEE" target="_blank">this</a>), </li>
+                        <li>Create a blog post on how you used Qiqqa to solve a real world problem.</li>
+                        <li>If you're even more ambitious, you could hire your own mini sales team, using one of <a href="http://marketingclock.com/top-10-fiverr-alternatives-clones-outsourcing-work-for-5-use-your-time-wisely-and-focus-on-what-matters-most/" target="_blank">these</a> services.</li>
+                    </ul>
+                </div>
+
+
+                <div class="well">
+                    <h4>QR Code to your Referral Link</h4>
+
+                    <a href="Account/LogOn.html">Log in</a> to download this.
+            
+                </div>
+
+            </div>
+        </div>
+
+     </div>
+        <br />
+        <br />
+        <br />
+
+        <div class="row">
+
+            <div class="hr">
+            </div>
+            <p>
+                Thank you for getting the word out about Qiqqa! As always, your feedback on this,
+                or anything else, is
+                <a href="Home/Contact.html">always welcome</a>.
+            </p>
+        </div>
+
+</div>
+
+
+<div id="footer" class="navbar-fixed-bottom">
+	<div class="container">
+		<div class="row">
+		    <div class="col-sm-12">
+			   
+            	<ul>
+            		<li>
+            	        <img src="Content/images/Logos/2/logo_white_icon.png" />
+                        &nbsp;
+            		</li>
+	      			<li>
+                    <a href="Home/TandCs.html">Terms</a> 
+                    </li>
+                    <li>
+                    <a href="About/Privacy.html">Privacy</a>
+                    </li>
+	        		<li>
+	          			<a href="http://blog.qiqqa.com">Blog</a>
+	        		</li>
+	      		    <li>
+                        <a href="Home/FAQ.html">FAQ</a>
+                    </li>
+	        		<li>
+	        			<a href="Home/Contact.html">Contact</a>
+	        		</li>
+                    <li>
+                        <a href="About/Team.html">Team</a>
+                    </li>
+                    <li>
+                        <li><a href="http://static.qiqqa.com/downloads/presspack/QiqqaPressPack.zip"  target="_blank">PRESS PACK</a></li>
+                    </li>
+                    <li>
+                        <a href="Champion.html">Affiliates</a> 
+                    </li>
+	      			<li>
+	          			<a href="http://youtube.com/qiqqatips">Youtube</a>
+	        		</li>
+	        		<li>
+	        			<a href="http://facebook.com/qiqqa">Facebook</a>
+	        		</li>
+	        		<li>
+	          			<a href="http://twitter.com/qiqqa">Twitter</a>
+	        		</li>
+                    <li>
+                        &copy; 2021. Quantisle
+                    </li>
+	      		</ul>
+                </div>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-16059803-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="position:fixed;bottom:0px;left:0px;width:100%;color:white;background:#6e2424;text-align:center;padding:20px" id="closing-down">
+
+After 10 years of your support we have decided to make Qiqqa open source so that it can be grown and extended by its community of thousands of active users.
+
+<br />
+
+<br />
+
+NB: We will be discontinuing Web Library support for Qiqqa at the end of 2020.  So you’ll have one year within which to install the latest version of Open Source Qiqqa (which is improving daily), <b>migrate your Web Libraries into Intranet Libraries</b>, and enjoy all the Premium and Premium+ features of Qiqqa for free (except Web Libraries)!
+
+<br />
+
+
+Go to the <a href="https://github.com/jimmejardine/qiqqa-open-source">Qiqqa Open Source GitHub website</a>.
+
+<br />
+
+<a href="Champion.html#" onclick="jQuery('#closing-down').remove()">Close</a>
+<br />
+
+<br />
+
+
+
+</div>
+
+
+
+
+
+<!-- bootstrap modernizers -->
+<!--[if lt IE 9]>
+    <script src="http://static0.qiqqa.com/Scripts/ie/html5shiv.min.js"></script>
+    <script src="http://static0.qiqqa.com/Scripts/ie/respond.min.js"></script>
+<![endif]-->
+
+
+
+<!-- MACHINE: QUANTAC3 -->
+<!-- ENVIRONMENT: Live -->
+<!-- VERSION: 0.0.0.210 -->
+<!-- MONITORINGOK -->
+</body>
+
+</html>

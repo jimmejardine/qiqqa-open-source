@@ -1,0 +1,1703 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+	<title>
+    Full Tour
+ - Qiqqa</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	
+
+
+<link href="../Content/css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+
+<!-- from React theme -->
+<link rel="stylesheet" type="text/css" href="http://static0.qiqqa.com/Content/css/compiled/theme.css" />
+<link rel="stylesheet" type="text/css" href="http://static0.qiqqa.com/Content/css/vendor/animate.css"/>
+
+
+<link rel="stylesheet" type="text/css" href="../Content/css/vendor/font-awesome.min.css"/>
+
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.min.css?v=3" rel="stylesheet" type="text/css" />
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+<link href="http://static0.qiqqa.com/Content/css/JqueryUI/cupertino/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+
+<link href="http://static0.qiqqa.com/Content/css/style.css?v=41" rel="stylesheet" type="text/css" />
+
+<link href="https://plus.google.com/112870752938013040898" rel="publisher" />
+
+<!-- these scripts are critical for all page operation so must come first. All others at footer so they don't delay page load -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script src="../Content/js/bootstrap/bootstrap.min.js"></script>
+
+<!-- react theme -->
+<script src="../Content/js/theme.js"></script>
+
+
+<script type="text/javascript" src="http://static0.qiqqa.com/Scripts/jquery-ui.min.js?v=4"></script>
+
+<script src="http://static0.qiqqa.com/Scripts/common.js?v=21" type="text/javascript" charset="utf-8"></script>
+
+
+<!--[if lt IE 7.]>
+<script defer="defer" type="text/javascript" src="http://static0.qiqqa.com/Scripts/pngfix.js"></script>
+<![endif]-->
+
+
+<!-- IE nonsense - making header vaguely usable -->
+<!--[if lt IE 9]>
+<style>
+.navbar-header
+{
+ display:none;
+}
+
+#headerIE
+{
+ display:block;
+}
+</style>
+<![endif]-->
+
+<script type="text/javascript">
+    var $buoop = { vs: { i: 8, f: 15, o: 12.1, s: 5.1} };
+    $buoop.ol = window.onload;
+    window.onload = function () {
+        try { if ($buoop.ol) $buoop.ol(); } catch (e) { }
+        var e = document.createElement("script");
+        e.setAttribute("type", "text/javascript");
+        e.setAttribute("src", "//browser-update.org/update.js");
+        document.body.appendChild(e);
+    } 
+</script> 
+	
+    <link rel="shortcut icon" href="../favicon.ico%3Fv=6" type="image/x-icon" />
+    <link rel="icon" href="../favicon.ico%3Fv=6" type="image/x-icon" />
+
+    <link rel="image_src" href="../Content/images/sharing.png" /> <!-- facebook -->
+    
+    <meta name="description" content="Qiqqa is award-winning research management software, designed for commercial and academic researchers. If you deal with lots of PDFs and ideas during your research, you'll love what Qiqqa can do for you." /> 
+   
+    
+    <style>
+        #tourContainer
+        {
+            display: none;
+        }
+        
+        
+        .well
+        {
+            background-color: #FCFCFC;
+        }
+        
+        .feature h2
+        {
+            color: #585F64;
+            font-size: 26px;
+            margin-top: 0px;
+            text-align: left;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+        .feature h3
+        {
+            color: #585F64;
+            font-size: 22px;
+            margin-top: 0px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+        
+        .feature h4
+        {
+            color: #585F64;
+            font-size: 18px;
+            margin-top: 0px;
+            text-align: left;
+            text-transform: uppercase;
+            padding-top: 20px;
+        }
+
+
+        /* side bar */
+        
+        
+        .bs-docs-sidebar.affix
+        {
+            position: static;
+        }
+        @media (min-width:768px)
+        {
+            .bs-docs-sidebar
+            {
+                padding-left: 20px;
+            }
+        }
+        .bs-docs-sidenav
+        {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .bs-docs-sidebar .nav > li > a
+        {
+            display: block;
+            padding: 4px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #999;
+        }
+        .bs-docs-sidebar .nav > li > a:hover, .bs-docs-sidebar .nav > li > a:focus
+        {
+            padding-left: 19px;
+            color: #563d7c;
+            text-decoration: none;
+            background-color: transparent;
+            border-left: 1px solid #563d7c;
+        }
+        .bs-docs-sidebar .nav > .active > a, .bs-docs-sidebar .nav > .active:hover > a, .bs-docs-sidebar .nav > .active:focus > a
+        {
+            padding-left: 18px;
+            font-weight: 700;
+            color: #563d7c;
+            background-color: transparent;
+            border-left: 2px solid #563d7c;
+        }
+        .bs-docs-sidebar .nav .nav
+        {
+            display: none;
+            padding-bottom: 10px;
+        }
+        .bs-docs-sidebar .nav .nav > li > a
+        {
+            padding-top: 1px;
+            padding-bottom: 1px;
+            padding-left: 30px;
+            font-size: 12px;
+            font-weight: 400;
+        }
+        .bs-docs-sidebar .nav .nav > li > a:hover, .bs-docs-sidebar .nav .nav > li > a:focus
+        {
+            padding-left: 29px;
+        }
+        .bs-docs-sidebar .nav .nav > .active > a, .bs-docs-sidebar .nav .nav > .active:hover > a, .bs-docs-sidebar .nav .nav > .active:focus > a
+        {
+            padding-left: 28px;
+            font-weight: 500;
+        }
+        @media (min-width:768px)
+        {
+            .back-to-top, .bs-docs-theme-toggle
+            {
+                display: block;
+            }
+        }
+        @media (min-width:992px)
+        {
+            .bs-docs-sidebar .nav > .active > ul
+            {
+                display: block;
+            }
+            .bs-docs-sidebar.affix, .bs-docs-sidebar.affix-bottom
+            {
+                width: 213px;
+            }
+            .bs-docs-sidebar.affix
+            {
+                position: fixed;
+                top: 100px;
+            }
+            .bs-docs-sidebar.affix-bottom
+            {
+                position: absolute;
+            }
+            .bs-docs-sidebar.affix-bottom .bs-docs-sidenav, .bs-docs-sidebar.affix .bs-docs-sidenav
+            {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+        @media (min-width:1200px)
+        {
+            .bs-docs-sidebar.affix-bottom, .bs-docs-sidebar.affix
+            {
+                width: 263px;
+            }
+        }
+        .bs-docs-section
+        {
+            margin-bottom: 60px;
+        }
+        .bs-docs-section:last-child
+        {
+            margin-bottom: 0;
+        }
+    </style>
+
+</head>
+
+
+
+<body
+    data-spy="scroll" data-target="#scrollSpy" data-offset="300"
+>
+
+
+
+
+<header class="navbar navbar-inverse normal navbar-fixed-top" role="banner">
+  		<div class="container">
+    		<div class="navbar-header">
+		      	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+      			<a href="../index.html" class="navbar-brand">
+      			    <span title="Qiqqa"></span>
+      			</a>
+    		</div>
+    		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      			<ul class="nav navbar-nav navbar-right">
+                
+                
+                
+
+                
+                <li class="dropdown">
+        				<a href="Features.html#" class="dropdown-toggle" data-toggle="dropdown">
+          					About
+          					<i class="fa fa-chevron-down"></i>
+          				</a>
+          				<ul class="dropdown-menu">
+					    <li>
+                            <a href="Tour.html"><span>Tour</span></a></li>
+
+                        <li class="nav-divider"></li>
+                        
+
+                        <li>
+                        <a href="PremiumMembership.html"><span>Premium</span></a></li>        
+                        
+                        <li>
+                        <a href="PremiumPlus.html"><span>Premium+</span></a></li>        
+                        
+                        <li>
+                        <a href="Editions.html"><span>Pricing</span></a></li>
+
+                        <li>
+                        <a href="../Champion.html"><span>Champion</span></a></li>        
+
+                        <li>
+                        <a href="PremiumForFree.html"><span>Premium for free</span></a></li>        
+                        
+                         <li class="nav-divider"></li>
+                        
+                        <li>
+                        <a href="Compare.html"><span>Compare</span></a></li>
+
+                            <li>
+                            <a class="active" href="Features.html"><span>Features</span></a></li>
+                        <li>
+                        <a href="Sync.html"><span>Sync</span></a></li>        
+                        <li>
+                        <a href="UnlimitedStorage.html"><span>Storage</span></a></li>        
+                
+                        <li class="nav-divider"></li>    
+
+                        <li><a href="http://enterprise.qiqqa.com/">Enterprise</a> </li>
+                        
+				        </ul>
+        			</li>
+      			
+                    
+                    
+                    <li class="dropdown">
+        				<a href="Features.html#" class="dropdown-toggle" data-toggle="dropdown">
+          					Help
+          					<i class="fa fa-chevron-down"></i>
+          				</a>
+          				<ul class="dropdown-menu">
+							<li><a href="../Help.html"><span>Support</span></a></li>
+                            
+                            <li><a href="https://getsatisfaction.com/qiqqa">Forum</a></li>
+                
+                            <li><a href="../Help/Manual"><span>Manual</span></a></li>
+                            
+                            <li><a href="../Home/Screencasts.html"><span>Screencasts</span></a></li>
+                            
+                            <li><a href="../Home/Contact.html"><span>Contact Us</span></a></li>
+				        </ul>
+        			</li>
+        			
+                    
+                    
+
+        			
+                    <li>
+          				<a href="../Download.html" class="signup visible-md visible-lg">Download</a>
+        			</li>
+                
+                
+                    <li class="dropdown">
+        			<a href="Features.html#" class="dropdown-toggle" data-toggle="dropdown">
+          				
+                        Account
+          				<i class="fa fa-chevron-down"></i>
+          			</a>
+                        
+                        
+          			<ul class="dropdown-menu">
+          				    
+                        
+                        
+                            <li><a href="../Account/LogOn.html"><span>Log On</span></a></li>
+          				    <li><a href="../Account/RegisterStart.html"><span>Register</span></a></li>
+        			    
+                        
+                            <li><a href="../Home/Newsletter.html"><span>Newsletter</span></a></li>
+                        
+				    </ul>
+        		</li>
+        		
+                </ul>
+    		</nav>
+  		</div>
+</header>
+<div id="headerIE">
+    <a href="../index.html"><img src="http://static0.qiqqa.com/Content/images/Logos/2/logo.png" alt="Qiqqa"/></a>  
+    YOUR BROWSER IS NOT CURRENTLY SUPPORTED, PLEASE <a href="http://browser-update.org/update-browser.html#14">UPGRADE</a>.
+</div>
+
+
+<div id="wrap" class="container has-navbar-fixed-top">
+<div class="row" id="flashMessagePanel">
+    <div class="col-xs-9" id="flashMessagePanelContent"></div>
+     <div class="col-xs-3">
+        <a href="Features.html#" id="flashMessagePanelDismiss" class="pull-right">
+            <i class="glyphicon glyphicon-remove-sign"></i> DISMISS
+        </a>
+    </div>
+</div>
+
+    
+
+<div class="row pageContentHeader">
+<div class="col-xs-12">
+<h2>
+
+    Qiqqa Features 
+
+</h2>
+</div>
+</div>
+
+    
+    
+    <div style="">
+        <div class="row">
+            <div class="col-md-9">
+                <div id="Organize">
+                    <div id="Organize_Intro" class="feature well">
+                        <h2>
+                            Organize</h2>
+                        <p>
+                            Qiqqa contains everything you need for the five stages of commercial, academic or
+                            research work.
+                        </p>
+                        <p>
+                            Most projects require collecting and reading a large number of papers. Sometimes
+                            <span class="emphasis">thousands</span>.</p>
+                        <p>
+                            They can quickly become difficult to work with.</p>
+                        <p>
+                            Qiqqa uses advanced features to keep them under control.</p>
+                        <p>
+                            In fact, we recommend adding <span class="emphasis">all</span> the papers you can
+                            find in your area of interest.</p>
+                    </div>
+                    <div id="Organize_PDF-Management" class="feature well">
+                        <h3>
+                            PDF Management</h3>
+                        <p>
+                            Qiqqa is where you store all your PDF documents.
+                        </p>
+                        <p>
+                            It's easy to add PDFs as you find them, fast to find the right ones again when you
+                            need them, and a delight to read and work with them.
+                        </p>
+                        <div class="featureAspectContainer">
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/lib_preview_full.png" title="Library with image preview" />
+                            </div>
+                            <h4>
+                                Libraries</h4>
+                            <p>
+                                Create as many "libraries" as you need to keep your work segmented. Qiqqa can handle
+                                thousands of PDFs within each. Document previews without opening so you can find
+                                the right one.
+                            </p>
+                            <div class="clear">
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/lib_birdseye.png" />
+                                
+                            </div>
+                            <p>
+                                For each library, a birds-eye view before you dip in. Quickly access documents added
+                                recently, or those our algorithms have determined you should read next.
+                            </p>
+                            <h4>
+                                Vanilla References</h4>
+                            <p>
+                                Don’t have the PDF, but want to add a reference anyway? No problem.
+                            </p>
+                            <p>
+                                If and when you get the document later, you can attach it to the metadata.
+                            </p>
+                            <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/lib_vanilla.png" />
+                            <br />
+                            <br />
+                            <br />
+                            <h4>
+                                Automatic Duplicate Detection</h4>
+                            <p>
+                                In a large library, you can often end up with the same paper from different sources.
+                                Duplicates waste your time. Qiqqa alerts you to these.</p>
+                            <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/lib_dupe.png" />
+                            <div class="clear">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Organize_Import" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Import - From Your Computer</h4>
+                            <p>
+                                Import all your PDFs from your drive in one go. Drag and drop at any time.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/import_local.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Import - From Other Programs</h4>
+                            <p>
+                                Import all your existing papers and references from Mendeley&trade; Zotero&trade;,
+                                EndNote&trade; or Jab Ref, or any other program that can export to BibTeX format.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/import_apps_full.png" title="Import from other applications" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Import - From Your Hard Drive Automatically</h4>
+                            <p>
+                                Set up a "watch folder" to have any new PDFs automatically imported. Great for setting
+                                to your internet browser download location, a university network share, or similar.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/import_watchfolder_small.png" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/import_watchfolder_full.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Organize_OCR" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Optical Character Recognition</h4>
+                            <p>
+                                Some PDFs are essentially a collection of images. No app can search their text,
+                                or allow you to copy and paste, without some additional magic - <a href="http://en.wikipedia.org/wiki/Optical_character_recognition"
+                                    target="_blank">OCR</a>.
+                            </p>
+                            <p>
+                                Without OCR, much of the value in a PDF is locked away.
+                            </p>
+                            <p>
+                                Unlike many other reference managers, Qiqqa comes with powerful built-in OCR. You
+                                can then perform fast full-text searches, get automatic abstracts, keyword extraction,
+                                and so on.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/ocr_status.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Organize_Metadata" class="feature well">
+                        <h4>
+                            Metadata</h4>
+                        <p>
+                            The key to harnessing the power of your documents is accurate metadata (title, author,
+                            publication, etc.). Unfortunately PDFs very often come with poor metadata if any.
+                            Qiqqa tackles this problem head on.
+                        </p>
+                        <div class="featureAspectContainer">
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/metadata_basic.png" />
+                            </div>
+                            <h4>
+                                Auto-Population
+                            </h4>
+                            <p>
+                                If your document contains no metadata at all, Qiqqa is smart enough to look for
+                                text that look like the title/author/year, and use that automatically, so you don’t
+                                have to type it.
+                            </p>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <div class="featureAspectShots2">
+                                <img class="zoomImgThumb" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/metadata_bibtex_small.png" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/metadata_bibtex_full.png" title="BibTeX Editor" />
+                            </div>
+                            <h4>
+                                BibTeX
+                            </h4>
+                            <p>
+                                <a href="http://en.wikipedia.org/wiki/BibTeX" target="_blank">BibTeX</a> is the
+                                world’s favorite metadata standard. In Qiqqa it’s a first class citizen and used
+                                extensively. If you already know BibTeX, you’ll feel right at home. If not, you’ll
+                                find it a snap with Qiqqa’s BibTeX metadata editor.
+                            </p>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <div class="featureAspectShots2">
+                                <img id="imgSnifferIntro" class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/metadata_bibtexsniffer_small.png"
+                                    data-fullsrc="http://www.youtube.com/watch?v=-5tiHs2EqUU&hd=1" title="Qiqqa BibTeX Sniffer" />
+                            </div>
+                            <h4>
+                                Metadata Sniffer
+                            </h4>
+                            <p>
+                                So you’ve downloaded 50 papers, but none of them have metadata? Filling this in
+                                by hand would take ages.
+                            </p>
+                            <p>
+                                The Qiqqa BibTeX sniffer is an innovative way of searching Google Scholar for the
+                                correct metadata, and then importing it directly.
+                            </p>
+                            <p>
+                                Net result? With Qiqqa, you can import a bunch of documents, and have them OCRed
+                                and metadataed in no time.
+                            </p>
+                            <p>
+                                <span class="fakeLink" onclick="$('#imgSnifferIntro').click();return false;">See it
+                                    in action</span>.
+                            </p>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Document Attributes
+                            </h4>
+                            <p>
+                                Alongside the metadata are your own attributes and notes, so you can keep track
+                                of your thoughts and progress on individual papers.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/metadata_review.png" />
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/metadata_comments_small.png" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/metadata_comments_full.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Organize_SuperTags" class="feature well">
+                        <h4>
+                            Super Tags</h4>
+                        <div class="featureAspectContainer">
+                            <p>
+                                Tags are a convenient and quick way of grouping documents. Add tags to any document,
+                                then use the Tag Explorer to navigate to them quickly.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_explorer.png" />
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_edit.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <p>
+                                Already have your documents in a neat directory structure on your hard drive? Qiqqa
+                                can use those folder names as tags. Or the PDF keywords.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_assign.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Auto Tags
+                            </h4>
+                            <p>
+                                Qiqqa learns what your documents are about, and can tag them for you so you don’t
+                                have to. You can even give it hints about which tags to include/exclude. Neat.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_autotags.png" />
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_blackwhitelist_small.png" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_blackwhitelist_full.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Hierarchical
+                            </h4>
+                            <p>
+                                Most application only support “flat” tags. Qiqqa allows you to drill down when finding
+                                documents, e.g. those tagged “History”, then only those tagged with “history” and
+                                “middle ages”, then only those tagged with “history” and “middle ages” and “France”.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_hierachical.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Annotations Tags
+                            </h4>
+                            <p>
+                                Tags apply to annotations too, and show up in the Tag Explorer.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_annotation_explorer.png" />
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tags_annotation.png" title="Annotation tag" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Organize_Find" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Full-text Search
+                            </h4>
+                            <p>
+                                Full-text search across your entire library using our sophisticated built-in search
+                                engine.
+                            </p>
+                            <p>
+                                Results are ranked, and shown directly in your library screen, with previews.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/find_searchresults_full.png" />
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/find_search.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Google-like power
+                            </h4>
+                            <p>
+                                Most applications can only search for the literal letters you’re searching for.
+                                Similar to your favorite internet search engine, Qiqqa can do so much more. Wildcards,
+                                fuzzies, looking for words near other words, and of course Booleans (e.g. "fried
+                                green" NOT tomatoes).
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/find_searchsyntax_full.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Filters
+                            </h4>
+                            <p>
+                                Combine your search queries across multiple aspects to filter your library and hone
+                                in on your target.
+                            </p>
+                            <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/find_filterscombined.png" class="fullWidth" />
+                        </div>
+                        <div class="featureAspectContainer">
+                        </div>
+                        <p>
+                            Then if necessary, sort those results (or your entire library) to find the exact
+                            item.
+                        </p>
+                        <div class="featureAspectShots2">
+                            <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/find_sort.png" />
+                        </div>
+                    </div>
+                    <div id="Organize_Export" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>Export
+                            </h4>
+                            <p>
+                                We want you to enjoy Qiqqa knowing that lock-in will never be a problem.
+                            </p>
+                            <p>
+                                Export your entire library to a combined BibTeX file for import elsewhere. All your
+                                PDFs are included with smart links in an html page, so you can easily access them
+                                by tag, author, and title, even without Qiqqa.
+                            </p>
+                            <p>
+                                You can also backup all your Qiqqa work at any time for any reason to a zip file.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/export_backup.png" />
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/export_apps.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div id="Discover">
+                    <div id="Discover_Intro" class="feature well">
+                        <h2>
+                            Discover</h2>
+                        <p>
+                            Qiqqa contains some unique tools to help you:
+                        </p>
+                        <ul class="normal">
+                            <li><span class="emphasis">discover</span> new papers to read</li>
+                            <li><span class="emphasis">discover</span> information about papers you already have,
+                                and</li>
+                            <li><span class="emphasis">discover</span> where to focus your efforts</li>
+                        </ul>
+                    </div>
+                    <div id="Discover_Expedition" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h3>
+                                Expedition - Library Analysis
+                            </h3>
+                            
+                            <div class="row">
+                                
+                                <div class="col-md-9">
+                            <p>
+                                Totally unique to Qiqqa, harnessing the latest in computational linguistic algorithms.
+                            </p>
+                            
+                            
+                            <p>
+                                Qiqqa Expedition&trade; automatically breaks your library into <span class="emphasis">
+                                    themes</span> so that you can quickly get up to speed with <span class="emphasis">and
+                                        understand</span> your field of research. <span class="fakeLink" onclick="$('#imgExpeditionIntro').click();return false;">
+                                            See it in action</span>.
+                            </p>
+                            <p>
+                                Use Expedition while you are new to the field and at the end when you want to make
+                                sure you have cited all the relevant papers in each area.
+                            </p>
+                            </div>
+                                <div class="col-md-3">
+                            <a href="http://www.youtube.com/watch?v=ttg0B1RFuaw" target="video">
+                                <img src="../Content/images/About/Features/FullTour/expedition_video.png" alt="Watch the video" />
+                                See it in action &raquo;
+                            </a>
+                            </div>
+                            </div>
+
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                            </h4>
+                            <p>
+                                View your Expedition results across your entire library, with easy access to the
+                                documents you discover you’d like to delve deeper into.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img title="Expedition Results - Finding themes in a library" class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/expedition_libraryresults_full.png" style="width: 100%" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Discover_WebBrowser" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Integrated Browser
+                            </h4>
+                            <p>
+                                We all have our favorite browser, but the integrated Qiqqa web browser is honed
+                                for one specific task - research.
+                            </p>
+                            <p>
+                                Easily search multiple academic search engines at once to discover new papers. Found
+                                a good PDF? Get it into your library (with original download location already set
+                                in the metadata) in one click.
+                            </p>
+                            <br /><br />
+                            <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/browser_page.png" alt="" />
+                            <br /><br />
+                            <p>
+                                Found a good web PAGE, but want it in your library? Qiqqa can convert it to a PDF for you. Never lose another reference again, when the URL goes offline.
+                            </p>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <p>
+                                Drag URLs or images directly from webpages into your brainstorm.
+                                </p>
+                            <br /><br />
+                            <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/browser_functions.png" alt=""/>
+                            <br /><br />
+<p>
+                                If you prefer, Qiqqa can use your default browser instead.
+                            </p>                            
+                        </div>
+                    </div>
+                    <div id="Discover_Brainstorming" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Brainstorming
+                            </h4>
+                            <p>
+                                Whether you're planning a project, organizing exam materials, or making notes as
+                                you research, keep your ideas and thoughts from getting lost by arranging them in
+                                a mindmap.
+                            </p>
+                            <p>
+                                Nodes can be files, images, text, documents or internet links. They can be linked
+                                and rearranged, and you can zoom in and out for the right level of detail.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img title="Qiqqa Brainstorm" class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/brainstorm_full.png"
+                                    style="width: 100%" />
+                            </div>
+                            <h4>
+                                Integrated</h4>
+                            <p>
+                                Because it's integrated directly within Qiqqa, PDFs can be dragged into your brainstorm,
+                                and later you can click back to that original document.
+                            </p>
+                            <p>
+                                It also allows you to easily explore your library, mapping related documents as
+                                you go, which reveal undiscovered links between documents, authors, and topics.
+                            </p>
+                            <p>
+                                <a href="http://www.youtube.com/watch?v=6A8C0b03PAQ&feature=player_embedded" target="_blank">
+                                    See Brainstorming in action</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="Discover_Document-Insight" class="feature well">
+                        <h3>
+                            Document Insight</h3>
+                        <div class="featureAspectContainer">
+                            <p>
+                                Quickly find out which terms (keywords) dominate a paper, and which themes. Click
+                                a keyword to jump to all instances of it.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/document_cloud_full.png" style="width: 100%" />
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/expedition_indocthemes.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer" id="Discover_Related-Documents">
+                            <h4>
+                                Related Documents
+                            </h4>
+                            <p>
+                                Easily view other relevant documents in your library by theme, or author.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/document_relevantothers.png" />
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/document_otherauthor.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer" id="Discover_Similar-Papers">
+                            <h4>
+                                Similar papers in Google Scholar
+                            </h4>
+                            <p>
+                                Discover new documents in your field you may want to read. Jump to them on Google
+                                Scholar, then easily import them into your library.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/document_gs.png" alt=""/>
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer" id="Discover_Graphs">
+                            <h4>
+                                Graphs
+                            </h4>
+                            <p>
+                                Graphs help you visually discover how your work effort varies across time, how your
+                                tags are distributed and so on.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/document_graphtags.png" />
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/document_graphsactivity.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer" id="Discover_Cross-References">
+                            <h4>
+                                Find and navigate cross references.
+                            </h4>
+                            <p>
+                                Automatically find which papers in your library reference other papers in your library,
+                                so you can jump from one to other.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/document_refsinout.png" />
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/document_refsfind.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="Review">
+                    
+                    <div id="Review_Intro" class="feature well">
+                        <h2>Review</h2>
+                        <p>
+                            Collecting and discovering papers to read is one thing.
+                        </p>
+                        <p>
+                            Next stop – ensuring you have everything you need to read <span class="emphasis">and
+                                understand</span> them.
+                        </p>
+                    </div>
+                    <div id="Review_PDF-Viewer" class="feature well">
+                        <h3>PDF Viewer</h3>
+                        <div class="featureAspectContainer">
+                            <p>
+                                The heart of Qiqqa, with all the features you’d expect from a regular PDF viewer,
+                                plus more tailored just for the serious researcher.
+                            </p>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Annotations, highlights, free form drawing
+                            </h4>
+                            <p>
+                                Add your notes directly to a section of the document. Use the colors your prefer,
+                                add tags, even a rating and follow up date. Got a stylus? Write or draw in freehand
+                                on your document.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_annotations_small.png" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_annotations_full.png" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                View multiple pages at once
+                            </h4>
+                            <p>
+                                Most PDF viewers battle to show you the 10000ft view. But in academic papers it’s
+                                important – you could be hunting for a certain table or image. Qiqqa manages to
+                                provide great performance in both scenarios. You can rotate pages as needed.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_nup_full.png" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_nup_small.png" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Annotations Summary
+                            </h4>
+                            <p>
+                                Particularly useful for large documents, the annotations summary shows you a preview
+                                of your important sections, and allows you to jump straight to that part of the
+                                document.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_annotationssummary.png" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            
+                            <h4>
+                                Automatic Abstract
+                            </h4>
+                            <p>
+                                Qiqqa attempts to automatically find and extract the document’s abstract when available.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_abstract.png" />
+                            </div>
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Automated Jump Links and bookmarks
+                            </h4>
+                            <p>
+                                If your PDF has bookmarks, these can be easily accessed. If it doesn’t Qiqqa will
+                                attempt to find the main sections in your document (e.g. the Introduction, Conclusion,
+                                etc.) and create shortcuts to them. You can also drop up to 9 of your own bookmarks
+                                for easy access with keyboard shortcuts, to navigate within your document.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_jumplinks_full.png" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Tabs
+                            </h4>
+                            <p>
+                                Open multiple documents at once, or the same document as many times as you need
+                                to, so you can see different parts at the same time.
+                            </p>
+                            <img class="zoomImg fullWidth" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_tabs2up_full.png" />
+                        </div>
+                        <div class="featureAspectContainer">
+                            
+                            <h4>
+                                Dictionary & Web Search
+                            </h4>
+                            <p>
+                                Select any part of your document, then easily search the web (including Wikipedia)
+                                or find dictionary definitions.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/viewer_lookup_full.png"  />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="Review_Context" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h3>
+                                Context
+                            </h3>
+                            <p>
+                                Qiqqa brainstorming lets you "place" a new document in the literature before you
+                                read it than to explore its authors, what else in your library they wrote, who else
+                                they cited, and even what tags you or AutoTags Qiqqa gave to each of the documents.
+                            </p>
+                            <p>
+                                We have found that first exploring around a paper before reading it really puts
+                                the paper into context, and leads to better understanding of the paper as we read
+                                it.
+                            </p>
+                            <p>
+                                And then a few months after you have read it, you can come back and explore it all
+                                again to refresh your memory - this time with all your annotations!
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/context_brainstorm_full.png" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/context_brainstorm_small.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div id="Review_Annotation-Reports" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Annotation Reports
+                            </h4>
+                            <p>
+                                One of Qiqqa’s most popular features – quickly create a summary document of the
+                                annotations in your library (optionally filtered by any search criteria).
+                            </p>
+                            <p>
+                                The summary document can contain any combination of the abstracts, your own notes,
+                                your annotations, highlights, and inks. The exact content is customizable when you
+                                create the report.
+                            </p>
+                            <p>
+                                The OCRed text is available just below the image of your annotation so you can copy
+                                and paste it.
+                            </p>
+                            <p>
+                                The result is a neat summary document with the bits you’ve marked as important in
+                                your documents</p>
+                            <p>
+                                Perfect for reviewing a topic before an exam, giving a lecture, or presenting a
+                                law case.
+                            </p>
+                            <p>
+                                <a href="http://static0.qiqqa.com/Content/images/About/Features/FullTour/SampleAnnotationReport.rtf">View sample Annotation Report</a>.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/ar_report_full.png" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/ar_button.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div id="Review_Cloud-Sync" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h3>
+                                Cloud Sync
+                            </h3>
+                            <p>
+                                These days many of us work on different computers. Perhaps you have a home desktop,
+                                a lab laptop, and a tablet that accompanies you wherever you go.
+                            </p>
+                            <p>
+                                Using Qiqqa's Sync, you can stop constantly copying files onto a USB stick to move
+                                them from one machine to the other. No more emailing back and forth.
+                            </p>
+                            <p>
+                                Just sync your documents and they're available wherever you are - online and offline.
+                                We have a dedicated Android app.
+                            </p>
+                            <h4>
+                                Unlimited Storage
+                            </h4>
+                            <p>
+                                No limits on file size or library size. We offer a very generous free amount of
+                                storage, after that its extremely affordable – aimed at student budgets.
+                            </p>
+                            <p>
+                                <a href="Sync.html" target="_blank">
+                                    Find out more</a>
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/syncing_v2_small.jpg" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer" id="Review_Web-Library">
+                            <h4>
+                                Web library
+                            </h4>
+                            <p>
+                                After syncing, you can access your documents using a regular web browser if you
+                                need to.
+                            </p>
+                            <p>
+                                Search your library (even via tags) and download the PDF to view it, even without
+                                the Qiqqa application.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/cloud_weblibrary.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div id="Review_Mobile-App" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h3>Mobile App</h3>
+                            <p>
+                                Qiqqa comes with a dedicated Android companion application for viewing your documents
+                                on your Android device.
+                            </p>
+                            <p>
+                                Includes annotation and highlight viewing, and editing, so you can review and mark
+                                up your documents on the go.
+                            </p>
+                            <p>
+                                Works offline. Free.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/mobile_androidicon.png" />
+                                <img class="zoomImg" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/mobile_androidshot2_full.jpg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/mobile_androidshot_small.png" />
+                                <img class="zoomImg" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/mobile_androidshot1_full.jpg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/mobile_androidshot_small.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div id="Collaborate">
+                    
+                <div id="Collaborate_Intro" class="feature well">
+                    <h2>Collaborate</h2>
+                        <p>
+                            Working in a team or group?
+                        </p>
+                        <p>
+                            Let Qiqqa take some of the pain out of collaboration.
+                        </p>
+                    </div>
+                    <div id="Collaborate_GroupLibrary" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>Group Library</h4>
+                            
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/Home/syncing_v2_small.jpg" alt="" style="width:200px" class="pull-right"/>
+                            </div>
+                            
+                            <p>
+                                If you like, you can share any of your libraries with other Qiqqa users, creating
+                                a group library.
+                            </p>
+                            <p>
+                                The documents are synced between all members, so you can all contribute as you find
+                                papers, and read documents others have submitted.
+                            </p>
+                            <p>
+                                If your company or institution has regulatory constraints around cloud syncing,
+                                local network only syncing is also available.
+                            </p>
+                            <br/>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/share_admin1.png" alt="" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Easy Admin</h4>
+                            <p>
+                                Administration is easy yet powerful – library members can be:
+                                <ul class="normal">
+                                    <li>admins (all powerful),</li>
+                                    <li>contributors (can make modifications, but not admin), or </li>
+                                    <li>viewers (cannot make modifications).</li>
+                                </ul>
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/share_admin2.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div id="Collaborate_ShareMetadata" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>Metadata</h4>
+                            <p>
+                                Your group library also applies to metadata - not just documents.</p>
+                            <p>
+                                Work together with your colleagues by pooling annotations, highlights, notes and
+                                any other document attributes.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/metadata_basic.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div id="Collaborate_Share" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>By Email</h4>
+                            <p>
+                                Just discovered 10 papers you know your friend would love, but don’t want to destroy
+                                their inbox by sending them all as email?
+                            </p>
+                            <p>
+                                Share them via our website instead and avoid all that. With one click you get a
+                                private (unguessable) download link you can email or IM them, and they download
+                                the documents in a way that's most convenient to them.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/share_email.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div id="Collaborate_Discuss" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>Discuss</h4>
+                            <p>
+                                Members of a library can discuss topics by contributing comments to the Library "Wall". 
+                            </p>
+                              <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/share_discuss.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Collaborate_PublicLibrary" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>Public Metadata</h4>
+                            <p>
+                                If (and only if!) you desire, you can share your library metadata publically on the internet. 
+                            </p>
+                            <p>
+                                You receive a unique URL that you can link to from your own website. Effortlessly share your research or ideas with the world.
+                            </p>
+                        </div>
+                    </div>
+            </div>
+                <div id="Create">
+                        
+                    <div id="Create_Intro" class="feature well">
+                        <h2>Create</h2>
+                        <p>
+                            When you’re ready to create your masterpiece, Qiqqa has the tools to allow you to
+                            focus on the job at hand – <span class="emphasis">writing up</span>.
+                        </p>
+                        <p>
+                            Of course you’ll use features like the full-text search extensively whilst writing,
+                            but Qiqqa includes functionality to rocket you through the other bits.
+                        </p>
+                    </div>
+                    <div id="Create_Referencing" class="feature well">
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Citations and Bibliographies
+                            </h4>
+                            <p>
+                                Inserting and managing citations is traditionally quite painful.
+                            </p>
+                            <p>
+                                Qiqqa InCite&trade; lets you use any of thousands of community contributed citation
+                                styles to cite and create bibliographies directly in Word&trade;, against your Qiqqa
+                                libraries.</p>
+                            <p>
+                                You don’t even need to install a finnicky word processor plugin.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/incite_buttons.png" />
+                                <img class="zoomImg" data-fullsrc="http://www.youtube.com/watch?v=8MqeYNXNwrg" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/incite_bibshot.png" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Suggestions
+                            </h4>
+                            <p>
+                                Qiqqa even uses computational linguistic algorithms to suggest papers in your library
+                                you may want to cite, as you write.
+                            </p>
+                            <p>
+                                This saves you getting distracted by spending time looking them up, so you can focus
+                                on the paper.
+                            </p>
+                            <div class="featureAspectShots2">
+                                //TODO video
+                                <img class="zoomImg" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/incite_suggested_full.png" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/incite_suggested_small.png" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Other Options
+                            </h4>
+                            <p>
+                                Also available is the ability to export your references for use with the Word™ Bibliographic
+                                management system, or export citations (or the BibTeX) to the clipboard for use
+                                in any other text editor such as Open Office.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/incite_openoffice.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div id="Create_Brainstorming" class="feature well">
+                        <div class="featureAspectContainer">
+                            
+                            <h4>
+                                Brainstorming
+                            </h4>
+                            <p>
+                                Use the brainstorming functionality to mind map your thoughts as you plan your paper
+                                or project. Then use it to visually explore all your papers.
+                            </p>
+                            <p>
+                                Add all the papers in your discipline and you’ll easily spot the most cited ones
+                                (has your paper cited them?) or those that seem to be the most important (have you
+                                read them?)
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img class="zoomImg" data-fullsrc="http://static0.qiqqa.com/Content/images/About/Features/FullTour/context_brainstorm_full.png" src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/context_brainstorm_small.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Create_CSLEditor" class="feature well">
+                        <h3>CSL Editor</h3>
+                        <div class="featureAspectContainer">
+                            <p>
+                                Citation styles are created in <a href="http://en.wikipedia.org/wiki/Citation_Style_Language"
+                                    target="_blank">Citation Style Language</a>. If you’d like to create your own
+                                citation style, this is the language you need to use.
+                            </p>
+                            <p>
+                                Qiqqa makes it much easier to do so by showing you previews of changes you make
+                                to an existing style. Load up a citation style and tweak it until you’re happy.
+                            </p>
+                            <p>
+                                Qiqqa allows you to edit sample BibTeX as inputs, and then see how your CSL style
+                                formats citations and the bibliography.
+                            </p>
+                            <p>
+                                It lists each citation individually, then all in a single citation cluster, and
+                                then shows the associated bibliography.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/csl_overview.png" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div id="Create_DataCopia" class="feature well">
+                        <h3>Auto Graphs</h3>
+                        <div class="featureAspectContainer">
+                            <div class="featureAspectShots2 pull-right">
+                                <a href="https://www.youtube.com/watch?v=NnNm_aqYUrQ" target="video">
+                                <img src="../Content/images/About/Features/FullTour/datacopia_video.png" alt="Watch the video" /><br />
+                                    See it in action &raquo;
+                                </a>
+                            </div>
+                            <p>
+                                Qiqqa comes with native support for <a href="http://www.datacopia.com" target="_blank">DataCopia</a>.
+                            </p>
+                            <p>
+                                Simply highlight a table within your document, click one button, and great looking graphs are instantly created from the data in that table!
+                            </p>
+                            <p>
+                                No more fussing trying (often with difficulty) to copy and paste table data into a spreadsheet, then spending more time trying to get a decent looking chart. 
+                            </p>
+                            
+                        </div>
+                    </div>
+                    <div id="Create_PDFTools" class="feature well">
+                        <h3>PDF Tools</h3>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                Clipboard Image
+                            </h4>
+                            <p>
+                                Need to insert a section of a PDF into your paper? Use the clipboard image functionality
+                                to take a snapshot of a region you drag out so you can paste it into your document.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tools_clipboard.png" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            <h4>
+                                PDF to Text
+                            </h4>
+                            <p>
+                                Remove all the formatting and images, and convert your full PDF to plain text with
+                                one click. One additional click gets it into Word&trade;.
+                            </p>
+                            <div class="featureAspectShots1">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tools_totext.png" />
+                            </div>
+                            
+                        </div>
+                        <div class="featureAspectContainer">
+                            
+                            <h4>
+                                Invert Text
+                            </h4>
+                            <p>
+                                Easy on the eyes - useful for those late night reading sessions.
+                            </p>
+                            <div class="featureAspectShots2">
+                                <img src="http://static0.qiqqa.com/Content/images/About/Features/FullTour/tools_invert.png" />
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            
+            <div  class="col-md-12" style="text-align: center; padding-top: 20px; padding-bottom: 20px">
+                <a href="../Download%3Fsrc=fulltour.html" class="btn btn-primary btn-large btn-primary-orange">
+                    Download Qiqqa!</a> <span style="margin-left: 20px">Qiqqa is free, and available now.</span>
+            </div>
+    
+            </div>
+            
+            
+
+            <div class="col-md-3">
+                <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" role="complementary" id="scrollSpy">
+                    <ul class="nav bs-docs-sidenav" data-spy="affix" id="sideBarNav">
+                        <li class=""><a href="Features.html#Organize">Organize</a>
+                            <ul class="nav">
+                                <li><a href="Features.html#Organize_PDF-Management">PDF Management</a></li>
+                                <li><a href="Features.html#Organize_Import">Import</a></li>
+                                <li><a href="Features.html#Organize_OCR">OCR</a></li>
+                                <li><a href="Features.html#Organize_Metadata">Metadata</a></li>
+                                <li><a href="Features.html#Organize_SuperTags">Super Tags</a></li>
+                                <li><a href="Features.html#Organize_Find">Find</a></li>
+                                <li><a href="Features.html#Organize_Export">Export</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="Features.html#Discover">Discover</a>
+                            <ul class="nav">
+                                <li><a href="Features.html#Discover_Intro">Intro</a></li>
+                                <li><a href="Features.html#Discover_Expedition">Expedition</a></li>
+                                <li><a href="Features.html#Discover_WebBrowser">Web Browser</a></li>
+                                <li><a href="Features.html#Discover_Brainstorming">Brainstorming</a></li>
+                                <li><a href="Features.html#Discover_Document-Insight">Document Insight</a></li>
+                                <li><a href="Features.html#Discover_Related-Documents">Related Documents</a></li>
+                                <li><a href="Features.html#Discover_Similar-Papers">Similar Papers</a></li>
+                                <li><a href="Features.html#Discover_Graphs">Graphs</a></li>
+                                <li><a href="Features.html#Discover_Cross-References">Cross References</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="Features.html#Review">Review</a>
+                            <ul class="nav">
+                                <li><a href="Features.html#Review_Intro">Intro</a></li>
+                                <li><a href="Features.html#Review_PDF-Viewer">PDF Viewer</a></li>
+                                <li><a href="Features.html#Review_Context">Context</a></li>
+                                <li><a href="Features.html#Review_Annotation-Reports">Annotation Report</a></li>
+                                <li><a href="Features.html#Review_Cloud-Sync">Cloud Sync</a></li>
+                                <li><a href="Features.html#Review_Mobile-App">Mobile App</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="Features.html#Collaborate">Collaborate</a>
+                            <ul class="nav">
+                                <li><a href="Features.html#Collaborate_Intro">Intro</a></li>
+                                <li><a href="Features.html#Collaborate_GroupLibrary">Share Documents</a></li>
+                                <li><a href="Features.html#Collaborate_ShareMetadata">Share Metadata</a></li>
+                                <li><a href="Features.html#Collaborate_Share">Ad-Hoc Share</a></li>
+                                <li><a href="Features.html#Collaborate_Discuss">Discuss</a></li>
+                                <li><a href="Features.html#Collaborate_PublicLibrary">Public Library</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="Features.html#Create">Create</a>
+                            <ul class="nav">
+                                 <li><a href="Features.html#Create_Intro">Intro</a></li>
+                                <li><a href="Features.html#Create_Referencing">Referencing</a></li>
+                                <li><a href="Features.html#Create_Brainstorming">Brainstorming</a></li>
+                                <li><a href="Features.html#Create_CSLEditor">CSL Editor</a></li>
+                                <li><a href="Features.html#Create_DataCopia">Auto Graphs</a></li>
+                                <li><a href="Features.html#Create_PDFTools">PDF Tools</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+
+</div>
+
+
+<div id="footer" class="navbar-fixed-bottom">
+	<div class="container">
+		<div class="row">
+		    <div class="col-sm-12">
+			   
+            	<ul>
+            		<li>
+            	        <img src="../Content/images/Logos/2/logo_white_icon.png" />
+                        &nbsp;
+            		</li>
+	      			<li>
+                    <a href="../Home/TandCs.html">Terms</a> 
+                    </li>
+                    <li>
+                    <a href="Privacy.html">Privacy</a>
+                    </li>
+	        		<li>
+	          			<a href="http://blog.qiqqa.com">Blog</a>
+	        		</li>
+	      		    <li>
+                        <a href="../Home/FAQ.html">FAQ</a>
+                    </li>
+	        		<li>
+	        			<a href="../Home/Contact.html">Contact</a>
+	        		</li>
+                    <li>
+                        <a href="Team.html">Team</a>
+                    </li>
+                    <li>
+                        <li><a href="http://static.qiqqa.com/downloads/presspack/QiqqaPressPack.zip"  target="_blank">PRESS PACK</a></li>
+                    </li>
+                    <li>
+                        <a href="../Champion.html">Affiliates</a> 
+                    </li>
+	      			<li>
+	          			<a href="http://youtube.com/qiqqatips">Youtube</a>
+	        		</li>
+	        		<li>
+	        			<a href="http://facebook.com/qiqqa">Facebook</a>
+	        		</li>
+	        		<li>
+	          			<a href="http://twitter.com/qiqqa">Twitter</a>
+	        		</li>
+                    <li>
+                        &copy; 2021. Quantisle
+                    </li>
+	      		</ul>
+                </div>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-16059803-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="position:fixed;bottom:0px;left:0px;width:100%;color:white;background:#6e2424;text-align:center;padding:20px" id="closing-down">
+
+After 10 years of your support we have decided to make Qiqqa open source so that it can be grown and extended by its community of thousands of active users.
+
+<br />
+
+<br />
+
+NB: We will be discontinuing Web Library support for Qiqqa at the end of 2020.  So you’ll have one year within which to install the latest version of Open Source Qiqqa (which is improving daily), <b>migrate your Web Libraries into Intranet Libraries</b>, and enjoy all the Premium and Premium+ features of Qiqqa for free (except Web Libraries)!
+
+<br />
+
+
+Go to the <a href="https://github.com/jimmejardine/qiqqa-open-source">Qiqqa Open Source GitHub website</a>.
+
+<br />
+
+<a href="Features.html#" onclick="jQuery('#closing-down').remove()">Close</a>
+<br />
+
+<br />
+
+
+
+</div>
+
+
+
+
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //the spy stuff only affects the spying, not the scrolling. 
+            //need to accomodate header. 
+
+            var headerOffset = $('header').height() + 10 /* padding to see start of well*/;
+
+            $('#sideBarNav li a').click(function (event) {
+                event.preventDefault();
+                $.scrollTo('div' + $(this).attr('href'), 750, { offset: { top: -headerOffset} });
+            });
+
+
+            //            $('#sideBarNav').affix({
+            //                offset: {
+            //                    top: $('header').height()
+            //                }
+            //            });
+
+        });
+
+    </script>
+
+
+<!-- bootstrap modernizers -->
+<!--[if lt IE 9]>
+    <script src="http://static0.qiqqa.com/Scripts/ie/html5shiv.min.js"></script>
+    <script src="http://static0.qiqqa.com/Scripts/ie/respond.min.js"></script>
+<![endif]-->
+
+
+
+<!-- MACHINE: QUANTAC3 -->
+<!-- ENVIRONMENT: Live -->
+<!-- VERSION: 0.0.0.210 -->
+<!-- MONITORINGOK -->
+</body>
+
+</html>
