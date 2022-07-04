@@ -10,6 +10,8 @@ Now open source award-winning Qiqqa research management tool for Windows.
 
 This version includes **every** feature available in [Commercial Qiqqa](qiqqa.com), including Premium and Premium+.
 
+The original Qiqqa website [is now here](https://jimmejardine.github.io/qiqqa-open-source-website/), and can be edited [here on GitHub](https://github.com/jimmejardine/qiqqa-open-source). 
+
 > Unfortunately we have had to **remove the web cloud sync** ability as that involves storage costs. Users are encouraged to migrate their Web Libraries into Intranet libraries, and **use Google Drive or Dropbox**
  as the 'sync point' for those libraries.
 
