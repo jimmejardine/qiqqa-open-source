@@ -136,6 +136,25 @@
 
 - [pdf.aspx (igi-global.com)](https://www.igi-global.com/pdf.aspx?tid=289612&ptid=278101&ctid=4&oa=true&isxn=9781683182085) -- gives a b0rked filename as download target in MSEdge. Not tested with `wget`
 
+- [ir.nuk.edu.tw](https://ir.nuk.edu.tw/ir/bitstream/310360000Q/14907/2/published%20paper.pdf) -- web browser reports this a site with an "unsupported protocol". Regular `wget` is taking ages, but ultimately succeeds in downloading. Here's the verbose output from `curl`:
+
+```
+* SSL connection using TLSv1.1 / ECDHE-RSA-AES256-SHA
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: CN=ir.nuk.edu.tw
+*  start date: Dec 22 00:00:00 2020 GMT
+*  expire date: Mar 22 23:59:59 2021 GMT
+*  issuer: C=AT; O=ZeroSSL; CN=ZeroSSL RSA Domain Secure Site CA
+*  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0} [5 bytes data]
+> GET /ir/bitstream/310360000Q/14907/2/published%20paper.pdf HTTP/1.1
+> Host: ir.nuk.edu.tw
+> User-Agent: curl/7.81.0
+```
+
+- https://www.dizinot.com/upload/files/2016/12/AOS-AO4606.pdf : this one at least dumps the raw PDF binary content to screen in any browser due to incorrect(?) mimetype setup server-side. Only produces the PDF when done via "save as" popup menu entry in your web browser. Hence we can expect trouble when downloading this one using other tools, such as `curl`.
+- 
 
 
 ## HTML pages with problems

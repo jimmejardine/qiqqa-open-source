@@ -8,4 +8,5 @@
 
 - https://github.com/fmlab-iis/Pregel ::  examples for Pregel-like graph processing frameworks.
 - https://github.com/heathersherry/Knowledge-Graphs-and-Data-Integration-in-Database-Conferences-2020- :: Knowledge Graphs and Data Integration in Database Conferences (2020)
-- 
+- https://github.com/ocropus/ocropy/issues/316 - report about ocropus performance (and improvements thereof) - which may be applicable more-or-less to tesseract as well.
+
