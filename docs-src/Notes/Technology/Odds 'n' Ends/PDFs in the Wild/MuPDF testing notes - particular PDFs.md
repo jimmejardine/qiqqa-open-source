@@ -2,6 +2,8 @@
 
 Observations when bulk testing `mutool multipurp` (aspirant tool to provide metadata, such as PageCount, but also outlines, annotations and attachment info (what Qiqqa uses SynFusion stuff for today)
 
+> Also note our `bulktest` batch test runs' log book notes here: [[PDF `bulktest` test run notes at the bleeding edge]], which contains additional (and some more recent) information about PDF processing troubles. 
+
 ---
 
 Took ages to info:
