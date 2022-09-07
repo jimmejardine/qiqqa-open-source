@@ -8,9 +8,12 @@
 
 #include "ntfs_ads_io.h"
 
+#include "wildmatch.h"
+
+
 // Make sure we support Long Paths:
 #undef MAX_PATH
-#define MAX_PATH 1500
+#define MAX_PATH 2048
 
 #define ASSERT(t)                       \
     if (!(t))                           \
@@ -47,11 +50,14 @@ FILE* output = NULL;
 CPINFOEXW CPInfo = { 0 };
 int cvtErrors = 0;
 int conciseOutput = 0;
+bool use_wildmatch = false;
+int wildmatch_flags = WM_IGNORECASE | WM_LEADING_DIR | WM_WILDSTAR;
 ULONG FilesMatched = 0;
 ULONG DotsPrinted = 0;
 BOOLEAN PrintDirectoryOpenErrors = FALSE;
 HashtableEntry UniqueFilePaths[PRIME_MODULUS];
 HashtableEntry OutputFilePaths[PRIME_MODULUS];
+unsigned int LinkedFilePathsHashIndexes[PRIME_MODULUS];
 
 //----------------------------------------------------------------------
 //
@@ -435,7 +441,7 @@ void CloseOutput(void)
 }
 
 
-int TestAndAddInHashtable(const WCHAR* str, HashtableEntry *UniqueFilePaths)
+unsigned int TestAndAddInHashtable(const WCHAR* str, HashtableEntry *UniqueFilePaths)
 {
     unsigned int hash = CalculateHash(str);
     unsigned int idx = hash - 1;
@@ -443,8 +449,8 @@ int TestAndAddInHashtable(const WCHAR* str, HashtableEntry *UniqueFilePaths)
 
     while (slot->path)
     {
-        if (!wcscmp(slot->path, str))
-            return 1;                   // 1: exists already
+        if (slot->hash == hash && !wcscmp(slot->path, str))
+            return 0;                   // 0: exists already!
         do {
             // jump and test next viable slot
             idx += 43;                  // mutual prime with PRIME_MODULUS
@@ -456,7 +462,7 @@ int TestAndAddInHashtable(const WCHAR* str, HashtableEntry *UniqueFilePaths)
     assert(!slot->hash);
     slot->hash = hash;
     slot->path = _wcsdup(str);
-    return 0;                   // 0: not present before, ADDED now!
+    return idx + 1;                   // !0: not present before, ADDED now! This is the index it now occupies.
 }
 
 
@@ -576,8 +582,10 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
         int isHardlink = 0;
         if (hasLinks)
         {
-            if (!TestAndAddInHashtable(FileName, UniqueFilePaths))
+            unsigned int firstHashIndex = TestAndAddInHashtable(FileName, UniqueFilePaths);
+            if (firstHashIndex)
             {
+                unsigned int lastHashIndex = firstHashIndex;
                 WCHAR linkPath[MAX_PATH];
                 WCHAR fullPath[MAX_PATH];
                 DWORD slen = nelem(linkPath);
@@ -588,7 +596,10 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
                     {
                         wcsncpy_s(fullPath, FileName, 6);
                         wcsncat_s(fullPath, linkPath, nelem(fullPath));
-                        TestAndAddInHashtable(fullPath, UniqueFilePaths);
+                        unsigned int hashIdx = TestAndAddInHashtable(fullPath, UniqueFilePaths);
+                        assert(hashIdx != 0);
+                        LinkedFilePathsHashIndexes[lastHashIndex - 1] = hashIdx;
+                        lastHashIndex = hashIdx;
                     }
 
                     slen = nelem(linkPath);
@@ -598,11 +609,16 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
                         {
                             wcsncpy_s(fullPath, FileName, 6);
                             wcsncat_s(fullPath, linkPath, nelem(fullPath));
-                            TestAndAddInHashtable(fullPath, UniqueFilePaths);
+                            unsigned int hashIdx = TestAndAddInHashtable(fullPath, UniqueFilePaths);
+                            assert(hashIdx != 0);
+                            LinkedFilePathsHashIndexes[lastHashIndex - 1] = hashIdx;
+                            lastHashIndex = hashIdx;
                         }
                         slen = nelem(linkPath);
                     }
                     FindClose(fnameHandle);
+
+                    LinkedFilePathsHashIndexes[lastHashIndex - 1] = firstHashIndex;
                 }
             }
             else
@@ -759,7 +775,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
         }
         else if (!output)
         {
-            // only dump the file paths to STDOUT in concisee mode when NO output file has been specified.
+            // only dump the file paths to STDOUT in concise mode when NO output file has been specified.
             fwprintf(stderr, L"\r");
             fwprintf(stdout, L"%s\n", FileName + 4 /* skip \\?\ prefix */);
         }
@@ -1150,7 +1166,7 @@ int wmain(int argc, WCHAR* argv[])
     }
 
     // Now go through the search paths sequentially, while we parse the commandline parameters alongside.
-    // Order of appearancee is important, hence you can specify different attribute mask filters
+    // Order of appearance is important, hence you can specify different attribute mask filters
     // for different search paths!
 
     if (argv[argc - 1][0] == L'/' || argv[argc - 1][0] == L'-')
