@@ -759,7 +759,7 @@ VOID ProcessFile(WCHAR* FileName, BOOLEAN IsDirectory, DWORD mandatoryAttribs, D
         }
         else if (!output)
         {
-            // only dump the file paths to STDOUT in concisee mode when NO output file has been specified.
+            // only dump the file paths to STDOUT in concise mode when NO output file has been specified.
             fwprintf(stderr, L"\r");
             fwprintf(stdout, L"%s\n", FileName + 4 /* skip \\?\ prefix */);
         }
