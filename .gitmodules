@@ -42,3 +42,9 @@
 [submodule "thirdparty/SmartThreadPool"]
 	path = thirdparty/SmartThreadPool
 	url = git@github.com:GerHobbelt/SmartThreadPool.git
+[submodule "Technology.Tests"]
+	path = Technology.Tests
+	url = git@github.com:GerHobbelt/qiqqa-technology-tests.git
+[submodule "thirdparty/DirScanner"]
+	path = thirdparty/DirScanner
+	url = git@github.com:GerHobbelt/DirScanner.git
