@@ -68,8 +68,34 @@ namespace Utilities.Misc
                 StuffToDoWhenPressed = stuff_to_do_when_pressed;
             }
 
-            public string Text { get; set; }
-            public Action StuffToDoWhenPressed { get; set; }
+            private string _Text;
+            public string Text 
+            { 
+                get
+                {
+                    return _Text == null ? "B0rk! Effin' WPF!" : _Text;
+                }
+                set
+                {
+                    _Text = value;
+                } 
+            }
+            private Action _StuffToDoWhenPressed;
+            private static void B0RK()
+            {
+                throw new Exception("B0rk! Used while not yet initialized! Effin' WPF!");
+            }
+            public Action StuffToDoWhenPressed 
+            { 
+                get
+                {
+                    return _StuffToDoWhenPressed == null ? B0RK : _StuffToDoWhenPressed;
+                } 
+                set
+                {
+                    _StuffToDoWhenPressed = value;
+                } 
+            }
         }
 
         public enum NotificationType

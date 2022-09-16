@@ -64,6 +64,7 @@ If you want to build Qiqqa from scratch yourself and/or wish to participate in i
    which will load `MuPDF`, `tesseract` and several other git repositories onto your local storage.
 - Double-click the `Qiqqa.sln` file to open it in Visual Studio.
 - Wait for Visual Studio to install the required NuGet packages.
+  > You may need to forcibly re-install NuGet packages when you upgrade Visual Studio later on. Then you find https://stackoverflow.com/questions/38074578/nuget-has-problems-with-missing-packages-how-to-restore very useful!
 - From the Build menu, pick "Rebuild all".
    + This will take *quite a while* as this will instruct Visual Studio to go and build all referenced projects (libraries, etc. used by Qiqqa) from scratch.
 - Select the `Qiqqa` project in the right-hand panel of Visual Studio, right-click and choose "Set as Active Project".

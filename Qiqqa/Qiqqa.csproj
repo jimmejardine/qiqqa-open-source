@@ -176,12 +176,6 @@
       <HintPath>..\libs\Office.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PdfSharp-wpf, Version=1.51.5185.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-wpf.1.51.5185-beta\lib\net30\PdfSharp-wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfSharp.Charting-wpf, Version=1.51.5185.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp-wpf.1.51.5185-beta\lib\net30\PdfSharp.Charting-wpf.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -626,9 +620,6 @@
     <Compile Include="DocumentLibrary\LibraryPivotReport\LibraryPivotReportBuilder.cs" />
     <Compile Include="DocumentLibrary\LibraryPivotReport\LibraryPivotReportControl.xaml.cs">
       <DependentUpon>LibraryPivotReportControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DocumentLibrary\VisualGalleryStuff\VisualGalleryControl.xaml.cs">
-      <DependentUpon>VisualGalleryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DocumentLibrary\WebLibraryStuff\WebLibraryDetailControlPopup.xaml.cs">
       <DependentUpon>WebLibraryDetailControlPopup.xaml</DependentUpon>
@@ -1561,10 +1552,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DocumentLibrary\TagExplorerStuff\TagExplorerItemRenameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DocumentLibrary\VisualGalleryStuff\VisualGalleryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
