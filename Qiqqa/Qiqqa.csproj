@@ -130,8 +130,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\GeckoFx-Windows-33.0-0.2\Geckofx-Winforms.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.11.36.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.36\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.46.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.46\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -145,8 +145,8 @@
     <Reference Include="Ionic.Zip">
       <HintPath>..\libs\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -155,14 +155,14 @@
       <HintPath>..\libs\Microsoft.Office.Interop.Word.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.961.33, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.961.33\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.1343.22, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.1343.22\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.961.33, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.961.33\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.1343.22, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.1343.22\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.961.33, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.961.33\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1343.22, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.1343.22\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
@@ -254,11 +254,11 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
-    <Reference Include="System.Data.SqlClient, Version=4.6.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SqlClient.4.8.2\lib\net461\System.Data.SqlClient.dll</HintPath>
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.3\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.115.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing">
@@ -268,8 +268,8 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Printing" />
-    <Reference Include="System.Security.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.AccessControl.5.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
@@ -303,26 +303,26 @@
     <Reference Include="UIAutomationProvider">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WinCopies.Util, Version=2.15.1.0, Culture=neutral, PublicKeyToken=cb02bf7a62cec965, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.Util.2.15.1\lib\net48\WinCopies.Util.dll</HintPath>
+    <Reference Include="WinCopies.Util, Version=3.20.0.0, Culture=neutral, PublicKeyToken=b5104787c7414d1f, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.Util.3.20.0\lib\net48\WinCopies.Util.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack, Version=2.8.0.0, Culture=neutral, PublicKeyToken=7cede2e7a545acde, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.2.8.0\lib\net48\WinCopies.WindowsAPICodePack.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack, Version=2.12.0.0, Culture=neutral, PublicKeyToken=7cede2e7a545acde, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.2.12.0\lib\net48\WinCopies.WindowsAPICodePack.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.COMNative, Version=2.8.0.0, Culture=neutral, PublicKeyToken=ecca801a1abe31d1, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.COMNative.2.8.0\lib\net48\WinCopies.WindowsAPICodePack.COMNative.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.COMNative, Version=2.12.0.0, Culture=neutral, PublicKeyToken=ecca801a1abe31d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.COMNative.2.12.0\lib\net48\WinCopies.WindowsAPICodePack.COMNative.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.Consts, Version=2.8.0.0, Culture=neutral, PublicKeyToken=49443f23c9a81e6e, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Consts.2.8.0\lib\net48\WinCopies.WindowsAPICodePack.Consts.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.Consts, Version=2.12.0.0, Culture=neutral, PublicKeyToken=49443f23c9a81e6e, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Consts.2.12.0\lib\net48\WinCopies.WindowsAPICodePack.Consts.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.Shell, Version=2.8.0.0, Culture=neutral, PublicKeyToken=a5d06180d9f8fba2, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Shell.2.8.0\lib\net48\WinCopies.WindowsAPICodePack.Shell.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.Shell, Version=2.12.0.2, Culture=neutral, PublicKeyToken=a5d06180d9f8fba2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Shell.2.12.0.2\lib\net48\WinCopies.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.ShellExtensions, Version=2.3.0.0, Culture=neutral, PublicKeyToken=bbf48980819ff167, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.ShellExtensions.2.3.0\lib\net48\WinCopies.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.ShellExtensions, Version=2.12.0.1, Culture=neutral, PublicKeyToken=bbf48980819ff167, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.ShellExtensions.2.12.0.1\lib\net48\WinCopies.WindowsAPICodePack.ShellExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="WinCopies.WindowsAPICodePack.Win32Native, Version=2.8.0.0, Culture=neutral, PublicKeyToken=ac0f4cf54a027a4d, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Win32Native.2.8.0\lib\net48\WinCopies.WindowsAPICodePack.Win32Native.dll</HintPath>
+    <Reference Include="WinCopies.WindowsAPICodePack.Win32Native, Version=2.12.0.0, Culture=neutral, PublicKeyToken=ac0f4cf54a027a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinCopies.WindowsAPICodePack.Win32Native.2.12.0\lib\net48\WinCopies.WindowsAPICodePack.Win32Native.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -5286,13 +5286,13 @@
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)Qiqqa.Build\copy_mupdf_binaries.cmd $(TargetDir) $(ConfigurationName) $(ProjectDir)</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\Microsoft.Web.WebView2.1.0.961.33\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.961.33\build\Microsoft.Web.WebView2.targets')" />
+  <Import Project="..\packages\Microsoft.Web.WebView2.1.0.1343.22\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.1343.22\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.961.33\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.961.33\build\Microsoft.Web.WebView2.targets'))" />
-    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.1343.22\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.1343.22\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>
