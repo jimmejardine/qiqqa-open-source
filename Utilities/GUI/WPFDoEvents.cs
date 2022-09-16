@@ -158,6 +158,8 @@ namespace Utilities.GUI
             });
         }
 
+        private static SynchronizationContext _syncContext;
+
         public static bool CurrentThreadIsUIThread()
         {
             Thread t = Thread.CurrentThread;
@@ -172,7 +174,7 @@ namespace Utilities.GUI
 
             if (state == ApartmentState.Unknown || (nct && !ShutdownableManager.Instance.IsShuttingDown) || (!isMainDispatcher && isUI) || acc != isUI)
             {
-                Logging.Warn($"Running in odd context @ {state}/{pooled}/{bg}/{ (Application.Current == null) }/{ !(pooled || bg || state != ApartmentState.STA) }");
+                Logging.Warn("Running in odd context.");
             }
 
             if (acc)
@@ -180,7 +182,7 @@ namespace Utilities.GUI
                 // https://stackoverflow.com/questions/10448987/dispatcher-currentdispatcher-vs-application-current-dispatcher
                 if (!isMainDispatcher || !isUI)
                 {
-                    Logging.Error(new Exception("Unexpected results"), $"woops @ {state}/{pooled}/{bg}/{ (Application.Current == null) }/{ !(pooled || bg || state != ApartmentState.STA) }");
+                    Logging.Error(new Exception("Unexpected results"), $"woops @ {state}/{pooled}/{bg}/{ (Application.Current == null)  } /{ !(pooled || bg || state != ApartmentState.STA) }");
                     return false;
                 }
                 return true;
@@ -209,24 +211,46 @@ namespace Utilities.GUI
                     {
                         Application.Current.Dispatcher.Invoke(action, priority);
                     }
-                    else 
+                    else
                     {
-                        // Pray to the Big Kahuna; we're (probably) shutting down and don't know / cannot know any more if we're in UI thread or other.
+                        // Pray to the Big Kahuna; we're probably shutting down and don't know / cannot know any more if we're in UI thread or other.
                         //
                         // Fire off and pray...
-                        try
+                        if (_syncContext != null)
                         {
-                            action.Invoke();
+                            _syncContext.Send(o =>
+                            {
+                                try
+                                {
+                                    action.Invoke();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logging.Error("InvokeInUIThread::syncContext:SEND: Error occurred.");
+                                }
+                            }, null);
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            Logging.Error("InvokeInUIThread::finalFallback: Error occurred.");
+                            try
+                            {
+                                action.Invoke();
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Error("InvokeInUIThread::finalFallback: Error occurred.");
+                            }
                         }
                     }
                 }
                 else
                 {
-                    action.Invoke();
+                // we assume this ctor is called from the UI thread!
+                //
+                // (keep the current context around for when Application.Current starts to fail and we still need access to the UI thread during shutdown.)
+                _syncContext = SynchronizationContext.Current;
+
+                action.Invoke();
                 }
             }
             catch (Exception ex)
@@ -243,14 +267,26 @@ namespace Utilities.GUI
             }
             else
             {
-                ASSERT.Test(ShutdownableManager.Instance.IsShuttingDown);
-                try
+                // Pray to the Big Kahuna; we're probably shutting down and don't know / cannot know any more if we're in UI thread or other.
+                //
+                // Fire off and pray...
+                if (_syncContext != null)
                 {
-                    throw new Exception("Ignoring async UI invocation during shutdown.");
+                    _syncContext.Post(o =>
+                    {
+                        try
+                        {
+                            action.Invoke();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error("InvokeInUIThread::syncContext:POST: Error occurred.");
+                        }
+                    }, null);
                 }
-                catch (Exception ex)
+                else
                 {
-                    Logging.Warn(ex);
+                    throw new Exception("no known GUI thread to invoke async to...");
                 }
             }
         }
@@ -271,7 +307,7 @@ namespace Utilities.GUI
         public static void AssertThisCodeIsRunningInTheUIThread()
         {
             // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
-            bool state = CurrentThreadIsUIThread() || ShutdownableManager.Instance.IsShuttingDown;
+            bool state = CurrentThreadIsUIThread();
             if (!state)
             {
                 ASSERT.Test(false, "This code MUST execute in the Main UI Thread.", dont_throw: true);

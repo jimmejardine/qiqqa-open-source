@@ -123,7 +123,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                             zip_process.Kill();
                             zip_process.WaitForExit(5000);
 
-                            Logging.Error("Canceled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpStrings());
+                            Logging.Error("Canceled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
 
                             StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Canceled creation of Bundle Library.");
                             return;
@@ -131,7 +131,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
                         if (zip_process.HasExited)
                         {
-                            Logging.Info("Completed creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpStrings());
+                            Logging.Info("Completed creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
 
                             StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed creation of Bundle Library.");
                             return;

@@ -33,6 +33,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private SoraxPDFRenderer sorax_pdf_renderer;
 
+        public PDFRenderer(string pdf_filename, string pdf_user_password, string pdf_owner_password)
+            : this(null, pdf_filename, pdf_user_password, pdf_owner_password)
+        {
+        }
+
         public PDFRenderer(string precomputed_document_fingerprint, string pdf_filename, string pdf_user_password, string pdf_owner_password)
         {
             this.pdf_filename = pdf_filename;
@@ -82,9 +87,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// <param name="page"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        internal byte[] GetPageByHeightAsImage(int page, double height, double width)
+        internal byte[] GetPageByHeightAsImage(int page, double height)
         {
-            return sorax_pdf_renderer.GetPageByHeightAsImage(page, height, width);
+            return sorax_pdf_renderer.GetPageByHeightAsImage(page, height);
         }
 
         internal byte[] GetPageByDPIAsImage(int page, float dpi)

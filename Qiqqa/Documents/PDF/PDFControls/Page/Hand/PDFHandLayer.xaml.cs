@@ -48,18 +48,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             MouseUp += PDFHandLayer_MouseUp;
             MouseMove += PDFHandLayer_MouseMove;
 
-            //Unloaded += PDFHandLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
+            this.Unloaded += PDFHandLayer_Unloaded;
         }
 
         private void PDFHandLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();
+            this.Dispose();
         }
 
         private void PDFHandLayer_MouseUp(object sender, MouseButtonEventArgs e)
@@ -150,8 +144,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
                     MouseDown -= PDFHandLayer_MouseDown;
                     MouseUp -= PDFHandLayer_MouseUp;
                     MouseMove -= PDFHandLayer_MouseMove;
-
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>

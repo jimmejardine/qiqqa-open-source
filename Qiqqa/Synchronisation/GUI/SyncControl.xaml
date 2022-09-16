@@ -3,12 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="1050"
-    mc:Ignorable="d">
+    xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities">
     <commongui:StandardWindow.Resources>
         <local_gui_conv:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter" />
         <local_gui_conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -39,10 +35,10 @@
         <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
         <ScrollViewer>
             <StackPanel>
-                <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-                <local_gui:AugmentedBorder Name="RegionLibraryGrid" Margin="3">
+                <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                <local_gui:AugmentedBorder Name="RegionLibraryGrid" Margin="3" >
                     <DockPanel>
-                        <!--  The grid - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+                        <!-- The grid - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
                         <local_gui:NonScrollingFlowDocumentScrollViewer Name="ObjSurroundingScrollViewer">
                             <commongui:StandardFlowDocument>
                                 <Paragraph>
@@ -138,15 +134,13 @@
                                             <DataGridTemplateColumn
                                                 Width="Auto"
                                                 MinWidth="50"
-                                                Header="...">
+                                                Header="..."
+                                                >
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Button
-                                                            Name="btnEdit"
-                                                            HorizontalAlignment="Center"
-                                                            Click="btnEditSyncSettings_Click"
-                                                            Content="Edit"
-                                                            IsEnabled="{Binding Path=MayEditSyncTarget}" />
+                                                        <Button 
+                                                            IsEnabled="{Binding Path=MayEditSyncTarget}"
+                                                            HorizontalAlignment="Center" Name="btnBrowse" Content="Browse" Click="btnBrowseSyncPath_Click" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -157,8 +151,8 @@
                         </local_gui:NonScrollingFlowDocumentScrollViewer>
                     </DockPanel>
                 </local_gui:AugmentedBorder>
-                <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-                <local_gui:AugmentedBorder Margin="3">
+                <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                <local_gui:AugmentedBorder Margin="3" >
                     <local_gui:NonScrollingFlowDocumentScrollViewer>
                         <commongui:StandardFlowDocument>
                             <Paragraph>
@@ -169,11 +163,8 @@
                         </commongui:StandardFlowDocument>
                     </local_gui:NonScrollingFlowDocumentScrollViewer>
                 </local_gui:AugmentedBorder>
-                <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-                <local_gui:AugmentedBorder
-                    Name="RegionOverview"
-                    Margin="3"
-                    Visibility="{Binding SyncTermsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}">
+                <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                <local_gui:AugmentedBorder Name="RegionOverview" Visibility="{Binding SyncTermsAccepted, Converter={StaticResource BooleanToVisibilityInverseConverter}}" Margin="3" >
                     <local_gui:NonScrollingFlowDocumentScrollViewer>
                         <commongui:StandardFlowDocument>
                             <Paragraph>
@@ -187,8 +178,7 @@
                                 </Underline>
                             </Paragraph>
                             <Paragraph>
-                                Syncing your libraries lets you work on your Qiqqa libraries from multiple machines.  
-                                Syncable libraries are also called Intranet Libraries.
+                                Syncing your libraries lets you work on your Qiqqa libraries from multiple machines.  Syncable libraries come in two flavours: Web Libraries and Intranet Libraries.
                             </Paragraph>
                             <Paragraph>
                                 <Underline>
@@ -199,20 +189,7 @@
                                 Intranet Libraries are designed primarily for businesses who do not want their information to leave their corporate intranet.
                                 Synchronisation is performed via a network shared folder, so you and your colleagues can collaborate on libraries stored securely on your network.
                                 Having synced your desktop or laptop against your local Intranet Library, you can work offline away from the office and sync on your return.
-                            </Paragraph>
-                            <Paragraph>
-                                Qiqqa doesn't require the folder you sync to to be a
-                                <Italic>network share</Italic>! Any folder is fine, be it a directory on your USB Flash disk, SSD, portable HD, or a folder in the space on your computer you backup to the Cloud via Google Drive, DropBox or other means.
-                                This allows Qiqqa to be flexible and enables you to use Sync for either personal backups, portability of the library across multiple machines you work at or share the library with co-workers.
-                            </Paragraph>
-                            <Paragraph>
-                                <Bold>Warning:</Bold>
-                                While you can Sync your initial 'Guest' library, sharing that library with co-workers would force them to have their 'Guest' library as your synced library instead of their own 'scratch space', so to speak.
-                            </Paragraph>
-                            <Paragraph>
-                                We therefor 
-                                <Bold>strongly advise to create a Intranet Library with a dedicated name</Bold> 
-                                so that it can be easily shared among co-workers.
+                                You need Qiqqa Premium+ to read from and write to an Intranet Library, or just Qiqqa Premium if you need only to read from an Intranet Library.
                             </Paragraph>
                             <Paragraph>
                                 <Underline>
@@ -227,7 +204,7 @@
                                             Padding="0"
                                             HorizontalAlignment="Right">
                                             <BlockUIContainer>
-                                                <local_gui:AugmentedButton Name="ButtonSyncMetadata" Height="16" />
+                                                <local_gui:AugmentedButton Name="ButtonSyncMetadata" />
                                             </BlockUIContainer>
                                         </Floater>
                                         <Bold>
@@ -242,7 +219,7 @@
                                             Padding="0"
                                             HorizontalAlignment="Right">
                                             <BlockUIContainer>
-                                                <local_gui:AugmentedButton Name="ButtonSyncDocuments"  Height="16" />
+                                                <local_gui:AugmentedButton Name="ButtonSyncDocuments" />
                                             </BlockUIContainer>
                                         </Floater>
                                         <Bold>
@@ -262,14 +239,14 @@
                                 </Underline>
                             </Paragraph>
                             <Paragraph>
-                                You can always sync the metadata and documents in your Intranet Libraries.
+                                You can always sync the metadata and documents in your Web Libraries that you have topped-up and have a positive balance.
+                                You can always sync your Intranet Libraries if you have a current Premium+ membership.
                             </Paragraph>
                             <Paragraph>
                                 <Bold>
                                     NB:
                                 </Bold>
-                                Bundle Libraries can not be synced. If you want to sync across multiple computers or with colleagues, create a Intranet Library.
-                            </Paragraph>
+                                The Guest Library and Bundle Libraries can not be synced.  If you want to sync across multiple computers or with colleagues, create a Web Library or Intranet Library.</Paragraph>
                         </commongui:StandardFlowDocument>
                     </local_gui:NonScrollingFlowDocumentScrollViewer>
                 </local_gui:AugmentedBorder>

@@ -48,14 +48,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         #region --- Background rendering of resized page images ------------------------------------------------------------------------------------------------------------------------
 
-        public delegate void ResizedPageImageItemCallbackDelegate(BitmapSource image_page, double requested_height, double requested_width);
+        public delegate void ResizedPageImageItemCallbackDelegate(BitmapSource image_page, double requested_height);
 
         private class ResizedPageImageItemRequest
         {
             internal int page;
             internal PDFRendererPageControl page_control;
             internal double height;
-            internal double width;
             internal ResizedPageImageItemCallbackDelegate callback;
         }
 
@@ -63,7 +62,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         private List<int> resized_page_image_item_request_orders = new List<int>();
         private int num_resized_page_image_item_thread_running = 0;
 
-        public void GetResizedPageImage(PDFRendererPageControl page_control, int page, double height, double width, ResizedPageImageItemCallbackDelegate callback)
+        public void GetResizedPageImage(PDFRendererPageControl page_control, int page, double height, ResizedPageImageItemCallbackDelegate callback)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -77,7 +76,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     page = page,
                     page_control = page_control,
                     height = height,
-                    width = width,
                     callback = callback
                 };
 
@@ -139,7 +137,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     //bitmap.Freeze();
 
                     BitmapImage bitmap = new BitmapImage();
-                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height, resized_page_image_item_request.width)))
+                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height)))
                     {
                         bitmap.BeginInit();
                         bitmap.StreamSource = ms;
@@ -150,7 +148,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                     if (null != bitmap)
                     {
-                        resized_page_image_item_request.callback(bitmap, resized_page_image_item_request.height, resized_page_image_item_request.width);
+                        resized_page_image_item_request.callback(bitmap, resized_page_image_item_request.height);
                     }
                 }
                 catch (Exception ex)

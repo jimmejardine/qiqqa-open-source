@@ -53,18 +53,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             text_layer_selection_mode = TextLayerSelectionMode.Sentence;
 
-            //Unloaded += PDFTextSentenceLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
+            this.Unloaded += PDFTextSentenceLayer_Unloaded;
         }
 
         private void PDFTextSentenceLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();
+            this.Dispose();
         }
 
         private void PDFTextSentenceLayer_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
@@ -265,8 +259,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
                         drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
                         drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
                     }
-
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>

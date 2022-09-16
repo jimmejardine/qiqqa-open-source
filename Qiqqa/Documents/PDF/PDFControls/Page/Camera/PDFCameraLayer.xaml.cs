@@ -37,18 +37,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             drag_area_tracker = new DragAreaTracker(this);
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
 
-            //Unloaded += PDFCameraLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
+            this.Unloaded += PDFCameraLayer_Unloaded;
         }
 
         private void PDFCameraLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();
+            this.Dispose();
         }
 
         private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
@@ -173,8 +167,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
                     {
                         drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
                     }
-
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>

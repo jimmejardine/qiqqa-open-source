@@ -60,7 +60,7 @@ namespace Utilities.PDF.GhostscriptTools
                             // Check that we had a clean exit
                             if (!has_exited || 0 != process.ExitCode)
                             {
-                                Logging.Error("Ghostscript process did not terminate.\n{0}", process_output_reader.GetOutputsDumpStrings());
+                                Logging.Error("Ghostscript process did not terminate.\n{0}", process_output_reader.GetOutputsDumpString());
                             }
 
                             return ms;

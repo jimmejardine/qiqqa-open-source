@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using Utilities;
-using Utilities.GUI;
 using Utilities.PDF;
 using Utilities.PDF.Sorax;
 
@@ -12,8 +11,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
     {
         public static int CountPDFPages(string filename)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             // Try multiple approaches because each fails in their own special way........
             int pages = 0;
 
@@ -39,11 +36,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             return pages;
         }
 
-#if false
         private static int CountPDFPages_Sorax(string filename)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             try
             {
                 Logging.Debug("+CountPDFPages_Sorax: {0}", filename);
@@ -57,7 +51,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 return 0;
             }
         }
-#endif
 
         private static int CountPDFPages_Jimme_MEGA(string filename)
         {

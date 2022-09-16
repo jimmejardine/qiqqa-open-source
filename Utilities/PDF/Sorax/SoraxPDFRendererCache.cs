@@ -20,6 +20,7 @@ namespace Utilities.PDF.Sorax
             SoraxPDFRendererCacheEntry cache_entry = GetCacheEntry(page, height);
             if (null != cache_entry)
             {
+
                 cache_entry.image = image;
             }
             else

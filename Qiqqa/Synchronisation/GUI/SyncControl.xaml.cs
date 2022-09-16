@@ -51,7 +51,7 @@ namespace Qiqqa.Synchronisation.GUI
             ButtonCancel.Click += ButtonCancel_Click;
         }
 
-        private void btnEditSyncSettings_Click(object sender, RoutedEventArgs e)
+        private void btnBrowseSyncPath_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -84,6 +84,7 @@ namespace Qiqqa.Synchronisation.GUI
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {

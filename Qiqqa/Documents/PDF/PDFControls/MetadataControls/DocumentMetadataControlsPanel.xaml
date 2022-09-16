@@ -55,14 +55,14 @@
                         </local_gui:AugmentedInfoBarItemControl>
                     </StackPanel>
                 </ScrollViewer>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Name="TabPreview">
-                    <StackPanel>
+                <DockPanel Name="TabPreview">
                     <local_gui:AugmentedInfoBarItemControl Header="Abstract" Name="ObjAbstract" Collapsed="False" DockPanel.Dock="Top">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" >
                             <local_metadata:AbstractPreviewControl />
+                        </ScrollViewer>
                     </local_gui:AugmentedInfoBarItemControl>
                     <Grid Name="GridPreview" />
-                    </StackPanel>
-                </ScrollViewer>
+                </DockPanel>
             </local_dualtab:DualTabbedLayout>
         </DockPanel>
         <local_gui:AugmentedBorder Name="TxtNullDataContext">

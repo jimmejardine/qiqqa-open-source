@@ -56,18 +56,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             CurrentColourNumber = 0;
 
             Loaded += PDFHighlightLayer_Loaded;
-            //Unloaded += PDFHighlightLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
+            this.Unloaded += PDFHighlightLayer_Unloaded;
         }
 
         private void PDFHighlightLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();
+            this.Dispose();
         }
 
         private void PDFHighlightLayer_Loaded(object sender, RoutedEventArgs e)
@@ -219,8 +213,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
                         drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
                         drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
                     }
-
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>

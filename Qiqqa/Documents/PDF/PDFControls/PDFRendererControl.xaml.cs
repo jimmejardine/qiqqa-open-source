@@ -70,8 +70,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             InitializeComponent();
 
-            //Unloaded += PDFRendererControl_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+            Unloaded += PDFRendererControl_Unloaded;
 
             pdf_renderer_control_stats = new PDFRendererControlStats(this, pdf_document);
             this.remember_last_read_page = remember_last_read_page;
@@ -141,11 +140,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             Logging.Info("-Setting initial viewport");
         }
 
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
-        }
-
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
         // Which says:
         //
@@ -155,7 +149,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         // or a UserControl, it may not be called as expected.
         private void PDFRendererControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();   
+            //Dispose();
         }
 
         private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -427,8 +421,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     {
                         pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
                     }
-
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>

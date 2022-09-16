@@ -64,18 +64,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                 }
             }
 
-            //Unloaded += PDFAnnotationLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
+            this.Unloaded += PDFAnnotationLayer_Unloaded;
         }
 
         private void PDFAnnotationLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();
+            this.Dispose();
         }
 
         public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
@@ -191,8 +185,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                     {
                         drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
                     }
-
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>

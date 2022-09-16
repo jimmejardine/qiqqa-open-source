@@ -111,7 +111,7 @@ namespace Qiqqa.DocumentLibrary
                 {
                     const double IMAGE_PERCENTAGE = 0.5;
 
-                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(page, ImageThumbnail.Height / IMAGE_PERCENTAGE, ImageThumbnail.Width / IMAGE_PERCENTAGE)))
+                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(page, ImageThumbnail.Height / IMAGE_PERCENTAGE)))
                     {
                         Bitmap image = (Bitmap)Image.FromStream(ms);
                         PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);

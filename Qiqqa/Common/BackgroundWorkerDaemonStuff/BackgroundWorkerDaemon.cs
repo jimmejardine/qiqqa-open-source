@@ -209,7 +209,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     {
                         try
                         {
-                            library.LibraryIndex?.IncrementalBuildIndex(web_library_detail);
+                            library.LibraryIndex.IncrementalBuildIndex(web_library_detail);
                         }
                         catch (Exception ex)
                         {

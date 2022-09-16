@@ -45,9 +45,6 @@ namespace Qiqqa.Main
 
             InitializeComponent();
 
-            Application.Current.SessionEnding += Current_SessionEnding;
-            Application.Current.Exit += Current_Exit;
-
             HourglassState = 2;
             WPFDoEvents.SetHourglassCursor();
 
@@ -84,8 +81,6 @@ namespace Qiqqa.Main
             SizeChanged += MainWindow_SizeChanged;
             KeyUp += MainWindow_KeyUp;
 
-            //Unloaded += MainWindow_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
             Closing += MainWindow_Closing;
             Closed += MainWindow_Closed;
 
@@ -104,41 +99,6 @@ namespace Qiqqa.Main
             //this.StateChanged += MainWindow_StateChanged;
 
             WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Logging.Info("x");
-
-            CleanUp();
-        }
-
-        private void Current_Exit(object sender, ExitEventArgs e)
-        {
-            Logging.Info("x");
-
-            CleanUp();
-        }
-
-        private void Current_SessionEnding(object sender, SessionEndingCancelEventArgs e)
-        {
-            Logging.Info("x");
-
-            CleanUp();
-        }
-
-        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
-        // Which says:
-        //
-        // Note that the Unloaded event is not raised after an application begins shutting down. 
-        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
-        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
-        // or a UserControl, it may not be called as expected.
-        private void MainWindow_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Logging.Info("x");
-
-            CleanUp();
         }
 
         private void Instance_WebLibrariesChanged()
@@ -311,17 +271,8 @@ namespace Qiqqa.Main
 
             MainEntry.SignalShutdown("Main window CLOSING event: user explicitly shutting down application.");
 
-            CleanUp();
-        }
-
-        private void CleanUp()
-        {
-            ipc_server?.Stop();
-            ipc_server = null;
-
-            FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
-
-            Application.Current?.Shutdown();
+            // If we get this far, they want out
+            already_exiting = true;
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
@@ -330,7 +281,12 @@ namespace Qiqqa.Main
 
             MainEntry.SignalShutdown("Main window CLOSED event: explicitly shutting down application.");
 
-            CleanUp();
+            ipc_server?.Stop();
+            ipc_server = null;
+
+            FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
+
+            Application.Current.Shutdown();
 
             Logging.Info("-Explicitly shutting down application");
         }

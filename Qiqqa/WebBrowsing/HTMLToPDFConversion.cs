@@ -66,7 +66,7 @@ namespace Qiqqa.WebBrowsing
                         {
                             process.WaitForExit();
 
-                            Logging.Info("HTMLToPDF:\n{0}", process_output_reader.GetOutputsDumpStrings());
+                            Logging.Info("HTMLToPDF:\n{0}", process_output_reader.GetOutputsDumpString());
                         }
                     }
                 }
