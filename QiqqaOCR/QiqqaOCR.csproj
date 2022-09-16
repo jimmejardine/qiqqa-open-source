@@ -59,7 +59,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;HAS_MUPDF_PAGE_RENDERER</DefineConstants>
+    <DefineConstants>TRACE;HAS_MUPDF_PAGE_RENDERER;HAS_NO_LUCENE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -71,7 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;HAS_MUPDF_PAGE_RENDERER</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;HAS_MUPDF_PAGE_RENDERER;HAS_NO_LUCENE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisLogFile>bin\Debug\QiqqaOCR.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
