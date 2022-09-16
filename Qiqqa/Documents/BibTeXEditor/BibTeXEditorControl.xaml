@@ -77,9 +77,12 @@
                     DockPanel.Dock="Top"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
-                    <RichTextBox
+                    <TextBox
+                        Name="ObjBibTeXText"
                         AcceptsReturn="True"
-                        DockPanel.Dock="Top" />
+                        Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Background}"
+                        DockPanel.Dock="Top"
+                        TextWrapping="Wrap" />
                 </ScrollViewer>
             </Grid>
             <Grid Name="ObjErrorPanel">
