@@ -1221,6 +1221,24 @@ namespace Qiqqa.Documents.PDF
             return pdf_document;
         }
 
+#if DEBUG
+        public static PDFDocument CreateFakeForDesigner()
+        {
+            LockObject _lock = new LockObject();
+            PDFDocument pdf_document = new PDFDocument(_lock, null);
+
+            // Store the most important information
+            //
+            // thread-UNSAFE access is permitted as the PDF has just been created so there's no thread-safety risk yet.
+            pdf_document.doc.FileType = Constants.VanillaReferenceFileType;
+            pdf_document.doc.Fingerprint = VanillaReferenceCreating.CreateVanillaReferenceFingerprint();
+            pdf_document.doc.DateAddedToDatabase = DateTime.UtcNow;
+            pdf_document.doc.DateLastModified = DateTime.UtcNow;
+
+            return pdf_document;
+        }
+#endif
+
         public void CopyMetaData(PDFDocument pdf_document_template, bool copy_fingerprint = true, bool copy_filetype = true)
         {
             // prevent deadlock due to possible incorrect use of this API:
