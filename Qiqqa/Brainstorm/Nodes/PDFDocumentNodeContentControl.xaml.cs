@@ -17,6 +17,7 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Language;
 using Utilities.Mathematics.Topics.LDAStuff;
+using Utilities.Misc;
 
 namespace Qiqqa.Brainstorm.Nodes
 {
@@ -77,30 +78,40 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        private void ExpandRelevants()
+        private static void ExpandRelevants(PDFDocument doc, NodeControl node_control)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Similars);
 
-            List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(pdf_document_node_content.PDFDocument, 10);
-            foreach (ExpeditionPaperSuggestions.Result result in results)
+            List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(doc, 10);
+
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(result.pdf_document.Fingerprint, result.pdf_document.LibraryRef.Id);
-                NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
-            }
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                foreach (ExpeditionPaperSuggestions.Result result in results)
+                {
+                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(result.pdf_document.Fingerprint, result.pdf_document.LibraryRef.Id);
+                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                }
+            });
         }
 
-        private void ExpandSimilars()
+        private static void ExpandSimilars(PDFDocument doc, NodeControl node_control)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Similars);
 
-            if (null != pdf_document_node_content.PDFDocument.LibraryRef.Xlibrary.ExpeditionManager)
+            if (null != doc.LibraryRef.Xlibrary.ExpeditionManager)
             {
-                ExpeditionDataSource eds = pdf_document_node_content.PDFDocument.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+                ExpeditionDataSource eds = doc.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
                 if (null != eds)
                 {
-                    if (eds.docs_index.ContainsKey(pdf_document_node_content.PDFDocument.Fingerprint))
+                    if (eds.docs_index.ContainsKey(doc.Fingerprint))
                     {
-                        int doc_id = eds.docs_index[pdf_document_node_content.PDFDocument.Fingerprint];
+                        int doc_id = eds.docs_index[doc.Fingerprint];
                         float[,] density_of_topics_in_docs = eds.LDAAnalysis.DensityOfTopicsInDocuments;
 
                         float[] distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
@@ -109,36 +120,41 @@ namespace Qiqqa.Brainstorm.Nodes
                             distribution[topic_i] = density_of_topics_in_docs[doc_id, topic_i];
                         }
 
-                        ThemeNodeContentControl.AddDocumentsSimilarToDistribution(node_control, pdf_document_node_content.PDFDocument.LibraryRef, eds, distribution);
+                            ThemeNodeContentControl.AddDocumentsSimilarToDistribution(node_control, doc.LibraryRef, eds, distribution);
                     }
                 }
             }
         }
 
-        private void ExpandThemes()
+        private static void ExpandThemes(PDFDocument doc, NodeControl node_control)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Themes);
 
             bool added_at_least_one_theme = false;
 
-            if (null != pdf_document_node_content.PDFDocument.LibraryRef.Xlibrary.ExpeditionManager)
+            if (null != doc.LibraryRef.Xlibrary.ExpeditionManager)
             {
-                ExpeditionDataSource eds = pdf_document_node_content.PDFDocument.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+                ExpeditionDataSource eds = doc.LibraryRef.Xlibrary.ExpeditionManager.ExpeditionDataSource;
                 if (null != eds)
                 {
-                    if (eds.docs_index.ContainsKey(pdf_document_node_content.PDFDocument.Fingerprint))
+                    if (eds.docs_index.ContainsKey(doc.Fingerprint))
                     {
-                        int doc_id = eds.docs_index[pdf_document_node_content.PDFDocument.Fingerprint];
+                        int doc_id = eds.docs_index[doc.Fingerprint];
                         TopicProbability[] topics = eds.LDAAnalysis.DensityOfTopicsInDocsSorted[doc_id];
 
-                        for (int t = 0; t < topics.Length && t < 5; ++t)
+                        WPFDoEvents.InvokeInUIThread(() =>
                         {
-                            string topic_name = eds.GetDescriptionForTopic(topics[t].topic, include_topic_number: false, "\n");
-                            ThemeNodeContent tnc = new ThemeNodeContent(topic_name, pdf_document_node_content.PDFDocument.LibraryRef.Id);
-                            NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, tnc, false);
+                            for (int t = 0; t < topics.Length && t < 5; ++t)
+                            {
+                                string topic_name = eds.GetDescriptionForTopic(topics[t].topic, include_topic_number: false, "\n");
+                                ThemeNodeContent tnc = new ThemeNodeContent(topic_name, doc.LibraryRef.Id);
+                                NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, tnc, false);
 
-                            added_at_least_one_theme = true;
-                        }
+                                added_at_least_one_theme = true;
+                            }
+                        });
                     }
                 }
             }
@@ -149,102 +165,141 @@ namespace Qiqqa.Brainstorm.Nodes
             }
         }
 
-        private void ExpandCitationsInbound()
+        private static void ExpandCitationsInbound(PDFDocument doc, NodeControl node_control)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_CitationsInbound);
 
-            List<Citation> citations = pdf_document_node_content.PDFDocument.PDFDocumentCitationManager.GetInboundCitations();
+            List<Citation> citations = doc.PDFDocumentCitationManager.GetInboundCitations();
 
-            foreach (var citation in citations)
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(citation.fingerprint_outbound, pdf_document_node_content.PDFDocument.LibraryRef.Id);
-                if (!content.PDFDocument.Deleted)
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                foreach (var citation in citations)
                 {
-                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(citation.fingerprint_outbound, doc.LibraryRef.Id);
+                    if (!content.PDFDocument.Deleted)
+                    {
+                        NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                    }
                 }
-            }
+            });
         }
 
-        private void ExpandCitationsOutbound()
+        private static void ExpandCitationsOutbound(PDFDocument doc, NodeControl node_control)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_CitationsOutbound);
 
-            List<Citation> citations = pdf_document_node_content.PDFDocument.PDFDocumentCitationManager.GetOutboundCitations();
+            List<Citation> citations = doc.PDFDocumentCitationManager.GetOutboundCitations();
 
-            foreach (var citation in citations)
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // NB: We assube the citations are from the same library!!
-                PDFDocumentNodeContent content = new PDFDocumentNodeContent(citation.fingerprint_inbound, pdf_document_node_content.PDFDocument.LibraryRef.Id);
-                if (!content.PDFDocument.Deleted)
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                foreach (var citation in citations)
                 {
-                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                    // NB: We assube the citations are from the same library!!
+                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(citation.fingerprint_inbound, doc.LibraryRef.Id);
+                    if (!content.PDFDocument.Deleted)
+                    {
+                        NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                    }
                 }
-            }
+            });
         }
 
-        private void ExpandAnnotations()
+        private static void ExpandAnnotations(PDFDocument doc, NodeControl node_control)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Annotations);
 
-            foreach (var annotation in pdf_document_node_content.PDFDocument.GetAnnotations())
+            var annotations = doc.GetAnnotations();
+
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (!annotation.Deleted)
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                foreach (var annotation in annotations)
                 {
-                    PDFAnnotationNodeContent content = new PDFAnnotationNodeContent(pdf_document_node_content.PDFDocument.LibraryRef.Id, pdf_document_node_content.PDFDocument.Fingerprint, annotation.Guid.Value);
-                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                    if (!annotation.Deleted)
+                    {
+                        PDFAnnotationNodeContent content = new PDFAnnotationNodeContent(doc.LibraryRef.Id, doc.Fingerprint, annotation.Guid.Value);
+                        NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, content, false);
+                    }
                 }
-            }
+            });
         }
 
-        private void ExpandAutoTags()
+        private static void ExpandAutoTags(PDFDocument doc, NodeControl node_control)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_AutoTags);
 
-            PDFDocument pdf_document = pdf_document_node_content.PDFDocument;
+            HashSet<string> tags = doc.LibraryRef.Xlibrary.AITagManager.AITags.GetTagsWithDocument(doc.Fingerprint);
 
-            HashSet<string> tags = pdf_document.LibraryRef.Xlibrary.AITagManager.AITags.GetTagsWithDocument(pdf_document.Fingerprint);
-            foreach (string tag in tags)
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                PDFAutoTagNodeContent pdf_auto_tag = new PDFAutoTagNodeContent(pdf_document.LibraryRef.Id, tag);
-                NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_auto_tag, false);
-            }
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                foreach (string tag in tags)
+                {
+                    PDFAutoTagNodeContent pdf_auto_tag = new PDFAutoTagNodeContent(doc.LibraryRef.Id, tag);
+                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_auto_tag, false);
+                }
+            });
         }
 
-        private void ExpandTags()
+        private static void ExpandTags(PDFDocument doc, NodeControl node_control)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Tags);
 
-            PDFDocument pdf_document = pdf_document_node_content.PDFDocument;
+            var tags = TagTools.ConvertTagBundleToTags(doc.Tags);
 
-            foreach (string tag in TagTools.ConvertTagBundleToTags(pdf_document.Tags))
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                PDFTagNodeContent pdf_tag = new PDFTagNodeContent(pdf_document.LibraryRef.Id, tag);
-                NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_tag, false);
-            }
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                foreach (string tag in tags)
+                {
+                    PDFTagNodeContent pdf_tag = new PDFTagNodeContent(doc.LibraryRef.Id, tag);
+                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_tag, false);
+                }
+            });
         }
 
-        private void ExpandAuthors()
+        private static void ExpandAuthors(PDFDocument doc, NodeControl node_control)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Document_Authors);
 
-            PDFDocument pdf_document = pdf_document_node_content.PDFDocument;
-
-            string authors = pdf_document.AuthorsCombined;
+            string authors = doc.AuthorsCombined;
             if (String.IsNullOrEmpty(authors) || Constants.UNKNOWN_AUTHORS == authors)
             {
                 return;
             }
 
-            List<NameTools.Name> names = new List<NameTools.Name>();
-            string[] authors_split = NameTools.SplitAuthors_LEGACY(authors);
-            foreach (string author_split in authors_split)
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                string first_names, last_name;
-                NameTools.SplitName_LEGACY(author_split, out first_names, out last_name);
-                string initial = String.IsNullOrEmpty(first_names) ? null : first_names.Substring(0, 1);
-                PDFAuthorNodeContent pdf_author = new PDFAuthorNodeContent(pdf_document.LibraryRef.Id, last_name, initial);
-                NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_author, false);
-            }
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                List<NameTools.Name> names = new List<NameTools.Name>();
+                string[] authors_split = NameTools.SplitAuthors_LEGACY(authors);
+                foreach (string author_split in authors_split)
+                {
+                    string first_names, last_name;
+                    NameTools.SplitName_LEGACY(author_split, out first_names, out last_name);
+                    string initial = String.IsNullOrEmpty(first_names) ? null : first_names.Substring(0, 1);
+                    PDFAuthorNodeContent pdf_author = new PDFAuthorNodeContent(doc.LibraryRef.Id, last_name, initial);
+                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control, pdf_author, false);
+                }
+            });
         }
 
         private void PDFDocumentNodeContentControl_ToolTipOpening(object sender, ToolTipEventArgs e)
@@ -282,47 +337,74 @@ namespace Qiqqa.Brainstorm.Nodes
             switch (e.Key)
             {
                 case Key.I:
-                    ExpandCitationsInbound();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandCitationsInbound(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 
                 case Key.O:
-                    ExpandCitationsOutbound();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandCitationsOutbound(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 
                 case Key.A:
-                    ExpandAuthors();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandAuthors(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 
                 case Key.T:
-                    ExpandTags();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandTags(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 
                 case Key.G:
-                    ExpandAutoTags();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandAutoTags(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 
                 case Key.N:
-                    ExpandAnnotations();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandAnnotations(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 
                 case Key.M:
-                    ExpandThemes();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandThemes(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 
                 case Key.S:
-                    ExpandSimilars();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandSimilars(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 
                 case Key.R:
-                    ExpandRelevants();
+                    SafeThreadPool.QueueUserWorkItem(o =>
+                    {
+                        ExpandRelevants(pdf_document_node_content.PDFDocument, node_control);
+                    });
                     e.Handled = true;
                     break;
 

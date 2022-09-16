@@ -8,6 +8,8 @@ using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Qiqqa.UtilisationTracking;
+using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
 {
@@ -85,13 +87,27 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
         public void SetPDFDocument(PDFDocument doc)
         {
             pdf_document = doc;
-            RepopulatePanels();
+
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                RepopulatePanels();
+            });
         }
 
         private void RepopulatePanels()
         {
-            PopulatePanelWithCitations(DocsPanel_Outbound, pdf_document, pdf_document.PDFDocumentCitationManager.GetOutboundCitations(), Features.Citations_OpenDoc);
-            PopulatePanelWithCitations(DocsPanel_Inbound, pdf_document, pdf_document.PDFDocumentCitationManager.GetInboundCitations(), Features.Citations_OpenDoc);
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            var outbound = pdf_document.PDFDocumentCitationManager.GetOutboundCitations();
+            var inbound = pdf_document.PDFDocumentCitationManager.GetInboundCitations();
+
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            {
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                PopulatePanelWithCitations(DocsPanel_Outbound, pdf_document, outbound, Features.Citations_OpenDoc);
+                PopulatePanelWithCitations(DocsPanel_Inbound, pdf_document, inbound, Features.Citations_OpenDoc);
+            });
         }
 
         public void ImageRefresh_MouseUp(object sender, MouseButtonEventArgs e)

@@ -31,7 +31,7 @@ namespace Qiqqa.Documents.PDF.Search
             }
 
             string current_context_sentence = search_result.context_sentence;
-            string current_context_sentence_lower = current_context_sentence.ToLower(CultureInfo.CurrentCulture);
+            string current_context_sentence_lower = current_context_sentence.ToLower();
 
             while (!String.IsNullOrEmpty(current_context_sentence))
             {
@@ -65,7 +65,7 @@ namespace Qiqqa.Documents.PDF.Search
                     }
 
                     current_context_sentence = current_context_sentence.Substring(next_keyword_pos + search_result.keywords[next_k].Length);
-                    current_context_sentence_lower = current_context_sentence.ToLower(CultureInfo.CurrentCulture);
+                    current_context_sentence_lower = current_context_sentence.ToLower();
                 }
 
                 else

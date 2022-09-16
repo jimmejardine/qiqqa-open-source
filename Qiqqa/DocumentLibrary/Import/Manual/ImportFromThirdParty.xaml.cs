@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
@@ -213,6 +214,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             _currentSelectedExportFile = null;
 
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
             switch (_currentProvider)
             {
                 case Providers.BibTeX:
@@ -271,6 +276,10 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         private void ChooseSupplementaryFolder(object sender, RoutedEventArgs e)
         {
             _currentSelectedSupplementaryFolder = null;
+
+#if DEBUG
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             switch (_currentProvider)
             {
@@ -453,16 +462,17 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private static string GetFolderNameFromDialog(string title, string defaultFolder)
         {
-            using (System.Windows.Forms.FolderBrowserDialog ofd = new System.Windows.Forms.FolderBrowserDialog())
+            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
             {
-                ofd.Description = title;
-                ofd.SelectedPath = defaultFolder;
-
-                if (System.Windows.Forms.DialogResult.OK != ofd.ShowDialog())
+                dialog.IsFolderPicker = true;
+                dialog.Title = title;
+                dialog.DefaultDirectory = defaultFolder;
+                CommonFileDialogResult result = dialog.ShowDialog();
+                if (result != CommonFileDialogResult.Ok)
                 {
                     return null;
                 }
-                return ofd.SelectedPath;
+                return dialog.FileName;
             }
         }
 

@@ -1259,6 +1259,8 @@ namespace Qiqqa.Documents.PDF
 
         internal PDFDocument AssociatePDFWithVanillaReference(string pdf_filename)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             PDFDocument new_pdf_document = doc.AssociatePDFWithVanillaReference_Part1(pdf_filename, LibraryRef);
 
             // Prevent nasty things when the API is used in unintended ways, where the current document already happens to have that file

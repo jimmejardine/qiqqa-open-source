@@ -185,7 +185,7 @@ namespace Qiqqa.DocumentLibrary
             Directory.CreateDirectory(web_library_detail.LIBRARY_BASE_PATH);
             Directory.CreateDirectory(web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH);
 
-            library_db = new LibraryDB(web_library_detail.LIBRARY_BASE_PATH);
+            library_db = new LibraryDB(web_library_detail);
             folder_watcher_manager = new FolderWatcherManager(web_library_detail);
             library_index = new LibraryIndex(web_library_detail);
             ai_tag_manager = new AITagManager(web_library_detail);

@@ -784,7 +784,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 {
                     TextLibraryCount.Text = String.Format("{0} document(s) in this library, {1}",
                         web_library_detail.Xlibrary?.PDFDocuments_IncludingDeleted_Count ?? 0,
-                        web_library_detail.LastSynced.HasValue ? $"last synced on {web_library_detail.LastSynced.Value.ToString()}" : @"has never been synced yet");
+                        web_library_detail.LastSynced.HasValue ? $"which was last synced on {web_library_detail.LastSynced.Value}" : @"which has never been synced yet");
                 }
 
                 // The wizard stuff
@@ -809,7 +809,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     else if (web_library_detail.IsBundleLibrary)
                     {
                         ButtonIcon.Source = Icons.GetAppIcon(Icons.LibraryTypeBundle);
-                        ButtonIcon.ToolTip = "This is a Bundle Library.\nIt's contents will be updated automatically when the Bundle is updates by it's administrator.";
+                        ButtonIcon.ToolTip = "This is a Bundle Library.\nIt's contents will be updated automatically when the Bundle is updated by it's administrator.";
                     }
                     else
                     {

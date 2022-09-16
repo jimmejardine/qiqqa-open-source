@@ -1,13 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using icons;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Backups;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
+using Qiqqa.UpgradePaths;
 using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities;
@@ -54,6 +57,9 @@ namespace Qiqqa.Main.LoginStuff
             ImageQiqqaLogo.Source = Icons.GetAppIcon(Icons.QiqqaLogoSmall);
 
             ObjQiqqaDatabaseLocation.Text = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+            ObjQiqqaDatabaseLocation.ToolTip = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+
+            ButtonChangeBasePath.Click += ButtonChangeBasePath_Click;
 
             ButtonRestore.Icon = Icons.GetAppIcon(Icons.Backup);
             ButtonRestore.IconWidth = ButtonRestore.IconHeight = 64;
@@ -73,6 +79,23 @@ namespace Qiqqa.Main.LoginStuff
             Closing += LoginWindow_Closing;
             Closed += LoginWindow_Closed;
             KeyDown += LoginWindow_KeyDown;
+        }
+
+        private void ButtonChangeBasePath_Click(object sender, RoutedEventArgs e)
+        {
+            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            {
+                dialog.InitialDirectory = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+                dialog.IsFolderPicker = true;
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    ConfigurationManager.Instance.BaseDirectoryForQiqqa = dialog.FileName;
+                    ObjQiqqaDatabaseLocation.Text = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+                    ObjQiqqaDatabaseLocation.ToolTip = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+
+                    Logging.Info("The user changed the Qiqqa Base directory to folder: {0}", dialog.FileName);
+                }
+            }
         }
 
         private void UpdateStatusMessage(string message)
@@ -97,11 +120,13 @@ namespace Qiqqa.Main.LoginStuff
 
         private void ButtonBackup_Click(object sender, RoutedEventArgs e)
         {
+            ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
             BackingUp.DoBackup();
         }
 
         private void ButtonRestore_Click(object sender, RoutedEventArgs e)
         {
+            ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
             BackingUp.DoRestore();
         }
 
@@ -130,6 +155,7 @@ namespace Qiqqa.Main.LoginStuff
         {
             IsEnabled = false;
 
+            ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
             ConfigurationManager.Instance.ResetConfigurationRecordToGuest();
             CloseToContinue();
         }
@@ -160,6 +186,8 @@ namespace Qiqqa.Main.LoginStuff
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
             WPFDoEvents.SetHourglassCursor();
 
+            ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
+
             // Initialise the web browser
             try
             {
@@ -174,11 +202,29 @@ namespace Qiqqa.Main.LoginStuff
                 Logging.Error(ex, "Problem initialising GeckoFX.");
             }
 
+            Logging.Info("Log the config+stats again now that we are sure to have loaded the working configuration:");
+            ComputerStatistics.LogCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
+
             // Fire up Qiqqa!
-            StatusManager.Instance.UpdateStatus("AppStart", "Starting background processes");
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                StartDaemonSingletons();
+                try
+                {
+                    // Perform any upgrade paths that we must
+                    StatusManager.Instance.UpdateStatus("AppStart", "Upgrading old libraries");
+                    UpgradeManager.RunUpgrades();
+
+#if false
+                    Thread.Sleep(15000);
+#endif
+
+                    StatusManager.Instance.UpdateStatus("AppStart", "Starting background processes");
+                    WebLibraryManager.Instance.Kick();
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Problem while starting up the Qiqqa core.");
+                }
             });
 
             StatusManager.Instance.UpdateStatus("AppStart", "Launching Qiqqa!");
@@ -187,12 +233,6 @@ namespace Qiqqa.Main.LoginStuff
             window.Show();
 
             Hide();
-        }
-
-        private void StartDaemonSingletons()
-        {
-            StatusManager.Instance.UpdateStatus("AppStart", "Starting libraries");
-            WebLibraryManager.Init();
         }
 
         private void FireStartUseFeature()

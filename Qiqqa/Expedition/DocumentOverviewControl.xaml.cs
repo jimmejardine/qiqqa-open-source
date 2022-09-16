@@ -33,10 +33,25 @@ namespace Qiqqa.Expedition
         {
             InitializeComponent();
 
+            Unloaded += DocumentOverviewControl_Unloaded;
+
             DataContextChanged += TopicOverviewControl_DataContextChanged;
 
             TxtTitle.Cursor = Cursors.Hand;
             TxtTitle.MouseLeftButtonUp += TxtTitle_MouseLeftButtonUp;
+        }
+
+        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
+        // Which says:
+        //
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
+        // or a UserControl, it may not be called as expected.
+        private void DocumentOverviewControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // TODO: discard the pdf renderer
+            //throw new NotImplementedException();
         }
 
         private void TxtTitle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -84,8 +99,6 @@ namespace Qiqqa.Expedition
             {
                 Logging.Error(ex, "There was a problem with Expedition for document {0}", pdf_document.Fingerprint);
             }
-
-
 
             if (pdf_document_bindable.Underlying.DocumentExists)
             {

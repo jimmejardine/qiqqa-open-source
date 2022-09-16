@@ -74,9 +74,9 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
                         return new DictionaryBasedObject(attributes);
                     }
-
-                    throw ex;
                 }
+
+                throw;
             }
         }
 

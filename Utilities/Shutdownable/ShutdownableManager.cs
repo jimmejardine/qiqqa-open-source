@@ -65,9 +65,23 @@ namespace Utilities.Shutdownable
             }
         }
 
-        public void Shutdown()
+        static private string first_known_shutdown_reason = null;
+        static private object first_known_shutdown_reason_lock = new object();
+
+        public void Shutdown(string reason)
         {
-            Logging.Info("ShutdownableManager is shutting down all shutdownables:");
+            lock (first_known_shutdown_reason_lock)
+            {
+                if (first_known_shutdown_reason == null)
+                {
+                    first_known_shutdown_reason = reason;
+                }
+                else
+                {
+                    reason = $"{first_known_shutdown_reason}\n    Subsequent shutdown reason: {reason}";
+                }
+            }
+            Logging.Info($"ShutdownableManager is shutting down all shutdownables. Reason: {reason}");
 
             IsShuttingDown = true;
 

@@ -48,6 +48,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             InitializeComponent();
 
+            Unloaded += PDFReadingControl_Unloaded;
+
             GoogleScholarSideBar.Visibility = Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.GoogleScholar_DoExtraBackgroundQueries ? Visibility.Visible : Visibility.Collapsed;
 
             pdf_renderer_control = new PDFRendererControl(pdf_document, true);
@@ -266,6 +268,19 @@ namespace Qiqqa.Documents.PDF.PDFControls
             SafeThreadPool.QueueUserWorkItem(o => PDFRendererControlInterestingAnalysis.DoInterestingAnalysis(this, pdf_renderer_control, pdf_renderer_control_stats));
 
             Loaded += PDFReadingControl_Loaded;
+        }
+
+        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
+        // Which says:
+        //
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
+        // or a UserControl, it may not be called as expected.
+        private void PDFReadingControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // TODO: kill the pdf renderer
+            //throw new NotImplementedException();
         }
 
         private void PDFReadingControl_Loaded(object sender, RoutedEventArgs e)

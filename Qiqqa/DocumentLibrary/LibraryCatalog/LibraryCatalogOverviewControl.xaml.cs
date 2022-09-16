@@ -15,6 +15,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Wizard;
+using Utilities.Misc;
 using Utilities.Reflection;
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
@@ -261,7 +262,20 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
             // Populate the linked documents
             PDFDocument pdf_document = PDFDocumentBindable.Underlying;
-            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
+
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+                var links = pdf_document.PDFDocumentCitationManager.GetLinkedDocuments();
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                    CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, links, Features.LinkedDocument_Library_OpenDoc, " » ", false);
+                });
+            });
         }
 
         private void ButtonSearchInside_Click(object sender, RoutedEventArgs e)

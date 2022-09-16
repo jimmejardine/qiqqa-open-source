@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
+using Utilities.Misc;
 
 namespace Qiqqa.Brainstorm.Nodes
 {
@@ -31,6 +32,10 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             if (2 == e.ClickCount)
             {
+#if DEBUG
+                if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
+
                 OpenFileDialog dialog = new OpenFileDialog();
                 dialog.Filter = "Image files|*.jpeg;*.jpg;*.png;*.gif;*.bmp" + "|" + "All files|*.*";
                 dialog.CheckFileExists = true;

@@ -31,8 +31,10 @@ namespace Utilities.Files
             {
                 return Load(filename);
             }
-            catch
+            catch (Exception ex)
             {
+                Logging.Error(ex, $"LoadRedundant: failed to load '{filename}'. Checking if there's a redundant copy.");
+
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))
@@ -98,7 +100,7 @@ namespace Utilities.Files
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Error saving {0}", filename);
+                Logging.Warn(ex, $"Error saving '{filename}'");
             }
         }
 
@@ -115,7 +117,7 @@ namespace Utilities.Files
             }
             catch (Exception ex)
             {
-                Logging.Warn(ex, "Error loading {0}", filename);
+                Logging.Error(ex, $"Error loading '{filename}'");
                 return null;
             }
         }
@@ -145,7 +147,7 @@ namespace Utilities.Files
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "Failed to parse JSON file '{0}'", filename);
+                Logging.Error(ex, $"Failed to parse JSON file '{filename}'");
                 return null;
             }
         }
@@ -175,8 +177,10 @@ namespace Utilities.Files
             {
                 return TextLoad_NotRedundant(filename);
             }
-            catch
+            catch (Exception ex)
             {
+                Logging.Error(ex, $"TextLoad: failed to load '{filename}'. Checking if there's a redundant copy.");
+
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))
@@ -232,8 +236,10 @@ namespace Utilities.Files
             {
                 return ProtoLoad<T>(filename);
             }
-            catch
+            catch (Exception ex)
             {
+                Logging.Error(ex, $"ProtoLoadWithNull: failed to load '{filename}'.");
+
                 return null;
             }
         }
@@ -244,8 +250,10 @@ namespace Utilities.Files
             {
                 return ProtoLoad_NotRedundant<T>(filename);
             }
-            catch
+            catch (Exception ex)
             {
+                Logging.Error(ex, $"ProtoLoad: failed to load '{filename}'. Checking if there's a redundant copy.");
+
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))

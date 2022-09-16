@@ -215,14 +215,22 @@ namespace Utilities.GUI
         {
             // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
             // Besides, the basic test would fail when we are shutting down the application.
-            ASSERT.Test(!CurrentThreadIsUIThread() || ShutdownableManager.Instance.IsShuttingDown, "This code MUST NOT execute in the Main UI Thread.", dont_throw: true);
+            bool state = !CurrentThreadIsUIThread() || ShutdownableManager.Instance.IsShuttingDown;
+            if (!state)
+            {
+                ASSERT.Test(state, "This code MUST NOT execute in the Main UI Thread.", dont_throw: true);
+            }
         }
 
         [Conditional("DEBUG")]
         public static void AssertThisCodeIsRunningInTheUIThread()
         {
             // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
-            ASSERT.Test(CurrentThreadIsUIThread(), "This code MUST execute in the Main UI Thread.", dont_throw: true);
+            bool state = CurrentThreadIsUIThread();
+            if (!state)
+            {
+                ASSERT.Test(false, "This code MUST execute in the Main UI Thread.", dont_throw: true);
+            }
         }
 
         public static void SafeExec(Action f, Dispatcher override_dispatcher = null, bool must_exec_in_UI_thread = false)

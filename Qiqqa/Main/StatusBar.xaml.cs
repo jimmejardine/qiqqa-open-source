@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Qiqqa.Common.BackgroundWorkerDaemonStuff;
 using Utilities;
+using Qiqqa.ClientVersioning;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Shutdownable;

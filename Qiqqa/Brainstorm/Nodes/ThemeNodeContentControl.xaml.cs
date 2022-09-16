@@ -13,7 +13,9 @@ using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Qiqqa.Expedition;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Mathematics.Topics.LDAStuff;
+using Utilities.Misc;
 using Utilities.Reflection;
 
 namespace Qiqqa.Brainstorm.Nodes
@@ -67,24 +69,34 @@ namespace Qiqqa.Brainstorm.Nodes
 
         internal void ColourNodeBackground(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
-            TextBorder.Opacity = 0.8;
-            TextBorder.Background = ThemeBrushes.GetBrushForDistribution(web_library_detail, tags_distribution.Length, tags_distribution);
-            if (ThemeBrushes.UNKNOWN_BRUSH == TextBorder.Background)
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                TextBorder.Background = NodeThemes.background_brush;
-            }
+                TextBorder.Opacity = 0.8;
+                TextBorder.Background = ThemeBrushes.GetBrushForDistribution(web_library_detail, tags_distribution.Length, tags_distribution);
+                if (ThemeBrushes.UNKNOWN_BRUSH == TextBorder.Background)
+                {
+                    TextBorder.Background = NodeThemes.background_brush;
+                }
+            });
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         internal void ExpandInfluentialDocuments()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Theme_DocumentsInfluential);
+
             ApplyTagsDistribution(AddDocumentsInfluentialInDistribution);
         }
 
         internal static void AddDocumentsInfluentialInDistribution(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Logging.Info("+Performing ThemedPageRank on {0} documents", eds.LDAAnalysis.NUM_DOCS);
 
             // We have the distribution of the topic in tags_distribution
@@ -197,110 +209,130 @@ namespace Qiqqa.Brainstorm.Nodes
             Array.Reverse(pageranks_current);
             Array.Reverse(docs);
 
-            // Make the nodes
-            for (int doc = 0; doc < 10 && doc < docs.Length; ++doc)
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                int doc_id = docs[doc];
-                string fingerprint = eds.docs[doc_id];
+                // Make the nodes
+                for (int doc = 0; doc < 10 && doc < docs.Length; ++doc)
+                {
+                    int doc_id = docs[doc];
+                    string fingerprint = eds.docs[doc_id];
 
-                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
-                if (null == pdf_document)
-                {
-                    Logging.Warn("Couldn't find similar document with fingerprint {0}", fingerprint);
+                    PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
+                    if (null == pdf_document)
+                    {
+                        Logging.Warn("Couldn't find similar document with fingerprint {0}", fingerprint);
+                    }
+                    else
+                    {
+                        PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
+                        NodeControlAddingByKeyboard.AddChildToNodeControl(node_control_, content, false);
+                    }
                 }
-                else
-                {
-                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
-                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control_, content, false);
-                }
-            }
+            });
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         internal void ExpandSpecificDocuments()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Brainstorm_ExploreLibrary_Theme_Documents);
             ApplyTagsDistribution(AddDocumentsSimilarToDistribution);
         }
 
         internal static void AddDocumentsSimilarToDistribution(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // Get the most similar PDFDocuments
             int[] doc_ids = LDAAnalysisTools.GetDocumentsSimilarToDistribution(eds.LDAAnalysis, tags_distribution);
 
-            for (int i = 0; i < 10 && i < doc_ids.Length; ++i)
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                int doc_id = doc_ids[i];
-                string fingerprint = eds.docs[doc_id];
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
-                if (null == pdf_document)
+                for (int i = 0; i < 10 && i < doc_ids.Length; ++i)
                 {
-                    Logging.Warn("Couldn't find similar document with fingerprint {0}", fingerprint);
+                    int doc_id = doc_ids[i];
+                    string fingerprint = eds.docs[doc_id];
+
+                    PDFDocument pdf_document = web_library_detail.Xlibrary.GetDocumentByFingerprint(fingerprint);
+                    if (null == pdf_document)
+                    {
+                        Logging.Warn("Couldn't find similar document with fingerprint {0}", fingerprint);
+                    }
+                    else
+                    {
+                        PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
+                        NodeControlAddingByKeyboard.AddChildToNodeControl(node_control_, content, false);
+                    }
                 }
-                else
-                {
-                    PDFDocumentNodeContent content = new PDFDocumentNodeContent(pdf_document.Fingerprint, pdf_document.LibraryRef.Id);
-                    NodeControlAddingByKeyboard.AddChildToNodeControl(node_control_, content, false);
-                }
-            }
+            });
         }
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         private void ApplyTagsDistribution(DistributionUseDelegate distribution_use)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             // Get the distribution for the themes
             string tags = theme_node_content.Underlying.Tags;
             string[] tags_array = tags.Split('\n');
 
             string library_fingerprint = theme_node_content.Underlying.library_fingerprint;
-            WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(library_fingerprint);
-            if (null == web_library_detail)
-            {
-                Logging.Warn("Unable to locate library " + library_fingerprint);
-                return;
-            }
 
-            if (null == web_library_detail.Xlibrary.ExpeditionManager || null == web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                Logging.Warn("Expedition has not been run for library '{0}'.", web_library_detail.Title);
-                return;
-            }
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-
-            float[] tags_distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
-            int tags_distribution_denom = 0;
-            foreach (string tag in tags_array)
-            {
-                if (eds.words_index.ContainsKey(tag))
+                WebLibraryDetail web_library_detail = WebLibraryManager.Instance.GetLibrary(library_fingerprint);
+                if (null == web_library_detail)
                 {
-                    ++tags_distribution_denom;
+                    Logging.Warn("Unable to locate library " + library_fingerprint);
+                    return;
+                }
 
-                    int tag_id = eds.words_index[tag];
-                    for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                if (null == web_library_detail.Xlibrary.ExpeditionManager || null == web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+                {
+                    Logging.Warn("Expedition has not been run for library '{0}'.", web_library_detail.Title);
+                    return;
+                }
+
+                ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+
+                float[] tags_distribution = new float[eds.LDAAnalysis.NUM_TOPICS];
+                int tags_distribution_denom = 0;
+                foreach (string tag in tags_array)
+                {
+                    if (eds.words_index.ContainsKey(tag))
                     {
-                        tags_distribution[topic_i] += eds.LDAAnalysis.PseudoDensityOfTopicsInWords[tag_id, topic_i];
+                        ++tags_distribution_denom;
+
+                        int tag_id = eds.words_index[tag];
+                        for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                        {
+                            tags_distribution[topic_i] += eds.LDAAnalysis.PseudoDensityOfTopicsInWords[tag_id, topic_i];
+                        }
+                    }
+                    else
+                    {
+                        Logging.Warn("Ignoring tag {0} which we don't recognise.", tag);
                     }
                 }
-                else
-                {
-                    Logging.Warn("Ignoring tag {0} which we don't recognise.", tag);
-                }
-            }
 
-            if (0 < tags_distribution_denom)
-            {
-                // Normalise the tags distribution
-                for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                if (0 < tags_distribution_denom)
                 {
-                    tags_distribution[topic_i] /= tags_distribution_denom;
+                    // Normalise the tags distribution
+                    for (int topic_i = 0; topic_i < eds.LDAAnalysis.NUM_TOPICS; ++topic_i)
+                    {
+                        tags_distribution[topic_i] /= tags_distribution_denom;
+                    }
                 }
-            }
 
-            distribution_use(node_control, web_library_detail, eds, tags_distribution);
+                distribution_use(node_control, web_library_detail, eds, tags_distribution);
+            });
         }
 
         private delegate void DistributionUseDelegate(NodeControl node_control_, WebLibraryDetail web_library_detail, ExpeditionDataSource eds, float[] tags_distribution);

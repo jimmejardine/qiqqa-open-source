@@ -142,6 +142,16 @@ namespace Qiqqa.Documents.Common
             lock (documents_to_store_lock)
             {
                 // l1_clk.LockPerfTimerStop();
+#if DEBUG
+                if (pdf_document.LibraryRef == null)
+                {
+                    throw new Exception("boom");
+                }
+                if (ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    throw new Exception("boom");
+                }
+#endif
                 documents_to_store[pdf_document.LibraryRef.Id + "." + pdf_document.Fingerprint] = pdf_document;
             }
         }

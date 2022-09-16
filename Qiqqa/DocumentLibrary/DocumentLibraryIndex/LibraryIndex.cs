@@ -90,7 +90,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     lock (word_index_manager_lock)
                     {
                         //l4_clk.LockPerfTimerStop();
-                        if (null != pdf_documents_in_library)
+                        if (null != pdf_documents_in_library )
                         {
                             Logging.Warn("LibraryIndex has already been initialized.");
                             return;
@@ -137,6 +137,11 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                 }
 
+                // Utilities.LockPerfTimer l6_clk = Utilities.LockPerfChecker.Start();
+                lock (word_index_manager_lock)
+                {
+                    // l6_clk.LockPerfTimerStop();
+                }
 
                 LibraryIndexIsLoaded = true;
             }
@@ -167,17 +172,22 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources
+                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (word_index_manager_lock)
+                    {
+                        // l1_clk.LockPerfTimerStop();
 
+                    }
 
                     //this.library?.Dispose();
                 }
             });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                //this.word_index_manager = null;
-                //web_library_detail = null;
-            });
+            //WPFDoEvents.SafeExec(() =>
+            //{
+            //    //this.word_index_manager = null;
+            //    //web_library_detail = null;
+            //});
 
             WPFDoEvents.SafeExec(() =>
             {
@@ -228,6 +238,13 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 Stopwatch clk = Stopwatch.StartNew();
 
                 Logging.Info("+Writing the index master list");
+
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (word_index_manager_lock)
+                {
+                    // l1_clk.LockPerfTimerStop();
+
+                }
 
                 //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
@@ -304,23 +321,47 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public List<IndexResult> GetFingerprintsForQuery(string query)
         {
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (word_index_manager_lock)
+            {
+                // l1_clk.LockPerfTimerStop();
+
                 return new List<IndexResult>();
+            }
         }
 
         public List<IndexPageResult> GetPagesForQuery(string query)
         {
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (word_index_manager_lock)
+            {
+                // l1_clk.LockPerfTimerStop();
+
                 return new List<IndexPageResult>();
+            }
         }
 
         [Obsolete("Do not use this attribute", true)]
         public HashSet<string> GetFingerprintsForKeyword(string keyword)
         {
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (word_index_manager_lock)
+            {
+                // l1_clk.LockPerfTimerStop();
+
                 return new HashSet<string>();
+            }
         }
 
         public int GetDocumentCountForKeyword(string keyword)
         {
-            return 0;
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (word_index_manager_lock)
+            {
+                // l1_clk.LockPerfTimerStop();
+
+                return 0;
+            }
         }
 
         private bool RescanLibrary(WebLibraryDetail web_library_detail)
@@ -410,6 +451,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public void InvalidateIndex()
         {
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (word_index_manager_lock)
+            {
+                // l1_clk.LockPerfTimerStop();
+
+            }
         }
 
         // store to collect log/action data to help reduce logfile flooding (see the ORIGINAL_FLOODY_LOGLINE code chunk further below)
@@ -525,6 +572,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                 sb_tags.AppendLine(tag);
                             }
 
+                            // Utilities.LockPerfTimer l6_clk = Utilities.LockPerfChecker.Start();
+                            lock (word_index_manager_lock)
+                            {
+                                // l6_clk.LockPerfTimerStop();
+
+                            }
 
                             pdf_document_in_library.metadata_already_indexed = true;
                         }
@@ -592,6 +645,14 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                             }
                                         }
 
+                                        // Utilities.LockPerfTimer l7_clk = Utilities.LockPerfChecker.Start();
+                                        lock (word_index_manager_lock)
+                                        {
+                                            // l7_clk.LockPerfTimerStop();
+
+                                            // Index it
+                                        }
+
                                         // Indicate that we have managed to index this page
                                         if (null == pdf_document_in_library.pages_already_indexed)
                                         {
@@ -642,36 +703,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             return did_some_work;
         }
-
-#if false
-        public int NumberOfIndexedPDFDocuments
-        {
-            get
-            {
-                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (pdf_documents_in_library_lock)
-                {
-                    //l1_clk.LockPerfTimerStop();
-                    return pdf_documents_in_library.Count;
-                }
-            }
-        }
-
-        public int PagesPending
-        {
-            get
-            {
-                int numerator_documents = 0;
-                int denominator_documents = 0;
-                int pages_so_far = 0;
-                int pages_to_go = 0;
-
-                GetStatusCounts(out numerator_documents, out denominator_documents, out pages_so_far, out pages_to_go);
-
-                return pages_to_go;
-            }
-        }
-#endif
 
 #region --- Test ------------------------------------------------------------------------
 

@@ -50,7 +50,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                 catch (Exception ex)
                 {
                     Logging.Error(ex, "Error 0x{2:08X}: Failed to write the sync template '{0}' to sync target directory '{1}'", library_metadata_template_path, basedir, ex.HResult);
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             {
                 Logging.Error(ex, "IntranetLibraryDB::PutBLOB: Database I/O failure for DB '{0}'.", library_path);
                 LibraryDB.FurtherDiagnoseDBProblem(ex, null, library_path);
-                throw ex;
+                throw;
             }
         }
 
@@ -312,7 +312,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             {
                 Logging.Error(ex, "IntranetLibraryDB::GetLibraryItems: Database I/O failure for DB '{0}'.", library_path);
                 LibraryDB.FurtherDiagnoseDBProblem(ex, database_corruption, library_path);
-                throw ex;
+                throw;
             }
 
             if (database_corruption.Count > 0)
@@ -401,7 +401,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             {
                 Logging.Error(ex, "IntranetLibraryDB::GetLibraryItemsSummary: Database I/O failure for DB '{0}'.", library_path);
                 LibraryDB.FurtherDiagnoseDBProblem(ex, database_corruption, library_path);
-                throw ex;
+                throw;
             }
 
             if (database_corruption.Count > 0)

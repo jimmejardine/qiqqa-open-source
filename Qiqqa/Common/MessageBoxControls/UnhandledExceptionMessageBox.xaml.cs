@@ -42,16 +42,8 @@ namespace Qiqqa.Common.MessageBoxControls
             // When we're looking at an OutOfMem exception, there's nothing we can do but abort everything!
             if (ex is System.OutOfMemoryException)
             {
-                throw ex;
+                throw new OutOfMemoryException("Out of memory", ex);
             }
-
-            // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
-            SafeThreadPool.QueueUserWorkItem(o =>
-            {
-                // Collect all generations of memory.
-                GC.WaitForPendingFinalizers();
-                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
-            });
 
             string useful_text_heading = "Something unexpected has happened, but it's okay. " + ex.Message;
             string useful_text_subheading = "You can continue working, but we would appreciate it if you would send us some feedback on what you were doing when this happened.";
@@ -237,7 +229,7 @@ namespace Qiqqa.Common.MessageBoxControls
 
         private void PopulateMachineStats()
         {
-            TextMachineStats.Text = ComputerStatistics.GetCommonStatistics();
+            TextMachineStats.Text = ComputerStatistics.GetCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
         }
 
         private string FaqUrl => WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq);

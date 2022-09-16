@@ -16,6 +16,7 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.Shutdownable;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -66,6 +67,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
             Theme.Initialize();
 
             InitializeComponent();
+
+            Unloaded += PDFRendererControl_Unloaded;
 
             pdf_renderer_control_stats = new PDFRendererControlStats(this, pdf_document);
             this.remember_last_read_page = remember_last_read_page;
@@ -133,6 +136,18 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ScrollPages.Focus();
 
             Logging.Info("-Setting initial viewport");
+        }
+
+        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
+        // Which says:
+        //
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
+        // or a UserControl, it may not be called as expected.
+        private void PDFRendererControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            //Dispose();
         }
 
         private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -366,8 +381,17 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 if (dispose_count == 0)
                 {
-                    pdf_renderer_control_stats?.pdf_document.QueueToStorage();
+                    if (!ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        pdf_renderer_control_stats?.pdf_document.QueueToStorage();
+                    }
+                }
+            });
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (dispose_count == 0)
+                {
                     // Get rid of managed resources
                     List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
                     foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
@@ -384,7 +408,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
                             child.Dispose();
                         });
                     }
+                }
+            }, must_exec_in_UI_thread: true);
 
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (dispose_count == 0)
+                {
                     pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
                 }
             }, must_exec_in_UI_thread: true);

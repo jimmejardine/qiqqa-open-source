@@ -75,7 +75,7 @@ namespace Qiqqa.Common
                         try
                         {
                             string environmentDetails = "Generated at:" + DateTime.UtcNow.ToString("yyyyMMdd HH:mm:ss") + Environment.NewLine;
-                            environmentDetails += ComputerStatistics.GetCommonStatistics();
+                            environmentDetails += ComputerStatistics.GetCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
                             environmentDetails += "\r\nConfiguration Bits:\r\n";
                             environmentDetails += $"Background Tasks:      {(ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "Disabled ALL" : "Normal (Enabled)")}\r\n";
                             environmentDetails += $"Library OCR Task:      {(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled ? "Disabled" : "Normal (Enabled)")}\r\n";
