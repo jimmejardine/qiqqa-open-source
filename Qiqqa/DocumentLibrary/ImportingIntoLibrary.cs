@@ -11,7 +11,6 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.WebBrowsing;
-using Qiqqa.DocumentLibrary.FolderWatching;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -53,12 +52,12 @@ namespace Qiqqa.DocumentLibrary
 
         #region --- Add filenames ---------------------------------------------------------------------------------------------------------------------------
 
-        public static void AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, params string[] filenames)
+        public static void AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, bool suppress_signal_that_docs_have_changed, params string[] filenames)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibrary_SYNCHRONOUS(web_library_detail, suppress_notifications, filenames));
+            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibrary_SYNCHRONOUS(web_library_detail, suppress_notifications, suppress_signal_that_docs_have_changed, filenames));
         }
 
-        public static PDFDocument AddNewPDFDocumentsToLibrary_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, params string[] filenames)
+        public static PDFDocument AddNewPDFDocumentsToLibrary_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, bool suppress_signal_that_docs_have_changed, params string[] filenames)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -69,20 +68,19 @@ namespace Qiqqa.DocumentLibrary
                 filename_with_metadata_imports[i].filename = filenames[i];
             }
 
-            return AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, filename_with_metadata_imports);
+            return AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, suppress_signal_that_docs_have_changed, filename_with_metadata_imports);
         }
 
-        public static void AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, FilenameWithMetadataImport[] filename_with_metadata_imports)
+        public static void AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, bool suppress_signal_that_docs_have_changed, FilenameWithMetadataImport[] filename_with_metadata_imports)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, filename_with_metadata_imports));
+            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, suppress_signal_that_docs_have_changed, filename_with_metadata_imports));
         }
 
-        public static PDFDocument AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, FilenameWithMetadataImport[] filename_with_metadata_imports)
+        public static PDFDocument AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, bool suppress_signal_that_docs_have_changed, FilenameWithMetadataImport[] filename_with_metadata_imports)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             Stopwatch clk = Stopwatch.StartNew();
-            Stopwatch breathing_time = Stopwatch.StartNew();
 
             // Notify if there is just a single doc
             suppress_notifications = suppress_notifications || (filename_with_metadata_imports.Length > 1);
@@ -114,7 +112,17 @@ namespace Qiqqa.DocumentLibrary
                     string filename = filename_with_metadata_import.filename;
                     string bibtex = filename_with_metadata_import.bibtex;
 
-                    PDFDocument pdf_document = web_library_detail.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(filename, web_library_detail, filename, filename, bibtex, filename_with_metadata_import.tags, filename_with_metadata_import.notes, suppress_notifications);
+                    // Although the outside world may allow us to be signaling, we will not do it unless we are the n-100th doc or the last doc
+                    bool local_suppress_signal_that_docs_have_changed = suppress_signal_that_docs_have_changed;
+                    if (!local_suppress_signal_that_docs_have_changed)
+                    {
+                        if ((i != filename_with_metadata_imports.Length - 1) && (0 != i % 100))
+                        {
+                            local_suppress_signal_that_docs_have_changed = true;
+                        }
+                    }
+
+                    PDFDocument pdf_document = web_library_detail.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(filename, web_library_detail, filename, filename, bibtex, filename_with_metadata_import.tags, filename_with_metadata_import.notes, suppress_notifications, local_suppress_signal_that_docs_have_changed);
                     if (null != pdf_document)
                     {
                         ++successful_additions;
@@ -147,6 +155,7 @@ namespace Qiqqa.DocumentLibrary
                             "The following files caused problems while being imported into Qiqqa:\r\n\r\n"
                         );
 
+#if DEBUG
                         File.AppendAllText(
                             problematic_import_documents_filename,
                             String.Format(
@@ -156,16 +165,17 @@ namespace Qiqqa.DocumentLibrary
                                 , filename_with_metadata_import
                             )
                         );
+#else
+                        File.AppendAllText(
+                            problematic_import_documents_filename,
+                            String.Format(
+                                "----------\r\n{0}\r\n{1}\r\n----------\r\n"
+                                , ex.Message
+                                , filename_with_metadata_import
+                            )
+                        );
+#endif
                     }
-                }
-
-                if (breathing_time.ElapsedMilliseconds >= FolderWatcher.MAX_SECONDS_PER_ITERATION)
-                {
-                    Logging.Info("AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", breathing_time.ElapsedMilliseconds / 1E3);
-
-                    ShutdownableManager.Sleep(FolderWatcher.SECONDS_TO_RELAX_PER_ITERATION);
-
-                    breathing_time.Restart();
                 }
             }
 
@@ -244,7 +254,7 @@ namespace Qiqqa.DocumentLibrary
 
         #region --- Add from folder -----------------------------------------------------------------------------------------------------------------------
 
-        public static void AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(WebLibraryDetail web_library_detail, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications)
+        public static void AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(WebLibraryDetail web_library_detail, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications, bool suppress_signal_that_docs_have_changed)
         {
             //  build up the files list
             var file_list = new List<FilenameWithMetadataImport>();
@@ -254,12 +264,12 @@ namespace Qiqqa.DocumentLibrary
             Logging.Info(
                 "About to import {0} from folder {1} [recurse_subfolders={2}][import_tags_from_subfolder_names={3}]",
                 file_list.Count, root_folder, recurse_subfolders, import_tags_from_subfolder_names);
-            AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, file_list.ToArray());
+            AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, suppress_signal_that_docs_have_changed, file_list.ToArray());
         }
 
-        public static void AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(WebLibraryDetail web_library_detail, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications)
+        public static void AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(WebLibraryDetail web_library_detail, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications, bool suppress_signal_that_docs_have_changed)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(web_library_detail, root_folder, recurse_subfolders, import_tags_from_subfolder_names, suppress_notifications));
+            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(web_library_detail, root_folder, recurse_subfolders, import_tags_from_subfolder_names, suppress_notifications, suppress_signal_that_docs_have_changed));
         }
 
         /// <summary>
@@ -445,7 +455,7 @@ namespace Qiqqa.DocumentLibrary
                                     //fs.Close();    -- autoclosed by `using` statement
                                 }
 
-                                PDFDocument pdf_document = web_library_detail.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(filename, web_library_detail, original_filename, download_url, null, null, null, false);
+                                PDFDocument pdf_document = web_library_detail.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(filename, web_library_detail, original_filename, download_url, null, null, null, false, false);
                                 File.Delete(filename);
 
                                 // make sure we open every PDF fetched off the Internet: the user may need to review
@@ -504,11 +514,11 @@ namespace Qiqqa.DocumentLibrary
 
         #region --- Add from another library ---------------------------------------------------------------------------------------------------------------------------
 
-        public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail)
+        public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail, bool suppress_signal_that_docs_have_changed)
         {
             SafeThreadPool.QueueUserWorkItem(o =>
             {
-                ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail);
+                ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail, suppress_signal_that_docs_have_changed);
             });
         }
 
@@ -530,7 +540,11 @@ namespace Qiqqa.DocumentLibrary
 
                 PDFDocument existing_pdf_document = existing_pdf_documents[i];
 
-                PDFDocument new_pdf_document = ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail);
+                // Signal only the last doc
+                bool suppress_signal_that_docs_have_changed = true;
+                if (i == existing_pdf_documents.Count - 1) suppress_signal_that_docs_have_changed = false;
+
+                PDFDocument new_pdf_document = ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail, suppress_signal_that_docs_have_changed);
                 doneActionPerDocument?.Invoke(new_pdf_document, existing_pdf_document);
             }
 
@@ -542,7 +556,7 @@ namespace Qiqqa.DocumentLibrary
         /// <summary>
         /// Creates a new <code>PDFDocument</code> in the given library, and creates a copy of all the metadata.
         /// </summary>
-        public static PDFDocument ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail)
+        public static PDFDocument ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail, bool suppress_signal_that_docs_have_changed)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -554,7 +568,7 @@ namespace Qiqqa.DocumentLibrary
                     return null;
                 }
 
-                return web_library_detail.Xlibrary.CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail, false);
+                return web_library_detail.Xlibrary.CloneExistingDocumentFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail, false, suppress_signal_that_docs_have_changed);
             }
             catch (Exception e)
             {

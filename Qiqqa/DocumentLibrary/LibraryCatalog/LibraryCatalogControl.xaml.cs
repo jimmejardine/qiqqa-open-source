@@ -170,39 +170,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             {
                 if (ListPDFDocuments.IsVisible)
                 {
-                    // WARNING: 
-                    // note the comment in SetPDFDocuments(() below. Without that `SelectedIndex = null`
-                    // statement commented out, we wouldn't be able to still see the selected items here
-                    // via `ListPDFDocuments.SelectedIndex` as they would've been WIPED already!
-                    //
-                    // From a user perspective: adding any PDF document to a library would NUKE any pre-existing
-                    // selection.
-                    int selected_index = ListPDFDocuments.SelectedIndex;
-
-                    // see if user has several items checkbox-selected:
-                    var checklist = ListPDFDocuments.SelectedItems;
-                    if (checklist.Count > 0)
-                    {
-                        // delay the refresh until the user is done.
-                        //
-                        // Simple tickle the OnDocumentsChanged event again: that way we are pretty independent
-                        // of what happens exactly to this control (it may even disappear due to library tab close
-                        // and we should survive even then!)
-                        WebLibraryDetail libref = LibraryRef;
-                        Library lib = libref?.Xlibrary;
-                        lib?.SignalThatDocumentsHaveChanged(null);
-                    }
-                    else
-                    {
-                        ListPDFDocuments.UpdateLayout();
-
-                        ListPDFDocuments.SelectedIndex = selected_index;
-                        List<AugmentedBindable<PDFDocument>> lst = ListPDFDocuments.DataContext as List<AugmentedBindable<PDFDocument>>;
-                        if (selected_index >= 0 && selected_index < lst.Count)
-                        {
-                            ListPDFDocuments.ScrollIntoView(lst[selected_index]);
-                        }
-                    }
+                    ListPDFDocuments.UpdateLayout();
                 }
             });
         }
@@ -212,13 +180,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             this.filter_terms = filter_terms;
             this.search_scores = search_scores;
 
-            //ListPDFDocuments.SelectedValue = null;
-            // ^^^ this one would NUKE an existing list of selected documents due to OnNewDocument being fired in LibraryFilterControl resulting in this callstack:
-            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogControl.SetPDFDocuments() Line 213            at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryCatalog\LibraryCatalogControl.xaml.cs(213)
-            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogControl.OnFilterChanged() Line 59             at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryCatalog\LibraryCatalogControl.xaml.cs(59)
-            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl.ReviewParameters() Line 535             at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryFilter\LibraryFilterControl.xaml.cs(535)
-            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl.ReExecuteAllSearches() Line 198         at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryFilter\LibraryFilterControl.xaml.cs(198)
-            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl.Library_OnNewDocument.AnonymousMethod__0() Line 189 at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryFilter\LibraryFilterControl.xaml.cs(189)
+            ListPDFDocuments.SelectedValue = null;
 
             List<AugmentedBindable<PDFDocument>> pdf_documents_bindable = new List<AugmentedBindable<PDFDocument>>();
             foreach (PDFDocument pdf_document in pdf_documents)

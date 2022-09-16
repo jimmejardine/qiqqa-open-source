@@ -4,16 +4,6 @@ namespace Utilities.GUI
 {
     public class KeyboardTools
     {
-        public static bool IsNoneOfTheMetaKeysDown()
-        {
-            return !(
-                Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl) ||
-                Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt) ||
-                Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift) ||
-                Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin)
-            );
-        }
-    
         public static bool IsCTRLDown()
         {
             return Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);

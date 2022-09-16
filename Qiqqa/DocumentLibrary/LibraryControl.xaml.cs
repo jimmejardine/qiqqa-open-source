@@ -297,12 +297,6 @@ namespace Qiqqa.DocumentLibrary
                 ObjLibraryFilterControl_Search.SearchQuick.FocusSearchArea();
                 e.Handled = true;
             }
-            else if (Key.F5 == e.Key && KeyboardTools.IsNoneOfTheMetaKeysDown())
-            {
-                ObjLibraryCatalogControl.ListPDFDocuments.UpdateLayout();
-
-                e.Handled = true;
-            }
         }
 
         public WebLibraryDetail LibraryRef => web_library_detail;
@@ -311,7 +305,7 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                PDFDocument pdf_document = web_library_detail.Xlibrary.AddVanillaReferenceDocumentToLibrary(null, web_library_detail, null, null, false);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.AddVanillaReferenceDocumentToLibrary(null, web_library_detail, null, null, false, false);
 
                 // Let's pop up the BibTeX editor window for the new document
                 MetadataBibTeXEditorControl editor = new MetadataBibTeXEditorControl();
@@ -473,7 +467,7 @@ namespace Qiqqa.DocumentLibrary
                 dlg.Title = "Select the PDF documents you wish to add to your document library";
                 if (dlg.ShowDialog() == true)
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, dlg.FileNames);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, false, dlg.FileNames);
                 }
             }
         }
@@ -522,7 +516,7 @@ namespace Qiqqa.DocumentLibrary
                 if (Directory.Exists(root_folder))
                 {
                     // do the import
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, true, false, false);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, true, false, false, false);
                 }
             }
         }

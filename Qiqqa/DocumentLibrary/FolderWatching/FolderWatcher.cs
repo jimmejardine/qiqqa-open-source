@@ -154,7 +154,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         }
 
         public const int MAX_SECONDS_PER_ITERATION = 5 * 1000;
-        public const int SECONDS_TO_RELAX_PER_ITERATION = (int)(1.5 * 1000);
 
         internal class WatchStatistics
         {
@@ -280,8 +279,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 Logging.Info("Watched folder {0} will not be watched/scanned due to Developer Override setting {1}=false", configured_folder_to_watch, nameof(FolderWatcher));
                 return;
             }
-
-            Stopwatch breathing_time = Stopwatch.StartNew();
 
             Logging.Debug("FolderWatcher BEGIN");
 
@@ -434,26 +431,16 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 // Get the library to import all these new files
                 if (filename_with_metadata_imports.Count > 0)
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(LibraryRef, true, filename_with_metadata_imports.ToArray());
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(LibraryRef, true, true, filename_with_metadata_imports.ToArray());
 
                     // TODO: refactor the ImportingIntoLibrary class
                 }
-
 
                 watch_stats.processed_file_count = watch_stats.processing_file_count;
 
                 Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", watch_stats.processed_file_count, watch_stats.processing_file_count, watch_stats.scanned_file_count, watch_stats.skipped_file_count, watch_stats.scanned_file_count - watch_stats.skipped_file_count - watch_stats.processing_file_count);
 
-                if (watch_stats.index_processing_clock.ElapsedMilliseconds >= FolderWatcher.MAX_SECONDS_PER_ITERATION)
-                {
-                    Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed, {1} threads pending", watch_stats.index_processing_clock.ElapsedMilliseconds / 1E3, SafeThreadPool.QueuedThreadCount);
-
-                    watch_stats.daemon.Sleep(SECONDS_TO_RELAX_PER_ITERATION);
-
-                    watch_stats.index_processing_clock.Restart();
-                }
-
-                Logging.Debug("FolderWatcher End-Of-Round ({0} ms)", clk.ElapsedMilliseconds);
+                Logging.Debug("FolderWatcher End-Of-Round");
             }
 
             Logging.Debug("FolderWatcher END");
@@ -519,9 +506,23 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             
             bool have_we_slept = false;
 
-            if (watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION)
+            if (watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION && watch_stats.files_added_since_last_sleep > 42)
             {
-                watch_stats.daemon.Sleep(SECONDS_TO_RELAX_PER_ITERATION);
+                Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed, {1} threads pending", watch_stats.index_processing_clock.ElapsedMilliseconds / 1E3, SafeThreadPool.QueuedThreadCount);
+
+                // Collect various 'pending' counts to help produce a stretched sleep/delay period
+                // in order to allow the other background tasks to keep up with the PDF series being
+                // fed into them by this task.
+                int thr_cnt = Math.Max(0, SafeThreadPool.QueuedThreadCount - 2);
+                int queued_cnt = Qiqqa.Documents.Common.DocumentQueuedStorer.Instance.PendingQueueCount;
+                Qiqqa.Documents.PDF.PDFRendering.PDFTextExtractor.Instance.GetJobCounts(out var textify_count, out var ocr_count);
+
+                int duration = 1 * 1000 + thr_cnt * 250 + queued_cnt * 20 + textify_count * 50 + ocr_count * 500;
+
+                watch_stats.daemon.Sleep(Math.Min(5 * 1000, duration));
+
+                // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                WPFDoEvents.WaitForUIThreadActivityDone();
 
                 // reset:
                 watch_stats.index_processing_clock.Restart();

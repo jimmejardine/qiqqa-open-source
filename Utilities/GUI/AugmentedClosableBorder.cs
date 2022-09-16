@@ -85,6 +85,7 @@ namespace Utilities.GUI
             has_been_force_closed_by_user = true;
             Visibility = Visibility.Collapsed;
             IdPath = GetIdPath();
+
         }
 
         [Bindable(true)]
