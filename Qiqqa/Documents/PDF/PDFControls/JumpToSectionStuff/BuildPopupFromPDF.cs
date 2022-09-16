@@ -1,28 +1,28 @@
 ﻿using System;
 using Syncfusion.Pdf.Interactive;
 using Utilities;
-using Utilities.GUI;
-using Utilities.Misc;
 using Utilities.PDF;
 
 namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 {
     internal class BuildPopupFromPDF
     {
-        static internal void BuildMenu(JumpToSectionPopup popup, PDFReadingControl pdf_reading_control)
+        private JumpToSectionPopup popup;
+
+        internal BuildPopupFromPDF(JumpToSectionPopup popup)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            this.popup = popup;
+        }
 
-            PDFDocument pdf_document = pdf_reading_control.GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
+        internal void BuildMenu()
+        {
             try
             {
-                using (AugmentedPdfLoadedDocument doc = new AugmentedPdfLoadedDocument(pdf_document.DocumentPath))
+                using (AugmentedPdfLoadedDocument doc = new AugmentedPdfLoadedDocument(popup.pdf_renderer_control_stats.pdf_document.DocumentPath))
                 {
                     if (null != doc.Bookmarks)
                     {
-                        GenerateBookmarks(popup, pdf_reading_control, doc, doc.Bookmarks, 0);
+                        GenerateBookmarks(doc, doc.Bookmarks, 0);
                     }
                 }
             }
@@ -32,7 +32,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             }
         }
 
-        static private void GenerateBookmarks(JumpToSectionPopup popup, PDFReadingControl pdf_reading_control, AugmentedPdfLoadedDocument doc, PdfBookmarkBase bookmark_base, int depth)
+        private void GenerateBookmarks(AugmentedPdfLoadedDocument doc, PdfBookmarkBase bookmark_base, int depth)
         {
             // Don't go too deep in the bookmark hierarchy
             if (depth > 0)
@@ -77,15 +77,98 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
                 if (-1 != page_number)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
-                    {
-                        popup.Children.Add(new JumpToSectionItem(popup, pdf_reading_control, bookmark.Title, page_number + 1));
-                    });
+                    popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, bookmark.Title, page_number + 1));
                 }
 
-                GenerateBookmarks(popup, pdf_reading_control, doc, bookmark, depth + 1);
+                GenerateBookmarks(doc, bookmark, depth + 1);
             }
         }
     }
 }
 
+
+/*
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Utilities;
+using Utilities.PDF;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+
+namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
+{
+    internal class BuildPopupFromPDF
+    {
+        JumpToSectionPopup popup;
+
+        internal BuildPopupFromPDF(JumpToSectionPopup popup)
+        {
+            this.popup = popup;
+        }
+
+        internal void BuildMenu()
+        {
+            try
+            {
+                using (PdfDocument doc = PdfReader.Open(popup.pdf_renderer_control_stats.pdf_document.DocumentPath, PdfDocumentOpenMode.ReadOnly))
+                {
+                    if (null != doc.Outlines)
+                    {
+                        GenerateBookmarks(doc, doc.Outlines, 0);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Warn(ex, "Problem while generating bookmarks from the PDF file");
+            }
+        }
+
+        private void GenerateBookmarks(PdfDocument doc, PdfOutline.PdfOutlineCollection pdf_outlines, int depth)
+        {
+            if (null == pdf_outlines)
+            {
+                return;
+            }
+
+            // Don't go too deep in the bookmark hierarchy
+            if (depth > 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < pdf_outlines.Count; ++i)
+            {
+                PdfOutline bookmark = pdf_outlines[i];
+                int page_number = -1;
+                if (null != bookmark.DestinationPage)
+                {
+                    if (-1 == page_number)
+                    {
+                        for (int j = 0; j < doc.Pages.Count; ++j)
+                        {
+                            if (doc.Pages[j] == bookmark.DestinationPage)
+                            {
+                                page_number = j;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (-1 != page_number)
+                {
+                    popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, bookmark.Title, page_number + 1));
+                }
+
+                GenerateBookmarks(doc, bookmark.Outlines, depth + 1);
+            }
+        }
+    }
+}
+
+
+*/

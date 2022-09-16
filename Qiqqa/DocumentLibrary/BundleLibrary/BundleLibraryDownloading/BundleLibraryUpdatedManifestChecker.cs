@@ -8,10 +8,6 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities.GUI;
 using Utilities.Internet;
 using Utilities.Misc;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
 {
@@ -86,7 +82,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             this.manifest_latest = manifest_latest;
         }
 
-        public void Download()
+        public void Download(object obj)
         {
             WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
@@ -95,7 +91,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
             );
         }
 
-        public void NoThanks()
+        public void NoThanks(object obj)
         {
             web_library_detail.LastBundleManifestIgnoreVersion = manifest_latest.Version;
             WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();

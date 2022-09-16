@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Forms;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
@@ -113,27 +113,24 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private void FolderLocationButton_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select a folder.  All the PDFs in the folder will be added to your document library.";
-
+                Description = "Please select a folder.  All the PDFs in the folder will be added to your document library.",
+                ShowNewFolderButton = false
+            })
+            {
                 string default_folder = bindable.Underlying.DefaultSelectedPath;
                 if (default_folder != null)
                 {
-                    dialog.DefaultDirectory = default_folder;
+                    dlg.SelectedPath = default_folder;
                 }
 
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    bindable.Underlying.SelectedPath = dialog.FileName;
+                    bindable.Underlying.SelectedPath = dlg.SelectedPath;
                     bindable.NotifyPropertyChanged(nameof(bindable.Underlying.SelectedPath));
-                    Logging.Debug特("User selected import folder path: " + bindable.Underlying.SelectedPath);
                 }
-                else
-                {
-                    Logging.Debug特("User canceled directory selection. Import folder path: " + bindable.Underlying.SelectedPath);
-                }
+                Logging.Debug特("User selected import folder path: " + bindable.Underlying.SelectedPath);
             }
         }
 
@@ -150,7 +147,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 if (!Directory.Exists(root_folder)) return;
 
                 // do the import
-                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, bindable.Underlying.RecurseSubfolders, bindable.Underlying.ImportTagsFromSubfolderNames, false);
+                ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, bindable.Underlying.RecurseSubfolders, bindable.Underlying.ImportTagsFromSubfolderNames, false, false);
 
                 // remember settings for next time
                 bindable.Underlying.DefaultSelectedPath = root_folder;

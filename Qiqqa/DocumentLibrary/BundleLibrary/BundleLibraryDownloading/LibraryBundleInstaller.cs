@@ -60,14 +60,14 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
                 {
                     process.WaitForExit();
 
-                    Logging.Info("7ZIP Log Bundle Install progress:\n{0}", process_output_reader.GetOutputsDumpStrings());
+                    Logging.Info("7ZIP Log Bundle Install progress:\n{0}", process_output_reader.GetOutputsDumpString());
                 }
             }
 
             // Reflect this new bundle
             WebLibraryDetail new_web_library_detail = WebLibraryManager.Instance.UpdateKnownWebLibraryFromBundleLibraryManifest(manifest, suppress_flush_to_disk: false);
 
-            WPFDoEvents.InvokeAsyncInUIThread(() => {
+            WPFDoEvents.InvokeInUIThread(() => {
                 MainWindowServiceDispatcher.Instance.OpenLibrary(new_web_library_detail);
             });
         }

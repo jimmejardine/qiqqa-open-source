@@ -1,8 +1,8 @@
-<UserControl
-    x:Class="Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff.DuplicateDetectionControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<UserControl x:Class="Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff.DuplicateDetectionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
     <Grid>
-        <StackPanel Name="DocsPanel" Background="{StaticResource Background_Brush_Warning}" />
+        <StackPanel Name="DocsPanel" Background="{StaticResource Background_Brush_Warning}"/>
     </Grid>
 </UserControl>

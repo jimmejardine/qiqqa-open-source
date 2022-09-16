@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 using icons;
 using Utilities;
 using Utilities.GUI;
-using Utilities.Misc;
-using Utilities.Shutdownable;
-using WpfScreenHelper;
 
 namespace Qiqqa.Common.GUI
 {
-#if false
     public static class ScreenSize
     {
         private static Rect? screen_bounds = null;
@@ -24,6 +19,8 @@ namespace Qiqqa.Common.GUI
             {
                 if (null == screen_bounds)
                 {
+                    //Application app = Application.Current;
+                    //Window win = app.MainWindow;
                     System.Windows.Forms.Screen[] user_hw_screens = System.Windows.Forms.Screen.AllScreens;
                     System.Drawing.Rectangle bounds = new System.Drawing.Rectangle(int.MaxValue, int.MaxValue, int.MinValue, int.MinValue);
 
@@ -50,7 +47,6 @@ namespace Qiqqa.Common.GUI
             }
         }
     }
-#endif
 
     // Left/Top/Width/Height/State:
     public class StoredLocation
@@ -60,8 +56,38 @@ namespace Qiqqa.Common.GUI
 
         public StoredLocation(double left, double top, double width, double height, WindowState s)
         {
-            position = new Rect(left, top, width, height);
+            position = StoredLocation.ClipBoundsToScreen(left, top, width, height);
             state = s;
+        }
+
+        private static double ClipValueToRange(double v, double min, double max)
+        {
+            // any out-of-range value will be set to NaN to signal 'not available value'
+            if (Double.IsNaN(v))
+            {
+                return Double.NaN;
+            }
+            if (v < min)
+            {
+                return Double.NaN;
+            }
+            if (v > max)
+            {
+                return Double.NaN;
+            }
+            return v;
+        }
+
+        private static Rect ClipBoundsToScreen(double x, double y, double w, double h)
+        {
+            Rect screen = ScreenSize.Bounds;
+            Rect rv = new Rect();
+
+            rv.X = ClipValueToRange(x, screen.X, screen.X + screen.Width);
+            rv.Y = ClipValueToRange(y, screen.Y, screen.Y + screen.Height);
+            rv.Width = ClipValueToRange(w, 0, screen.Width);
+            rv.Height = ClipValueToRange(h, 0, screen.Height);
+            return rv;
         }
 
         public StoredLocation(string location_spec)
@@ -96,9 +122,10 @@ namespace Qiqqa.Common.GUI
 
             Logging.Debug特("Screen position and window size parsing {4} to {0},{1},{2},{3} ...", left, top, w, h, location_spec);
 
-            position = new Rect(left, top, w, h);
+            position = ClipBoundsToScreen(left, top, w, h);
         }
     }
+
 
     public class StandardWindow : Window
     {
@@ -110,88 +137,29 @@ namespace Qiqqa.Common.GUI
             FontFamily = ThemeTextStyles.FontFamily_Standard;
             Icon = Icons.GetAppIconICO(Icons.Qiqqa);
 
-#if false
             // Set dimensions
-            double w = Width;
-            double h = Height;
             double width = Math.Max(800, SystemParameters.FullPrimaryScreenWidth - 20);
             double height = Math.Max(600, SystemParameters.FullPrimaryScreenHeight - 20);
             Width = width;
             Height = height;
             Top = 10;
             Left = 10;
-#endif
 
             UseLayoutRounding = true;
 
-            if (SnapToPixels)
+            if (RegistrySettings.Instance.IsSet(RegistrySettings.SnapToPixels))
             {
                 Logging.Info("Snapping to device pixels.");
                 SnapsToDevicePixels = true;
             }
 
-            this.ContentRendered += StandardWindow_ContentRendered;
-            this.Initialized += StandardWindow_Initialized;
-            this.Loaded += StandardWindow_Loaded;
             Closed += StandardWindow_Closed;
-            Closing += StandardWindow_Closing;
-            this.SizeChanged += StandardWindow_SizeChanged;
-            this.StateChanged += StandardWindow_StateChanged;
-            this.IsVisibleChanged += StandardWindow_IsVisibleChanged;
-
-            // keep a weak reference to this window instance to prevent GC hold-up and thus memory leaks:
-            StandardWindowShutdownCbInstance.RegisterShutdownHandler(new StandardWindowShutdownCbInstance(this));
-        }
-
-        private void StandardWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-        }
-
-        private void StandardWindow_StateChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void StandardWindow_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-        }
-
-        private void StandardWindow_Initialized(object sender, EventArgs e)
-        {
-            // when we get here, the XAML has been loaded, but there's been no rendering or positioning yet.
-            // That means Width and Height are NaN **unless** the designer has set a preferred width and/or height
-            // in the XAML resource itself!
-            Logging.Info($"Window: {Name} @ {Left}/{Top}/{Width}/{Height}");
-        }
-
-        private void StandardWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            // when we get here, basic positioning has been done. Time to overide any default positioning
-            // with the settings stored by the user during a previous run:
-            Logging.Info($"Window: {Name} @ {Left}/{Top}/{Width}/{Height}");
-            SetupConfiguredDimensions();
-        }
-
-        private void StandardWindow_ContentRendered(object sender, EventArgs e)
-        {
-            Logging.Info($"Window: {Name} @ {Left}/{Top}/{Width}/{Height}");
-        }
-
-        public virtual void ShuttingDown()
-        {
-            Logging.Info($"Window '{Name}' is saving its position/size at shutdown");
-            SaveWindowDimensions();
-        }
-
-        private void StandardWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // Save window dimensions and position as persistent preference:
-            SaveWindowDimensions();
         }
 
         private void StandardWindow_Closed(object sender, EventArgs e)
         {
-            // weak reference, so not to worry about this:
-            //ShutdownableManager.Instance.UnRegister(sd.HandleShutDownForWindow);
+            // Save window dimensions and position as persistent preference:
+            SaveWindowDimensions();
 
             IDisposable disposable = Content as IDisposable;
 
@@ -206,46 +174,29 @@ namespace Qiqqa.Common.GUI
             {
                 // silently ignore: we haven't started up properly yet.
             }
-            else if (IsMeasureValid && IsInitialized && IsLoaded)
+            else if (IsMeasureValid && IsInitialized)
             {
                 string name_to_find = Name;
-                Debug.Assert(!String.IsNullOrEmpty(name_to_find));
 
                 if (String.IsNullOrEmpty(name_to_find))
                 {
                     return;
                 }
 
-                Rect rc;
+                Rect rc = Rect.Empty;
 
-                if (WindowState == WindowState.Normal)
+                if (WindowState != WindowState.Normal)
                 {
-                    if (!Double.IsNaN(Left) && 0 < Left + Width && Left < 1E6 &&
-                        !Double.IsNaN(Top) && 0 <= Top && Top < 1E6 &&
-                        !Double.IsNaN(Width) && 0 < Width && Width < 1E6 &&
-                        !Double.IsNaN(Height) && 0 < Height && Height < 1E6)
-                    {
-                        rc = new Rect(Left, Top, Width, Height);
-                        ASSERT.Test(RestoreBounds.IsEmpty || rc.IntersectsWith(RestoreBounds));
-                    }
-                    else 
-                    {
-                        rc = Rect.Empty;
-                    }
-                }
-                else
-                { 
                     rc = RestoreBounds;
                 }
                 if (rc.IsEmpty)
                 {
-                    rc = new Rect();
-                    ASSERT.Test(rc.Width == 0);
-                    ASSERT.Test(rc.Height == 0);
+                    rc = new Rect(Left, Top, Width, Height);
                 }
                 string position = String.Format("{0}|{1}|{2}|{3}|{4}", rc.X, rc.Y, rc.Width, rc.Height, WindowState);
 
                 // Format: Name=X|Y|W|H|M::...
+                // Exception to the rule for backwards compatibility: first record is for main window and has no name.
                 string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position;
 
                 bool got_it = false;
@@ -278,20 +229,6 @@ namespace Qiqqa.Common.GUI
                     cfgarr = new List<string>();
                 }
 
-                // filter out bad/empty records:
-                {
-                    var cfgarr2 = new List<string>();
-
-                    for (int i = 0; i < cfgarr.Count; i++)
-                    {
-                        if (!String.IsNullOrWhiteSpace(cfgarr[i]))
-                        {
-                            cfgarr2.Add(cfgarr[i]);
-                        }
-                    }
-                    cfgarr = cfgarr2;
-                }
-
                 if (!got_it)
                 {
                     cfgarr.Add(String.Format("{0}={1}", name_to_find, position));
@@ -317,253 +254,71 @@ namespace Qiqqa.Common.GUI
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
+            // Format: Name=X|Y|W|H|M::...
+            // Exception to the rule for backwards compatibility: first record is for main window and has no name.
+            string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position ?? "";
+            List<string> cfgarr = new List<string>(cfg.Split(new string[] { "::" }, StringSplitOptions.None));
+            string position = String.Empty;
             string name_to_find = Name;
-            Debug.Assert(!String.IsNullOrEmpty(name_to_find));
-            bool done = false;
 
-            if (!String.IsNullOrEmpty(name_to_find))
+            if (String.IsNullOrEmpty(name_to_find))
             {
-                if (Configuration.ConfigurationManager.IsInitialized)
+                return false;
+            }
+
+            for (int i = 0; i < cfgarr.Count; i++)
+            {
+                string[] wincfg = cfgarr[i].Split('=');
+
+                if (wincfg[0] == name_to_find)
                 {
-                    if (Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
+                    position = wincfg[1];
+                    break;
+                }
+            }
+
+            // https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
+            if (String.IsNullOrEmpty(position))
+            {
+                Logging.Warn("Can't restore screen position for window {0} from empty remembered location.", Name);
+                return false;
+            }
+
+            try
+            {
+                StoredLocation loc = new StoredLocation(position);
+
+                Logging.Info("Window {5}: Screen position and window size restoring to x={0},y={1},w={2},h={3},mode={4}", loc.position.X, loc.position.Y, loc.position.Width, loc.position.Height, loc.state, Name);
+
+                Rect pos = loc.position;
+
+                bool done = false;
+
+                // when we have a valid corner coordinate, do we restore window *position*
+                // (and possibly also *size*):
+                if (!Double.IsNaN(pos.X) && !Double.IsNaN(pos.Y))
+                {
+                    Left = pos.X;
+                    Top = pos.Y;
+
+                    if (!Double.IsNaN(pos.Width) && !Double.IsNaN(pos.Height))
                     {
-                        // Format: Name=X|Y|W|H|M::...
-                        string cfg = Configuration.ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup_Position ?? "";
-                        List<string> cfgarr = new List<string>(cfg.Split(new string[] { "::" }, StringSplitOptions.None));
-                        string position = String.Empty;
-
-                        for (int i = 0; i < cfgarr.Count; i++)
-                        {
-                            string[] wincfg = cfgarr[i].Split('=');
-
-                            if (wincfg[0] == name_to_find)
-                            {
-                                position = wincfg[1];
-                                break;
-                            }
-                        }
-
-                        // https://stackoverflow.com/questions/16100/convert-a-string-to-an-enum-in-c-sharp
-                        if (String.IsNullOrEmpty(position))
-                        {
-                            Logging.Warn("Can't restore screen position for window {0} from empty remembered location.", Name);
-                        }
-                        else
-                        {
-                            try
-                            {
-                                StoredLocation loc = new StoredLocation(position);
-
-                                Logging.Info("Window {5}: Screen position and window size restoring to x={0},y={1},w={2},h={3},mode={4}", loc.position.X, loc.position.Y, loc.position.Width, loc.position.Height, loc.state, Name);
-
-                                Rect pos = loc.position;
-
-                                // when we have a valid corner coordinate, do we restore window *position*
-                                // (and possibly also *size*):
-                                if (!Double.IsNaN(pos.X) && !Double.IsNaN(pos.Y) &&
-                                    !Double.IsNaN(pos.Width) && !Double.IsNaN(pos.Height) &&
-                                    pos.Width > 0 && pos.Height > 0)
-                                {
-                                    WindowState = WindowState.Normal;
-
-                                    Left = pos.X;
-                                    Top = pos.Y;
-                                    Width = pos.Width;
-                                    Height = pos.Height;
-									
-									//RestoreBounds = pos;
-
-                                    // only restore WindowState when the (restore-)coordinates are valid too!
-                                    WindowState = loc.state;
-
-                                    done = true;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Logging.Warn(ex, "There was a problem restoring screen position to {0} for window {1}", position, Name);
-                                done = false;
-                            }
-                        }
+                        Width = pos.Width;
+                        Height = pos.Height;
                     }
+                    done = true;
+
+                    // only restore WindowState when the (restore-)coordinates are valid too!
+                    WindowState = loc.state;
                 }
+
+                return done;
             }
-
-            // Check that we actually are fitting on the user's display area
-            //
-            // https://stackoverflow.com/questions/1317235/c-get-complete-desktop-size
-            // https://stackoverflow.com/questions/2704887/is-there-a-wpf-equaivalent-to-system-windows-forms-screen/2707176#2707176
-            // https://stackoverflow.com/questions/1918877/how-can-i-get-the-dpi-in-wpf
-            // https://github.com/micdenny/WpfScreenHelper
-            List<Screen> scrns = Screen.AllScreens;
-            Rect bounds = scrns[0].Bounds;
-            scrns.RemoveAt(0);
-
-            foreach (Screen screen in scrns)
+            catch (Exception ex)
             {
-                bounds = Rect.Union(bounds, screen.Bounds);
-            }
-
-            if (Width > SystemParameters.FullPrimaryScreenWidth)
-            {
-                Width = SystemParameters.FullPrimaryScreenWidth;
-            }
-            if (Height > SystemParameters.FullPrimaryScreenHeight)
-            {
-                Height = SystemParameters.FullPrimaryScreenHeight;
-            }
-
-            // may be PARTLY positioned outside the visible area:
-            double MINIMUM_VISIBLE_PART = Math.Min(100, Math.Min(Width, Height));
-            if (Left + MINIMUM_VISIBLE_PART > bounds.Width)
-            {
-                Left = bounds.Width - MINIMUM_VISIBLE_PART;
-            }
-            if (Left + Width - MINIMUM_VISIBLE_PART < 0)
-            {
-                Left = MINIMUM_VISIBLE_PART - Width;
-            }
-            if (Top + MINIMUM_VISIBLE_PART > bounds.Height)
-            {
-                Top = bounds.Height - MINIMUM_VISIBLE_PART;
-            }
-            if (Top + Height - MINIMUM_VISIBLE_PART < 0)
-            {
-                Top = MINIMUM_VISIBLE_PART - Height;
-            }
-
-            return done;
-        }
-
-        //private static bool _SnapToPixels = true;
-        public static bool SnapToPixels
-        {
-            get
-            {
-                if (!Configuration.ConfigurationManager.IsInitialized)
-                {
-                    // silently ignore: we haven't started up properly yet.
-                    return true;
-                }
-                return Configuration.ConfigurationManager.Instance.ConfigurationRecord.SnapToPixels;
-            }
-            set
-            {
-                if (!Configuration.ConfigurationManager.IsInitialized)
-                {
-                    // silently ignore: we haven't started up properly yet.
-                }
-                Configuration.ConfigurationManager.Instance.ConfigurationRecord.SnapToPixels = value;
-            }
-        }
-    }
-
-    public class StandardWindowShutdownCbInstance
-    {
-        private WeakReference<StandardWindow> obj = null;
-
-        public StandardWindowShutdownCbInstance(StandardWindow w)
-        {
-            obj = new WeakReference<StandardWindow>(w);
-        }
-
-        public void HandleShutDownForWindow()
-        {
-            if (obj.TryGetTarget(out StandardWindow w) && w != null)
-            {
-                w.ShuttingDown();
-            }
-        }
-
-        public static void RegisterShutdownHandler(StandardWindowShutdownCbInstance self)
-        {
-            ShutdownableManager.Instance.Register(self.HandleShutDownForWindow);
-        }
-    }
-
-    internal class StandardWindowReference
-    {
-        public WeakReference<StandardWindow> window;
-        public string type;
-    }
-
-    public delegate StandardWindow StandardWindowCreatorFunction();
-
-    public class StandardWindowFactory
-    {
-        private static List<StandardWindowReference> windows;
-        private static object windows_lock = new object();
-
-        static StandardWindowFactory()
-        {
-            windows = new List<StandardWindowReference>();
-        }
-
-        // parameters: nameof(class)
-        internal static StandardWindowReference Spot(string name)
-        {
-            StandardWindowReference spot = null;
-
-            lock (windows_lock)
-            {
-                foreach (var el in windows)
-                {
-                    if (el.type == name)
-                    {
-                        spot = el;
-                        break;
-                    }
-                }
-            }
-
-            return spot;
-        }
-
-        public static bool Has(string name)
-        {
-            StandardWindowReference spot = Spot(name);
-
-            StandardWindow instance;
-            return (spot != null && spot.window.TryGetTarget(out instance) && instance != null);
-        }
-
-        public static StandardWindow Create(string name, StandardWindowCreatorFunction maker)
-        {
-            StandardWindowReference spot = Spot(name);
-
-            StandardWindow instance;
-            if (spot != null && spot.window.TryGetTarget(out instance) && instance != null)
-            {
-                return instance;
-            }
-            else
-            {
-                // got to create an instance (and store it!)
-                instance = maker();
-                if (spot == null)
-                {
-                    spot = new StandardWindowReference()
-                    {
-                        window = new WeakReference<StandardWindow>(instance),
-                        type = name
-                    };
-
-                    lock (windows_lock)
-                    {
-                        windows.Add(spot);
-                    }
-                }
-                else
-                {
-                    // update spot:
-                    lock (windows_lock)
-                    {
-                        spot.window.SetTarget(instance);
-                    }
-                }
-                return instance;
+                Logging.Warn(ex, "There was a problem restoring screen position to {0} for window {1}", position, Name);
+                return false;
             }
         }
     }
 }
-

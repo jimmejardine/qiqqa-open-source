@@ -16,10 +16,6 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.ProcessTools;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.WebBrowsing
 {
@@ -70,18 +66,18 @@ namespace Qiqqa.WebBrowsing
                         {
                             process.WaitForExit();
 
-                            Logging.Info("HTMLToPDF:\n{0}", process_output_reader.GetOutputsDumpStrings());
+                            Logging.Info("HTMLToPDF:\n{0}", process_output_reader.GetOutputsDumpString());
                         }
                     }
                 }
 
                 StatusManager.Instance.UpdateStatus("HTMLToPDF", "Converting HTML to PDF: adding to library");
-                PDFDocument pdf_document = Library.GuestInstance.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(filename, Library.GuestInstance, url, url, null, null, null, true);
+                PDFDocument pdf_document = Library.GuestInstance.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(filename, Library.GuestInstance, url, url, null, null, null, true, true);
                 pdf_document.Title = title;
                 pdf_document.Year = Convert.ToString(DateTime.Now.Year);
                 pdf_document.DownloadLocation = url;
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                     {
                         PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                         pdf_reading_control.EnableGuestMoveNotification();

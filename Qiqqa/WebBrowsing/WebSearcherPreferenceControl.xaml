@@ -6,12 +6,16 @@
   >
     <DockPanel>
         <commongui:StandardPageHeader x:Name="ObjHeader" DockPanel.Dock="Top" />
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
         <DockPanel DockPanel.Dock="Bottom">
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdSave"  Margin="3" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel"  Margin="3" />
+            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdSave" />
+            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" />
             <Grid/>
         </DockPanel>
-        <local_gui:AugmentedBorder Margin="3" >
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+        <local_gui:AugmentedBorder>
             <DockPanel>
                 <ListBox Name="ObjListWebSearchers" SelectionMode="Multiple" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>

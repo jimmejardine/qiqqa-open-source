@@ -178,8 +178,6 @@ namespace Qiqqa.InCite
             if (null != text_block)
             {
                 ListFormattingTools.DocumentTextBlockTag tag = (ListFormattingTools.DocumentTextBlockTag)text_block.Tag;
-                ASSERT.Test(tag != null);
-                ASSERT.Test(tag.pdf_document != null);
 
                 if (as_snippet)
                 {
@@ -258,11 +256,8 @@ namespace Qiqqa.InCite
 
         private void TxtSearchTerms_TextChanged(object sender, TextChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                ReSearch();
-                e.Handled = true;
-            });
+            ReSearch();
+            e.Handled = true;
         }
 
         private void ReSearch()
@@ -321,7 +316,6 @@ namespace Qiqqa.InCite
 
                 chw = new StandardWindow();
                 chw.Title = "Qiqqa InCite";
-                chw.Name = "QiqqaInCiteWindow";
                 chw.Content = instance;
                 chw.Closing += chw_Closing;
                 chw.Width = 700;
@@ -347,18 +341,15 @@ namespace Qiqqa.InCite
 
         private static void chw_Closing(object sender, CancelEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (instance.ObjCheckKeepOpen.IsChecked ?? false)
             {
-                if (instance.ObjCheckKeepOpen.IsChecked ?? false)
-                {
-                }
-                else
-                {
-                    chw.Hide();
-                }
+            }
+            else
+            {
+                chw.Hide();
+            }
 
-                e.Cancel = true;
-            });
+            e.Cancel = true;
         }
 
         public static class Interop

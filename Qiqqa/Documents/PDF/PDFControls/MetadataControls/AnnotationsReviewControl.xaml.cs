@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using Qiqqa.AnnotationsReportBuilding;
 using Qiqqa.Common;
 using Utilities.GUI;
-using Utilities.Misc;
 using Utilities.Reflection;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
@@ -44,11 +43,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ObjTooManyAnnotationsButton.Visibility = Visibility.Collapsed;
 
             PDFDocument pdf_document = (PDFDocument)ObjTooManyAnnotationsButton.Tag;
-
-            SafeThreadPool.QueueUserWorkItem(() =>
-            {
-                PopulateWithAnnotationReport(pdf_document);
-            });
+            PopulateWithAnnotationReport(pdf_document);
         }
 
         private void ObjPopupButton_Click(object sender, RoutedEventArgs e)
@@ -62,24 +57,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ObjRefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Rebuild();
-            });
+            Rebuild();
         }
 
         private void AnnotationsReviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Rebuild();
-            });
+            Rebuild();
         }
 
         private void Rebuild()
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             ObjDocumentViewer.Document = null;
             ObjTooManyAnnotationsButton.Visibility = Visibility.Collapsed;
 
@@ -88,29 +75,20 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-                SafeThreadPool.QueueUserWorkItem(() =>
+                if (pdf_document.GetAnnotations().Count > 50 || pdf_document.Highlights.Count > 1000)
                 {
-                    // TODO: [GHo] what are these 'heuristic' conditions good for?!?!
-                    if (pdf_document.GetAnnotations().Count > 50 || pdf_document.Highlights.Count > 1000)
-                    {
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
-                        {
-                            ObjTooManyAnnotationsButton.Visibility = Visibility.Visible;
-                            ObjTooManyAnnotationsButton.Tag = pdf_document;
-                        });
-                    }
-                    else
-                    {
-                        PopulateWithAnnotationReport(pdf_document);
-                    }
-                });
+                    ObjTooManyAnnotationsButton.Visibility = Visibility.Visible;
+                    ObjTooManyAnnotationsButton.Tag = pdf_document;
+                }
+                else
+                {
+                    PopulateWithAnnotationReport(pdf_document);
+                }
             }
         }
 
         private void PopulateWithAnnotationReport(PDFDocument pdf_document)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             List<PDFDocument> pdf_documents = new List<PDFDocument>();
             pdf_documents.Add(pdf_document);
 
@@ -123,10 +101,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             annotation_report_options.SuppressPDFAnnotationTags = true;
             annotation_report_options.InitialRenderDelayMilliseconds = 1000;
 
-            AsyncAnnotationReportBuilder.BuildReport(pdf_document.LibraryRef, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report)
-            {
-                ObjDocumentViewer.Document = annotation_report.flow_document;
-            });
+            var annotation_report = AsyncAnnotationReportBuilder.BuildReport(pdf_document.LibraryRef, pdf_documents, annotation_report_options);
+            ObjDocumentViewer.Document = annotation_report.flow_document;
         }
     }
 }

@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using Qiqqa.DocumentLibrary;
 using Utilities.GUI;
-using Utilities.Misc;
 using Utilities.Strings;
 
 namespace Qiqqa.Documents.PDF.CitationManagerStuff
 {
     public class PDFDocumentCitationManager
     {
-        // TODO: make this a WeakReference, or better yet: get rid of it entirely!
         private PDFDocument pdf_document;
-
         private object citations_lock = new object();
         private List<Citation> _citations = null;
 
@@ -228,8 +225,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 
             List<Citation> citations = new List<Citation>();
 
-            List<LibraryDB.LibraryItem> library_items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(PDFDocumentFileLocations.CITATIONS, new List<string>() { pdf_document.Fingerprint });
-            ASSERT.Test(library_items.Count < 2);
+            List<LibraryDB.LibraryItem> library_items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.CITATIONS);
             if (0 < library_items.Count)
             {
                 LibraryDB.LibraryItem library_item = library_items[0];

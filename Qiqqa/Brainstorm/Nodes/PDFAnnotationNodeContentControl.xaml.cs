@@ -11,7 +11,6 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Images;
-using Utilities.Misc;
 using Image = System.Drawing.Image;
 
 namespace Qiqqa.Brainstorm.Nodes
@@ -45,7 +44,7 @@ namespace Qiqqa.Brainstorm.Nodes
             Focusable = true;
 
             ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormPDFAnnotation);
-            //RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             ImageIcon.Width = NodeThemes.image_width;
             TextBorder.CornerRadius = NodeThemes.corner_radius;
@@ -109,12 +108,8 @@ namespace Qiqqa.Brainstorm.Nodes
                 int actual_resolution = target_resolution;
                 double resolution_rescale_factor = 1;
 
-                BitmapSource cropped_image_page = null;
-                using (Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, actual_resolution))
-                {
-                    cropped_image_page = BitmapImageTools.FromImage(annotation_image, (int)(annotation_image.Width * resolution_rescale_factor), (int)(annotation_image.Height * resolution_rescale_factor));
-                    ASSERT.Test(cropped_image_page.IsFrozen);
-                }
+                Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, actual_resolution);
+                BitmapSource cropped_image_page = BitmapImageTools.FromImage(annotation_image, (int)(annotation_image.Width * resolution_rescale_factor), (int)(annotation_image.Height * resolution_rescale_factor));
 
                 ImageIcon.Source = cropped_image_page;
                 ImageIcon.Width = cropped_image_page.Width / 2;
@@ -144,28 +139,25 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("PDFAnnotationNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
-                    {
-                        library_index_hover_popup?.Dispose();
+                    library_index_hover_popup?.Dispose();
 
-                        ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
-                        ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    // Clear the references for sanity's sake
-                    pdf_annotation_node_content = null;
-                    library_index_hover_popup = null;
-                });
-
-                ++dispose_count;
+                    ToolTipClosing -= PDFDocumentNodeContentControl_ToolTipClosing;
+                    ToolTipOpening -= PDFDocumentNodeContentControl_ToolTipOpening;
+                }
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                // Clear the references for sanity's sake
+                pdf_annotation_node_content = null;
+                library_index_hover_popup = null;
+            });
+
+            ++dispose_count;
         }
 
         #endregion

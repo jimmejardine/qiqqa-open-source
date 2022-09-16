@@ -176,6 +176,12 @@
       <HintPath>..\libs\Office.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PdfSharp-wpf, Version=1.51.5185.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-wpf.1.51.5185-beta\lib\net30\PdfSharp-wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting-wpf, Version=1.51.5185.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-wpf.1.51.5185-beta\lib\net30\PdfSharp.Charting-wpf.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -496,13 +502,8 @@
       <DependentUpon>SelectingNodesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Brainstorm\SceneManager\TestHarness.cs" />
-    <Compile Include="ClientVersioning\ClientUpdater.cs" />
-    <Compile Include="ClientVersioning\ClientVersionInformation.cs" />
     <Compile Include="ClientVersioning\ClientVersionReleaseNotes.xaml.cs">
       <DependentUpon>ClientVersionReleaseNotes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Common\ActivityMonitor\ActivityMonitor.xaml.cs">
-      <DependentUpon>ActivityMonitor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\AssociatePDFWithVanillaReferenceWindow.xaml.cs">
       <DependentUpon>AssociatePDFWithVanillaReferenceWindow.xaml</DependentUpon>
@@ -664,9 +665,6 @@
     </Compile>
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryChooserControl.xaml.cs">
       <DependentUpon>IntranetLibraryChooserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryEditControl.xaml.cs">
-      <DependentUpon>IntranetLibraryEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDB.cs" />
     <Compile Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryDetail.cs" />
@@ -1321,10 +1319,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Common\ActivityMonitor\ActivityMonitor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Common\AssociatePDFWithVanillaReferenceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1416,10 +1410,6 @@
     <Page Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryChooserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DocumentLibrary\IntranetLibraryStuff\IntranetLibraryEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="DocumentLibrary\LibraryCatalog\MultipleDocumentsSelectedPanel.xaml">
       <Generator>MSBuild:Compile</Generator>

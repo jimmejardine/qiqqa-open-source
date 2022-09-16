@@ -2,10 +2,6 @@
 using System.IO;
 using System.IO.Pipes;
 using Utilities;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.Main.IPC
 {

@@ -3,16 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
         xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-                          x:Name="TagExplorerItemRename"
  >
     <DockPanel>
-        <DockPanel DockPanel.Dock="Bottom" Margin="3" >
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" MinHeight="20"  Margin="3"  />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" MinHeight="20"  Margin="3"  />
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+        <DockPanel DockPanel.Dock="Bottom">
+            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" MinHeight="20"  />
+            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" MinHeight="20"  />
             <Grid/>
         </DockPanel>
-        <Grid Margin="3" >
-            <local_gui:AugmentedBorder Grid.Column="0" Name="RenameFormFieldsContainer">
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+        <Grid>
+            <local_gui:AugmentedBorder Grid.Column="0">
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Auto">
                     <commongui:StandardFlowDocument>
                         <Paragraph>
@@ -28,9 +31,8 @@
                         </Paragraph>
                         <Paragraph>
                             Please enter the new tag name, or leave this blank if you wish to delete the tag from your library:
-                        </Paragraph>
-                        <Paragraph>
-                            <TextBox x:Name="TextNewTagName" MinWidth="200"  HorizontalAlignment="Stretch" MinHeight="17" TextAlignment="Left"  />
+                            <LineBreak />
+                            <TextBox Name="TextNewTagName" MinWidth="200"/>
                         </Paragraph>
                         <Paragraph>
                             There are

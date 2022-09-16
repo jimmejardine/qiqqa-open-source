@@ -5,22 +5,16 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Media.Imaging;
-using icons;
-using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.Page;
 using Utilities;
 using Utilities.BibTex.Parsing;
-using Utilities.GUI;
 using Utilities.Misc;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
     public class PDFRendererControlStats
     {
+        internal PDFRendererControl pdf_renderer_control;
         internal PDFDocument pdf_document;
 
         public double zoom_factor = 1.0;
@@ -41,8 +35,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
         }
 
-        public PDFRendererControlStats(PDFDocument pdf_document)
+        public PDFRendererControlStats(PDFRendererControl pdf_renderer_control, PDFDocument pdf_document)
         {
+            this.pdf_renderer_control = pdf_renderer_control;
             this.pdf_document = pdf_document;
 
             using (var graphics = Graphics.FromHwnd(IntPtr.Zero))
@@ -53,14 +48,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         #region --- Background rendering of resized page images ------------------------------------------------------------------------------------------------------------------------
 
-        public delegate void ResizedPageImageItemCallbackDelegate(BitmapSource image_page, int requested_height, int requested_width);
+        public delegate void ResizedPageImageItemCallbackDelegate(BitmapSource image_page, double requested_height);
 
         private class ResizedPageImageItemRequest
         {
             internal int page;
             internal PDFRendererPageControl page_control;
-            internal int height;
-            internal int width;
+            internal double height;
             internal ResizedPageImageItemCallbackDelegate callback;
         }
 
@@ -68,10 +62,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
         private List<int> resized_page_image_item_request_orders = new List<int>();
         private int num_resized_page_image_item_thread_running = 0;
 
-        public void GetResizedPageImage(PDFRendererPageControl page_control, int page, int height, int width, ResizedPageImageItemCallbackDelegate callback)
+        public void GetResizedPageImage(PDFRendererPageControl page_control, int page, double height, ResizedPageImageItemCallbackDelegate callback)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (resized_page_image_item_requests)
             {
@@ -82,7 +74,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     page = page,
                     page_control = page_control,
                     height = height,
-                    width = width,
                     callback = callback
                 };
 
@@ -91,15 +82,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 if (num_resized_page_image_item_thread_running < 1)
                 {
                     Interlocked.Increment(ref num_resized_page_image_item_thread_running);
-                    ResizedPageImageItemThreadEntry();
+                    SafeThreadPool.QueueUserWorkItem(ResizedPageImageItemThreadEntry);
                 }
             }
         }
 
-        private void ResizedPageImageItemThreadEntry()
+        private void ResizedPageImageItemThreadEntry(object arg)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             while (true)
             {
                 ResizedPageImageItemRequest resized_page_image_item_request = null;
@@ -108,7 +97,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 lock (resized_page_image_item_requests)
                 {
                     // l1_clk.LockPerfTimerStop();
-
                     // If there is nothing more to do...
                     if (0 == resized_page_image_item_request_orders.Count)
                     {
@@ -133,50 +121,36 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 Logging.Debug("Performing page redraw for {0}", resized_page_image_item_request.page);
 
                 // Check that the page is still visible
-                ASSERT.Test(resized_page_image_item_request.page_control != null);
                 if (!resized_page_image_item_request.page_control.PageIsInView)
                 {
                     continue;
                 }
 
-
-                // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
-                //
-                bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForReading");
-
-                if (!allow)
+                try
                 {
-                    var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
-                    resized_page_image_item_request.callback(img, resized_page_image_item_request.height, resized_page_image_item_request.width);
+                    //PngBitmapDecoder decoder = new PngBitmapDecoder(new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height)), BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                    //BitmapSource bitmap = decoder.Frames[0];
+                    //bitmap.Freeze();
+
+                    BitmapImage bitmap = new BitmapImage();
+                    using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height)))
+                    {
+                        bitmap.BeginInit();
+                        bitmap.StreamSource = ms;
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.EndInit();
+                        bitmap.Freeze();
+                    }
+
+                    if (null != bitmap)
+                    {
+                        resized_page_image_item_request.callback(bitmap, resized_page_image_item_request.height);
+                    }
                 }
-
-
-                SafeThreadPool.QueueUserWorkItem(() =>
+                catch (Exception ex)
                 {
-                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-                    try
-                    {
-                        BitmapImage bitmap = new BitmapImage();
-                        using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height, resized_page_image_item_request.width)))
-                        {
-                            bitmap.BeginInit();
-                            bitmap.StreamSource = ms;
-                            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                            bitmap.EndInit();
-                            bitmap.Freeze();
-                        }
-
-                        if (null != bitmap)
-                        {
-                            resized_page_image_item_request.callback(bitmap, resized_page_image_item_request.height, resized_page_image_item_request.width);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "There was an error while resizing a PDF page image");
-                    }
-                });
+                    Logging.Error(ex, "There was an error while resizing a PDF page image");
+                }
             }
         }
 
@@ -216,5 +190,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 Logging.Error(ex, "Problem calculating start_page_offset");
             }
         }
+
+
     }
 }

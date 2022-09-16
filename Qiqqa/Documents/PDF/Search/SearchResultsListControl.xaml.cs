@@ -36,19 +36,13 @@ namespace Qiqqa.Documents.PDF.Search
 
         private void ListSearchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                PDFSearchResult search_result = ListSearchResults.SelectedItem as PDFSearchResult;
-                SearchSelectionChanged?.Invoke(search_result);
-            });
+            PDFSearchResult search_result = ListSearchResults.SelectedItem as PDFSearchResult;
+            SearchSelectionChanged?.Invoke(search_result);
         }
 
         private void SearchResultsListControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                ReflectDataContext();
-            });
+            ReflectDataContext();
         }
 
         private void ReflectDataContext()

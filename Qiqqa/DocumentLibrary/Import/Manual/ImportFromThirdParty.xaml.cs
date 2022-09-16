@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
@@ -15,9 +14,6 @@ using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Reflection;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
@@ -39,7 +35,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             web_library_detail = _web_library_detail;
 
-            //Theme.Initialize(); -- already done in StandardWindow base class
+            Theme.Initialize();
 
             InitializeComponent();
 
@@ -128,14 +124,14 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         private void CmdAutomaticMendeleyImport_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromMendeley);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, mdd.metadata_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, mdd.metadata_imports.ToArray());
             Close();
         }
 
         private void CmdAutomaticEndnoteImport_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportAutoFromEndNote);
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, edd.metadata_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, edd.metadata_imports.ToArray());
             Close();
         }
 
@@ -217,8 +213,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             _currentSelectedExportFile = null;
 
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             switch (_currentProvider)
             {
                 case Providers.BibTeX:
@@ -277,8 +271,6 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         private void ChooseSupplementaryFolder(object sender, RoutedEventArgs e)
         {
             _currentSelectedSupplementaryFolder = null;
-
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
 
             switch (_currentProvider)
             {
@@ -461,17 +453,16 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private static string GetFolderNameFromDialog(string title, string defaultFolder)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            using (System.Windows.Forms.FolderBrowserDialog ofd = new System.Windows.Forms.FolderBrowserDialog())
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = title;
-                dialog.DefaultDirectory = defaultFolder;
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result != CommonFileDialogResult.Ok)
+                ofd.Description = title;
+                ofd.SelectedPath = defaultFolder;
+
+                if (System.Windows.Forms.DialogResult.OK != ofd.ShowDialog())
                 {
                     return null;
                 }
-                return dialog.FileName;
+                return ofd.SelectedPath;
             }
         }
 
@@ -582,7 +573,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
                 filename_and_bibtex_imports.Add(filename_with_metadata_import);
             }
 
-            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, filename_and_bibtex_imports.ToArray());
+            ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(web_library_detail, false, false, filename_and_bibtex_imports.ToArray());
 
             MessageBoxes.Info("{0} files are now being imported - this may take a little while.  You can track the import progress in the status bar.", filename_and_bibtex_imports.Count);
 

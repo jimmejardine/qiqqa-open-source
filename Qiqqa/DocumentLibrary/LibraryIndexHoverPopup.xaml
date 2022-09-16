@@ -3,21 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
 >
+    <UserControl.Resources>
+        <local_gui:ReadPropertyAfterSetConverter x:Key="ReadPropertyAfterSetConverter"/>
+    </UserControl.Resources>
     <StackPanel>
         <local_gui:AugmentedBorder Name="ObjTitleBorder">
             <DockPanel>
                 <Grid Name="ObjThemeSwatch" DockPanel.Dock="Right" Width="24" />
-                <StackPanel Name="StackTextHeader" Margin="3" >
-                    <TextBlock Text="{Binding TitleCombined}" TextTrimming="CharacterEllipsis" FontWeight="Bold" Name="TextTitle"/>
+                <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+                <StackPanel Name="StackTextHeader">
+                    <TextBlock Text="{Binding TitleCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" FontWeight="Bold" Name="TextTitle"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding YearCombined}" TextTrimming="CharacterEllipsis" Name="TextYear" />
-                        <TextBlock Text="{Binding AuthorsCombined}" TextTrimming="CharacterEllipsis" Name="TextAuthor"  Margin="3" />
+                        <TextBlock Text="{Binding YearCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" Name="TextYear" />
+                        <local_gui:AugmentedSpacer />
+                        <TextBlock Text="{Binding AuthorsCombined, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" Name="TextAuthor" />
                     </StackPanel>
-                    <TextBlock Text="{Binding Publication}" TextTrimming="CharacterEllipsis" FontStyle="Italic" />
+                    <TextBlock Text="{Binding Publication, Converter={StaticResource ReadPropertyAfterSetConverter}}" TextTrimming="CharacterEllipsis" FontStyle="Italic" />
                 </StackPanel>
             </DockPanel>
         </local_gui:AugmentedBorder>
-        <Image Name="ImageThumbnail" Stretch="Uniform" />
+        <Image Name="ImageThumbnail" Stretch="Uniform"/>
         <TextBlock Name="TxtAbstract" MaxWidth="640" TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>

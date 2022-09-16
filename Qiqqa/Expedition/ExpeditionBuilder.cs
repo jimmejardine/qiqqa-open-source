@@ -102,7 +102,7 @@ namespace Qiqqa.Expedition
 
                     {
                         PDFDocument pdf_document = pdf_documents[d];
-                        string full_text = " " + pdf_document.GetFullOCRText() + " ";
+                        string full_text = " " + pdf_document.PDFRenderer.GetFullOCRText() + " ";
                         string full_text_lower = full_text.ToLower();
 
                         for (int t = 0; t < data_source.words.Count; ++t)
@@ -170,7 +170,7 @@ namespace Qiqqa.Expedition
             {
                 // This exception should only occur when the user *canceled* the process and should therefor
                 // *not* be propagated. Instead, we have to report an aborted result:
-                progress_update_delegate("Canceled Expedition", 1, 1);
+                progress_update_delegate("Cancelled Expedition", 1, 1);
                 return null;
             }
 

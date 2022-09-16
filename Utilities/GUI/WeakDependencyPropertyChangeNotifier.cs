@@ -17,8 +17,6 @@ namespace Utilities.GUI
 
         public WeakDependencyPropertyChangeNotifier(DependencyObject propertySource, PropertyPath property)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             if (null == propertySource)
             {
                 throw new ArgumentNullException("propertySource");
@@ -56,23 +54,20 @@ namespace Utilities.GUI
         {
             Logging.Debug("WeakDependencyPropertyChangeNotifier::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
-                    {
-                        BindingOperations.ClearBinding(this, ValueProperty);
-                    }
-                });
+                    BindingOperations.ClearBinding(this, ValueProperty);
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    _propertySource = null;
-                });
-
-                ++dispose_count;
+            WPFDoEvents.SafeExec(() =>
+            {
+                _propertySource = null;
             });
+
+            ++dispose_count;
         }
 
         #endregion --- Lifetime management -----------------------------------------------------------------------

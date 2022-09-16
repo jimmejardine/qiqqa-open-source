@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -49,14 +48,13 @@ namespace Qiqqa.Main
                 DoPreamble();
                 DoApplicationCreate();
 
-                SafeThreadPool.QueueUserWorkItem(() =>
+                SafeThreadPool.QueueUserWorkItem(o =>
                 {
-                    //DoUpgrades();  -- delay doing updates until we have had the 'login' dialog where we show and possibly *change* the base directory!
-
+                    DoUpgrades();
 #if false 									// set to true for testing the UI behaviour wile this takes a long time to 'run':
                     Thread.Sleep(15000);
 #endif
-                    DoPostInit();
+                    DoPostUpgrade();
                 });
             }
             catch (Exception ex)
@@ -86,50 +84,6 @@ namespace Qiqqa.Main
 
             Thread.CurrentThread.Name = "Main";
 
-            // Check if we're running in "Portable Application" mode:
-#if false
-            {
-                string[] app_paths = new string[] {
-                    Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"x"),
-                    Path.Combine(System.AppContext.BaseDirectory, @"x"),
-                    Process.GetCurrentProcess().MainModule.FileName,
-                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().Location).LocalPath,
-                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath,
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"x"),
-                    Environment.GetCommandLineArgs()[0]
-                };
-
-                foreach (string app_path in app_paths)
-                {
-                    string p = Path.GetFullPath(app_path);
-                    p = Path.GetDirectoryName(p);
-                    p = Path.Combine(p, @"Qiqqa.Portable.Settings.json5");
-                    if (File.Exists(p))
-                    {
-                        Logging.Info(p);
-                    }
-                }
-            }
-#endif
-
-            UserRegistry.DetectPortableApplicationMode();
-
-            {
-                if (UserRegistry.GetPortableApplicationMode())
-                {
-                    // set up defaults when they are absent:
-                    object v = null;
-                    UserRegistry.DeveloperOverridesDB.TryGetValue("BaseDataDirectory", out v);
-                    if (string.IsNullOrEmpty(v as string))
-                    {
-                        UserRegistry.DeveloperOverridesDB.Add("BaseDataDirectory", Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../My.Qiqqa.Libraries")));
-                    }
-                }
-            }
-
-            // now also check for a developer override config file in the Basedirectory and add those overrides to the set:
-            RegistrySettings.AugmentDeveloperOverridesDB();
-
             if (RegistrySettings.Instance.IsSet(RegistrySettings.DebugConsole))
             {
                 Console.Instance.Init();
@@ -158,14 +112,14 @@ namespace Qiqqa.Main
 
 #if CEFSHARP
 
-#region CEFsharp setup
+            #region CEFsharp setup
 
             // CEFsharp setup for AnyPC as per https://github.com/cefsharp/CefSharp/issues/1714:
             AppDomain.CurrentDomain.AssemblyResolve += CefResolver;
 
             InitCef();
 
-#endregion CEFsharp setup
+            #endregion CEFsharp setup
 
 #endif
 
@@ -219,59 +173,26 @@ namespace Qiqqa.Main
                 Logging.Error(ex, "Unknown exception while checking for single app instance.  Continuing as normal so there could be several Qiqqas running.");
             }
 
-            ComputerStatistics.LogCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
+            ComputerStatistics.LogCommonStatistics();
         }
 
         private static void DoApplicationCreate()
         {
             // Create the application object
             application = new Application();
-            application.ShutdownMode = ShutdownMode.OnLastWindowClose;
+            application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             application.Exit += Application_Exit;
             application.Activated += Application_Activated;
             application.LoadCompleted += Application_LoadCompleted;
             application.Startup += Application_Startup;
-            application.SessionEnding += Application_SessionEnding;
 
             // All the exception handling
             application.DispatcherUnhandledException += application_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             SafeThreadPool.UnhandledException += SafeThreadPool_UnhandledException;
 
-            Process proc = Process.GetCurrentProcess();
-            //     Occurs each time an application writes a line to its redirected System.Diagnostics.Process.StandardOutput/StandardError
-            proc.ErrorDataReceived += Proc_ErrorDataReceived;
-            proc.OutputDataReceived += Proc_OutputDataReceived;
-            //     Occurs when a process exits.
-            proc.Exited += Proc_Exited;
-            proc.EnableRaisingEvents = true;
-
             // Start the FPS measurer
             { var init = WPFFrameRate.Instance; }
-        }
-
-        private static void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
-        {
-            Logging.Warn($"---Application::SessionEnding: {e.ReasonSessionEnding}");
-
-            SignalShutdown($"Windows Session ending: {e.ReasonSessionEnding}");
-        }
-
-        private static void Proc_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            Logging.Warn($"---Application::StdErr:\n{e.Data}");
-        }
-
-        private static void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            Logging.Warn($"---Application::StdOut:\n{e.Data}");
-        }
-
-        private static void Proc_Exited(object sender, EventArgs e)
-        {
-            Logging.Info("---Application/Process::Exit invoked");
-
-            SignalShutdown("Main Application/Process::Exit event");
         }
 
         private static void Application_Startup(object sender, StartupEventArgs e)
@@ -291,20 +212,16 @@ namespace Qiqqa.Main
 
         private static void Application_Exit(object sender, ExitEventArgs e)
         {
-            Logging.Info("---Application::Exit - user (probably) closed main/last open window.");
-
-            SignalShutdown("Main Application::Exit event - user (probably) closed main/last open window.");
+            Logging.Info("---Application_Exit");
         }
 
-#if false
         private static void DoUpgrades()
         {
             // Perform any upgrade paths that we must
             UpgradeManager.RunUpgrades();
         }
-#endif
 
-        private static void DoPostInit()
+        private static void DoPostUpgrade()
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -314,57 +231,33 @@ namespace Qiqqa.Main
             {
                 StatusManager.Instance.UpdateStatus("AppStart", "Loading themes");
                 Theme.Initialize();
-                DualTabbedLayout.GetWindowOverride = delegate () {
-                    return new StandardWindow();
-                };
+                DualTabbedLayout.GetWindowOverride = delegate () { return new StandardWindow(); };
 
                 // Force tooltips to stay open
                 ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(3600000));
             });
 
+            // Make sure the data directories exist...
+            if (!Directory.Exists(ConfigurationManager.Instance.BaseDirectoryForUser))
+            {
+                Directory.CreateDirectory(ConfigurationManager.Instance.BaseDirectoryForUser);
+            }
+
             // and kick off the Login Dialog to start the application proper:
             WPFDoEvents.InvokeAsyncInUIThread(() => ShowLoginDialog());
-
-#if DEBUG
-            // regression test the error catching the various sync and async handlers...
-            WPFDoEvents.TestAsyncErrorHandling();
-#endif
 
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
         }
 
-        private static void DoPostUpgrade()
+        public static void SignalShutdown()
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            // Make sure the data directories exist...
-            Directory.CreateDirectory(ConfigurationManager.Instance.BaseDirectoryForUser);
-        }
-
-        public static void SignalShutdown(string reason)
-        {
-            ShutdownableManager.Instance.Shutdown(reason);
+            ShutdownableManager.Instance.Shutdown();
         }
 
         public static void ShowLoginDialog()
         {
             LoginWindow login_window = new LoginWindow();
             login_window.ChooseLogin();
-        }
-
-        private static int log_close_down_counter = 2;  // 2: once at end of main, plus once at (hopefully) end of threadpool queue.
-
-        public static void CloseLogFile()
-        {
-            ComputerStatistics.ReportMemoryStatus($"Status at termination end stage {3 - log_close_down_counter}");
-
-            // only close the log when this function has been called TWICE:
-            log_close_down_counter--;
-            if (log_close_down_counter == 0)
-            {
-                // This must be the last line the application executes, EVAR!
-                Logging.ShutDown();
-            }
         }
 
         [STAThread]
@@ -384,24 +277,22 @@ namespace Qiqqa.Main
                 // the time to login Dialog is visible (and usable by the user), are
                 // indeed ready.
 
-                Exception has_ex = null;
                 try
                 {
                     application.Run();
                 }
                 catch (Exception ex)
                 {
-                    has_ex = ex;
-                    Logging.Error(ex, "Exception caught at Main() Application::Run().  Disaster.");
+                    Logging.Error(ex, "Exception caught at Main() application.Run().  Disaster.");
                 }
 
-                SignalShutdown(has_ex != null ? $"Exception caught in Main Application::Run() function: {has_ex}" : "Main Application::Run() has terminated.");
+                SignalShutdown();
             }
             catch (Exception ex)
             {
                 Logging.Error(ex, "Exception caught at Main().  Disaster.");
 
-                SignalShutdown($"Exception caught in Main Application function: {ex}");
+                SignalShutdown();
             }
 
             Logging.Info("-static Main()");
@@ -413,54 +304,41 @@ namespace Qiqqa.Main
             // libraries all properly like, etc.
             // So that's what we're going to do next. And forced GC to kick the sluggish off the lot
             // before we report.
-            Logging.Info("Unloading all user libraries...");
+            GC.WaitForPendingFinalizers();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+            Logging.Info("-static Heap after forced GC compacting at the end: {0}", GC.GetTotalMemory(false));
 
             // kick off all the libraries
             WebLibraryManager.Instance.UnloadAllLibraries();
 
-            SafeThreadPool.QueueUserWorkItem(CloseLogFile, skip_task_at_app_shutdown: false);
-
             Logging.Info("Making sure all threads have completed or terminated...");
 
             // give this a sane upper limit so the application cannot ever be 'stuck in the background' due to this:
-            int wait_time = 5000;
-            for (int min_rounds = 3;
-                wait_time > 0 &&
-                (
-                    min_rounds > 0 ||
-                    SafeThreadPool.RunningThreadCount > 0 ||
-                    GC.GetTotalMemory(false) > 10000000L ||
-                    ComputerStatistics.GetTotalRunningThreadCount() > 0
-                );
-                min_rounds--)
+            int wait_time = 15000;
+            for (int min_rounds = 3; wait_time > 0 && (min_rounds > 0 || SafeThreadPool.RunningThreadCount > 0 || GC.GetTotalMemory(false) > 10000000L); min_rounds--)
             {
                 GC.WaitForPendingFinalizers();
-                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
-                Logging.Info($"-static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): {GC.GetTotalMemory(false)} Bytes, {SafeThreadPool.RunningThreadCount} tasks active, {ComputerStatistics.GetTotalRunningThreadCount()} threads running");
+                Logging.Info("-static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): {0} Bytes, {1} tasks active", GC.GetTotalMemory(false), SafeThreadPool.RunningThreadCount);
 
                 Thread.Sleep(1000);
                 wait_time -= 1000;
             }
-            Logging.Info($"Last machine state observation before shutting down the log at the very end of the application run: Heap after forced GC compacting: {GC.GetTotalMemory(false)} Bytes, {SafeThreadPool.RunningThreadCount} tasks active, {ComputerStatistics.GetTotalRunningThreadCount()} threads running, {wait_time / 1000} seconds overtime unused (more than zero for this one is good!)");
+            Logging.Info("Last machine state observation before shutting down the log at the very end of the application run: Heap after forced GC compacting: {0} Bytes, {1} tasks active, {2} seconds overtime unused (more than zero for this one is good!)", GC.GetTotalMemory(false), SafeThreadPool.RunningThreadCount, wait_time / 1000);
 
-            CloseLogFile();
+            // This must be the last line the application executes, EVAR!
+            Logging.ShutDown();
         }
 
         private static void SafeThreadPool_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            RemarkOnException(e.ExceptionObject as Exception, potentially_fatal: false);
+            RemarkOnException(e.ExceptionObject as Exception, false);
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
-            bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+") // "generic error happenedinGDI+."
-                || ex.Message.Contains("while rasterising");            // SORAX: Error while rasterising page 24 at 456.6737dpi of 'G:\\Qiqqa\\base\\INTRANET_A863F89A-6729-49FD-9DDE-AEA03E698867\\documents\\1\\17C861BF0298B776E7A199D0F09C9BFF5E7037.pdf'
-            if (ex is NotImplementedException)
-            {
-                obnoxious_but_not_fatal = true;   // Reports about stuff that's not yet implemented are harmless
-            }
+            bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+");   // "generic error happenedinGDI+."
             RemarkOnException(ex, !obnoxious_but_not_fatal);
         }
 
@@ -468,10 +346,6 @@ namespace Qiqqa.Main
         {
             Exception ex = e.Exception;
             bool obnoxious_but_not_fatal = ex.Message.Contains(" GDI+");   // "generic error happenedinGDI+."
-            if (ex is NotImplementedException)
-            {
-                obnoxious_but_not_fatal = true;   // Reports about stuff that's not yet implemented are harmless
-            }
             RemarkOnException(ex, !obnoxious_but_not_fatal);
             e.Handled = true;
         }
@@ -479,10 +353,9 @@ namespace Qiqqa.Main
         private static void RemarkOnException(Exception ex, bool potentially_fatal)
         {
             Logging.Error(ex, "RemarkOnException.....");
-
-            if (!ShutdownableManager.Instance.IsShuttingDown)
+            if (null != Application.Current && !ShutdownableManager.Instance.IsShuttingDown)
             {
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     RemarkOnException_GUI_THREAD(ex, potentially_fatal);
                 }
@@ -495,27 +368,11 @@ namespace Qiqqa.Main
             try
             {
                 Logging.Error(ex, "RemarkOnException_GUI_THREAD...");
-
-                // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
-                SafeThreadPool.QueueUserWorkItem(() =>
-                {
-                    // Collect all generations of memory.
-                    GC.WaitForPendingFinalizers();
-                    GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
-                    GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
-                });
-
-                bool isGDIfailureInXULrunner = ex.Message.Contains("A generic error occurred in GDI+");
+                UnhandledExceptionMessageBox.DisplayException(ex);
                 const int EACCESS = unchecked((int)0x80004005);
-                if (isGDIfailureInXULrunner || ex.HResult == EACCESS)
+                if (ex.Message.Contains("A generic error occurred in GDI+") || ex.HResult == EACCESS)
                 {
                     potentially_fatal = false;
-                }
-
-                // do NOT display GDI+ errors as they are merely obnoxious and unresolvable anyway:
-                if (!isGDIfailureInXULrunner)
-                {
-                    UnhandledExceptionMessageBox.DisplayException(ex);
                 }
             }
             catch (Exception ex2)
@@ -526,16 +383,16 @@ namespace Qiqqa.Main
             if (potentially_fatal)
             {
                 // signal the application to shutdown as an unhandled exception is a grave issue and nothing will be guaranteed afterwards.
-                ShutdownableManager.Instance.Shutdown($"Exception received in top level error handler: {ex}");
+                ShutdownableManager.Instance.Shutdown();
 
                 // and terminate the Windows Message Loop if it hasn't already (in my tests, Qiqqa was stuck in there without a window to receive messages from at this point...)
-                MainWindowServiceDispatcher.Instance.ShutdownQiqqa(suppress_exit_warning: true);
+                MainWindowServiceDispatcher.Instance.ShutdownQiqqa(true);
             }
         }
 
 #if CEFSHARP
 
-#region CEFsharp setup helpers
+        #region CEFsharp setup helpers
 
         // CEFsharp setup code as per https://github.com/cefsharp/CefSharp/issues/1714:
 
@@ -576,7 +433,7 @@ namespace Qiqqa.Main
             return null;
         }
 
-#endregion CEFsharp setup helpers
+        #endregion CEFsharp setup helpers
 
 #endif
 

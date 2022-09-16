@@ -49,23 +49,20 @@ namespace Qiqqa.Common.ReadOutLoud
 
         private void speech_synthesizer_SpeakProgress(object sender, SpeakProgressEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            // Add the current word to our list
+            last_words.Add(e.Text);
+            while (last_words.Count > 10)
             {
-                // Add the current word to our list
-                last_words.Add(e.Text);
-                while (last_words.Count > 10)
-                {
-                    last_words.RemoveAt(0);
-                    last_words.RemoveAt(0);
-                    last_words.RemoveAt(0);
-                    last_words.RemoveAt(0);
-                    last_words.RemoveAt(0);
-                }
+                last_words.RemoveAt(0);
+                last_words.RemoveAt(0);
+                last_words.RemoveAt(0);
+                last_words.RemoveAt(0);
+                last_words.RemoveAt(0);
+            }
 
-                string textwindow = ArrayFormatter.ListElements(last_words, " ");
+            string textwindow = ArrayFormatter.ListElements(last_words, " ");
 
-                StatusManager.Instance.UpdateStatus("ReadOutAloud", textwindow, e.CharacterPosition, current_prompt_length);
-            });
+            StatusManager.Instance.UpdateStatus("ReadOutAloud", textwindow, e.CharacterPosition, current_prompt_length);
         }
 
         private void speech_synthesizer_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
@@ -130,27 +127,24 @@ namespace Qiqqa.Common.ReadOutLoud
         {
             Logging.Debug("ReadOutLoudManager::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
-                    {
-                        // Get rid of managed resources
-                        speech_synthesizer?.Dispose();
-                    }
-                    speech_synthesizer = null;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    current_prompt = null;
-                    last_words?.Clear();
-                    last_words = null;
-                });
-
-                ++dispose_count;
+                    // Get rid of managed resources
+                    speech_synthesizer?.Dispose();
+                }
+                speech_synthesizer = null;
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                current_prompt = null;
+                last_words?.Clear();
+                last_words = null;
+            });
+
+            ++dispose_count;
         }
 
         #endregion

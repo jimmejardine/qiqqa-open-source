@@ -22,8 +22,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             this.pdf_documents = pdf_documents;
 
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             Title = "Qiqqa - Add Tags";

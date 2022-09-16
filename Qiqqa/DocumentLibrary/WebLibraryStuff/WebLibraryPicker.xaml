@@ -4,7 +4,6 @@
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
   xmlns:local_web_library="clr-namespace:Qiqqa.DocumentLibrary.WebLibraryStuff"
-                          x:Name="WebLibraryPickerWindow"
 >
     <DockPanel>
         <local_gui:AugmentedBorder DockPanel.Dock="Top">

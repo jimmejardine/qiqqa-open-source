@@ -5,19 +5,11 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using icons;
-using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
-using Utilities.Images;
-using Utilities.Misc;
 using Utilities.OCR;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 {
@@ -26,15 +18,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
     /// </summary>
     public partial class PDFCameraLayer : PageLayer, IDisposable
     {
-        private PDFDocument pdf_document;
+        private PDFRendererControlStats pdf_renderer_control_stats;
         private int page;
         private DragAreaTracker drag_area_tracker;
 
-        public PDFCameraLayer(PDFDocument pdf_document, int page)
+        public PDFCameraLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-            this.pdf_document = pdf_document;
+            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
             InitializeComponent();
@@ -44,82 +34,41 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             drag_area_tracker = new DragAreaTracker(this);
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
-
-            //Unloaded += PDFCameraLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
-        }
-
-        private void PDFCameraLayer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Dispose();
         }
 
         private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
-            WPFDoEvents.SafeExec(() =>
+            FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
+
+            double width_page = Math.Abs(mouse_up_point.X - mouse_down_point.X);
+            double height_page = Math.Abs(mouse_up_point.Y - mouse_down_point.Y);
+            if (3 <= width_page && 3 <= height_page)
             {
-                FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
+                CroppedBitmap image = GetSnappedImage(mouse_up_point, mouse_down_point);
+                List<Word> words = GetSnappedWords(mouse_up_point, mouse_down_point);
+                string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
+                string tabled_text = SelectedWordsToFormattedTextConvertor.ConvertToTable(words);
 
-                double width_page = Math.Abs(mouse_up_point.X - mouse_down_point.X);
-                double height_page = Math.Abs(mouse_up_point.Y - mouse_down_point.Y);
-                if (3 <= width_page && 3 <= height_page)
-                {
-                    DocPageInfo page_info = new DocPageInfo
-                    {
-                        pdf_document = @pdf_document,
-                        page = @page,
-                        ActualHeight = @ActualHeight,
-                        ActualWidth = @ActualWidth
-                    };
-
-                    SafeThreadPool.QueueUserWorkItem(() =>
-                    {
-                        // GetSnappedImage() invokes the background renderer, hence run it in a background thread itself:
-                        BitmapSource image = GetSnappedImage(page_info, mouse_up_point, mouse_down_point);
-                        List<Word> words = GetSnappedWords(page_info, mouse_up_point, mouse_down_point);
-                        string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
-                        string tabled_text = SelectedWordsToFormattedTextConvertor.ConvertToTable(words);
-
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
-                        {
-                            CameraActionChooserDialog cacd = new CameraActionChooserDialog();
-                            cacd.SetLovelyDetails(image, raw_text, tabled_text);
-                            cacd.ShowDialog();
-                        });
-                    });
-                }
-                else
-                {
-                    Logging.Info("Region too small to screen grab");
-                }
-            });
+                CameraActionChooserDialog cacd = new CameraActionChooserDialog();
+                cacd.SetLovelyDetails(image, raw_text, tabled_text);
+                cacd.ShowDialog();
+            }
+            else
+            {
+                Logging.Info("Region too small to screen grab");
+            }
         }
 
-        private class DocPageInfo
+        private List<Word> GetSnappedWords(Point mouse_up_point, Point mouse_down_point)
         {
-            internal PDFDocument pdf_document;
-            internal int page;
-            internal double ActualWidth;
-            internal double ActualHeight;
-        }
-
-        private static List<Word> GetSnappedWords(DocPageInfo page_info, Point mouse_up_point, Point mouse_down_point)
-        {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            double left = Math.Min(mouse_up_point.X, mouse_down_point.X) / page_info.ActualWidth;
-            double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / page_info.ActualHeight;
-            double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / page_info.ActualWidth;
-            double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / page_info.ActualHeight;
+            double left = Math.Min(mouse_up_point.X, mouse_down_point.X) / ActualWidth;
+            double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / ActualHeight;
+            double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
+            double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
 
             List<Word> words_in_selection = new List<Word>();
 
-            WordList word_list = page_info.pdf_document.GetOCRText(page_info.page);
+            WordList word_list = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
             if (null != word_list)
             {
                 foreach (var word in word_list)
@@ -134,22 +83,20 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
             return words_in_selection;
         }
 
-        private static BitmapSource GetSnappedImage(DocPageInfo page_info, Point mouse_up_point, Point mouse_down_point)
+        private CroppedBitmap GetSnappedImage(Point mouse_up_point, Point mouse_down_point)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            CroppedBitmap cropped_image_page = null;
 
-            BitmapSource cropped_image_page = null;
-
-            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.GetPageByHeightAsImage(page_info.page, (int)Math.Round(page_info.ActualHeight), (int)Math.Round(page_info.ActualWidth))))
+            using (MemoryStream ms = new MemoryStream(pdf_renderer_control_stats.pdf_document.PDFRenderer.GetPageByDPIAsImage(page, 150)))
             {
                 PngBitmapDecoder decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                 BitmapSource image_page = decoder.Frames[0];
                 if (null != image_page)
                 {
-                    double left = Math.Min(mouse_up_point.X, mouse_down_point.X) * image_page.PixelWidth / page_info.ActualWidth;
-                    double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) * image_page.PixelHeight / page_info.ActualHeight;
-                    double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) * image_page.PixelWidth / page_info.ActualWidth;
-                    double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) * image_page.PixelHeight / page_info.ActualHeight;
+                    double left = Math.Min(mouse_up_point.X, mouse_down_point.X) * image_page.PixelWidth / ActualWidth;
+                    double top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) * image_page.PixelHeight / ActualHeight;
+                    double width = Math.Abs(mouse_up_point.X - mouse_down_point.X) * image_page.PixelWidth / ActualWidth;
+                    double height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) * image_page.PixelHeight / ActualHeight;
 
                     left = Math.Max(left, 0);
                     top = Math.Max(top, 0);
@@ -158,28 +105,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
                     if (0 < width && 0 < height)
                     {
-                        var cropped = new CroppedBitmap(image_page, new Int32Rect((int)left, (int)top, (int)width, (int)height));
-
-                        // UPDATE HERE: CroppedBitmap to BitmapImage
-                        // cropped_image_page = GetJpgImage(cropped.Source);
-                        // or
-                        //cropped_image_page = GetPngImage(cropped.Source);
-
-                        using (MemoryStream mStream = new MemoryStream())
-                        {
-                            PngBitmapEncoder jEncoder = new PngBitmapEncoder();
-
-                            jEncoder.Frames.Add(BitmapFrame.Create(cropped));  // the croppedBitmap is a CroppedBitmap object
-
-                            // jEncoder.QualityLevel = 75;
-                            jEncoder.Save(mStream);
-
-                            cropped_image_page = BitmapImageTools.LoadFromStream(mStream);
-
-                            // I can also get array of bytes that represent the cropped image by call this method : mStream.GetBuffer()
-
-                            //cropped_image_page = BitmapImageTools.CropImageRegion(image_page, left, top, width, height);
-                        }
+                        cropped_image_page = new CroppedBitmap(image_page, new Int32Rect((int)left, (int)top, (int)width, (int)height));
                     }
                 }
 
@@ -207,51 +133,46 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
         {
             Logging.Debug("PDFCameraLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                foreach (var el in Children)
                 {
-                    foreach (var el in Children)
+                    IDisposable node = el as IDisposable;
+                    if (null != node)
                     {
-                        IDisposable node = el as IDisposable;
-                        if (null != node)
-                        {
-                            node.Dispose();
-                        }
+                        node.Dispose();
                     }
-                });
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.SafeExec(() =>
+            {
+                Children.Clear();
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (drag_area_tracker != null)
                 {
-                    Children.Clear();
-                });
+                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    if (drag_area_tracker != null)
-                    {
-                        drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                    }
-
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    // Clear the references for sanity's sake
-                    pdf_document = null;
-                    drag_area_tracker = null;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    DataContext = null;
-                });
-
-                ++dispose_count;
-
-                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+            WPFDoEvents.SafeExec(() =>
+            {
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                drag_area_tracker = null;
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            });
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

@@ -1,15 +1,16 @@
-<UserControl
-    x:Class="Qiqqa.InCite.CitationClusterEditorControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
+<UserControl x:Class="Qiqqa.InCite.CitationClusterEditorControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+>
     <Grid>
         <StackPanel Name="ObjGridCitationSelectedPanel">
             <TextBlock>
                 Items in cluster (ENTER opens, DEL deletes):
             </TextBlock>
             <ListBox Name="ObjCitationsInCluster" />
-            <TextBlock Margin="3">
+            <local_gui:AugmentedSpacer />
+            <TextBlock>
                 Specify page/section/chapter/etc:
             </TextBlock>
             <Grid>
@@ -20,44 +21,28 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0">
                     Type:
                 </TextBlock>
-                <ComboBox
-                    Name="ObjSpecifierType"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    MinWidth="50"
-                    IsEditable="True" />
+                <ComboBox Grid.Row="0" Grid.Column="1" Name="ObjSpecifierType" MinWidth="50" IsEditable="True" />
                 <TextBlock Grid.Row="1" Grid.Column="0">
                     Location:
                 </TextBlock>
-                <TextBox
-                    Name="ObjSpecifierLocation"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    MinWidth="50" />
+                <TextBox Grid.Row="1" Grid.Column="1" Name="ObjSpecifierLocation" MinWidth="50" />
                 <TextBlock Grid.Row="2" Grid.Column="0">
                     Prefix:
                 </TextBlock>
-                <TextBox
-                    Name="ObjPrefix"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    MinWidth="50" />
+                <TextBox Grid.Row="2" Grid.Column="1" Name="ObjPrefix" MinWidth="50" />
                 <TextBlock Grid.Row="3" Grid.Column="0">
                     Suffix:
                 </TextBlock>
-                <TextBox
-                    Name="ObjSuffix"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    MinWidth="50" />
+                <TextBox Grid.Row="3" Grid.Column="1" Name="ObjSuffix" MinWidth="50" />
             </Grid>
-            <CheckBox Name="ObjCheckSeparateAuthorDate" Margin="3">
+            <local_gui:AugmentedSpacer />
+            <CheckBox Name="ObjCheckSeparateAuthorDate">
                 Separate author &amp; date?
             </CheckBox>
             <TextBlock>
@@ -65,13 +50,16 @@
                     e.g. Rand (2008) vs. (Rand, 2008)
                 </Italic>
             </TextBlock>
+            <local_gui:AugmentedSpacer />
             <DockPanel>
-                <local_gui:AugmentedButton Name="CmdApply" Margin="3" />
-                <local_gui:AugmentedButton Name="CmdRevert" Margin="3" />
+                <local_gui:AugmentedButton Name="CmdApply" />
+                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedButton Name="CmdRevert" />
+                <local_gui:AugmentedSpacer />
             </DockPanel>
         </StackPanel>
-        <Grid Name="ObjGridNoCitationSelectedInstructions">
-            <StackPanel VerticalAlignment="Center">
+        <Grid Name="ObjGridNoCitationSelectedInstructions" >
+            <StackPanel VerticalAlignment="Center" >
                 <TextBlock HorizontalAlignment="Center">
                     When you click on a Qiqqa InCite citation
                 </TextBlock>

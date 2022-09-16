@@ -7,7 +7,6 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Utilities;
-using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -40,20 +39,14 @@ namespace Qiqqa.Common
                     PDFReadingControl pdf_reading_control = framework_element as PDFReadingControl;
                     if (null != pdf_reading_control)
                     {
-                        PDFDocument pdf_document = pdf_reading_control.GetPDFDocument();
-                        ASSERT.Test(pdf_document != null);
-
-                        if (pdf_document != null)
-                        {
-                            Logging.Info("Remembering a PDF reader {0}", pdf_document.Fingerprint);
-                            restore_settings.Add(String.Format("PDF_DOCUMENT,{0},{1}", pdf_document.LibraryRef.Id, pdf_document.Fingerprint));
-                        }
+                        Logging.Info("Remembering a PDF reader {0}", pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint);
+                        restore_settings.Add(String.Format("PDF_DOCUMENT,{0},{1}", pdf_reading_control.PDFRendererControlStats.pdf_document.LibraryRef.Id, pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint));
                     }
                 }
             }
 
             // Store the remembrances
-            SerializeFile.TextSaveAllLines(Filename, restore_settings);
+            File.WriteAllLines(Filename, restore_settings);
         }
 
         public static void RestoreDesktop()
@@ -63,9 +56,9 @@ namespace Qiqqa.Common
             try
             {
                 // Get the remembrances
-                if (SerializeFile.Exists(Filename))
+                if (File.Exists(Filename))
                 {
-                    string[] restore_settings = SerializeFile.TextLoadAllLines(Filename);
+                    string[] restore_settings = File.ReadAllLines(Filename);
                     foreach (string restore_setting in restore_settings)
                     {
                         try
@@ -82,7 +75,7 @@ namespace Qiqqa.Common
                                 }
                                 else
                                 {
-                                    WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail));
+                                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail));
                                 }
                             }
                             else if (restore_setting.StartsWith("PDF_DOCUMENT"))
@@ -105,17 +98,7 @@ namespace Qiqqa.Common
                                     }
                                     else
                                     {
-                                        WPFDoEvents.InvokeAsyncInUIThread(() =>
-                                        {
-                                            try
-                                            {
-                                                MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                Logging.Error(ex, "RestoreDesktop: Error occurred while attempting to restore the view (tab) for document fingerprint {0}, library Id {1}", document_fingerprint, library_id);
-                                            }
-                                        });
+                                        WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document));
                                     }
                                 }
                             }

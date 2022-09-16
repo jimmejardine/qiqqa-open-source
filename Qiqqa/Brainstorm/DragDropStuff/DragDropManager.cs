@@ -10,25 +10,15 @@ namespace Qiqqa.Brainstorm.DragDropStuff
     {
         public delegate void DragDropTypeHandler(object dropped_object, Point mouse_current_virtual);
 
-        private WeakReference<SceneRenderingControl> scene_rendering_control;
+        private SceneRenderingControl scene_rendering_control;
         private Dictionary<Type, DragDropTypeHandler> drag_drop_type_handlers = new Dictionary<Type, DragDropTypeHandler>();
 
         internal DragDropManager(SceneRenderingControl scene_rendering_control)
         {
-            this.scene_rendering_control = new WeakReference<SceneRenderingControl>(scene_rendering_control);
+            this.scene_rendering_control = scene_rendering_control;
         }
 
-        public SceneRenderingControl SceneRenderingControl
-        {
-            get
-            {
-                if (scene_rendering_control != null && scene_rendering_control.TryGetTarget(out var control) && control != null)
-                {
-                    return control;
-                }
-                return null;
-            }
-        }
+        public SceneRenderingControl SceneRenderingControl => scene_rendering_control;
 
         public void RegisterDropType(Type type, DragDropTypeHandler handler)
         {

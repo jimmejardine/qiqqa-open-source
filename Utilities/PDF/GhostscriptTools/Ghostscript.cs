@@ -6,10 +6,6 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Utilities.Files;
 using Utilities.ProcessTools;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Utilities.PDF.GhostscriptTools
 {
@@ -64,7 +60,7 @@ namespace Utilities.PDF.GhostscriptTools
                             // Check that we had a clean exit
                             if (!has_exited || 0 != process.ExitCode)
                             {
-                                Logging.Error("Ghostscript process did not terminate.\n{0}", process_output_reader.GetOutputsDumpStrings());
+                                Logging.Error("Ghostscript process did not terminate.\n{0}", process_output_reader.GetOutputsDumpString());
                             }
 
                             return ms;

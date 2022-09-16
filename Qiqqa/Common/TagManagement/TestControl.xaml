@@ -9,7 +9,8 @@
             Here be the tag editor
         </TextBlock>
         <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" />
-        <TextBlock Margin="3" >
+        <local_gui:AugmentedSpacer />
+        <TextBlock>
             Here be the underlying string:
         </TextBlock>
         <TextBox Text="{Binding Tags}"/>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -75,45 +74,7 @@ namespace Qiqqa.Common.Configuration
             ButtonLibraryDBExplorer.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonLibraryDBExplorer.Click += ButtonLibraryDBExplorer_Click;
 
-            CmdResetDevCfgToFactoryDefaults.Click += CmdResetDevCfgToFactoryDefaults_Click;
-
-            GUI_LoadKnownWebLibraries.IsChecked = ConfigurationManager.IsEnabled("LoadKnownWebLibraries");
-            GUI_LoadKnownWebLibraries.Unchecked += GUI_DevAdvCfg_Unchecked;
-            GUI_LoadKnownWebLibraries.Checked += GUI_DevAdvCfg_Checked;
-
-            GUI_AddLegacyWebLibrariesThatCanBeFoundOnDisk.IsChecked = ConfigurationManager.IsEnabled("AddLegacyWebLibrariesThatCanBeFoundOnDisk");
-            GUI_AddLegacyWebLibrariesThatCanBeFoundOnDisk.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_AddLegacyWebLibrariesThatCanBeFoundOnDisk.Unchecked += GUI_DevAdvCfg_Checked;
-            GUI_SaveKnownWebLibraries.IsChecked = ConfigurationManager.IsEnabled("SaveKnownWebLibraries");
-            GUI_SaveKnownWebLibraries.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_SaveKnownWebLibraries.Unchecked += GUI_DevAdvCfg_Checked;
-            GUI_DoInterestingAnalysis_GoogleScholar.IsChecked = ConfigurationManager.IsEnabled("DoInterestingAnalysis_GoogleScholar");
-            GUI_DoInterestingAnalysis_GoogleScholar.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_DoInterestingAnalysis_GoogleScholar.Unchecked += GUI_DevAdvCfg_Checked;
-
-            GUI_FolderWatcher.IsChecked = ConfigurationManager.IsEnabled("FolderWatcher");
-            GUI_FolderWatcher.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_FolderWatcher.Unchecked += GUI_DevAdvCfg_Checked;
-            GUI_TextExtraction.IsChecked = ConfigurationManager.IsEnabled("TextExtraction");
-            GUI_TextExtraction.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_TextExtraction.Unchecked += GUI_DevAdvCfg_Checked;
-            GUI_SuggestingMetadata.IsChecked = ConfigurationManager.IsEnabled("SuggestingMetadata");
-            GUI_SuggestingMetadata.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_SuggestingMetadata.Unchecked += GUI_DevAdvCfg_Checked;
-            GUI_BuildSearchIndex.IsChecked = ConfigurationManager.IsEnabled("BuildSearchIndex");
-            GUI_BuildSearchIndex.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_BuildSearchIndex.Unchecked += GUI_DevAdvCfg_Checked;
-            GUI_RenderPDFPagesForSidePanels.IsChecked = ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels");
-            GUI_RenderPDFPagesForSidePanels.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_RenderPDFPagesForSidePanels.Unchecked += GUI_DevAdvCfg_Checked;
-            GUI_RenderPDFPagesForReading.IsChecked = ConfigurationManager.IsEnabled("RenderPDFPagesForReading");
-            GUI_RenderPDFPagesForReading.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_RenderPDFPagesForReading.Unchecked += GUI_DevAdvCfg_Checked;
-            GUI_RenderPDFPagesForOCR.IsChecked = ConfigurationManager.IsEnabled("RenderPDFPagesForOCR");
-            GUI_RenderPDFPagesForOCR.Checked += GUI_DevAdvCfg_Unchecked;
-            GUI_RenderPDFPagesForOCR.Unchecked += GUI_DevAdvCfg_Checked;
-
-            ObjBlurrySnapToPixels.IsChecked = ConfigurationManager.Instance.ConfigurationRecord.SnapToPixels;
+            ObjBlurrySnapToPixels.IsChecked = RegistrySettings.Instance.IsSet(RegistrySettings.SnapToPixels);
             ObjBlurrySnapToPixels.Checked += ObjBlurrySnapToPixels_Checked;
             ObjBlurrySnapToPixels.Unchecked += ObjBlurrySnapToPixels_Unchecked;
 
@@ -145,48 +106,16 @@ namespace Qiqqa.Common.Configuration
             ObjListEZProxy.SelectionChanged += ObjListEZProxy_SelectionChanged;
         }
 
-        private void GUI_DevAdvCfg_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Quick & dirty hacking of the dev config record
-            var dict = ConfigurationManager.GetDeveloperSettingsReference();
-            CheckBox tick = sender as CheckBox;
-            string name = tick.Name.Replace("GUI_", "");
-            bool v1 = dict.TryGetValue(name, out object v2);
-            dict[name] = false;
-            bool v3 = dict.TryGetValue(name, out object v4);
-            Logging.Info($"Ticked: {name}: {v2} -> {v4}");
-        }
-
-        private void GUI_DevAdvCfg_Checked(object sender, RoutedEventArgs e)
-        {
-            // Quick & dirty hacking of the dev config record
-            var dict = ConfigurationManager.GetDeveloperSettingsReference();
-            CheckBox tick = sender as CheckBox;
-            string name = tick.Name.Replace("GUI_", "");
-            bool v1 = dict.TryGetValue(name, out object v2);
-            dict[name] = true;
-            bool v3 = dict.TryGetValue(name, out object v4);
-            Logging.Info($"Ticked: {name}: {v2} -> {v4}");
-        }
-
-        private void CmdResetDevCfgToFactoryDefaults_Click(object sender, RoutedEventArgs e)
-        {
-            ConfigurationManager.ResetDeveloperSettings();
-        }
-
         private void ObjListEZProxy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            Proxy proxy = ObjListEZProxy.SelectedItem as Proxy;
+            if (null != proxy && !String.IsNullOrEmpty(proxy.url))
             {
-                Proxy proxy = ObjListEZProxy.SelectedItem as Proxy;
-                if (null != proxy && !String.IsNullOrEmpty(proxy.url))
-                {
-                    ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy = proxy.url;
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy));
-                }
+                ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy = proxy.url;
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy));
+            }
 
-                e.Handled = true;
-            });
+            e.Handled = true;
         }
 
         private void ObjUserAgent_XXX_Click(object sender, RoutedEventArgs e)
@@ -245,7 +174,7 @@ namespace Qiqqa.Common.Configuration
 
         private void WriteBlurryStatus()
         {
-            ConfigurationManager.Instance.ConfigurationRecord.SnapToPixels = (ObjBlurrySnapToPixels.IsChecked ?? false);
+            RegistrySettings.Instance.Write(RegistrySettings.SnapToPixels, (ObjBlurrySnapToPixels.IsChecked ?? false) ? "yes" : "no");
         }
 
         private void TextQiqqaBaseFolder_TextChanged(object sender, TextChangedEventArgs e)
@@ -362,14 +291,12 @@ namespace Qiqqa.Common.Configuration
 
         private void ButtonGarbageCollect_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
                 Logging.Info("+Before Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(false));
                 GC.WaitForPendingFinalizers();
-                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
                 GC.WaitForPendingFinalizers();
-                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
                 Logging.Info("-After Garbage Collect: Memory load: {0} Bytes", GC.GetTotalMemory(true));
             });

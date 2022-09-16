@@ -7,7 +7,6 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.Common.WebcastStuff;
 using Utilities;
 using Utilities.GUI;
-using Utilities.Misc;
 
 namespace Qiqqa.Brainstorm.SceneManager
 {
@@ -154,29 +153,21 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             SceneRenderingControl.New();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             SceneRenderingControl.SaveToDisk();
         }
 
         private void ButtonSaveAs_Click(object sender, RoutedEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             SceneRenderingControl.SaveAsToDisk();
         }
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             SceneRenderingControl.OpenFromDisk();
         }
 
@@ -240,43 +231,40 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ObjSceneRenderingControl_SelectedNodeControlChanged(NodeControl node_control)
         {
-            WPFDoEvents.SafeExec(() =>
+            // The first time they select something, select the edit tab...
+            if (is_first_selection)
             {
-                // The first time they select something, select the edit tab...
-                if (is_first_selection)
-                {
-                    is_first_selection = false;
-                    DualTabControlArea.MakeActive("Edit");
-                    SceneRenderingControl.Focus();
-                }
+                is_first_selection = false;
+                DualTabControlArea.MakeActive("Edit");
+                SceneRenderingControl.Focus();
+            }
 
-                // Clear out the old selected node editor
-                if (0 < ObjStackEditor.Children.Count)
+            // Clear out the old selected node editor
+            if (0 < ObjStackEditor.Children.Count)
+            {
+                FrameworkElement fe = ObjStackEditor.Children[0] as FrameworkElement;
+                if (null != fe)
                 {
-                    FrameworkElement fe = ObjStackEditor.Children[0] as FrameworkElement;
-                    if (null != fe)
-                    {
-                        fe.DataContext = null;
-                    }
-                    else
-                    {
-                        Logging.Warn("It is strange that there was a non-FrameworkElement child of the brainstorm node editor");
-                    }
-                    ObjStackEditor.Children.Clear();
+                    fe.DataContext = null;
                 }
+                else
+                {
+                    Logging.Warn("It is strange that there was a non-FrameworkElement child of the brainstorm node editor");
+                }
+                ObjStackEditor.Children.Clear();
+            }
 
-                // Create a new selected node editor (if we have one)
-                FrameworkElement fe_to_load = null;
-                if (null != node_control)
-                {
-                    fe_to_load = NodeContentControlRegistry.Instance.GetContentEditor(node_control, node_control.scene_data.node_content);
-                }
-                if (null == fe_to_load)
-                {
-                    fe_to_load = ObjStackEditorHelpWhenEmpty;
-                }
-                LoadEditorFrameworkElement(fe_to_load);
-            });
+            // Create a new selected node editor (if we have one)
+            FrameworkElement fe_to_load = null;
+            if (null != node_control)
+            {
+                fe_to_load = NodeContentControlRegistry.Instance.GetContentEditor(node_control, node_control.scene_data.node_content);
+            }
+            if (null == fe_to_load)
+            {
+                fe_to_load = ObjStackEditorHelpWhenEmpty;
+            }
+            LoadEditorFrameworkElement(fe_to_load);
         }
 
         private void LoadEditorFrameworkElement(FrameworkElement fe)
@@ -305,20 +293,17 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             Logging.Debug("BrainstormControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
-                    {
-                        // Get rid of managed resources
-                        SceneRenderingControl?.Dispose();
-                    }
-                    SceneRenderingControl = null;
-                });
-
-                ++dispose_count;
+                    // Get rid of managed resources
+                    SceneRenderingControl?.Dispose();
+                }
+                SceneRenderingControl = null;
             });
+
+            ++dispose_count;
         }
 
         #endregion

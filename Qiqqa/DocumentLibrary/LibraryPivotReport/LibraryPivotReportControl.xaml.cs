@@ -15,10 +15,6 @@ using Utilities.Collections;
 using Utilities.GUI;
 using Utilities.Mathematics;
 using Utilities.Misc;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 {
@@ -108,6 +104,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             {
                 Regenerate();
             }
+
             catch (OutOfMemoryException)
             {
                 MessageBoxes.Error("The pivot that you have requested requires too much memory to be calculated.  Please try a smaller analysis.");
@@ -116,8 +113,6 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
         private void Regenerate()
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             HashSet<string> parent_fingerprints = null;
             if (null != PDFDocuments && 0 < PDFDocuments.Count)
             {
@@ -128,118 +123,107 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 }
             }
 
-            string map_y_axis_name = (string)ObjYAxis.SelectedItem;
-            string map_x_axis_name = (string)ObjXAxis.SelectedItem;
-            string identifier_name = (string)ObjIdentifier.SelectedItem;
+            MultiMapSet<string, string> map_y_axis = LibraryPivotReportBuilder.GenerateAxisMap((string)ObjYAxis.SelectedItem, LibraryRef, parent_fingerprints);
+            MultiMapSet<string, string> map_x_axis = LibraryPivotReportBuilder.GenerateAxisMap((string)ObjXAxis.SelectedItem, LibraryRef, parent_fingerprints);
+            LibraryPivotReportBuilder.IdentifierImplementations.IdentifierImplementationDelegate identifier_implementation = LibraryPivotReportBuilder.IdentifierImplementations.GetIdentifierImplementation((string)ObjIdentifier.SelectedItem);
 
-            SafeThreadPool.QueueUserWorkItem(() =>
+            LibraryPivotReportBuilder.PivotResult pivot_result = LibraryPivotReportBuilder.GeneratePivot(map_y_axis, map_x_axis);
+
+            GridControl ObjGridControl = new GridControl();
+            ObjGridControlHolder.Content = ObjGridControl;
+            ObjGridControl.Model.RowCount = map_y_axis.Count + 2;
+            ObjGridControl.Model.ColumnCount = map_x_axis.Count + 2;
+
+            // ROW/COLUMN Titles
+            for (int y = 0; y < pivot_result.y_keys.Count; ++y)
             {
-                MultiMapSet<string, string> map_y_axis = LibraryPivotReportBuilder.GenerateAxisMap(map_y_axis_name, LibraryRef, parent_fingerprints);
-                MultiMapSet<string, string> map_x_axis = LibraryPivotReportBuilder.GenerateAxisMap(map_x_axis_name, LibraryRef, parent_fingerprints);
+                ObjGridControl.Model[y + 1, 0].CellValue = pivot_result.y_keys[y];
+                ObjGridControl.Model[y + 1, 0].CellValueType = typeof(string);
+            }
+            for (int x = 0; x < pivot_result.x_keys.Count; ++x)
+            {
+                ObjGridControl.Model[0, x + 1].CellValue = pivot_result.x_keys[x];
+                ObjGridControl.Model[0, x + 1].CellValueType = typeof(string);
+            }
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+            // Grid contents
+            StatusManager.Instance.ClearCancelled("LibraryPivot");
+            for (int y = 0; y < pivot_result.y_keys.Count; ++y)
+            {
+                if (General.HasPercentageJustTicked(y, pivot_result.y_keys.Count))
                 {
-                    LibraryPivotReportBuilder.IdentifierImplementations.IdentifierImplementationDelegate identifier_implementation = LibraryPivotReportBuilder.IdentifierImplementations.GetIdentifierImplementation(identifier_name);
+                    StatusManager.Instance.UpdateStatus("LibraryPivot", "Building library pivot grid", y, pivot_result.y_keys.Count, true);
 
-                    LibraryPivotReportBuilder.PivotResult pivot_result = LibraryPivotReportBuilder.GeneratePivot(map_y_axis, map_x_axis);
+                    if (StatusManager.Instance.IsCancelled("LibraryPivot"))
+                    {
+                        Logging.Warn("User cancelled library pivot grid generation");
+                        break;
+                    }
+                }
 
-                    GridControl ObjGridControl = new GridControl();
-                    ObjGridControlHolder.Content = ObjGridControl;
-                    ObjGridControl.Model.RowCount = map_y_axis.Count + 2;
-                    ObjGridControl.Model.ColumnCount = map_x_axis.Count + 2;
+                for (int x = 0; x < pivot_result.x_keys.Count; ++x)
+                {
+                    identifier_implementation(LibraryRef, pivot_result.common_fingerprints[y, x], ObjGridControl.Model[y + 1, x + 1]);
+                }
+            }
+            StatusManager.Instance.UpdateStatus("LibraryPivot", "Finished library pivot");
 
-                    // ROW/COLUMN Titles
+            // ROW/COLUMN Totals
+            {
+                int y_total = 0;
+                {
                     for (int y = 0; y < pivot_result.y_keys.Count; ++y)
                     {
-                        ObjGridControl.Model[y + 1, 0].CellValue = pivot_result.y_keys[y];
-                        ObjGridControl.Model[y + 1, 0].CellValueType = typeof(string);
-                    }
-                    for (int x = 0; x < pivot_result.x_keys.Count; ++x)
-                    {
-                        ObjGridControl.Model[0, x + 1].CellValue = pivot_result.x_keys[x];
-                        ObjGridControl.Model[0, x + 1].CellValueType = typeof(string);
-                    }
-
-                    // Grid contents
-                    StatusManager.Instance.ClearCancelled("LibraryPivot");
-                    for (int y = 0; y < pivot_result.y_keys.Count; ++y)
-                    {
-                        if (General.HasPercentageJustTicked(y, pivot_result.y_keys.Count))
-                        {
-                            StatusManager.Instance.UpdateStatus("LibraryPivot", "Building library pivot grid", y, pivot_result.y_keys.Count, true);
-
-                            if (StatusManager.Instance.IsCancelled("LibraryPivot"))
-                            {
-                                Logging.Warn("User cancelled library pivot grid generation");
-                                break;
-                            }
-                        }
-
+                        int total = 0;
                         for (int x = 0; x < pivot_result.x_keys.Count; ++x)
                         {
-                            identifier_implementation(LibraryRef, pivot_result.common_fingerprints[y, x], ObjGridControl.Model[y + 1, x + 1]);
+                            if (null != pivot_result.common_fingerprints[y, x])
+                            {
+                                total += pivot_result.common_fingerprints[y, x].Count;
+                            }
                         }
-                    }
-                    StatusManager.Instance.UpdateStatus("LibraryPivot", "Finished library pivot");
 
-                    // ROW/COLUMN Totals
+                        ObjGridControl.Model[y + 1, pivot_result.x_keys.Count + 1].CellValue = total;
+                        ObjGridControl.Model[y + 1, pivot_result.x_keys.Count + 1].CellValueType = typeof(int);
+
+                        y_total += total;
+                    }
+                }
+
+                int x_total = 0;
+                {
+                    for (int x = 0; x < pivot_result.x_keys.Count; ++x)
                     {
-                        int y_total = 0;
+                        int total = 0;
+                        for (int y = 0; y < pivot_result.y_keys.Count; ++y)
                         {
-                            for (int y = 0; y < pivot_result.y_keys.Count; ++y)
+                            if (null != pivot_result.common_fingerprints[y, x])
                             {
-                                int total = 0;
-                                for (int x = 0; x < pivot_result.x_keys.Count; ++x)
-                                {
-                                    if (null != pivot_result.common_fingerprints[y, x])
-                                    {
-                                        total += pivot_result.common_fingerprints[y, x].Count;
-                                    }
-                                }
-
-                                ObjGridControl.Model[y + 1, pivot_result.x_keys.Count + 1].CellValue = total;
-                                ObjGridControl.Model[y + 1, pivot_result.x_keys.Count + 1].CellValueType = typeof(int);
-
-                                y_total += total;
+                                total += pivot_result.common_fingerprints[y, x].Count;
                             }
                         }
 
-                        int x_total = 0;
-                        {
-                            for (int x = 0; x < pivot_result.x_keys.Count; ++x)
-                            {
-                                int total = 0;
-                                for (int y = 0; y < pivot_result.y_keys.Count; ++y)
-                                {
-                                    if (null != pivot_result.common_fingerprints[y, x])
-                                    {
-                                        total += pivot_result.common_fingerprints[y, x].Count;
-                                    }
-                                }
+                        ObjGridControl.Model[pivot_result.y_keys.Count + 1, x + 1].CellValue = total;
+                        ObjGridControl.Model[pivot_result.y_keys.Count + 1, x + 1].CellValueType = typeof(int);
 
-                                ObjGridControl.Model[pivot_result.y_keys.Count + 1, x + 1].CellValue = total;
-                                ObjGridControl.Model[pivot_result.y_keys.Count + 1, x + 1].CellValueType = typeof(int);
-
-                                x_total += total;
-                            }
-                        }
-
-                        int common_total = (x_total + y_total) / 2;
-                        if (common_total != x_total || common_total != y_total) throw new GenericException("X and Y totals do not match?!");
-                        ObjGridControl.Model[pivot_result.y_keys.Count + 1, pivot_result.x_keys.Count + 1].CellValue = common_total;
-                        ObjGridControl.Model[pivot_result.y_keys.Count + 1, pivot_result.x_keys.Count + 1].CellValueType = typeof(int);
-
-                        ObjGridControl.Model[0, pivot_result.x_keys.Count + 1].CellValue = "TOTAL";
-                        ObjGridControl.Model[0, pivot_result.x_keys.Count + 1].CellValueType = typeof(string);
-                        ObjGridControl.Model[pivot_result.y_keys.Count + 1, 0].CellValue = "TOTAL";
-                        ObjGridControl.Model[pivot_result.y_keys.Count + 1, 0].CellValueType = typeof(string);
+                        x_total += total;
                     }
+                }
 
-                    // Store the results for the toolbar buttons
-                    last_pivot_result = pivot_result;
-                    last_ObjGridControl = ObjGridControl;
-                });
-            });
+                int common_total = (x_total + y_total) / 2;
+                if (common_total != x_total || common_total != y_total) throw new GenericException("X and Y totals do not match?!");
+                ObjGridControl.Model[pivot_result.y_keys.Count + 1, pivot_result.x_keys.Count + 1].CellValue = common_total;
+                ObjGridControl.Model[pivot_result.y_keys.Count + 1, pivot_result.x_keys.Count + 1].CellValueType = typeof(int);
+
+                ObjGridControl.Model[0, pivot_result.x_keys.Count + 1].CellValue = "TOTAL";
+                ObjGridControl.Model[0, pivot_result.x_keys.Count + 1].CellValueType = typeof(string);
+                ObjGridControl.Model[pivot_result.y_keys.Count + 1, 0].CellValue = "TOTAL";
+                ObjGridControl.Model[pivot_result.y_keys.Count + 1, 0].CellValueType = typeof(string);
+            }
+
+            // Store the results for the toolbar buttons
+            last_pivot_result = pivot_result;
+            last_ObjGridControl = ObjGridControl;
         }
     }
 }

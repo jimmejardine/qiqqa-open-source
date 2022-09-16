@@ -8,8 +8,57 @@
     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
     xmlns:tags="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff">
     <DockPanel>
+        <local_gui:CollapsibleRegion
+            x:Name="ObjChartRegion"
+            DockPanel.Dock="Bottom"
+            VisibleEdge="Top">
+            <syncfusion:Chart Name="ChartSearchTerms" Height="150">
+                <syncfusion:Chart.Resources>
+                    <local:ToolTipConverter x:Key="ToolTipConverter" />
+                    <DataTemplate x:Key="DataPointTemplate">
+                        <Canvas>
+                            <Grid
+                                Canvas.Left="{Binding X}"
+                                Canvas.Top="{Binding Y}"
+                                Width="{Binding Width}"
+                                Height="{Binding Height}">
+                                <Border
+                                    Width="{Binding Width}"
+                                    Height="{Binding Height}"
+                                    VerticalAlignment="Bottom"
+                                    ToolTipService.InitialShowDelay="100"
+                                    ToolTipService.ToolTip="{Binding Converter={StaticResource ToolTipConverter}}">
+                                    <Border.Style>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="Black" />
+                                            <Setter Property="Background" Value="{Binding Interior}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <Binding Path="Highlighted" />
+                                                    </DataTrigger.Binding>
+                                                    <Setter Property="Background" Value="{StaticResource Background_Brush_Blue_Dark}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                            </Grid>
+                        </Canvas>
+                    </DataTemplate>
+                </syncfusion:Chart.Resources>
+                <syncfusion:ChartArea Name="ObjChartArea">
+                    <syncfusion:ChartSeries
+                        Name="ObjSeries"
+                        Interior="{StaticResource Background_Brush_Blue_VeryVeryDark}"
+                        Template="{StaticResource DataPointTemplate}"
+                        Type="Column" />
+                </syncfusion:ChartArea>
+            </syncfusion:Chart>
+        </local_gui:CollapsibleRegion>
         <DockPanel DockPanel.Dock="Bottom">
-            <local_gui:AugmentedButton x:Name="CmdExport" DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton Name="CmdExport" DockPanel.Dock="Right" />
             <local_gui:AugmentedSearchBox
                 Name="TxtSearchTermsFilter"
                 EmptyTextPrompt="Enter keywords to filter the above list (e.g. smi;king)"
@@ -26,7 +75,7 @@
             <Image
                 Name="ObjImageRefresh"
                 Grid.Column="0"
-                Width="16" Cursor="Hand" />
+                Width="16" />
             <RadioButton
                 Name="ObjBooleanAnd"
                 Grid.Column="1"

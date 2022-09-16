@@ -13,10 +13,8 @@
         VerticalScrollBarVisibility="Disabled">
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
             <local_gui:AugmentedButton Name="CmdVersion" />
-            <StackPanel
-                Name="ObjStatusBarContainer"
-                Margin="3"
-                Orientation="Horizontal" />
+            <local_gui:AugmentedSpacer />
+            <StackPanel Name="ObjStatusBarContainer" Orientation="Horizontal" />
         </StackPanel>
     </ScrollViewer>
 </UserControl>

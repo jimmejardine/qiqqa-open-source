@@ -31,7 +31,7 @@ namespace Qiqqa.InCite
 
         public void Refresh(WebLibraryDetail web_library_detail)
         {
-            SafeThreadPool.QueueUserWorkItem(() => Refresh_BACKGROUND(web_library_detail));
+            SafeThreadPool.QueueUserWorkItem(o => Refresh_BACKGROUND(web_library_detail));
         }
 
         private class UsedCitation
@@ -92,7 +92,7 @@ namespace Qiqqa.InCite
                     // First set the used citations
                     List<PDFDocument> pdf_documents = new List<PDFDocument>();
                     used_citations.ForEach(o => pdf_documents.Add(o.pdf_document));
-                    ObjUsedCitationsCatalog.SetPDFDocuments(pdf_documents);
+                    ObjUsedCitationsCatalog.SetPDFDocuments(pdf_documents, null);
 
                     // Then set the missing citations
                     ObjMissingCitationsList.Children.Clear();
@@ -139,6 +139,7 @@ namespace Qiqqa.InCite
                     }
                 }
             }
+
             catch (Exception ex)
             {
                 Logging.Error(ex, "Error locating used citation.");

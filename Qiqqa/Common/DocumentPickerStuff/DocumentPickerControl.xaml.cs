@@ -9,7 +9,6 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
-using Utilities.GUI;
 
 namespace Qiqqa.Common.DocumentPickerStuff
 {
@@ -40,38 +39,35 @@ namespace Qiqqa.Common.DocumentPickerStuff
 
         private void ApplyNewSearch()
         {
-            WPFDoEvents.SafeExec(() =>
+            ObjDocumentsPanel.Children.Clear();
+
+            WebLibraryDetail web_library_detail = ObjLibraryPicker.WebLibraryDetail;
+            if (null != web_library_detail)
             {
-                ObjDocumentsPanel.Children.Clear();
-
-                WebLibraryDetail web_library_detail = ObjLibraryPicker.WebLibraryDetail;
-                if (null != web_library_detail)
+                string query = ObjSearchFilter.Text;
+                if (!String.IsNullOrEmpty(query))
                 {
-                    string query = ObjSearchFilter.Text;
-                    if (!String.IsNullOrEmpty(query))
+                    Library library = web_library_detail.Xlibrary;
+                    HashSet<string> fingerprints = library.GetDocumentFingerprintsWithKeyword(query);
+                    List<PDFDocument> pdf_documents = library.GetDocumentByFingerprints(fingerprints);
+
+                    List<PDFDocument> pdf_documents_sorted = new List<PDFDocument>(pdf_documents.OrderBy(x => x.TitleCombined));
+                    bool alternator = false;
+                    foreach (PDFDocument pdf_document in pdf_documents_sorted)
                     {
-                        Library library = web_library_detail.Xlibrary;
-                        HashSet<string> fingerprints = library.GetDocumentFingerprintsWithKeyword(query);
-                        List<PDFDocument> pdf_documents = library.GetDocumentByFingerprints(fingerprints);
+                        TextBlock text_doc = ListFormattingTools.GetDocumentTextBlock(pdf_document, ref alternator, Feature, OnDocumentClicked);
+                        ObjDocumentsPanel.Children.Add(text_doc);
+                    }
 
-                        List<PDFDocument> pdf_documents_sorted = new List<PDFDocument>(pdf_documents.OrderBy(x => x.TitleCombined));
-                        bool alternator = false;
-                        foreach (PDFDocument pdf_document in pdf_documents_sorted)
-                        {
-                            TextBlock text_doc = ListFormattingTools.GetDocumentTextBlock(pdf_document, ref alternator, Feature, OnDocumentClicked);
-                            ObjDocumentsPanel.Children.Add(text_doc);
-                        }
-
-                        // If the panel is empty, put NONE
-                        if (0 == ObjDocumentsPanel.Children.Count)
-                        {
-                            TextBlock text_doc = new TextBlock();
-                            text_doc.Text = "(none)";
-                            ObjDocumentsPanel.Children.Add(text_doc);
-                        }
+                    // If the panel is empty, put NONE
+                    if (0 == ObjDocumentsPanel.Children.Count)
+                    {
+                        TextBlock text_doc = new TextBlock();
+                        text_doc.Text = "(none)";
+                        ObjDocumentsPanel.Children.Add(text_doc);
                     }
                 }
-            });
+            }
         }
 
         private void OnDocumentClicked(object sender, MouseButtonEventArgs e)

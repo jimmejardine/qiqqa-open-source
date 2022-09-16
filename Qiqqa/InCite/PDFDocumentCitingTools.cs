@@ -5,7 +5,6 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
-using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -35,8 +34,6 @@ namespace Qiqqa.InCite
 
         public static void CitePDFDocument(PDFDocument pdf_document, bool separate_author_and_date)
         {
-            ASSERT.Test(pdf_document != null);
-
             List<PDFDocument> pdf_documents = new List<PDFDocument>();
             pdf_documents.Add(pdf_document);
             CitePDFDocuments(pdf_documents, separate_author_and_date);

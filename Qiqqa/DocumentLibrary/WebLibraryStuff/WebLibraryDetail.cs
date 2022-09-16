@@ -25,19 +25,15 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         [ProtoMember(6)]
         public string FolderToWatch { get; set; }
         [ProtoMember(7)]
-        [Obsolete("Do not use this attribute, it is a remnant of Commercial Qiqqa which we must get rid of one day", true)]
-        public bool XIsLocalGuestLibrary { get; set; }
+        public bool IsLocalGuestLibrary { get; set; }
 
         /* Only valid for web libraries */
         [ProtoMember(8)]
-        [Obsolete("Do not use this attribute, it is a remnant of Commercial Qiqqa which we must get rid of one day", true)]
-        public string XShortWebId { get; set; }
+        public string ShortWebId { get; set; }
         [ProtoMember(9)]
-        [Obsolete("Do not use this attribute, it is a remnant of Commercial Qiqqa which we must get rid of one day", true)]
-        public bool XIsAdministrator { get; set; }
+        public bool IsAdministrator { get; set; }
         [ProtoMember(14)]
-        [Obsolete("Do not use this attribute, it is a remnant of Commercial Qiqqa which we must get rid of one day", true)]
-        public bool XIsReadOnly {
+        public bool IsReadOnly {
             get;
             set; }
         // Bundles can never sync
@@ -62,8 +58,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         public bool IsPurged { get; set; }
 
         [ProtoMember(11)]
-        [Obsolete("Do not use this attribute, it is a remnant of Commercial Qiqqa which we must get rid of one day", true)]
-        public DateTime XLastServerSyncNotificationDate { get; set; }
+        public DateTime LastServerSyncNotificationDate { get; set; }
         [ProtoMember(12)]
         public bool AutoSync {
             get;
@@ -73,15 +68,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         public Library Xlibrary {
             get;
             set;
-        }
-
-        public static bool LibraryIsLoaded(WebLibraryDetail lib)
-        {
-            return lib?.Xlibrary?.XLibraryIsLoaded ?? false;
-        }
-        public static bool LibraryIsLoaded(Library lib)
-        {
-            return lib?.XLibraryIsLoaded ?? false;
         }
 
         public override string ToString()

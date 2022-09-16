@@ -5,7 +5,7 @@
     xmlns:tag="clr-namespace:Qiqqa.Common.TagManagement"
     xmlns:wt="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
     xmlns:wpfext="clr-namespace:Xceed.Wpf.Toolkit;assembly=WPFToolkit.Extended"
-
+             
     Width="400"
     >
     <StackPanel>
@@ -20,14 +20,16 @@
                 </CheckBox>
             </StackPanel>
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedBorder Margin="3" >
+        <local_gui:AugmentedSpacer />
+        <local_gui:AugmentedBorder>
             <StackPanel>
                 <ScrollViewer MaxHeight="200" >
                     <tag:TagEditorControl TagsBundle="{Binding Tags, Mode=TwoWay}" x:Name="ObjTagEditorControl" />
                 </ScrollViewer>
             </StackPanel>
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedBorder Margin="3" >
+        <local_gui:AugmentedSpacer />
+        <local_gui:AugmentedBorder>
             <StackPanel>
                 <TextBlock Text="Color" />
                 <StackPanel Orientation="Horizontal">
@@ -40,7 +42,8 @@
                 </StackPanel>
             </StackPanel>
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedBorder Margin="3" >
+        <local_gui:AugmentedSpacer />
+        <local_gui:AugmentedBorder>
             <StackPanel>
                 <TextBlock Text="Annotation report" />
                 <DockPanel>
@@ -60,7 +63,8 @@
                 </DockPanel>
             </StackPanel>
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedBorder Margin="3" >
+        <local_gui:AugmentedSpacer />
+        <local_gui:AugmentedBorder>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -77,18 +81,21 @@
                 </StackPanel>
             </Grid>
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedBorder Margin="3" >
+        <local_gui:AugmentedSpacer />
+        <local_gui:AugmentedBorder>
             <StackPanel>
                 <TextBlock Text="Creator" />
                 <TextBlock Text="{Binding Creator}" />
             </StackPanel>
         </local_gui:AugmentedBorder>
-        <local_gui:AugmentedBorder Margin="3" >
+        <local_gui:AugmentedSpacer />
+        <local_gui:AugmentedBorder>
             <StackPanel>
                 <TextBlock TextWrapping="Wrap">
                     To move an annotation, click and drag it.  To resize it, double-click and drag it, or hold down the SHIFT key while dragging.
                 </TextBlock>
-                <local_gui:AugmentedButton Name="ButtonDeleteAnnotation"  Margin="3" />
+                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedButton Name="ButtonDeleteAnnotation" />
             </StackPanel>
         </local_gui:AugmentedBorder>
     </StackPanel>

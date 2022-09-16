@@ -10,14 +10,9 @@ using System.Windows.Media.Imaging;
 using Qiqqa.Common.Common;
 using Qiqqa.Common.Configuration;
 using Utilities.GUI;
-using Utilities.Misc;
 using Brush = System.Drawing.Brush;
 using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
@@ -25,10 +20,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
     {
         public static Bitmap RenderHighlights(int width, int height, PDFDocument pdf_document, int page)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             // Render onto a scratch image in solid
-            Bitmap bitmap = new Bitmap(width, height);     // <--- must be Dispose()d by caller
+            Bitmap bitmap = new Bitmap(width, height);     // <--- must b Dispose()d by caller
 
             using (Graphics graphics = Graphics.FromImage(bitmap))
             {
@@ -37,10 +30,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 double last_bottom = Double.NegativeInfinity;
                 PointF[] adjoinment_points = new PointF[4];
 
-                // Next call can be very costly; MUST run in background!
-                var highlights = pdf_document.Highlights.GetHighlightsForPage(page);
-
-                foreach (PDFHighlight highlight in highlights)
+                foreach (PDFHighlight highlight in pdf_document.Highlights.GetHighlightsForPage(page))
                 {
                     using (Brush highlight_pen = new SolidBrush(StandardHighlightColours.GetColor_Drawing(highlight.Color)))
                     {
@@ -81,11 +71,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public static void RenderHighlights(Image image, PDFDocument pdf_document, int page)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             using (Bitmap scratch = RenderHighlights(image.Width, image.Height, pdf_document, page))
             {
-                // Then render scratch onto target in transparent
+                // Then render scratch onto target in transparent            
                 var color_matrix = new ColorMatrix();
                 color_matrix.Matrix33 = (float)ConfigurationManager.Instance.ConfigurationRecord.GUI_AnnotationPrintTransparency;
                 using (var image_attributes = new ImageAttributes())
@@ -111,8 +99,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public static void RenderAnnotations(Image image, PDFDocument pdf_document, int page, PDFAnnotation specific_pdf_annotation)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             int TRANSPARENCY = (int)Math.Round(ConfigurationManager.Instance.ConfigurationRecord.GUI_AnnotationPrintTransparency * 255);
 
             using (Graphics graphics = Graphics.FromImage(image))
@@ -147,11 +133,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public static void RenderInks(Image image, PDFDocument pdf_document, int page)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            var inks = pdf_document.Inks; // may take a bit of time as it's loaded from disk...
-
-            StrokeCollection stroke_collection = inks.GetInkStrokeCollection(page);
+            StrokeCollection stroke_collection = pdf_document.Inks.GetInkStrokeCollection(page);
             if (null != stroke_collection)
             {
                 InkCanvas ic = new InkCanvas();

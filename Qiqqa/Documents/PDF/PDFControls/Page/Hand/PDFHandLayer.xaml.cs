@@ -13,118 +13,77 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
     /// </summary>
     public partial class PDFHandLayer : PageLayer, IDisposable
     {
+        private PDFRendererControlStats pdf_renderer_control_stats;
         private int page;
-        private WeakReference<PDFRendererControl> pdf_renderer_control;
+        private PDFRendererControl pdf_renderer_control;
         private bool mouse_pressed = false;
         private Point mouse_down_position;
         private Point mouse_last_position;
         private Point mouse_last_delta = new Point();
 
-        public PDFHandLayer(PDFRendererControl pdf_renderer_control, int page)
+        public PDFHandLayer(PDFRendererControlStats pdf_renderer_control_stats, int page, PDFRendererControl pdf_renderer_control)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
+            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
-            this.pdf_renderer_control = new WeakReference<PDFRendererControl>(pdf_renderer_control);
+            this.pdf_renderer_control = pdf_renderer_control;
 
             InitializeComponent();
 
             Background = Brushes.Transparent;
             Cursor = Cursors.Hand;
 
-            PDFRendererControlStats pdf_renderer_control_stats = pdf_renderer_control.GetPDFRendererControlStats();
-
             int start_page_offset = pdf_renderer_control_stats.StartPageOffset;
             if (0 != start_page_offset)
             {
-                ObjPageNumberControl.SetPageNumber($"{ (page + start_page_offset - 1) } ({ page }/{ pdf_renderer_control_stats.pdf_document.PageCountAsString })");
+                ObjPageNumberControl.SetPageNumber(String.Format("{2} ({0}/{1})", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount, (page + start_page_offset - 1)));
             }
             else
             {
-                ObjPageNumberControl.SetPageNumber($"{ page }/{ pdf_renderer_control_stats.pdf_document.PageCountAsString }");
+                ObjPageNumberControl.SetPageNumber(String.Format("{0}/{1}", page, pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount));
             }
 
             MouseDown += PDFHandLayer_MouseDown;
             MouseUp += PDFHandLayer_MouseUp;
             MouseMove += PDFHandLayer_MouseMove;
-
-            //Unloaded += PDFHandLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private PDFRendererControl GetPDFRendererControl()
-        {
-            if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
-            {
-                return control;
-            }
-            return null;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
-        }
-
-        private void PDFHandLayer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Dispose();
         }
 
         private void PDFHandLayer_MouseUp(object sender, MouseButtonEventArgs e)
         {
             mouse_pressed = false;
-
             ReleaseMouseCapture();
 
-            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-
-                if (pdf_renderer_control != null)
-            {
-                pdf_renderer_control.ScrollPageArea(new Point(0, 0), mouse_last_delta);
-            }
+            pdf_renderer_control.ScrollPageArea(new Point(0, 0), mouse_last_delta);
 
             e.Handled = true;
         }
 
         private void PDFHandLayer_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
+            mouse_pressed = true;
+            mouse_last_position = mouse_down_position = e.GetPosition(pdf_renderer_control);
 
-            if (pdf_renderer_control != null)
-            {
-                mouse_pressed = true;
+            mouse_last_delta.X = 0;
+            mouse_last_delta.Y = 0;
 
-                mouse_last_position = mouse_down_position = e.GetPosition(pdf_renderer_control);
-
-                mouse_last_delta.X = 0;
-                mouse_last_delta.Y = 0;
-
-                CaptureMouse();
-            }
+            CaptureMouse();
         }
 
         private void PDFHandLayer_MouseMove(object sender, MouseEventArgs e)
         {
-            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
+            Point mouse_current_position = e.GetPosition(pdf_renderer_control);
 
-            if (pdf_renderer_control != null)
+            if (mouse_pressed)
             {
-                Point mouse_current_position = e.GetPosition(pdf_renderer_control);
-
-                if (mouse_pressed)
+                if (mouse_last_position.X != mouse_current_position.X || mouse_last_position.Y != mouse_current_position.Y)
                 {
-                    if (mouse_last_position.X != mouse_current_position.X || mouse_last_position.Y != mouse_current_position.Y)
-                    {
-                        mouse_last_delta.X = mouse_last_position.X - mouse_current_position.X;
-                        mouse_last_delta.Y = mouse_last_position.Y - mouse_current_position.Y;
+                    mouse_last_delta.X = mouse_last_position.X - mouse_current_position.X;
+                    mouse_last_delta.Y = mouse_last_position.Y - mouse_current_position.Y;
 
-                        pdf_renderer_control.ScrollPageArea(mouse_last_delta, new Point(0, 0));
-                    }
+                    pdf_renderer_control.ScrollPageArea(mouse_last_delta, new Point(0, 0));
                 }
-
-                mouse_last_position = mouse_current_position;
             }
+
+            mouse_last_position = mouse_current_position;
         }
 
         #region --- IDisposable ------------------------------------------------------------------------
@@ -147,54 +106,50 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
         {
             Logging.Debug("PDFHandLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (0 == dispose_count)
                 {
-                    if (0 == dispose_count)
-                    {
-                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                        foreach (var el in Children)
+                    foreach (var el in Children)
+                    {
+                        IDisposable node = el as IDisposable;
+                        if (null != node)
                         {
-                            IDisposable node = el as IDisposable;
-                            if (null != node)
-                            {
-                                node.Dispose();
-                            }
+                            node.Dispose();
                         }
                     }
-                });
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    Children.Clear();
-                });
+            WPFDoEvents.SafeExec(() =>
+            {
+                Children.Clear();
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    MouseDown -= PDFHandLayer_MouseDown;
-                    MouseUp -= PDFHandLayer_MouseUp;
-                    MouseMove -= PDFHandLayer_MouseMove;
+            WPFDoEvents.SafeExec(() =>
+            {
+                MouseDown -= PDFHandLayer_MouseDown;
+                MouseUp -= PDFHandLayer_MouseUp;
+                MouseMove -= PDFHandLayer_MouseMove;
+            }, must_exec_in_UI_thread: true);
 
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
-                });
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    DataContext = null;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    // Clear the references for sanity's sake
-                    pdf_renderer_control = null;
-                });
-
-                ++dispose_count;
-
-                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+            WPFDoEvents.SafeExec(() =>
+            {
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                pdf_renderer_control = null;
             });
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

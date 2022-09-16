@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
-using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.ThreadUnsafe;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.Files;
@@ -72,7 +72,7 @@ namespace Qiqqa.DocumentLibrary.PasswordStuff
         /// </summary>
         /// <param name="pdf_document"></param>
         /// <param name="password"></param>
-        public void AddPassword(PDFDocument pdf_document, string password)
+        public void AddPassword(PDFDocument_ThreadUnsafe pdf_document, string password)
         {
             if (null == pdf_document)
             {
@@ -96,7 +96,7 @@ namespace Qiqqa.DocumentLibrary.PasswordStuff
         /// </summary>
         /// <param name="pdf_document"></param>
         /// <returns></returns>
-        public string GetPassword(PDFDocument pdf_document)
+        public string GetPassword(PDFDocument_ThreadUnsafe pdf_document)
         {
             string fingerprint = pdf_document.Fingerprint;
             if (Passwords.ContainsKey(fingerprint))
@@ -110,7 +110,7 @@ namespace Qiqqa.DocumentLibrary.PasswordStuff
             }
         }
 
-        public void RemovePassword(PDFDocument pdf_document)
+        public void RemovePassword(PDFDocument_ThreadUnsafe pdf_document)
         {
             Passwords.Remove(pdf_document.Fingerprint);
             WritePasswordFile(Filename_Store, Passwords);

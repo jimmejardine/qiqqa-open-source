@@ -28,11 +28,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
 
         private void DragAreaControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Border.Width = e.NewSize.Width;
-                Border.Height = e.NewSize.Height;
-            });
+            Border.Width = e.NewSize.Width;
+            Border.Height = e.NewSize.Height;
         }
     }
 }

@@ -33,10 +33,12 @@ namespace Qiqqa.Synchronisation.GUI
             foreach (SyncControlGridItem sync_control_grid_item in grid_items)
             {
                 bool tick_this_library = (0 == sync_request.libraries_to_sync.Count && !sync_control_grid_item.library_sync_detail.web_library_detail.IsReadOnlyLibrary) || sync_request.libraries_to_sync.Contains(sync_control_grid_item.library_sync_detail.web_library_detail);
-                bool tick_this_documents = sync_control_grid_item.CanSyncLibrary;
+                bool tick_this_metadata = sync_request.sync_metadata && sync_control_grid_item.CanSyncMetadata;
+                bool tick_this_documents = sync_request.sync_pdfs && sync_control_grid_item.CanSyncDocuments;
 
                 sync_control_grid_item.UserRequestedSync = tick_this_library;
-                sync_control_grid_item.SyncLibrary = tick_this_library && tick_this_documents && sync_control_grid_item.library_sync_detail.web_library_detail.IsIntranetLibrary;
+                sync_control_grid_item.SyncMetadata = tick_this_library && tick_this_metadata;
+                sync_control_grid_item.SyncDocuments = tick_this_library && tick_this_documents;
             }
         }
 
@@ -57,7 +59,7 @@ namespace Qiqqa.Synchronisation.GUI
                 }
 
                 // Check that there is something to do
-                if (sync_control_grid_item.SyncLibrary)
+                if (sync_control_grid_item.SyncMetadata || sync_control_grid_item.SyncDocuments)
                 {
                     nothing_to_do = false;
                 }

@@ -47,64 +47,6 @@ namespace QiqqaOCR
             bool debug = (args.Length > 6 && 0 == args[6].ToUpper().CompareTo("DEBUG"));
             Logging.Info("\n\n============================================== Starting QiqqaOCR ===============================================\n");
 
-            TextExtractEngine.DEBUG = debug || no_kill;
-            MuPDFRenderer.DEBUG = debug || no_kill;
-
-            try
-            {
-                ShutdownableManager.Instance.ConsoleApplicationIgnoresAutoAppShutdownDetection = true;
-                Thread.CurrentThread.Name = "Main";
-
-                // Check that we were given the right number of parameters
-                if (args.Length < 1)
-                {
-                    throw new Exception("Not enough command line arguments");
-                }
-
-                string mode_switch = args[0];
-                switch (mode_switch)
-                {
-                    case "GROUP":
-                        TextExtractEngine.MainEntry(args, no_kill);
-                        break;
-
-                    case "SINGLE":
-                        OCREngine.MainEntry(args, no_kill);
-                        break;
-
-                    case "SINGLE-FAKE":
-                        FakeEngine.MainEntry(args, no_kill);
-                        break;
-
-                    default:
-                        throw new Exception("Unknown mode switch: " + mode_switch);
-                }
-            }
-            catch (Exception ex)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine("--- Parameters ---");
-                foreach (string arg in args)
-                {
-                    sb.Append(arg);
-                    sb.Append(" ");
-                }
-                sb.AppendLine();
-
-                sb.AppendLine("--- Exception ---");
-                sb.AppendLine(ex.ToString());
-
-                Logging.Error("There was an error in QiqqaOCR:\n{0}", sb.ToString());
-                exit_code = -1;
-            }
-
-            // Check if we should exit
-            if (no_kill)
-            {
-                Logging.Error("PAUSED");
-                Console.ReadKey();
-            }
-
             // This must be the last line the application executes, EVAR!
             Logging.ShutDown();
 

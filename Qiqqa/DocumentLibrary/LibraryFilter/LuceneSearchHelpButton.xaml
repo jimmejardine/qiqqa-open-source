@@ -1,9 +1,9 @@
-<UserControl
-    x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LuceneSearchHelpButton"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
+<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.LuceneSearchHelpButton"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+>
     <Grid>
-        <local_gui:AugmentedButton x:Name="SearchQuickHelp" />
+        <local_gui:AugmentedButton x:Name="SearchQuickHelp"  />
     </Grid>
 </UserControl>

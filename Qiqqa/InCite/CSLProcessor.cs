@@ -11,10 +11,6 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.InCite
 {
@@ -107,7 +103,7 @@ namespace Qiqqa.InCite
             }
             catch (Exception ex)
             {
-                SafeThreadPool.QueueUserWorkItem(() =>
+                SafeThreadPool.QueueUserWorkItem(o =>
                     {
                         throw new Exception(String.Format("Exception while generating bibliography with style '{0}'", passthru.style_file), ex);
                     }

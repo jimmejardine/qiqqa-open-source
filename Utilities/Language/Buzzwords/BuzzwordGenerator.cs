@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Utilities.Collections;
 using Utilities.Strings;
 
 namespace Utilities.Language.Buzzwords
 {
-    // Generates NGrams for AutoTags from any given input (generally that would be user-supplied or *inferred* document titles).
     public class BuzzwordGenerator
     {
-        // words are assumed to be any set of 'word' characters, plus the hyphen, e.g.
-        // 'anti-pattern' would thus be considered a single word.
-        private static readonly Regex TRIM_CHARACTERS_RE = new Regex(@"[^\w_-]+");
+        private static readonly char[] TRIM_CHARACTERS = new char[]
+        {
+            ' ','\'', ',', ':', ':', '.', '(', ')', '[', ']', '{', '}', '\'', '"'
+        };
+
+        public static readonly List<string> EMPTY_LIST = new List<string>();
+
+        public static CountingDictionary<NGram> GenerateBuzzwords(IEnumerable<string> titles, bool perform_scrabble_filtration)
+        {
+            return GenerateBuzzwords(titles, EMPTY_LIST, EMPTY_LIST, perform_scrabble_filtration);
+        }
 
         public static CountingDictionary<NGram> GenerateBuzzwords(IEnumerable<string> titles, List<string> words_blacklist, List<string> words_whitelist, bool perform_scrabble_filtration, bool skip_numbers = false, bool skip_acronyms = false)
         {
@@ -80,7 +86,7 @@ namespace Utilities.Language.Buzzwords
                     continue;
                 }
 
-                string[] words = TRIM_CHARACTERS_RE.Split(title);
+                string[] words = title.Split(TRIM_CHARACTERS);
                 foreach (string word in words)
                 {
                     // Ignore single letter words
@@ -131,6 +137,7 @@ namespace Utilities.Language.Buzzwords
 
             Logging.Info("Built the raw ngram dictionary with {0} entries", repetitions.Count);
 
+
             repetitions = FilterInfrequent(repetitions);
             repetitions = FilterEnglishUniGrams(repetitions, perform_scrabble_filtration);
             repetitions = FilterStoppedNGrams(repetitions);
@@ -149,7 +156,7 @@ namespace Utilities.Language.Buzzwords
             List<string> results = new List<string>();
             foreach (string s in source)
             {
-                results.Add(s.ToLower());
+                results.Add(s.ToLower(CultureInfo.CurrentCulture));
             }
             return results;
         }
@@ -239,8 +246,6 @@ namespace Utilities.Language.Buzzwords
                 {
                     int i = 0;
                     int j = 0;
-                    bool do_mark_bad = true;
-
                     while (i < source.Length)
                     {
                         // Are we still scanning happily?
@@ -255,15 +260,14 @@ namespace Utilities.Language.Buzzwords
                         {
                             string substring = source.Substring(i, j - i);
                             results.Add(substring);
-                            do_mark_bad = true;   // reset the 'bad word' marker
                             i = j;
                         }
 
                         // Process all the dirty characters until we reach the next nice character
                         while (i < source.Length && !SplitStringAtSpacesAndMarkBadSubstrings_IsAcceptable(source[i]))
                         {
-                            // Skip over spaces, but record odd characters, unless we have already recorded them after the last good word
-                            if (' ' == source[i] || !do_mark_bad)
+                            // Skip over spaces, but record odd characters
+                            if (' ' == source[i])
                             {
                                 ++i;
                                 continue;
@@ -280,15 +284,27 @@ namespace Utilities.Language.Buzzwords
                         j = i;
                     }
                 }
+
+                // Now remove consecutive nulls from the list
+                {
+                    for (int i = 0; i < results.Count - 1; ++i)
+                    {
+                        while (null == results[i] && i < results.Count - 1 && null == results[i + 1])
+                        {
+                            results.RemoveAt(i);
+                        }
+                    }
+                }
             }
 
             return results;
         }
 
         /// <summary>
-        /// Gets the word n-grams from the string.  They are null if there are not enough words.
+        /// Gets the first n word n-grams from the string.  They are null if there are not enough words.
         /// </summary>
         /// <param name="source_string"></param>
+        /// <param name="n"></param>
         /// <returns></returns>
         private static List<NGram> GetNGrams(string source_string, bool skip_numbers)
         {
@@ -344,6 +360,35 @@ namespace Utilities.Language.Buzzwords
                     // Store this new n-gram
                     string ngram_word = sb.ToString();
                     ngrams.Add(new NGram(j - i + 1, ngram_word, false));
+                }
+            }
+
+            return ngrams;
+        }
+
+        private static List<NGram> GetNGrams_OLD(string source_string)
+        {
+            source_string = source_string.ToLower();
+
+            List<int> space_positions = new List<int>();
+            space_positions.Add(-1);
+            for (int i = 0; i < source_string.Length; ++i)
+            {
+                if (' ' == source_string[i])
+                {
+                    space_positions.Add(i);
+                }
+            }
+            space_positions.Add(source_string.Length);
+
+            List<NGram> ngrams = new List<NGram>();
+            for (int i = 0; i < space_positions.Count; ++i)
+            {
+                for (int j = i + 1; j < space_positions.Count; ++j)
+                {
+                    string ngram = source_string.Substring(space_positions[i] + 1, space_positions[j] - space_positions[i] - 1);
+                    ngram = ngram.Trim(TRIM_CHARACTERS);
+                    ngrams.Add(new NGram(j - i, ngram, false));
                 }
             }
 
@@ -431,7 +476,7 @@ namespace Utilities.Language.Buzzwords
                 {
                     if (1 == pair.Key.n)
                     {
-                        is_bad = ScrabbleWords.Instance.Contains(pair.Key.text.ToLower());
+                        is_bad = ScrabbleWords.Instance.Contains(pair.Key.text.ToLower(CultureInfo.CurrentCulture));
                     }
                 }
 

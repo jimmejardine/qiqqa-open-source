@@ -89,36 +89,33 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         private void tab_control_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            // This hack is to let the combobox autocomplete not select the Tab...
+            if (e.OriginalSource.GetType() != typeof(TabControl))
             {
-                // This hack is to let the combobox autocomplete not select the Tab...
-                if (e.OriginalSource.GetType() != typeof(TabControl))
-                {
-                    return;
-                }
+                return;
+            }
 
-                TabControl tab_control = sender as TabControl;
-                if (null != tab_control)
+            TabControl tab_control = sender as TabControl;
+            if (null != tab_control)
+            {
+                TabItem tab_item = tab_control.SelectedItem as TabItem;
+                if (null != tab_item)
                 {
-                    TabItem tab_item = tab_control.SelectedItem as TabItem;
-                    if (null != tab_item)
+                    DualTabbedLayoutItem item = (DualTabbedLayoutItem)tab_item.Tag;
+                    //Logging.Info("Newly selected DualTabbedLayoutItem is {0}", item);
+
+                    tab_item.Focus();
+
+                    item.MarkAsRecentlyUsed();
+
+                    if (OnActiveItemChanged != null)
                     {
-                        DualTabbedLayoutItem item = (DualTabbedLayoutItem)tab_item.Tag;
-                        //Logging.Info("Newly selected DualTabbedLayoutItem is {0}", item);
-
-                        tab_item.Focus();
-
-                        item.MarkAsRecentlyUsed();
-
-                        if (OnActiveItemChanged != null)
-                        {
-                            OnActiveItemChanged(item.Content);
-                        }
+                        OnActiveItemChanged(item.Content);
                     }
                 }
+            }
 
-                e.Handled = true;
-            });
+            e.Handled = true;
         }
 
         public Window OwnerWindow
@@ -144,40 +141,34 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
 
         private void owner_window_StateChanged(object sender, EventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Window owner_window = (Window)sender;
+            Window owner_window = (Window)sender;
 
-                if (owner_window.WindowState == WindowState.Minimized)
+            if (owner_window.WindowState == WindowState.Minimized)
+            {
+                foreach (Window window in floating_windows)
                 {
-                    foreach (Window window in floating_windows)
-                    {
-                        window.WindowState = owner_window.WindowState;
-                        window.ShowInTaskbar = false;
-                    }
+                    window.WindowState = owner_window.WindowState;
+                    window.ShowInTaskbar = false;
                 }
-                else if (owner_window.WindowState == WindowState.Normal)
+            }
+            else if (owner_window.WindowState == WindowState.Normal)
+            {
+                foreach (Window window in floating_windows)
                 {
-                    foreach (Window window in floating_windows)
-                    {
-                        window.WindowState = owner_window.WindowState;
-                        window.ShowInTaskbar = true;
-                    }
+                    window.WindowState = owner_window.WindowState;
+                    window.ShowInTaskbar = true;
                 }
-            });
+            }
         }
 
         private void owner_window_Closing(object sender, CancelEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            List<Window> windows = new List<Window>(floating_windows);
+            foreach (Window owner_window in windows)
             {
-                List<Window> windows = new List<Window>(floating_windows);
-                foreach (Window owner_window in windows)
-                {
-                    DualTabbedLayoutItem item = (DualTabbedLayoutItem)owner_window.Tag;
-                    item.WantsLeft();
-                }
-            });
+                DualTabbedLayoutItem item = (DualTabbedLayoutItem)owner_window.Tag;
+                item.WantsLeft();
+            }
         }
 
         public BitmapSource WindowIcon
@@ -294,7 +285,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="reference_key">Is used as a unique id for when you want to bring the window to the front, check for uniqueness, etc</param>
         /// <param name="header">The title on the tab header or window</param>
@@ -763,10 +754,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                     if (make_visible)
                     {
                         MarkAsRecentlyUsed(item);
-                        if (w.WindowState == WindowState.Minimized)
-                        {
-                            w.WindowState = WindowState.Normal;
-                        }
+                        if (w.WindowState == WindowState.Minimized) w.WindowState = WindowState.Normal;
                         w.Focus();
                     }
                     return item;

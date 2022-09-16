@@ -2,10 +2,6 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Utilities.Encryption
 {
@@ -86,18 +82,19 @@ namespace Utilities.Encryption
                  * We will have to write the unencrypted bytes to the stream, 
                  * then read the encrypted result back from the stream. 
                  */
-                
-                // Write the decrypted value to the encryption stream
+                #region Write the decrypted value to the encryption stream
                 CryptoStream cs = new CryptoStream(memoryStream, EncryptorTransform, CryptoStreamMode.Write);
                 cs.Write(bytes, 0, bytes.Length);
                 cs.FlushFinalBlock();
+                #endregion
 
-                // Read encrypted value back out of the stream
+                #region Read encrypted value back out of the stream
                 memoryStream.Position = 0;
                 byte[] encrypted = new byte[memoryStream.Length];
                 memoryStream.Read(encrypted, 0, encrypted.Length);
+                #endregion
 
-                // Clean up. 
+                //Clean up. 
                 cs.Close();
                 memoryStream.Close();
 
@@ -115,18 +112,19 @@ namespace Utilities.Encryption
         /// Decryption when working with byte arrays.     
         public string Decrypt(byte[] EncryptedValue)
         {
-            // Write the encrypted value to the decryption stream
+            #region Write the encrypted value to the decryption stream
             MemoryStream encryptedStream = new MemoryStream();
             CryptoStream decryptStream = new CryptoStream(encryptedStream, DecryptorTransform, CryptoStreamMode.Write);
             decryptStream.Write(EncryptedValue, 0, EncryptedValue.Length);
             decryptStream.FlushFinalBlock();
+            #endregion
 
-            // Read the decrypted value from the stream.
+            #region Read the decrypted value from the stream.
             encryptedStream.Position = 0;
             Byte[] decryptedBytes = new Byte[encryptedStream.Length];
             encryptedStream.Read(decryptedBytes, 0, decryptedBytes.Length);
             encryptedStream.Close();
-
+            #endregion
             return UTFEncoder.GetString(decryptedBytes);
         }
 

@@ -185,8 +185,6 @@ namespace Qiqqa.InCite
 
         private void ButtonCustomAbbreviationsFilename_Click(object sender, RoutedEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Text files|*.txt" + "|" + "All files|*.*";
             dialog.CheckFileExists = true;
@@ -206,8 +204,6 @@ namespace Qiqqa.InCite
 
         private void ButtonLaunchWord_Click(object sender, RoutedEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             // Check if the user wants to override their version of Word.
             if (KeyboardTools.IsCTRLDown())
             {
@@ -275,14 +271,11 @@ namespace Qiqqa.InCite
 
         private void ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey(string reference_key)
         {
-            WPFDoEvents.SafeExec(() =>
+            CSLProcessorBibTeXFinder.MatchingBibTeXRecord matching_bibtex_record = CSLProcessorBibTeXFinder.LocateBibTexForCitationItem(reference_key, DefaultLibrary);
+            if (null != matching_bibtex_record)
             {
-                CSLProcessorBibTeXFinder.MatchingBibTeXRecord matching_bibtex_record = CSLProcessorBibTeXFinder.LocateBibTexForCitationItem(reference_key, DefaultLibrary);
-                if (null != matching_bibtex_record)
-                {
-                    MainWindowServiceDispatcher.Instance.OpenDocument(matching_bibtex_record.pdf_document);
-                }
-            });
+                MainWindowServiceDispatcher.Instance.OpenDocument(matching_bibtex_record.pdf_document);
+            }
         }
 
         private void ButtonEditCSL_Internal_Click(object sender, RoutedEventArgs e)
@@ -487,8 +480,6 @@ namespace Qiqqa.InCite
 
         private void TextStyleFilename_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseOwnCSL);
 
             ChooseCSLFile(CSLFileSource.TEXTBOX);
@@ -497,8 +488,6 @@ namespace Qiqqa.InCite
 
         private void ButtonCSLStandard_Click(object sender, RoutedEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             FeatureTrackingManager.Instance.UseFeature(Features.InCite_ChooseStandardCSL);
 
             ChooseCSLFile(CSLFileSource.STANDARD);
@@ -513,15 +502,13 @@ namespace Qiqqa.InCite
 
         private void word_connector_CitationClusterChanged(CitationCluster context_citation_cluster)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
+            Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                {
-                    ObjCitationClusterEditorControl.SetCitationCluster(context_citation_cluster);
-                });
-            });
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            {
+                ObjCitationClusterEditorControl.SetCitationCluster(context_citation_cluster);
+            }
+            );
         }
 
         private void ButtonToggleWatcher_Click(object sender, RoutedEventArgs e)
@@ -537,27 +524,24 @@ namespace Qiqqa.InCite
 
         private void word_connector_ContextChanged(string context_word, string context_backward, string context_surround)
         {
-            WPFDoEvents.SafeExec(() =>
+            Logging.Debug特("InCite: ContextChanged");
+
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
-                Logging.Debug特("InCite: ContextChanged");
+                word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(context_word, context_backward, context_surround);
+            }, DispatcherPriority.Background);
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (context_thread_lock)
+            {
+                // l1_clk.LockPerfTimerStop();
+                context_thread_next_context = context_backward;
+                if (!context_thread_running)
                 {
-                    word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(context_word, context_backward, context_surround);
-                }, DispatcherPriority.Background);
-
-                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (context_thread_lock)
-                {
-                    // l1_clk.LockPerfTimerStop();
-                    context_thread_next_context = context_backward;
-                    if (!context_thread_running)
-                    {
-                        context_thread_running = true;
-                        SafeThreadPool.QueueUserWorkItem(() => word_connector_ContextChanged_BACKGROUND_FindRecommendations());
-                    }
+                    context_thread_running = true;
+                    SafeThreadPool.QueueUserWorkItem(o => word_connector_ContextChanged_BACKGROUND_FindRecommendations());
                 }
-            });
+            }
         }
 
         private void word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(string context_word, string context_backward, string context_surround)
@@ -746,12 +730,9 @@ namespace Qiqqa.InCite
 
         private void ObjCitationClusterEditorControl_CitationClusterChanged(CitationCluster citation_cluster)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                FeatureTrackingManager.Instance.UseFeature(Features.InCite_EditCitationCluster);
+            FeatureTrackingManager.Instance.UseFeature(Features.InCite_EditCitationCluster);
 
-                WordConnector.Instance.ModifyCitation(citation_cluster);
-            });
+            WordConnector.Instance.ModifyCitation(citation_cluster);
         }
 
         private void ButtonAddBibliography_Click(object sender, RoutedEventArgs e)

@@ -1,45 +1,45 @@
-<commongui:StandardWindow
+<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff.PublicationExplorerItemRenameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
         xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff.PublicationExplorerItemRenameWindow"
-                          x:Name="PublicationExplorerItemRename"
- d:DesignHeight="276" d:DesignWidth="796" MinHeight="276" MinWidth="318" Width="796"
  >
-    <DockPanel x:Name="dockPanel">
-        <DockPanel DockPanel.Dock="Bottom" Margin="3" >
-            <local_gui:AugmentedButton DockPanel.Dock="Right" x:Name="CmdGenerate" MinHeight="20"  Margin="3"  />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" x:Name="CmdCancel" MinHeight="20"  Margin="3"  />
+    <DockPanel>
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+        <DockPanel DockPanel.Dock="Bottom">
+            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" MinHeight="20"  />
+            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" MinHeight="20"  />
             <Grid/>
         </DockPanel>
-        <Grid Margin="3" >
-            <local_gui:AugmentedBorder Grid.Column="0" Name="RenameFormFieldsContainer">
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
+        <Grid>
+            <local_gui:AugmentedBorder Grid.Column="0">
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Auto">
                     <commongui:StandardFlowDocument>
                         <Paragraph>
-                            <Run Text="You are about to rename or delete the publication "/>
-                            <Bold x:Name="RegionOldTagName">
-                                <Run Text="TAG"/>
+                            You are about to rename or delete the publication
+                            <Bold Name="RegionOldTagName">
+                                TAG
                             </Bold>
-                            <Run Text=" . There are currently "/>
-                            <Bold x:Name="RegionOldTagDocumentCount">
-                                <Run Text="COUNT"/>
+                            .  There are currently
+                            <Bold Name="RegionOldTagDocumentCount">
+                                COUNT
                             </Bold>
-                            <Run Text=" document(s) that have this publication."/>
+                            document(s) that have this publication.
                         </Paragraph>
                         <Paragraph>
-                            <Run Text="Please enter the new publication name, or leave this blank if you wish to delete the publication from your library:"/>
-                        </Paragraph>
-                        <Paragraph  >
-                                <TextBox x:Name="TextNewTagName" MinWidth="200"  HorizontalAlignment="Stretch" MinHeight="17" TextAlignment="Left"  />
+                            Please enter the new publication name, or leave this blank if you wish to delete the publication from your library:
+                            <LineBreak />
+                            <TextBox Name="TextNewTagName" MinWidth="200"/>
                         </Paragraph>
                         <Paragraph>
-                            <Run Text="There are "/>
-                            <Bold x:Name="RegionNewTagDocumentCount">
-                                <Run Text="COUNT"/>
+                            There are
+                            <Bold Name="RegionNewTagDocumentCount">
+                                COUNT
                             </Bold>
-                            <Run Text=" other document(s) that already have this new publication name."/>
+                            other document(s) that already have this new publication name.
                         </Paragraph>
                     </commongui:StandardFlowDocument>
                 </FlowDocumentScrollViewer>

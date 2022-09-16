@@ -6,7 +6,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using icons;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
@@ -97,29 +96,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             ObjLibraryFilterControl_Sort.SortChanged += ObjLibraryFilterControl_Sort_SortChanged;
 
             ObjPanelSearchByTag.Visibility = ConfigurationManager.Instance.NoviceVisibility;
-
-            //  DispatcherTimer setup
-            var dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += WeakEventHandler2.Wrap(dispatcherTimer_Tick, (eh) =>
-            {
-                dispatcherTimer.Tick -= eh;
-            });
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(Constants.UI_REFRESH_POLLING_INTERVAL);
-            dispatcherTimer.Start();
-        }
-
-        private long library_change_marker_tick = 0;
-
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            if (null != web_library_detail)
-            {
-                PDFDocument pdf_document = null;
-                if (web_library_detail.Xlibrary?.CheckIfDocumentsHaveChanged(ref library_change_marker_tick, ref pdf_document) ?? false)
-                {
-                    ReExecuteAllSearches(pdf_document);
-                }
-            }
         }
 
         internal WebLibraryDetail web_library_detail = null;
@@ -145,7 +121,30 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 ObjRatingExplorerControl.LibraryRef = web_library_detail;
                 ObjThemeExplorerControl.LibraryRef = web_library_detail;
                 ObjTypeExplorerControl.LibraryRef = web_library_detail;
+
+                // WEAK EVENT HANDLER FOR: library.OnDocumentsChanged += Library_OnNewDocument;
+                WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, LibraryFilterControl>(
+                    web_library_detail,
+                    registerWeakEvent,
+                    deregisterWeakEvent,
+                    this,
+                    forwardWeakEvent
+                );
             }
+        }
+
+
+        private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        {
+            sender.Xlibrary.OnDocumentsChanged += eh;
+        }
+        private static void deregisterWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        {
+            sender.Xlibrary.OnDocumentsChanged -= eh;
+        }
+        private static void forwardWeakEvent(LibraryFilterControl me, object event_sender, Library.PDFDocumentEventArgs args)
+        {
+            me.Library_OnNewDocument(event_sender, args.PDFDocument);
         }
 
         public void ResetFilters(bool reset_explorers = true)
@@ -180,18 +179,18 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         private void ObjLibraryFilterControl_Sort_SortChanged()
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         #region --- Automated update to match Library ------------------------------------------------------------------------------------------------------------------------
 
+        private void Library_OnNewDocument(object sender, PDFDocument pdf_document)
+        {
+            WPFDoEvents.InvokeAsyncInUIThread(() => ReExecuteAllSearches(pdf_document));
+        }
+
         private void ReExecuteAllSearches(PDFDocument pdf_document_to_focus_on)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             library_filter_control_search.ExecuteSearchQuick(library_filter_control_search.SearchQuick.Text);
             ExecuteSearchTag();
             ReviewParameters(pdf_document_to_focus_on);
@@ -201,193 +200,163 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         private void ObjTagExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_tag_fingerprints = null;
-                    select_tag_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_TagExplorer);
-                    select_tag_fingerprints = fingerprints;
-                    select_tag_fingerprints_span = descriptive_span;
-                }
+                select_tag_fingerprints = null;
+                select_tag_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_TagExplorer);
+                select_tag_fingerprints = fingerprints;
+                select_tag_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void ObjAITagExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_ai_tag_fingerprints = null;
-                    select_ai_tag_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_AITagExplorer);
-                    select_ai_tag_fingerprints = fingerprints;
-                    select_ai_tag_fingerprints_span = descriptive_span;
-                }
+                select_ai_tag_fingerprints = null;
+                select_ai_tag_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_AITagExplorer);
+                select_ai_tag_fingerprints = fingerprints;
+                select_ai_tag_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void ObjAuthorExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_author_fingerprints = null;
-                    select_author_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_AuthorExplorer);
-                    select_author_fingerprints = fingerprints;
-                    select_author_fingerprints_span = descriptive_span;
-                }
+                select_author_fingerprints = null;
+                select_author_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_AuthorExplorer);
+                select_author_fingerprints = fingerprints;
+                select_author_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void ObjPublicationExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_publication_fingerprints = null;
-                    select_publication_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_PublicationExplorer);
-                    select_publication_fingerprints = fingerprints;
-                    select_publication_fingerprints_span = descriptive_span;
-                }
+                select_publication_fingerprints = null;
+                select_publication_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_PublicationExplorer);
+                select_publication_fingerprints = fingerprints;
+                select_publication_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void ObjReadingStageExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_reading_stage_fingerprints = null;
-                    select_reading_stage_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_ReadingStageExplorer);
-                    select_reading_stage_fingerprints = fingerprints;
-                    select_reading_stage_fingerprints_span = descriptive_span;
-                }
+                select_reading_stage_fingerprints = null;
+                select_reading_stage_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_ReadingStageExplorer);
+                select_reading_stage_fingerprints = fingerprints;
+                select_reading_stage_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void ObjYearExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_year_fingerprints = null;
-                    select_year_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_YearExplorer);
-                    select_year_fingerprints = fingerprints;
-                    select_year_fingerprints_span = descriptive_span;
-                }
+                select_year_fingerprints = null;
+                select_year_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_YearExplorer);
+                select_year_fingerprints = fingerprints;
+                select_year_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void ObjRatingExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_rating_fingerprints = null;
-                    select_rating_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_RatingExplorer);
-                    select_rating_fingerprints = fingerprints;
-                    select_rating_fingerprints_span = descriptive_span;
-                }
+                select_rating_fingerprints = null;
+                select_rating_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_RatingExplorer);
+                select_rating_fingerprints = fingerprints;
+                select_rating_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void ObjThemeExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_theme_fingerprints = null;
-                    select_theme_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_ThemeExplorer);
-                    select_theme_fingerprints = fingerprints;
-                    select_theme_fingerprints_span = descriptive_span;
-                }
+                select_theme_fingerprints = null;
+                select_theme_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_ThemeExplorer);
+                select_theme_fingerprints = fingerprints;
+                select_theme_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void ObjTypeExplorerControl_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (null == fingerprints || 0 == fingerprints.Count)
             {
-                if (null == fingerprints || 0 == fingerprints.Count)
-                {
-                    select_theme_fingerprints = null;
-                    select_theme_fingerprints_span = null;
-                }
-                else
-                {
-                    FeatureTrackingManager.Instance.UseFeature(Features.Library_TypeExplorer);
-                    select_theme_fingerprints = fingerprints;
-                    select_theme_fingerprints_span = descriptive_span;
-                }
+                select_theme_fingerprints = null;
+                select_theme_fingerprints_span = null;
+            }
+            else
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_TypeExplorer);
+                select_theme_fingerprints = fingerprints;
+                select_theme_fingerprints_span = descriptive_span;
+            }
 
-                ReviewParameters();
-            });
+            ReviewParameters();
         }
 
         private void SearchTag_OnSoftSearch()
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                FeatureTrackingManager.Instance.UseFeature(Features.Library_TagFilter);
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_TagFilter);
 
-                ExecuteSearchTag();
-                ReviewParameters();
-            });
+            ExecuteSearchTag();
+            ReviewParameters();
         }
 
         private void ExecuteSearchTag()
@@ -533,7 +502,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 }
                 if (null != intersection)
                 {
-                    Logging.Info($"intersection={ intersection.Count }");
+                    Logging.Info("intersection={0}", intersection.Count);
                 }
 
                 // If we have nothing good to say, say nothing at all
@@ -543,31 +512,25 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
                 }
             }
 
-            SafeThreadPool.QueueUserWorkItem(() =>
+            List<PDFDocument> pdf_documents = null;
+            // If there are no filters, use all document
+            if (null == intersection)
             {
-                List<PDFDocument> pdf_documents = null;
-                // If there are no filters, use all document
-                if (null == intersection)
-                {
-                    pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
-                }
-                else // Otherwise get the subset of documents
-                {
-                    pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(intersection);
-                }
-                Logging.Debug特("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, web_library_detail.Title);
+                pdf_documents = web_library_detail.Xlibrary.PDFDocuments;
+            }
+            else // Otherwise get the subset of documents
+            {
+                pdf_documents = web_library_detail.Xlibrary.GetDocumentByFingerprints(intersection);
+            }
+            Logging.Debug特("ReviewParameters: {0} documents to process for library {1}", pdf_documents.Count, web_library_detail.Title);
 
-                if (!explorers_are_reset)
-                {
-                    ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
-                }
+            if (!explorers_are_reset)
+            {
+                ObjLibraryFilterControl_Sort.ApplySort(pdf_documents, search_quick_scores);
+            }
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                {
-                    // Call the event
-                    OnFilterChanged?.Invoke(this, pdf_documents, descriptive_span, search_quick_query, search_quick_scores, pdf_document_to_focus_on);
-                });
-            });
+            // Call the event
+            OnFilterChanged?.Invoke(this, pdf_documents, descriptive_span, search_quick_query, search_quick_scores, pdf_document_to_focus_on);
         }
 
         #region --- Test ------------------------------------------------------------------------

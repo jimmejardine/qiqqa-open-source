@@ -200,47 +200,14 @@ namespace QiqqaOCR
 
         public static Dictionary<int, WordList> DoOCR(string pdf_filename, string page_numbers, string pdf_user_password, string dbg_output_file_template = null)
         {
-            List<MuPDFRenderer.TextChunk> text_chunks = MuPDFRenderer.GetEmbeddedText(pdf_filename, page_numbers, pdf_user_password, ProcessPriorityClass.BelowNormal, dbg_output_file_template);
-            Dictionary<int, WordList> word_lists = ConvertToWordList(text_chunks, pdf_filename);
+            Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
+
             return word_lists;
         }
 
         private static Dictionary<int, WordList> ConvertToWordList(List<MuPDFRenderer.TextChunk> text_chunks, string pdf_filename)
         {
             Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
-            int current_page = 0;
-            WordList current_word_list = null;
-
-            foreach (MuPDFRenderer.TextChunk text_chunk in text_chunks)
-            {
-                // Check if we have moved onto a new page
-                if (null == current_word_list || text_chunk.page != current_page)
-                {
-                    current_page = text_chunk.page;
-                    current_word_list = new WordList();
-                    word_lists[current_page] = current_word_list;
-                }
-
-                // Create the new word
-                Word word = new Word();
-                word.Text = text_chunk.text;
-                if (!String.IsNullOrEmpty(text_chunk.post_diagnostic))
-                {
-                    word.Text = word.Text.PadRight(32) + "\t\t\t" + text_chunk.post_diagnostic;
-                }
-                word.Confidence = 1.0;
-                word.Left = text_chunk.x0;
-                word.Top = text_chunk.y0;
-                word.Width = text_chunk.x1 - text_chunk.x0;
-                word.Height = text_chunk.y1 - text_chunk.y0;
-                if (word.Width < MuPDFRenderer.MINIMUM_SANE_WORD_WIDTH || word.Height < MuPDFRenderer.MINIMUM_SANE_WORD_WIDTH)
-                {
-                    throw new Exception(String.Format("OCR file '{0}': format error: zero word width/height @PAGE {1}", pdf_filename, current_page));
-                }
-
-                // And add it to the word list
-                current_word_list.Add(word);
-            }
 
             return word_lists;
         }

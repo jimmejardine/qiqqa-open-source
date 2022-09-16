@@ -29,7 +29,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             metadata_extraction_daemon = new MetadataExtractionDaemon();
 
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_OnceOff, 1 * 1000, hold_off_level: 1);
-            MaintainableManager.Instance.RegisterHeldOffTask(DoMonitoring_Frequent, 0, 2 * 1000);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Frequent, 10 * 1000, 1 * 1000);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_Infrequent, 10 * 1000, 10 * 1000);
             MaintainableManager.Instance.RegisterHeldOffTask(DoMaintenance_QuiteInfrequent, 10 * 1000, 1 * 60 * 1000);
@@ -104,26 +103,6 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
         public void InitClientUpdater()
         {
-            if (null == ClientUpdater.Instance)
-            {
-                Logging.Warn("TODO: Checking for updates: check the github releases page(s) and report back to the user there's an update available.");
-
-                try
-                {
-                    ClientUpdater.Init("Qiqqa",
-                                       Icons.Upgrade,
-                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientVersion),
-                                       WebsiteAccess.GetOurFileUrl(WebsiteAccess.OurSiteFileKind.ClientSetup),
-                                       WebsiteAccess.IsTestEnvironment,
-                                       ShowReleaseNotes);
-
-                    ClientUpdater.Instance.CheckForNewClientVersion(ConfigurationManager.Instance.Proxy);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Exception during Utilities.ClientVersioning.ClientUpdater.Instance.CheckForNewClientVersion");
-                }
-            }
         }
 
         private void ShowReleaseNotes(string release_notes)
@@ -217,12 +196,12 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
 
             foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_WorkingWebLibraries)
             {
-                if (WebLibraryDetail.LibraryIsLoaded(web_library_detail))
+                Library library = web_library_detail.Xlibrary;
+
+                if (library == null || !library.LibraryIsLoaded)
                 {
                     continue;
                 }
-
-                Library library = web_library_detail.Xlibrary;
 
                 try
                 {
@@ -230,7 +209,7 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
                     {
                         try
                         {
-                            library.LibraryIndex?.IncrementalBuildIndex(web_library_detail);
+                            library.LibraryIndex.IncrementalBuildIndex(web_library_detail);
                         }
                         catch (Exception ex)
                         {
@@ -271,11 +250,26 @@ namespace Qiqqa.Common.BackgroundWorkerDaemonStuff
             {
                 Logging.Error(ex, "Exception in SyncQueues.Instance.DoMaintenance");
             }
-        }
 
-        private void DoMonitoring_Frequent(Daemon daemon)
-        {
-            ActivityMonitorCore.BackgroundTask();
+            // Check if documents have changed
+            foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
+            {
+                Library library = web_library_detail.Xlibrary;
+
+                if (library == null || !library.LibraryIsLoaded)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    library.CheckForSignalThatDocumentsHaveChanged();
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception in Library.CheckForSignalThatDocumentsHaveChanged");
+                }
+            }
         }
     }
 }

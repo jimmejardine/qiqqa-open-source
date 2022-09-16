@@ -10,10 +10,6 @@ using Qiqqa.Documents.PDF.CitationManagerStuff;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.Exporting
 {
@@ -62,8 +58,6 @@ namespace Qiqqa.Exporting
 
         internal static void Export(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             StatusManager.Instance.UpdateStatus("CitationMatrix", "Exporting Citation Matrix");
 
             // Ask the user what they want

@@ -9,19 +9,25 @@
                 <TextBlock FontWeight="Bold" Padding="5">
                     Sort your library by:
                 </TextBlock>
-                <MenuItem Header="Search Score" Name="HyperlinkScore" Click="OnHyperLinkClick" Margin="3" />
-                <MenuItem Header="Title" Name="HyperlinkTitle" Click="OnHyperLinkClick" Margin="3" />
+                <local_gui:AugmentedSpacer />
+                <MenuItem Header="Search Score" Name="HyperlinkScore" Click="OnHyperLinkClick"/>
+                <local_gui:AugmentedSpacer />
+                <MenuItem Header="Title" Name="HyperlinkTitle" Click="OnHyperLinkClick"/>
                 <MenuItem Header="Author" Name="HyperlinkAuthors" Click="OnHyperLinkClick"/>
                 <MenuItem Header="Year" Name="HyperlinkYear" Click="OnHyperLinkClick"/>
-                <MenuItem Header="Rating" Name="HyperlinkRating" Click="OnHyperLinkClick" Margin="3" />
+                <local_gui:AugmentedSpacer />
+                <MenuItem Header="Rating" Name="HyperlinkRating" Click="OnHyperLinkClick"/>
                 <MenuItem Header="Favourite" Name="HyperlinkFavourite" Click="OnHyperLinkClick"/>
                 <MenuItem Header="Reading Stage" Name="HyperlinkReadingStage" Click="OnHyperLinkClick"/>
-                <MenuItem Header="Date Last Read" Name="HyperlinkRecentlyRead" Click="OnHyperLinkClick" Margin="3" />
+                <local_gui:AugmentedSpacer />
+                <MenuItem Header="Date Last Read" Name="HyperlinkRecentlyRead" Click="OnHyperLinkClick"/>
                 <MenuItem Header="Date Added" Name="HyperlinkRecentlyAdded" Click="OnHyperLinkClick"/>
                 <MenuItem Header="Date Last Cited" Name="HyperlinkRecentlyCited" Click="OnHyperLinkClick"/>
-                <MenuItem Header="Has PDF" Name="HyperlinkHasPDF" Click="OnHyperLinkClick" Margin="3" />
+                <local_gui:AugmentedSpacer />
+                <MenuItem Header="Has PDF" Name="HyperlinkHasPDF" Click="OnHyperLinkClick"/>
                 <MenuItem Header="Has BibTeX" Name="HyperlinkHasBibTeX" Click="OnHyperLinkClick"/>
-                <MenuItem Header="Page Count" Name="HyperlinkPageCount" Click="OnHyperLinkClick" Margin="3" />
+                <local_gui:AugmentedSpacer />
+                <MenuItem Header="Page Count" Name="HyperlinkPageCount" Click="OnHyperLinkClick"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

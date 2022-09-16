@@ -1,33 +1,24 @@
-<commongui:StandardWindow
-    x:Class="Qiqqa.Documents.PDF.PDFControls.MetadataControls.MetadataCommentEditorControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:webbrowser="clr-namespace:Qiqqa.WebBrowsing"
-    x:Name="MetadataCommentEditorWindow">
+<commongui:StandardWindow x:Class="Qiqqa.Documents.PDF.PDFControls.MetadataControls.MetadataCommentEditorControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:webbrowser="clr-namespace:Qiqqa.WebBrowsing"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+>
     <DockPanel>
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackPanel
-                x:Name="ObjButtonGrid"
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
-                <local_gui:AugmentedButton x:Name="ButtonCancel">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" x:Name="ObjButtonGrid" Grid.Column="1">
+                <local_gui:AugmentedButton x:Name="ButtonCancel" >
                     Close
                 </local_gui:AugmentedButton>
             </StackPanel>
         </Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <TextBox
-                Name="TextComments"
-                AcceptsReturn="True"
-                Text="{Binding Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap" />
+            <TextBox Text="{Binding Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" Name="TextComments"/>
         </ScrollViewer>
     </DockPanel>
 </commongui:StandardWindow>

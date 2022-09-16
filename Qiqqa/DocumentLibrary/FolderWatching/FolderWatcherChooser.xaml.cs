@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Forms;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
@@ -19,8 +19,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         public FolderWatcherChooser(WebLibraryDetail library)
         {
             web_library_detail = library;
-
-            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
 
@@ -56,22 +54,23 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         private void CmdAddFolder_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select the folder you want to watch for new PDFs.";
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result == CommonFileDialogResult.Ok)
+                Description = "Please select the folder you want to watch for new PDFs.",
+                ShowNewFolderButton = true
+            })
+            {
+                if (System.Windows.Forms.DialogResult.OK == dlg.ShowDialog())
                 {
-                    Logging.Info("The user starting watching folder {0}", dialog.FileName);
+                    Logging.Info("The user starting watching folder {0}", dlg.SelectedPath);
 
                     if (string.IsNullOrEmpty(TxtFolders.Text))
                     {
-                        TxtFolders.Text = dialog.FileName;
+                        TxtFolders.Text = dlg.SelectedPath;
                     }
                     else
                     {
-                        TxtFolders.Text += "\r\n" + dialog.FileName;
+                        TxtFolders.Text += "\r\n" + dlg.SelectedPath;
                     }
                 }
             }
