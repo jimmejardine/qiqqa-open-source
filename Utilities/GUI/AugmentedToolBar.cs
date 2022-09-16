@@ -17,14 +17,11 @@ namespace Utilities.GUI
 
         private void AugmentedToolBar_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            ToggleButton toggleButton = GetTemplateChild("OverflowButton") as ToggleButton;
+            if (toggleButton != null)
             {
-                ToggleButton toggleButton = GetTemplateChild("OverflowButton") as ToggleButton;
-                if (toggleButton != null)
-                {
-                    toggleButton.Background = ThemeColours.Background_Brush_Blue_LightToDark;
-                }
-            });
+                toggleButton.Background = ThemeColours.Background_Brush_Blue_LightToDark;
+            }
         }
     }
 }

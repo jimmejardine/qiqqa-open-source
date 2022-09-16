@@ -16,7 +16,6 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
-using Utilities.Shutdownable;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -64,16 +63,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public PDFRendererControl(PDFDocument pdf_document, bool remember_last_read_page, ZoomType force_zoom_type)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             Theme.Initialize();
 
             InitializeComponent();
 
-            //Unloaded += PDFRendererControl_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-
-            pdf_renderer_control_stats = new PDFRendererControlStats(pdf_document);
+            pdf_renderer_control_stats = new PDFRendererControlStats(this, pdf_document);
             this.remember_last_read_page = remember_last_read_page;
 
             ObjPagesPanel.Background = ThemeColours.Background_Brush_Blue_LightToDark;
@@ -116,64 +110,29 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     break;
             }
 
-            // Is the zoom type forced? (e.g. by the metadata panel or the sniffer)
+            // Is the zoomtype forced? (e.g. by the metadata panel or the sniffer)
             if (ZoomType.Other != force_zoom_type) zoom_type = force_zoom_type;
 
             PageZoom(zoom_type);
 
-            var doc = pdf_renderer_control_stats.pdf_document;
+            // Add the child pages
+            bool add_bells_and_whistles = pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount < 50;
 
-            SafeThreadPool.QueueUserWorkItem(() =>
+            Logging.Info("+Creating child page controls");
+            for (int page = 1; page <= pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
-                // Add the child pages
-                bool add_bells_and_whistles = (doc.PageCount > 0 && doc.PageCount < 50);
-
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                {
-                    Logging.Info("+Creating child page controls");
-                    for (int page = 1; page <= doc.PageCount; ++page)
-                    {
-                        PDFRendererPageControl page_control = new PDFRendererPageControl(this, page, add_bells_and_whistles);
-                        ObjPagesPanel.Children.Add(page_control);
-                    }
-                    Logging.Info("-Creating child page controls");
-                });
-            });
+                PDFRendererPageControl page_control = new PDFRendererPageControl(page, this, pdf_renderer_control_stats, add_bells_and_whistles);
+                ObjPagesPanel.Children.Add(page_control);
+            }
+            Logging.Info("-Creating child page controls");
 
             Logging.Info("+Setting initial viewport");
             ReconsiderOperationMode(OperationMode.Hand);
 
-            SetSearchKeywords();  // Eventually this should move into the ReconsiderOperationMode
+            SetSearchKeywords();  // Eventually this should move into the reconsideroperationmode
             ScrollPages.Focus();
 
             Logging.Info("-Setting initial viewport");
-        }
-
-        public PDFRendererControlStats GetPDFRendererControlStats()
-        {
-            return pdf_renderer_control_stats;
-        }
-
-        public PDFDocument GetPDFDocument()
-        {
-            return pdf_renderer_control_stats.pdf_document;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
-        }
-
-        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
-        // Which says:
-        //
-        // Note that the Unloaded event is not raised after an application begins shutting down.
-        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs.
-        // If you place cleanup code within a handler for the Unloaded event, such as for a Window
-        // or a UserControl, it may not be called as expected.
-        private void PDFRendererControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Dispose();
         }
 
         private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -205,116 +164,112 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ScrollPages_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            // Weirdly, ScrollChanged is a bubbling event - not a callback on the very object
+            // So you can receive a scroll event from ANY of your children?!!?!!!!!
+            // Inside the reading page, there are scrollbars in the annotation popups, which cause this to fire.  So ignore those...
+            if (e.Source != ScrollPages)
             {
-                // Weirdly, ScrollChanged is a bubbling event - not a callback on the very object
-                // So you can receive a scroll event from ANY of your children?!!?!!!!!
-                // Inside the reading page, there are scrollbars in the annotation popups, which cause this to fire.  So ignore those...
-                if (e.Source != ScrollPages)
-                {
-                    return;
-                }
+                return;
+            }
 
-                if (DateTime.MaxValue == first_scroll_timestamp)
-                {
-                    first_scroll_timestamp = DateTime.UtcNow;
+            if (DateTime.MaxValue == first_scroll_timestamp)
+            {
+                first_scroll_timestamp = DateTime.UtcNow;
 
-                    if (remember_last_read_page)
+                if (remember_last_read_page)
+                {
+                    if (0 < pdf_renderer_control_stats.pdf_document.PageLastRead)
                     {
-                        if (0 < pdf_renderer_control_stats.pdf_document.PageLastRead)
-                        {
-                            Logging.Debug("********************************** Restoring page to page {0}", pdf_renderer_control_stats.pdf_document.PageLastRead);
-                            PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
-                            ASSERT.Test(page_control != null);
+                        Logging.Debug("********************************** Restoring page to page {0}", pdf_renderer_control_stats.pdf_document.PageLastRead);
+                        PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
+                        page_control.BringIntoView();
+                    }
+                }
+            }
 
-                            page_control.BringIntoView();
+            /*
+                Logging.Info(
+                    "\n----------------------------------------------------------" +
+                    "\nExtentHeight={0}," +
+                    "\nExtentHeightChange={1}," +
+                    "\nExtentWidth={2}," +
+                    "\nExtentWidthChange={3}," +
+                    "\nHorizontalChange={4}," +
+                    "\nHorizontalOffset={5}," +
+                    "\nVerticalChange={6}," +
+                    "\nVerticalOffset={7}," +
+                    "\nViewportHeight={8}," +
+                    "\nViewportHeightChange={9}," +
+                    "\nViewportWidth={10}," +
+                    "\nViewportWidthChange={11}," +
+                    "",
+
+                    e.ExtentHeight,
+                    e.ExtentHeightChange,
+                    e.ExtentWidth,
+                    e.ExtentWidthChange,
+                    e.HorizontalChange,
+                    e.HorizontalOffset,
+                    e.VerticalChange,
+                    e.VerticalOffset,
+                    e.ViewportHeight,
+                    e.ViewportHeightChange,
+                    e.ViewportWidth,
+                    e.ViewportWidthChange
+                    );
+             */
+
+            // Lets see which pages are in view
+            PDFRendererPageControl first_page_in_view = null;
+            List<PDFRendererPageControl> pages_in_view = new List<PDFRendererPageControl>();
+            List<PDFRendererPageControl> pages_not_in_view = new List<PDFRendererPageControl>();
+            foreach (PDFRendererPageControl page in ObjPagesPanel.Children.OfType<PDFRendererPageControl>().Reverse())
+            {
+                GeneralTransform childTransform = page.TransformToAncestor(ScrollPages);
+                Rect rectangle = childTransform.TransformBounds(new Rect(new Point(0, 0), page.RenderSize));
+                Rect result = Rect.Intersect(new Rect(new Point(0, 0), ScrollPages.RenderSize), rectangle);
+
+                if (result != Rect.Empty)
+                {
+                    if (null == first_page_in_view)
+                    {
+                        first_page_in_view = page;
+                    }
+
+                    pages_in_view.Add(page);
+                }
+                else
+                {
+                    pages_not_in_view.Add(page);
+                }
+            }
+
+            // Check if the selected page has gone off screen.  If so, select the next page.
+            if (null != SelectedPage)
+            {
+                if (!pages_in_view.Contains(SelectedPage))
+                {
+                    // IF this is the first time the selected page has gone off screen, record the moment
+                    if (DateTime.MaxValue == selected_page_first_offscreen_timestamp)
+                    {
+                        selected_page_first_offscreen_timestamp = DateTime.UtcNow;
+                    }
+
+                    // We wait for a few moments after it has gone off the screen...2 is arbitrary, but large enough that we can zoom without changing the selected page before the zoom gets time to move thesleected page back onto the screen...
+                    if (DateTime.UtcNow.Subtract(selected_page_first_offscreen_timestamp).TotalSeconds > 1)
+                    {
+                        if (null != first_page_in_view)
+                        {
+                            SelectedPage = first_page_in_view;
+                            selected_page_first_offscreen_timestamp = DateTime.MaxValue;
                         }
                     }
                 }
-
-                /*
-                    Logging.Info(
-                        "\n----------------------------------------------------------" +
-                        "\nExtentHeight={0}," +
-                        "\nExtentHeightChange={1}," +
-                        "\nExtentWidth={2}," +
-                        "\nExtentWidthChange={3}," +
-                        "\nHorizontalChange={4}," +
-                        "\nHorizontalOffset={5}," +
-                        "\nVerticalChange={6}," +
-                        "\nVerticalOffset={7}," +
-                        "\nViewportHeight={8}," +
-                        "\nViewportHeightChange={9}," +
-                        "\nViewportWidth={10}," +
-                        "\nViewportWidthChange={11}," +
-                        "",
-
-                        e.ExtentHeight,
-                        e.ExtentHeightChange,
-                        e.ExtentWidth,
-                        e.ExtentWidthChange,
-                        e.HorizontalChange,
-                        e.HorizontalOffset,
-                        e.VerticalChange,
-                        e.VerticalOffset,
-                        e.ViewportHeight,
-                        e.ViewportHeightChange,
-                        e.ViewportWidth,
-                        e.ViewportWidthChange
-                        );
-                 */
-
-                // Lets see which pages are in view
-                PDFRendererPageControl first_page_in_view = null;
-                List<PDFRendererPageControl> pages_in_view = new List<PDFRendererPageControl>();
-                List<PDFRendererPageControl> pages_not_in_view = new List<PDFRendererPageControl>();
-                foreach (PDFRendererPageControl page in ObjPagesPanel.Children.OfType<PDFRendererPageControl>().Reverse())
+                else
                 {
-                    GeneralTransform childTransform = page.TransformToAncestor(ScrollPages);
-                    Rect rectangle = childTransform.TransformBounds(new Rect(new Point(0, 0), page.RenderSize));
-                    Rect result = Rect.Intersect(new Rect(new Point(0, 0), ScrollPages.RenderSize), rectangle);
-
-                    if (result != Rect.Empty)
-                    {
-                        if (null == first_page_in_view)
-                        {
-                            first_page_in_view = page;
-                        }
-
-                        pages_in_view.Add(page);
-                    }
-                    else
-                    {
-                        pages_not_in_view.Add(page);
-                    }
+                    selected_page_first_offscreen_timestamp = DateTime.MaxValue;
                 }
-
-                // Check if the selected page has gone off screen.  If so, select the next page.
-                if (null != SelectedPage)
-                {
-                    if (!pages_in_view.Contains(SelectedPage))
-                    {
-                        // IF this is the first time the selected page has gone off screen, record the moment
-                        if (DateTime.MaxValue == selected_page_first_offscreen_timestamp)
-                        {
-                            selected_page_first_offscreen_timestamp = DateTime.UtcNow;
-                        }
-
-                        // We wait for a few moments after it has gone off the screen...2 is arbitrary, but large enough that we can zoom without changing the selected page before the zoom gets time to move thesleected page back onto the screen...
-                        if (DateTime.UtcNow.Subtract(selected_page_first_offscreen_timestamp).TotalSeconds > 1)
-                        {
-                            if (null != first_page_in_view)
-                            {
-                                SelectedPage = first_page_in_view;
-                                selected_page_first_offscreen_timestamp = DateTime.MaxValue;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        selected_page_first_offscreen_timestamp = DateTime.MaxValue;
-                    }
-                }
+            }
 
 #if false
             {
@@ -340,52 +295,51 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
 #endif
 
-                // Clear down the pages NOT in view
-                foreach (PDFRendererPageControl page in pages_not_in_view)
+            // Clear down the pages NOT in view
+            foreach (PDFRendererPageControl page in pages_not_in_view)
+            {
+                page.SetPageNotInView();
+            }
+
+            // Notify the new pages that are in view
+            foreach (PDFRendererPageControl page in pages_in_view)
+            {
+                //Logging.Debug("Page {0} is in view!!!!!!!!!!!!!!", page.PageNumber);
+                page.SetPageInView();
+            }
+
+            // If the page has been resized or rescaled, try keep the scrollbars in the same place...
+            if (0 != e.ExtentHeightChange)
+            {
+                double prev_extent_height = e.ExtentHeight - e.ExtentHeightChange;
+                double vertical_offset_ratio = e.VerticalOffset / prev_extent_height;
+                double new_vertical_offset = vertical_offset_ratio * e.ExtentHeight;
+
+                if (!Double.IsNaN(new_vertical_offset))
                 {
-                    page.SetPageNotInView();
+                    //Logging.Info("Forcing vertical offset from {0} to {1}", e.VerticalOffset, new_vertical_offset);
+                    ScrollPages.ScrollToVerticalOffset(new_vertical_offset);
+                    return;
                 }
+            }
 
-                // Notify the new pages that are in view
-                foreach (PDFRendererPageControl page in pages_in_view)
+            // Store the last seen page - but not right at the start
+            if (DateTime.UtcNow.Subtract(first_scroll_timestamp).TotalSeconds > 1)
+            {
+                if (remember_last_read_page)
                 {
-                    //Logging.Debug("Page {0} is in view!!!!!!!!!!!!!!", page.PageNumber);
-                    page.SetPageInView();
-                }
-
-                // If the page has been resized or rescaled, try keep the scrollbars in the same place...
-                if (0 != e.ExtentHeightChange)
-                {
-                    double prev_extent_height = e.ExtentHeight - e.ExtentHeightChange;
-                    double vertical_offset_ratio = e.VerticalOffset / prev_extent_height;
-                    double new_vertical_offset = vertical_offset_ratio * e.ExtentHeight;
-
-                    if (!Double.IsNaN(new_vertical_offset))
+                    if (0 < pages_in_view.Count)
                     {
-                        //Logging.Info("Forcing vertical offset from {0} to {1}", e.VerticalOffset, new_vertical_offset);
-                        ScrollPages.ScrollToVerticalOffset(new_vertical_offset);
-                        return;
+                        PDFRendererPageControl page = pages_in_view[0];
+
+                        // Set the last read page
+                        pdf_renderer_control_stats.pdf_document.PageLastRead = page.Page;
+
+                        // Don't notify this now as it causes many writes of the metadata to be done, which is slow for large highlightlists
+                        //pdf_renderer_control_stats.pdf_document.Bindable.NotifyPropertyChanged(() => pdf_renderer_control_stats.pdf_document.PageLastRead);
                     }
                 }
-
-                // Store the last seen page - but not right at the start
-                if (DateTime.UtcNow.Subtract(first_scroll_timestamp).TotalSeconds > 1)
-                {
-                    if (remember_last_read_page)
-                    {
-                        if (0 < pages_in_view.Count)
-                        {
-                            PDFRendererPageControl page = pages_in_view[0];
-
-                            // Set the last read page
-                            pdf_renderer_control_stats.pdf_document.PageLastRead = page.Page;
-
-                            // Don't notify this now as it causes many writes of the metadata to be done, which is slow for large highlightlists
-                            //pdf_renderer_control_stats.pdf_document.Bindable.NotifyPropertyChanged(() => pdf_renderer_control_stats.pdf_document.PageLastRead);
-                        }
-                    }
-                }
-            });
+            }
         }
 
         #region --- IDisposable ------------------------------------------------------------------------
@@ -408,59 +362,39 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             Logging.Debug("PDFRendererControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
+                    pdf_renderer_control_stats?.pdf_document.QueueToStorage();
+
+                    // Get rid of managed resources
+                    List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
+                    foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
                     {
-                        if (!ShutdownableManager.Instance.IsShuttingDown)
-                        {
-                            pdf_renderer_control_stats?.pdf_document.QueueToStorage();
-                        }
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    if (dispose_count == 0)
-                    {
-                        // Get rid of managed resources
-                        List<PDFRendererPageControl> children = new List<PDFRendererPageControl>();
-                        foreach (PDFRendererPageControl child in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
-                        {
-                            children.Add(child);
-                        }
-
-                        ObjPagesPanel.Children.Clear();
-
-                        foreach (PDFRendererPageControl child in children)
-                        {
-                            WPFDoEvents.SafeExec(() =>
-                            {
-                                child.Dispose();
-                            });
-                        }
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    if (dispose_count == 0)
-                    {
-                        pdf_renderer_control_stats?.pdf_document.FlushCachedPageRenderings();
+                        children.Add(child);
                     }
 
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
-                });
+                    ObjPagesPanel.Children.Clear();
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    pdf_renderer_control_stats = null;
-                });
+                    foreach (PDFRendererPageControl child in children)
+                    {
+                        WPFDoEvents.SafeExec(() =>
+                        {
+                            child.Dispose();
+                        });
+                    }
 
-                ++dispose_count;
+                    pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                }
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                pdf_renderer_control_stats = null;
             });
+
+            ++dispose_count;
         }
 
         #endregion
@@ -576,8 +510,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.SetOperationMode(operation_mode);
             }
 
@@ -593,8 +525,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             if (null != search_result)
             {
                 PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[search_result.page - 1];
-                ASSERT.Test(page_control != null);
-
                 previous_search_result_placeholder = page_control.SetCurrentSearchPosition(search_result);
             }
         }
@@ -607,8 +537,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public void SetSearchKeywords(PDFSearchResultSet search_result_set)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             // If we have a new seat of search results
             if (previous_search_result_set != search_result_set)
             {
@@ -617,8 +545,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
                 {
-                    ASSERT.Test(page_control != null);
-
                     page_control.SetSearchKeywords(search_result_set);
                 }
             }
@@ -631,9 +557,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     for (int page = previous_search_result_placeholder.page; page <= ObjPagesPanel.Children.Count; ++page)
                     {
                         PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[page - 1];
-                        ASSERT.Test(page_control != null);
-
-                        previous_search_result_placeholder = page_control?.SetNextSearchPosition(previous_search_result_placeholder);
+                        previous_search_result_placeholder = page_control.SetNextSearchPosition(previous_search_result_placeholder);
 
                         // If it managed to find a successor search position, stick with that
                         if (null != previous_search_result_placeholder)
@@ -649,9 +573,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     for (int page = 1; page <= ObjPagesPanel.Children.Count; ++page)
                     {
                         PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[page - 1];
-                        ASSERT.Test(page_control != null);
-
-                        previous_search_result_placeholder = page_control?.SetNextSearchPosition(previous_search_result_placeholder);
+                        previous_search_result_placeholder = page_control.SetNextSearchPosition(previous_search_result_placeholder);
 
                         // If it managed to find a successor search position, stick with that
                         if (null != previous_search_result_placeholder)
@@ -670,8 +592,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         public PDFRendererPageControl GetPageControl(int page)
         {
             List<PDFRendererPageControl> child_pages = new List<PDFRendererPageControl>(ObjPagesPanel.Children.OfType<PDFRendererPageControl>());
-
-            if (child_pages.Count > 0 && page > 0 && page - 1 < child_pages.Count)
+            if (child_pages.Count > 0 && page - 1 < child_pages.Count)
             {
                 return (PDFRendererPageControl)child_pages[page - 1];
             }
@@ -728,16 +649,18 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 return;
             }
 
-            int page_number = selected_page.PageNumber;
-            page_number = page_number + direction;
+            int page = selected_page.PageNumber;
+            page = page + direction;
+            if (page > pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount)
+            {
+                page = 1;
+            }
+            if (page < 1)
+            {
+                page = pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount;
+            }
 
-            // cycle around when jumping to page #N:
-            int modulo = Math.Max(1, pdf_renderer_control_stats.pdf_document.PageCount);
-            page_number = (page_number - 1) + 2 * modulo;     // guaranteed to end up with a positive number here...
-            page_number %= modulo;
-            page_number++;            // and make it 1-based again after the MODULO math.
-
-            MoveSelectedPageAbsolute(page_number);
+            MoveSelectedPageAbsolute(page);
         }
 
         public void MoveSelectedPageAbsolute(int page)
@@ -784,12 +707,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void PDFRendererControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                ReconsiderZoom();
-                last_size_change_height = e.NewSize.Height;
-                last_size_change_width = e.NewSize.Width;
-            });
+            ReconsiderZoom();
+            last_size_change_height = e.NewSize.Height;
+            last_size_change_width = e.NewSize.Width;
         }
 
         private void ButtonedZoom(double page_count_abreast)
@@ -827,8 +747,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
 
             PDFRendererPageControl page_control = SelectedPage ?? (PDFRendererPageControl)ObjPagesPanel.Children[0];
-            ASSERT.Test(page_control != null);
-
             double zoom_factor_width = ObjPagesPanel.ActualWidth / page_control.RememberedImageWidth;
             double zoom_factor_height = ObjPagesPanel.ActualHeight / page_control.RememberedImageHeight;
             double zoom_factor = Math.Min(zoom_factor_width, zoom_factor_height);
@@ -937,8 +855,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>().Reverse())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RefreshPage();
             }
         }
@@ -982,8 +898,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RaiseHighlightChange(colourNumber);
             }
         }
@@ -992,8 +906,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RaiseInkChange(inkCanvasEditingMode);
             }
         }
@@ -1002,8 +914,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RaiseInkChange(drawingAttributes);
             }
         }
@@ -1012,8 +922,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RaiseTextSelectModeChange(textLayerSelectionMode);
             }
         }
@@ -1042,8 +950,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RotatePage();
             }
         }

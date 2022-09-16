@@ -81,26 +81,23 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             Logging.Debug("WebsiteNodeContentControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
-                    {
-                        // Get rid of managed resources / get rid of cyclic references:
-                        fader?.Dispose();
-                    }
-                    fader = null;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    website_node_content = null;
-                    DataContext = null;
-                });
-
-                ++dispose_count;
+                    // Get rid of managed resources / get rid of cyclic references:
+                    fader?.Dispose();
+                }
+                fader = null;
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                website_node_content = null;
+                DataContext = null;
+            });
+
+            ++dispose_count;
         }
 
         #endregion

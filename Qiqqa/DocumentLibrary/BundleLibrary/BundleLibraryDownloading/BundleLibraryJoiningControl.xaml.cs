@@ -23,8 +23,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
     {
         public BundleLibraryJoiningControl()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             Title =
@@ -57,7 +55,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
             }
 
             // Kick off the downloader
-            SafeThreadPool.QueueUserWorkItem(() => ManageDownload(manifest));
+            SafeThreadPool.QueueUserWorkItem(o => ManageDownload(manifest));
 
             Close();
         }
@@ -128,8 +126,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
 
         private void ObjButtonManifestFilenameChoose_Click(object sender, RoutedEventArgs e)
         {
-            if (Runtime.IsRunningInVisualStudioDesigner) return;
-
             try
             {
                 OpenFileDialog dialog = new OpenFileDialog();

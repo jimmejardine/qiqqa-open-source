@@ -77,10 +77,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void PasswordControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                ReBind();
-            });
+            ReBind();
         }
 
         private void ReBind()

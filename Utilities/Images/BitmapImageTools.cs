@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -121,11 +120,6 @@ namespace Utilities.Images
                     image.StreamSource.Close();
                     image.StreamSource = null;
                     // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
-                    //
-                    // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
-                    //
-                    // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
-                    // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
                     image.Freeze();
                     return image;
                 }
@@ -151,47 +145,6 @@ namespace Utilities.Images
             }
         }
 
-        public static BitmapSource LoadFromStream(MemoryStream ms)
-        {
-            try
-            {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-                image.StreamSource.Close();
-                image.StreamSource = null;
-                // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
-                //
-                // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
-                //
-                // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
-                // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
-                image.Freeze();
-                return image;
-            }
-            catch (Exception ex)
-            {
-                // If there was an exception, log the contents of the memory stream as it may be a useful error message)
-                try
-                {
-                    ms.Seek(0, SeekOrigin.Begin);
-                    var ascii_encoding = new ASCIIEncoding();
-                    string output = ascii_encoding.GetString(ms.ToArray(), 0, 1024);
-                    Logging.Error("Could not decode BitmapImage.  First few bytes are: {0}", output);
-                    Logging.Error(ex);
-                }
-                catch (Exception ex2)
-                {
-                    Logging.Warn(ex2, "Error reporting image problem");
-                }
-
-                // Throw the exception anyway
-                throw;
-            }
-        }
-
         public static BitmapSource FromImage(Image image)
         {
             MemoryStream ms = new MemoryStream();
@@ -209,11 +162,6 @@ namespace Utilities.Images
             bitmap_image.StreamSource.Close();
             bitmap_image.StreamSource = null;
             // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
-            //
-            // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
-            //
-            // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
-            // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
             bitmap_image.Freeze();
             return bitmap_image;
         }
@@ -235,39 +183,6 @@ namespace Utilities.Images
         {
             return FromImage(image);
         }
-
-        /// <summary>
-        /// Resize the image to the specified width and height.
-        /// </summary>
-        /// <param name="image">The image to resize.</param>
-        /// <param name="width">The width to resize to.</param>
-        /// <param name="height">The height to resize to.</param>
-        /// <returns>The resized image.</returns>
-        public static Bitmap ResizeImage(Image image, int width, int height)
-        {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
-
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-            using (var graphics = Graphics.FromImage(destImage))
-            {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
-
-            return destImage;
-        }
-
 
         private static class NativeMethods
         {

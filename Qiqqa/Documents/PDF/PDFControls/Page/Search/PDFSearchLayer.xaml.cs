@@ -8,7 +8,6 @@ using Qiqqa.Documents.PDF.Search;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Animation;
-using Utilities.Misc;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
@@ -18,16 +17,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
     /// </summary>
     public partial class PDFSearchLayer : PageLayer, IDisposable
     {
-        private WeakReference<PDFRendererControl> pdf_renderer_control;
-
+        private PDFRendererControlStats pdf_renderer_control_stats;
         private int page;
         private PDFSearchResultSet search_result_set = null;
 
-        public PDFSearchLayer(PDFRendererControl pdf_renderer_control, int page)
+        public PDFSearchLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            this.pdf_renderer_control = new WeakReference<PDFRendererControl>(pdf_renderer_control);
+            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
             InitializeComponent();
@@ -35,28 +33,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
             Background = Brushes.Transparent;
 
             SizeChanged += PDFSearchLayer_SizeChanged;
-
-            //Unloaded += PDFSearchLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private PDFRendererControl GetPDFRendererControl()
-        {
-            if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
-            {
-                return control;
-            }
-            return null;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
-        }
-
-        private void PDFSearchLayer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Dispose();
         }
 
         private void PDFSearchLayer_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -111,27 +87,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
         internal PDFSearchResult SetCurrentSearchPosition(PDFSearchResult previous_search_result_placeholder)
         {
-            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-
-            if (pdf_renderer_control != null)
+            foreach (PDFTextItem pdf_text_item in Children.OfType<PDFTextItem>())
             {
-                foreach (PDFTextItem pdf_text_item in Children.OfType<PDFTextItem>())
+                PDFSearchResult search_result_placeholder = pdf_text_item.Tag as PDFSearchResult;
+
+                // If there was no previous search location, we use the first we find
+                // If the last text item was the match position, use this next one
+                if (previous_search_result_placeholder == search_result_placeholder)
                 {
-                    ASSERT.Test(pdf_text_item != null);
-
-                    PDFSearchResult search_result_placeholder = pdf_text_item.Tag as PDFSearchResult;
-
-                    // If there was no previous search location, we use the first we find
-                    // If the last text item was the match position, use this next one
-                    if (previous_search_result_placeholder == search_result_placeholder)
-                    {
-                        pdf_renderer_control.SelectPage(page);
-                        pdf_text_item.BringIntoView();
-                        pdf_text_item.Opacity = 0;
-                        Animations.Fade(pdf_text_item, 0.1, 1);
-
-                        return search_result_placeholder;
-                    }
+                    pdf_renderer_control_stats.pdf_renderer_control.SelectPage(page);
+                    pdf_text_item.BringIntoView();
+                    pdf_text_item.Opacity = 0;
+                    Animations.Fade(pdf_text_item, 0.1, 1);
+                    return search_result_placeholder;
                 }
             }
 
@@ -140,36 +108,26 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
 
         internal PDFSearchResult SetNextSearchPosition(PDFSearchResult previous_search_result_placeholder)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             bool have_found_last_search_item = false;
-
-            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-
-            if (pdf_renderer_control != null)
+            foreach (PDFTextItem pdf_text_item in Children.OfType<PDFTextItem>())
             {
-                foreach (PDFTextItem pdf_text_item in Children.OfType<PDFTextItem>())
+                PDFSearchResult search_result_placeholder = pdf_text_item.Tag as PDFSearchResult;
+
+                // If there was no previous search location, we use the first we find
+                // If the last text item was the match position, use this next one
+                if (null == previous_search_result_placeholder || have_found_last_search_item && previous_search_result_placeholder != search_result_placeholder)
                 {
-                    ASSERT.Test(pdf_text_item != null);
+                    pdf_renderer_control_stats.pdf_renderer_control.SelectPage(page);
+                    pdf_text_item.BringIntoView();
+                    pdf_text_item.Opacity = 0;
+                    Animations.Fade(pdf_text_item, 0.1, 1);
+                    return search_result_placeholder;
+                }
 
-                    PDFSearchResult search_result_placeholder = pdf_text_item?.Tag as PDFSearchResult;
-
-                    // If there was no previous search location, we use the first we find
-                    // If the last text item was the match position, use this next one
-                    if (null == previous_search_result_placeholder || have_found_last_search_item && previous_search_result_placeholder != search_result_placeholder)
-                    {
-                        pdf_renderer_control.SelectPage(page);
-                        pdf_text_item.BringIntoView();
-                        pdf_text_item.Opacity = 0;
-                        Animations.Fade(pdf_text_item, 0.1, 1);
-                        return search_result_placeholder;
-                    }
-
-                    // If we have just found the last match, flag that the next one is the successor match
-                    if (previous_search_result_placeholder == search_result_placeholder)
-                    {
-                        have_found_last_search_item = true;
-                    }
+                // If we have just found the last match, flag that the next one is the successor match
+                if (previous_search_result_placeholder == search_result_placeholder)
+                {
+                    have_found_last_search_item = true;
                 }
             }
 
@@ -197,46 +155,41 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Search
         {
             Logging.Debug("PDFSearchLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
+                    foreach (var el in Children)
                     {
-                        foreach (var el in Children)
+                        IDisposable node = el as IDisposable;
+                        if (null != node)
                         {
-                            IDisposable node = el as IDisposable;
-                            if (null != node)
-                            {
-                                node.Dispose();
-                            }
+                            node.Dispose();
                         }
                     }
-                });
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    Children.Clear();
-                });
+            WPFDoEvents.SafeExec(() =>
+            {
+                Children.Clear();
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    DataContext = null;
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            }, Dispatcher);
 
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    // Clear the references for sanity's sake
-                    pdf_renderer_control = null;
-                    search_result_set = null;
-                });
-
-                ++dispose_count;
-
-                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+            WPFDoEvents.SafeExec(() =>
+            {
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                search_result_set = null;
             });
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

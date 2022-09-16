@@ -7,7 +7,6 @@ using icons;
 using Qiqqa.Common.GUI;
 using Utilities;
 using Utilities.Misc;
-using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -39,8 +38,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private WebLibraryPicker()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             Title = TITLE;
@@ -82,17 +79,14 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
-            WPFDoEvents.SafeExec(() =>
+            Logging.Info("User clicked on a library entry in Library picker: {0}", web_library_detail);
+
+            Picked.Invoke(this, new PickedEventArgs()
             {
-                Logging.Info("User clicked on a library entry in Library picker: {0}", web_library_detail);
-
-                Picked.Invoke(this, new PickedEventArgs()
-                {
-                    pickedLibrary = web_library_detail
-                });
-
-                Close();
+                pickedLibrary = web_library_detail
             });
+
+            Close();
         }
 
         // ----------------------------------------------------------------------------------------------------------------------------------

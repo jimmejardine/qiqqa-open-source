@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using icons;
 using Qiqqa.Documents.PDF.PDFControls.Page.Text;
@@ -25,34 +24,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             ButtonSelectBlock.Click += ButtonSelectBlock_Click;
         }
 
-        private WeakReference<PDFRendererControl> pdf_renderer_control = null;
+        private PDFRendererControl pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
-            get
-            {
-                if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
-                {
-                    return control;
-                }
-                return null;
-            }
-            set
-            {
-                if (pdf_renderer_control == null)
-                {
-                    pdf_renderer_control = new WeakReference<PDFRendererControl>(value);
-                }
-                else
-                {
-                    pdf_renderer_control.SetTarget(value);
-                }
-            }
+            get => pdf_renderer_control;
+            set => pdf_renderer_control = value;
         }
-
 
         private void RaiseTextSelectModeChange(TextLayerSelectionMode textLayerSelectionMode)
         {
-            PDFRendererControl.RaiseTextSelectModeChange(textLayerSelectionMode);
+            pdf_renderer_control.RaiseTextSelectModeChange(textLayerSelectionMode);
         }
 
         private void ButtonSelectSentence_Click(object sender, RoutedEventArgs e)

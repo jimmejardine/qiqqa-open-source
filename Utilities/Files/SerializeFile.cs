@@ -5,8 +5,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
 #if !HAS_NO_PROTOBUF
 using ProtoBuf;
-using Utilities.Misc;
-using Utilities.Shutdownable;
 #endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -33,10 +31,8 @@ namespace Utilities.Files
             {
                 return Load(filename);
             }
-            catch (Exception ex)
+            catch
             {
-                Logging.Error(ex, $"LoadRedundant: failed to load '{filename}'. Checking if there's a redundant copy.");
-
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))
@@ -96,21 +92,13 @@ namespace Utilities.Files
 
         public static void SaveSafely(string filename, object animal_to_save)
         {
-            if (!ShutdownableManager.Instance.IsShuttingDown)
+            try
             {
-                ASSERT.Test(animal_to_save != null);
+                SaveRedundant(filename, animal_to_save);
             }
-
-            if (animal_to_save != null)
+            catch (Exception ex)
             {
-                try
-                {
-                    SaveRedundant(filename, animal_to_save);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, $"Error saving '{filename}'");
-                }
+                Logging.Warn(ex, "Error saving {0}", filename);
             }
         }
 
@@ -127,7 +115,7 @@ namespace Utilities.Files
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, $"Error loading '{filename}'");
+                Logging.Warn(ex, "Error loading {0}", filename);
                 return null;
             }
         }
@@ -138,8 +126,6 @@ namespace Utilities.Files
 
         public static void JsonSave<T>(string filename, T animal_to_save)
         {
-            ASSERT.Test((object)animal_to_save != null);
-
             string json = JsonConvert.SerializeObject(animal_to_save, Formatting.Indented);
             TextSave(filename, json);
         }
@@ -159,7 +145,7 @@ namespace Utilities.Files
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, $"Failed to parse JSON file '{filename}'");
+                Logging.Error(ex, "Failed to parse JSON file '{0}'", filename);
                 return null;
             }
         }
@@ -189,10 +175,8 @@ namespace Utilities.Files
             {
                 return TextLoad_NotRedundant(filename);
             }
-            catch (Exception ex)
+            catch
             {
-                Logging.Error(ex, $"TextLoad: failed to load '{filename}'. Checking if there's a redundant copy.");
-
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))
@@ -248,10 +232,8 @@ namespace Utilities.Files
             {
                 return ProtoLoad<T>(filename);
             }
-            catch (Exception ex)
+            catch
             {
-                Logging.Error(ex, $"ProtoLoadWithNull: failed to load '{filename}'.");
-
                 return null;
             }
         }
@@ -262,10 +244,8 @@ namespace Utilities.Files
             {
                 return ProtoLoad_NotRedundant<T>(filename);
             }
-            catch (Exception ex)
+            catch
             {
-                Logging.Error(ex, $"ProtoLoad: failed to load '{filename}'. Checking if there's a redundant copy.");
-
                 // Check if there is a redundant file to fall back on
                 string redundant_filename = filename + REDUNDANT;
                 if (File.Exists(redundant_filename))

@@ -9,8 +9,6 @@ namespace Utilities.GUI
 
         public AugmentedPopupAutoCloser(Popup popup)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             this.popup = popup;
         }
 
@@ -32,27 +30,24 @@ namespace Utilities.GUI
         {
             Logging.Debug("AugmentedPopupAutoCloser::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
+                    // Get rid of managed resources
+                    if (popup != null)
                     {
-                        // Get rid of managed resources
-                        if (popup != null)
-                        {
-                            popup.IsOpen = false;
-                        }
+                        popup.IsOpen = false;
                     }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    popup = null;
-                });
-
-                ++dispose_count;
+                }
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                popup = null;
+            });
+
+            ++dispose_count;
         }
     }
 }

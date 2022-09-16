@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using Utilities;
 using Utilities.OCR;
 
@@ -8,27 +7,25 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
     internal class BuildPopupFromOCR
     {
         private JumpToSectionPopup popup;
-        private PDFDocument pdf_document;
 
-        internal BuildPopupFromOCR(JumpToSectionPopup popup, PDFDocument pdf_document)
+        internal BuildPopupFromOCR(JumpToSectionPopup popup)
         {
             this.popup = popup;
-            this.pdf_document = pdf_document;
         }
 
         internal void BuildMenu()
         {
-            if (null == pdf_document)
+            if (null == popup.pdf_renderer_control_stats)
             {
                 Logging.Info("No document has been selected, so no jump to can be built");
                 return;
             }
 
-            WordList[] word_lists = new WordList[Math.Max(0, pdf_document.PageCount) + 1];
+            WordList[] word_lists = new WordList[popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount + 1];
             bool missing_text = false;
-            for (int page = 1; page <= pdf_document.PageCount; ++page)
+            for (int page = 1; page <= popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
-                WordList word_list = pdf_document.GetOCRText(page);
+                WordList word_list = popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
                 if (null != word_list)
                 {
                     word_lists[page] = word_list;
@@ -39,7 +36,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 }
             }
 
-            // TODO: this menu is hard-coded and fully geared towards English-only whitepapers. Make this more flexible.
             AddItemChild_Front(word_lists, "Abstract");
             AddItemChild_Front(word_lists, "Keywords");
             AddItemChild_Front(word_lists, "Introduction");
@@ -65,7 +61,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             // Add a notice if OCR is not complete
             if (missing_text)
             {
-                // TODO: add a warning that OCR is not complete
+                // add a warning that OCR is not complete
             }
         }
 
@@ -75,9 +71,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             double largest_height = double.MinValue;
             int largest_page = 0;
 
-            string section_lower = section.ToLower();
+            string section_lower = section.ToLower(CultureInfo.CurrentCulture);
 
-            for (int page = 1; page <= pdf_document.PageCount; ++page)
+            for (int page = 1; page <= popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)
@@ -85,7 +81,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                     for (int i = 0; i < word_list.Count; ++i)
                     {
                         Word word = word_list[i];
-                        if (word.Text.ToLower().Contains(section_lower))
+                        if (word.Text.ToLower(CultureInfo.CurrentCulture).Contains(section_lower))
                         {
                             if (largest_height < word.Height)
                             {
@@ -99,7 +95,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
             if (0 != largest_page)
             {
-                popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, section, largest_page));
+                popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, section, largest_page));
             }
         }
 
@@ -115,9 +111,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
         private void AddItemChild_Front_OLD(WordList[] word_lists, string section)
         {
-            string section_lower = section.ToLower();
+            string section_lower = section.ToLower(CultureInfo.CurrentCulture);
 
-            for (int page = 1; page <= pdf_document.PageCount; ++page)
+            for (int page = 1; page <= popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)
@@ -125,9 +121,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                     for (int i = 0; i < word_list.Count; ++i)
                     {
                         Word word = word_list[i];
-                        if (word.Text.ToLower().Contains(section_lower))
+                        if (word.Text.ToLower(CultureInfo.CurrentCulture).Contains(section_lower))
                         {
-                            popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, section, page));
+                            popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, section, page));
                             return;
                         }
                     }
@@ -137,9 +133,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
         private void AddItemChild_Rear_OLD(WordList[] word_lists, string section)
         {
-            string section_lower = section.ToLower();
+            string section_lower = section.ToLower(CultureInfo.CurrentCulture);
 
-            for (int page = pdf_document.PageCount; page >= 1; --page)
+            for (int page = popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; page >= 1; --page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)
@@ -147,9 +143,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                     for (int i = word_list.Count - 1; i >= 0; --i)
                     {
                         Word word = word_list[i];
-                        if (word.Text.ToLower().Contains(section_lower))
+                        if (word.Text.ToLower(CultureInfo.CurrentCulture).Contains(section_lower))
                         {
-                            popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, section, page));
+                            popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, section, page));
                             return;
                         }
                     }

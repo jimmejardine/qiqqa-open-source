@@ -21,7 +21,7 @@ namespace Utilities.Files
         {
             get
             {
-                string extension = Path.GetExtension(path).ToLower();
+                string extension = Path.GetExtension(path).ToLower(CultureInfo.CurrentCulture);
 
                 BitmapSource result;
                 if (!icons.TryGetValue(extension, out result) || IsUncacheableExtension(extension))

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -75,35 +74,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             RebuildHighlightParameters(colourNumber);
         }
 
-        private WeakReference<PDFRendererControl> pdf_renderer_control = null;
+        private PDFRendererControl pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
-            get
-            {
-                if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
-                {
-                    return control;
-                }
-                return null;
-            }
-            set
-            {
-                if (pdf_renderer_control == null)
-                {
-                    pdf_renderer_control = new WeakReference<PDFRendererControl>(value);
-                }
-                else
-                {
-                    pdf_renderer_control.SetTarget(value);
-                }
-            }
+            get => pdf_renderer_control;
+            set => pdf_renderer_control = value;
         }
 
         private void RebuildHighlightParameters(int colourNumber)
         {
-            if (null != PDFRendererControl)
+            if (null != pdf_renderer_control)
             {
-                PDFRendererControl.RaiseHighlightChange(colourNumber);
+                pdf_renderer_control.RaiseHighlightChange(colourNumber);
             }
         }
     }

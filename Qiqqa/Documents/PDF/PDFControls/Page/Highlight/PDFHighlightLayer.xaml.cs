@@ -8,7 +8,6 @@ using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
-using Utilities.Misc;
 using Utilities.OCR;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
@@ -18,7 +17,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
     /// </summary>
     public partial class PDFHighlightLayer : PageLayer, IDisposable
     {
-        private PDFDocument pdf_document;
+        private PDFRendererControlStats pdf_renderer_control_stats;
         private int page;
 
         private DragAreaTracker drag_area_tracker;
@@ -28,11 +27,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
         private TextLayerSelectionMode text_layer_selection_mode;
         public int CurrentColourNumber { get; set; }
 
-        public PDFHighlightLayer(PDFDocument pdf_document, int page)
+        public PDFHighlightLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-            this.pdf_document = pdf_document;
+            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
             InitializeComponent();
@@ -57,36 +54,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             CurrentColourNumber = 0;
 
             Loaded += PDFHighlightLayer_Loaded;
-            //Unloaded += PDFHighlightLayer_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            Dispose();
-        }
-
-        private void PDFHighlightLayer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Dispose();
         }
 
         private void PDFHighlightLayer_Loaded(object sender, RoutedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                ASSERT.Test(pdf_document != null);
-
-                if (pdf_document != null)
-                {
-                    ObjHighlightRenderer.RebuildVisual(pdf_document, page);
-                }
-            });
+            ObjHighlightRenderer.RebuildVisual(pdf_renderer_control_stats.pdf_document, page);
         }
 
-        public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
+        public static bool IsLayerNeeded(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
-            return pdf_document.Highlights.GetHighlightsForPage(page).Count > 0;
+            return pdf_renderer_control_stats.pdf_document.Highlights.GetHighlightsForPage(page).Count > 0;
         }
 
         private void PDFHighlightLayer_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -99,8 +76,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_AddHighlight);
 
-            WordList words = pdf_document.GetOCRText(page);
-            text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
+            WordList words = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
+            WordList selected_words = text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
 
             // Decide if we are adding or removing highlights
             double mouse_down_left = mouse_down_point.X / ActualWidth;
@@ -108,7 +85,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
             // See if this click point is inside any current existing highlight
             toggled_deleting = false;
-            foreach (PDFHighlight highlight in pdf_document.Highlights.GetHighlightsForPage(page))
+            foreach (PDFHighlight highlight in pdf_renderer_control_stats.pdf_document.Highlights.GetHighlightsForPage(page))
             {
                 if (highlight.Contains(page, mouse_down_left, mouse_down_top))
                 {
@@ -138,14 +115,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
                 foreach (Word word in selected_words)
                 {
                     PDFHighlight pdf_highlight = new PDFHighlight(page, word, CurrentColourNumber);
-                    pdf_document.AddUpdatedHighlight(pdf_highlight);
+                    pdf_renderer_control_stats.pdf_document.Highlights.AddUpdatedHighlight(pdf_highlight);
                 }
             }
 
             // Or deleting?
             else
             {
-                HashSet<PDFHighlight> highlight_list = pdf_document.Highlights.GetHighlightsForPage(page);
+                HashSet<PDFHighlight> highlight_list = pdf_renderer_control_stats.pdf_document.Highlights.GetHighlightsForPage(page);
                 HashSet<PDFHighlight> highlights_to_delete = new HashSet<PDFHighlight>();
                 foreach (Word word in selected_words)
                 {
@@ -166,13 +143,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
                 foreach (PDFHighlight pdf_highlight in highlights_to_delete)
                 {
-                    pdf_document.RemoveUpdatedHighlight(pdf_highlight);
+                    pdf_renderer_control_stats.pdf_document.Highlights.RemoveUpdatedHighlight(pdf_highlight);
                 }
             }
 
             // Redraw
             {
-                ObjHighlightRenderer.RebuildVisual(pdf_document, page);
+                ObjHighlightRenderer.RebuildVisual(pdf_renderer_control_stats.pdf_document, page);
             }
         }
 
@@ -201,54 +178,49 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
         {
             Logging.Debug("PDFHighlightLayer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                foreach (var el in Children)
                 {
-                    foreach (var el in Children)
+                    IDisposable node = el as IDisposable;
+                    if (null != node)
                     {
-                        IDisposable node = el as IDisposable;
-                        if (null != node)
-                        {
-                            node.Dispose();
-                        }
+                        node.Dispose();
                     }
-                });
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.SafeExec(() =>
+            {
+                Children.Clear();
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (drag_area_tracker != null)
                 {
-                    Children.Clear();
-                });
+                    drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
+                    drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
+                    drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    if (drag_area_tracker != null)
-                    {
-                        drag_area_tracker.OnDragStarted -= drag_area_tracker_OnDragStarted;
-                        drag_area_tracker.OnDragInProgress -= drag_area_tracker_OnDragInProgress;
-                        drag_area_tracker.OnDragComplete -= drag_area_tracker_OnDragComplete;
-                    }
-
-                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    // Clear the references for sanity's sake
-                    pdf_document = null;
-                    drag_area_tracker = null;
-                    text_selection_manager = null;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    DataContext = null;
-                });
-
-                ++dispose_count;
-
-                //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
+            WPFDoEvents.SafeExec(() =>
+            {
+                // Clear the references for sanity's sake
+                pdf_renderer_control_stats = null;
+                drag_area_tracker = null;
+                text_selection_manager = null;
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            });
+
+            ++dispose_count;
+
+            //base.Dispose(disposing);     // parent only throws an exception (intentionally), so depart from best practices and don't call base.Dispose(bool)
         }
 
         #endregion

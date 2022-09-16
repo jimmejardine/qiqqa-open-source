@@ -37,11 +37,8 @@ namespace Qiqqa.Expedition
                 Library.IsBusyRegeneratingTags = true;
 
                 ExpeditionDataSource eds = ExpeditionBuilder.BuildExpeditionDataSource(LibraryRef, num_topics, add_autotags, add_tags, ExpeditionBuilderProgressUpdate);
-                if (eds != null)
-                {
-                    SerializeFile.SaveSafely(Filename_Store, eds);
-                    expedition_data_source = eds;
-                }
+                SerializeFile.SaveSafely(Filename_Store, eds);
+                expedition_data_source = eds;
             }
             finally
             {

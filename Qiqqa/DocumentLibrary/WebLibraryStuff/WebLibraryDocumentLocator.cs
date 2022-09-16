@@ -1,7 +1,6 @@
 ﻿using System;
 using Qiqqa.Documents.PDF;
 using Utilities;
-using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -46,8 +45,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public static bool LocateFirstPDFDocumentWithAnnotation(string library_fingerprint, string document_fingerprint, Guid annotation_guid, out PDFDocument out_pdf_document, out PDFAnnotation out_pdf_annotation)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             // First attempt to find it in the specified library
             if (null != library_fingerprint)
             {

@@ -19,7 +19,6 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
-using System.Text;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -64,7 +63,7 @@ namespace Qiqqa.Common.Configuration
         private readonly Lazy<string> __startupDirectoryForQiqqa = new Lazy<string>(() => UnitTestDetector.StartupDirectoryForQiqqa);
         public string StartupDirectoryForQiqqa => __startupDirectoryForQiqqa.Value;
 
-        private Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
+        private readonly Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
         {
             // Command-line parameters override the Registry:
             string[] args = Environment.GetCommandLineArgs();
@@ -138,30 +137,9 @@ namespace Qiqqa.Common.Configuration
             // If we get here, use the default path
             return Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
         });
-        private bool __BaseDirectoryForQiqqaIsFixedFromNowOn = false;
-        public bool BaseDirectoryForQiqqaIsFixedFromNowOn
-        {
-            get => __BaseDirectoryForQiqqaIsFixedFromNowOn;
-            set
-            {
-                __BaseDirectoryForQiqqaIsFixedFromNowOn = true; // doesn't matter what you set 'value' to: we only can turn this lock ON and then it's DONE.
-            }
-        }
         public string BaseDirectoryForQiqqa
         {
-            get
-            {
-                return __BaseDirectoryForQiqqa.Value;
-            }
-            set
-            {
-                if (BaseDirectoryForQiqqaIsFixedFromNowOn)
-                {
-                    throw new AccessViolationException($"Internal Error: Rewriting Qiqqa Base Path to '{value}' after it was locked for writing is indicative of erroneous use of the setter, i.e. setter is useed too late in the game!");
-                }
-                __BaseDirectoryForQiqqa = new Lazy<string>(() => Path.GetFullPath(value));
-                RegistrySettings.Instance.Write(RegistrySettings.BaseDataDirectory, value);
-            }
+            get => __BaseDirectoryForQiqqa.Value;
         }
 
         public string BaseDirectoryForUser
@@ -307,7 +285,7 @@ namespace Qiqqa.Common.Configuration
                 // Saving the config on property change is non-essential as another save action will be triggered
                 // from the application shutdown handler anyway. Therefor we delegate the inherent file I/O to
                 // a background task:
-                SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+                SafeThreadPool.QueueUserWorkItem(o =>
                 {
                     SaveConfigurationRecord();
                 }, skip_task_at_app_shutdown: true);
@@ -362,7 +340,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #region --- Search history ----------------------------------------------------------------------------------------
+#region --- Search history ----------------------------------------------------------------------------------------
 
         private HashSet<string> search_history = new HashSet<string>();
         private HashSet<string> search_history_from_disk = null;
@@ -421,9 +399,9 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #endregion
+#endregion
 
-        #region --- Public initialisation ----------------------------------------------------------------------------------------
+#region --- Public initialisation ----------------------------------------------------------------------------------------
 
         public void ResetConfigurationRecordToGuest()
         {
@@ -435,9 +413,9 @@ namespace Qiqqa.Common.Configuration
             ResetConfigurationRecord(user_guid_, false);
         }
 
-        #endregion
+#endregion
 
-        #region --- Public accessors ----------------------------------------------------------------------------------------
+#region --- Public accessors ----------------------------------------------------------------------------------------
 
         public bool IsGuest => is_guest;
 
@@ -469,27 +447,10 @@ namespace Qiqqa.Common.Configuration
                 if (Instance.developer_test_settings.TryGetValue(key, out var val))
                 {
                     bool? rv = val as bool?;
-                    return rv ?? (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
+                    return rv ?? true;
                 }
             }
-            return (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
-        }
-
-        public static void ResetDeveloperSettings()
-        {
-            if (null != Instance.developer_test_settings)
-            {
-                Instance.developer_test_settings.Clear();
-            }
-        }
-
-        public static Dictionary<string, object> GetDeveloperSettingsReference()
-        {
-            if (null == Instance.developer_test_settings)
-            {
-                Instance.developer_test_settings = new Dictionary<string, object>();
-            }
-            return Instance.developer_test_settings;
+            return true;
         }
 
         public static void ThrowWhenActionIsNotEnabled(string key)
@@ -528,47 +489,6 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        #endregion
-
-        public static Dictionary<string, string> GetCurrentConfigInfos()
-        {
-            Dictionary<string, string> rv = new Dictionary<string, string>();
-
-            rv.Add("IsInitialized", $"{IsInitialized}");
-            rv.Add("Internal: ARGV", string.Join(" ", Environment.GetCommandLineArgs()));
-            rv.Add("Internal: Registry App Key Base", RegistrySettings.Instance.AppKeyDescription());
-            rv.Add("Internal: Registry BaseDir Key", RegistrySettings.BaseDataDirectory);
-            rv.Add("Internal: Registry Override Path", RegistrySettings.Instance.Read(RegistrySettings.BaseDataDirectory));
-            rv.Add("Internal: Default Path", Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa")));
-
-            if (IsInitialized)
-            {
-                ConfigurationManager cfg = ConfigurationManager.Instance;
-
-                rv.Add("StartupDirectoryForQiqqa", cfg.StartupDirectoryForQiqqa);
-                rv.Add("BaseDirectoryForQiqqa", cfg.BaseDirectoryForQiqqa);
-                rv.Add("BaseDirectoryForUser", cfg.BaseDirectoryForUser);
-                rv.Add("ConfigFilenameForUser", cfg.ConfigFilenameForUser);
-                rv.Add("SearchHistoryFilename", cfg.SearchHistoryFilename);
-                rv.Add("Program7ZIP", cfg.Program7ZIP);
-                rv.Add("ProgramHTMLToPDF", cfg.ProgramHTMLToPDF);
-                rv.Add("DeveloperTestSettingsFilename", cfg.DeveloperTestSettingsFilename);
-                rv.Add("IsGuest", $"{cfg.IsGuest}");
-                rv.Add("NoviceVisibility", $"{cfg.NoviceVisibility}");
-                rv.Add("SearchHistory", string.Join("\n", cfg.SearchHistory));
-
-                StringBuilder s = new StringBuilder();
-                foreach (var rec in cfg.ConfigurationRecord.GetCurrentConfigInfos())
-                {
-                    string k = $"{rec.Key}:";
-                    string v = rec.Value;
-
-                    s.Append($"{k.PadRight(30, ' ')} {v}\n");
-                }
-                rv.Add("Configuration Record", s.ToString().TrimEnd());
-            }
-
-            return rv;
-        }
+#endregion
     }
 }

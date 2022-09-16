@@ -5,7 +5,6 @@ using System.IO;
 using System.Windows.Threading;
 using Utilities.GUI;
 
-#if !HAS_MUPDF_PAGE_RENDERER
 namespace Utilities.PDF.Sorax
 {
     public class SoraxPDFRendererDLLWrapper
@@ -17,8 +16,6 @@ namespace Utilities.PDF.Sorax
 
             public HDOCWrapper(string filename, string pdf_user_password, string pdf_owner_password)
             {
-                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
                 this.filename = filename;
                 HDOC = SoraxDLL.SPD_Open(filename, pdf_user_password, pdf_owner_password);
 
@@ -46,23 +43,20 @@ namespace Utilities.PDF.Sorax
             {
                 Logging.Debug("HDOCWrapper::Dispose({0}) @{1}", disposing, dispose_count);
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.SafeExec(() =>
                 {
-                    WPFDoEvents.SafeExec(() =>
+                    if (dispose_count == 0)
                     {
-                        if (dispose_count == 0)
+                        // Get rid of managed resources
+                        if (IntPtr.Zero != HDOC)
                         {
-                            // Get rid of managed resources
-                            if (IntPtr.Zero != HDOC)
-                            {
-                                SoraxDLL.SPD_Close(HDOC);
-                                HDOC = IntPtr.Zero;
-                            }
+                            SoraxDLL.SPD_Close(HDOC);
+                            HDOC = IntPtr.Zero;
                         }
-                    });
-
-                    ++dispose_count;
+                    }
                 });
+
+                ++dispose_count;
             }
         }
 
@@ -78,8 +72,6 @@ namespace Utilities.PDF.Sorax
 
         public static int GetPageCount(string filename, string pdf_user_password, string pdf_owner_password)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             using (HDOCWrapper hdoc = new HDOCWrapper(filename, pdf_user_password, pdf_owner_password))
             {
                 return SoraxDLL.SPD_GetPageCount(hdoc.HDOC);
@@ -88,8 +80,6 @@ namespace Utilities.PDF.Sorax
 
         public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, double height)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             float actual_dpi = 0;
 
             using (HDOCWrapper hdoc = new HDOCWrapper(filename, pdf_user_password, pdf_owner_password))
@@ -110,21 +100,16 @@ namespace Utilities.PDF.Sorax
         }
 
 
-#if false
         public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, float dpi)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             using (HDOCWrapper hdoc = new HDOCWrapper(filename, pdf_user_password, pdf_owner_password))
             {
                 return GetPageByDPIAsImage_LOCK(hdoc, page, dpi);
             }
         }
-#endif
+
         private static byte[] GetPageByDPIAsImage_LOCK(HDOCWrapper hdoc, int page, float dpi)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             IntPtr HDC_HDC = SoraxDLL.GetDC(IntPtr.Zero);
 
             try
@@ -154,4 +139,3 @@ namespace Utilities.PDF.Sorax
         }
     }
 }
-#endif

@@ -103,7 +103,7 @@ namespace Qiqqa.InCite
             }
             catch (Exception ex)
             {
-                SafeThreadPool.QueueUserWorkItem(() =>
+                SafeThreadPool.QueueUserWorkItem(o =>
                     {
                         throw new Exception(String.Format("Exception while generating bibliography with style '{0}'", passthru.style_file), ex);
                     }

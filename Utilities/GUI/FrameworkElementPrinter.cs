@@ -156,11 +156,8 @@ namespace Utilities.GUI
 
             int newImageHeight = bottom - top;
 
-            BitmapSource bmpSource = null;
-            using (Bitmap bmpPage = BitmapImageTools.CropBitmapRegion(bitmap, 0, top, bitmap.Width, newImageHeight))
-            {
-                bmpSource = BitmapImageTools.FromBitmap(bmpPage);
-            }
+            Bitmap bmpPage = BitmapImageTools.CropBitmapRegion(bitmap, 0, top, bitmap.Width, newImageHeight);
+            BitmapSource bmpSource = BitmapImageTools.FromBitmap(bmpPage);
 
             // Create a new bitmap for the contents of this page
             Image pageImage = new Image();

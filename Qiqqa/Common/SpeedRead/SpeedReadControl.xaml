@@ -36,12 +36,18 @@
                         Postamble?
                     </CheckBox>
                 </StackPanel>
-                <local_gui:AugmentedButton x:Name="ButtonPlayStop"  Margin="3" />
-                <local_gui:AugmentedButton x:Name="ButtonRewind"  Margin="3" />
-                <local_gui:AugmentedButton x:Name="ButtonSlower"  Margin="3" />
+                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedButton x:Name="ButtonPlayStop" />
+                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedButton x:Name="ButtonRewind" />
+                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedButton x:Name="ButtonSlower" />
                 <local_gui:AugmentedButton x:Name="ButtonFaster" />
-                <Slider Name="SliderWPM" Minimum="0" Maximum="1000" Value="200" TickPlacement="Both" TickFrequency="20"  Width="300" IsSnapToTickEnabled="True" VerticalAlignment="Center"  Margin="3" />
-                <TextBlock FontSize="16" Name="TxtWPM" Text="{Binding ElementName=SliderWPM, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"  Margin="3" />
+                <local_gui:AugmentedSpacer />
+                <Slider Name="SliderWPM" Minimum="0" Maximum="1000" Value="200" TickPlacement="Both" TickFrequency="20"  Width="300" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
+                <local_gui:AugmentedSpacer />
+                <TextBlock FontSize="16" Name="TxtWPM" Text="{Binding ElementName=SliderWPM, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                <local_gui:AugmentedSpacer />
             </StackPanel>
         </StackPanel>
         <Grid Margin="50,50,50,50">

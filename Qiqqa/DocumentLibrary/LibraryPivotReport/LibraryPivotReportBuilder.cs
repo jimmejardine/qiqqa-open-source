@@ -43,8 +43,6 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
         public static MultiMapSet<string, string> GenerateAxisMap(string axis_name, WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             switch (axis_name)
             {
                 case "Tag": return TagExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
@@ -54,7 +52,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
                 case "Year": return YearExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
                 case "AutoTag": return AITagExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
                 case "Publication": return PublicationExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
-                case "Theme": return ThemeExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
+                case "Theme": return ThemeExplorerControl.GetNodeItems_STATIC(web_library_detail, parent_fingerprints);
                 case "Type": return TypeExplorerControl.GetNodeItems(web_library_detail, parent_fingerprints);
 
                 default:
@@ -65,8 +63,6 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 
         private static MultiMapSet<string, string> GenerateMap_None(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             List<PDFDocument> pdf_documents = null;
             if (null == parent_fingerprints)
             {
@@ -200,7 +196,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         {
             // TODO: REMOVE AFTER TESTING
             Library library = WebLibraryManager.Instance.Library_Guest;
-            while (!WebLibraryDetail.LibraryIsLoaded(library))
+            while (!library.LibraryIsLoaded)
             {
                 Thread.Sleep(100);
             }
@@ -218,7 +214,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         public static void Test2()
         {
             Library library = WebLibraryManager.Instance.Library_Guest;
-            while (!WebLibraryDetail.LibraryIsLoaded(library))
+            while (!library.LibraryIsLoaded)
             {
                 Thread.Sleep(100);
             }

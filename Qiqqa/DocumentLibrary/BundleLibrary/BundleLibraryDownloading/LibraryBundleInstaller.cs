@@ -60,7 +60,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.BundleLibraryDownloading
                 {
                     process.WaitForExit();
 
-                    Logging.Info("7ZIP Log Bundle Install progress:\n{0}", process_output_reader.GetOutputsDumpStrings());
+                    Logging.Info("7ZIP Log Bundle Install progress:\n{0}", process_output_reader.GetOutputsDumpString());
                 }
             }
 

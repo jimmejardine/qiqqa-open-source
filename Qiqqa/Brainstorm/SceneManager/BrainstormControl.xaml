@@ -20,23 +20,31 @@
                     <local_gui:AugmentedToolBarButton x:Name="ButtonOpen"/>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonSave"/>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonSaveAs"/>
-                    <local_gui:AugmentedToggleButton x:Name="ButtonHand" Margin="3" />
+                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedToggleButton x:Name="ButtonHand"/>
                     <local_gui:AugmentedToggleButton x:Name="ButtonAddText"/>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonAddConnector"/>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonAddImage" Visibility="Collapsed"/>
-                    <local_gui:AugmentedToggleButton x:Name="ButtonAutoArrange" Margin="3" />
-                    <local_gui:AugmentedBorder Margin="3" >
+                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedToggleButton x:Name="ButtonAutoArrange"/>
+                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedBorder>
                         <StackPanel VerticalAlignment="Center" >
                             <RadioButton Name="RadioNodeAdditionMode_Connect" GroupName="NodeAdditionMode" Content="Connect to existing nodes" IsChecked="True"/>
                             <RadioButton Name="RadioNodeAdditionMode_Create" GroupName="NodeAdditionMode" Content="Always create new nodes" />
                         </StackPanel>
                     </local_gui:AugmentedBorder>
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonZoomOut" Margin="3" />
+                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonZoomOut"/>
                     <local_gui:AugmentedToolBarButton x:Name="ButtonZoomIn"/>
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonPrint" Margin="3" />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonWebcast_Themes"  Margin="3" />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonWebcast_Intro" />
-                    <local_gui:AugmentedToolBarButton x:Name="ButtonHelp" Margin="3" />
+                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonPrint"/>
+                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast_Themes" />
+                    <local_gui:AugmentedToolBarButton Name="ButtonWebcast_Intro" />
+                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedToolBarButton x:Name="ButtonHelp"/>
+                    <local_gui:AugmentedSpacer />
                 </StackPanel>
             </DockPanel>
         </local_gui:AugmentedToolBarTray>

@@ -32,7 +32,6 @@ using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing;
 using Qiqqa.Wizards;
 using Qiqqa.Wizards.AnnotationReport;
-using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Wizard;
@@ -43,7 +42,7 @@ using UserControl = System.Windows.Controls.UserControl;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-using Utilities.Misc;
+using Qiqqa.DocumentLibrary.WebLibraryStuff;
 
 namespace Qiqqa.Common
 {
@@ -73,10 +72,6 @@ namespace Qiqqa.Common
                 main_window.DockingManager.AddContent(window_key, "Configuration (Shift-F1)", Icons.GetAppIcon(Icons.ModuleConfiguration), true, true, configuration_control);
                 return configuration_control;
             }
-        }
-
-        public void OpenActivityMonitor()
-        {
         }
 
         public LibraryControl OpenLibrary(WebLibraryDetail web_library_detail)
@@ -215,7 +210,7 @@ namespace Qiqqa.Common
             }
 
             // Cause all pages to be OCRed
-            pdf_document.CauseAllPDFPagesToBeOCRed();
+            pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
 
             // Create a title for the window
             string title = "PDF " + pdf_document.Fingerprint;
@@ -290,12 +285,10 @@ namespace Qiqqa.Common
 
         private void OnShowTagOptionsComplete(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
-            AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report)
-            {
-                ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
-                string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
-                OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
-            });
+            var annotation_report = AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options);
+            ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
+            string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
+            OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
         }
 
         public void OpenNewWindow(string header, BitmapImage icon, bool can_close, bool can_floating, FrameworkElement content)
@@ -369,8 +362,6 @@ namespace Qiqqa.Common
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public WebBrowserHostControl OpenWebBrowser()
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             const string window_key = "WebBrowser";
 
             WebBrowserHostControl existing_control = (WebBrowserHostControl)main_window.DockingManager.MakeActive(window_key);
@@ -407,8 +398,6 @@ namespace Qiqqa.Common
 
         public void OpenUrlInBrowser(string url, bool force_external_browser)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             if (force_external_browser || ConfigurationManager.Instance.ConfigurationRecord.System_UseExternalWebBrowser)
             {
                 BrowserStarter.OpenBrowser(url);
@@ -430,7 +419,6 @@ namespace Qiqqa.Common
         {
             if (main_window != null)
             {
-                Logging.Error("Forcibly shutting down Qiqqa");
                 main_window.suppress_exit_warning = suppress_exit_warning;
                 main_window.Close();
             }
@@ -541,50 +529,42 @@ namespace Qiqqa.Common
 
         internal void ExploreTopicInBrainstorm(WebLibraryDetail web_library_detail, int topic)
         {
-            ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
-            if (null != eds)
+            ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+            string topic_name = eds.GetDescriptionForTopic(topic, include_topic_number: false, "\n");
+
+            BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
+            ThemeNodeContent tnc = new ThemeNodeContent(topic_name, web_library_detail.Id);
+            NodeControl node_control = brainstorm_control.SceneRenderingControl.AddNewNodeControlInScreenCentre(tnc);
+            brainstorm_control.AutoArrange(true);
+
+            // Then expand the interesting documents - old style
+            //ThemeNodeContentControl node_content_control = node_control.NodeContentControl as ThemeNodeContentControl;
+            //node_content_control.ExpandSpecificDocuments();
+            //node_content_control.ExpandInfluentialDocuments();
+
+            // Then expand the interesting documents
             {
-                string topic_name = eds.GetDescriptionForTopic(topic, include_topic_number: false, "\n");
+                // Thmeme docs
+                brainstorm_control.SceneRenderingControl.SelectAll();
+                brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
+                brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.S) { RoutedEvent = Keyboard.KeyDownEvent });
 
-                BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
-                ThemeNodeContent tnc = new ThemeNodeContent(topic_name, web_library_detail.Id);
-                NodeControl node_control = brainstorm_control.SceneRenderingControl.AddNewNodeControlInScreenCentre(tnc);
-                brainstorm_control.AutoArrange(true);
+                // Authors
+                brainstorm_control.SceneRenderingControl.SelectAll();
+                brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.A) { RoutedEvent = Keyboard.KeyDownEvent });
 
-                // Then expand the interesting documents - old style
-                //ThemeNodeContentControl node_content_control = node_control.NodeContentControl as ThemeNodeContentControl;
-                //node_content_control.ExpandSpecificDocuments();
-                //node_content_control.ExpandInfluentialDocuments();
-
-                // Then expand the interesting documents
-                {
-                    // Theme docs
-                    brainstorm_control.SceneRenderingControl.SelectAll();
-                    brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
-                    brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.S) { RoutedEvent = Keyboard.KeyDownEvent });
-
-                    // Authors
-                    brainstorm_control.SceneRenderingControl.SelectAll();
-                    brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.A) { RoutedEvent = Keyboard.KeyDownEvent });
-
-                    // Their docs
-                    brainstorm_control.SceneRenderingControl.SelectAll();
-                    brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
-                }
-
-                brainstorm_control.SceneRenderingControl.SetSelectedNodeControl(node_control, false);
+                // Their docs
+                brainstorm_control.SceneRenderingControl.SelectAll();
+                brainstorm_control.SceneRenderingControl.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(brainstorm_control.SceneRenderingControl), 0, Key.D) { RoutedEvent = Keyboard.KeyDownEvent });
             }
-            else
-            {
-                MessageBoxes.Error("Please run Expedition on your library.\nThen you will get to explore its themes and you will get to explore its documents through brainstorm.");
-            }
+
+            brainstorm_control.SceneRenderingControl.SetSelectedNodeControl(node_control, false);
         }
 
 
         internal void ExploreLibraryInBrainstorm(WebLibraryDetail web_library_detail)
         {
             BrainstormControl brainstorm_control = Instance.OpenNewBrainstorm();
-            ASSERT.Test(web_library_detail != null);
 
             int WIDTH = 320;
             int HEIGHT = 240;
@@ -592,7 +572,7 @@ namespace Qiqqa.Common
             LibraryNodeContent content_library = new LibraryNodeContent(web_library_detail.Title, web_library_detail.Id);
             NodeControl node_library = brainstorm_control.SceneRenderingControl.AddNewNodeControl(content_library, 0, 0, WIDTH, HEIGHT);
 
-            ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+            ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
             if (null != eds)
             {
                 for (int topic = 0; topic < eds.lda_sampler.NumTopics; ++topic)

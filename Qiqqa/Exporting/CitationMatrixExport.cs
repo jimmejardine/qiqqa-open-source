@@ -58,8 +58,6 @@ namespace Qiqqa.Exporting
 
         internal static void Export(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             StatusManager.Instance.UpdateStatus("CitationMatrix", "Exporting Citation Matrix");
 
             // Ask the user what they want

@@ -10,7 +10,6 @@ using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
-using Utilities.GUI;
 using Utilities.GUI.Wizard;
 
 namespace Qiqqa.AnnotationsReportBuilding
@@ -22,16 +21,14 @@ namespace Qiqqa.AnnotationsReportBuilding
     {
         public AnnotationReportOptionsWindow()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             WizardDPs.SetPointOfInterest(this, "LibraryAnnotationReportOptionsWindow");
             WizardDPs.SetPointOfInterest(CmdGenerate, "LibraryAnnotationReportOptionsWindowGenerateButton");
 
             Title = "Qiqqa Annotation Report Options";
-            //Width = 800;
-            //Height = 600;
+            Width = 800;
+            Height = 600;
 
             CmdSelectNone.Click += CmdSelectNone_Click;
             CmdSelectAll.Click += CmdSelectAll_Click;

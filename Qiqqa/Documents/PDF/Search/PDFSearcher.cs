@@ -14,7 +14,7 @@ namespace Qiqqa.Documents.PDF.Search
 
             if (pdf_document.DocumentExists)
             {
-                for (int page = 1; page <= pdf_document.PageCount; ++page)
+                for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
                 {
                     search_result_set[page] = SearchPage(pdf_document, page, terms, PDFSearcher.MATCH_CONTAINS);
                 }
@@ -96,7 +96,7 @@ namespace Qiqqa.Documents.PDF.Search
 
             // Add the PDF running text
             {
-                WordList words_pdf = pdf_document.GetOCRText(page);
+                WordList words_pdf = pdf_document.PDFRenderer.GetOCRText(page);
                 if (null != words_pdf)
                 {
                     words.AddRange(words_pdf);

@@ -1,42 +1,35 @@
-<UserControl
-    x:Class="Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff.MassDuplicateCheckingControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls">
+<UserControl x:Class="Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff.MassDuplicateCheckingControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+>
     <DockPanel>
         <local_gui:AugmentedBorder DockPanel.Dock="Top">
-            <FlowDocumentScrollViewer
-                HorizontalScrollBarVisibility="Disabled"
-                IsToolBarVisible="False"
-                VerticalScrollBarVisibility="Disabled">
+            <FlowDocumentScrollViewer IsToolBarVisible="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
                 <commongui:StandardFlowDocument>
                     <Paragraph>
                         The following documents appear to have duplicates in library
                         <Bold>
-                            <Run Name="TxtLibraryName" />
-                        </Bold>.  We recommend you
+                            <Run Name="TxtLibraryName"/>
+                        </Bold>
+                        .  We recommend you
                         <Bold>
                             mark them as Duplicate
                         </Bold>
-                        using the &quot;Reading Stage&quot; field rather than deleting them.  Otherwise you might find yourself adding the PDF again down the line.  If you do wish to delete a document, select it and press DEL.  Press INS to restore a mistakenly deleted file.</Paragraph>
+                        using the "Reading Stage" field rather than deleting them.  Otherwise you might find yourself adding the PDF again down the line.  If you do wish to delete a document, select it and press DEL.  Press INS to restore a mistakenly deleted file.
+                    </Paragraph>
                 </commongui:StandardFlowDocument>
             </FlowDocumentScrollViewer>
         </local_gui:AugmentedBorder>
-        <local_gui:CollapsibleRegion
-            Name="GridRIGHT"
-            Margin="3"
-            DockPanel.Dock="Right"
-            VisibleEdge="Left">
-            <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" Width="220" />
+        <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
+        <local_gui:CollapsibleRegion Name="GridRIGHT" DockPanel.Dock="Right" VisibleEdge="Left">
+            <local_metadata:DocumentMetadataControlsPanel x:Name="ObjDocumentMetadataControlsPanel" Width="220"/>
         </local_gui:CollapsibleRegion>
         <Grid>
             <TreeView Name="TreeDuplicates" />
-            <TextBlock
-                Name="TxtNoDuplicatesFound"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
+            <TextBlock Name="TxtNoDuplicatesFound" VerticalAlignment="Center" HorizontalAlignment="Center">
                 No duplicates found...
             </TextBlock>
         </Grid>

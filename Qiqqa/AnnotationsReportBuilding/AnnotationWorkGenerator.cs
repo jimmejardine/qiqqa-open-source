@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
-using Utilities;
-using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.AnnotationsReportBuilding
@@ -30,39 +27,11 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         public static List<AnnotationWork> GenerateAnnotationWorks(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            Stopwatch clk = Stopwatch.StartNew();
-            Logging.Info("+GenerateAnnotationWorks: collecting annotations for documents: {0}", Library.GetDocumentsAsFingerprints(pdf_documents));
-
-            List <AnnotationWork> annotation_works = new List<AnnotationWork>();
+            List<AnnotationWork> annotation_works = new List<AnnotationWork>();
 
             // The caches we will need...
-            //
-            // ## Performance Note:
-            //
-            // We need to keep in mind the fact that, for a long list of documents, each of their fingerprints will end up in the
-            // SQL query to keep the number of sought results to a minimum. Now that would be very fine indeed if the set of documents 
-            // would be *small* for then the bulk of this function has few documents to cycle through in the loop further below.
-            // HOWEVER, imagine a library of 10K+ items and a user kicking this function into work with the entire set passed down through
-            // `pdf_documents`: if we weren't applying a bit of extra intelligence here, we would end up with an 'optimized' SQL query
-            // containing an 'x OR y OR ...' SELECT filter expression containing 10K+ comparisons: the cost of generating such a huge
-            // query would be considerable, let alone the *parsing* of it by SQLite and processing in that DB engine.
-            //
-            // Hence we're applying a bit of heuristic here: when your *set* includes more than, say, 42 documents (which we all know 
-            // is the answer to everything and thus also to 'reasonable measure for one page/screen full'  ;-P  ) we simply DO NOT PASS
-            // the set on to the query generator-annex-processor call GetLibraryItemsAsCache() but let that one follow its *default* 
-            // behaviour *instead*, which is to dump the entire table in our lap and good riddance.
-            // for more than 42 documents in the set and medium to huge libraries, this is expected to be 'near enough to optimal'.  :-)
-            // When you beg to differ, you may. Benchmarks, please! (I know you'll be able to improve on this, surely, but you get my drift:
-            // is it worth it yet? Or are there other areas with bigger fish to fry?  ;-)
-            //
-            ASSERT.Test(pdf_documents != null);                                                         // check these unexpected input combo's
-            ASSERT.Test(pdf_documents.Count > 0);                                                       // check these unexpected input combo's
-            bool deliver_reduced_optimal_set = (annotation_report_options.IncludeAllPapers ? false /* we want them *all* anyway! */ : pdf_documents != null ? pdf_documents.Count <= 42 : false /* no fingerprints at all?! */ );
-            List<string> reduced_optimal_set = (deliver_reduced_optimal_set ? Library.GetDocumentsAsFingerprints(pdf_documents) : null);
-            Dictionary<string, byte[]> library_items_highlights_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.HIGHLIGHTS, reduced_optimal_set);
-            Dictionary<string, byte[]> library_items_inks_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.INKS, reduced_optimal_set);
+            Dictionary<string, byte[]> library_items_highlights_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.HIGHLIGHTS);
+            Dictionary<string, byte[]> library_items_inks_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.INKS);
 
             for (int j = 0; j < pdf_documents.Count; ++j)
             {
@@ -74,7 +43,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                 PDFDocument pdf_document = pdf_documents[j];
 
                 // Add the comments token if this document has some comments or abstract (and the user wants them)
-                if (annotation_report_options.IncludeAllPapers && (annotation_report_options.IncludeComments || annotation_report_options.IncludeAbstract))
+                if (annotation_report_options.IncludeAllPapers)
                 {
                     if (!String.IsNullOrEmpty(pdf_document.Comments) || !String.IsNullOrEmpty(pdf_document.Abstract))
                     {
@@ -90,7 +59,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                 }
                 if (library_items_inks_cache.ContainsKey(pdf_document.Fingerprint))
                 {
-                    pdf_annotations.AddRange(InkToAnnotationGenerator.GenerateAnnotations(pdf_document));
+                    pdf_annotations.AddRange(InkToAnnotationGenerator.GenerateAnnotations(pdf_document, library_items_inks_cache));
                 }
 
                 pdf_annotations.Sort(AnnotationSorter);
@@ -143,8 +112,6 @@ namespace Qiqqa.AnnotationsReportBuilding
                     annotation_works.Add(new AnnotationWork { web_library_detail = web_library_detail, pdf_document = pdf_document, pdf_annotation = pdf_annotation });
                 }
             }
-
-            Logging.Info("-GenerateAnnotationWorks: collecting annotations for documents: {1} (time spent: {0} ms)", clk.ElapsedMilliseconds, Library.GetDocumentsAsFingerprints(pdf_documents));
 
             return annotation_works;
         }

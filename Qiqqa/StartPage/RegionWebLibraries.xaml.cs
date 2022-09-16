@@ -51,10 +51,7 @@ namespace Qiqqa.StartPage
 
         private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail);
-            });
+            MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail);
         }
 
         private void Refresh()
@@ -67,7 +64,7 @@ namespace Qiqqa.StartPage
         public void DoSync()
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Sync_Stats);
-            LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(wants_user_intervention: true, suppress_already_in_progress_notification: false));
+            LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(true, true, true, false));
         }
     }
 }

@@ -7,7 +7,6 @@ using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.DocumentLibraryIndex;
 using Qiqqa.UtilisationTracking;
-using Utilities.GUI;
 using Utilities.GUI.Wizard;
 using Utilities.Language.TextIndexing;
 using Utilities.Misc;
@@ -47,13 +46,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         private void SearchQuick_OnHardSearch()
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                library_filter_control.ObjLibraryFilterControl_Sort.SetSortToSearchScore();
+            library_filter_control.ObjLibraryFilterControl_Sort.SetSortToSearchScore();
 
-                ExecuteSearchQuick(SearchQuick.Text);
-                library_filter_control.ReviewParameters();
-            });
+            ExecuteSearchQuick(SearchQuick.Text);
+            library_filter_control.ReviewParameters();
         }
 
         internal void ExecuteSearchQuick(string query)

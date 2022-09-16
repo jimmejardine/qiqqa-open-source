@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Windows.Forms;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
@@ -27,20 +27,21 @@ namespace Qiqqa.Exporting
             if (null == initial_directory) initial_directory = Path.GetDirectoryName(ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder);
             if (null == initial_directory) initial_directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select the folder to which you wish to export your entire Qiqqa library.";
-                dialog.DefaultDirectory = initial_directory;
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result == CommonFileDialogResult.Ok)
+                Description = "Please select the folder to which you wish to export your entire Qiqqa library.",
+                SelectedPath = initial_directory,
+                ShowNewFolderButton = true
+            })
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     // Remember the filename for next time
-                    string base_path = dialog.FileName;
+                    string base_path = dlg.SelectedPath;
                     ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder = base_path;
                     ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder));
 
-                    SafeThreadPool.QueueUserWorkItem(() => Export(web_library_detail, pdf_documents, base_path));
+                    SafeThreadPool.QueueUserWorkItem(o => Export(web_library_detail, pdf_documents, base_path));
                 }
             }
         }

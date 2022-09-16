@@ -84,6 +84,20 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 // l5_clk.LockPerfTimerStop();
 
+                //Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
+                lock (pdf_documents_in_library_lock)
+                {
+                    lock (word_index_manager_lock)
+                    {
+                        //l4_clk.LockPerfTimerStop();
+                        if (null != pdf_documents_in_library)
+                        {
+                            Logging.Warn("LibraryIndex has already been initialized.");
+                            return;
+                        }
+                    }
+                }
+
                 Logging.Info("Try to load a historical progress file: {0}", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                 try
                 {
@@ -123,6 +137,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                 }
 
+
                 LibraryIndexIsLoaded = true;
             }
         }
@@ -158,11 +173,11 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 }
             });
 
-            //WPFDoEvents.SafeExec(() =>
-            //{
-            //    //this.word_index_manager = null;
-            //    //web_library_detail = null;
-            //});
+            WPFDoEvents.SafeExec(() =>
+            {
+                //this.word_index_manager = null;
+                //web_library_detail = null;
+            });
 
             WPFDoEvents.SafeExec(() =>
             {
@@ -257,22 +272,19 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             lock (pdf_documents_in_library_lock)
             {
                 //l1_clk.LockPerfTimerStop();
-                if (pdf_documents_in_library != null)
+                foreach (PDFDocumentInLibrary pdf_document_in_library in pdf_documents_in_library.Values)
                 {
-                    foreach (PDFDocumentInLibrary pdf_document_in_library in pdf_documents_in_library.Values)
+                    ++denominator_documents;
+                    if (pdf_document_in_library.finished_indexing)
                     {
-                        ++denominator_documents;
-                        if (pdf_document_in_library.finished_indexing)
-                        {
-                            ++numerator_documents;
-                            pages_so_far += pdf_document_in_library.total_pages;
-                        }
-                        else
-                        {
-                            int finished_pages_count = (pdf_document_in_library.pages_already_indexed != null) ? pdf_document_in_library.pages_already_indexed.Count : 0;
-                            pages_so_far += finished_pages_count;
-                            pages_to_go += (pdf_document_in_library.total_pages - finished_pages_count);
-                        }
+                        ++numerator_documents;
+                        pages_so_far += pdf_document_in_library.total_pages;
+                    }
+                    else
+                    {
+                        int finished_pages_count = (pdf_document_in_library.pages_already_indexed != null) ? pdf_document_in_library.pages_already_indexed.Count : 0;
+                        pages_so_far += finished_pages_count;
+                        pages_to_go += (pdf_document_in_library.total_pages - finished_pages_count);
                     }
                 }
             }
@@ -297,36 +309,18 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public List<IndexPageResult> GetPagesForQuery(string query)
         {
-            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (word_index_manager_lock)
-            {
-                // l1_clk.LockPerfTimerStop();
-
                 return new List<IndexPageResult>();
-            }
         }
 
         [Obsolete("Do not use this attribute", true)]
         public HashSet<string> GetFingerprintsForKeyword(string keyword)
         {
-            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (word_index_manager_lock)
-            {
-                // l1_clk.LockPerfTimerStop();
-
                 return new HashSet<string>();
-            }
         }
 
         public int GetDocumentCountForKeyword(string keyword)
         {
-            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (word_index_manager_lock)
-            {
-                // l1_clk.LockPerfTimerStop();
-
-                return 0;
-            }
+            return 0;
         }
 
         private bool RescanLibrary(WebLibraryDetail web_library_detail)
@@ -367,7 +361,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     {
                         //l1_clk.LockPerfTimerStop();
 
-                        go = !pdf_documents_in_library?.ContainsKey(pdf_document.Fingerprint) ?? false;
+                        go = !pdf_documents_in_library.ContainsKey(pdf_document.Fingerprint);
                     }
 
                     if (go)
@@ -381,7 +375,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                         if (pdf_document.DocumentExists)
                         {
-                            pdf_document_in_library.total_pages = Math.Max(0, pdf_document.PageCount);
+                            pdf_document_in_library.total_pages = pdf_document.PDFRenderer.PageCount;
                             pdf_document_in_library.finished_indexing = false;
                         }
                         else
@@ -394,10 +388,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         lock (pdf_documents_in_library_lock)
                         {
                             //l2_clk.LockPerfTimerStop();
-                            if (pdf_documents_in_library != null)
-                            {
-                                pdf_documents_in_library[pdf_document_in_library.fingerprint] = pdf_document_in_library;
-                            }
+                            pdf_documents_in_library[pdf_document_in_library.fingerprint] = pdf_document_in_library;
                         }
                     }
                 }
@@ -419,12 +410,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public void InvalidateIndex()
         {
-            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (word_index_manager_lock)
-            {
-                // l1_clk.LockPerfTimerStop();
-
-            }
         }
 
         // store to collect log/action data to help reduce logfile flooding (see the ORIGINAL_FLOODY_LOGLINE code chunk further below)
@@ -479,21 +464,14 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 //l1_clk.LockPerfTimerStop();
 
                 // Get all documents that are not been finished with their indexing
-                if (pdf_documents_in_library != null)
-                {
-                    pdf_documents_in_library_to_process = new List<PDFDocumentInLibrary>(
-                        from pdf_document_in_library in pdf_documents_in_library.Values
-                        orderby pdf_document_in_library.last_indexed ascending
-                        where (pdf_document_in_library.finished_indexing == false || pdf_document_in_library.metadata_already_indexed == false)
-                        // Don't try to reprocess the document queue too frequently
-                        && pdf_document_in_library.last_indexed < most_recent_eligible_time_for_processing
-                        select pdf_document_in_library
-                    );
-                }
-                else
-                {
-                    pdf_documents_in_library_to_process = new List<PDFDocumentInLibrary>();
-                }
+                pdf_documents_in_library_to_process = new List<PDFDocumentInLibrary>(
+                    from pdf_document_in_library in pdf_documents_in_library.Values
+                    orderby pdf_document_in_library.last_indexed ascending
+                    where (pdf_document_in_library.finished_indexing == false || pdf_document_in_library.metadata_already_indexed == false)
+                    // Don't try to reprocess the document queue too frequently
+                    && pdf_document_in_library.last_indexed < most_recent_eligible_time_for_processing
+                    select pdf_document_in_library
+                );
             }
 
             // Process each one
@@ -547,12 +525,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                 sb_tags.AppendLine(tag);
                             }
 
-                            // Utilities.LockPerfTimer l6_clk = Utilities.LockPerfChecker.Start();
-                            lock (word_index_manager_lock)
-                            {
-                                // l6_clk.LockPerfTimerStop();
-
-                            }
 
                             pdf_document_in_library.metadata_already_indexed = true;
                         }
@@ -567,7 +539,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         {
                             if (pdf_document.DocumentExists)
                             {
-                                for (int page = 1; page <= pdf_document.PageCount; ++page)
+                                for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
                                 {
                                     WordList word_list = null;
 
@@ -577,7 +549,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                         continue;
                                     }
 
-                                    word_list = pdf_document.GetOCRText(page);
+                                    word_list = pdf_document.PDFRenderer.GetOCRText(page);
 
                                     // Process each word of the document
                                     if (null == word_list)
@@ -618,14 +590,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                                 sb.Append(reasonable_word);
                                                 sb.Append(' ');
                                             }
-                                        }
-
-                                        // Utilities.LockPerfTimer l7_clk = Utilities.LockPerfChecker.Start();
-                                        lock (word_index_manager_lock)
-                                        {
-                                            // l7_clk.LockPerfTimerStop();
-
-                                            // Index it
                                         }
 
                                         // Indicate that we have managed to index this page
@@ -678,6 +642,36 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
             return did_some_work;
         }
+
+#if false
+        public int NumberOfIndexedPDFDocuments
+        {
+            get
+            {
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (pdf_documents_in_library_lock)
+                {
+                    //l1_clk.LockPerfTimerStop();
+                    return pdf_documents_in_library.Count;
+                }
+            }
+        }
+
+        public int PagesPending
+        {
+            get
+            {
+                int numerator_documents = 0;
+                int denominator_documents = 0;
+                int pages_so_far = 0;
+                int pages_to_go = 0;
+
+                GetStatusCounts(out numerator_documents, out denominator_documents, out pages_so_far, out pages_to_go);
+
+                return pages_to_go;
+            }
+        }
+#endif
 
 #region --- Test ------------------------------------------------------------------------
 

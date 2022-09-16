@@ -6,6 +6,8 @@ using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
+//using Org.BouncyCastle.Crypto.Digests;
+
 namespace Utilities.Files
 {
     /*
@@ -13,11 +15,39 @@ namespace Utilities.Files
      */
     public class StreamFingerprint
     {
-        // Hash v1: WARNING - THIS DOES NOT RETURN A TRUE HEX VERSION OF THE SHA.  IT LEAVES OUT THE 0 ON BYTES THAT ARE SMALL...THEREFORE ALL RESULTING STRINGS ARE NOT THE SAME LENGTH...
         public static string FromStream(Stream stream)
         {
             return FromStream_DOTNET(stream);
         }
+
+#if TEST
+        private static string FromStream_BOUNCY(Stream stream)
+        {
+            int BUFFER_SIZE = 5 * 1024 * 1024;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            int total_read = 0;
+            int num_read = 0;
+            Sha1Digest sha1 = new Sha1Digest();
+            while (0 < (num_read = stream.Read(buffer, 0, BUFFER_SIZE)))
+            {
+                total_read += num_read;
+                sha1.BlockUpdate(buffer, 0, num_read);
+            }
+
+            byte[] hash = new byte[sha1.GetDigestSize()];
+            sha1.DoFinal(hash, 0);
+
+            // Convert to string
+            StringBuilder buff = new StringBuilder();
+            foreach (byte hash_byte in hash)
+            {
+                buff.Append(String.Format("{0:X1}", hash_byte));
+            }
+
+            return buff.ToString();
+        }
+#endif
 
         private static string FromStream_DOTNET(Stream stream)
         {
@@ -35,7 +65,6 @@ namespace Utilities.Files
             }
         }
 
-        // Hash v1: WARNING - THIS DOES NOT RETURN A TRUE HEX VERSION OF THE SHA.  IT LEAVES OUT THE 0 ON BYTES THAT ARE SMALL...THEREFORE ALL RESULTING STRINGS ARE NOT THE SAME LENGTH...
         public static string FromFile(string filename)
         {
             //using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 1024))
@@ -45,53 +74,50 @@ namespace Utilities.Files
             }
         }
 
-        // Hash v1: WARNING - THIS DOES NOT RETURN A TRUE HEX VERSION OF THE SHA.  IT LEAVES OUT THE 0 ON BYTES THAT ARE SMALL...THEREFORE ALL RESULTING STRINGS ARE NOT THE SAME LENGTH...
+        // WARNING - THIS DOES NOT RETURN A TRUE HEX VERSION OF THE SHA.  IT LEAVES OUT THE 0 ON BYTES THAT ARE SMALL...THEREFORE ALL RESULTING STRINGS ARE NOT THE SAME LENGTH...
         public static string FromText(string text)
         {
             byte[] unicode_bytes = Encoding.UTF8.GetBytes(text);
-            using (MemoryStream ms = new MemoryStream(unicode_bytes))
-            {
-                return FromStream(ms);
-            }
+            MemoryStream ms = new MemoryStream(unicode_bytes);
+            return FromStream(ms);
         }
 
-        // The new Qiqqa hash: SHA256 so we can store PDFs which have SHA1 / Qiqqa hash v1 collisions (edge cases).
-        //
-        // Hash v2: returns the SHA256 hash of the stream content as HEX string
-        public static string FromStream_SHA256(Stream stream)
-        {
-            using (SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider())
-            {
-                sha256.ComputeHash(stream);
+        #region --- Test ------------------------------------------------------------------------
 
-                StringBuilder buff = new StringBuilder();
-                foreach (byte hash_byte in sha256.Hash)
+#if TEST
+        public static void Test()
+        {
+            string[] filenames = Directory.GetFiles(@"C:\temp");
+            foreach (string filename in filenames)
+            {
+                string hash1, hash2;
+
+                try
                 {
-                    buff.Append(String.Format("{0:X2}", hash_byte));
+                    Logging.Info(".NET");
+                    using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 1024))
+                    {
+                        hash2 = FromStream_DOTNET(fs);
+                    }
+                    Logging.Info("Bouncy");
+                    using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 1024))
+                    {
+                        hash1 = FromStream_BOUNCY(fs);
+                    }
+
+                    if (hash1 != hash2)
+                    {
+                        Logging.Error("Non matching hash for " + filename);
+                    }
                 }
-
-                return buff.ToString();
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Exception for " + filename);
+                }
             }
         }
+#endif
 
-        // Hash v2: returns the SHA256 hash of the file content as HEX string
-        public static string FromFile_SHA256(string filename)
-        {
-            //using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 1024))
-            using (FileStream fs = File.OpenRead(filename))
-            {
-                return FromStream_SHA256(fs);
-            }
-        }
-
-        // Hash v2: returns the SHA256 hash of the string content as HEX string
-        public static string FromText_SHA256(string text)
-        {
-            byte[] unicode_bytes = Encoding.UTF8.GetBytes(text);
-            using (MemoryStream ms = new MemoryStream(unicode_bytes))
-            {
-                return FromStream_SHA256(ms);
-            }
-        }
+        #endregion
     }
 }

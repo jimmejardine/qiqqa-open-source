@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Media;
 using Utilities.Mathematics.Topics.LDAStuff;
-using Utilities.Misc;
 
 namespace Qiqqa.Expedition
 {
@@ -85,14 +84,12 @@ namespace Qiqqa.Expedition
 
         public void PrintStats_TOPICS()
         {
-            LDAAnalysis lda = LDAAnalysis;
-
-            for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
+            for (int topic = 0; topic < LDAAnalysis.NUM_TOPICS; ++topic)
             {
                 Console.WriteLine("Topic: {0}", GetDescriptionForTopic(topic));
                 for (int word = 0; word < 10; ++word)
                 {
-                    Console.WriteLine("{0} & {1} & {2}", word + 1, words[lda.DensityOfWordsInTopicsSorted[topic][word].word], lda.DensityOfWordsInTopicsSorted[topic][word].prob);
+                    Console.WriteLine("{0} & {1} & {2}", word + 1, words[LDAAnalysis.DensityOfWordsInTopicsSorted[topic][word].word], LDAAnalysis.DensityOfWordsInTopicsSorted[topic][word].prob);
                 }
                 Console.WriteLine();
             }
@@ -100,14 +97,12 @@ namespace Qiqqa.Expedition
 
         public void PrintStats_DOCS()
         {
-            LDAAnalysis lda = LDAAnalysis;
-
-            for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
+            for (int doc = 0; doc < LDAAnalysis.NUM_DOCS; ++doc)
             {
                 Console.Write("Doc {0}:", doc);
-                for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
+                for (int topic = 0; topic < LDAAnalysis.NUM_TOPICS; ++topic)
                 {
-                    Console.Write("\t{0:0}", 100 * lda.DensityOfTopicsInDocuments[doc, topic]);
+                    Console.Write("\t{0:0}", 100 * LDAAnalysis.DensityOfTopicsInDocuments[doc, topic]);
                 }
                 Console.WriteLine();
             }
@@ -118,14 +113,12 @@ namespace Qiqqa.Expedition
             StringBuilder sb = new StringBuilder();
 
             // Count how many docs count each topic in their top-5
-            LDAAnalysis lda = LDAAnalysis;
-
-            int TOP_N = Math.Min(5, lda.NUM_TOPICS); // Must be less than or equal to 5
-            int[,] topics_popularity = new int[lda.NUM_TOPICS, TOP_N];
+            int TOP_N = Math.Min(5, LDAAnalysis.NUM_TOPICS); // Must be less than or equal to 5
+            int[,] topics_popularity = new int[LDAAnalysis.NUM_TOPICS, TOP_N];
 
             {
-                TopicProbability[][] density_of_top5_topics_in_docs_sorted = lda.DensityOfTop5TopicsInDocsSorted; // [doc][n<5]
-                for (int doc = 0; doc < lda.NUM_DOCS; ++doc)
+                TopicProbability[][] density_of_top5_topics_in_docs_sorted = LDAAnalysis.DensityOfTop5TopicsInDocsSorted; // [doc][n<5]                
+                for (int doc = 0; doc < LDAAnalysis.NUM_DOCS; ++doc)
                 {
                     for (int n = 0; n < TOP_N; ++n)
                     {
@@ -137,7 +130,7 @@ namespace Qiqqa.Expedition
 
             // Show the descriptive keywords for each topic
             {
-                for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
+                for (int topic = 0; topic < LDAAnalysis.NUM_TOPICS; ++topic)
                 {
                     string description = GetDescriptionForTopic(topic, true, ";", false);
                     sb.AppendFormat("{0}", description);
@@ -153,7 +146,7 @@ namespace Qiqqa.Expedition
             sb.AppendLine();
 
             {
-                for (int topic = 0; topic < lda.NUM_TOPICS; ++topic)
+                for (int topic = 0; topic < LDAAnalysis.NUM_TOPICS; ++topic)
                 {
                     sb.AppendFormat("{0}\t", topic);
 
@@ -177,17 +170,10 @@ namespace Qiqqa.Expedition
                 sb.Append(String.Format("{0}. ", topic + 1));
             }
 
-            LDAAnalysis lda = LDAAnalysis;
-            WordProbability[] lda_wordprobs = lda.DensityOfWordsInTopicsSorted[topic];
-            ASSERT.Test(lda_wordprobs != null);
-
             double last_term_prob = 0;
-            for (int t = 0; t < 5 && t < lda.NUM_WORDS; ++t)
+            for (int t = 0; t < 5 && t < LDAAnalysis.NUM_WORDS; ++t)
             {
-                WordProbability lda_node = lda_wordprobs[t];
-                ASSERT.Test(lda_node != null);
-
-                if (last_term_prob / lda_node.prob > 10)
+                if (last_term_prob / LDAAnalysis.DensityOfWordsInTopicsSorted[topic][t].prob > 10)
                 {
                     if (stop_at_word_probability_jump)
                     {
@@ -198,9 +184,9 @@ namespace Qiqqa.Expedition
                         sb.Append(" // ");
                     }
                 }
-                last_term_prob = lda_node.prob;
+                last_term_prob = LDAAnalysis.DensityOfWordsInTopicsSorted[topic][t].prob;
 
-                sb.Append(String.Format("{0}", words[lda_node.word]));
+                sb.Append(String.Format("{0}", words[LDAAnalysis.DensityOfWordsInTopicsSorted[topic][t].word]));
                 sb.Append(separator);
             }
 

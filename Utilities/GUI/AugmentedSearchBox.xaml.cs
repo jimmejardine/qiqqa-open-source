@@ -124,11 +124,8 @@ namespace Utilities.GUI
 
         private void TextSearch_TextChanged(object sender, RoutedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                ReconsiderEmptyText();
-                FireOnSoftSearch();
-            });
+            ReconsiderEmptyText();
+            FireOnSoftSearch();
         }
 
         private void ImageClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

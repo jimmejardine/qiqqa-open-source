@@ -6,9 +6,7 @@ using Qiqqa.Common.GUI;
 using Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff;
 using Qiqqa.UtilisationTracking;
 using Utilities;
-using Utilities.GUI;
 using Utilities.Language.TextIndexing;
-using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 {
@@ -68,63 +66,44 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
         public void SetPDFDocument(PDFDocument doc)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             pdf_document = doc;
-
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
-            {
-                ObjPDFDocuments.ItemsSource = null;
-
-                string query = ObjSearchBox.Text;
-
-                SafeThreadPool.QueueUserWorkItem(() =>
-                {
-                    ReSearch(doc, query);
-                    RepopulatePanels(doc);
-                });
-            });
+            ReSearch();
+            RepopulatePanels();
         }
 
-        private void RepopulatePanels(PDFDocument doc)
+        private void RepopulatePanels()
         {
-            var links = doc.PDFDocumentCitationManager.GetLinkedDocuments();
-            WPFDoEvents.InvokeInUIThread(() =>
-            {
-                CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, doc, links, Features.LinkedDocument_InfoBar_OpenDoc);
-            });
+            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_InfoBar_OpenDoc);
         }
 
-        private void ReSearch(PDFDocument doc, string query)
+        private void ReSearch()
         {
             int MAX_DOCUMENTS = 20;
 
-            if (null == doc) return;
+            ObjPDFDocuments.ItemsSource = null;
+            if (null == this.pdf_document) return;
 
+            string query = ObjSearchBox.Text;
             if (!String.IsNullOrEmpty(query))
             {
-                List<IndexResult> matches = doc.LibraryRef.Xlibrary.LibraryIndex.GetFingerprintsForQuery(query);
-
-                WPFDoEvents.InvokeInUIThread(() =>
+                List<IndexResult> matches = this.pdf_document.LibraryRef.Xlibrary.LibraryIndex.GetFingerprintsForQuery(query);
+                List<TextBlock> text_blocks = new List<TextBlock>();
+                bool alternator = false;
+                for (int i = 0; i < MAX_DOCUMENTS && i < matches.Count; ++i)
                 {
-                    List<TextBlock> text_blocks = new List<TextBlock>();
-                    bool alternator = false;
-                    for (int i = 0; i < MAX_DOCUMENTS && i < matches.Count; ++i)
-                    {
-                        PDFDocument pdf_document = doc.LibraryRef.Xlibrary.GetDocumentByFingerprint(matches[i].fingerprint);
-                        if (null == pdf_document || pdf_document.Deleted) continue;
+                    PDFDocument pdf_document = this.pdf_document.LibraryRef.Xlibrary.GetDocumentByFingerprint(matches[i].fingerprint);
+                    if (null == pdf_document || pdf_document.Deleted) continue;
 
-                        string prefix = String.Format("{0:0%} - ", matches[i].score);
-                        TextBlock text_block = ListFormattingTools.GetDocumentTextBlock(pdf_document, ref alternator, null, MouseButtonEventHandler, prefix, null);
-                        text_blocks.Add(text_block);
-                    }
+                    string prefix = String.Format("{0:0%} - ", matches[i].score);
+                    TextBlock text_block = ListFormattingTools.GetDocumentTextBlock(pdf_document, ref alternator, null, MouseButtonEventHandler, prefix, null);
+                    text_blocks.Add(text_block);
+                }
 
-                    ObjPDFDocuments.ItemsSource = text_blocks;
-                    if (0 < text_blocks.Count)
-                    {
-                        ObjPDFDocuments.SelectedIndex = 0;
-                    }
-                });
+                ObjPDFDocuments.ItemsSource = text_blocks;
+                if (0 < text_blocks.Count)
+                {
+                    ObjPDFDocuments.SelectedIndex = 0;
+                }
             }
         }
 
@@ -147,27 +126,12 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
             }
 
             ObjSearchBox.Clear();
-
-            var doc = this.pdf_document;
-
-            SafeThreadPool.QueueUserWorkItem(() =>
-            {
-                RepopulatePanels(doc);
-            });
+            RepopulatePanels();
         }
 
         private void ObjSearchBox_OnSoftSearch()
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                var doc = this.pdf_document;
-                string query = ObjSearchBox.Text;
-
-                SafeThreadPool.QueueUserWorkItem(() =>
-                {
-                    ReSearch(doc, query);
-                });
-            });
+            ReSearch();
         }
     }
 }

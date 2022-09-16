@@ -28,7 +28,7 @@ namespace Utilities.Misc
             /// <summary>
             /// Single button version.
             /// </summary>
-            public Notification(string text, string tooltip, NotificationType type, string image_name, string button_text, Action stuff_to_do_when_button_pressed)
+            public Notification(string text, string tooltip, NotificationType type, string image_name, string button_text, WaitCallback stuff_to_do_when_button_pressed)
                 : this(text, tooltip, type, image_name)
             {
                 Button1 = new NotificationButton(button_text, stuff_to_do_when_button_pressed);
@@ -37,7 +37,7 @@ namespace Utilities.Misc
             /// <summary>
             /// Two button version.
             /// </summary>
-            public Notification(string text, string tooltip, NotificationType type, string image_name, string button_text_1, Action stuff_to_do_when_button_pressed_1, string button_text_2, Action stuff_to_do_when_button_pressed_2)
+            public Notification(string text, string tooltip, NotificationType type, string image_name, string button_text_1, WaitCallback stuff_to_do_when_button_pressed_1, string button_text_2, WaitCallback stuff_to_do_when_button_pressed_2)
                 : this(text, tooltip, type, image_name, button_text_1, stuff_to_do_when_button_pressed_1)
             {
                 Button2 = new NotificationButton(button_text_2, stuff_to_do_when_button_pressed_2);
@@ -62,14 +62,14 @@ namespace Utilities.Misc
         /// </summary>
         public class NotificationButton
         {
-            public NotificationButton(string text, Action stuff_to_do_when_pressed)
+            public NotificationButton(string text, WaitCallback stuff_to_do_when_pressed)
             {
                 Text = text;
                 StuffToDoWhenPressed = stuff_to_do_when_pressed;
             }
 
             public string Text { get; set; }
-            public Action StuffToDoWhenPressed { get; set; }
+            public WaitCallback StuffToDoWhenPressed { get; set; }
         }
 
         public enum NotificationType

@@ -15,7 +15,6 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Wizard;
-using Utilities.Misc;
 using Utilities.Reflection;
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
@@ -69,11 +68,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             MouseLeave += LibraryCatalogOverviewControl_MouseLeave;
 
             DataContextChanged += LibraryCatalogOverviewControl_DataContextChanged;
-
-            if (Runtime.IsRunningInVisualStudioDesigner)
-            {
-				//...
-            }
         }
 
         private void ButtonThemeSwatch_Click(object sender, RoutedEventArgs e)
@@ -115,9 +109,10 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         _library_catalog_control = GUITools.GetParentControl<LibraryCatalogControl>(this);
                     }
                 }
+
                 catch (Exception ex)
                 {
-                    Logging.Warn(ex, "There was a problem while trying to determine the parent of the library catalog overview control");
+                    Logging.Warn(ex, "There was a problem while trying to detemine the parent of the library catalog overview control");
                     _library_catalog_control = null;
                 }
 
@@ -144,145 +139,129 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void LibraryCatalogOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            // Make the button semi-transparent if our new document is not actually on the harddrive
+            PanelSearchScore.Visibility = Visibility.Collapsed;
+            ListSearchDetails.DataContext = null;
+            ObjLookInsidePanel.Visibility = Visibility.Collapsed;
+            ButtonThemeSwatch.Visibility = Visibility.Collapsed;
+            ObjFavouriteImage.Visibility = Visibility.Collapsed;
+            ButtonOpen.Background = Brushes.Transparent;
+            TextTitle.Foreground = Brushes.Black;
+            TextTitle.FontSize = TextAuthors.FontSize;
+
+            // No more work if our context is null
+            if (null == PDFDocumentBindable)
             {
-                // Make the button semi-transparent if our new document is not actually on the harddrive
-                PanelSearchScore.Visibility = Visibility.Collapsed;
-                ListSearchDetails.DataContext = null;
-                ObjLookInsidePanel.Visibility = Visibility.Collapsed;
-                ButtonThemeSwatch.Visibility = Visibility.Collapsed;
-                ObjFavouriteImage.Visibility = Visibility.Collapsed;
-                ButtonOpen.Background = Brushes.Transparent;
-                TextTitle.Foreground = Brushes.Black;
-                TextTitle.FontSize = TextAuthors.FontSize;
+                return;
+            }
 
-                // No more work if our context is null
-                if (null == PDFDocumentBindable)
+            // The wizard
+            if ("The Qiqqa Manual" == PDFDocumentBindable.Underlying.TitleCombined)
+            {
+                WizardDPs.SetPointOfInterest(TextTitle, "GuestLibraryQiqqaManualTitle");
+                WizardDPs.SetPointOfInterest(ButtonOpen, "GuestLibraryQiqqaManualOpenButton");
+            }
+            else
+            {
+                WizardDPs.ClearPointOfInterest(TextTitle);
+                WizardDPs.ClearPointOfInterest(ButtonOpen);
+            }
+
+            // Choose the icon depending on the reference type
+            if (PDFDocumentBindable.Underlying.IsVanillaReference)
+            {
+                ButtonOpen.Icon = Icons.GetAppIcon(Icons.LibraryCatalogOpenVanillaReference);
+                ButtonOpen.Opacity = 1.0;
+            }
+            else
+            {
+                ButtonOpen.Icon = Icons.GetAppIcon(Icons.LibraryCatalogOpen);
+                ButtonOpen.Opacity = PDFDocumentBindable.Underlying.DocumentExists ? 1.0 : 0.5;
+            }
+
+            // Favourite?
+            if (PDFDocumentBindable.Underlying.IsFavourite ?? false)
+            {
+                ObjFavouriteImage.Visibility = Visibility.Visible;
+            }
+
+            // Colour
+            if (Colors.Transparent != PDFDocumentBindable.Underlying.Color)
+            {
+                ButtonOpen.Background = new SolidColorBrush(ColorTools.MakeTransparentColor(PDFDocumentBindable.Underlying.Color, 64));
+            }
+
+            // Rating
+            if (!String.IsNullOrEmpty(PDFDocumentBindable.Underlying.Rating))
+            {
+                double rating;
+                if (Double.TryParse(PDFDocumentBindable.Underlying.Rating, out rating))
                 {
-                    return;
+                    TextTitle.FontSize = TextAuthors.FontSize + rating;
                 }
+            }
 
-                // The wizard
-                if ("The Qiqqa Manual" == PDFDocumentBindable.Underlying.TitleCombined)
+            // Reading stage
+            switch (PDFDocumentBindable.Underlying.ReadingStage)
+            {
+                case Choices.ReadingStages_TOP_PRIORITY:
+                    TextTitle.Foreground = Brushes.DarkRed;
+                    break;
+
+                case Choices.ReadingStages_READ_AGAIN:
+                case Choices.ReadingStages_INTERRUPTED:
+                case Choices.ReadingStages_STARTED_READING:
+                    TextTitle.Foreground = Brushes.DarkGreen;
+                    break;
+
+                case Choices.ReadingStages_SKIM_READ:
+                case Choices.ReadingStages_BROWSED:
+                case Choices.ReadingStages_INTEREST_ONLY:
+                    TextTitle.Foreground = Brushes.DarkBlue;
+                    break;
+
+                case Choices.ReadingStages_FINISHED_READING:
+                case Choices.ReadingStages_DUPLICATE:
+                    TextTitle.Foreground = Brushes.DarkGray;
+                    break;
+
+                case Choices.ReadingStages_UNREAD:
+                    TextTitle.Foreground = Brushes.Black;
+                    break;
+
+                default:
+                    TextTitle.Foreground = Brushes.Black;
+                    break;
+            }
+
+            // Populate the score if we have them
+            if (null != LibraryCatalogControl)
+            {
+                Dictionary<string, double> search_scores = LibraryCatalogControl.SearchScores;
+                if (null != search_scores)
                 {
-                    WizardDPs.SetPointOfInterest(TextTitle, "GuestLibraryQiqqaManualTitle");
-                    WizardDPs.SetPointOfInterest(ButtonOpen, "GuestLibraryQiqqaManualOpenButton");
+                    PanelSearchScore.Visibility = Visibility.Visible;
+
+                    double score;
+                    search_scores.TryGetValue(PDFDocumentBindable.Underlying.Fingerprint, out score);
+
+                    string score_string = String.Format("{0:0}%", score * 100);
+                    ButtonSearchInside.Caption = "" + score_string + "";
+                    ButtonSearchInside.ToolTip = String.Format("Search score is {0}. Click here to see why...", score_string);
+                    ButtonSearchInside.Cursor = Cursors.Hand;
+                    ButtonSearchInside.MinWidth = 0;
+                    Color color = Color.FromRgb(255, (byte)(255 - 150 * score), 100);
+                    ButtonSearchInside.Background = new SolidColorBrush(color);
                 }
-                else
-                {
-                    WizardDPs.ClearPointOfInterest(TextTitle);
-                    WizardDPs.ClearPointOfInterest(ButtonOpen);
-                }
+            }
 
-                // Choose the icon depending on the reference type
-                if (PDFDocumentBindable.Underlying.IsVanillaReference)
-                {
-                    ButtonOpen.Icon = Icons.GetAppIcon(Icons.LibraryCatalogOpenVanillaReference);
-                    ButtonOpen.Opacity = 1.0;
-                }
-                else
-                {
-                    ButtonOpen.Icon = Icons.GetAppIcon(Icons.LibraryCatalogOpen);
-                    ButtonOpen.Opacity = PDFDocumentBindable.Underlying.DocumentExists ? 1.0 : 0.5;
-                }
+            // Populate the theme swatch
+            ButtonThemeSwatch.Visibility = Visibility.Visible;
+            ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
 
-                // Favourite?
-                if (PDFDocumentBindable.Underlying.IsFavourite ?? false)
-                {
-                    ObjFavouriteImage.Visibility = Visibility.Visible;
-                }
-
-                // Colour
-                if (Colors.Transparent != PDFDocumentBindable.Underlying.Color)
-                {
-                    ButtonOpen.Background = new SolidColorBrush(ColorTools.MakeTransparentColor(PDFDocumentBindable.Underlying.Color, 64));
-                }
-
-                // Rating
-                if (!String.IsNullOrEmpty(PDFDocumentBindable.Underlying.Rating))
-                {
-                    double rating;
-                    if (Double.TryParse(PDFDocumentBindable.Underlying.Rating, out rating))
-                    {
-                        TextTitle.FontSize = TextAuthors.FontSize + rating;
-                    }
-                }
-
-                // Reading stage
-                switch (PDFDocumentBindable.Underlying.ReadingStage)
-                {
-                    case Choices.ReadingStages_TOP_PRIORITY:
-                        TextTitle.Foreground = Brushes.DarkRed;
-                        break;
-
-                    case Choices.ReadingStages_READ_AGAIN:
-                    case Choices.ReadingStages_INTERRUPTED:
-                    case Choices.ReadingStages_STARTED_READING:
-                        TextTitle.Foreground = Brushes.DarkGreen;
-                        break;
-
-                    case Choices.ReadingStages_SKIM_READ:
-                    case Choices.ReadingStages_BROWSED:
-                    case Choices.ReadingStages_INTEREST_ONLY:
-                        TextTitle.Foreground = Brushes.DarkBlue;
-                        break;
-
-                    case Choices.ReadingStages_FINISHED_READING:
-                    case Choices.ReadingStages_DUPLICATE:
-                        TextTitle.Foreground = Brushes.DarkGray;
-                        break;
-
-                    case Choices.ReadingStages_UNREAD:
-                        TextTitle.Foreground = Brushes.Black;
-                        break;
-
-                    default:
-                        TextTitle.Foreground = Brushes.Black;
-                        break;
-                }
-
-                // Populate the score if we have them
-                if (null != LibraryCatalogControl)
-                {
-                    Dictionary<string, double> search_scores = LibraryCatalogControl.SearchScores;
-                    if (null != search_scores)
-                    {
-                        PanelSearchScore.Visibility = Visibility.Visible;
-
-                        double score;
-                        search_scores.TryGetValue(PDFDocumentBindable.Underlying.Fingerprint, out score);
-
-                        string score_string = String.Format("{0:0}%", score * 100);
-                        ButtonSearchInside.Caption = "" + score_string + "";
-                        ButtonSearchInside.ToolTip = String.Format("Search score is {0}. Click here to see why...", score_string);
-                        ButtonSearchInside.Cursor = Cursors.Hand;
-                        ButtonSearchInside.MinWidth = 0;
-                        Color color = Color.FromRgb(255, (byte)(255 - 150 * score), 100);
-                        ButtonSearchInside.Background = new SolidColorBrush(color);
-                    }
-                }
-
-                // Populate the theme swatch
-                ButtonThemeSwatch.Visibility = Visibility.Visible;
-                ButtonThemeSwatch.Background = ThemeBrushes.GetBrushForDocument(PDFDocumentBindable.Underlying);
-
-                // Populate the linked documents
-                PDFDocument pdf_document = PDFDocumentBindable.Underlying;
-
-                SafeThreadPool.QueueSafeExecUserWorkItem(() =>
-                {
-                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-                    var links = pdf_document.PDFDocumentCitationManager.GetLinkedDocuments();
-
-                    WPFDoEvents.InvokeAsyncInUIThread(() =>
-                    {
-                        WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-                        CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, links, Features.LinkedDocument_Library_OpenDoc, " » ", false);
-                    });
-                });
-            });
+            // Populate the linked documents
+            PDFDocument pdf_document = PDFDocumentBindable.Underlying;
+            CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, pdf_document, pdf_document.PDFDocumentCitationManager.GetLinkedDocuments(), Features.LinkedDocument_Library_OpenDoc, " » ", false);
         }
 
         private void ButtonSearchInside_Click(object sender, RoutedEventArgs e)
@@ -394,60 +373,57 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         {
             Logging.Debug("LibraryCatalogOverviewControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
-                    {
-                        // Get rid of managed resources / get rid of cyclic references:
-                        library_index_hover_popup?.Dispose();
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-                    if (dispose_count == 0)
-                    {
-                        WizardDPs.ClearPointOfInterest(PanelSearchScore);
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    if (dispose_count == 0)
-                    {
-                        WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
-
-                    ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
-                    ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
-
-                    ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
-
-                    DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    DataContext = null;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    // Clear the references for sanity's sake
-                    library_index_hover_popup = null;
-                    drag_drop_helper = null;
-                });
-
-                ++dispose_count;
+                    // Get rid of managed resources / get rid of cyclic references:
+                    library_index_hover_popup?.Dispose();
+                }
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+                if (dispose_count == 0)
+                {
+                    WizardDPs.ClearPointOfInterest(PanelSearchScore);
+                }
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (dispose_count == 0)
+                {
+                    WizardDPs.ClearPointOfInterest(ObjLookInsidePanel);
+                }
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                TextTitle.MouseLeftButtonUp -= TextTitle_MouseLeftButtonUp;
+
+                ButtonOpen.ToolTipOpening -= HyperlinkPreview_ToolTipOpening;
+                ButtonOpen.ToolTipClosing -= HyperlinkPreview_ToolTipClosing;
+
+                ListSearchDetails.SearchClicked -= ListSearchDetails_SearchSelectionChanged;
+
+                DataContextChanged -= LibraryCatalogOverviewControl_DataContextChanged;
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            }, must_exec_in_UI_thread: true);
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                // Clear the references for sanity's sake
+                library_index_hover_popup = null;
+                drag_drop_helper = null;
+            });
+
+            ++dispose_count;
         }
 
         #endregion

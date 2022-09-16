@@ -1,48 +1,45 @@
-<commongui:StandardWindow
-    x:Class="Qiqqa.DocumentLibrary.IntranetLibraryStuff.IntranetLibraryChooserControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
-    x:Name="IntranetLibraryChooserWindow">
+<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.IntranetLibraryStuff.IntranetLibraryChooserControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
+>
     <DockPanel>
         <commongui:StandardPageHeader x:Name="Header" DockPanel.Dock="Top" />
-        <!--  The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+        <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
         <DockPanel DockPanel.Dock="Bottom">
             <DockPanel DockPanel.Dock="Right">
-                <local_gui:AugmentedButton
-                    Name="ButtonJoinCreate"
-                    MinWidth="100"
-                    MinHeight="20"
-                    DockPanel.Dock="Right" />
-                <local_gui:AugmentedButton
-                    Name="ButtonCancel"
-                    MinWidth="100"
-                    MinHeight="20"
-                    Margin="0,0,9,0"
-                    DockPanel.Dock="Left" />
+                <local_gui:AugmentedButton Name="ButtonJoinCreate" DockPanel.Dock="Right" MinWidth="100" MinHeight="20" />
+                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
+                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinHeight="20" MinWidth="100" />
+                <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
+                <local_gui:AugmentedSpacer />
             </DockPanel>
         </DockPanel>
-        <!--  The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-        <StackPanel Margin="3" DockPanel.Dock="Top">
-            <TextBlock Margin="0,0,0,3">
+        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom"/>
+        <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock>
                 Please select the shared directory to use as the synchronisation point for your Intranet Library:
             </TextBlock>
             <DockPanel>
-                <Button Name="ObjButtonFolderChoose" DockPanel.Dock="Right">
+                <Button DockPanel.Dock="Right" Name="ObjButtonFolderChoose">
                     ...
                 </Button>
-                <TextBox Name="TxtPath" />
+                <TextBox Name="TxtPath"/>
             </DockPanel>
-            <TextBlock Margin="0,12,0,3">
+            <local_gui:AugmentedSpacer />
+            <TextBlock>
                 Intranet Library Title:
             </TextBlock>
-            <TextBox Name="TxtTitle" />
-            <TextBlock Margin="0,12,0,3">
+            <TextBox Name="TxtTitle"/>
+            <local_gui:AugmentedSpacer />
+            <TextBlock>
                 Intranet Library Description:
             </TextBlock>
             <TextBox Name="TxtDescription" AcceptsReturn="True" />
         </StackPanel>
+        <local_gui:AugmentedSpacer />
     </DockPanel>
 </commongui:StandardWindow>

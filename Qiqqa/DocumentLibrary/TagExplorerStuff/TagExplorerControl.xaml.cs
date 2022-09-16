@@ -62,8 +62,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         internal static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             Logging.Info("+Getting node items for Tags");
 
             List<PDFDocument> pdf_documents = null;
@@ -77,6 +75,9 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             }
             Logging.Debug特("TagExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, web_library_detail.Title);
 
+            // Load all the annotations upfront so we don't have to go to the database for each PDF
+            Dictionary<string, byte[]> library_items_annotations_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
+
             // Build up the map of PDFs associated with each tag
             MultiMapSet<string, string> tags_with_fingerprints = new MultiMapSet<string, string>();
             foreach (PDFDocument pdf_document in pdf_documents)
@@ -89,7 +90,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 }
 
                 // And check the annotations
-                foreach (var pdf_annotation in pdf_document.GetAnnotations())
+                foreach (var pdf_annotation in pdf_document.GetAnnotations(library_items_annotations_cache))
                 {
                     if (!pdf_annotation.Deleted)
                     {
@@ -160,10 +161,7 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
-            });
+            OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }
 
         #region --- Test ------------------------------------------------------------------------

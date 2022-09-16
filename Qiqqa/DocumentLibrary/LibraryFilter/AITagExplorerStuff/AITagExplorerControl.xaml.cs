@@ -93,7 +93,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         private void ButtonRefreshTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(() => web_library_detail.Xlibrary.AITagManager.Regenerate(AITagsRegenerated_NON_GUI_THREAD));
+            SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.AITagManager.Regenerate(AITagsRegenerated_NON_GUI_THREAD));
         }
 
         private void AITagsRegenerated_NON_GUI_THREAD(IAsyncResult ar)
@@ -147,8 +147,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         internal static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             Logging.Info("+Getting node items for AutoTags");
 
             if (null == web_library_detail.Xlibrary.AITagManager.AITags)
@@ -218,10 +216,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
-            });
+            OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
         }
 
         #region --- Test ------------------------------------------------------------------------
@@ -239,6 +234,5 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 #endif
 
         #endregion
-
     }
 }

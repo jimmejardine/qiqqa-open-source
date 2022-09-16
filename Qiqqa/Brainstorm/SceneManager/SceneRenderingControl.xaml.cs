@@ -139,7 +139,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             //this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
             Background = Brushes.White;
             //
-            // ^^^^ now *this* line hints to me that the Qiqqa Brainstorm copy
+            // ^^^^ now *this* line hints to me that the Qiqqa Brainstrom copy
             // is a copy off the Utilities/GUI/BrainStorm code!
             // The Utils copy had the commented out Background setting.
             // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
@@ -544,7 +544,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             scene_changed_marker++;
 
-            // Check that we don't already have a recurrent node we can use
+            // Check that we don't already have a recurrent node we can use            
             if (NodeAdditionPolicyEnum.AlwaysUseExisting == node_addition_policy)
             {
                 IRecurrentNodeContent recurrent_node_content = node_content as IRecurrentNodeContent;
@@ -639,17 +639,14 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void SceneRenderingControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                double delta_x = (e.PreviousSize.Width - e.NewSize.Width);
-                double delta_y = (e.PreviousSize.Height - e.NewSize.Height);
+            double delta_x = (e.PreviousSize.Width - e.NewSize.Width);
+            double delta_y = (e.PreviousSize.Height - e.NewSize.Height);
 
-                current_viewport_topleft.X += delta_x / 2.0 / CurrentPowerScale;
-                current_viewport_topleft.Y += delta_y / 2.0 / CurrentPowerScale;
-                ViewportHasChanged();
+            current_viewport_topleft.X += delta_x / 2.0 / CurrentPowerScale;
+            current_viewport_topleft.Y += delta_y / 2.0 / CurrentPowerScale;
+            ViewportHasChanged();
 
-                RecalculateAllNodeControlDimensions();
-            });
+            RecalculateAllNodeControlDimensions();
         }
 
         internal void UpdateMouseTracking(MouseEventArgs e, bool update_initial)
@@ -868,7 +865,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <returns>true if the user proceeded with clearing the brainstorm.</returns>
         public void New()
@@ -1390,48 +1387,45 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             Logging.Debug("SceneRenderingControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
-                    {
-                        // Get rid of managed resources
-                        AutoArranger?.Enabled(false);
+                    // Get rid of managed resources
+                    AutoArranger?.Enabled(false);
 
-                        node_controls.Clear();
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    brainstorm_metadata_control = null;
-                    brainstorm_metadata = null;
-
-                    auto_arranger = null;
-                    drag_drop_manager = null;
-                    basic_drag_drop_behaviours = null;
-
-                    selected_connector_control = null;
-                    selecting_nodes_control = null;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
                     node_controls.Clear();
-                });
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    connector_control_manager = null;
+            WPFDoEvents.SafeExec(() =>
+            {
+                brainstorm_metadata_control = null;
+                brainstorm_metadata = null;
 
-                    SelectedNodeControlChanged = null;
+                auto_arranger = null;
+                drag_drop_manager = null;
+                basic_drag_drop_behaviours = null;
 
-                    ScrollInfoChanged = null;
-                });
-
-                ++dispose_count;
+                selected_connector_control = null;
+                selecting_nodes_control = null;
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                node_controls.Clear();
+            });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                connector_control_manager = null;
+
+                SelectedNodeControlChanged = null;
+
+                ScrollInfoChanged = null;
+            });
+
+            ++dispose_count;
         }
 
         #endregion

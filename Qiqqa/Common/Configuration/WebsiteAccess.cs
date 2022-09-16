@@ -178,7 +178,7 @@ namespace Qiqqa.Common.Configuration
         }
         private static string GetDownloadWebsiteUrl()
         {
-            return "https://github.com/jimmejardine/qiqqa-open-source/releases"; // "http://download." + GetWebRoot();
+            return "http://download." + GetWebRoot();
         }
 
         private static string GetWebRoot()

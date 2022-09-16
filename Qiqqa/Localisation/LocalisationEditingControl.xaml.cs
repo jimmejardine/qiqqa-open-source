@@ -44,26 +44,20 @@ namespace Qiqqa.Localisation
 
         private void CmdSendToQiqqa_Click(object sender, RoutedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (String.IsNullOrEmpty(current_locale))
             {
-                if (String.IsNullOrEmpty(current_locale))
-                {
-                    MessageBoxes.Error("You have to pick a locale first.");
-                    return;
-                }
+                MessageBoxes.Error("You have to pick a locale first.");
+                return;
+            }
 
-                DoFlush(true);
-                MessageBoxes.Info("Please remember to ZIP the language file before sending it to Qiqqa.");
-                LocalisationManager.Instance.BrowseTempLocaleTable(current_locale);
-            });
+            DoFlush(true);
+            MessageBoxes.Info("Please remember to ZIP the language file before sending it to Qiqqa.");
+            LocalisationManager.Instance.BrowseTempLocaleTable(current_locale);
         }
 
         private void GridEditor_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                DoFlush(false);
-            });
+            DoFlush(false);
         }
 
         private Stopwatch last_flush_time = Stopwatch.StartNew();
@@ -92,18 +86,15 @@ namespace Qiqqa.Localisation
 
         private void TxtNewLocale_OnHardSearch()
         {
-            WPFDoEvents.SafeExec(() =>
+            if (!String.IsNullOrEmpty(TxtNewLocale.Text))
             {
-                if (!String.IsNullOrEmpty(TxtNewLocale.Text))
-                {
-                    current_locale = TxtNewLocale.Text;
+                current_locale = TxtNewLocale.Text;
 
-                    TxtNewLocale.Clear();
-                    TxtWorkingLocale.Text = "You are working on locale: " + current_locale;
-                };
+                TxtNewLocale.Clear();
+                TxtWorkingLocale.Text = "You are working on locale: " + current_locale;
+            };
 
-                LoadLocale(current_locale);
-            });
+            LoadLocale(current_locale);
         }
 
         public void LoadLocale(string locale)

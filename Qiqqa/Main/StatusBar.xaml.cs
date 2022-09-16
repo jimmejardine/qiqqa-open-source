@@ -8,7 +8,6 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Qiqqa.Common.BackgroundWorkerDaemonStuff;
 using Utilities;
-using Qiqqa.ClientVersioning;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Shutdownable;
@@ -29,9 +28,8 @@ namespace Qiqqa.Main
         {
             InitializeComponent();
 
-            Loaded += StatusBar_Loaded;
-            //Unloaded += StatusBar_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+            this.Loaded += StatusBar_Loaded;
+            this.Unloaded += StatusBar_Unloaded;
 
             string post_version_type = ApplicationDeployment.IsNetworkDeployed ? "o" : "s";
             CmdVersion.Caption = "v." + ClientVersion.CurrentVersion + post_version_type;
@@ -43,21 +41,9 @@ namespace Qiqqa.Main
             CmdVersion.ToolTip = "This shows the version of Qiqqa you are using.\nClick here to show the release notes for historical versions and for instructions on how to get an older version of Qiqqa.";
         }
 
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            CleanUp();
-        }
-
         private void StatusBar_Unloaded(object sender, RoutedEventArgs e)
         {
-            CleanUp();
-        }
-
-        private void CleanUp()
-        { 
             StatusManager.Instance.OnStatusEntryUpdate -= StatusManager_OnStatusEntryUpdate;
-
-            Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
 
         private void StatusBar_Loaded(object sender, RoutedEventArgs e)
@@ -87,27 +73,24 @@ namespace Qiqqa.Main
 
         private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
         {
-            WPFDoEvents.SafeExec(() =>
+            bool do_invoke = false;
+
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (status_entries_still_to_process_lock)
             {
-                bool do_invoke = false;
-
-                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (status_entries_still_to_process_lock)
+                //l1_clk.LockPerfTimerStop();
+                status_entries_still_to_process[status_entry.key] = status_entry;
+                if (!status_entries_still_to_process_fresh_thread_running)
                 {
-                    //l1_clk.LockPerfTimerStop();
-                    status_entries_still_to_process[status_entry.key] = status_entry;
-                    if (!status_entries_still_to_process_fresh_thread_running)
-                    {
-                        status_entries_still_to_process_fresh_thread_running = true;
-                        do_invoke = true;
-                    }
+                    status_entries_still_to_process_fresh_thread_running = true;
+                    do_invoke = true;
                 }
+            }
 
-                if (do_invoke)
-                {
-                    WPFDoEvents.InvokeAsyncInUIThread(() => StatusManager_OnStatusEntryUpdate_GUI(), DispatcherPriority.Normal);
-                }
-            });
+            if (do_invoke)
+            {
+                WPFDoEvents.InvokeAsyncInUIThread(() => StatusManager_OnStatusEntryUpdate_GUI(), DispatcherPriority.Background);
+            }
         }
 
         private void StatusManager_OnStatusEntryUpdate_GUI()
@@ -115,7 +98,6 @@ namespace Qiqqa.Main
             while (true)
             {
                 StatusManager.StatusEntry status_entry = null;
-                
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (status_entries_still_to_process_lock)
                 {
@@ -126,10 +108,15 @@ namespace Qiqqa.Main
                         status_entry = pair.Value;
                         status_entries_still_to_process.Remove(pair.Key);
                     }
+                }
 
-                    // Is there nothing left to do?
-                    if (null == status_entry)
+                // Is there nothing left to do?
+                if (null == status_entry)
+                {
+                    //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                    lock (status_entries_still_to_process_lock)
                     {
+                        //l2_clk.LockPerfTimerStop();
                         status_entries_still_to_process_fresh_thread_running = false;
                         break;
                     }

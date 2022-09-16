@@ -65,23 +65,9 @@ namespace Utilities.Shutdownable
             }
         }
 
-        static private string first_known_shutdown_reason = null;
-        static private object first_known_shutdown_reason_lock = new object();
-
-        public void Shutdown(string reason)
+        public void Shutdown()
         {
-            lock (first_known_shutdown_reason_lock)
-            {
-                if (first_known_shutdown_reason == null)
-                {
-                    first_known_shutdown_reason = reason;
-                }
-                else
-                {
-                    reason = $"{first_known_shutdown_reason}\n    Subsequent shutdown reason: {reason}";
-                }
-            }
-            Logging.Info($"ShutdownableManager is shutting down all shutdownables. Reason: {reason}");
+            Logging.Info("ShutdownableManager is shutting down all shutdownables:");
 
             IsShuttingDown = true;
 
@@ -93,10 +79,8 @@ namespace Utilities.Shutdownable
                 {
                     // l1_clk.LockPerfTimerStop();
                     if (!shutdown_delegates.Any()) break;
-                    // process Shutdown registered items in LIFO order: shutdown in reverse of init sequence!
-                    int idx = shutdown_delegates.Count - 1;
-                    shutdown_delegate = shutdown_delegates[idx];
-                    shutdown_delegates.RemoveAt(idx);
+                    shutdown_delegate = shutdown_delegates[0];
+                    shutdown_delegates.RemoveAt(0);
                 }
 
                 try

@@ -27,9 +27,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
 
         public void SetPDFDocument(PDFDocument doc)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            FindDuplicates(doc);
+            SafeThreadPool.QueueUserWorkItem(o => FindDuplicates(doc));
         }
 
 
@@ -62,13 +60,12 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
 
         private void FindDuplicates(PDFDocument pdf_document_this)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             // Invoke the GUI
             WPFDoEvents.InvokeInUIThread(() =>
             {
                 ClearDuplicates();
-            });
+            }
+            );
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 

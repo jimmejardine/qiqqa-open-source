@@ -17,13 +17,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int page = 1; page <= pdf_document.PageCount; ++page)
+            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
             {
                 sb.AppendLine();
                 sb.AppendLine(String.Format("--- Page {0} ---", page));
                 sb.AppendLine();
 
-                WordList words = pdf_document.GetOCRText(page);
+                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
                 if (null != words)
                 {
                     foreach (Word word in words)

@@ -59,19 +59,16 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
 
         private void TreeDuplicates_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            WPFDoEvents.SafeExec(() =>
+            TreeViewItem tvi = TreeDuplicates.SelectedItem as TreeViewItem;
+            if (null != tvi)
             {
-                TreeViewItem tvi = TreeDuplicates.SelectedItem as TreeViewItem;
-                if (null != tvi)
-                {
-                    PDFDocument pdf_document = (PDFDocument)tvi.Tag;
-                    ObjDocumentMetadataControlsPanel.DataContext = pdf_document.Bindable;
-                }
-                else
-                {
-                    ObjDocumentMetadataControlsPanel.DataContext = null;
-                }
-            });
+                PDFDocument pdf_document = (PDFDocument)tvi.Tag;
+                ObjDocumentMetadataControlsPanel.DataContext = pdf_document.Bindable;
+            }
+            else
+            {
+                ObjDocumentMetadataControlsPanel.DataContext = null;
+            }
         }
 
         public void FindDuplicates(WebLibraryDetail web_library_detail)
@@ -91,7 +88,7 @@ namespace Qiqqa.DocumentLibrary.MassDuplicateCheckingStuff
                 }
             }
 
-            SafeThreadPool.QueueUserWorkItem(() => FindDuplicates_BACKGROUND(web_library_detail));
+            SafeThreadPool.QueueUserWorkItem(o => FindDuplicates_BACKGROUND(web_library_detail));
         }
 
         private void FindDuplicates_BACKGROUND(WebLibraryDetail web_library_detail)

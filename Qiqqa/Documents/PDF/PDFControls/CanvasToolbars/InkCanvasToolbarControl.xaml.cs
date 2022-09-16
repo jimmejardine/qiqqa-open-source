@@ -1,11 +1,9 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Media;
 using icons;
 using Qiqqa.UtilisationTracking;
-using Utilities.GUI;
 
 namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
 {
@@ -39,42 +37,21 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
 
         private void ObjColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                RebuildInkParameters();
-            });
+            RebuildInkParameters();
         }
 
-        private WeakReference<PDFRendererControl> pdf_renderer_control = null;
+        private PDFRendererControl pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
-            get
-            {
-                if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
-                {
-                    return control;
-                }
-                return null;
-            }
-            set
-            {
-                if (pdf_renderer_control == null)
-                {
-                    pdf_renderer_control = new WeakReference<PDFRendererControl>(value);
-                }
-                else
-                {
-                    pdf_renderer_control.SetTarget(value);
-                }
-            }
+            get => pdf_renderer_control;
+            set => pdf_renderer_control = value;
         }
-
 
         private void RaiseInkChange(InkCanvasEditingMode inkCanvasEditingMode)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_ChangeInkEditingMode);
 
-            PDFRendererControl.RaiseInkChange(inkCanvasEditingMode);
+            pdf_renderer_control.RaiseInkChange(inkCanvasEditingMode);
         }
 
         private void RebuildInkParameters()
@@ -85,7 +62,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
 
             drawingAttributes.Color = ObjColorPicker.SelectedColor;
 
-            PDFRendererControl.RaiseInkChange(drawingAttributes);
+            pdf_renderer_control.RaiseInkChange(drawingAttributes);
         }
 
         private void ButtonSelect_Click(object sender, RoutedEventArgs e)

@@ -305,54 +305,51 @@ namespace Qiqqa.WebBrowsing
             string url = CurrentUri.ToString();
 
             // This was the code that does the magic locally on the client...
-            SafeThreadPool.QueueUserWorkItem(() => HTMLToPDFConversion.GrabWebPage(title, url));
+            SafeThreadPool.QueueUserWorkItem(o => HTMLToPDFConversion.GrabWebPage(title, url));
         }
 
         private void TabWebBrowserControls_OnActiveItemChanged(FrameworkElement newItemContent)
         {
-            WPFDoEvents.SafeExec(() =>
+            WebBrowserControl wbc = newItemContent as WebBrowserControl;
+
+            if (null != wbc)
             {
-                WebBrowserControl wbc = newItemContent as WebBrowserControl;
+                // find out which, if any, web searcher goes with this particular control
+                WebSearcherEntry wse = null;
 
-                if (null != wbc)
+                foreach (var web_searcher_entry in web_searcher_entries)
                 {
-                    // find out which, if any, web searcher goes with this particular control
-                    WebSearcherEntry wse = null;
-
-                    foreach (var web_searcher_entry in web_searcher_entries)
+                    if (web_searcher_entry.browser_control == wbc)
                     {
-                        if (web_searcher_entry.browser_control == wbc)
-                        {
-                            wse = web_searcher_entry;
-                            break;
-                        }
+                        wse = web_searcher_entry;
+                        break;
                     }
-
-                    Uri uri = wbc.NavigateOnceVisibleUri;
-
-                    if (uri == null || uri.ToString() == WebsiteAccess.Url_AboutBlank)
-                    {
-                        if (wse != null)
-                        {
-                            uri = wbc.NavigateOnceVisibleUri = new Uri(wse.web_searcher.StartUri);
-                        }
-                        else
-                        {
-                            uri = wbc.NavigateOnceVisibleUri = new Uri(WebsiteAccess.Url_BlankWebsite);
-                        }
-                    }
-                    uri = wbc.NavigateToPendingOnceVisibleUri();
-
-                    Logging.Debug特("Active browser control changed");
-                    active_wbc = wbc;
-
-                    uri = wbc.CurrentUri;
-                    ASSERT.Test(uri != null);
-                    TextBoxUrl.Text = uri.ToString();
                 }
 
-                TabChanged?.Invoke();
-            });
+                Uri uri = wbc.NavigateOnceVisibleUri;
+
+                if (uri == null || uri.ToString() == WebsiteAccess.Url_AboutBlank)
+                {
+                    if (wse != null)
+                    {
+                        uri = wbc.NavigateOnceVisibleUri = new Uri(wse.web_searcher.StartUri);
+                    }
+                    else
+                    {
+                        uri = wbc.NavigateOnceVisibleUri = new Uri(WebsiteAccess.Url_BlankWebsite);
+                    }
+                }
+                uri = wbc.NavigateToPendingOnceVisibleUri();
+
+                Logging.Debug特("Active browser control changed");
+                active_wbc = wbc;
+
+                uri = wbc.CurrentUri;
+                ASSERT.Test(uri != null);
+                TextBoxUrl.Text = uri.ToString();
+            }
+
+            TabChanged?.Invoke();
         }
 
         // TODO: make it work akin to the <embed> handling to prevent confusion:
@@ -379,10 +376,7 @@ namespace Qiqqa.WebBrowsing
 
         private void TextBoxUrl_OnHardSearch()
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                DoBrowse();
-            });
+            DoBrowse();
         }
 
         private void DoBrowse()
@@ -425,10 +419,7 @@ namespace Qiqqa.WebBrowsing
 
         private void TextBoxGoogleScholar_OnHardSearch()
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                DoWebSearch();
-            });
+            DoWebSearch();
         }
 
         internal void SelectSearchTab(string active_search_key)
@@ -635,77 +626,74 @@ namespace Qiqqa.WebBrowsing
         {
             Logging.Debug("WebBrowserHostControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                // Prevent recursive run-away of the code via the chain:
+                //
+                // *** 	Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                // 	    Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // ***  Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                //
+                // and prevent partial/broken cleanup due to chains like this one, resulting in
+                // a dispose_count == 2:
+                //
+                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
+                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
+                // *    Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers)
+                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers()
+                //
+                if (dispose_count == 0)
                 {
-                    // Prevent recursive run-away of the code via the chain:
-                    //
-                    // *** 	Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                    // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
-                    // 	    Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
-                    //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
-                    // ***  Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                    // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
-                    //
-                    // and prevent partial/broken cleanup due to chains like this one, resulting in
-                    // a dispose_count == 2:
-                    //
-                    // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
-                    // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
-                    // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
-                    // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
-                    //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
-                    //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
-                    // *    Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers)
-                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers()
-                    //
-                    if (dispose_count == 0)
-                    {
-                        // Get rid of managed resources
-                        DeleteSearchers();
+                    // Get rid of managed resources
+                    DeleteSearchers();
 
-                        wbc_browsing?.Dispose();
+                    wbc_browsing?.Dispose();
 
-                        active_wbc?.Dispose();
+                    active_wbc?.Dispose();
 
-                        //TabChanged -= ;
-                        //PageLoaded -= ;
-                        //Navigating -= ;
+                    //TabChanged -= ;
+                    //PageLoaded -= ;
+                    //Navigating -= ;
 
-                        TextBoxUrl.OnHardSearch -= TextBoxUrl_OnHardSearch;
-                        TextBoxGoogleScholar.OnHardSearch -= TextBoxGoogleScholar_OnHardSearch;
+                    TextBoxUrl.OnHardSearch -= TextBoxUrl_OnHardSearch;
+                    TextBoxGoogleScholar.OnHardSearch -= TextBoxGoogleScholar_OnHardSearch;
 
-                        TabWebBrowserControls.OnActiveItemChanged -= TabWebBrowserControls_OnActiveItemChanged;
+                    TabWebBrowserControls.OnActiveItemChanged -= TabWebBrowserControls_OnActiveItemChanged;
 
-                        //TabWebBrowserControls.Clear();
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    web_searcher_entries = null;
-
-                    wbc_browsing = null;
-                    active_wbc = null;
-                    CurrentLibrary = null;
-
-                    web_searcher_preference_control = null;
-
-                    // // DeleteSearchers(); ===>
-                    //web_searcher_entries.Clear();
-                });
-
-                ++dispose_count;
+                    //TabWebBrowserControls.Clear();
+                }
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                web_searcher_entries = null;
+
+                wbc_browsing = null;
+                active_wbc = null;
+                CurrentLibrary = null;
+
+                web_searcher_preference_control = null;
+
+                // // DeleteSearchers(); ===>
+                //web_searcher_entries.Clear();
+            });
+
+            ++dispose_count;
         }
 
         #endregion

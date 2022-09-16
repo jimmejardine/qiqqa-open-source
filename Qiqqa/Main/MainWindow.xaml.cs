@@ -41,12 +41,9 @@ namespace Qiqqa.Main
         {
             MainWindowServiceDispatcher.Instance.MainWindow = this;
 
-            //Theme.Initialize(); -- already done in StandardWindow base class
+            Theme.Initialize();
 
             InitializeComponent();
-
-            Application.Current.SessionEnding += Current_SessionEnding;
-            Application.Current.Exit += Current_Exit;
 
             HourglassState = 2;
             WPFDoEvents.SetHourglassCursor();
@@ -58,6 +55,18 @@ namespace Qiqqa.Main
             if (WebsiteAccess.IsTestEnvironment)
             {
                 Title = String.Format("Qiqqa v{0} (TEST ENVIRONMENT)", ClientVersion.CurrentBuild);
+            }
+
+            // Check that we actually are fitting on the user's screen
+            if (Left > SystemParameters.VirtualScreenWidth || Width > SystemParameters.FullPrimaryScreenWidth)
+            {
+                Left = 0;
+                Width = SystemParameters.FullPrimaryScreenWidth;
+            }
+            if (Top > SystemParameters.VirtualScreenHeight || Height > SystemParameters.FullPrimaryScreenHeight)
+            {
+                Top = 0;
+                Height = SystemParameters.FullPrimaryScreenHeight;
             }
 
             DockingManager.WindowIcon = Icons.GetAppIconICO(Icons.Qiqqa);
@@ -72,8 +81,6 @@ namespace Qiqqa.Main
             SizeChanged += MainWindow_SizeChanged;
             KeyUp += MainWindow_KeyUp;
 
-            //Unloaded += MainWindow_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
             Closing += MainWindow_Closing;
             Closed += MainWindow_Closed;
 
@@ -94,70 +101,23 @@ namespace Qiqqa.Main
             WebLibraryManager.Instance.WebLibrariesChanged += Instance_WebLibrariesChanged;
         }
 
-        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
-        {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Logging.Info("Mainwindow: Shutdown started");
-
-                CleanUp();
-            });
-        }
-
-        private void Current_Exit(object sender, ExitEventArgs e)
-        {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Logging.Info("x");
-
-                CleanUp();
-            });
-        }
-
-        private void Current_SessionEnding(object sender, SessionEndingCancelEventArgs e)
-        {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Logging.Info("Current session ending.");
-
-                CleanUp();
-            });
-        }
-
-        // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
-        // Which says:
-        //
-        // Note that the Unloaded event is not raised after an application begins shutting down.
-        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs.
-        // If you place cleanup code within a handler for the Unloaded event, such as for a Window
-        // or a UserControl, it may not be called as expected.
-        private void MainWindow_Unloaded(object sender, RoutedEventArgs e)
-        {
-            Logging.Info("x");
-
-            CleanUp();
-        }
-
         private void Instance_WebLibrariesChanged()
         {
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            if (ShutdownableManager.Instance.IsShuttingDown)
             {
-                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+                Logging.Info("WebLibrariesChanged: Breaking out of UI update due to application termination");
+                return;
+            }
 
-                if (ShutdownableManager.Instance.IsShuttingDown)
-                {
-                    Logging.Info("WebLibrariesChanged: Breaking out of UI update due to application termination");
-                    return;
-                }
+            // NOTE:
+            // the code in PostStartupWork() depends on the completed loading of the libraries,
+            // hence it is executed only now instead of earlier in MainWindow()
+            PostStartupWork();
 
-                // NOTE:
-                // the code in PostStartupWork() depends on the completed loading of the libraries,
-                // hence it is executed only now instead of earlier in MainWindow()
-                PostStartupWork();
-
-                // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
-                ResetHourglassWhenAllIsDone();
-            });
+            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            ResetHourglassWhenAllIsDone();
         }
 
         private void ResetHourglassWhenAllIsDone()
@@ -178,31 +138,13 @@ namespace Qiqqa.Main
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Logging.Debug特("MainWindow::ContentRendered event");
+            Logging.Debug特("MainWindow::ContentRendered event");
 
-                // hold off: level 2 -> 1
-                MaintainableManager.Instance.BumpHoldOffPendingLevel();
+            // hold off: level 2 -> 1
+            MaintainableManager.Instance.BumpHoldOffPendingLevel();
 
-                // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
-                ResetHourglassWhenAllIsDone();
-            });
-        }
-
-        public override bool SetupConfiguredDimensions(Size preferred_dimensions)
-        {
-            bool has_cfg = base.SetupConfiguredDimensions(preferred_dimensions);
-
-            if (!has_cfg)
-            {
-                if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
-                {
-                    WindowState = WindowState.Maximized;
-                }
-            }
-
-            return has_cfg;
+            // https://stackoverflow.com/questions/34340134/how-to-know-when-a-frameworkelement-has-been-totally-rendered
+            ResetHourglassWhenAllIsDone();
         }
 
         private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
@@ -255,6 +197,18 @@ namespace Qiqqa.Main
 
             WPFDoEvents.InvokeInUIThread(() =>
             {
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
+                {
+                    SetupConfiguredDimensions();
+                }
+                else
+                {
+                    if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
+                    {
+                        WindowState = WindowState.Maximized;
+                    }
+                }
+
                 // Install the global keyboard and mouse hooks
                 if (!RegistrySettings.Instance.IsSet(RegistrySettings.DisableGlobalKeyHook))
                 {
@@ -293,58 +247,48 @@ namespace Qiqqa.Main
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+            if (!already_exiting && !suppress_exit_warning)
             {
-                if (!already_exiting && !suppress_exit_warning)
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_AskOnExit)
                 {
-                    if (ConfigurationManager.Instance.ConfigurationRecord.GUI_AskOnExit)
+                    LogoutWindow logout_window = new LogoutWindow();
+                    if (false == logout_window.ShowDialog())
                     {
-                        LogoutWindow logout_window = new LogoutWindow();
-                        if (false == logout_window.ShowDialog())
-                        {
-                            e.Cancel = true;
-                            Logging.Info("User has requested not to quit Qiqqa on window close");
-                            return;
-                        }
+                        e.Cancel = true;
+                        Logging.Info("User has requested not to quit Qiqqa on window close");
+                        return;
                     }
                 }
+            }
 
-                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreWindowsAtStartup)
-                {
-                    RestoreDesktopManager.SaveDesktop();
-                }
+            if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreWindowsAtStartup)
+            {
+                RestoreDesktopManager.SaveDesktop();
+            }
 
-                // Close all windows
-                DockingManager.CloseAllContent();
+            // Close all windows
+            DockingManager.CloseAllContent();
 
-                MainEntry.SignalShutdown("Main window CLOSING event: user explicitly shutting down application.");
+            MainEntry.SignalShutdown();
 
-                CleanUp();
-            });
+            // If we get this far, they want out
+            already_exiting = true;
         }
 
-        private void CleanUp()
+        private void MainWindow_Closed(object sender, EventArgs e)
         {
+            Logging.Info("+Explicitly shutting down application");
+
+            MainEntry.SignalShutdown();
+
             ipc_server?.Stop();
             ipc_server = null;
 
             FeatureTrackingManager.Instance.UseFeature(Features.App_Close);
 
-            Application.Current?.Shutdown();
-        }
+            Application.Current.Shutdown();
 
-        private void MainWindow_Closed(object sender, EventArgs e)
-        {
-            WPFDoEvents.SafeExec(() =>
-            {
-                Logging.Info("+Explicitly shutting down application");
-
-                MainEntry.SignalShutdown("Main window CLOSED event: explicitly shutting down application.");
-
-                CleanUp();
-
-                Logging.Info("-Explicitly shutting down application");
-            });
+            Logging.Info("-Explicitly shutting down application");
         }
 
         private void MainWindow_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -414,31 +358,28 @@ namespace Qiqqa.Main
         {
             Logging.Debug("MainWindow::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.SafeExec(() =>
+                if (dispose_count == 0)
                 {
-                    if (dispose_count == 0)
-                    {
-                        ipc_server?.Stop();
-                    }
-                });
+                    ipc_server?.Stop();
+                }
+            }, must_exec_in_UI_thread: true);
 
-                WPFDoEvents.SafeExec(() =>
-                {
-                    ObjStartPage = null;
+            WPFDoEvents.SafeExec(() =>
+            {
+                ObjStartPage = null;
 
-                    keyboard_hook = null;
-                    ipc_server = null;
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    DataContext = null;
-                });
-
-                ++dispose_count;
+                keyboard_hook = null;
+                ipc_server = null;
             });
+
+            WPFDoEvents.SafeExec(() =>
+            {
+                DataContext = null;
+            });
+
+            ++dispose_count;
         }
 
 #endregion

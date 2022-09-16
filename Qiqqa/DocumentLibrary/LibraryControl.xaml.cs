@@ -297,12 +297,6 @@ namespace Qiqqa.DocumentLibrary
                 ObjLibraryFilterControl_Search.SearchQuick.FocusSearchArea();
                 e.Handled = true;
             }
-            else if (Key.F5 == e.Key && KeyboardTools.IsNoneOfTheMetaKeysDown())
-            {
-                ObjLibraryCatalogControl.ListPDFDocuments.UpdateLayout();
-
-                e.Handled = true;
-            }
         }
 
         public WebLibraryDetail LibraryRef => web_library_detail;
@@ -311,7 +305,7 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                PDFDocument pdf_document = web_library_detail.Xlibrary.AddVanillaReferenceDocumentToLibrary(null, web_library_detail, null, null, false);
+                PDFDocument pdf_document = web_library_detail.Xlibrary.AddVanillaReferenceDocumentToLibrary(null, web_library_detail, null, null, false, false);
 
                 // Let's pop up the BibTeX editor window for the new document
                 MetadataBibTeXEditorControl editor = new MetadataBibTeXEditorControl();
@@ -411,7 +405,7 @@ namespace Qiqqa.DocumentLibrary
         private void ButtonGenerateReferences_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(() => CitationFinder.FindCitations(web_library_detail));
+            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(web_library_detail));
         }
 
         private void ButtonFindDuplicates_Click(object sender, RoutedEventArgs e)
@@ -427,7 +421,7 @@ namespace Qiqqa.DocumentLibrary
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncMetadata);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(wants_user_intervention: false, web_library_detail, suppress_already_in_progress_notification: false));
+                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(false, web_library_detail, true, false, false));
             }
         }
 
@@ -436,7 +430,7 @@ namespace Qiqqa.DocumentLibrary
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncMetadataAndPDFs);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(wants_user_intervention: false, web_library_detail, suppress_already_in_progress_notification: false));
+                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(false, web_library_detail, true, true, false));
             }
         }
 
@@ -445,7 +439,7 @@ namespace Qiqqa.DocumentLibrary
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonSyncPopup))
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Sync_SyncDetails);
-                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(wants_user_intervention: true, web_library_detail, suppress_already_in_progress_notification: false));
+                LibrarySyncManager.Instance.RequestSync(new LibrarySyncManager.SyncRequest(true, web_library_detail, true, true, false));
             }
         }
 
@@ -461,8 +455,6 @@ namespace Qiqqa.DocumentLibrary
         {
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonAddPDFPopup))
             {
-                if (Runtime.IsRunningInVisualStudioDesigner) return;
-
                 OpenFileDialog dlg = new OpenFileDialog();
                 dlg.CheckFileExists = true;
                 dlg.CheckPathExists = true;
@@ -471,7 +463,7 @@ namespace Qiqqa.DocumentLibrary
                 dlg.Title = "Select the PDF documents you wish to add to your document library";
                 if (dlg.ShowDialog() == true)
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, dlg.FileNames);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, false, dlg.FileNames);
                 }
             }
         }
@@ -520,7 +512,7 @@ namespace Qiqqa.DocumentLibrary
                 if (Directory.Exists(root_folder))
                 {
                     // do the import
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, true, false, false);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(web_library_detail, root_folder, true, false, false, false);
                 }
             }
         }

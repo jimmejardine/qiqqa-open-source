@@ -209,13 +209,12 @@ namespace Utilities.GUI
 
         protected void Application_ApplicationExit(object sender, EventArgs e)
         {
-            WPFDoEvents.SafeExec(() =>
+
+            if (_isStarted)
             {
-                if (_isStarted)
-                {
-                    Stop();
-                }
-            });
+                Stop();
+            }
+
         }
 
         #endregion

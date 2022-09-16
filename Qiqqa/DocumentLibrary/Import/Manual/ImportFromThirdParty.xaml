@@ -1,97 +1,90 @@
-<commongui:StandardWindow
-    x:Class="Qiqqa.DocumentLibrary.Import.Manual.ImportFromThirdParty"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:wt="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
-    x:Name="ImportFromThirdPartyWindow"
-    Title="Qiqqa Manual Import"
-    Width="800"
-    Height="600">
+<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.Import.Manual.ImportFromThirdParty"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+        xmlns:wt="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+        xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+        Title="Qiqqa Manual Import" 
+        Height="600" Width="800"
+>
     <Window.Resources>
-        <Style TargetType="{x:Type FlowDocumentScrollViewer}">
+        <Style TargetType="{x:Type FlowDocumentScrollViewer }">
             <Setter Property="IsToolBarVisible" Value="False" />
         </Style>
         <Style TargetType="{x:Type FlowDocument}">
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"  />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"  />
             <Setter Property="FontFamily" Value="{StaticResource FontFamily_Standard}" />
         </Style>
         <commongui:BoolToYesNoStringConverter x:Key="ObjBoolToStringConverter" />
     </Window.Resources>
     <DockPanel>
         <commongui:StandardPageHeader x:Name="Header" DockPanel.Dock="Top" />
-        <local_gui:AugmentedPadder Height="70" DockPanel.Dock="Bottom">
-            <DockPanel>
+        <local_gui:AugmentedPadder DockPanel.Dock="Bottom"  Height="70" >
+            <DockPanel >
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
                     <local_gui:AugmentedButton x:Name="btnCancel" HorizontalAlignment="Left" />
-                    <local_gui:AugmentedButton
-                        x:Name="btnBack"
-                        Margin="3"
-                        HorizontalAlignment="Left" />
+                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedButton x:Name="btnBack" HorizontalAlignment="Left" />
                 </StackPanel>
-                <local_gui:AugmentedButton
-                    x:Name="btnImport"
-                    HorizontalAlignment="Right"
-                    DockPanel.Dock="Right" />
+                <local_gui:AugmentedButton x:Name="btnImport" HorizontalAlignment="Right" DockPanel.Dock="Right" />
             </DockPanel>
         </local_gui:AugmentedPadder>
         <Grid>
-            <!--  providers  -->
+            <!-- providers-->
             <Grid x:Name="pnlProviders" Margin="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <!--  automatic providers  -->
+                <!-- automatic providers-->
                 <local_gui:AugmentedBorder Grid.Column="0">
-                    <Grid>
+                    <Grid >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="70" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition />
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <FlowDocumentScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden">
+                        <FlowDocumentScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Row="0">
                             <FlowDocument TextAlignment="Center">
                                 <Paragraph>
                                     Importing Automatically
                                 </Paragraph>
                             </FlowDocument>
                         </FlowDocumentScrollViewer>
-                        <StackPanel Name="ObjAutoImportDescriptionDocument" Grid.Row="2" />
+                        <StackPanel Grid.Row="2" Name="ObjAutoImportDescriptionDocument" />
                     </Grid>
                 </local_gui:AugmentedBorder>
-                <!--  manual providers  -->
+                <!-- manual providers-->
                 <local_gui:AugmentedBorder Grid.Column="2">
-                    <Grid>
+                    <Grid >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="70" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <FlowDocumentScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden">
+                        <FlowDocumentScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Row="0">
                             <FlowDocument TextAlignment="Center">
                                 <Paragraph>
                                     Importing Manually
                                 </Paragraph>
                             </FlowDocument>
                         </FlowDocumentScrollViewer>
-                        <local_gui:AugmentedToolBarButton x:Name="btnProvider_EndNote" Grid.Row="2" />
-                        <local_gui:AugmentedToolBarButton x:Name="btnProvider_Zotero" Grid.Row="3" />
-                        <local_gui:AugmentedToolBarButton x:Name="btnProvider_JabRef" Grid.Row="4" />
-                        <local_gui:AugmentedToolBarButton x:Name="btnProvider_Mendeley" Grid.Row="5" />
-                        <local_gui:AugmentedToolBarButton x:Name="btnProvider_BibTeX" Grid.Row="6" />
+                        <local_gui:AugmentedToolBarButton Grid.Row="2" x:Name="btnProvider_EndNote" />
+                        <local_gui:AugmentedToolBarButton Grid.Row="3" x:Name="btnProvider_Zotero" />
+                        <local_gui:AugmentedToolBarButton Grid.Row="4" x:Name="btnProvider_JabRef" />
+                        <local_gui:AugmentedToolBarButton Grid.Row="5" x:Name="btnProvider_Mendeley" />
+                        <local_gui:AugmentedToolBarButton Grid.Row="6" x:Name="btnProvider_BibTeX" />
                     </Grid>
                 </local_gui:AugmentedBorder>
             </Grid>
-            <!--  instructions  -->
-            <Grid x:Name="pnlInstructions" VerticalAlignment="Top">
+            <!-- instructions-->
+            <Grid VerticalAlignment="Top" x:Name="pnlInstructions">
                 <FlowDocumentScrollViewer x:Name="pnlInstructions_BibTeX" VerticalScrollBarVisibility="Auto">
                     <FlowDocument>
                         <List>
@@ -102,31 +95,40 @@
                             </ListItem>
                             <ListItem>
                                 <Paragraph>
-                                    The records must contain the &quot;file&quot; field, so we can find the PDF.  Note the use of forwardslash or double-backslash!  Below is an example.
+                                    The records must contain the "file" field, so we can find the PDF.  Note the use of forwardslash or double-backslash!  Below is an example.
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
                                 <Paragraph>
-                                    @article{Smith2010,<LineBreak />
-                                    author = {Smith, Bob},<LineBreak />
+                                    @article{Smith2010,
+                                    <LineBreak />
+                                    author = {Smith, Bob},
+                                    <LineBreak />
                                     <Bold>
                                         file = {:c:\\my library\\myreport.pdf:pdf},
                                     </Bold>
                                     <LineBreak />
-                                    or<LineBreak />
+                                    or
+                                    <LineBreak />
                                     <Bold>
                                         file = {:c:/my library/myreport.pdf:pdf},
                                     </Bold>
                                     <LineBreak />
-                                    journal = {Review Literature And Arts Of The Americas},<LineBreak />
-                                    title = {{First year report}},<LineBreak />
-                                    year = {2010},<LineBreak />
-                                    tags = {tag1;tag2;tag3;tag4}<LineBreak />
-                                    annote = {your comments here - be sure to have no braces in them...}<LineBreak />
-                                    }</Paragraph>
+                                    journal = {Review Literature And Arts Of The Americas},
+                                    <LineBreak />
+                                    title = {{First year report}},
+                                    <LineBreak />
+                                    year = {2010},
+                                    <LineBreak />
+                                    tags = {tag1;tag2;tag3;tag4}
+                                    <LineBreak />
+                                    annote = {your comments here - be sure to have no braces in them...}
+                                    <LineBreak />
+                                    }
+                                </Paragraph>
                                 <Paragraph>
                                     <Border>
-                                        <local_gui:AugmentedButton x:Name="btnChooseFile_BibTeX" Content="Select Import File..." />
+                                        <local_gui:AugmentedButton x:Name="btnChooseFile_BibTeX" Content="Select Import File..."/>
                                     </Border>
                                 </Paragraph>
                             </ListItem>
@@ -138,12 +140,12 @@
                         <List>
                             <ListItem>
                                 <Paragraph>
-                                    1 - Within Mendeley™, highlight the documents you wish to export and choose &quot;Export...&quot; from the file menu.
+                                    1 - Within Mendeley™, highlight the documents you wish to export and choose "Export..." from the file menu.
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
                                 <Paragraph>
-                                    2 - Select &quot;BibTeX (.bib)&quot; as the file type, and choose a location you'll remember, such as your desktop.
+                                    2 - Select "BibTeX (.bib)" as the file type, and choose a location you'll remember, such as your desktop.
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
@@ -152,7 +154,7 @@
                                 </Paragraph>
                                 <Paragraph>
                                     <Border>
-                                        <local_gui:AugmentedButton x:Name="btnChooseFile_Mendeley" Content="Select File..." />
+                                        <local_gui:AugmentedButton x:Name="btnChooseFile_Mendeley" Content="Select File..."/>
                                     </Border>
                                 </Paragraph>
                             </ListItem>
@@ -164,12 +166,12 @@
                         <List>
                             <ListItem>
                                 <Paragraph>
-                                    1 - Within Firefox, open the Zotero™ bottom pane.  Locate the &quot;Actions&quot; button (looks like a gear).
+                                    1 - Within Firefox, open the Zotero™ bottom pane.  Locate the "Actions" button (looks like a gear).
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
                                 <Paragraph>
-                                    2 - Select &quot;Export Library...&quot;, and choose &quot;BibTeX&quot; as the format.  Ensure the &quot;Export Files&quot; tickbox is checked, and click &quot;OK&quot;.  Save the file in a location you'll remember, such as your desktop.
+                                    2 - Select "Export Library...", and choose "BibTeX" as the format.  Ensure the "Export Files" tickbox is checked, and click "OK".  Save the file in a location you'll remember, such as your desktop.
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
@@ -190,22 +192,22 @@
                         <List>
                             <ListItem>
                                 <Paragraph>
-                                    1 - First we need to export from EndNote™. Within EndNote™, open the relevant library and select the File menu, then &quot;Export...&quot;
+                                    1 - First we need to export from EndNote™. Within EndNote™, open the relevant library and select the File menu, then "Export..."
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
                                 <Paragraph>
-                                    2 - For &quot;File Name&quot; choose a location you'll remember (e.g. on your desktop)
+                                    2 - For "File Name" choose a location you'll remember (e.g. on your desktop)
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
                                 <Paragraph>
-                                    3 - For &quot;Save as Type&quot; choose &quot;Text File&quot;.
+                                    3 - For "Save as Type" choose "Text File".
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
                                 <Paragraph>
-                                    4 - Important: for &quot;Output Style&quot; choose &quot;Select Another Style...&quot;, then &quot;EndNote Export&quot; (it's in category &quot;Export&quot; - you can also use the quick search to find it)
+                                    4 - Important: for "Output Style" choose "Select Another Style...", then "EndNote Export" (it's in category "Export" - you can also use the quick search to find it)
                                 </Paragraph>
                             </ListItem>
                             <ListItem>
@@ -221,7 +223,7 @@
                             <ListItem>
                                 <Paragraph>
                                     6 - Now please select your EndNote™ library data folder (below this is where the PDFs are stored).
-                                    To find it, first find your EndNote library file.   If your library is called &quot;MyEndNoteLibrary&quot;, the file will be called &quot;MyEndNoteLibrary.enl&quot;.  Now we need the data directory, which is almost always in the same directory (unless you've moved it), and would be called &quot;MyEndNoteLibrary.Data&quot;.  Please select that folder (the one ending in &quot;.Data&quot;)
+                                    To find it, first find your EndNote library file.   If your library is called "MyEndNoteLibrary", the file will be called "MyEndNoteLibrary.enl".  Now we need the data directory, which is almost always in the same directory (unless you've moved it), and would be called "MyEndNoteLibrary.Data".  Please select that folder (the one ending in ".Data")
                                     If you do NOT want to import the PDFs, simply choose any directory (e.g. c:\), and the items will all be imported as vanilla references.
                                 </Paragraph>
                                 <Paragraph>
@@ -244,7 +246,7 @@
                             <ListItem>
                                 <Paragraph>
                                     <Border>
-                                        <local_gui:AugmentedButton x:Name="btnChooseFile_JabRef" Content="Select Import File..." />
+                                        <local_gui:AugmentedButton x:Name="btnChooseFile_JabRef" Content="Select Import File..."/>
                                     </Border>
                                 </Paragraph>
                             </ListItem>
@@ -252,12 +254,9 @@
                     </FlowDocument>
                 </FlowDocumentScrollViewer>
             </Grid>
-            <!--  entry selection  -->
+            <!-- entry selection -->
             <DockPanel x:Name="pnlEntrySelection">
-                <Border
-                    x:Name="pnlAlreadyImported"
-                    Background="{StaticResource Background_Brush_Warning}"
-                    DockPanel.Dock="Top">
+                <Border DockPanel.Dock="Top" x:Name="pnlAlreadyImported" Background="{StaticResource Background_Brush_Warning}">
                     <local_gui:AugmentedPadder>
                         <TextBlock>
                             Some of these entries already exist in your library. They have been deselected. Select them if you wish to overwrite the entries in your Qiqqa library.
@@ -268,58 +267,32 @@
                     <local_gui:AugmentedPadder>
                         <StackPanel Orientation="Horizontal">
                             <local_gui:AugmentedButton x:Name="btnSelectAll" />
-                            <local_gui:AugmentedButton x:Name="btnSelectNone" Margin="3" />
+                            <local_gui:AugmentedSpacer />
+                            <local_gui:AugmentedButton  x:Name="btnSelectNone" />
                         </StackPanel>
                     </local_gui:AugmentedPadder>
                 </Border>
                 <Grid>
                     <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    -->
-                    <DataGrid
-                        x:Name="lstEntries"
-                        AlternatingRowBackground="{StaticResource Background_Brush_Blue_LightToDark}"
-                        AlternationCount="2"
-                        AutoGenerateColumns="False"
-                        CanUserAddRows="False"
-                        CanUserDeleteRows="False"
-                        ItemsSource="{Binding}">
-                        <DataGrid.Columns>
-                            <DataGridCheckBoxColumn
-                                Width="SizeToHeader"
-                                Binding="{Binding Bindable.Selected}"
-                                Header="Import?" />
-                            <DataGridTextColumn
-                                Width="SizeToHeader"
-                                Binding="{Binding ExistsInLibrary, Converter={StaticResource ObjBoolToStringConverter}}"
-                                Header="Already in Qiqqa?"
-                                IsReadOnly="True" />
-                            <DataGridTextColumn
-                                Width="SizeToHeader"
-                                Binding="{Binding HasPDF, Converter={StaticResource ObjBoolToStringConverter}}"
-                                Header="Has PDF?"
-                                IsReadOnly="True" />
-                            <DataGridTextColumn
-                                MaxWidth="300"
-                                Binding="{Binding BibTeX}"
-                                Header="BibTeX"
-                                IsReadOnly="True" />
-                            <DataGridTextColumn
-                                MaxWidth="300"
-                                Binding="{Binding Title}"
-                                Header="Title"
-                                IsReadOnly="True" />
-                            <DataGridTextColumn
-                                MaxWidth="300"
-                                Binding="{Binding Author}"
-                                Header="Author"
-                                IsReadOnly="True" />
-                            <DataGridTextColumn
-                                MaxWidth="300"
-                                Binding="{Binding Filename}"
-                                Header="Filename"
-                                IsReadOnly="True" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                        -->
+                        <DataGrid
+              x:Name="lstEntries" ItemsSource="{Binding}"
+              AlternationCount="2"
+              AutoGenerateColumns="False"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              AlternatingRowBackground="{StaticResource Background_Brush_Blue_LightToDark}"
+              >
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="Import?" Width="SizeToHeader" Binding="{Binding Bindable.Selected}" />
+                                <DataGridTextColumn Header="Already in Qiqqa?" Width="SizeToHeader" Binding="{Binding ExistsInLibrary, Converter={StaticResource  ObjBoolToStringConverter}}" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Has PDF?" Width="SizeToHeader" Binding="{Binding HasPDF, Converter={StaticResource  ObjBoolToStringConverter}}" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BibTeX" Binding="{Binding BibTeX}" IsReadOnly="True" MaxWidth="300" />
+                                <DataGridTextColumn Header="Title" Binding="{Binding Title}" IsReadOnly="True" MaxWidth="300"/>
+                                <DataGridTextColumn Header="Author" Binding="{Binding Author}" IsReadOnly="True" MaxWidth="300" />
+                                <DataGridTextColumn Header="Filename" Binding="{Binding Filename}" IsReadOnly="True" MaxWidth="300" />
+                            </DataGrid.Columns>
+                        </DataGrid>
                     <!--</ScrollViewer>
                     -->
                 </Grid>

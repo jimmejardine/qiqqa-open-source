@@ -152,7 +152,7 @@ namespace Utilities.GUI
             if (!application.Resources.Contains("Background_Brush_Warning_Transparent")) application.Resources.Add("Background_Brush_Warning_Transparent", Background_Brush_Warning_Transparent);
 
             // And then the associated XAML file
-            string MODULE_NAME = typeof(ThemeColours).Assembly.GetName().Name;
+            string MODULE_NAME = typeof(ThemeScrollbar).Assembly.GetName().Name;
             string resource_location = string.Format("/{0};component/GUI/ThemeColours.xaml", MODULE_NAME);
             ResourceDictionary rd = Application.LoadComponent(new Uri(resource_location, UriKind.Relative)) as ResourceDictionary;
             application.Resources.MergedDictionaries.Add(rd);

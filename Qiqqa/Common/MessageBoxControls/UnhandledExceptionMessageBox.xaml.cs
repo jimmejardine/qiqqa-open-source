@@ -24,8 +24,6 @@ namespace Qiqqa.Common.MessageBoxControls
     {
         private UnhandledExceptionMessageBox()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -44,11 +42,11 @@ namespace Qiqqa.Common.MessageBoxControls
             // When we're looking at an OutOfMem exception, there's nothing we can do but abort everything!
             if (ex is System.OutOfMemoryException)
             {
-                throw new OutOfMemoryException("Out of memory", ex);
+                throw ex;
             }
 
             // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
-            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
                 // Collect all generations of memory.
                 GC.WaitForPendingFinalizers();
@@ -239,7 +237,7 @@ namespace Qiqqa.Common.MessageBoxControls
 
         private void PopulateMachineStats()
         {
-            TextMachineStats.Text = ComputerStatistics.GetCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
+            TextMachineStats.Text = ComputerStatistics.GetCommonStatistics();
         }
 
         private string FaqUrl => WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq);

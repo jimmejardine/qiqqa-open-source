@@ -19,14 +19,6 @@ namespace Utilities.Misc
             return Registry.CurrentUser.CreateSubKey("Software").CreateSubKey(company_name).CreateSubKey(app_name);
         }
 
-        public string AppKeyDescription()
-        {
-            using (RegistryKey app_key = GetAppKey())
-            {
-                return app_key.ToString();
-            }
-        }
-
         public void Write(string key, string data)
         {
             using (RegistryKey app_key = GetAppKey())
@@ -52,7 +44,7 @@ namespace Utilities.Misc
         {
             string value = Read(key);
             if (null == key) return false;
-            value = value.ToLower();
+            value = value.ToLower(CultureInfo.CurrentCulture);
             if (0 == value.CompareTo("y")) return true;
             if (0 == value.CompareTo("t")) return true;
             if (0 == value.CompareTo("yes")) return true;

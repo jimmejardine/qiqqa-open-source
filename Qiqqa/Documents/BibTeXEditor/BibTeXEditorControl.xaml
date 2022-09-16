@@ -63,7 +63,8 @@
                         MinWidth="50"
                         BorderThickness="0" />
                 </Grid>
-                <Grid x:Name="ObjBibTeXGrid" Margin="3">
+                <local_gui:AugmentedSpacer DockPanel.Dock="Top" />
+                <Grid x:Name="ObjBibTeXGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="5" />

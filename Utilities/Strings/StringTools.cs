@@ -111,46 +111,6 @@ namespace Utilities.Strings
             return sb.ToString();
         }
 
-        // https://social.msdn.microsoft.com/Forums/en-US/3928b8cb-3703-4672-8ccd-33718148d1e3/byte-array-to-hex-string?forum=csharpgeneral
-        public static string HexStr(byte[] data)
-        {
-            char[] c = new char[data.Length * 2];
-
-            for (int y = 0, x = 0; y < data.Length; ++y, ++x)
-            {
-                byte v = data[y];
-                byte b = ((byte)(v >> 4));
-                c[x] = (char)(b > 9 ? b + 0x37 : b + 0x30);
-                b = ((byte)(v & 0xF));
-                c[++x] = (char)(b > 9 ? b + 0x37 : b + 0x30);
-            }
-            return new string(c);
-        }
-
-        public static string HumanReadableASCIIAndHexStr(byte[] data)
-        {
-            char[] c = new char[data.Length * 4];
-            int x = 0;
-
-            for (int y = 0; y < data.Length; ++y, ++x)
-            {
-                byte v = data[y];
-                if ((v >= 0x20 && v < 0x80) || v == 0x0D || v == 0x0A || v == 0x08)
-                {
-                    c[x] = (char)v;
-                    continue;
-                }
-                c[x] = '\\';
-                c[++x] = 'x';
-                byte b = ((byte)(data[y] >> 4));
-                c[++x] = (char)(b > 9 ? b + 0x37 : b + 0x30);
-                b = ((byte)(data[y] & 0xF));
-                c[++x] = (char)(b > 9 ? b + 0x37 : b + 0x30);
-            }
-            return new String(c, 0, x);
-        }
-
-
 
         /// <summary>
         /// Convert the given text to an ASCII representation as best as possible, mapping non-ASCII characters to their *compatible* equivalent

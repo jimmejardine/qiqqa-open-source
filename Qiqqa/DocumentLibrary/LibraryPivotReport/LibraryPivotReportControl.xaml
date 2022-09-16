@@ -9,9 +9,10 @@
         <!-- BEGIN: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
-                <local_gui:AugmentedToolBarButton x:Name="ButtonRegenerate" />
-                <local_gui:AugmentedToolBarButton x:Name="ButtonExportExcel"  Margin="3" />
-                <local_gui:AugmentedToolBarButton x:Name="ButtonExportPDF" />
+                <local_gui:AugmentedToolBarButton Name="ButtonRegenerate" />
+                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedToolBarButton Name="ButtonExportExcel" />
+                <local_gui:AugmentedToolBarButton Name="ButtonExportPDF" />
             </StackPanel>
         </local_gui:AugmentedToolBarTray>
         <!-- END: The toolbar - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -22,14 +23,17 @@
                         Rows
                     </TextBlock>
                     <ListBox Name="ObjYAxis"/>
-                    <TextBlock Margin="3" >
+                    <local_gui:AugmentedSpacer />
+                    <TextBlock>
                         Columns
                     </TextBlock>
                     <ListBox Name="ObjXAxis"/>
-                    <TextBlock Margin="3" >
+                    <local_gui:AugmentedSpacer />
+                    <TextBlock>
                         Identifier
                     </TextBlock>
-                    <ListBox Name="ObjIdentifier" Margin="3" />
+                    <ListBox Name="ObjIdentifier"/>
+                    <local_gui:AugmentedSpacer />
                 </StackPanel>
             </ScrollViewer>
         </local_gui:AugmentedBorder>

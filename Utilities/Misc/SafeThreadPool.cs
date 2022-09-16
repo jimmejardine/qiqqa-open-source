@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Threading.Tasks;
-using Utilities.GUI;
 using Utilities.Shutdownable;
 
 namespace Utilities.Misc
@@ -40,10 +37,10 @@ namespace Utilities.Misc
 
         private static void IncrementRunningThreadCount()
         {
-            lock (running_thread_count_lock)
-            {
-                running_thread_count++;
-            }
+                lock (running_thread_count_lock)
+                {
+                    running_thread_count++;
+                }
         }
 
         private static void DecrementRunningThreadCount()
@@ -54,7 +51,7 @@ namespace Utilities.Misc
             }
         }
 
-        public static bool QueueAsyncUserWorkItem(Func<Task> callback, bool skip_task_at_app_shutdown = true, [CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
+        public static bool QueueUserWorkItem(WaitCallback callback, bool skip_task_at_app_shutdown = true)
         {
             lock (queued_thread_count_lock)
             {
@@ -72,14 +69,26 @@ namespace Utilities.Misc
             ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
             Logging.Debug("QueueUserWorkItem: MinThreads = {0} | {1}", workerThreads, completionPortThreads);
 #endif
-            var func_call_str = WPFDoEvents.GetInvokingFunctionName($"{callerName}>ThreadPool.QueueAsyncUserWorkItem", sourceFilePath, sourceLineNumber);
-            return ThreadPool.QueueUserWorkItem(o =>
+            if (skip_task_at_app_shutdown)
             {
-                AsyncUserWorkItem(callback, skip_task_at_app_shutdown, func_call_str);
-            });
+                return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD(callback));
+            }
+            else
+            {
+                return ThreadPool.QueueUserWorkItem(o => QueueUserWorkItem_THREAD_NoSkip(callback));
+            }
         }
 
-        private static void AsyncUserWorkItem(Func<Task> callback, bool skip_at_app_shutdown, string call_site_descr)
+        private static void QueueUserWorkItem_THREAD_NoSkip(WaitCallback callback)
+        {
+            UserWorkItem(callback, skip_at_app_shutdown: false);
+        }
+        private static void QueueUserWorkItem_THREAD(WaitCallback callback)
+        {
+            UserWorkItem(callback, skip_at_app_shutdown: true);
+        }
+
+        private static void UserWorkItem(WaitCallback callback, bool skip_at_app_shutdown)
         {
             IncrementRunningThreadCount();
 
@@ -91,17 +100,13 @@ namespace Utilities.Misc
                     return;
                 }
 
-                Task t = callback.Invoke();
-                //var w = t.ConfigureAwait(false);
-                //var a = w.GetAwaiter();
-                //a.GetResult();
-                t.Wait();
+                callback.Invoke(null);
             }
             catch (Exception ex)
             {
                 try
                 {
-                    Logging.Warn(ex, $"There has been an exception on the SafeThreadPool context at call site {call_site_descr}");
+                    Logging.Warn(ex, "There has been an exception on the SafeThreadPool context.");
                     if (null != UnhandledException)
                     {
                         UnhandledExceptionEventArgs ueea = new UnhandledExceptionEventArgs(ex, false);
@@ -110,85 +115,7 @@ namespace Utilities.Misc
                 }
                 catch (Exception ex2)
                 {
-                    Logging.Error(ex2, $"There was an exception while trying to call back the SafeThreadPool exception callback! Call site: {call_site_descr}");
-                }
-            }
-            finally
-            {
-                lock (queued_thread_count_lock)
-                {
-                    queued_thread_count--;
-                }
-                DecrementRunningThreadCount();
-            }
-        }
-
-        public static bool QueueSafeExecUserWorkItem(Action callback, bool skip_task_at_app_shutdown = true, [CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
-        {
-            Action safe_wrapper = () =>
-            {
-                WPFDoEvents.SafeExec(() =>
-                {
-                    callback();
-                },
-                "SafeThreadPool::QueueSafeExecUserWorkItem", callerName, sourceFilePath, sourceLineNumber);
-            };
-            return QueueUserWorkItem(safe_wrapper, skip_task_at_app_shutdown, callerName, sourceFilePath, sourceLineNumber);
-        }
-
-        public static bool QueueUserWorkItem(Action callback, bool skip_task_at_app_shutdown = true, [CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
-        {
-            lock (queued_thread_count_lock)
-            {
-                queued_thread_count++;
-            }
-#if TEST
-            int workerThreads;
-            int completionPortThreads;
-
-            ThreadPool.GetAvailableThreads(out workerThreads, out completionPortThreads);
-            //Logging.Debug("QueueUserWorkItem: AvailableThreads = {0} | {1}, CompletedWorkItemCount = {2}, PendingWorkItemCount = {3}, ThreadCount = {4}", workerThreads, completionPortThreads, ThreadPool.CompletedWorkItemCount, ThreadPool.PendingWorkItemCount, ThreadPool.ThreadCount);
-            Logging.Debug("QueueUserWorkItem: AvailableThreads = {0} | {1}, Queued Threads = {2}", workerThreads, completionPortThreads, QueuedThreadCount);
-            ThreadPool.GetMaxThreads(out workerThreads, out completionPortThreads);
-            Logging.Debug("QueueUserWorkItem: MaxThreads = {0} | {1}", workerThreads, completionPortThreads);
-            ThreadPool.GetMinThreads(out workerThreads, out completionPortThreads);
-            Logging.Debug("QueueUserWorkItem: MinThreads = {0} | {1}", workerThreads, completionPortThreads);
-#endif
-            var func_call_str = WPFDoEvents.GetInvokingFunctionName($"{callerName}>ThreadPool.QueueUserWorkItem", sourceFilePath, sourceLineNumber);
-            return ThreadPool.QueueUserWorkItem(o =>
-            {
-                UserWorkItem(callback, skip_task_at_app_shutdown, func_call_str);
-            });
-        }
-
-        private static void UserWorkItem(Action callback, bool skip_at_app_shutdown, string call_site_descr)
-        {
-            IncrementRunningThreadCount();
-
-            try
-            {
-                if (skip_at_app_shutdown && ShutdownableManager.Instance.IsShuttingDown)
-                {
-                    Logging.Debug特("SafeThreadPool::QueueUserWorkItem: Breaking out due to application termination");
-                    return;
-                }
-
-                callback();
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    Logging.Warn(ex, $"There has been an exception on the SafeThreadPool context at call site: {call_site_descr}");
-                    if (null != UnhandledException)
-                    {
-                        UnhandledExceptionEventArgs ueea = new UnhandledExceptionEventArgs(ex, false);
-                        UnhandledException(null, ueea);
-                    }
-                }
-                catch (Exception ex2)
-                {
-                    Logging.Error(ex2, $"There was an exception while trying to call back the SafeThreadPool exception callback! Call site: {call_site_descr}");
+                    Logging.Error(ex2, "There was an exception while trying to call back the SafeThreadPool exception callback!");
                 }
             }
             finally
