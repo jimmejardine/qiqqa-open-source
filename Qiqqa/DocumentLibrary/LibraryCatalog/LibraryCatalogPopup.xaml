@@ -9,9 +9,11 @@
                     <Trigger Property="IsHighlighted" Value="True">
                         <Setter Property="IsSubmenuOpen" Value="True" />
                     </Trigger>
+                    <!--
                     <Trigger Property="IsMouseOver" Value="False">
                         <Setter Property="IsSubmenuOpen" Value="False" />
                     </Trigger>
+                    -->
                 </Style.Triggers>
             </Style>
         </StackPanel.Resources>
