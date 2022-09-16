@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -491,7 +492,69 @@ namespace Qiqqa.Documents.BibTeXEditor
         {
             if (updating_from_text) return;
 
-            ObjBibTeXText.Text = bibtex;
+            // WARNING: we cannot protect TextBox from actual user input, but at least we can protect it against us feeding it stuff it doesn't cope with:
+            // anything Unicode in the high planes, etc.
+
+            // https://stackoverflow.com/questions/27049478/net-string-object-and-invalid-unicode-code-points
+            string s = bibtex ?? "";
+            StringBuilder d = new StringBuilder(s);
+            char ch;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                ch = s[i];
+                if (ch >= ' ' && ch < 0xD800) // char is up to first high surrogate
+                {
+                }
+                else if (ch < ' ') 
+                {
+                    switch (ch)
+                    {
+                        case '\r':
+                            // strip
+                            continue;
+
+                        case '\n':
+                            // keep
+                            break;
+
+                        case '\t':
+                            // keep
+                            break;
+
+                        default:
+                            // unexpected control character: replace
+                            ch = '�';
+                            break;
+                    }
+                }
+                else if (ch >= 0xD800 && ch <= 0xDBFF)
+                {
+                    // found high surrogate -> discard
+                    ch = '�';
+                }
+                else if (ch >= 0xDC00 && ch <= 0xDFFF)
+                {
+                    // unexpected low surrogate
+                    ch = '�';
+                }
+                else if (ch >= 0xFDD0 && ch <= 0xFDEF)
+                {
+                    // non-chars are considered invalid by System.Text.Encoding.GetBytes() and String.Normalize()
+                    ch = '�';
+                }
+                else if ((ch & 0xFFFE) == 0xFFFE)
+                {
+                    // other non-char found
+                    ch = '�';
+                }
+                d[i] = ch;
+            }
+
+            s = d.ToString();
+            s = s.Normalize();
+            
+            ObjBibTeXText.Text = s;
         }
 
         private void BuildGridFromBibTeX(string bibtex, BibTexItem bibtex_item)
