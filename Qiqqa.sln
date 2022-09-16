@@ -37,23 +37,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "All XAML panels", "All XAML
 		Qiqqa\DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerItemPopup.xaml = Qiqqa\DocumentLibrary\LibraryFilter\AITagExplorerStuff\AITagExplorerItemPopup.xaml
 		Qiqqa\AnnotationsReportBuilding\AnnotationReportOptionsWindow.xaml = Qiqqa\AnnotationsReportBuilding\AnnotationReportOptionsWindow.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\AnnotationsReviewControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\AnnotationsReviewControl.xaml
-		Technology Tests\Async All The Way Demo\App.xaml = Technology Tests\Async All The Way Demo\App.xaml
-		Technology Tests\Bulk PDF Inspection Tool\App.xaml = Technology Tests\Bulk PDF Inspection Tool\App.xaml
-		Technology Tests\CEFSharp Functionality and Viability Demo\App.xaml = Technology Tests\CEFSharp Functionality and Viability Demo\App.xaml
-		Technology Tests\D3 Visualization With Qiqqa Web Server Demo\App.xaml = Technology Tests\D3 Visualization With Qiqqa Web Server Demo\App.xaml
-		Technology Tests\Lucene Search Demo\App.xaml = Technology Tests\Lucene Search Demo\App.xaml
-		Technology Tests\NTFS ADS Viewer\App.xaml = Technology Tests\NTFS ADS Viewer\App.xaml
-		Technology Tests\OCR Toolchain Demo\App.xaml = Technology Tests\OCR Toolchain Demo\App.xaml
-		Technology Tests\PDF Interactive Viewer\App.xaml = Technology Tests\PDF Interactive Viewer\App.xaml
+		Technology.Tests\Async All The Way Demo\App.xaml = Technology.Tests\Async All The Way Demo\App.xaml
+		Technology.Tests\Bulk PDF Inspection Tool\App.xaml = Technology.Tests\Bulk PDF Inspection Tool\App.xaml
+		Technology.Tests\CEFSharp Functionality and Viability Demo\App.xaml = Technology.Tests\CEFSharp Functionality and Viability Demo\App.xaml
+		Technology.Tests\D3 Visualization With Qiqqa Web Server Demo\App.xaml = Technology.Tests\D3 Visualization With Qiqqa Web Server Demo\App.xaml
+		Technology.Tests\Lucene Search Demo\App.xaml = Technology.Tests\Lucene Search Demo\App.xaml
+		Technology.Tests\NTFS ADS Viewer\App.xaml = Technology.Tests\NTFS ADS Viewer\App.xaml
+		Technology.Tests\OCR Toolchain Demo\App.xaml = Technology.Tests\OCR Toolchain Demo\App.xaml
+		Technology.Tests\PDF Interactive Viewer\App.xaml = Technology.Tests\PDF Interactive Viewer\App.xaml
 		QiqqaUIPartsTester\App.xaml = QiqqaUIPartsTester\App.xaml
 		QiqqaVersionMigrator\App.xaml = QiqqaVersionMigrator\App.xaml
-		Technology Tests\Running Background NodeJS Tasks\App.xaml = Technology Tests\Running Background NodeJS Tasks\App.xaml
-		Technology Tests\UI Look and Feel Demo (Themed)\App.xaml = Technology Tests\UI Look and Feel Demo (Themed)\App.xaml
-		Technology Tests\WPF Rich BibTeX Editor+Validator\App.xaml = Technology Tests\WPF Rich BibTeX Editor+Validator\App.xaml
-		Technology Tests\WPF Theme Tester\App.xaml = Technology Tests\WPF Theme Tester\App.xaml
-		Technology Tests\Wpf.UI+CLI.App\App.xaml = Technology Tests\Wpf.UI+CLI.App\App.xaml
-		Technology Tests\WpfApp1\App.xaml = Technology Tests\WpfApp1\App.xaml
-		Technology Tests\WpfBrowserApp1\App.xaml = Technology Tests\WpfBrowserApp1\App.xaml
+		Technology.Tests\Running Background NodeJS Tasks\App.xaml = Technology.Tests\Running Background NodeJS Tasks\App.xaml
+		Technology.Tests\UI Look and Feel Demo (Themed)\App.xaml = Technology.Tests\UI Look and Feel Demo (Themed)\App.xaml
+		Technology.Tests\WPF Rich BibTeX Editor+Validator\App.xaml = Technology.Tests\WPF Rich BibTeX Editor+Validator\App.xaml
+		Technology.Tests\WPF Theme Tester\App.xaml = Technology.Tests\WPF Theme Tester\App.xaml
+		Technology.Tests\Wpf.UI+CLI.App\App.xaml = Technology.Tests\Wpf.UI+CLI.App\App.xaml
+		Technology.Tests\WpfApp1\App.xaml = Technology.Tests\WpfApp1\App.xaml
+		Technology.Tests\WpfBrowserApp1\App.xaml = Technology.Tests\WpfBrowserApp1\App.xaml
 		Qiqqa\Common\AssociatePDFWithVanillaReferenceWindow.xaml = Qiqqa\Common\AssociatePDFWithVanillaReferenceWindow.xaml
 		Utilities\GUI\AugmentedButton.xaml = Utilities\GUI\AugmentedButton.xaml
 		Utilities\GUI\AugmentedPopup.xaml = Utilities\GUI\AugmentedPopup.xaml
@@ -92,7 +92,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "All XAML panels", "All XAML
 		Qiqqa\Expedition\ExpeditionPaperThemesControl.xaml = Qiqqa\Expedition\ExpeditionPaperThemesControl.xaml
 		Qiqqa\Brainstorm\Nodes\FileSystemNodeContentControl.xaml = Qiqqa\Brainstorm\Nodes\FileSystemNodeContentControl.xaml
 		Qiqqa\DocumentLibrary\FolderWatching\FolderWatcherChooser.xaml = Qiqqa\DocumentLibrary\FolderWatching\FolderWatcherChooser.xaml
-		Technology Tests\WpfCustomControlLibrary1\Themes\Generic.xaml = Technology Tests\WpfCustomControlLibrary1\Themes\Generic.xaml
+		Technology.Tests\WpfCustomControlLibrary1\Themes\Generic.xaml = Technology.Tests\WpfCustomControlLibrary1\Themes\Generic.xaml
 		Qiqqa\DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerControl.xaml = Qiqqa\DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerControl.xaml
 		Qiqqa\DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerItemControl.xaml = Qiqqa\DocumentLibrary\LibraryFilter\GenericLibraryExplorerStuff\GenericLibraryExplorerItemControl.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\GoogleBibTexSnifferControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\GoogleBibTexSnifferControl.xaml
@@ -130,22 +130,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "All XAML panels", "All XAML
 		Qiqqa\Main\LogoutStuff\LogoutWindow.xaml = Qiqqa\Main\LogoutStuff\LogoutWindow.xaml
 		Qiqqa\DocumentLibrary\LibraryFilter\LuceneSearchHelpButton.xaml = Qiqqa\DocumentLibrary\LibraryFilter\LuceneSearchHelpButton.xaml
 		Qiqqa\DocumentLibrary\LibraryFilter\LuceneSearchHelpControl.xaml = Qiqqa\DocumentLibrary\LibraryFilter\LuceneSearchHelpControl.xaml
-		Technology Tests\Async All The Way Demo\MainWindow.xaml = Technology Tests\Async All The Way Demo\MainWindow.xaml
-		Technology Tests\Bulk PDF Inspection Tool\MainWindow.xaml = Technology Tests\Bulk PDF Inspection Tool\MainWindow.xaml
-		Technology Tests\D3 Visualization With Qiqqa Web Server Demo\MainWindow.xaml = Technology Tests\D3 Visualization With Qiqqa Web Server Demo\MainWindow.xaml
-		Technology Tests\Lucene Search Demo\MainWindow.xaml = Technology Tests\Lucene Search Demo\MainWindow.xaml
+		Technology.Tests\Async All The Way Demo\MainWindow.xaml = Technology.Tests\Async All The Way Demo\MainWindow.xaml
+		Technology.Tests\Bulk PDF Inspection Tool\MainWindow.xaml = Technology.Tests\Bulk PDF Inspection Tool\MainWindow.xaml
+		Technology.Tests\D3 Visualization With Qiqqa Web Server Demo\MainWindow.xaml = Technology.Tests\D3 Visualization With Qiqqa Web Server Demo\MainWindow.xaml
+		Technology.Tests\Lucene Search Demo\MainWindow.xaml = Technology.Tests\Lucene Search Demo\MainWindow.xaml
 		Qiqqa\Main\MainWindow.xaml = Qiqqa\Main\MainWindow.xaml
-		Technology Tests\NTFS ADS Viewer\MainWindow.xaml = Technology Tests\NTFS ADS Viewer\MainWindow.xaml
-		Technology Tests\OCR Toolchain Demo\MainWindow.xaml = Technology Tests\OCR Toolchain Demo\MainWindow.xaml
-		Technology Tests\PDF Interactive Viewer\MainWindow.xaml = Technology Tests\PDF Interactive Viewer\MainWindow.xaml
+		Technology.Tests\NTFS ADS Viewer\MainWindow.xaml = Technology.Tests\NTFS ADS Viewer\MainWindow.xaml
+		Technology.Tests\OCR Toolchain Demo\MainWindow.xaml = Technology.Tests\OCR Toolchain Demo\MainWindow.xaml
+		Technology.Tests\PDF Interactive Viewer\MainWindow.xaml = Technology.Tests\PDF Interactive Viewer\MainWindow.xaml
 		QiqqaUIPartsTester\MainWindow.xaml = QiqqaUIPartsTester\MainWindow.xaml
 		QiqqaVersionMigrator\MainWindow.xaml = QiqqaVersionMigrator\MainWindow.xaml
-		Technology Tests\Running Background NodeJS Tasks\MainWindow.xaml = Technology Tests\Running Background NodeJS Tasks\MainWindow.xaml
-		Technology Tests\UI Look and Feel Demo (Themed)\MainWindow.xaml = Technology Tests\UI Look and Feel Demo (Themed)\MainWindow.xaml
-		Technology Tests\WPF Rich BibTeX Editor+Validator\MainWindow.xaml = Technology Tests\WPF Rich BibTeX Editor+Validator\MainWindow.xaml
-		Technology Tests\WPF Theme Tester\MainWindow.xaml = Technology Tests\WPF Theme Tester\MainWindow.xaml
-		Technology Tests\Wpf.UI+CLI.App\MainWindow.xaml = Technology Tests\Wpf.UI+CLI.App\MainWindow.xaml
-		Technology Tests\WpfApp1\MainWindow.xaml = Technology Tests\WpfApp1\MainWindow.xaml
+		Technology.Tests\Running Background NodeJS Tasks\MainWindow.xaml = Technology.Tests\Running Background NodeJS Tasks\MainWindow.xaml
+		Technology.Tests\UI Look and Feel Demo (Themed)\MainWindow.xaml = Technology.Tests\UI Look and Feel Demo (Themed)\MainWindow.xaml
+		Technology.Tests\WPF Rich BibTeX Editor+Validator\MainWindow.xaml = Technology.Tests\WPF Rich BibTeX Editor+Validator\MainWindow.xaml
+		Technology.Tests\WPF Theme Tester\MainWindow.xaml = Technology.Tests\WPF Theme Tester\MainWindow.xaml
+		Technology.Tests\Wpf.UI+CLI.App\MainWindow.xaml = Technology.Tests\Wpf.UI+CLI.App\MainWindow.xaml
+		Technology.Tests\WpfApp1\MainWindow.xaml = Technology.Tests\WpfApp1\MainWindow.xaml
 		Qiqqa\DocumentLibrary\MassDuplicateCheckingStuff\MassDuplicateCheckingControl.xaml = Qiqqa\DocumentLibrary\MassDuplicateCheckingStuff\MassDuplicateCheckingControl.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataBibTeXEditorControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataBibTeXEditorControl.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataCommentEditorControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\MetadataCommentEditorControl.xaml
@@ -154,8 +154,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "All XAML panels", "All XAML
 		Utilities\GUI\Notifications\NotificationBar.xaml = Utilities\GUI\Notifications\NotificationBar.xaml
 		Qiqqa\Documents\PDF\PDFControls\Page\Tools\OCRNotAvailableControl.xaml = Qiqqa\Documents\PDF\PDFControls\Page\Tools\OCRNotAvailableControl.xaml
 		Qiqqa\Documents\PDF\InfoBarStuff\OnlineDatabaseLookupStuff\OnlineDatabaseLookupControl.xaml = Qiqqa\Documents\PDF\InfoBarStuff\OnlineDatabaseLookupStuff\OnlineDatabaseLookupControl.xaml
-		Technology Tests\CEFSharp Functionality and Viability Demo\Page1.xaml = Technology Tests\CEFSharp Functionality and Viability Demo\Page1.xaml
-		Technology Tests\WpfBrowserApp1\Page1.xaml = Technology Tests\WpfBrowserApp1\Page1.xaml
+		Technology.Tests\CEFSharp Functionality and Viability Demo\Page1.xaml = Technology.Tests\CEFSharp Functionality and Viability Demo\Page1.xaml
+		Technology.Tests\WpfBrowserApp1\Page1.xaml = Technology.Tests\WpfBrowserApp1\Page1.xaml
 		Qiqqa\Documents\PDF\PDFControls\Page\Hand\PageNumberControl.xaml = Qiqqa\Documents\PDF\PDFControls\Page\Hand\PageNumberControl.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\PasswordControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\PasswordControl.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\PDFAnnotationEditorControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\PDFAnnotationEditorControl.xaml
@@ -237,7 +237,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "All XAML panels", "All XAML
 		Qiqqa\Common\MessageBoxControls\UnhandledExceptionMessageBox.xaml = Qiqqa\Common\MessageBoxControls\UnhandledExceptionMessageBox.xaml
 		Qiqqa\InCite\UsedCitationsControl.xaml = Qiqqa\InCite\UsedCitationsControl.xaml
 		QiqqaUIControls\UserControl1.xaml = QiqqaUIControls\UserControl1.xaml
-		Technology Tests\WpfUserControlLibrary1\UserControl1.xaml = Technology Tests\WpfUserControlLibrary1\UserControl1.xaml
+		Technology.Tests\WpfUserControlLibrary1\UserControl1.xaml = Technology.Tests\WpfUserControlLibrary1\UserControl1.xaml
 		Qiqqa\Documents\PDF\PDFControls\MetadataControls\UserReviewControl.xaml = Qiqqa\Documents\PDF\PDFControls\MetadataControls\UserReviewControl.xaml
 		Qiqqa\DocumentLibrary\VisualGalleryStuff\VisualGalleryControl.xaml = Qiqqa\DocumentLibrary\VisualGalleryStuff\VisualGalleryControl.xaml
 		Qiqqa\WebBrowsing\WebBrowserControl.xaml = Qiqqa\WebBrowsing\WebBrowserControl.xaml
@@ -400,25 +400,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Qiqqa.org", "docs-src\Qiqqa.org.vcxproj", "{EC04EAE5-7182-4869-99F5-33C08DEA2AE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf.UI+CLI.App", "Technology Tests\Wpf.UI+CLI.App\Wpf.UI+CLI.App.csproj", "{959E52DD-E073-4BB9-8437-AB2400BBBD22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf.UI+CLI.App", "Technology.Tests\Wpf.UI+CLI.App\Wpf.UI+CLI.App.csproj", "{959E52DD-E073-4BB9-8437-AB2400BBBD22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEFSharp Functionality and Viability Demo", "Technology Tests\CEFSharp Functionality and Viability Demo\CEFSharp Functionality and Viability Demo.csproj", "{31A26F7A-AAF4-4AF4-B237-5A84167D32AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEFSharp Functionality and Viability Demo", "Technology.Tests\CEFSharp Functionality and Viability Demo\CEFSharp Functionality and Viability Demo.csproj", "{31A26F7A-AAF4-4AF4-B237-5A84167D32AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDF Interactive Viewer", "Technology Tests\PDF Interactive Viewer\PDF Interactive Viewer.csproj", "{7D895C92-95FF-4489-AC8B-5652BF1873F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDF Interactive Viewer", "Technology.Tests\PDF Interactive Viewer\PDF Interactive Viewer.csproj", "{7D895C92-95FF-4489-AC8B-5652BF1873F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR Toolchain Demo", "Technology Tests\OCR Toolchain Demo\OCR Toolchain Demo.csproj", "{4B176B4A-0169-492B-9F4F-A7F9958DC5F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR Toolchain Demo", "Technology.Tests\OCR Toolchain Demo\OCR Toolchain Demo.csproj", "{4B176B4A-0169-492B-9F4F-A7F9958DC5F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D3 Visualization With Qiqqa Web Server Demo", "Technology Tests\D3 Visualization With Qiqqa Web Server Demo\D3 Visualization With Qiqqa Web Server Demo.csproj", "{27CE9293-3BA0-4CE6-8BFD-396EE0353791}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D3 Visualization With Qiqqa Web Server Demo", "Technology.Tests\D3 Visualization With Qiqqa Web Server Demo\D3 Visualization With Qiqqa Web Server Demo.csproj", "{27CE9293-3BA0-4CE6-8BFD-396EE0353791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bulk PDF Inspection Tool", "Technology Tests\Bulk PDF Inspection Tool\Bulk PDF Inspection Tool.csproj", "{81EB0FCD-2A16-4046-B6D5-FDE3B1543BD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bulk PDF Inspection Tool", "Technology.Tests\Bulk PDF Inspection Tool\Bulk PDF Inspection Tool.csproj", "{81EB0FCD-2A16-4046-B6D5-FDE3B1543BD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Used Libraries", "Used Libraries", "{AFF7A134-A4FC-4885-B210-82F2660CAA5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CEFSharp", "CEFSharp", "{19E7F6D9-FDD2-4741-BA3B-1F1B541945B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucene Search Demo", "Technology Tests\Lucene Search Demo\Lucene Search Demo.csproj", "{22ECCF4F-7ED0-48B3-A244-07863FB4B81E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucene Search Demo", "Technology.Tests\Lucene Search Demo\Lucene Search Demo.csproj", "{22ECCF4F-7ED0-48B3-A244-07863FB4B81E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Async All The Way Demo", "Technology Tests\Async All The Way Demo\Async All The Way Demo.csproj", "{806015D1-83C3-4DF4-B6F0-8674FECE51A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Async All The Way Demo", "Technology.Tests\Async All The Way Demo\Async All The Way Demo.csproj", "{806015D1-83C3-4DF4-B6F0-8674FECE51A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MuPDF subprojects", "MuPDF subprojects", "{A641717E-DD60-4E51-9973-D57D1CDAFB69}"
 EndProject
@@ -477,45 +477,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MuPDF thirdparty", "MuPDF t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfScreenHelper", "thirdparty\WpfScreenHelper\src\WpfScreenHelper\WpfScreenHelper.csproj", "{1FF2DF7E-E740-4663-A95F-981147909CDF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "forking cleans up memory leaks", "Technology Tests\forking cleans up memory leaks\forking cleans up memory leaks.vcxproj", "{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "forking cleans up memory leaks", "Technology.Tests\forking cleans up memory leaks\forking cleans up memory leaks.vcxproj", "{D60370DB-184A-4FB4-AC09-A0CD7E0F34FA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "monitor our memory usage and die when passing threshold", "Technology Tests\monitor our memory usage and die when passing threshold\monitor our memory usage and die when passing threshold.vcxproj", "{4F88275C-D544-40C0-B478-9018F8BAE8C5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "monitor our memory usage and die when passing threshold", "Technology.Tests\monitor our memory usage and die when passing threshold\monitor our memory usage and die when passing threshold.vcxproj", "{4F88275C-D544-40C0-B478-9018F8BAE8C5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{06A61DE6-4566-4DE2-AF39-2AE13D03F6E1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NTFS ADS Viewer", "Technology Tests\NTFS ADS Viewer\NTFS ADS Viewer.vcxproj", "{28E9E026-5E87-4248-BA0B-07813DCD8DB1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NTFS ADS Viewer", "thirdparty\DirScanner\NTFS ADS Viewer\NTFS ADS Viewer.vcxproj", "{28E9E026-5E87-4248-BA0B-07813DCD8DB1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NTFS Find hardlinks or regular files", "Technology Tests\NTFS Find hardlinks or regular files\NTFS Find hardlinks or regular files.vcxproj", "{EC989955-8CCB-49B4-891F-8761CF6E2560}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NTFS Find hardlinks or regular files", "thirdparty\DirScanner\NTFS Find hardlinks or regular files\NTFS Find hardlinks or regular files.vcxproj", "{EC989955-8CCB-49B4-891F-8761CF6E2560}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "WPF Template App1.Packaging", "Technology Tests\WPF Template App1.Packaging\WPF Template App1.Packaging.wapproj", "{0F1A829E-3B00-453E-82A1-9CD66F5B0DA3}"
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "WPF Template App1.Packaging", "Technology.Tests\WPF Template App1.Packaging\WPF Template App1.Packaging.wapproj", "{0F1A829E-3B00-453E-82A1-9CD66F5B0DA3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1", "Technology Tests\WPF Template App1\WPF Template App1.csproj", "{4385992C-EAB3-4316-A3B9-44A9DDDEB05C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1", "Technology.Tests\WPF Template App1\WPF Template App1.csproj", "{4385992C-EAB3-4316-A3B9-44A9DDDEB05C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1.Core", "Technology Tests\WPF Template App1.Core\WPF Template App1.Core.csproj", "{9BE6ED15-6D75-4F20-85C0-492D807861C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1.Core", "Technology.Tests\WPF Template App1.Core\WPF Template App1.Core.csproj", "{9BE6ED15-6D75-4F20-85C0-492D807861C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1.Tests.MSTest", "Technology Tests\WPF Template App1.Tests.MSTest\WPF Template App1.Tests.MSTest.csproj", "{FE1BFCF8-ED1D-440C-AD35-7DFE15D26622}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1.Tests.MSTest", "Technology.Tests\WPF Template App1.Tests.MSTest\WPF Template App1.Tests.MSTest.csproj", "{FE1BFCF8-ED1D-440C-AD35-7DFE15D26622}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1.Core.Tests.MSTest", "Technology Tests\WPF Template App1.Core.Tests.MSTest\WPF Template App1.Core.Tests.MSTest.csproj", "{9CABEE6E-9C94-4103-B9C5-36B5275D1E78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1.Core.Tests.MSTest", "Technology.Tests\WPF Template App1.Core.Tests.MSTest\WPF Template App1.Core.Tests.MSTest.csproj", "{9CABEE6E-9C94-4103-B9C5-36B5275D1E78}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1.Tests.WinAppDriver", "Technology Tests\WPF Template App1.Tests.WinAppDriver\WPF Template App1.Tests.WinAppDriver.csproj", "{A5A39C41-1A65-4C1F-939A-7E12555E82D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Template App1.Tests.WinAppDriver", "Technology.Tests\WPF Template App1.Tests.WinAppDriver\WPF Template App1.Tests.WinAppDriver.csproj", "{A5A39C41-1A65-4C1F-939A-7E12555E82D3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cpp Windows App", "Technology Tests\Cpp Windows App\Cpp Windows App.vcxproj", "{DBC808C6-907B-485E-93F8-F4C8155BAB24}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cpp Windows App", "Technology.Tests\Cpp Windows App\Cpp Windows App.vcxproj", "{DBC808C6-907B-485E-93F8-F4C8155BAB24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinForms WebView2 Browser-based UI App", "Technology Tests\WinForms WebView2 Browser-based UI App\WinForms WebView2 Browser-based UI App.csproj", "{AFF6F105-DDA1-40E0-9C95-B952231BA76F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinForms WebView2 Browser-based UI App", "Technology.Tests\WinForms WebView2 Browser-based UI App\WinForms WebView2 Browser-based UI App.csproj", "{AFF6F105-DDA1-40E0-9C95-B952231BA76F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CEFGlue", "CEFGlue", "{64CD404E-F215-4A3A-939F-611A0E506DAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebView2", "WebView2", "{1C5A2E20-49CB-40A4-89C5-BBC93F5BB7B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Can We Talk - Node A", "Technology Tests\Can We Talk - Node A\Can We Talk - Node A.csproj", "{CC415553-B2CC-4A94-A68C-D809A2308B45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Can We Talk - Node A", "Technology.Tests\Can We Talk - Node A\Can We Talk - Node A.csproj", "{CC415553-B2CC-4A94-A68C-D809A2308B45}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Can We Talk - Node B", "Technology Tests\Can We Talk - Node B\Can We Talk - Node B.vcxproj", "{9C9A7D0C-7241-4543-AC47-357F3520353E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Can We Talk - Node B", "Technology.Tests\Can We Talk - Node B\Can We Talk - Node B.vcxproj", "{9C9A7D0C-7241-4543-AC47-357F3520353E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sync Library Diagnostics Tool", "Technology Tests\Sync Library Diagnostics Tool\Sync Library Diagnostics Tool.csproj", "{465630E9-44B7-4674-9B91-6FD44AB3964E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sync Library Diagnostics Tool", "Technology.Tests\Sync Library Diagnostics Tool\Sync Library Diagnostics Tool.csproj", "{465630E9-44B7-4674-9B91-6FD44AB3964E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Priority Queue", "thirdparty\High-Speed-Priority-Queue-for-C-Sharp\Priority Queue\Priority Queue.csproj", "{1531C1EA-BD53-41D1-A34B-CFCDF79D2651}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pluriform Prioritized Threadpool", "Technology Tests\Pluriform Prioritized Threadpool\Pluriform Prioritized Threadpool.csproj", "{0622A008-98A6-4E78-93B5-2875A486C390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pluriform Prioritized Threadpool", "Technology.Tests\Pluriform Prioritized Threadpool\Pluriform Prioritized Threadpool.csproj", "{0622A008-98A6-4E78-93B5-2875A486C390}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuPDFSharp", "MuPDF\MupdfSharp\MuPDFSharp.csproj", "{8E506476-FFAE-46B2-977D-45EB25ECF394}"
 EndProject
@@ -523,26 +523,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imazen.WebP", "MuPDF\thirdp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imazen.Test.Webp", "MuPDF\thirdparty\libWebP.Net\src\Imazen.Test.Webp\Imazen.Test.Webp.csproj", "{6C57E3C1-C04F-4C96-AD90-CDA79AE53574}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared CSharp", "Technology Tests\Shared CSharp\Shared CSharp.shproj", "{444EC2DB-FFFD-4BF4-B973-4361875DA065}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared CSharp", "Technology.Tests\Shared CSharp\Shared CSharp.shproj", "{444EC2DB-FFFD-4BF4-B973-4361875DA065}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shared C++", "Technology Tests\Shared C++\Shared C++.vcxitems", "{B24A8D63-228A-4459-8786-3D5C3C70D52C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shared C++", "Technology.Tests\Shared C++\Shared C++.vcxitems", "{B24A8D63-228A-4459-8786-3D5C3C70D52C}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{0622a008-98a6-4e78-93b5-2875a486c390}*SharedItemsImports = 5
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{22eccf4f-7ed0-48b3-a244-07863fb4b81e}*SharedItemsImports = 4
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{27ce9293-3ba0-4ce6-8bfd-396ee0353791}*SharedItemsImports = 4
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{31a26f7a-aaf4-4af4-b237-5a84167d32af}*SharedItemsImports = 4
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{444ec2db-fffd-4bf4-b973-4361875da065}*SharedItemsImports = 13
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{4b176b4a-0169-492b-9f4f-a7f9958dc5f0}*SharedItemsImports = 4
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{7d895c92-95ff-4489-ac8b-5652bf1873f9}*SharedItemsImports = 4
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{806015d1-83c3-4df4-b6f0-8674fece51a3}*SharedItemsImports = 4
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{81eb0fcd-2a16-4046-b6d5-fde3b1543bd8}*SharedItemsImports = 4
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{959e52dd-e073-4bb9-8437-ab2400bbbd22}*SharedItemsImports = 4
-		Technology Tests\Shared C++\Shared C++.vcxitems*{9c9a7d0c-7241-4543-ac47-357f3520353e}*SharedItemsImports = 4
-		Technology Tests\Shared C++\Shared C++.vcxitems*{b24a8d63-228a-4459-8786-3d5c3c70d52c}*SharedItemsImports = 9
-		Technology Tests\Shared CSharp\Shared CSharp.projitems*{cc415553-b2cc-4a94-a68c-d809a2308b45}*SharedItemsImports = 5
-		Technology Tests\Shared C++\Shared C++.vcxitems*{dbc808c6-907b-485e-93f8-f4c8155bab24}*SharedItemsImports = 4
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{0622a008-98a6-4e78-93b5-2875a486c390}*SharedItemsImports = 5
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{22eccf4f-7ed0-48b3-a244-07863fb4b81e}*SharedItemsImports = 4
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{27ce9293-3ba0-4ce6-8bfd-396ee0353791}*SharedItemsImports = 4
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{31a26f7a-aaf4-4af4-b237-5a84167d32af}*SharedItemsImports = 4
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{444ec2db-fffd-4bf4-b973-4361875da065}*SharedItemsImports = 13
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{4b176b4a-0169-492b-9f4f-a7f9958dc5f0}*SharedItemsImports = 4
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{7d895c92-95ff-4489-ac8b-5652bf1873f9}*SharedItemsImports = 4
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{806015d1-83c3-4df4-b6f0-8674fece51a3}*SharedItemsImports = 4
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{81eb0fcd-2a16-4046-b6d5-fde3b1543bd8}*SharedItemsImports = 4
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{959e52dd-e073-4bb9-8437-ab2400bbbd22}*SharedItemsImports = 4
+		Technology.Tests\Shared C++\Shared C++.vcxitems*{9c9a7d0c-7241-4543-ac47-357f3520353e}*SharedItemsImports = 4
+		Technology.Tests\Shared C++\Shared C++.vcxitems*{b24a8d63-228a-4459-8786-3d5c3c70d52c}*SharedItemsImports = 9
+		Technology.Tests\Shared CSharp\Shared CSharp.projitems*{cc415553-b2cc-4a94-a68c-d809a2308b45}*SharedItemsImports = 5
+		Technology.Tests\Shared C++\Shared C++.vcxitems*{dbc808c6-907b-485e-93f8-f4c8155bab24}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
