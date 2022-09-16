@@ -78,9 +78,7 @@
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <TextBox
-                        Name="ObjBibTeXText"
                         AcceptsReturn="True"
-                        Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Background}"
                         DockPanel.Dock="Top"
                         TextWrapping="Wrap" />
                 </ScrollViewer>

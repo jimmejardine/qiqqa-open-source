@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using icons;
-using Microsoft.Win32;
+//using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;

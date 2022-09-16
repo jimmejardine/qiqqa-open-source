@@ -93,7 +93,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             ComboRecordType.ItemsSource = EntryTypes.Instance.EntryTypeList;
 
-            ObjBibTeXText.TextChanged += ObjBibTeXText_TextChanged;
+            //ObjBibTeXText.TextChanged += ObjBibTeXText_TextChanged;
             TxtRecordKey.TextChanged += OnGridTextChanged;
 
             ComboRecordType.SelectionChanged += ComboRecordType_SelectionChanged;
@@ -431,7 +431,7 @@ namespace Qiqqa.Documents.BibTeXEditor
         private void UpdateFromText()
         {
             updating_from_text = true;
-            BibTeX = ObjBibTeXText.Text;
+            //BibTeX = ObjBibTeXText.Text;
             updating_from_text = false;
         }
 
@@ -491,7 +491,7 @@ namespace Qiqqa.Documents.BibTeXEditor
         {
             if (updating_from_text) return;
 
-            ObjBibTeXText.Text = bibtex;
+            //ObjBibTeXText.Text = bibtex;
         }
 
         private void BuildGridFromBibTeX(string bibtex, BibTexItem bibtex_item)
@@ -753,7 +753,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
                 WPFDoEvents.SafeExec(() =>
                 {
-                    ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
+                    //ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
                     TxtRecordKey.TextChanged -= OnGridTextChanged;
                     Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
 
