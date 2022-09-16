@@ -61,7 +61,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         // -----------------------------
 
-        public static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
+        private MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
             MultiMapSet<string, string> results = GetNodeItems_STATIC(web_library_detail, parent_fingerprints);
 
@@ -74,7 +74,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
                     && 0 < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS
                     ;
 
-                //TxtNoThemesMessage.Visibility = 0 == results.Count ? Visibility.Visible : Visibility.Collapsed;
+                TxtNoThemesMessage.Visibility = 0 == results.Count ? Visibility.Visible : Visibility.Collapsed;
             }
 
             return results;

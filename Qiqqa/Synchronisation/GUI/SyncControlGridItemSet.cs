@@ -36,7 +36,7 @@ namespace Qiqqa.Synchronisation.GUI
                 bool tick_this_documents = sync_control_grid_item.CanSyncLibrary;
 
                 sync_control_grid_item.UserRequestedSync = tick_this_library;
-                sync_control_grid_item.SyncLibrary = tick_this_library && tick_this_documents && sync_control_grid_item.library_sync_detail.web_library_detail.IsIntranetLibrary;
+                sync_control_grid_item.SyncLibrary = tick_this_library && tick_this_documents;
             }
         }
 

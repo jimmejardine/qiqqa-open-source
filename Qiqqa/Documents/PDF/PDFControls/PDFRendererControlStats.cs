@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 using Qiqqa.Documents.PDF.PDFControls.Page;
 using Utilities;
 using Utilities.BibTex.Parsing;
-using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -64,8 +64,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public void GetResizedPageImage(PDFRendererPageControl page_control, int page, double height, ResizedPageImageItemCallbackDelegate callback)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (resized_page_image_item_requests)
             {
@@ -84,15 +82,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 if (num_resized_page_image_item_thread_running < 1)
                 {
                     Interlocked.Increment(ref num_resized_page_image_item_thread_running);
-                    ResizedPageImageItemThreadEntry();
+                    SafeThreadPool.QueueUserWorkItem(ResizedPageImageItemThreadEntry);
                 }
             }
         }
 
-        private void ResizedPageImageItemThreadEntry()
+        private void ResizedPageImageItemThreadEntry(object arg)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             while (true)
             {
                 ResizedPageImageItemRequest resized_page_image_item_request = null;
