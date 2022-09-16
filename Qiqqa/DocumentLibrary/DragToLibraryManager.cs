@@ -116,6 +116,8 @@ namespace Qiqqa.DocumentLibrary
             }
 #endif
 
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -135,7 +137,7 @@ namespace Qiqqa.DocumentLibrary
                 }
                 else
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, false, filenames);
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(web_library_detail, false, filenames);
                 }
             }
             else if (e.Data.GetDataPresent("UniformResourceLocator"))
@@ -148,7 +150,7 @@ namespace Qiqqa.DocumentLibrary
             {
                 PDFDocument pdf_document = (PDFDocument)e.Data.GetData(typeof(PDFDocument));
                 Logging.Info("The dropped item is {0}", pdf_document);
-                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_document, web_library_detail, suppress_signal_that_docs_have_changed: false);
+                ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(pdf_document, web_library_detail);
             }
             else if (e.Data.GetDataPresent(typeof(List<PDFDocument>)))
             {

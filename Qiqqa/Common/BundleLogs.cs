@@ -54,7 +54,7 @@ namespace Qiqqa.Common
                 const int MAX_PROGRESS = 100;
                 StatusManager.Instance.UpdateStatus("LogBundler", "Bundling the logfile. Please wait...", progress, MAX_PROGRESS);
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     string environment_details_filename = null;
 
@@ -75,7 +75,7 @@ namespace Qiqqa.Common
                         try
                         {
                             string environmentDetails = "Generated at:" + DateTime.UtcNow.ToString("yyyyMMdd HH:mm:ss") + Environment.NewLine;
-                            environmentDetails += ComputerStatistics.GetCommonStatistics();
+                            environmentDetails += ComputerStatistics.GetCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
                             environmentDetails += "\r\nConfiguration Bits:\r\n";
                             environmentDetails += $"Background Tasks:      {(ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "Disabled ALL" : "Normal (Enabled)")}\r\n";
                             environmentDetails += $"Library OCR Task:      {(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled ? "Disabled" : "Normal (Enabled)")}\r\n";
@@ -111,7 +111,7 @@ namespace Qiqqa.Common
                                     StatusManager.Instance.UpdateStatus("LogBundler", "Bundling the logfile. Please wait...", progress, MAX_PROGRESS);
                                 }
 
-                                Logging.Info("7ZIP Log Bundling progress:\n{0}", process_output_reader.GetOutputsDumpString());
+                                Logging.Info("7ZIP Log Bundling progress:\n{0}", process_output_reader.GetOutputsDumpStrings());
                             }
 
                             MessageBoxes.Info($"The Qiqqa logs with some diagnostic info have been zipped to the location you specified:\n{target_filename}\n\nPlease upload it as issue attachment in your issue filed at https://github.com/jimmejardine/qiqqa-open-source/issues if the support team has requested it. Many thanks!");

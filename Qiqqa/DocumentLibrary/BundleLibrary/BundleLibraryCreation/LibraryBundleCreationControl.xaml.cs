@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using icons;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
@@ -16,6 +14,9 @@ using Utilities.Misc;
 using Utilities.ProcessTools;
 using Utilities.Shutdownable;
 using UserControl = System.Windows.Controls.UserControl;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 {
@@ -53,13 +54,14 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         private void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
         {
-            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
             {
-                dialog.Description = "Please select the folder into which the two Library Bundle files should be placed.";
-                DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK)
+                dialog.IsFolderPicker = true;
+                dialog.Title = "Please select the folder into which the two Library Bundle files should be placed.";
+                CommonFileDialogResult result = dialog.ShowDialog();
+                if (result == CommonFileDialogResult.Ok)
                 {
-                    CreateBundle(dialog.SelectedPath.ToString());
+                    CreateBundle(dialog.FileName);
                 }
                 else
                 {
@@ -94,7 +96,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
             string parameters = String.Format("a -tzip -mm=Deflate -mmt=on -mx9 \"{0}\" \"{1}\" {2}", target_filename_bundle, source_directory, directory_exclusion_parameter);
 
             // Watch the zipper
-            SafeThreadPool.QueueUserWorkItem(o => TailZIPProcess(manifest, parameters));
+            SafeThreadPool.QueueUserWorkItem(() => TailZIPProcess(manifest, parameters));
         }
 
         private static void TailZIPProcess(BundleLibraryManifest manifest, string parameters)
@@ -123,7 +125,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
                             zip_process.Kill();
                             zip_process.WaitForExit(5000);
 
-                            Logging.Error("Canceled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
+                            Logging.Error("Canceled creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpStrings());
 
                             StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Canceled creation of Bundle Library.");
                             return;
@@ -131,7 +133,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
                         if (zip_process.HasExited)
                         {
-                            Logging.Info("Completed creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpString());
+                            Logging.Info("Completed creation of Bundle Library:\n--- Parameters: {0}\n{1}", parameters, process_output_reader.GetOutputsDumpStrings());
 
                             StatusManager.Instance.UpdateStatus(STATUS_TOKEN, "Completed creation of Bundle Library.");
                             return;
@@ -147,18 +149,21 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         private void CmdThemes_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.ExpeditionManager.RebuildExpedition(web_library_detail.Xlibrary.ExpeditionManager.RecommendedThemeCount, true, true, null));
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+            {
+                    web_library_detail.Xlibrary.ExpeditionManager.RebuildExpedition(web_library_detail.Xlibrary.ExpeditionManager.RecommendedThemeCount, true, true, null);
+            });
         }
 
         private void CmdAutoTags_Click(object sender, RoutedEventArgs e)
         {
-            SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.AITagManager.Regenerate());
+            SafeThreadPool.QueueSafeExecUserWorkItem(() => web_library_detail.Xlibrary.AITagManager.Regenerate());
         }
 
         private void CmdCrossReference_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(web_library_detail));
+            SafeThreadPool.QueueSafeExecUserWorkItem(() => CitationFinder.FindCitations(web_library_detail));
         }
 
         private void CmdOCRAndIndex_Click(object sender, RoutedEventArgs e)

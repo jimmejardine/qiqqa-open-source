@@ -11,22 +11,24 @@ using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
 using Size = System.Windows.Size;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFControls.Printing
 {
     internal class PDFPrinterDocumentPaginator : DocumentPaginator, IDisposable
     {
         private PDFDocument pdf_document;
-        private PDFRenderer pdf_renderer;
         private int page_from;
         private int page_to;
         private Size page_size;
         private int total_pages_printed = 0;
 
-        public PDFPrinterDocumentPaginator(PDFDocument pdf_document, PDFRenderer pdf_renderer, int page_from, int page_to, Size page_size)
+        public PDFPrinterDocumentPaginator(PDFDocument pdf_document, int page_from, int page_to, Size page_size)
         {
             this.pdf_document = pdf_document;
-            this.pdf_renderer = pdf_renderer;
             this.page_from = page_from;
             this.page_to = page_to;
             this.page_size = page_size;
@@ -45,7 +47,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
             StatusManager.Instance.UpdateStatus("PDFPrinter", String.Format("Printing page {0} of {1}", page_zero_based + 1, PageCount), page_zero_based + 1, PageCount, true);
 
             // Render a page at 300 DPI...
-            using (MemoryStream ms = new MemoryStream(pdf_renderer.GetPageByDPIAsImage(page, 300)))
+            using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByHeightAsImage(page, 300 * 12, 300 * 12)))
             {
                 using (Image image = Image.FromStream(ms))
                 {
@@ -53,7 +55,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
                     PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
                     PDFOverlayRenderer.RenderInks(image, pdf_document, page);
                     BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-                    image_page.Freeze();
+                    ASSERT.Test(image_page.IsFrozen);
 
                     DrawingVisual dv = new DrawingVisual();
                     using (DrawingContext dc = dv.RenderOpen())
@@ -127,20 +129,22 @@ namespace Qiqqa.Documents.PDF.PDFControls.Printing
         {
             Logging.Debug("PDFPrinterDocumentPaginator::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // Get rid of managed resources / get rid of cyclic references:
-                pdf_document = null;
-                pdf_renderer = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    pdf_document = null;
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                last_document_page?.Dispose();
-                last_document_page = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    last_document_page?.Dispose();
+                    last_document_page = null;
+                });
 
-            ++dispose_count;
+                ++dispose_count;
+            });
         }
 
         #endregion

@@ -22,5 +22,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             ObjDatesPanel.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
         }
+
+        private void StackPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

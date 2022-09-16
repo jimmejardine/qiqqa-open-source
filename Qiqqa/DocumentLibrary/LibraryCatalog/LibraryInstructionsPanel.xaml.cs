@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void LibraryInstructionsPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Library library = DataContext as Library;
+            //Library library = DataContext as Library;
         }
 
         private void ObjHyperlinkHelp_Click(object sender, RoutedEventArgs e)

@@ -24,6 +24,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
             uicont.BaselineAlignment = BaselineAlignment.Center;
             uicont.Background = Brushes.Transparent;
             Image image = GetClearImage(header, on_click);
+            image.Source.Freeze();
             uicont.Child = image;
             return uicont;
         }
@@ -31,11 +32,12 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
         public static Image GetClearImage(string header, MouseButtonEventHandler on_click)
         {
             Image image = new Image();
-            RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
             image.Width = 24;
             image.ToolTip = header;
             image.Cursor = Cursors.Hand;
             image.Source = Icons.GetAppIcon(Icons.Clear);
+            image.Source.Freeze();
             image.MouseDown += on_click;
             return image;
         }

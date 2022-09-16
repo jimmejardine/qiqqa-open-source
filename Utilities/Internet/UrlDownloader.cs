@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Utilities.GUI;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Internet
 {
@@ -84,26 +88,32 @@ namespace Utilities.Internet
 
             private void wcb_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
             {
-                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (progress_lock)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // l1_clk.LockPerfTimerStop();
-                    if (progress_percentage < e.ProgressPercentage)
+                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (progress_lock)
                     {
-                        Logging.Info("Downloaded {0} / {1} ({2}%)", e.BytesReceived, e.TotalBytesToReceive, e.ProgressPercentage);
-                        progress_percentage = e.ProgressPercentage;
+                        // l1_clk.LockPerfTimerStop();
+                        if (progress_percentage < e.ProgressPercentage)
+                        {
+                            Logging.Info("Downloaded {0} / {1} ({2}%)", e.BytesReceived, e.TotalBytesToReceive, e.ProgressPercentage);
+                            progress_percentage = e.ProgressPercentage;
+                        }
                     }
-                }
+                });
             }
 
             private void wcb_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
             {
-                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (progress_lock)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // l1_clk.LockPerfTimerStop();
-                    Logging.Info("Download complete");
-                }
+                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (progress_lock)
+                    {
+                        // l1_clk.LockPerfTimerStop();
+                        Logging.Info("Download complete");
+                    }
+                });
             }
         }
 
@@ -121,6 +131,8 @@ namespace Utilities.Internet
 
             public DownloadAsyncTracker(string url)
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 // Init
                 ProgressPercentage = 0;
                 DownloadDataCompletedEventArgs = null;
@@ -143,30 +155,36 @@ namespace Utilities.Internet
 
             internal void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
             {
-                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (progress_lock)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // l1_clk.LockPerfTimerStop();
-                    // Limit the logging frequency
-                    if (ProgressPercentage < e.ProgressPercentage)
+                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (progress_lock)
                     {
-                        Logging.Info("Downloaded {0} / {1} ({2}%)", e.BytesReceived, e.TotalBytesToReceive, e.ProgressPercentage);
-                        ProgressPercentage = e.ProgressPercentage;
+                        // l1_clk.LockPerfTimerStop();
+                        // Limit the logging frequency
+                        if (ProgressPercentage < e.ProgressPercentage)
+                        {
+                            Logging.Info("Downloaded {0} / {1} ({2}%)", e.BytesReceived, e.TotalBytesToReceive, e.ProgressPercentage);
+                            ProgressPercentage = e.ProgressPercentage;
+                        }
                     }
-                }
+                });
             }
 
             internal void wc_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
             {
-                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (progress_lock)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // l1_clk.LockPerfTimerStop();
-                    Logging.Info("Download complete");
-                    DownloadDataCompletedEventArgs = e;
-                }
+                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                    lock (progress_lock)
+                    {
+                        // l1_clk.LockPerfTimerStop();
+                        Logging.Info("Download complete");
+                        DownloadDataCompletedEventArgs = e;
+                    }
 
-                CleanupAfterDownload();
+                    CleanupAfterDownload();
+                });
             }
 
             public void Cancel()

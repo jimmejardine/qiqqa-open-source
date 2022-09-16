@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Text;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.OCR
 {
@@ -44,6 +47,7 @@ namespace Utilities.OCR
             Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
             WordList current_word_list = null;
             int current_page = default_page;
+            int ignored_spaces_as_word = 0;
 
             string[] lines = File.ReadAllLines(filename);
 
@@ -118,10 +122,17 @@ namespace Utilities.OCR
                     word.Top = Convert.ToDouble(locations[1], Internationalization.DEFAULT_CULTURE);
                     word.Width = Convert.ToDouble(locations[2], Internationalization.DEFAULT_CULTURE);
                     word.Height = Convert.ToDouble(locations[3], Internationalization.DEFAULT_CULTURE);
-                    word.Text = line.Substring(colon_pos + 1);
+                    // Trim: assist for crappy OCR / Text Extract processes: strip off any spaces and drop all words which consist of spaces ONLY.
+                    word.Text = line.Substring(colon_pos + 1).Trim();
                     if (word.Width <= 0.0 || word.Height <= 0.0)
                     {
                         throw new Exception(String.Format("OCR file '{0}': format error: zero word width/height @PAGE {1}", filename, current_page));
+                    }
+
+                    if (String.IsNullOrEmpty(word.Text))
+                    {
+                        ignored_spaces_as_word++;
+                        continue;
                     }
 
                     // If we get this far and we don't yet have a page, assume the default page
@@ -143,6 +154,12 @@ namespace Utilities.OCR
             catch (Exception ex)
             {
                 throw new Exception("Invalid line format", ex);
+            }
+
+            if (ignored_spaces_as_word > 0)
+            {
+                Logging.Debug特("Ignored {0} words which consisted entirely of WHITESPACE for page {1} in file {2}.", ignored_spaces_as_word, current_page, filename);
+                ignored_spaces_as_word = 0;
             }
 
             return word_lists;

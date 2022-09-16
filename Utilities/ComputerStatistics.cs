@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Deployment.Application;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using Microsoft.Win32;
+using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities
 {
@@ -112,7 +119,7 @@ namespace Utilities
             }
         }
 
-        public static string GetCommonStatistics()
+        public static string GetCommonStatistics(Dictionary<string, string> extraInfos)
         {
             StringBuilder sb = new StringBuilder();
             CLRInfo inf = GetCLRInfo();
@@ -162,12 +169,36 @@ namespace Utilities
                 sb.AppendFormat("Application is not network deployed.\r\n");
             }
 
+            if (extraInfos.Count > 0)
+            {
+                sb.AppendFormat("EXTRA CONFIG INFO:\r\n");
+
+                foreach (var v in extraInfos)
+                {
+                    string k = $"{v.Key}:";
+                    string d = v.Value;
+                    if (!d.Contains("\n"))
+                    {
+                        sb.Append($"{k.PadRight(33, ' ')} {v.Value}\r\n");
+                    }
+                    else
+                    {
+                        sb.Append($"{k}:\r\n");
+                        var a = d.Split("\n".ToCharArray());
+                        foreach (string l in a)
+                        {
+                            sb.Append($"        {l}\r\n");
+                        }
+                    }
+                }
+            }
+
             return sb.ToString();
         }
 
-        public static void LogCommonStatistics()
+        public static void LogCommonStatistics(Dictionary<string, string> extraInfos)
         {
-            Logging.Info(GetCommonStatistics());
+            Logging.Info(GetCommonStatistics(extraInfos));
         }
 
         // Taken from https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed
@@ -338,5 +369,153 @@ namespace Utilities
 
             return rv;
         }
+
+
+        // helper function for ReportMemoryStatus()
+        public static int GetTotalRunningThreadCount()
+        {
+            try
+            {
+                Process proc = Process.GetCurrentProcess();
+                ProcessThreadCollection threads = proc.Threads;
+                return threads.Count;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "GetTotalRunningThreadCount() failed to deliver number of current running threads.");
+            }
+            return 0;
+        }
+
+        // convert 'bytes' to a human readable string.
+        private static StringWriter b2s(long bytes)
+        {
+            // format: "N Bytes (~ N MB)"
+            StringWriter s = new StringWriter();
+            s.Write(bytes);
+            s.Write(" Bytes");
+            if (bytes >= 500)
+            {
+                const double KB = 1024;
+                const double MB = KB * KB;
+                const double GB = MB * KB;
+
+                s.Write(" (~ ");
+                if (bytes >= 0.5E6)
+                {
+                    if (bytes >= 0.5E9)
+                    {
+                        s.Write(Math.Round(bytes / GB, 1));
+                        s.Write(" GB)");
+                    }
+                    else
+                    {
+                        s.Write(Math.Round(bytes / MB, 1));
+                        s.Write(" MB)");
+                    }
+                }
+                else
+                {
+                    s.Write(Math.Round(bytes / KB, 1));
+                    s.Write(" KB)");
+                }
+            }
+            return s;
+        }
+
+        public static void ReportMemoryStatus(string header_suffix = "Status")
+        {
+            try
+            {
+                Process proc = Process.GetCurrentProcess();
+                ProcessThreadCollection mythreads = proc.Threads;
+
+                Logging.Info($@"{header_suffix}:
+------------------------------------------------------------------------------
+Total number of running threads: .......................... {GetTotalRunningThreadCount()}
+Number of threads pending in the threadpool: .............. {SafeThreadPool.RunningThreadCount}
+GC.TotalMemory: ........................................... {b2s(GC.GetTotalMemory(false))}
+Maximum amount of memory in the virtual memory paging file: {b2s(proc.PeakPagedMemorySize64)}
+The amount of paged memory allocated: ..................... {b2s(proc.PagedMemorySize64)}
+The amount of pageable system memory allocated: ........... {b2s(proc.PagedSystemMemorySize64)}
+The amount of nonpaged system memory allocated: ........... {b2s(proc.NonpagedSystemMemorySize64)}
+Maximum amount of physical memory: ........................ {b2s(proc.PeakWorkingSet64)}
+The maximum allowable working set size: ................... {b2s(proc.MaxWorkingSet.ToInt64())}
+The amount of physical memory allocated: .................. {b2s(proc.WorkingSet64)}
+Maximum amount of virtual memory: ......................... {b2s(proc.PeakVirtualMemorySize64)}
+The amount of the virtual memory allocated: ............... {b2s(proc.VirtualMemorySize64)}
+The amount of private memory allocated: ................... {b2s(proc.PrivateMemorySize64)}
+The privileged processor time: ............................ {proc.PrivilegedProcessorTime}
+The user processor time: .................................. {proc.UserProcessorTime}
+The total processor time for this process: ................ {proc.TotalProcessorTime}
+The time that the associated process was started: ......... {proc.StartTime}
+The number of handles opened by the process: .............. {proc.HandleCount}
+Whether the System.Diagnostics.Process.Exited event should be raised when the process terminates: {proc.EnableRaisingEvents}
+Whether the user interface of the process is responding:    {proc.Responding}
+The unique identifier for the associated process: ......... {proc.Id}
+The native handle to this process: ........................ {proc.SafeHandle.DangerousGetHandle().ToInt64()}
+Whether the associated process has been terminated: ....... {proc.HasExited}
+------------------------------------------------------------------------------
+");
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+            }
+        }
+
+        public static MemoryStatus GetMemoryStatus()
+        {
+            Process proc = Process.GetCurrentProcess();
+            ProcessThreadCollection mythreads = proc.Threads;
+
+            return new MemoryStatus()
+            {
+                TotalRunningThreadCount = GetTotalRunningThreadCount(),
+                ThreadPoolRunningThreadCount = SafeThreadPool.RunningThreadCount,
+                ThreadPoolPendingTaskCount = SafeThreadPool.QueuedThreadCount,
+                GCTotalMemory = GC.GetTotalMemory(false),
+                PeakPagedMemorySize = proc.PeakPagedMemorySize64,
+                PagedMemorySize = proc.PagedMemorySize64,
+                PagedSystemMemorySize = proc.PagedSystemMemorySize64,
+                NonpagedSystemMemorySize = proc.NonpagedSystemMemorySize64,
+                PeakWorkingMemorySize = proc.PeakWorkingSet64,
+                WorkingMemorySize = proc.WorkingSet64,
+                MaxAllowedWorkingMemorySize = proc.MaxWorkingSet.ToInt64(),
+                PeakVirtualMemorySize = proc.PeakVirtualMemorySize64,
+                VirtualMemorySize = proc.VirtualMemorySize64,
+                PrivateMemorySize = proc.PrivateMemorySize64,
+                PrivilegedProcessorTime = proc.PrivilegedProcessorTime,
+                UserProcessorTime = proc.UserProcessorTime,
+                TotalProcessorTime = proc.TotalProcessorTime,
+                StartTime = proc.StartTime,
+                OSOpenHandleCount = proc.HandleCount,
+                UIResponding = proc.Responding
+            };
+        }
+    }
+
+    public struct MemoryStatus
+    {
+        public int TotalRunningThreadCount;
+        public int ThreadPoolRunningThreadCount;
+        public int ThreadPoolPendingTaskCount;
+        public long GCTotalMemory;
+        public long PeakPagedMemorySize;
+        public long PagedMemorySize;
+        public long PagedSystemMemorySize;
+        public long NonpagedSystemMemorySize;
+        public long PeakWorkingMemorySize;
+        public long WorkingMemorySize;
+        public long MaxAllowedWorkingMemorySize;
+        public long PeakVirtualMemorySize;
+        public long VirtualMemorySize;
+        public long PrivateMemorySize;
+        public TimeSpan PrivilegedProcessorTime;
+        public TimeSpan UserProcessorTime;
+        public TimeSpan TotalProcessorTime;
+        public DateTime StartTime;
+        public int OSOpenHandleCount;
+        public bool UIResponding;
     }
 }

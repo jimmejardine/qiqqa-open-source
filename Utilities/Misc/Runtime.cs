@@ -1,6 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Reflection;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Misc
 {
@@ -8,7 +11,6 @@ namespace Utilities.Misc
     {
         public static string StartupDirectory => Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).LocalPath);
 
-#if DEBUG
         public static bool IsRunningInVisualStudioDesigner
         {
             get
@@ -27,7 +29,5 @@ namespace Utilities.Misc
                 return false;
             }
         }
-#endif
-
     }
 }

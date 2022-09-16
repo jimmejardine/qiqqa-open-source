@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.Files;
@@ -13,6 +14,10 @@ using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.ProcessTools;
 using Utilities.Shutdownable;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
@@ -63,14 +68,14 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public class Job
         {
-            public const int TEXT_PAGES_PER_GROUP = PDFRenderer.TEXT_PAGES_PER_GROUP;
+            public const int TEXT_PAGES_PER_GROUP = PDFDocument.TEXT_PAGES_PER_GROUP;
 
-            public PDFRenderer pdf_renderer;
+            public PDFDocument pdf_renderer;
             public int page;
             public bool force_job;
             public string language;
 
-            public Job(PDFRenderer pdf_renderer, int page)
+            public Job(PDFDocument pdf_renderer, int page)
             {
                 this.pdf_renderer = pdf_renderer;
                 this.page = page;
@@ -156,7 +161,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             /// <returns></returns>
             public static string GetQueuedJobToken(Job job)
             {
-                return job.pdf_renderer.DocumentFingerprint + "." + job.page;
+                return job.pdf_renderer.Fingerprint + "." + job.page;
             }
 
             /// <summary>
@@ -170,11 +175,11 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 if (is_group)
                 {
                     int job_group_start_page = ((job.page - 1) / Job.TEXT_PAGES_PER_GROUP) * Job.TEXT_PAGES_PER_GROUP + 1;
-                    return job.pdf_renderer.DocumentFingerprint + "." + job_group_start_page;
+                    return job.pdf_renderer.Fingerprint + "." + job_group_start_page;
                 }
                 else
                 {
-                    return job.pdf_renderer.DocumentFingerprint + "." + job.page;
+                    return job.pdf_renderer.Fingerprint + "." + job.page;
                 }
             }
 
@@ -192,15 +197,15 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             NUM_OCR_THREADS = ConfigurationManager.Instance.ConfigurationRecord.System_NumOCRProcesses ?? 0;
             if (0 == NUM_OCR_THREADS)
             {
-				// use the total number of cores (minus one); assume that all processors
-				// report the number of *virtual* cores as twice the number of physical
-				// cores (as happens to be the case for most modern consumer Intel and AMD CPUs)
+                // use the total number of cores (minus one); assume that all processors
+                // report the number of *virtual* cores as twice the number of physical
+                // cores (as happens to be the case for most modern consumer Intel and AMD CPUs)
                 NUM_OCR_THREADS = Environment.ProcessorCount / 2 - 1;
             }
-			// ditto: limit to the number of physical cores in the CPU
+            // ditto: limit to the number of physical cores in the CPU
             NUM_OCR_THREADS = Math.Min(NUM_OCR_THREADS, Environment.ProcessorCount / 2);
-			// and make sure antique or obscure hardware doesn't tease us into
-			// arriving at a ZERO thread count:
+            // and make sure antique or obscure hardware doesn't tease us into
+            // arriving at a ZERO thread count:
             NUM_OCR_THREADS = Math.Max(NUM_OCR_THREADS, 1);
 #if DEBUG // for debugging
             NUM_OCR_THREADS = 1;   // force a single thread for ease of debugging the background process
@@ -319,6 +324,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private NextJob GetNextJob()
         {
+            bool isOCRenabled = ConfigurationManager.IsEnabled("RenderPDFPagesForOCR");
+
             // Check if OCR is disabled
             if (!(ConfigurationManager.Instance.ConfigurationRecord.Library_OCRDisabled
                 || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
@@ -360,7 +367,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     prev_ocr_count = ocr_count;
 
                     // Don't bother with the sophistication when the numbers get large:
-                    if (20 >= ocr_count)
+                    if (20 >= ocr_count && isOCRenabled)
                     {
                         // First look for any SINGLE 1st pages - these get priority
                         foreach (var pair in job_queue_single)
@@ -433,7 +440,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         }
                     }
 
-                    if (current_ratio <= TARGET_RATIO)
+                    if (current_ratio <= TARGET_RATIO || !isOCRenabled)
                     {
                         // First look for any GROUP jobs
                         foreach (var pair in job_queue_group)
@@ -449,13 +456,16 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         // Otherwise get the most recently added SINGLE job
                         //
                         // (in a large queue, that is: just grab the first available)
-                        foreach (var pair in job_queue_single)
+                        if (isOCRenabled)
                         {
-                            Job job = pair.Value;
-                            if (!IsSimilarJobRunning(job, false, queue_lock))
+                            foreach (var pair in job_queue_single)
                             {
-                                job_queue_single.Remove(pair.Key);
-                                return new NextJob(this, job, false, queue_lock);
+                                Job job = pair.Value;
+                                if (!IsSimilarJobRunning(job, false, queue_lock))
+                                {
+                                    job_queue_single.Remove(pair.Key);
+                                    return new NextJob(this, job, false, queue_lock);
+                                }
                             }
                         }
                     }
@@ -588,27 +598,34 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             Stopwatch clk = Stopwatch.StartNew();
 
                             // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                            WPFDoEvents.WaitForUIThreadActivityDone();
+                            WPFDoEvents.InvokeInUIThread(() =>
+                            {
+                                // do nothing.
+                            });
 
                             clk_duration = clk.ElapsedMilliseconds;
                         }
 
                         // The call above can take quite a while to complete, so check all abort/delay checks once again, just in case...:
-                        if (false
-                            || ShutdownableManager.Instance.IsShuttingDown || !StillRunning
-                            || clk_duration > 300
-                            || Library.IsBusyAddingPDFs
-                            || Library.IsBusyRegeneratingTags
-                            || ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
-                            )
+                        bool aborting_or_busy_elsewhere = (
+                            ShutdownableManager.Instance.IsShuttingDown || !StillRunning ||
+                             Library.IsBusyAddingPDFs ||
+                             Library.IsBusyRegeneratingTags ||
+                             ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks
+                            );
+                        bool cpu_load_too_high_for_UI_responsiveness = (clk_duration > 300);
+                        bool dev_override = !ConfigurationManager.IsEnabled("TextExtraction");
+
+                        if (aborting_or_busy_elsewhere || cpu_load_too_high_for_UI_responsiveness || dev_override)
                         {
-                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/delay signals were detected: {1}/{2}/{3}/{4}/{5}.",
+                            Logging.Warn("Recheck job queue after WaitForUIThreadActivityDone took {0}ms or shutdown/delay signals were detected: {1}/{2}/{3}/{4}/{5}/{6}.",
                                 clk_duration,
                                 (ShutdownableManager.Instance.IsShuttingDown || !StillRunning) ? "+Shutdown+" : "-SD-",
-                                clk_duration > 300 ? "+UI-wait+" : "-UI-",
+                                cpu_load_too_high_for_UI_responsiveness ? "+UI-wait+" : "-UI-",
                                 Library.IsBusyAddingPDFs ? "+PDFAddPending+" : "-PDF-",
                                 ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks ? "+DisableBackgroundTasks+" : "-DB-",
-                                Library.IsBusyRegeneratingTags ? "+LibRegenerate+" : "-Regen-"
+                                Library.IsBusyRegeneratingTags ? "+LibRegenerate+" : "-Regen-",
+                                dev_override ? "+DevAdvSettings+" : "-DevAdvCfg-"
                              );
 
                             // push the job onto the queue and start from the beginning:
@@ -620,6 +637,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             {
                                 QueueJobSingle(next_job.job);
                             }
+
+                            // reduce CPU load by snoozing for a bit.
+                            if ((cpu_load_too_high_for_UI_responsiveness || dev_override) && !ShutdownableManager.Instance.IsShuttingDown)
+                            {
+                                daemon.Sleep(1000);
+                            }
+
                             continue;
                         }
                         else
@@ -671,7 +695,17 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             }
                             else
                             {
-                                ProcessNextJob_Single(next_job, temp_ocr_result_filename);
+                                if (!ConfigurationManager.IsEnabled("RenderPDFPagesForOCR"))
+                                {
+                                    Logging.Info($"Cannot OCR a single PDF page for PDF document {next_job.job.pdf_renderer.Fingerprint}, page {next_job.job.page} as PDF page image rendering has been disabled due to Developer Override setting { "RenderPDFPagesForOCR" }=false");
+
+                                    // re-queue until setting is changed (or have it pending indefinitely)
+                                    QueueJobSingle(next_job.job);
+                                }
+                                else
+                                {
+                                    ProcessNextJob_Single(next_job, temp_ocr_result_filename);
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -732,13 +766,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     ""
                     + "GROUP"
                     + " "
-                    + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                    + '"' + next_job.job.pdf_renderer.DocumentPath + '"'
                     + " "
                     + page_numbers_string
                     + " "
                     + '"' + temp_ocr_result_filename + '"'
                     + " "
-                    + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFUserPassword) + '"'
+                    + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFPassword) + '"'
                     + " "
                     + '"' + next_job.job.language + '"'
                     ;
@@ -780,13 +814,13 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 ""
                 + "SINGLE"
                 + " "
-                + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                + '"' + next_job.job.pdf_renderer.DocumentPath + '"'
                 + " "
                 + next_job.job.page
                 + " "
                 + '"' + temp_ocr_result_filename + '"'
                 + " "
-                + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFUserPassword) + '"'
+                + '"' + ReversibleEncryption.Instance.EncryptString(next_job.job.pdf_renderer.PDFPassword) + '"'
                 + " "
                 + '"' + next_job.job.language + '"'
                 ;
@@ -820,7 +854,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                         ""
                         + "SINGLE-FAKE"
                         + " "
-                        + '"' + next_job.job.pdf_renderer.PDFFilename + '"'
+                        + '"' + next_job.job.pdf_renderer.DocumentPath + '"'
                         + " "
                         + next_job.job.page
                         + " "
@@ -829,12 +863,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
                     if (!CheckOCRProcessSuccess(fake_parameters, out report))
                     {
-                        Logging.Error("SEVERE OCR PROBLEM: Couldn't even perform FAKE=DUMMY OCR on the page, so giving up for {0}:\n  command: {1}\n  result: {2}\n  error log: {3}", next_job.job, report.OCRParameters, report.exitCode, report.OCRStdioOutput);
+                        Logging.Error("SEVERE OCR PROBLEM: Couldn't even perform FAKE=DUMMY OCR on the page, so giving up for {0}:\n  command: {1}\n  result: {2}\n  error log: {3}", next_job.job, report.OCRParameters, report.exitCode, report.OCRStdioOut);
                     }
                 }
                 else
                 {
-                    Logging.Error("SEVERE OCR PROBLEM: Single page OCR on page {0} resulted in an error which cannot be easily resolved. We will attempt a RETRY later for {1}:\n  command: {2}\n  result: {3}\n  error log: {4}", next_job.job.page, next_job.job, report.OCRParameters, report.exitCode, report.OCRStdioOutput);
+                    Logging.Error("SEVERE OCR PROBLEM: Single page OCR on page {0} resulted in an error which cannot be easily resolved. We will attempt a RETRY later for {1}:\n  command: {2}\n  result: {3}\n  error log: {4}", next_job.job.page, next_job.job, report.OCRParameters, report.exitCode, report.OCRStdioOut);
                 }
             }
         }
@@ -843,17 +877,20 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             public string OCRParameters;
             public int exitCode;
-            public string OCRStdioOutput;
+            public ProcessOutputDump OCRStdioOut;
             public bool hasExited;
             public long durationMS;
         }
 
         private bool failureMaybeDueToEncryptedPDF(OCRExecReport report)
         {
-            if (report.OCRStdioOutput.Contains("Sorax.SoraxPDFRendererDLLWrapper.HDOCWrapper") || report.OCRStdioOutput.Contains("Sorax.SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage"))
+            // TODO
+#if !HAS_MUPDF_PAGE_RENDERER
+            if (report.OCRStdioOut.stderr.Contains("Sorax.SoraxPDFRendererDLLWrapper.HDOCWrapper") || report.OCRStdioOut.stderr.Contains("Sorax.SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage"))
             {
                 return true;
             }
+#endif
             return false;
         }
 
@@ -873,7 +910,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     {
                         duration = clk.ElapsedMilliseconds;
 
-                        if (!ShutdownableManager.Instance.IsShuttingDown && !StillRunning)
+                        if (ShutdownableManager.Instance.IsShuttingDown || !StillRunning)
                         {
                             break;
                         }
@@ -896,17 +933,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                             process.Kill();
 
                             // wait for the completion signal; this also helps to collect all STDERR output of the application (even while it was KILLED)
-                            process.WaitForExit(1000);
+                            process.WaitForExit();
                         }
                         catch (Exception ex)
                         {
                             Logging.Error(ex, "There was a problem killing the OCR process after timeout ({0} ms)", duration);
                         }
-                    }
-
-                    while (!process.HasExited)
-                    {
-                        process.WaitForExit(1000);
                     }
 
                     // Give it some extra settling time to let all the IO events fire:
@@ -916,7 +948,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                     {
                         OCRParameters = ocr_parameters,
                         exitCode = process.ExitCode,
-                        OCRStdioOutput = process_output_reader.GetOutputsDumpString(),
+                        OCRStdioOut = process_output_reader.GetOutputsDumpStrings(),
                         hasExited = has_exited,
                         durationMS = duration
                     };
@@ -925,19 +957,19 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 // Check that we had a clean exit
                 if (!report.hasExited || 0 != report.exitCode)
                 {
-                    Logging.Error("There was a problem while running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+                    Logging.Error("There was a problem while running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOut, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
 
                     return false;
                 }
                 else
                 {
-                    if (report.OCRStdioOutput.Contains("ERROR"))
+                    if (report.OCRStdioOut.stderr.Contains("ERROR"))
                     {
-                        Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+                        Logging.Error("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOut, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
                     }
                     else
                     {
-                        Logging.Info("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOutput, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
+                        Logging.Info("Succeeded running OCR with parameters: {0}\n--- Exit Code: {1}\n--- {3}\n{2}", report.OCRParameters, report.exitCode, report.OCRStdioOut, (report.hasExited ? $"Exit code: {report.exitCode}" : $"Timeout: {report.durationMS} ms"));
                     }
                     return true;
                 }
@@ -956,7 +988,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             Logging.Debug特("PDFTextExtractor::Shutdown: flushing the queue ({0} + {1} items discarded)", job_queue_group_count, job_queue_single_count);
             FlushAllJobs();
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 Logging.Info("+Stopping PDFTextExtractor threads (async)");
 

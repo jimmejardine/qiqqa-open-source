@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Language
 {

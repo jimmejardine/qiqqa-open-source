@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.FolderWatching;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
@@ -31,7 +32,7 @@ namespace Qiqqa.Documents.Common
             if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
                 // do run the flush task, but delayed!
-				return;
+                return;
             }
 
             // Quit this delayed storing of PDF files when we've hit the end of the execution run:
@@ -85,6 +86,8 @@ namespace Qiqqa.Documents.Common
 
             int done_count_for_status = 0;
 
+            Stopwatch breathing_time = Stopwatch.StartNew();
+
             while (true)
             {
                 int count_to_go = PendingQueueCount;
@@ -109,7 +112,13 @@ namespace Qiqqa.Documents.Common
                     }
 
                     // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                    WPFDoEvents.WaitForUIThreadActivityDone();
+                    if (breathing_time.ElapsedMilliseconds > FolderWatcher.MAX_SECONDS_PER_ITERATION)
+                    {
+                        ShutdownableManager.Sleep(FolderWatcher.SECONDS_TO_RELAX_PER_ITERATION);
+
+                        // reset:
+                        breathing_time.Restart();
+                    }
                 }
 
                 PDFDocument pdf_document_to_flush = null;

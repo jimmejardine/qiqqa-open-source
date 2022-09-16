@@ -1,9 +1,9 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.WebLibraryStuff.WebLibraryListControl"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
->
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.WebLibraryStuff.WebLibraryListControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Name="PanelWebLibraries" />

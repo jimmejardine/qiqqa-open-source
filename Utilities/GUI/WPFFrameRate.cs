@@ -25,24 +25,27 @@ namespace Utilities.GUI
 
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            ++update_count;
-            ++total_update_count;
-
-            if (MAX_UPDATE_COUNT <= update_count)
+            WPFDoEvents.SafeExec(() =>
             {
-                long now_tick = clk.ElapsedTicks;
-                long elapsed_time = now_tick - this.last_clk_tick;
-                this.last_clk_tick = now_tick;
+                ++update_count;
+                ++total_update_count;
 
-                if (elapsed_time > 0)
+                if (MAX_UPDATE_COUNT <= update_count)
                 {
-                    double now_fps = update_count * (double)Stopwatch.Frequency / elapsed_time;
+                    long now_tick = clk.ElapsedTicks;
+                    long elapsed_time = now_tick - this.last_clk_tick;
+                    this.last_clk_tick = now_tick;
 
-                    fps = 0.75 * fps + 0.25 * now_fps;
+                    if (elapsed_time > 0)
+                    {
+                        double now_fps = update_count * (double)Stopwatch.Frequency / elapsed_time;
 
-                    update_count = 0;
+                        fps = 0.75 * fps + 0.25 * now_fps;
+
+                        update_count = 0;
+                    }
                 }
-            }
+            });
         }
     }
 }

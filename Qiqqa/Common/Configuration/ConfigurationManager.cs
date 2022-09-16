@@ -19,6 +19,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
+using System.Text;
 
 namespace Qiqqa.Common.Configuration
 {
@@ -57,13 +58,10 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-        private string user_guid;
-        private bool is_guest;
-
         private readonly Lazy<string> __startupDirectoryForQiqqa = new Lazy<string>(() => UnitTestDetector.StartupDirectoryForQiqqa);
         public string StartupDirectoryForQiqqa => __startupDirectoryForQiqqa.Value;
 
-        private readonly Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
+        private Lazy<string> __BaseDirectoryForQiqqa = new Lazy<string>(() =>
         {
             // Command-line parameters override the Registry:
             string[] args = Environment.GetCommandLineArgs();
@@ -137,14 +135,35 @@ namespace Qiqqa.Common.Configuration
             // If we get here, use the default path
             return Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa"));
         });
+        private bool __BaseDirectoryForQiqqaIsFixedFromNowOn = false;
+        public bool BaseDirectoryForQiqqaIsFixedFromNowOn
+        {
+            get => __BaseDirectoryForQiqqaIsFixedFromNowOn;
+            set
+            {
+                __BaseDirectoryForQiqqaIsFixedFromNowOn = true; // doesn't matter what you set 'value' to: we only can turn this lock ON and then it's DONE.
+            }
+        }
         public string BaseDirectoryForQiqqa
         {
-            get => __BaseDirectoryForQiqqa.Value;
+            get
+            {
+                return __BaseDirectoryForQiqqa.Value;
+            }
+            set
+            {
+                if (BaseDirectoryForQiqqaIsFixedFromNowOn)
+                {
+                    throw new AccessViolationException($"Internal Error: Rewriting Qiqqa Base Path to '{value}' after it was locked for writing is indicative of erroneous use of the setter, i.e. setter is used too late in the game!");
+                }
+                __BaseDirectoryForQiqqa = new Lazy<string>(() => Path.GetFullPath(value));
+                RegistrySettings.Instance.Write(RegistrySettings.BaseDataDirectory, value);
+            }
         }
 
         public string BaseDirectoryForUser
         {
-            get => Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, user_guid));
+            get => Path.GetFullPath(Path.Combine(BaseDirectoryForQiqqa, "Guest"));
         }
 
         private string ConfigFilenameForUser
@@ -166,12 +185,11 @@ namespace Qiqqa.Common.Configuration
             get => Path.Combine(StartupDirectoryForQiqqa, @"wkhtmltopdf.exe");
         }
 
-        public string DeveloperTestSettingsFilename
+        public string DeveloperTestSettingsFilename_2_LibsBase
         {
             get => Path.Combine(BaseDirectoryForQiqqa, @"Qiqqa.Developer.Settings.json5");
         }
 
-        private Dictionary<string, object> developer_test_settings = null;
         private ConfigurationRecord configuration_record;
         private AugmentedBindable<ConfigurationRecord> configuration_record_bindable;
 
@@ -182,7 +200,7 @@ namespace Qiqqa.Common.Configuration
             UConf.GetWebUserAgent = () => ConfigurationManager.Instance.ConfigurationRecord.GetWebUserAgent();
             UConf.GetProxy = () => ConfigurationManager.Instance.Proxy;
 
-            ResetConfigurationRecordToGuest();
+            ResetConfigurationRecord();
         }
 
         private void Shutdown()
@@ -192,21 +210,14 @@ namespace Qiqqa.Common.Configuration
             SaveSearchHistory();
         }
 
-        private void ResetConfigurationRecord(string user_guid_, bool is_guest_)
+        public void ResetConfigurationRecord()
         {
-            Logging.Info("Resetting configuration settings to {0}", user_guid_);
+            Logging.Info("Resetting/reloading configuration settings.");
 
             if (null != configuration_record_bindable)
             {
                 configuration_record_bindable.PropertyChanged -= configuration_record_bindable_PropertyChanged;
             }
-
-            // Create the new user_guid
-            user_guid = user_guid_;
-            is_guest = is_guest_;
-
-            // Create the base directory in case it doesn't exist
-            Directory.CreateDirectory(BaseDirectoryForUser);
 
             // Try loading any pre-existing config file
             try
@@ -245,37 +256,6 @@ namespace Qiqqa.Common.Configuration
                 configuration_record.Feedback_GATrackingCode = Guid.NewGuid().ToString();
             }
 #endif
-
-            // Also see if we have a Developer Test Settings file, which contains development/test environment overrides:
-            try
-            {
-                if (File.Exists(DeveloperTestSettingsFilename))
-                {
-                    Logging.Info("Loading developer test settings file {0}", DeveloperTestSettingsFilename);
-
-                    // see also https://www.newtonsoft.com/json/help/html/SerializationErrorHandling.htm
-
-                    List<string> errors = new List<string>();
-
-                    developer_test_settings = JsonConvert.DeserializeObject<Dictionary<string, object>>(
-                        File.ReadAllText(DeveloperTestSettingsFilename),
-                        new JsonSerializerSettings
-                        {
-                            Error = delegate (object sender, ErrorEventArgs args)
-                            {
-                                errors.Add(args.ErrorContext.Error.Message);
-                                args.ErrorContext.Handled = true;
-                            },
-                            //Converters = { new IsoDateTimeConverter() }
-                        });
-
-                    Logging.Info("Loaded developer test settings file {0}: {1}", DeveloperTestSettingsFilename, errors.Count == 0 ? "no errors" : errors.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "There was a problem loading developer test settings file {0}", DeveloperTestSettingsFilename);
-            }
         }
 
         private void configuration_record_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -285,7 +265,7 @@ namespace Qiqqa.Common.Configuration
                 // Saving the config on property change is non-essential as another save action will be triggered
                 // from the application shutdown handler anyway. Therefor we delegate the inherent file I/O to
                 // a background task:
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                 {
                     SaveConfigurationRecord();
                 }, skip_task_at_app_shutdown: true);
@@ -340,7 +320,7 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-#region --- Search history ----------------------------------------------------------------------------------------
+        #region --- Search history ----------------------------------------------------------------------------------------
 
         private HashSet<string> search_history = new HashSet<string>();
         private HashSet<string> search_history_from_disk = null;
@@ -364,11 +344,14 @@ namespace Qiqqa.Common.Configuration
                     // Try to load it from disk (if we are premium or premium+)
                     try
                     {
-                        if (File.Exists(SearchHistoryFilename))
+                        if (SerializeFile.Exists(SearchHistoryFilename))
                         {
-                            foreach (string search in File.ReadAllLines(SearchHistoryFilename))
+                            foreach (string search in SerializeFile.TextLoadAllLines(SearchHistoryFilename))
                             {
-                                search_history.Add(search);
+                                if (!String.IsNullOrWhiteSpace(search))
+                                {
+                                    search_history.Add(search);
+                                }
                             }
                         }
                     }
@@ -391,7 +374,7 @@ namespace Qiqqa.Common.Configuration
         {
             try
             {
-                File.WriteAllLines(SearchHistoryFilename, SearchHistory);
+                SerializeFile.TextSaveAllLines(SearchHistoryFilename, SearchHistory);
             }
             catch (Exception ex)
             {
@@ -399,25 +382,9 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-#endregion
+        #endregion
 
-#region --- Public initialisation ----------------------------------------------------------------------------------------
-
-        public void ResetConfigurationRecordToGuest()
-        {
-            ResetConfigurationRecord("Guest", true);
-        }
-
-        public void ResetConfigurationRecordToUser(string user_guid_)
-        {
-            ResetConfigurationRecord(user_guid_, false);
-        }
-
-#endregion
-
-#region --- Public accessors ----------------------------------------------------------------------------------------
-
-        public bool IsGuest => is_guest;
+        #region --- Public accessors ----------------------------------------------------------------------------------------
 
         public Visibility NoviceVisibility => ConfigurationRecord.GUI_IsNovice ? Visibility.Collapsed : Visibility.Visible;
 
@@ -428,7 +395,7 @@ namespace Qiqqa.Common.Configuration
                 if (null == configuration_record)
                 {
                     Logging.Warn("Accessing ConfigurationRecord before it has been initialized by Qiqqa: running as Guest for now");
-                    ResetConfigurationRecordToGuest();
+                    ResetConfigurationRecord();
                 }
                 return configuration_record;
             }
@@ -442,15 +409,27 @@ namespace Qiqqa.Common.Configuration
         /// <returns>`true` by default (ENabled), unless the loaded developer overrides file explicitly set this key to `false`.</returns>
         public static bool IsEnabled(string key)
         {
-            if (null != Instance.developer_test_settings)
+            ASSERT.Test(null != UserRegistry.DeveloperOverridesDB);
+
+            if (UserRegistry.DeveloperOverridesDB.TryGetValue(key, out var val))
             {
-                if (Instance.developer_test_settings.TryGetValue(key, out var val))
-                {
-                    bool? rv = val as bool?;
-                    return rv ?? true;
-                }
+                bool? rv = val as bool?;
+                return rv ?? (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
             }
-            return true;
+
+            return (key == "DoInterestingAnalysis_GoogleScholar" ? false : true);
+        }
+
+        public static void ResetDeveloperSettings()
+        {
+            ASSERT.Test(null != UserRegistry.DeveloperOverridesDB);
+
+            UserRegistry.DeveloperOverridesDB.Clear();
+        }
+
+        public static Dictionary<string, object> GetDeveloperSettingsReference()
+        {
+            return UserRegistry.DeveloperOverridesDB;
         }
 
         public static void ThrowWhenActionIsNotEnabled(string key)
@@ -489,6 +468,48 @@ namespace Qiqqa.Common.Configuration
             }
         }
 
-#endregion
+        #endregion
+
+        public static Dictionary<string, string> GetCurrentConfigInfos()
+        {
+            Dictionary<string, string> rv = new Dictionary<string, string>();
+
+            rv.Add("IsInitialized", $"{IsInitialized}");
+            rv.Add("Internal: ARGV", string.Join(" ", Environment.GetCommandLineArgs()));
+            rv.Add("Internal: Registry App Key Base", RegistrySettings.Instance.AppKeyDescription());
+            rv.Add("Internal: Registry BaseDir Key", RegistrySettings.BaseDataDirectory);
+            rv.Add("Internal: Registry Override Path", RegistrySettings.Instance.Read(RegistrySettings.BaseDataDirectory));
+            rv.Add("Internal: Default Path", Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Quantisle/Qiqqa")));
+
+            if (IsInitialized)
+            {
+                ConfigurationManager cfg = ConfigurationManager.Instance;
+
+                rv.Add("StartupDirectoryForQiqqa", cfg.StartupDirectoryForQiqqa);
+                rv.Add("BaseDirectoryForQiqqa", cfg.BaseDirectoryForQiqqa);
+                rv.Add("BaseDirectoryForUser", cfg.BaseDirectoryForUser);
+                rv.Add("ConfigFilenameForUser", cfg.ConfigFilenameForUser);
+                rv.Add("SearchHistoryFilename", cfg.SearchHistoryFilename);
+                rv.Add("Program7ZIP", cfg.Program7ZIP);
+                rv.Add("ProgramHTMLToPDF", cfg.ProgramHTMLToPDF);
+                rv.Add("DeveloperTestSettingsFilename (Application Level)", UnitTestDetector.DeveloperTestSettingsFilename_1_App);
+                rv.Add("DeveloperTestSettingsFilename (BaseDirectory Level)", cfg.DeveloperTestSettingsFilename_2_LibsBase);
+                rv.Add("NoviceVisibility", $"{cfg.NoviceVisibility}");
+                rv.Add("SearchHistory", string.Join("\n", cfg.SearchHistory));
+                rv.Add("IsPortableApplication", RegistrySettings.GetPortableApplicationMode().ToString());
+
+                StringBuilder s = new StringBuilder();
+                foreach (var rec in cfg.ConfigurationRecord.GetCurrentConfigInfos())
+                {
+                    string k = $"{rec.Key}:";
+                    string v = rec.Value;
+
+                    s.Append($"{k.PadRight(30, ' ')} {v}\n");
+                }
+                rv.Add("Configuration Record", s.ToString().TrimEnd());
+            }
+
+            return rv;
+        }
     }
 }

@@ -72,20 +72,25 @@ namespace Utilities.GUI
 
         private void AugmentedClosableBorder_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (has_been_force_closed_by_user)
+            WPFDoEvents.SafeExec(() =>
             {
+                if (has_been_force_closed_by_user)
+                {
+                    IdPath = GetIdPath();
+                    Visibility = Visibility.Collapsed;
+                }
                 IdPath = GetIdPath();
-                Visibility = Visibility.Collapsed;
-            }
-            IdPath = GetIdPath();
+            });
         }
 
         private void image_close_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            has_been_force_closed_by_user = true;
-            Visibility = Visibility.Collapsed;
-            IdPath = GetIdPath();
-
+            WPFDoEvents.SafeExec(() =>
+            {
+                has_been_force_closed_by_user = true;
+                Visibility = Visibility.Collapsed;
+                IdPath = GetIdPath();
+            });
         }
 
         [Bindable(true)]
@@ -141,8 +146,11 @@ namespace Utilities.GUI
 
         private void AugmentedClosableBorder_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Logging.Debug("not implemented");
-            IdPath = GetIdPath();
+            WPFDoEvents.SafeExec(() =>
+            {
+                Logging.Debug("not implemented");
+                IdPath = GetIdPath();
+            });
         }
 
         private void AugmentedClosableBorder_Initialized(object sender, System.EventArgs e)
@@ -154,14 +162,17 @@ namespace Utilities.GUI
 
         private void AugmentedClosableBorder_Loaded(object sender, RoutedEventArgs e)
         {
-            Logging.Debug("not implemented");
-
-            if (string.IsNullOrEmpty(Name))
+            WPFDoEvents.SafeExec(() =>
             {
-                throw new System.Exception("Every AugmentedClosableBorder UI element MUST have a Name.");
-            }
+                Logging.Debug("not implemented");
 
-            IdPath = GetIdPath();
+                if (string.IsNullOrEmpty(Name))
+                {
+                    throw new System.Exception("Every AugmentedClosableBorder UI element MUST have a Name.");
+                }
+
+                IdPath = GetIdPath();
+            });
         }
 
         private void AugmentedClosableBorder_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)

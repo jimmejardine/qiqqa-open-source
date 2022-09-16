@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.Brainstorm.Nodes;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.Brainstorm.SceneManager
@@ -23,8 +24,11 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ObjSceneRenderingControl_ScrollInfoChanged()
         {
-            DoHorizontal();
-            DoVertical();
+            WPFDoEvents.SafeExec(() =>
+            {
+                DoHorizontal();
+                DoVertical();
+            });
         }
 
         private bool horizonal_changing = false;
@@ -44,7 +48,6 @@ namespace Qiqqa.Brainstorm.SceneManager
             double mid = (ObjSceneRenderingControl.current_viewport_topleft.X + ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale / 2);
             double visible = ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale;
 
-#if DEBUG
             // Are we looking at this dialog in the Visual Studio Designer?
             if (Runtime.IsRunningInVisualStudioDesigner && 0 == ObjSceneRenderingControl.NodeControls.Count && Double.IsNaN(mid))
             {
@@ -53,7 +56,6 @@ namespace Qiqqa.Brainstorm.SceneManager
                 mid = 2500;
                 visible = 225;
             }
-#endif
 
             horizonal_changing = true;
             ScrollHorizonal.Minimum = min;
@@ -77,7 +79,6 @@ namespace Qiqqa.Brainstorm.SceneManager
             double mid = (ObjSceneRenderingControl.current_viewport_topleft.Y + ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale / 2);
             double visible = ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale;
 
-#if DEBUG
             // Are we looking at this dialog in the Visual Studio Designer?
             if (Runtime.IsRunningInVisualStudioDesigner && 0 == ObjSceneRenderingControl.NodeControls.Count && Double.IsNaN(mid))
             {
@@ -86,7 +87,6 @@ namespace Qiqqa.Brainstorm.SceneManager
                 mid = 2500;
                 visible = 225;
             }
-#endif
 
             vertical_changing = true;
             ScrollVertical.Minimum = min;
@@ -98,20 +98,26 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ScrollHorizonal_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (!horizonal_changing)
+            WPFDoEvents.SafeExec(() =>
             {
-                ObjSceneRenderingControl.current_viewport_topleft.X = e.NewValue - ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale / 2;
-                ObjSceneRenderingControl.ViewportHasChanged();
-            }
+                if (!horizonal_changing)
+                {
+                    ObjSceneRenderingControl.current_viewport_topleft.X = e.NewValue - ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale / 2;
+                    ObjSceneRenderingControl.ViewportHasChanged();
+                }
+            });
         }
 
         private void ScrollVertical_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (!vertical_changing)
+            WPFDoEvents.SafeExec(() =>
             {
-                ObjSceneRenderingControl.current_viewport_topleft.Y = e.NewValue - ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale / 2;
-                ObjSceneRenderingControl.ViewportHasChanged();
-            }
+                if (!vertical_changing)
+                {
+                    ObjSceneRenderingControl.current_viewport_topleft.Y = e.NewValue - ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale / 2;
+                    ObjSceneRenderingControl.ViewportHasChanged();
+                }
+            });
         }
     }
 }

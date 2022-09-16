@@ -17,6 +17,10 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Mathematics.Topics.LDAStuff;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Expedition
 {
@@ -88,13 +92,12 @@ namespace Qiqqa.Expedition
 
         private void ButtonExportTopics_Click(object sender, RoutedEventArgs e)
         {
-            if (null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
-            {
-                ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
-                LDAAnalysis lda_analysis = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis;
+            ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
 
+            if (null != eds)
+            {
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS; ++i)
+                for (int i = 0; i < eds.LDAAnalysis.NUM_TOPICS; ++i)
                 {
                     string topic_description = eds.GetDescriptionForTopic(i);
                     sb.AppendFormat("{1}\r\n", i, topic_description);
@@ -114,7 +117,7 @@ namespace Qiqqa.Expedition
         {
             if (null != web_library_detail)
             {
-                SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.AITagManager.Regenerate());
+                SafeThreadPool.QueueUserWorkItem(() => web_library_detail.Xlibrary.AITagManager.Regenerate());
             }
             else
             {
@@ -180,13 +183,15 @@ namespace Qiqqa.Expedition
             {
                 TextLibraryForExpedition.Text = web_library_detail.Title;
 
-                int suggested_theme_count = web_library_detail.Xlibrary.ExpeditionManager.RecommendedThemeCount;
-                TextExpeditionNumThemes.Text = "" + suggested_theme_count;
-                TextExpeditionNumThemes.ToolTip = "How many themes do you want in this Expedition?\n(" + suggested_theme_count + " suggested)";
+                int suggested_theme_count = web_library_detail.Xlibrary?.ExpeditionManager?.RecommendedThemeCount ?? 0;
+                TextExpeditionNumThemes.Text = $"{suggested_theme_count}";
+                TextExpeditionNumThemes.ToolTip = $"How many themes do you want in this Expedition?\n({ suggested_theme_count } suggested)";
 
-                if (null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
+                ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+
+                if (null != eds)
                 {
-                    for (int i = 0; i < web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.LDAAnalysis.NUM_TOPICS; ++i)
+                    for (int i = 0; i < eds.LDAAnalysis.NUM_TOPICS; ++i)
                     {
                         TopicOverviewControl.TopicOverviewData tod = new TopicOverviewControl.TopicOverviewData
                         {
@@ -206,12 +211,18 @@ namespace Qiqqa.Expedition
 
         private void toc_PDFDocumentSelected(PDFDocument pdf_document)
         {
-            ChooseNewPDFDocument(pdf_document);
+            WPFDoEvents.SafeExec(() =>
+            {
+                ChooseNewPDFDocument(pdf_document);
+            });
         }
 
         private void ObjDocumentOverviewControl_PDFDocumentSelected(PDFDocument pdf_document)
         {
-            ChooseNewPDFDocument(pdf_document);
+            WPFDoEvents.SafeExec(() =>
+            {
+                ChooseNewPDFDocument(pdf_document);
+            });
         }
 
         public void ChooseNewPDFDocument(PDFDocument pdf_document)
@@ -231,7 +242,7 @@ namespace Qiqqa.Expedition
             int num_topics = Convert.ToInt32(TextExpeditionNumThemes.Text);
             bool add_autotags = ObjAddAutoTags.IsChecked ?? true;
             bool add_tags = ObjAddTags.IsChecked ?? true;
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 web_library_detail.Xlibrary.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete);
             });
@@ -253,7 +264,7 @@ namespace Qiqqa.Expedition
 
         private void VoteDown_Click(object sender, RoutedEventArgs e)
         {
-            if (null != web_library_detail.Xlibrary.ExpeditionManager && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs)
+            if (null != web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource?.docs)
             {
                 FeatureTrackingManager.Instance.UseFeature(
                     Features.Vote_Expedition,
@@ -277,7 +288,7 @@ namespace Qiqqa.Expedition
 
         private void VoteUp_Click(object sender, RoutedEventArgs e)
         {
-            if (null != web_library_detail.Xlibrary.ExpeditionManager && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource && null != web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource.docs)
+            if (null != web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource?.docs)
             {
                 FeatureTrackingManager.Instance.UseFeature(
                     Features.Vote_Expedition,

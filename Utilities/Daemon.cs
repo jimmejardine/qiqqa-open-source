@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Utilities.Shutdownable;
 
 namespace Utilities
@@ -103,6 +104,8 @@ namespace Utilities
             {
                 int sleep_time = Math.Min(timeout_milliseconds_remaining, 500);
                 timeout_milliseconds_remaining -= sleep_time;
+                // https://stackoverflow.com/questions/15522900/how-to-safely-call-an-async-method-in-c-sharp-without-await
+                //_ = Task.Delay(sleep_time);
                 Thread.Sleep(sleep_time);
             }
         }

@@ -30,6 +30,7 @@ namespace Utilities.Shutdownable
             }
         }
 
+        private bool console_application_ignores_auto_app_shut_downdetection = false;
         private bool is_being_shut_down = false;
         private object is_being_shut_down_lock = new object();
 
@@ -45,13 +46,12 @@ namespace Utilities.Shutdownable
                     //{
                     //	Logging.Error(new Exception("Unexpected results"), "woops");
                     //}
-
                     bool app_shuts_down = (null == Application.Current
                         || null == Application.Current.Dispatcher
                         || Application.Current.Dispatcher.HasShutdownStarted
                         || Application.Current.Dispatcher.HasShutdownFinished);
 
-                    return is_being_shut_down || app_shuts_down;
+                    return is_being_shut_down || (app_shuts_down && !console_application_ignores_auto_app_shut_downdetection);
                 }
             }
             set
@@ -65,9 +65,41 @@ namespace Utilities.Shutdownable
             }
         }
 
-        public void Shutdown()
+        public bool ConsoleApplicationIgnoresAutoAppShutdownDetection
         {
-            Logging.Info("ShutdownableManager is shutting down all shutdownables:");
+            get
+            {
+                lock (is_being_shut_down_lock)
+                {
+                    return console_application_ignores_auto_app_shut_downdetection;
+                }
+            }
+            set
+            {
+                lock (is_being_shut_down_lock)
+                {
+                    console_application_ignores_auto_app_shut_downdetection = value;
+                }
+            }
+        }
+
+        static private string first_known_shutdown_reason = null;
+        static private object first_known_shutdown_reason_lock = new object();
+
+        public void Shutdown(string reason)
+        {
+            lock (first_known_shutdown_reason_lock)
+            {
+                if (first_known_shutdown_reason == null)
+                {
+                    first_known_shutdown_reason = reason;
+                }
+                else
+                {
+                    reason = $"{first_known_shutdown_reason}\n    Subsequent shutdown reason: {reason}";
+                }
+            }
+            Logging.Info($"ShutdownableManager is shutting down all shutdownables. Reason: {reason}");
 
             IsShuttingDown = true;
 
@@ -79,8 +111,10 @@ namespace Utilities.Shutdownable
                 {
                     // l1_clk.LockPerfTimerStop();
                     if (!shutdown_delegates.Any()) break;
-                    shutdown_delegate = shutdown_delegates[0];
-                    shutdown_delegates.RemoveAt(0);
+                    // process Shutdown registered items in LIFO order: shutdown in reverse of init sequence!
+                    int idx = shutdown_delegates.Count - 1;
+                    shutdown_delegate = shutdown_delegates[idx];
+                    shutdown_delegates.RemoveAt(idx);
                 }
 
                 try

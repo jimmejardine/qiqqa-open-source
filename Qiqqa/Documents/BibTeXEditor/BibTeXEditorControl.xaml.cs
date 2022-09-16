@@ -62,6 +62,9 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             SizeChanged += BibTeXEditorControl_SizeChanged;
 
+            //Unloaded += BibTeXEditorControl_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
             // The error panel
             //ObjErrorPanel.Background = ThemeColours.Background_Brush_Warning;
             //ObjErrorPanel.Opacity = .3;
@@ -107,50 +110,63 @@ namespace Qiqqa.Documents.BibTeXEditor
             RebuidTextAndGrid();
         }
 
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
+        }
+
+        private void BibTeXEditorControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
+        }
+
         private void BibTeXEditorControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double table_height1 = ObjGridPanel.ActualHeight;
-            //double table_height2 = ObjHeaderGrid.ActualHeight;
-            //double table_height3 = ObjBibTeXGrid.ActualHeight;
-
-            //double rawtxt_height1 = ObjTextPanel.ActualHeight;
-            //double rawtxt_height2 = ObjBibTeXTextScrollViewer.ActualHeight;
-            //double rawtxt_height3 = ObjBibTeXText.ActualHeight;
-
-            //double errtxt_height1 = ObjErrorPanel.ActualHeight;
-            //double errtxt_height2 = ObjBibTeXErrorScrollViewer.ActualHeight;
-            //double errtxt_height3 = ObjBibTeXErrorText.ActualHeight;
-
-            const double THRESHOLD = 100;
-
-            if (table_height1 > THRESHOLD)
+            WPFDoEvents.SafeExec(() =>
             {
-                double maxh1 = ObjBibTeXTextScrollViewer.MaxHeight;
-                double maxh2 = ObjBibTeXErrorScrollViewer.MaxHeight;
+                double table_height1 = ObjGridPanel.ActualHeight;
+                //double table_height2 = ObjHeaderGrid.ActualHeight;
+                //double table_height3 = ObjBibTeXGrid.ActualHeight;
 
-                // tweak the control so the Parsed View gives us the master MaxHeight:
-                ObjBibTeXTextScrollViewer.MaxHeight = THRESHOLD;
-                ObjBibTeXErrorScrollViewer.MaxHeight = THRESHOLD;
-                UpdateLayout();
+                //double rawtxt_height1 = ObjTextPanel.ActualHeight;
+                //double rawtxt_height2 = ObjBibTeXTextScrollViewer.ActualHeight;
+                //double rawtxt_height3 = ObjBibTeXText.ActualHeight;
 
-                table_height1 = ObjGridPanel.ActualHeight;
+                //double errtxt_height1 = ObjErrorPanel.ActualHeight;
+                //double errtxt_height2 = ObjBibTeXErrorScrollViewer.ActualHeight;
+                //double errtxt_height3 = ObjBibTeXErrorText.ActualHeight;
+
+                const double THRESHOLD = 100;
 
                 if (table_height1 > THRESHOLD)
                 {
-                    ObjBibTeXTextScrollViewer.MaxHeight = table_height1;
-                    ObjBibTeXErrorScrollViewer.MaxHeight = table_height1;
-                }
-                else
-                {
-                    ObjBibTeXTextScrollViewer.MaxHeight = double.PositiveInfinity;
-                    ObjBibTeXErrorScrollViewer.MaxHeight = double.PositiveInfinity;
-                }
+                    double maxh1 = ObjBibTeXTextScrollViewer.MaxHeight;
+                    double maxh2 = ObjBibTeXErrorScrollViewer.MaxHeight;
 
-                if (Math.Abs(maxh1 - ObjBibTeXTextScrollViewer.MaxHeight) > 0.25)
-                {
+                    // tweak the control so the Parsed View gives us the master MaxHeight:
+                    ObjBibTeXTextScrollViewer.MaxHeight = THRESHOLD;
+                    ObjBibTeXErrorScrollViewer.MaxHeight = THRESHOLD;
                     UpdateLayout();
+
+                    table_height1 = ObjGridPanel.ActualHeight;
+
+                    if (table_height1 > THRESHOLD)
+                    {
+                        ObjBibTeXTextScrollViewer.MaxHeight = table_height1;
+                        ObjBibTeXErrorScrollViewer.MaxHeight = table_height1;
+                    }
+                    else
+                    {
+                        ObjBibTeXTextScrollViewer.MaxHeight = double.PositiveInfinity;
+                        ObjBibTeXErrorScrollViewer.MaxHeight = double.PositiveInfinity;
+                    }
+
+                    if (Math.Abs(maxh1 - ObjBibTeXTextScrollViewer.MaxHeight) > 0.25)
+                    {
+                        UpdateLayout();
+                    }
                 }
-            }
+            });
         }
 
         public void RegisterOverlayButtons(FrameworkElement BibTeXParseErrorButton, FrameworkElement BibTeXModeToggleButton, FrameworkElement BibTeXUndoEditButton, double IconHeight = double.NaN)
@@ -180,7 +196,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXParseErrorButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXParseError2);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
             }
 
@@ -202,7 +218,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXModeToggleButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
                 BibTeXModeToggleButton.Cursor = Cursors.Hand;
 #if false
@@ -230,7 +246,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXUndoEditButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.Previous2);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
             }
         }
@@ -286,7 +302,10 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void OnBibTeXPropertyChanged(object sender, EventArgs e)
         {
-            RebuidTextAndGrid();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RebuidTextAndGrid();
+            });
         }
 
         public bool ForceHideNoBibTeXInstructions { get; set; }
@@ -353,27 +372,39 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void ObjBibTeXText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateFromText();
+            WPFDoEvents.SafeExec(() =>
+            {
+                UpdateFromText();
+            });
         }
 
         private void ComboRecordType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (0 < e.AddedItems.Count)
+            WPFDoEvents.SafeExec(() =>
             {
-                ComboRecordType.Text = e.AddedItems[0].ToString();
-            }
+                if (0 < e.AddedItems.Count)
+                {
+                    ComboRecordType.Text = e.AddedItems[0].ToString();
+                }
 
-            UpdateFromGrid(true);
+                UpdateFromGrid(true);
+            });
         }
 
         private void ComboRecordType_KeyUp(object sender, KeyEventArgs e)
         {
-            UpdateFromGrid(true);
+            WPFDoEvents.SafeExec(() =>
+            {
+                UpdateFromGrid(true);
+            });
         }
 
         private void OnGridTextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateFromGrid(false);
+            WPFDoEvents.SafeExec(() =>
+            {
+                UpdateFromGrid(false);
+            });
         }
 
         // ------------------------------------------
@@ -382,16 +413,19 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void tb_key_TextChanged(object sender, RoutedEventArgs e)
         {
-            // Sigh - this crappy control seems to set a text change just once after initialisation - even if we don't change the text.
-            AutoCompleteBox sender_ac = (AutoCompleteBox)sender;
-            if (first_text_change_suppression_set.Contains(sender_ac))
+            WPFDoEvents.SafeExec(() =>
             {
-                first_text_change_suppression_set.Remove(sender_ac);
-            }
-            else
-            {
-                UpdateFromGrid(false);
-            }
+                // Sigh - this crappy control seems to set a text change just once after initialisation - even if we don't change the text.
+                AutoCompleteBox sender_ac = (AutoCompleteBox)sender;
+                if (first_text_change_suppression_set.Contains(sender_ac))
+                {
+                    first_text_change_suppression_set.Remove(sender_ac);
+                }
+                else
+                {
+                    UpdateFromGrid(false);
+                }
+            });
         }
 
         private void UpdateFromText()
@@ -632,12 +666,15 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void tb_value_KeyDown(object sender, KeyEventArgs e)
         {
-            if (KeyboardTools.IsCTRLDown() && Key.OemSemicolon == e.Key)
+            WPFDoEvents.SafeExec(() =>
             {
-                TextBox tb = (TextBox)sender;
-                tb.Text = DateTime.Now.ToString("d MMM yyyy");
-                e.Handled = true;
-            }
+                if (KeyboardTools.IsCTRLDown() && Key.OemSemicolon == e.Key)
+                {
+                    TextBox tb = (TextBox)sender;
+                    tb.Text = DateTime.Now.ToString("d MMM yyyy");
+                    e.Handled = true;
+                }
+            });
         }
 
         #region --- Test ------------------------------------------------------------------------
@@ -676,62 +713,67 @@ namespace Qiqqa.Documents.BibTeXEditor
         {
             Logging.Debug("BibTeXEditorControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
-                BindingOperations.ClearBinding(this, BibTeXProperty);
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Get rid of managed resources / get rid of cyclic references:
-                if (null != wdpcn)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    wdpcn.ValueChanged -= OnBibTeXPropertyChanged;
-                }
-            }, must_exec_in_UI_thread: true);
+                    // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                    BindingOperations.ClearBinding(this, BibTeXProperty);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
-                BibTeXParseErrorButtonRef?.SetTarget(null);
-                BibTeXModeToggleButtonRef?.SetTarget(null);
-                BibTeXUndoEditButtonRef?.SetTarget(null);
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    if (null != wdpcn)
+                    {
+                        wdpcn.ValueChanged -= OnBibTeXPropertyChanged;
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                bindable = null;
-                // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
+                    BibTeXParseErrorButtonRef?.SetTarget(null);
+                    BibTeXModeToggleButtonRef?.SetTarget(null);
+                    BibTeXUndoEditButtonRef?.SetTarget(null);
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    bindable = null;
+                    // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    wdpcn?.Dispose();
+                    wdpcn = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
+                    TxtRecordKey.TextChanged -= OnGridTextChanged;
+                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
+
+                    ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;
+                    ComboRecordType.KeyUp -= ComboRecordType_KeyUp;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    BibTeXParseErrorButtonRef = null;
+                    BibTeXModeToggleButtonRef = null;
+                    BibTeXUndoEditButtonRef = null;
+
+                    wdpcn = null;
+                    bindable = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Get rid of managed resources / get rid of cyclic references:
-                wdpcn?.Dispose();
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
-                TxtRecordKey.TextChanged -= OnGridTextChanged;
-
-                ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;
-                ComboRecordType.KeyUp -= ComboRecordType_KeyUp;
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                BibTeXParseErrorButtonRef = null;
-                BibTeXModeToggleButtonRef = null;
-                BibTeXUndoEditButtonRef = null;
-
-                wdpcn = null;
-                bindable = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion

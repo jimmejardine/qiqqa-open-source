@@ -62,7 +62,7 @@
                         <Paragraph>
                             Click the button below to force OCR and Indexing of your Library.  Then wait till all indexing activity has subsided.
                             <LineBreak/>
-                            <local_gui:AugmentedButton Name="CmdOCRAndIndex" MinHeight="20" />
+                            <local_gui:AugmentedButton Name="CmdOCRAndIndex" MinHeight="20" Margin="0,3,0,0" />
                         </Paragraph>
                         <Paragraph>
                             <Bold>
@@ -72,7 +72,7 @@
                         <Paragraph>
                             Click the button below to discover all cross-references.  Then wait till all activity has subsided.
                             <LineBreak/>
-                            <local_gui:AugmentedButton Name="CmdCrossReference" MinHeight="20" />
+                            <local_gui:AugmentedButton Name="CmdCrossReference" MinHeight="20" Margin="0,3,0,0" />
                         </Paragraph>
                         <Paragraph>
                             <Bold>
@@ -82,7 +82,7 @@
                         <Paragraph>
                             Click the button below to generate the AutoTags for this Library.  Then wait till all activity has subsided.
                             <LineBreak/>
-                            <local_gui:AugmentedButton Name="CmdAutoTags" MinHeight="20" />
+                            <local_gui:AugmentedButton Name="CmdAutoTags" MinHeight="20" Margin="0,3,0,0" />
                         </Paragraph>
                         <Paragraph>
                             <Bold>
@@ -92,7 +92,7 @@
                         <Paragraph>
                             Click the button below to find all the Themes in this Library.  Then wait till all activity has subsided.
                             <LineBreak/>
-                            <local_gui:AugmentedButton Name="CmdThemes" MinHeight="20" />
+                            <local_gui:AugmentedButton Name="CmdThemes" MinHeight="20" Margin="0,3,0,0" />
                         </Paragraph>
                     </commongui:StandardFlowDocument>
                 </FlowDocumentScrollViewer>
@@ -101,61 +101,44 @@
             <local_gui:AugmentedBorder Grid.Column="2">
                 <ScrollViewer>
                     <StackPanel >
-                        <TextBlock FontWeight="Bold">
+                        <TextBlock FontWeight="Bold" Margin="3,3,3,9">
                             Bundle Details
                         </TextBlock>
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Bundle Id
                         </TextBlock>
                         <TextBox IsEnabled="False" Text="{Binding Id}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3,6,3,3" >
                             Bundle Version
                         </TextBlock>
                         <TextBox IsEnabled="False" Text="{Binding Version}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3,6,3,3" >
                             Bundle Library Title
                         </TextBlock>
                         <TextBox Text="{Binding Title}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Bundle Library Description
                         </TextBlock>
                         <TextBox Text="{Binding Description}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3,6,3,3" >
                             Bundle Library Comments
                         </TextBlock>
                         <TextBox Text="{Binding Comments}" Height="50" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock FontWeight="Bold">
+                        <TextBlock FontWeight="Bold" Margin="0,20,0,9" >
                             Bundle Hosting Details
                         </TextBlock>
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Base URL where Bundle will be hosted (e.g. http://www.xyz.com/BundleA)
                         </TextBlock>
                         <TextBox Text="{Binding BaseUrl}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3,6,3,3" >
                             Bundle support email address
                         </TextBlock>
                         <TextBox Text="{Binding SupportEmail}" />
-                        <local_gui:AugmentedSpacer />
-                        <CheckBox IsChecked="{Binding IncludesPDFs}">
+                        <CheckBox IsChecked="{Binding IncludesPDFs}" Margin="3,6,3,3" >
                             Include PDFs in Bundle?
                         </CheckBox>
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedButton Name="CmdCreateBundle" MinHeight="20" />
+                        <local_gui:AugmentedButton Name="CmdCreateBundle" MinHeight="20"  Margin="3,20,3,3" />
                     </StackPanel>
                 </ScrollViewer>
             </local_gui:AugmentedBorder>

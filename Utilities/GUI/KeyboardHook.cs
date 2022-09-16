@@ -32,7 +32,6 @@ namespace Utilities.GUI
 
         protected override int HookCallbackProcedure(int nCode, int wParam, IntPtr lParam)
         {
-
             bool handled = false;
 
             if (nCode > -1 && (KeyDown != null || KeyUp != null || KeyPress != null))

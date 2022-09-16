@@ -192,7 +192,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             try
             {
                 //if (pdf_document.DocumentExists) -- already tested in collection loop above
-                pdf_document.PDFRenderer.GetOCRText(1);
+                pdf_document.GetOCRText(1);
             }
             catch (Exception ex)
             {

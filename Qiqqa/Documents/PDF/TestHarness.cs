@@ -17,7 +17,7 @@
             Library library = Library.GuestInstance;
             Thread.Sleep(1000);
 
-            while (!library.LibraryIsLoaded)
+            while (!WebLibraryDetail.LibraryIsLoaded(library))
             {
                 Logging.Info("Waiting for library");
                 Thread.Sleep(100);

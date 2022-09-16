@@ -38,6 +38,32 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ImageClear.Cursor = Cursors.Hand;
             ImageClear.VerticalAlignment = VerticalAlignment.Center;
             ImageClear.ToolTip = "Click here to remove this tag from the document.";
+
+            //Unloaded += DocumentMetadataTagControl_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, System.EventArgs e)
+        {
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
+        }
+
+        private void DocumentMetadataTagControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
+        }
+        private void CleanUp()
+        { 
+            pdf_document = null;
+            tag = null;
+
+            Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
 
         private void ImageClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

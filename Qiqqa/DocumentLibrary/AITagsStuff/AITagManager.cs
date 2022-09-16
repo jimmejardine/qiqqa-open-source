@@ -20,6 +20,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.AITagsStuff
 {
+    // Generates and manages (load/save) AutoTags for all documents in the library.
     public class AITagManager
     {
         private TypedWeakReference<WebLibraryDetail> web_library_detail;
@@ -78,13 +79,13 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
             try
             {
-                Logging.Info("+AITagManager is starting regenerating");
+                Logging.Info("+AITagManager is starting regenerating AutoTags");
 
                 StatusManager.Instance.UpdateStatus("AITags", "Loading documents");
                 List<PDFDocument> pdf_documents = LibraryRef.Xlibrary.PDFDocuments;
 
                 int count_title_by_user = 0;
-                int could_title_by_suggest = 0;
+                int count_title_by_suggest = 0;
                 StatusManager.Instance.UpdateStatus("AITags", "Deciding whether to use suggested titles");
                 foreach (PDFDocument pdf_document in pdf_documents)
                 {
@@ -94,11 +95,12 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                     }
                     else
                     {
-                        ++could_title_by_suggest;
+                        ++count_title_by_suggest;
                     }
                 }
 
-                bool use_suggested_titles = could_title_by_suggest > count_title_by_user;
+                bool use_suggested_titles = count_title_by_suggest > count_title_by_user;
+                Logging.Info($"+AITagManager: decision whether to use suggested titles: {use_suggested_titles}, based on auto-suggested title count {count_title_by_suggest} vs. user title count {count_title_by_user}");
 
                 StatusManager.Instance.UpdateStatus("AITags", "Scanning titles");
                 List<string> titles = new List<string>();
@@ -140,12 +142,12 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 }
 
                 // Generate them
-                CountingDictionary<NGram> ai_tags = BuzzwordGenerator.GenerateBuzzwords(titles, words_blacklist, words_whitelist, true);
+                CountingDictionary<NGram> ai_tags = BuzzwordGenerator.GenerateBuzzwords(titles, words_blacklist, words_whitelist, perform_scrabble_filtration: true);
                 Logging.Info("Generated {0} autotags", ai_tags.Count);
                 if (ai_tags.Count < 20)
                 {
                     Logging.Warn("There are too few autotags (only {0}), so not suppressing Scrabble words...", ai_tags.Count);
-                    ai_tags = BuzzwordGenerator.GenerateBuzzwords(titles, words_blacklist, words_whitelist, false);
+                    ai_tags = BuzzwordGenerator.GenerateBuzzwords(titles, words_blacklist, words_whitelist, perform_scrabble_filtration: false);
                     Logging.Info("Generated {0} autotags without Scrabble suppression", ai_tags.Count);
                 }
 
@@ -233,7 +235,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                                                 }
 
                                                 int page = page_result.page;
-                                                WordList page_word_list = pdf_document.PDFRenderer.GetOCRText(page);
+                                                WordList page_word_list = pdf_document.GetOCRText(page);
                                                 if (null != page_word_list)
                                                 {
                                                     foreach (Word word in page_word_list)
@@ -297,7 +299,7 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                 }
                 Library.IsBusyRegeneratingTags = false;
 
-                Logging.Info("-AITagManager is finished regenerating (time spent: {0} ms)", clk.ElapsedMilliseconds);
+                Logging.Info("-AITagManager is finished regenerating AutoTags (time spent: {0} ms)", clk.ElapsedMilliseconds);
             }
 
             // Call any callback that might be interested

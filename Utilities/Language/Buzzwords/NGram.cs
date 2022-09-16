@@ -26,7 +26,7 @@ namespace Utilities.Language.Buzzwords
         }
 
         /// <summary>
-        /// Overridden so that NGram behaves just just its underlying text string in dictionaries
+        /// Overridden so that NGram behaves just like its underlying text string in dictionaries
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
@@ -35,7 +35,7 @@ namespace Utilities.Language.Buzzwords
         }
 
         /// <summary>
-        /// Overridden so that NGram behaves just just its underlying text string in dictionaries
+        /// Overridden so that NGram behaves just like its underlying text string in dictionaries
         /// </summary>
         /// <returns></returns>
         public override bool Equals(object obj)

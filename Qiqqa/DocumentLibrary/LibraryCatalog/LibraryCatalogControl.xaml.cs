@@ -4,12 +4,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Qiqqa.Common;
 using Qiqqa.DocumentLibrary.LibraryFilter;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
+using Utilities.Misc;
 using Utilities.Reflection;
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
@@ -36,14 +38,45 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ListPDFDocuments.MouseDoubleClick += ListPDFDocuments_MouseDoubleClick;
             ListPDFDocuments.IsVisibleChanged += ListPDFDocuments_IsVisibleChanged;
             ReconsiderPDFDocumentDetail();
+
+            if (Runtime.IsRunningInVisualStudioDesigner)
+            {
+                //DataContext = dummy;
+            }
+
+            //  DispatcherTimer setup
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += WeakEventHandler2.Wrap(dispatcherTimer_Tick, (eh) =>
+            {
+                dispatcherTimer.Tick -= eh;
+            });
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(Constants.UI_REFRESH_POLLING_INTERVAL);
+            dispatcherTimer.Start();
+        }
+
+        private long library_change_marker_tick = 0;
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (null != web_library_detail)
+            {
+                PDFDocument pdf_document = null;
+                if (web_library_detail.Xlibrary?.CheckIfDocumentsHaveChanged(ref library_change_marker_tick, ref pdf_document) ?? false)
+                {
+                    library_OnDocumentsChanged();
+                }
+            }
         }
 
         private void ListPDFDocuments_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (ListPDFDocuments.IsVisible)
+            WPFDoEvents.SafeExec(() =>
             {
-                ListPDFDocuments.UpdateLayout();
-            }
+                if (ListPDFDocuments.IsVisible)
+                {
+                    ListPDFDocuments.UpdateLayout();
+                }
+            });
         }
 
         internal void OnFilterChanged(LibraryFilterControl library_filter_control, List<PDFDocument> pdf_documents, Span descriptive_span, string filter_terms, Dictionary<string, double> search_scores, PDFDocument pdf_document_to_focus_on)
@@ -53,9 +86,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void ListPDFDocuments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ReconsiderPDFDocumentDetail();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReconsiderPDFDocumentDetail();
 
-            SelectionChanged?.Invoke(SelectedPDFDocuments);
+                SelectionChanged?.Invoke(SelectedPDFDocuments);
+            });
         }
 
         private void ReconsiderPDFDocumentDetail()
@@ -125,20 +161,66 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
                 drag_to_library_manager = new DragToLibraryManager(web_library_detail);
                 drag_to_library_manager.RegisterControl(this);
+                drag_to_library_manager.DefaultLibrary = web_library_detail;
             }
         }
 
-        public void SetPDFDocuments(IEnumerable<PDFDocument> pdf_documents, PDFDocument pdf_document_to_focus_on)
+        private void library_OnDocumentsChanged()
         {
-            SetPDFDocuments(pdf_documents, pdf_document_to_focus_on, null, null);
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                if (ListPDFDocuments.IsVisible)
+                {
+                    // WARNING:
+                    // note the comment in SetPDFDocuments(() below. Without that `SelectedIndex = null`
+                    // statement commented out, we wouldn't be able to still see the selected items here
+                    // via `ListPDFDocuments.SelectedIndex` as they would've been WIPED already!
+                    //
+                    // From a user perspective: adding any PDF document to a library would NUKE any pre-existing
+                    // selection.
+                    int selected_index = ListPDFDocuments.SelectedIndex;
+
+                    // see if user has several items checkbox-selected:
+                    var checklist = ListPDFDocuments.SelectedItems;
+                    if (checklist.Count > 0)
+                    {
+                        // delay the refresh until the user is done.
+                        //
+                        // Simple wait until the next poll event: we RESET our own tick tracker to ensure
+                        // the poll will catch the existing update once again.
+                        library_change_marker_tick = 0;
+                    }
+                    else
+                    {
+                        // TODO: consider https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/layout?redirectedfrom=MSDN&view=netframeworkdesktop-4.8
+                        //
+                        // For now, it works and has taken plenty hours to get it to this state. :-(
+                        //
+                        // This remark applies to all UpdateLayout() calls, by the way.
+                        ListPDFDocuments.UpdateLayout();
+
+                        ListPDFDocuments.SelectedIndex = selected_index;
+                        List<AugmentedBindable<PDFDocument>> lst = ListPDFDocuments.DataContext as List<AugmentedBindable<PDFDocument>>;
+                        if (selected_index >= 0 && selected_index < lst.Count)
+                        {
+                            ListPDFDocuments.ScrollIntoView(lst[selected_index]);
+                        }
+                    }
+                }
         }
 
-        public void SetPDFDocuments(IEnumerable<PDFDocument> pdf_documents, PDFDocument pdf_document_to_focus_on, string filter_terms, Dictionary<string, double> search_scores)
+        public void SetPDFDocuments(IEnumerable<PDFDocument> pdf_documents, PDFDocument pdf_document_to_focus_on = null, string filter_terms = null, Dictionary<string, double> search_scores = null)
         {
             this.filter_terms = filter_terms;
             this.search_scores = search_scores;
 
-            ListPDFDocuments.SelectedValue = null;
+            //ListPDFDocuments.SelectedValue = null;
+            // ^^^ this one would NUKE an existing list of selected documents due to OnNewDocument being fired in LibraryFilterControl resulting in this callstack:
+            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogControl.SetPDFDocuments() Line 213            at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryCatalog\LibraryCatalogControl.xaml.cs(213)
+            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogControl.OnFilterChanged() Line 59             at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryCatalog\LibraryCatalogControl.xaml.cs(59)
+            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl.ReviewParameters() Line 535             at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryFilter\LibraryFilterControl.xaml.cs(535)
+            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl.ReExecuteAllSearches() Line 198         at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryFilter\LibraryFilterControl.xaml.cs(198)
+            // Qiqqa.exe!Qiqqa.DocumentLibrary.LibraryFilter.LibraryFilterControl.Library_OnNewDocument.AnonymousMethod__0() Line 189 at W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\DocumentLibrary\LibraryFilter\LibraryFilterControl.xaml.cs(189)
 
             List<AugmentedBindable<PDFDocument>> pdf_documents_bindable = new List<AugmentedBindable<PDFDocument>>();
             foreach (PDFDocument pdf_document in pdf_documents)
@@ -286,7 +368,7 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
         public static void TestHarness()
         {
             Library library = Library.GuestInstance;
-            while (!library.LibraryIsLoaded)
+            while (!WebLibraryDetail.LibraryIsLoaded(library))
             {
                 Thread.Sleep(1000);
             }

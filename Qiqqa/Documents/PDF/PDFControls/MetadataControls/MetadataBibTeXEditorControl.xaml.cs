@@ -20,6 +20,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public MetadataBibTeXEditorControl()
         {
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             Title = "BibTeX Editor";

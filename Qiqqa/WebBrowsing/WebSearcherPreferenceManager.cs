@@ -24,12 +24,10 @@ namespace Qiqqa.WebBrowsing
             HashSet<string> preferences = new HashSet<string>();
 
             preferences.Add(WebSearchers.SCHOLAR_KEY);
-#if DEBUG
+
             // Are we looking at this dialog in the Visual Studio Designer?
             bool include_more = !Utilities.Misc.Runtime.IsRunningInVisualStudioDesigner;
-#else
-            const bool include_more = true;
-#endif
+
             if (include_more)
             {
                 preferences.Add(WebSearchers.PUBMED_KEY);
@@ -70,13 +68,8 @@ namespace Qiqqa.WebBrowsing
                 }
             }
 
-
-#if DEBUG
             // Are we looking at this dialog in the Visual Studio Designer?
             bool load_from_file = !Utilities.Misc.Runtime.IsRunningInVisualStudioDesigner;
-#else
-            const bool load_from_file = true;
-#endif
 
             // If they have a preferences file
             if (load_from_file && File.Exists(PREFERENCES_FILENAME))
@@ -112,11 +105,9 @@ namespace Qiqqa.WebBrowsing
 
         public void SavePreferences(HashSet<string> preferences)
         {
-#if DEBUG
             // Are we looking at this dialog in the Visual Studio Designer?
             if (Utilities.Misc.Runtime.IsRunningInVisualStudioDesigner)
                 return;
-#endif
 
             using (StreamWriter sw = new StreamWriter(PREFERENCES_FILENAME))
             {

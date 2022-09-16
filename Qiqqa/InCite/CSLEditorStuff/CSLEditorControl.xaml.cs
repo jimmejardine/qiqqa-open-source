@@ -12,7 +12,9 @@ using Qiqqa.Common.Configuration;
 using Qiqqa.UtilisationTracking;
 using Utilities.BibTex.Parsing;
 using Utilities.Files;
+using Utilities.GUI;
 using Utilities.GUI.DualTabbedLayoutStuff;
+using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -153,6 +155,8 @@ namespace Qiqqa.InCite.CSLEditorStuff
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+
             OpenFileDialog open_file_dialog = new OpenFileDialog();
             open_file_dialog.AddExtension = true;
             open_file_dialog.CheckPathExists = true;
@@ -181,12 +185,18 @@ namespace Qiqqa.InCite.CSLEditorStuff
 
         private void ObjCSLEditor_TextChanged(object sender, EventArgs e)
         {
-            folding_strategy.UpdateFoldings(folding_manager, ObjCSLEditor.Document);
+            WPFDoEvents.SafeExec(() =>
+            {
+                folding_strategy.UpdateFoldings(folding_manager, ObjCSLEditor.Document);
+            });
         }
 
         private void ObjBibTexEditor_TextChanged(object sender, EventArgs e)
         {
-            RefreshJavaScriptEditor();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RefreshJavaScriptEditor();
+            });
         }
 
         private void RefreshJavaScriptEditor()

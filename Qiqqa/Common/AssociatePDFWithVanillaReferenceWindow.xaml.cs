@@ -8,6 +8,8 @@ using Qiqqa.Common.GUI;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.GeckoStuff;
+using Utilities.Misc;
+using Utilities.GUI;
 
 namespace Qiqqa.Common
 {
@@ -21,6 +23,8 @@ namespace Qiqqa.Common
         public AssociatePDFWithVanillaReferenceWindow(PDFDocument pdf_document)
         {
             this.pdf_document = pdf_document;
+
+            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
 
@@ -58,6 +62,8 @@ namespace Qiqqa.Common
 
         private void CmdLocal_Click(object sender, RoutedEventArgs e)
         {
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+
             OpenFileDialog open_file_dialog = new OpenFileDialog();
             open_file_dialog.CheckFileExists = true;
             open_file_dialog.Multiselect = false;

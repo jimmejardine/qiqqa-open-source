@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,16 +21,20 @@ namespace Utilities.GUI.Notifications
         {
             InitializeComponent();
 
-            RenderOptions.SetBitmapScalingMode(NotificationImage, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(NotificationImage, BitmapScalingMode.HighQuality);
 
             CloseButton.Source = Icons.GetAppIcon(Icons.NotificationBarClose);
 
             //  register for new events from the NotificationManager, don't bother deregistering since this will live for the life of the app
             NotificationManager.Instance.NewNotificationFired += Instance_NewNotificationFired;
+
+            // set up a fake binding for the time we don't have a real binding yet:
+            DataContext = new AugmentedBindable<NotificationManager.Notification>(new NotificationManager.Notification("", "", NotificationManager.NotificationType.Info, ""));
+            Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
-        /// Need to do this until can load the images from the xaml :(
+        /// Need to do this until we can load the images from the xaml :(
         /// </summary>
         public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(NotificationBar));
         public ImageSource ImageSource
@@ -40,11 +45,7 @@ namespace Utilities.GUI.Notifications
 
         private void DisplayNotification(NotificationManager.Notification notification)
         {
-            if (!CheckAccess())
-            {
-                WPFDoEvents.InvokeInUIThread(() => DisplayNotification(notification));
-                return;
-            }
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             ImageSource = string.IsNullOrEmpty(notification.ImageName) ? null : Icons.GetAppIcon(notification.ImageName);
             DataContext = new AugmentedBindable<NotificationManager.Notification>(notification);
@@ -56,7 +57,7 @@ namespace Utilities.GUI.Notifications
         /// </summary>
         private void Instance_NewNotificationFired(NotificationManager.Notification notification)
         {
-            DisplayNotification(notification);
+            WPFDoEvents.InvokeInUIThread(() => DisplayNotification(notification));
         }
 
         private void CloseButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -79,7 +80,14 @@ namespace Utilities.GUI.Notifications
                     return;
                 }
                 //  give this to the thread pool
-                SafeThreadPool.QueueUserWorkItem((WaitCallback)button.Tag);
+                var t = button.Tag;
+                var cb = t as WaitCallback;
+                var f = t as Action;
+                Debug.Assert(cb != null);
+                SafeThreadPool.QueueUserWorkItem(() =>
+                {
+                    cb(null);
+                });
             }
             catch (Exception ex)
             {

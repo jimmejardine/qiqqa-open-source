@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+#if !HAS_MUPDF_PAGE_RENDERER
 namespace Utilities.PDF.Sorax
 {
     internal class SoraxDLL
@@ -74,3 +75,4 @@ namespace Utilities.PDF.Sorax
         internal static extern bool DeleteDC(IntPtr HDC_HDC);
     }
 }
+#endif

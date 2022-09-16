@@ -9,6 +9,8 @@ using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
 
+// https://docs.microsoft.com/en-us/microsoft-edge/webview2/gettingstarted/wpf
+
 namespace Qiqqa.WebBrowsing
 {
     /// <summary>
@@ -24,67 +26,54 @@ namespace Qiqqa.WebBrowsing
 
             InitializeComponent();
 
-            ObjWebBrowser.CreateControl();
-            ObjWebBrowser.Navigating += ObjWebBrowser_Navigating;
-            ObjWebBrowser.DocumentCompleted += ObjWebBrowser_DocumentCompleted;
-            ObjWebBrowser.CreateWindow += ObjWebBrowser_CreateWindow;
-
-            // Seems to crash Qiqqa in Gecko v13 - perhaps the statuses are updating too quickly or in parallel?!
-            // Seems to work with gecko v21...
-            ObjWebBrowser.StatusTextChanged += ObjWebBrowser_StatusTextChanged;
         }
 
         private void ObjWebBrowser_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
         {
-            WebBrowserHostControl wbhc = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
-            WebBrowserControl wbc = wbhc.OpenNewWindow();
-            e.WebBrowser = wbc.ObjWebBrowser;
         }
 
         private void ObjWebBrowser_StatusTextChanged(object sender, EventArgs e)
         {
-            GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
-            StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
-            Logging.Info("Browser:StatusTextChanged: {0}", web_control.StatusText);
+            WPFDoEvents.SafeExec(() =>
+            {
+                GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
+                StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
+                Logging.Info("Browser:StatusTextChanged: {0}", web_control.StatusText);
+            });
         }
 
         private void ObjWebBrowser_Navigating(object sender, GeckoNavigatingEventArgs e)
         {
-            web_browser_host_control.ObjWebBrowser_Navigating(this, e.Uri);
+            WPFDoEvents.SafeExec(() =>
+            {
+                web_browser_host_control.ObjWebBrowser_Navigating(this, e.Uri);
+            });
         }
 
         private void ObjWebBrowser_DocumentCompleted(object sender, EventArgs e)
         {
-            GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
-            Logging.Info("Browser page contents received at url {0}", web_control.Url.ToString());
-            web_browser_host_control.ObjWebBrowser_LoadCompleted(this);
+            WPFDoEvents.SafeExec(() =>
+            {
+                GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
+                Logging.Info("Browser page contents received at url {0}", web_control.Url.ToString());
+                web_browser_host_control.ObjWebBrowser_LoadCompleted(this);
+            });
         }
 
         internal void GoForward()
         {
-            ObjWebBrowser.GoForward();
         }
 
         internal void GoBack()
         {
-            ObjWebBrowser.GoBack();
         }
 
         internal void Print()
         {
-            ObjWebBrowser.Navigate("javascript:print()");
         }
 
         internal void Refresh()
         {
-            try
-            {
-                ObjWebBrowser.Reload();
-            }
-            catch (Exception ex)
-            {
-                Logging.Warn(ex, "Problem refreshing web page");
-            }
         }
 
         internal void Navigate(String uri)
@@ -94,19 +83,6 @@ namespace Qiqqa.WebBrowsing
 
         internal void Navigate(Uri uri)
         {
-            try
-            {
-                // Clear out any pending uri
-                NavigateOnceVisibleUri = uri;
-
-                ObjWebBrowser.Navigate(uri?.ToString() ?? "");
-            }
-            catch (Exception ex)
-            {
-                string uristr = uri?.ToString() ?? "(???)";
-                Logging.Warn(ex, "Problem navigating to website {0}", uristr);
-                MessageBoxes.Error("There was a problem navigating to {0}.  Please try again after checking the web address.", uristr);
-            }
         }
 
         internal Uri NavigateOnceVisibleUri
@@ -124,13 +100,13 @@ namespace Qiqqa.WebBrowsing
             return uri;
         }
 
-        public string Title => ObjWebBrowser.DocumentTitle;
+        public string Title;
 
-        internal Uri CurrentUri => ObjWebBrowser.Url;
+        internal Uri CurrentUri;
 
-        public string PageText => ObjWebBrowser.Document.Body.TextContent;
+        public string PageText;
 
-        public string PageHTML => ObjWebBrowser.Document.GetElementsByTagName("html")[0].OuterHtml;
+        public string PageHTML;
 
         #region --- IDisposable ------------------------------------------------------------------------
 
@@ -152,59 +128,58 @@ namespace Qiqqa.WebBrowsing
         {
             Logging.Debug("WebBrowserControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // Prevent recursive run-away of the code via the chain:
-                //
-                // *** 	Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
-                // 	    Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
-                // ***  Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
-                //
-                // and prevent partial/broken cleanup due to chains like this one, resulting in
-                // a dispose_count == 2:
-                //
-                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
-                // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
-                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
-                // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
-                //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
-                // *    Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers)
-                //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers()
-                //
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources
-                    ObjWebBrowser?.Dispose();
-                    ObjWebBrowser = null;
-
-                    // Multiple WebBrowserControl instances MAY SHARE a single WebBrowserHostControl.
-                    // It is passed to this class/instance as a reference anyway, so we SHOULD NOT
-                    // kill/dispose it in here!
+                    // Prevent recursive run-away of the code via the chain:
                     //
-                    //web_browser_host_control.Dispose();
+                    // *** 	Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                    // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                    // 	    Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
+                    //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                    // ***  Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                    // **   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                    //
+                    // and prevent partial/broken cleanup due to chains like this one, resulting in
+                    // a dispose_count == 2:
+                    //
+                    // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                    // =2 * Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                    // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose(bool disposing)
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.Dispose()
+                    // =1   Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose(bool disposing)
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserControl.Dispose()
+                    //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.WantsClose(Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayoutItem item)
+                    //      Utilities.dll!Utilities.GUI.DualTabbedLayoutStuff.DualTabbedLayout.CloseContent(System.Windows.FrameworkElement fe)
+                    // *    Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.DeleteSearchers()
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.RebuildSearchers(System.Collections.Generic.HashSet<string> once_off_requested_web_searchers)
+                    //      Qiqqa.exe!Qiqqa.WebBrowsing.WebBrowserHostControl.ForceSnifferSearchers()
+                    //
+                    if (dispose_count == 0)
+                    {
+
+                        // Multiple WebBrowserControl instances MAY SHARE a single WebBrowserHostControl.
+                        // It is passed to this class/instance as a reference anyway, so we SHOULD NOT
+                        // kill/dispose it in here!
+                        //
+                        //web_browser_host_control.Dispose();
+                        web_browser_host_control = null;
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
                     web_browser_host_control = null;
-                }
-            });
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjWebBrowser = null;
-                web_browser_host_control = null;
+                ++dispose_count;
             });
-
-            ++dispose_count;
         }
 
         #endregion

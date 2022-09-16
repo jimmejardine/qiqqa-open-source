@@ -4,22 +4,19 @@
       xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
         xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     xmlns:tagedit="clr-namespace:Qiqqa.Common.TagManagement"
->
+x:Name="QuickAddTags"
+                          >
     <DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-        <DockPanel DockPanel.Dock="Bottom">
-            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" >
+        <DockPanel DockPanel.Dock="Bottom" Margin="3" >
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate"  Margin="3" >
                 Generate
             </local_gui:AugmentedButton>
-            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" >
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel"  Margin="3" >
                 Cancel
             </local_gui:AugmentedButton>
             <Grid/>
         </DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-        <Grid>
+        <Grid Margin="3" >
             <local_gui:AugmentedBorder Grid.Column="0">
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Auto">
                     <commongui:StandardFlowDocument>

@@ -22,7 +22,7 @@ namespace Qiqqa.DocumentLibrary.CrossLibrarySearchStuff
         {
             InitializeComponent();
 
-            RenderOptions.SetBitmapScalingMode(ObjImage, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ObjImage, BitmapScalingMode.HighQuality);
             ObjImage.Source = Icons.GetAppIcon(Icons.Search);
 
             SearchQuick.OnHardSearch += SearchQuick_OnHardSearch;

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
+using System.Runtime;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.BundleLibrary;
 using Qiqqa.DocumentLibrary.IntranetLibraryStuff;
@@ -42,20 +43,21 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             }
         }
 
-        public static void Init()
-        {
-            // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-            lock (instance_lock)
-            {
-                // l2_clk.LockPerfTimerStop();
+        // NOTE: we assume access to a bool is atomic: 
+        // write and read can occur simulataneously in multiple threads. 
+        // When it's not atomic, no harm done -- we wait until the bugger turns FALSE.
+        private volatile bool holdoffUntilKicked;        
 
-                if (__instance != null)
-                {
-                    throw new Exception("WebLibraryManager.Init() MUST be the first call to anything WebLibraryManager, before anything else done with/to that class/object!");
-                }
-                WebLibraryManager __unused_return_value__ = WebLibraryManager.Instance;
-                ASSERT.Test(__unused_return_value__ != null, "Internal error");
-            }
+        // Making sure the WebLibraryManager is alive and kicking, if it hasn't already been instantiated previously.
+        //
+        // IFF it has been instatiated *before*, that's not a problem, but *we* know there's a possibility the UPGRADE
+        // process is still running then, so we'll have to wait until all upgrade activities have completed before
+        // we kick off our own activities.
+        // That's what this `Kick()` API is good for: it's the signal to this WebLibraryManager that we're off to the races finally!
+        public void Kick()
+        {
+            // kick the instance off the waiting stand:
+            holdoffUntilKicked = false;
         }
 
         [Conditional("DEBUG")]
@@ -73,11 +75,26 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private WebLibraryManager()
         {
+            holdoffUntilKicked = true;
+
             // WARNING: this code is executed inside an Instance lock (lock_instance) and should therefor be both minimal and FAST:
             // hence we push all the work to be done onto a worker thread for processing at a later time.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueAsyncUserWorkItem(async () =>
             {
                 WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+                // Whoa! wait until we get *kicked*, for otherwise we MAY try to access libraries which are still
+                // in the process of being *upgraded* via DoUpgrade()!
+                Logging.Info("Waiting for the UPGRADE startup process to finish.");
+                while (holdoffUntilKicked)
+                {
+                    if (ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        return;
+                    }
+                    await Task.Delay(250);
+                }
+                Logging.Info("Done waiting for the UPGRADE startup process to finish: going to load the libraries...");
 
                 // Look for any web libraries that we know about
                 LoadKnownWebLibraries(KNOWN_WEB_LIBRARIES_FILENAME, only_load_those_libraries_which_are_actually_present: false);
@@ -98,6 +115,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
                 StatusManager.Instance.ClearStatus("LibraryInitialLoad");
 
+                // Fire the 'all done' event which signals the UI that the libraries have finally been loaded:
                 FireWebLibrariesChanged();
             });
         }
@@ -227,15 +245,24 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             {
                 WebLibraryDetail web_lib = pair.Value;
                 Library library = web_lib.Xlibrary;
-                ASSERT.Test(library == null);
-
-                if (ShutdownableManager.Instance.IsShuttingDown)
+                // only set up a Library instance when there isn't already one.
+                // `library` may already have been set up in a previous call to this API
+                // at application start; *this* call therefor MUST be due to the user
+                // CREATING or JOINING another Intranet Library then!
+                if (library == null)
                 {
-                    Logging.Info("InitAllLoadedLibraries: Breaking out of library loading loop due to application termination");
-                    break;
-                }
+                    if (ShutdownableManager.Instance.IsShuttingDown)
+                    {
+                        Logging.Info("InitAllLoadedLibraries: Breaking out of library loading loop due to application termination");
+                        break;
+                    }
 
-                library = web_lib.Xlibrary = new Library(web_lib);
+                    library = web_lib.Xlibrary = new Library(web_lib);
+                }
+                else
+                {
+                    Logging.Info($"InitAllLoadedLibraries: Initializing the local library for library Id: '{web_lib.Id}', Title: '{web_lib.Title}'");
+                }
                 library.BuildFromDocumentRepository(web_lib);
             }
         }
@@ -276,18 +303,20 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void ImportManualsIntoLocalGuestLibraryIfMissing()
         {
+            if (Runtime.IsRunningInVisualStudioDesigner) return;
+
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Import the Qiqqa manuals in the background, waiting until the library has loaded...
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueAsyncUserWorkItem(async () =>
             {
-                while (!guest_web_library_detail.Xlibrary.LibraryIsLoaded)
+                while (!WebLibraryDetail.LibraryIsLoaded(guest_web_library_detail))
                 {
                     if (ShutdownableManager.Instance.IsShuttingDown)
                     {
                         return;
                     }
-                    Thread.Sleep(500);
+                    await Task.Delay(500);
                 }
 
                 QiqqaManualTools.AddManualsToLibrary(guest_web_library_detail);
@@ -323,6 +352,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
             guest_web_library_detail = null;
 
             GC.WaitForPendingFinalizers();
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             GC.Collect(100, GCCollectionMode.Forced, true, true);
             Logging.Info("UnloadAllLibraries: Heap after forced GC compacting at the end: {0}", GC.GetTotalMemory(false));
         }
@@ -344,8 +374,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         details.Add(wld);
                     }
                 }
-
-                ASSERT.Test(details.Count > 0);
 
                 return details;
             }
@@ -382,7 +410,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         public void NotifyOfChangeToWebLibraryDetail()
         {
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 SaveKnownWebLibraries();
             },
@@ -456,12 +484,12 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                                 }
                                 else
                                 {
-                                    Logging.Info("Not loading library {0} with Id {1} as it does not exist on disk.", new_web_library_detail.Title, new_web_library_detail.Id);
+                                    Logging.Info("Not loading library {0} with Id {1} as it does not exist on disk. (library file path: {2})", new_web_library_detail.Title, new_web_library_detail.Id, libfile_path);
                                 }
                             }
                             else
                             {
-                                Logging.Info("Not loading purged library {0} with id {1}", new_web_library_detail.Title, new_web_library_detail.Id);
+                                Logging.Info("Not loading purged library {0} with id {1}.", new_web_library_detail.Title, new_web_library_detail.Id);
                             }
                         }
                     }
@@ -804,8 +832,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                     MixOldAndNew(old.IsIntranetLibrary, new_web_library_detail.IsIntranetLibrary, new_web_library_detail.Id + "::" + nameof(old.IsIntranetLibrary), ref state);
                     /* old.IsWebLibrary = */
 
-                    ASSERT.Test(old.Xlibrary == null);
-                    ASSERT.Test(new_web_library_detail.Xlibrary == null);
+                    ASSERT.Test(old.Xlibrary != null ? new_web_library_detail.Xlibrary == null : true);
 #if false    // this code is not needed in the current use of the API as long as the ASSERTions above hold
                     old.library?.Dispose();
                     if (new_web_library_detail.library != null)
@@ -836,7 +863,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                 }
             }
 
-            ASSERT.Test(new_web_library_detail.Xlibrary == null);
+            //ASSERT.Test(new_web_library_detail.Xlibrary == null);
             web_library_details[new_web_library_detail.Id] = new_web_library_detail;
 
             if (!suppress_flush_to_disk)
@@ -859,7 +886,6 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
             WebLibraryDetail new_web_library_detail = new WebLibraryDetail();
             new_web_library_detail.IntranetPath = intranet_path;
-            //new_web_library_detail.IsIntranetLibrary = true;
             new_web_library_detail.Id = intranet_library_detail.Id;
             new_web_library_detail.Title = intranet_library_detail.Title;
             new_web_library_detail.Description = intranet_library_detail.Description;

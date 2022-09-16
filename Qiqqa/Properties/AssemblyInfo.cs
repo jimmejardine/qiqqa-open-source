@@ -9,8 +9,8 @@ using System.Windows;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("82.0.7579.33985")]
-[assembly: AssemblyFileVersion("82.0.7579.33985")]
+[assembly: AssemblyVersion("83.0.7665.36168")]
+[assembly: AssemblyFileVersion("83.0.7665.36168")]
 [assembly: AssemblyCompany("Quantisle")]
 [assembly: AssemblyCopyright("Copyright © Quantisle 2010-2020. All rights reserved.")]
 

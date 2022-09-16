@@ -28,6 +28,10 @@ using Utilities.GUI;
 using Utilities.Internet.GoogleScholar;
 using Utilities.Misc;
 using Utilities.Reflection;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 {
@@ -148,11 +152,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public GoogleBibTexSnifferControl()
         {
-            Theme.Initialize();
+            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
-
-            SetupConfiguredDimensions();
 
             // Search options
             search_options = new SearchOptions();
@@ -260,82 +262,85 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void TxtBibTeX_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ObjBibTeXEditorControl.Background = null;
-
-            if (null == pdf_document) return;
-
-            try
+            WPFDoEvents.SafeExec(() =>
             {
-                BibTexItem bibtex = pdf_document.BibTexItem;
+                ObjBibTeXEditorControl.Background = null;
 
-                PDFSearchResultSet search_result_set;
-                if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set))
+                if (null == pdf_document) return;
+
+                try
                 {
-                    ObjBibTeXEditorControl.Background = Brushes.LightGreen;
-                    // ReflectPDFDocument(string search_terms)?
-                    if (null != pdf_renderer_control)
-                    {
-                        pdf_renderer_control.SetSearchKeywords(search_result_set);
-                    }
+                    BibTexItem bibtex = pdf_document.BibTexItem;
 
-                    // If we are feeling really racy, let the wizard button also move onto the next guy cos we are cooking on GAS
-                    if (ConfigurationManager.Instance.ConfigurationRecord.Metadata_UseBibTeXSnifferWizard)
+                    PDFSearchResultSet search_result_set;
+                    if (BibTeXGoodnessOfFitEstimator.DoesBibTeXMatchDocument(bibtex, pdf_document, out search_result_set))
                     {
-                        if (!pdf_document.BibTex?.Contains(BibTeXActionComments.AUTO_GS) ?? false)
+                        ObjBibTeXEditorControl.Background = Brushes.LightGreen;
+                        // ReflectPDFDocument(string search_terms)?
+                        if (null != pdf_renderer_control)
                         {
-                            pdf_document.BibTex =
-                                BibTeXActionComments.AUTO_GS
-                                + "\r\n"
-                                + pdf_document.BibTex;
-                            pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
+                            pdf_renderer_control.SetSearchKeywords(search_result_set);
                         }
 
-                        // fix: https://github.com/jimmejardine/qiqqa-open-source/issues/60
-                        //
-                        // check how many PDF files actually match and only move forward when we don't end up
-                        // full circle:
-                        int count = pdf_documents_search_pool.Count;
-                        int step = 1;
-                        int my_index = pdf_documents_search_index;
-                        PDFDocument next_pdf;
-                        if (count <= 1)
+                        // If we are feeling really racy, let the wizard button also move onto the next guy cos we are cooking on GAS
+                        if (ConfigurationManager.Instance.ConfigurationRecord.Metadata_UseBibTeXSnifferWizard)
                         {
-                            next_pdf = null;
-                            step--;
-                        }
-                        else
-                        {
-                            while (step < count)
+                            if (!pdf_document.BibTex?.Contains(BibTeXActionComments.AUTO_GS) ?? false)
                             {
-                                int pos = my_index + step;
-                                if (pos >= count) pos -= count;
-                                next_pdf = pdf_documents_search_pool[pos];
-
-                                if (!next_pdf.BibTex?.Contains(BibTeXActionComments.AUTO_GS) ?? false)
-                                {
-                                    break;
-                                }
-
-                                step++;
+                                pdf_document.BibTex =
+                                    BibTeXActionComments.AUTO_GS
+                                    + "\r\n"
+                                    + pdf_document.BibTex;
+                                pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.BibTex));
                             }
-                        }
 
-                        // fix https://github.com/jimmejardine/qiqqa-open-source/issues/60: don't cycle if we didn't change.
-                        //
-                        // only move forward if there's actually a slot to move to that doesn't automatically
-                        // moves forward to the current slot itself. Hence it must be a slot at current-position minus 1
-                        // or further back or forward from us, i.e. `step+1 <= count`.
-                        if (step != 0 && step < count)
-                        {
-                            MoveDelta(step);
+                            // fix: https://github.com/jimmejardine/qiqqa-open-source/issues/60
+                            //
+                            // check how many PDF files actually match and only move forward when we don't end up
+                            // full circle:
+                            int count = pdf_documents_search_pool.Count;
+                            int step = 1;
+                            int my_index = pdf_documents_search_index;
+                            PDFDocument next_pdf;
+                            if (count <= 1)
+                            {
+                                next_pdf = null;
+                                step--;
+                            }
+                            else
+                            {
+                                while (step < count)
+                                {
+                                    int pos = my_index + step;
+                                    if (pos >= count) pos -= count;
+                                    next_pdf = pdf_documents_search_pool[pos];
+
+                                    if (!next_pdf.BibTex?.Contains(BibTeXActionComments.AUTO_GS) ?? false)
+                                    {
+                                        break;
+                                    }
+
+                                    step++;
+                                }
+                            }
+
+                            // fix https://github.com/jimmejardine/qiqqa-open-source/issues/60: don't cycle if we didn't change.
+                            //
+                            // only move forward if there's actually a slot to move to that doesn't automatically
+                            // moves forward to the current slot itself. Hence it must be a slot at current-position minus 1
+                            // or further back or forward from us, i.e. `step+1 <= count`.
+                            if (step != 0 && step < count)
+                            {
+                                MoveDelta(step);
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "TextChanged failure in BibTeXSniffer");
-            }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "TextChanged failure in BibTeXSniffer");
+                }
+            });
         }
 
         private void HyperlinkBibTeXLinksMissing_Click(object sender, RoutedEventArgs e)
@@ -473,7 +478,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void search_options_bindable_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RecalculateSearchPool();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RecalculateSearchPool();
+            });
         }
 
         private void RecalculateSearchPool()
@@ -574,7 +582,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     // another subselection is ON/OFF: does the library entry have OCR data available already?
                     if (include_in_search_pool && null != search_options.DocumentIsOCRed)
                     {
-                        bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata;
+                        bool hasOCRdata = !pdf_document.IsVanillaReference && pdf_document.HasOCRdata();
                         // perform a more precise check when there's few documents to process, as this check is pretty costly:
                         //
                         // Note: fetching the `PDFRenderer.PageCount` may produce non-zero results, but it would still
@@ -583,7 +591,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                         //
                         if (hasOCRdata && pdf_documents_total_pool.Count < 100000)
                         {
-                            string w = pdf_document.PDFRenderer.GetFullOCRText();
+                            string w = pdf_document.GetFullOCRText();
                             hasOCRdata = !String.IsNullOrWhiteSpace(w);
                         }
 #if false
@@ -695,10 +703,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     PDFRendererControlArea.Visibility = Visibility.Visible;
 
                     // Make sure the first page is OCRed...
-                    pdf_document.PDFRenderer.GetOCRText(1);
+                    _ = pdf_document.GetOCRText(1);
 
                     // Set up the new renderer control
-                    pdf_renderer_control = new PDFRendererControl(pdf_document, false, PDFRendererControl.ZoomType.Zoom1Up);
+                    pdf_renderer_control = new PDFRendererControl(pdf_document, remember_last_read_page: false, PDFRendererControl.ZoomType.Zoom1Up);
                     pdf_renderer_control.ReconsiderOperationMode(PDFRendererControl.OperationMode.TextSentenceSelect);
                     pdf_renderer_control.TextSelected += pdf_renderer_control_TextSelected;
                     PDFRendererControlArea.Children.Add(pdf_renderer_control);
@@ -729,10 +737,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void pdf_renderer_control_TextSelected(string selected_text)
         {
-            if (null != selected_text)
+            WPFDoEvents.SafeExec(() =>
             {
-                ObjWebBrowser.DoWebSearch(selected_text);
-            }
+                if (null != selected_text)
+                {
+                    ObjWebBrowser.DoWebSearch(selected_text);
+                }
+            });
         }
 
         private void GoogleBibTexSnifferControl_Closing(object sender, CancelEventArgs e)
@@ -761,46 +772,52 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ObjWebBrowser_PageLoaded()
         {
-            Logging.Debug特("BibTexSniffer::Browser::Page Loaded: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
-            ReflectLatestBrowserContent();
-            // When PDFs are viewed in Gecko/Firefox and somehow things went wrong the first time around,
-            // but **not enough wrong** so to speak, then the PDF is **cached** by Gecko/FireFox and it WILL NOT
-            // show up as one of the URIs being fetched for a page reload! The PDF will only show up **here**,
-            // as a completely loaded document.
-            //
-            // Meanwhile the Acrobat Reader in there will cause the `ObjWebBrowser.CurrentPageHTML` to render
-            // something like this:
-            //
-            // <html><head><meta content="width=device-width; height=device-height;" name="viewport"></head>
-            // <body marginheight="0" marginwidth="0"><embed type="application/pdf"
-            //    src ="https://escholarship.org/content/qt0cs6v2w7/qt0cs6v2w7.pdf"
-            //    name ="plugin" height="100%" width="100%"></body></html>
-            //
-            // !Yay!          /sarcasm!/
-            string uri = null;
-            try
+            WPFDoEvents.SafeExec(() =>
             {
-                uri = ObjWebBrowser.CurrentUri.AbsoluteUri;
-                // we also need to fetch nasty URIs like these ones:
+                Logging.Debug特("BibTexSniffer::Browser::Page Loaded: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
+                ReflectLatestBrowserContent();
+                // When PDFs are viewed in Gecko/Firefox and somehow things went wrong the first time around,
+                // but **not enough wrong** so to speak, then the PDF is **cached** by Gecko/FireFox and it WILL NOT
+                // show up as one of the URIs being fetched for a page reload! The PDF will only show up **here**,
+                // as a completely loaded document.
                 //
-                //    http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.49.6383&rep=rep1&type=pdf
-                //    https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1130&context=cseconfwork
+                // Meanwhile the Acrobat Reader in there will cause the `ObjWebBrowser.CurrentPageHTML` to render
+                // something like this:
                 //
-                // hence we don't care about the exact extension '.pdf' but merely if it MIGHT be a PDF....
+                // <html><head><meta content="width=device-width; height=device-height;" name="viewport"></head>
+                // <body marginheight="0" marginwidth="0"><embed type="application/pdf"
+                //    src ="https://escholarship.org/content/qt0cs6v2w7/qt0cs6v2w7.pdf"
+                //    name ="plugin" height="100%" width="100%"></body></html>
                 //
-                // fetch the PDF, iff any!
-                ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "fetch PDF failed for {0}", uri);
-            }
+                // !Yay!          /sarcasm!/
+                string uri = null;
+                try
+                {
+                    uri = ObjWebBrowser.CurrentUri.AbsoluteUri;
+                    // we also need to fetch nasty URIs like these ones:
+                    //
+                    //    http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.49.6383&rep=rep1&type=pdf
+                    //    https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1130&context=cseconfwork
+                    //
+                    // hence we don't care about the exact extension '.pdf' but merely if it MIGHT be a PDF....
+                    //
+                    // fetch the PDF, iff any!
+                    ImportingIntoLibrary.AddNewDocumentToLibraryFromInternet_ASYNCHRONOUS(CurrentLibrary, uri);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "fetch PDF failed for {0}", uri);
+                }
+            });
         }
 
         private void ObjWebBrowser_TabChanged()
         {
-            Logging.Debug特("BibTexSniffer::Browser::Tab Changed: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
-            ReflectLatestBrowserContent();
+            WPFDoEvents.SafeExec(() =>
+            {
+                Logging.Debug特("BibTexSniffer::Browser::Tab Changed: {0}", ObjWebBrowser.CurrentUri.AbsoluteUri);
+                ReflectLatestBrowserContent();
+            });
         }
 
         private void ReflectLatestBrowserContent()
@@ -953,7 +970,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void UseAsBibTeX(string text)
         {
-            SafeThreadPool.QueueUserWorkItem(o => PostBibTeXToAggregator(text));
+            SafeThreadPool.QueueUserWorkItem(() => PostBibTeXToAggregator(text));
 
             if (null != pdf_document)
             {
@@ -1061,72 +1078,75 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         {
             Logging.Debug("GoogleBibTexSnifferControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources / get rid of cyclic references:
-                    pdf_documents_total_pool?.Clear();
-                    pdf_documents_search_pool?.Clear();
-                }
-            });
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources / get rid of cyclic references:
+                        pdf_documents_total_pool?.Clear();
+                        pdf_documents_search_pool?.Clear();
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
-
-                ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
-                ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
-
-                ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    pdf_renderer_control?.Dispose();
-                    ObjBibTeXEditorControl?.Dispose();
-                }
+                    search_options_bindable.PropertyChanged -= search_options_bindable_PropertyChanged;
+
+                    ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
+                    ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
+
+                    ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    if (dispose_count == 0)
+                    {
+                        pdf_renderer_control?.Dispose();
+                        ObjBibTeXEditorControl?.Dispose();
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ObjSearchOptionsPanel.DataContext = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ButtonWizard.DataContext = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    search_options_bindable = null;
+
+                    user_specified_pdf_document = null;
+                    pdf_documents_total_pool = null;
+
+                    pdf_documents_search_pool = null;
+
+                    pdf_document = null;
+
+                    pdf_document_rendered = null;
+                    pdf_renderer_control = null;
+
+                    search_options = null;
+                    search_options_bindable = null;
+
+                    ObjBibTeXEditorControl = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjSearchOptionsPanel.DataContext = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                ButtonWizard.DataContext = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                search_options_bindable = null;
-
-                user_specified_pdf_document = null;
-                pdf_documents_total_pool = null;
-
-                pdf_documents_search_pool = null;
-
-                pdf_document = null;
-
-                pdf_document_rendered = null;
-                pdf_renderer_control = null;
-
-                search_options = null;
-                search_options_bindable = null;
-
-                ObjBibTeXEditorControl = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion

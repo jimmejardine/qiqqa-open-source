@@ -1,71 +1,77 @@
-<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogPopup"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
->
+<UserControl
+    x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogPopup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel>
         <StackPanel.Resources>
-            <Style TargetType="MenuItem" x:Key="ChildPopupStyle">
+            <Style x:Key="ChildPopupStyle" TargetType="MenuItem">
                 <Style.Triggers>
                     <Trigger Property="IsHighlighted" Value="True">
-                        <Setter Property="IsSubmenuOpen" Value="True"/>
+                        <Setter Property="IsSubmenuOpen" Value="True" />
                     </Trigger>
                     <Trigger Property="IsMouseOver" Value="False">
-                        <Setter Property="IsSubmenuOpen" Value="False"/>
+                        <Setter Property="IsSubmenuOpen" Value="False" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
         </StackPanel.Resources>
         <MenuItem Header="Open" Style="{StaticResource ChildPopupStyle}">
-            <MenuItem Header="Open" Name="MenuOpen"/>
-            <MenuItem Header="Open in another tab" Name="MenuOpenAgain"/>
-            <MenuItem Header="Open in external PDF viewer"  Name="MenuOpenOutside" />
-            <MenuItem Header="Open in Windows Explorer"  Name="MenuOpenInWindowsExplorer" />
+            <MenuItem Name="MenuOpen" Header="Open" />
+            <MenuItem Name="MenuOpenAgain" Header="Open in another tab" />
+            <MenuItem Name="MenuOpenOutside" Header="Open in external PDF viewer" />
+            <MenuItem Name="MenuOpenInWindowsExplorer" Header="Open in Windows Explorer" />
         </MenuItem>
         <MenuItem Header="Explore" Style="{StaticResource ChildPopupStyle}">
-            <MenuItem Header="View all annotations"  Name="MenuViewAllAnnotations" />
-            <MenuItem Header="Explore in Brainstorm"  Name="MenuExploreInBrainstorm" />
-            <MenuItem Header="Explore in Expedition"  Name="MenuExploreInExpedition" />
-            <MenuItem Header="Explore in Pivot"  Name="MenuExploreInPivot" />
+            <MenuItem Name="MenuViewAllAnnotations" Header="View all annotations" />
+            <MenuItem Name="MenuExploreInBrainstorm" Header="Explore in Brainstorm" />
+            <MenuItem Name="MenuExploreInExpedition" Header="Explore in Expedition" />
+            <MenuItem Name="MenuExploreInPivot" Header="Explore in Pivot" />
         </MenuItem>
         <MenuItem Header="Cite" Style="{StaticResource ChildPopupStyle}">
-            <MenuItem Header="Cite this document in Word - (Author, Year)" Name="MenuInCite_Word" />
-            <MenuItem Header="Cite this document in Word - Author (Year)" Name="MenuInCite_WordSeparated" />
-            <MenuItem Header="Cite this using a snippet on the clipboard" Name="MenuInCite_Snippet" />
-            <MenuItem Header="Copy BibTeX key to clipboard" Name="MenuCopyBibTeXKey" />
-            <MenuItem Header="Copy Qiqqa URI to clipboard" Name="MenuCopyQiqqaURI" />
+            <MenuItem Name="MenuInCite_Word" Header="Cite this document in Word - (Author, Year)" />
+            <MenuItem Name="MenuInCite_WordSeparated" Header="Cite this document in Word - Author (Year)" />
+            <MenuItem Name="MenuInCite_Snippet" Header="Cite this using a snippet on the clipboard" />
+            <MenuItem Name="MenuCopyBibTeXKey" Header="Copy BibTeX key to clipboard" />
+            <MenuItem Name="MenuCopyQiqqaURI" Header="Copy Qiqqa URI to clipboard" />
         </MenuItem>
         <MenuItem Header="Sync" Style="{StaticResource ChildPopupStyle}">
-            <MenuItem Header="Download PDF from your Web/Intranet Library" Name="MenuCloudDownload"  />
-            <MenuItem Header="Upload PDF to your Web/Intranet Library" Name="MenuCloudUpload" />
+            <MenuItem Name="MenuCloudDownload" Header="Download PDF from your Web/Intranet Library" />
+            <MenuItem Name="MenuCloudUpload" Header="Upload PDF to your Web/Intranet Library" />
         </MenuItem>
         <MenuItem Header="Edit" Style="{StaticResource ChildPopupStyle}">
-            <MenuItem Header="Copy to another library"  Name="MenuCopyToAnotherLibrary" />
-            <MenuItem Header="Move to another library"  Name="MenuMoveToAnotherLibrary" />
-            <Separator/>
-            <MenuItem Header="Delete from library"  Name="MenuDelete" />
+            <MenuItem Name="MenuCopyToAnotherLibrary" Header="Copy to another library" />
+            <MenuItem Name="MenuMoveToAnotherLibrary" Header="Move to another library" />
+            <Separator />
+            <MenuItem Name="MenuDelete" Header="Delete from library" />
         </MenuItem>
         <MenuItem Header="OCR" Style="{StaticResource ChildPopupStyle}">
-            <MenuItem Header="Clear OCR"  Name="MenuClearOCR" ToolTip="Use this if you no longer wish to use the OCR text of this PDF document, or perhaps you want to rerun the OCR process."/>
-            <MenuItem Header="Force OCR in English"  Name="MenuForceOCR_eng" />
-            <Separator/>
-            <MenuItem Header="Force OCR auf Deutsch"  Name="MenuForceOCR_deu" />
-            <MenuItem Header="Force OCR en Español"  Name="MenuForceOCR_spa" />
-            <MenuItem Header="Force OCR en Français"  Name="MenuForceOCR_fra" />
-            <MenuItem Header="Force OCR em Português"  Name="MenuForceOCR_por" />
-            <MenuItem Header="Force OCR по Русскй."  Name="MenuForceOCR_rus" />
+            <MenuItem
+                Name="MenuClearOCR"
+                Header="Clear OCR"
+                ToolTip="Use this if you no longer wish to use the OCR text of this PDF document, or perhaps you want to rerun the OCR process." />
+            <MenuItem Name="MenuForceOCR_eng" Header="Force OCR in English" />
+            <Separator />
+            <MenuItem Name="MenuForceOCR_deu" Header="Force OCR auf Deutsch" />
+            <MenuItem Name="MenuForceOCR_spa" Header="Force OCR en Español" />
+            <MenuItem Name="MenuForceOCR_fra" Header="Force OCR en Français" />
+            <MenuItem Name="MenuForceOCR_por" Header="Force OCR em Português" />
+            <MenuItem Name="MenuForceOCR_rus" Header="Force OCR по Русскй." />
         </MenuItem>
         <MenuItem Header="Misc" Style="{StaticResource ChildPopupStyle}">
-            <MenuItem Header="Reindex this document"  Name="MenuReIndex" ToolTip="Use this to force the selected document(s) to be reindexed."/>
-            <Separator/>
-            <MenuItem Header="Add multiple tags to multiple documents" Name="MenuAddMultipleTags" />
-            <MenuItem Header="Use PDF keywords as tags" Name="MenuUseKeywordsAsTags" />
-            <MenuItem Header="Use original directory structure as tags" Name="MenuUseDirectoriesAsTags" />
-            <MenuItem Header="Remove all tags from multiple documents" Name="MenuRemoveAllTags" />
-            <MenuItem Header="Remove all BibTeX from multiple documents" Name="MenuRemoveAllBibTeX" />
-            <MenuItem Header="Use original filename as title" Name="MenuUseFilenameAsTitle" />
-            <Separator/>
-            <MenuItem Header="Import legacy PDF annotations"  Name="MenuConvertLegacyAnnotations" />
-            <MenuItem Header="Forget legacy PDF annotations"  Name="MenuForgetLegacyAnnotations" />
+            <MenuItem
+                Name="MenuReIndex"
+                Header="Reindex this document"
+                ToolTip="Use this to force the selected document(s) to be reindexed." />
+            <Separator />
+            <MenuItem Name="MenuAddMultipleTags" Header="Add multiple tags to multiple documents" />
+            <MenuItem Name="MenuUseKeywordsAsTags" Header="Use PDF keywords as tags" />
+            <MenuItem Name="MenuUseDirectoriesAsTags" Header="Use original directory structure as tags" />
+            <MenuItem Name="MenuRemoveAllTags" Header="Remove all tags from multiple documents" />
+            <MenuItem Name="MenuRemoveAllBibTeX" Header="Remove all BibTeX from multiple documents" />
+            <MenuItem Name="MenuUseFilenameAsTitle" Header="Use original filename as title" />
+            <Separator />
+            <MenuItem Name="MenuConvertLegacyAnnotations" Header="Import legacy PDF annotations" />
+            <MenuItem Name="MenuForgetLegacyAnnotations" Header="Forget legacy PDF annotations" />
         </MenuItem>
     </StackPanel>
 </UserControl>

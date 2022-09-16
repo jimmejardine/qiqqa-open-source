@@ -1,53 +1,106 @@
-<Grid x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogOverviewControl"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-  xmlns:local_search="clr-namespace:Qiqqa.Documents.PDF.Search"
-  Background="Transparent"
->
-    <DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Top"/>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom"/>
-        <DockPanel DockPanel.Dock="Left" Name="PanelSearchScore">
-            <local_gui:AugmentedButton DockPanel.Dock="Left" Name="ButtonSearchInside" Background="Gold" MinHeight="10">
+<Grid
+    x:Class="Qiqqa.DocumentLibrary.LibraryCatalog.LibraryCatalogOverviewControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:local_search="clr-namespace:Qiqqa.Documents.PDF.Search"
+    Background="Transparent">
+    <DockPanel Margin="3">
+        <DockPanel
+            Name="PanelSearchScore"
+            Margin="3"
+            DockPanel.Dock="Left">
+            <local_gui:AugmentedButton
+                Name="ButtonSearchInside"
+                MinHeight="10"
+                Background="Gold"
+                DockPanel.Dock="Left">
                 <local_gui:AugmentedButton.LayoutTransform>
                     <RotateTransform Angle="-90" />
                 </local_gui:AugmentedButton.LayoutTransform>
             </local_gui:AugmentedButton>
-            <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
         </DockPanel>
-        <local_gui:AugmentedToolBarButton DockPanel.Dock="Right" Name="ButtonThemeSwatch" Width="24"/>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-        <DockPanel DockPanel.Dock="Bottom" Name="ObjLookInsidePanel">
-            <local_search:SearchResultsListControl MaxHeight="200" x:Name="ListSearchDetails" />
+        <local_gui:AugmentedToolBarButton
+            x:Name="ButtonThemeSwatch"
+            Width="24"
+            Margin="3,0,0,0"
+            DockPanel.Dock="Right" />
+        <DockPanel Name="ObjLookInsidePanel" DockPanel.Dock="Bottom">
+            <local_search:SearchResultsListControl x:Name="ListSearchDetails" MaxHeight="200" />
         </DockPanel>
-        <local_gui:AugmentedToolBarButton Margin="0 3 0 3" DockPanel.Dock="Left" Name="ButtonOpen" />
-        <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
+        <local_gui:AugmentedToolBarButton
+            x:Name="ButtonOpen"
+            Margin="1,0,3,0"
+            DockPanel.Dock="Left" />
         <StackPanel>
             <DockPanel>
-                <TextBlock DockPanel.Dock="Right" Text="{Binding YearCombined}" ToolTip="{Binding YearCombined}" TextTrimming="CharacterEllipsis" />
-                <TextBlock DockPanel.Dock="Left" Name="TextTitle" Text="{Binding TitleCombinedTrimmed}" ToolTip="{Binding TitleCombined}" TextTrimming="CharacterEllipsis" FontWeight="Bold" TextWrapping="Wrap"  />
-                <local_gui:AugmentedSpacer />
+                <TextBlock
+                    DockPanel.Dock="Right"
+                    Text="{Binding YearCombined, FallbackValue='20XX'}"
+                    TextTrimming="CharacterEllipsis"
+                    ToolTip="{Binding YearCombined}" />
+                <TextBlock
+                    Name="TextTitle"
+                    Margin="0,0,6,0"
+                    DockPanel.Dock="Left"
+                    FontWeight="Bold"
+                    Text="{Binding TitleCombinedTrimmed, FallbackValue='Visual Studio DesignMode Fallback Title'}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="Wrap"
+                    ToolTip="{Binding TitleCombined}" />
             </DockPanel>
-            <DockPanel>
-                <TextBlock DockPanel.Dock="Left" Name="TextAuthors" Text="{Binding AuthorsCombinedTrimmed}" ToolTip="{Binding AuthorsCombined}" TextTrimming="CharacterEllipsis" />
-                <TextBlock DockPanel.Dock="Right" Name="TextPublication" Text="{Binding PublicationTrimmed}" ToolTip="{Binding Publication}" TextTrimming="CharacterEllipsis" FontStyle="Italic" />
-                <local_gui:AugmentedSpacer />
+            <DockPanel Margin="0,3,0,0">
+                <TextBlock
+                    Name="TextAuthors"
+                    Margin="0,0,9,0"
+                    DockPanel.Dock="Left"
+                    Text="{Binding AuthorsCombinedTrimmed, FallbackValue='Qiqqa; Ger Hobbelt'}"
+                    TextTrimming="CharacterEllipsis"
+                    ToolTip="{Binding AuthorsCombined}" />
+                <TextBlock
+                    Name="TextPublication"
+                    DockPanel.Dock="Right"
+                    FontStyle="Italic"
+                    Text="{Binding PublicationTrimmed, FallbackValue='VisualStudio Publishers Demo'}"
+                    TextTrimming="CharacterEllipsis"
+                    ToolTip="{Binding Publication}" />
             </DockPanel>
-            <DockPanel>
-                <CheckBox DockPanel.Dock="Left" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListViewItem}}, Path=IsSelected}" />
-                <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
-                <TextBlock DockPanel.Dock="Left" Text="{Binding Tags}" ToolTip="Your tags for this paper." />
-                <Image DockPanel.Dock="Right" Name="ObjFavouriteImage" Width="16" Margin="5 0 0 0" />
-                <TextBlock DockPanel.Dock="Right" Text="{Binding Rating}" ToolTip="Rating"/>
+            <DockPanel Margin="0,3,0,0">
+                <CheckBox
+                    Margin="0,0,10,0"
+                    DockPanel.Dock="Left"
+                    IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsSelected}" />
+                <TextBlock
+                    Margin="3,0,9,0"
+                    DockPanel.Dock="Left"
+                    Text="{Binding Tags, FallbackValue='DesignMode;Demo Tag'}"
+                    ToolTip="Your tags for this paper." />
+                <Image
+                    Name="ObjFavouriteImage"
+                    Width="16"
+                    Margin="5,0,0,0"
+                    DockPanel.Dock="Right" />
+                <TextBlock
+                    DockPanel.Dock="Right"
+                    Text="{Binding PageCountAsString, FallbackValue='Pages#'}"
+                    ToolTip="Page count" />
                 <TextBlock DockPanel.Dock="Right" Text=" - " />
-                <TextBlock DockPanel.Dock="Right" Text="{Binding Id}" ToolTip="{Binding Id}" />
+                <TextBlock
+                    DockPanel.Dock="Right"
+                    Text="{Binding Rating, FallbackValue='Rating Demo'}"
+                    ToolTip="Rating" />
                 <TextBlock DockPanel.Dock="Right" Text=" - " />
-                <TextBlock DockPanel.Dock="Right" Text="{Binding ReadingStage}" ToolTip="Reading stage"/>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-                <local_gui:AugmentedSpacer />
+                <TextBlock
+                    DockPanel.Dock="Right"
+                    Text="{Binding Id, FallbackValue='demo2021'}"
+                    ToolTip="{Binding Id}" />
+                <TextBlock DockPanel.Dock="Right" Text=" - " />
+                <TextBlock
+                    DockPanel.Dock="Right"
+                    Text="{Binding ReadingStage, FallbackValue='Demo Stage'}"
+                    ToolTip="Reading stage" />
             </DockPanel>
-            <StackPanel Name="DocsPanel_Linked" />
+            <StackPanel Name="DocsPanel_Linked" Margin="0,3,0,0" />
         </StackPanel>
     </DockPanel>
 </Grid>

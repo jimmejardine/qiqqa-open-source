@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -14,6 +15,10 @@ using Utilities.DateTimeTools;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Shutdownable;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common.MessageBoxControls
 {
@@ -24,6 +29,8 @@ namespace Qiqqa.Common.MessageBoxControls
     {
         private UnhandledExceptionMessageBox()
         {
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -42,14 +49,15 @@ namespace Qiqqa.Common.MessageBoxControls
             // When we're looking at an OutOfMem exception, there's nothing we can do but abort everything!
             if (ex is System.OutOfMemoryException)
             {
-                throw ex;
+                throw new OutOfMemoryException("Out of memory", ex);
             }
 
             // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 // Collect all generations of memory.
                 GC.WaitForPendingFinalizers();
+                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
             });
 
@@ -237,7 +245,7 @@ namespace Qiqqa.Common.MessageBoxControls
 
         private void PopulateMachineStats()
         {
-            TextMachineStats.Text = ComputerStatistics.GetCommonStatistics();
+            TextMachineStats.Text = ComputerStatistics.GetCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
         }
 
         private string FaqUrl => WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Faq);

@@ -25,6 +25,8 @@ START/TIP/OCR_ON:Turn off OCR.\nOCR is currently enabled.  Turn it off if you ar
 START/TIP/OCR_OFF:Turn on OCR.\nOCR is currently disabled.  Turn it on if you want new papers to be indexed and become searchable.
 START/CAP/CONFIG:Qiqqa Configuration
 START/TIP/CONFIG:Open the Qiqqa Configuration screen.
+START/CAP/VIEWBACKGROUNDACTIVITIES: Monitor Background Activities
+START/TIP/VIEWBACKGROUNDACTIVITIES: Open a window where you can monitor what Qiqqa is currently busy with.
 START/CAP/EXPERT_MODE:ExpertMode
 START/TIP/EXPERT_MODE:Turn on Expert Mode to access to additional functionality.
 START/CAP/HELP:Online Help

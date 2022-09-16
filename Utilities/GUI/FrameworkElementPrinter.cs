@@ -98,44 +98,47 @@ namespace Utilities.GUI
                     Convert.ToInt32(objectToPrint.ActualHeight * dpiScale),
                     DPI, DPI, PixelFormats.Pbgra32
                 );
+
                 bmp.Render(objectToPrint);
                 bmp.Freeze();
 
                 // Convert the RenderTargetBitmap into a bitmap we can more readily use
-                Bitmap bmp2 = BitmapImageTools.ConvertBitmapSourceToBitmap(bmp);
-                bmp = null;
-
-                // Break the bitmap down into pages
-                int pageWidth = Convert.ToInt32(capabilities.PageImageableArea.ExtentWidth * dpiScale);
-                int pageHeight = Convert.ToInt32(capabilities.PageImageableArea.ExtentHeight * dpiScale);
-
-                int bmp_width = bmp2.Width;
-                int bmp_height = (int)(pageHeight * bmp2.Width / pageWidth);
-
-                int pageBreak = 0;
-                int previousPageBreak = 0;
-                while (true)
+                using (Bitmap bmp2 = BitmapImageTools.ConvertBitmapSourceToBitmap(bmp))
                 {
-                    pageBreak += bmp_height;
+                    bmp = null;
 
-                    // We can't read out more than the image
-                    if (pageBreak > bmp2.Height) pageBreak = bmp2.Height;
+                    // Break the bitmap down into pages
+                    int pageWidth = Convert.ToInt32(capabilities.PageImageableArea.ExtentWidth * dpiScale);
+                    int pageHeight = Convert.ToInt32(capabilities.PageImageableArea.ExtentHeight * dpiScale);
 
-                    PageContent pageContent = generatePageContent(
-                        bmp2,
-                        previousPageBreak, pageBreak,
-                        document.DocumentPaginator.PageSize.Width,
-                        document.DocumentPaginator.PageSize.Height,
-                        capabilities
-                    );
-                    document.Pages.Add(pageContent);
+                    int bmp_width = bmp2.Width;
+                    int bmp_height = (int)(pageHeight * bmp2.Width / pageWidth);
 
-                    previousPageBreak = pageBreak;
-
-                    // Are we done?
-                    if (pageBreak >= bmp2.Height)
+                    int pageBreak = 0;
+                    int previousPageBreak = 0;
+                    while (true)
                     {
-                        break;
+                        pageBreak += bmp_height;
+
+                        // We can't read out more than the image
+                        if (pageBreak > bmp2.Height) pageBreak = bmp2.Height;
+
+                        PageContent pageContent = generatePageContent(
+                            bmp2,
+                            previousPageBreak, pageBreak,
+                            document.DocumentPaginator.PageSize.Width,
+                            document.DocumentPaginator.PageSize.Height,
+                            capabilities
+                        );
+                        document.Pages.Add(pageContent);
+
+                        previousPageBreak = pageBreak;
+
+                        // Are we done?
+                        if (pageBreak >= bmp2.Height)
+                        {
+                            break;
+                        }
                     }
                 }
 
@@ -156,8 +159,11 @@ namespace Utilities.GUI
 
             int newImageHeight = bottom - top;
 
-            Bitmap bmpPage = BitmapImageTools.CropBitmapRegion(bitmap, 0, top, bitmap.Width, newImageHeight);
-            BitmapSource bmpSource = BitmapImageTools.FromBitmap(bmpPage);
+            BitmapSource bmpSource = null;
+            using (Bitmap bmpPage = BitmapImageTools.CropBitmapRegion(bitmap, 0, top, bitmap.Width, newImageHeight))
+            {
+                bmpSource = BitmapImageTools.FromBitmap(bmpPage);
+            }
 
             // Create a new bitmap for the contents of this page
             Image pageImage = new Image();

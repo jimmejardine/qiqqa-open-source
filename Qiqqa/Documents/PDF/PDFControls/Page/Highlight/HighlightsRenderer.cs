@@ -2,9 +2,12 @@
 using System.Drawing;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFRendering;
+using Utilities.GUI;
 using Utilities.Images;
+using Utilities.Misc;
 using Image = System.Windows.Controls.Image;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
@@ -23,7 +26,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         private void HighlightsRenderer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            RebuildVisual();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RebuildVisual();
+            });
         }
 
         internal void RebuildVisual(PDFDocument pdf_document, int page)
@@ -37,6 +43,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         public void RebuildVisual()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             //Logging.Info("+HighlightsRenderer RebuildVisual() on page {0}", page);
 
             if (null == pdf_document)
@@ -54,12 +62,24 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             // We use a smaller image than necessary as we do not need high resolution to represent the highlights
             double scaled_capped_width = Math.Min(Width, 300);
             double scaled_capped_height = Height * scaled_capped_width / Width;
-            using (Bitmap raster_bitmap = PDFOverlayRenderer.RenderHighlights((int)scaled_capped_width, (int)scaled_capped_height, pdf_document, page))
-            {
-                Source = BitmapImageTools.FromBitmap(raster_bitmap);
-            }
 
-            //Logging.Info("-HighlightsRenderer RebuildVisual() on page {0}", page);
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                BitmapSource bmp;
+
+                using (Bitmap raster_bitmap = PDFOverlayRenderer.RenderHighlights((int)scaled_capped_width, (int)scaled_capped_height, pdf_document, page))
+                {
+                    bmp = BitmapImageTools.FromBitmap(raster_bitmap);
+                    ASSERT.Test(bmp.IsFrozen);
+                }
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    Source = bmp;
+                });
+
+                //Logging.Info("-HighlightsRenderer RebuildVisual() on page {0}", page);
+            });
         }
     }
 }

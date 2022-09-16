@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Utilities;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -164,6 +165,7 @@ namespace Qiqqa.Common.Configuration
             set => this["System_UseExternalWebBrowser"] = value;
         }
 
+        [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
         public bool System_DisableSSL
         {
             get => (this["System_DisableSSL"] as bool?) ?? false;
@@ -270,18 +272,11 @@ namespace Qiqqa.Common.Configuration
             return ua;
         }
 
-        public bool GoogleScholar_DoExtraBackgroundQueries
-        {
-            get => (this["GoogleScholar_DoExtraBackgroundQueries"] as bool?) ?? false;
-            set => this["GoogleScholar_DoExtraBackgroundQueries"] = value;
-        }
-
         public string Proxy_EZProxy
         {
             get => this["Proxy_EZProxy"] as string;
             set => this["Proxy_EZProxy"] = value;
         }
-
 
 #endregion
 
@@ -327,14 +322,16 @@ namespace Qiqqa.Common.Configuration
             set => this["ImportFromEndnoteAutoDisabled"] = value;
         }
 
-#endregion
+        #endregion
 
+        [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
         public DateTime Premium_LastChecked
         {
             get => (this["Premium_LastChecked"] as DateTime?) ?? DateTime.MinValue;
             set => this["Premium_LastChecked"] = value;
         }
 
+        [Obsolete("Do not use this attribute, but keep it in the class definition for backwards compatibility of the serialization", true)]
         public DateTime Premium_LastNotificationBarReminder
         {
             get => (this["Premium_LastNotificationBarReminder"] as DateTime?) ?? DateTime.MinValue;
@@ -477,6 +474,12 @@ namespace Qiqqa.Common.Configuration
             set => this["AutomaticAccountDetails_LibraryMembershipLastDate"] = value;
         }
 
+        public bool GoogleScholar_DoExtraBackgroundQueries
+        {
+            get => (this["GoogleScholar_DoExtraBackgroundQueries"] as bool?) ?? false;
+            set => this["GoogleScholar_DoExtraBackgroundQueries"] = value;
+        }
+
         [NonSerialized]
         private bool? disable_all_background;
         public bool DisableAllBackgroundTasks
@@ -520,5 +523,73 @@ namespace Qiqqa.Common.Configuration
                 RegistrySettings.Instance.Write(RegistrySettings.SnapToPixels, value ? "yes" : "no");
             }
         }
+
+        public Dictionary<string, string> GetCurrentConfigInfos()
+        {
+            Dictionary<string, string> rv = new Dictionary<string, string>();
+
+            rv.Add("Account_Username", Account_Username);
+            rv.Add("Account_Password", "".PadRight(Account_Password?.Length ?? 0, '*'));  // protect password from being dumped in logfiles, etc. by printing stars
+            rv.Add("Account_Nickname", Account_Nickname);
+            rv.Add("Feedback_UtilisationInfo", $"{Feedback_UtilisationInfo}");
+            rv.Add("System_NumOCRProcesses", $"{System_NumOCRProcesses}");
+            rv.Add("FeatureTrackingLastSentToServer", $"{FeatureTrackingLastSentToServer}");
+            rv.Add("System_LastLibraryExportFolder", System_LastLibraryExportFolder);
+            rv.Add("System_LastBibTexExportFile", System_LastBibTexExportFile);
+            rv.Add("System_LastWord2007ExportFile", System_LastWord2007ExportFile);
+            rv.Add("System_OverrideDirectoryForPDFs", System_OverrideDirectoryForPDFs);
+            rv.Add("System_OverrideDirectoryForOCRs", System_OverrideDirectoryForOCRs);
+            rv.Add("InCite_LastStyleFile", InCite_LastStyleFile);
+            rv.Add("InCite_LastLibrary", InCite_LastLibrary);
+            rv.Add("InCite_WinWordLocation", InCite_WinWordLocation);
+            rv.Add("InCite_UseAbbreviations", $"{InCite_UseAbbreviations}");
+            rv.Add("InCite_CustomAbbreviationsFilename", InCite_CustomAbbreviationsFilename);
+            rv.Add("Library_OCRDisabled", $"{Library_OCRDisabled}");
+            rv.Add("System_UseExternalWebBrowser", $"{System_UseExternalWebBrowser}");
+            rv.Add("Wizard_HasSeenIntroWizard", $"{Wizard_HasSeenIntroWizard}");
+            rv.Add("Wizard_HasSeenSearchWizard", $"{Wizard_HasSeenSearchWizard}");
+            rv.Add("Metadata_AutomaticallyAssociateBibTeX", $"{Metadata_AutomaticallyAssociateBibTeX}");
+            rv.Add("Metadata_UseBibTeXSnifferWizard", $"{Metadata_UseBibTeXSnifferWizard}");
+            rv.Add("Metadata_UserDefinedBibTeXFields", Metadata_UserDefinedBibTeXFields);
+            rv.Add("GUI_UserDefinedSearchStrings", GUI_UserDefinedSearchStrings);
+            rv.Add("Proxy_UseProxy", $"{Proxy_UseProxy}");
+            rv.Add("Proxy_Hostname", Proxy_Hostname);
+            rv.Add("Proxy_Port", $"{Proxy_Port}");
+            rv.Add("Proxy_Username", Proxy_Username);
+            rv.Add("Proxy_Password", "".PadRight(Proxy_Password?.Length ?? 0, '*'));  // protect password from being dumped in logfiles, etc. by printing stars
+            rv.Add("Web_UserAgentOverride", Web_UserAgentOverride);
+            rv.Add("GetWebUserAgent", GetWebUserAgent());
+            rv.Add("GoogleScholar_DoExtraBackgroundQueries", $"{GoogleScholar_DoExtraBackgroundQueries}");
+            rv.Add("Proxy_EZProxy", Proxy_EZProxy);
+            rv.Add("SyncTermsAccepted", $"{SyncTermsAccepted}");
+            rv.Add("ImportFromFolderImportTagsFromSubfolderNames", $"{ImportFromFolderImportTagsFromSubfolderNames}");
+            rv.Add("ImportFromFolderRecurseSubfolders", $"{ImportFromFolderRecurseSubfolders}");
+            rv.Add("ImportFromFolderLastFolderImported", ImportFromFolderLastFolderImported);
+            rv.Add("ImportFromMendeleyAutoDisabled", $"{ImportFromMendeleyAutoDisabled}");
+            rv.Add("ImportFromEndnoteAutoDisabled", $"{ImportFromEndnoteAutoDisabled}");
+            rv.Add("Marketing_LastNotificationOfAlternativeTo", $"{Marketing_LastNotificationOfAlternativeTo}");
+            rv.Add("GUI_IsNovice", $"{GUI_IsNovice}");
+            rv.Add("GUI_LastSelectedLibraryId", GUI_LastSelectedLibraryId);
+            rv.Add("GUI_AdvancedMenus", $"{GUI_AdvancedMenus}");
+            rv.Add("GUI_AnnotationPrintTransparency", $"{GUI_AnnotationPrintTransparency}");
+            rv.Add("GUI_AnnotationScreenTransparency", $"{GUI_AnnotationScreenTransparency}");
+            rv.Add("GUI_HighlightScreenTransparency", $"{GUI_HighlightScreenTransparency}");
+            rv.Add("GUI_InkScreenTransparency", $"{GUI_InkScreenTransparency}");
+            rv.Add("Localisation_ForcedLocale", Localisation_ForcedLocale);
+            rv.Add("GUI_AskOnExit", $"{GUI_AskOnExit}");
+            rv.Add("GUI_RestoreWindowsAtStartup", $"{GUI_RestoreWindowsAtStartup}");
+            rv.Add("GUI_RestoreLocationAtStartup", $"{GUI_RestoreLocationAtStartup}");
+            rv.Add("GUI_RestoreLocationAtStartup_Position", GUI_RestoreLocationAtStartup_Position);
+            rv.Add("GUI_LastPagesUp", GUI_LastPagesUp);
+            rv.Add("SpeedRead_PreambleVisible", $"{SpeedRead_PreambleVisible}");
+            rv.Add("SpeedRead_PostambleVisible", $"{SpeedRead_PostambleVisible}");
+            rv.Add("AutomaticAccountDetails_LibrarySyncLastDate", $"{AutomaticAccountDetails_LibrarySyncLastDate}");
+            rv.Add("AutomaticAccountDetails_LibraryMembershipLastDate", $"{AutomaticAccountDetails_LibraryMembershipLastDate}");
+            rv.Add("DisableAllBackgroundTasks", $"{DisableAllBackgroundTasks}");
+            rv.Add("SnapToPixels", $"{SnapToPixels}");
+
+            return rv;
+        }
+
     }
 }

@@ -29,7 +29,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageIcon.Source = item.icon;
             ImageIcon.Visibility = (null != item.icon) ? Visibility.Visible : Visibility.Collapsed;
 
-            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             ImageClose.Width = 20;
             ImageClose.Source = Icons.GetAppIcon(Icons.DualTabbed_Close);
@@ -100,12 +100,12 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageFloating.ToolTip = ImageFloating.Caption = "Move pane to a floating window";
             ImageClose.ToolTip = ImageClose.Caption = "Close pane";
 
-            ImageLeft.CaptionDock =
-            ImageBottom.CaptionDock =
-            ImageRight.CaptionDock =
-            ImageFloating.CaptionDock =
-            ImageClose.CaptionDock =
-                Dock.Right;
+            ImageLeft.CaptionDock = Dock.Right;
+            ImageBottom.CaptionDock = Dock.Right;
+            ImageRight.CaptionDock = Dock.Right;
+            ImageFloating.CaptionDock = Dock.Right;
+            ImageClose.CaptionDock = Dock.Right;
+
 
             ImageLeft.Click += ImageLeft_MouseDown;
             ImageBottom.Click += ImageBottom_MouseDown;
@@ -152,7 +152,6 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         {
             using (popup.AutoCloser)
             {
-
                 item.WantsRight();
             }
         }

@@ -16,8 +16,11 @@ namespace Qiqqa.Main
                 string version = "" + ClientVersion.CurrentVersion;
                 RegistrySettings.Instance.Write(RegistrySettings.FirstInstallNotification, version);
 
-                string url = WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Welcome) + "?version=" + version;
-                Process.Start(url);
+                if (!RegistrySettings.GetPortableApplicationMode())
+                {
+                    string url = WebsiteAccess.GetOurUrl(WebsiteAccess.OurSiteLinkKind.Welcome) + "?version=" + version;
+                    Process.Start(url);
+                }
             }
         }
     }

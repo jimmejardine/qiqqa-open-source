@@ -47,6 +47,8 @@ namespace Qiqqa.InCite
 
         public CSLProcessorOutputConsumer(string script_directory, string citations_javascript, BibliographyReadyDelegate brd, object user_argument)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.citations_javascript = citations_javascript;
             this.brd = brd;
             this.user_argument = user_argument;
@@ -74,143 +76,146 @@ namespace Qiqqa.InCite
 
         private void web_browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
         {
-            Logging.Debug特("JAVASCRIPT CONSOLE MESSAGE: {0}", e.Message);
-
-            try
+            WPFDoEvents.SafeExec(() =>
             {
-                if (finished_processing)
+                Logging.Debug特("JAVASCRIPT CONSOLE MESSAGE: {0}", e.Message);
+
+                try
                 {
-                    Logging.Info("Finished processing, so ignoring InCite JavaScript error: {0}", e.Message);
-                    return;
-                }
-
-                if (e.Message.Contains("Permission denied"))
-                {
-                    Logging.Info("Skipping known exception: {0}", e.Message);
-                    return;
-                }
-
-                if (e.Message.Contains("SyntaxError"))
-                {
-                    finished_processing = true;
-
-                    Logging.Info("Acting on InCite syntax error: {0}", e.Message);
-
-                    System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"line:\s+(\d+)\s+column:\s+(\d+)\s+");
-                    System.Text.RegularExpressions.MatchCollection matches = regex.Matches(e.Message);
-                    if (0 < matches.Count)
-                    {
-                        int line = Int32.Parse(matches[0].Groups[1].Value);
-                        int pos = Int32.Parse(matches[0].Groups[2].Value);
-
-                        string[] citations_javascript_lines = citations_javascript.Split(new char[] { '\n' });
-
-                        int min = (int)Math.Max(0, line - 1 - 15);
-                        int max = (int)Math.Min(citations_javascript_lines.Length, line - 1 + 5);
-                        StringBuilder sb_error_region = new StringBuilder();
-                        sb_error_region.AppendFormat("Syntax error ({1},{2}): {0}\n", e.Message, line, pos);
-                        for (int i = min; i <= max; ++i)
-                        {
-                            string indicator = (i == line - 1) ? "?????? " : "       ";
-                            sb_error_region.AppendFormat("{0}{1}\n", indicator, citations_javascript_lines[i]);
-                        }
-
-                        error_message = sb_error_region.ToString();
-                    }
-                    else
-                    {
-                        error_message = e.Message;
-                    }
-
-                    Logging.Info("Calling the BibliographyReadyDelegate");
-                    success = false;
-                    brd(this);
-                    Logging.Info("Called the BibliographyReadyDelegate");
-                }
-
-                if (e.Message.Contains("INCITE_FINISHED"))
-                {
-                    finished_processing = true;
-
-                    Logging.Info("Acting on signalling InCite JavaScript error: {0}", e.Message);
-
-                    Logging.Info("Received citeproc results");
-                    {
-                        string json_output_encoded = web_browser.DomDocument.GetHtmlElementById("ObjOutput").InnerHtml;
-                        string json_output = WebUtility.HtmlDecode(json_output_encoded);
-                        JObject json = JObject.Parse(json_output);
-
-                        // Pull out the inlines
-                        {
-                            Logging.Info("Pulling out the inlines");
-                            foreach (var inline in json["inlines"])
-                            {
-                                string key = (string)inline["citation"]["citationID"];
-                                int total_items_affected_by_key = inline["citation_output"].Count();
-                                foreach (var citation_output in inline["citation_output"])
-                                {
-                                    int position = (int)citation_output[0];
-                                    string text = (string)citation_output[1];
-
-                                    SetInline(key, position, text, total_items_affected_by_key);
-                                }
-                            }
-                        }
-
-                        // Pull out the bibliography
-                        {
-                            Logging.Info("Pulling out the bibliography settings");
-
-                            // Do these results lack a bibliography?
-                            JToken has_bibliography = json["bibliography"] as JToken;
-                            if (null != has_bibliography && JTokenType.Boolean == has_bibliography.Type)
-                            {
-                                Logging.Info("This style has no bibliography: json bibliography node is {0}", has_bibliography);
-                            }
-                            else
-                            {
-                                var settings = json["bibliography"][0];
-                                SetBibliographySettings(
-                                    (int)(settings["maxoffset"] ?? 0),
-                                    (int)(settings["entryspacing"] ?? 0),
-                                    (int)(settings["linespacing"] ?? 0),
-                                    (int)(settings["hangingindent"] ?? 0),
-                                    Convert.ToString(settings["second-field-align"] ?? ""),
-                                    (string)(settings["bibstart"] ?? ""),
-                                    (string)(settings["bibend"] ?? "")
-                                );
-
-                                Logging.Info("Pulling out the bibliography");
-                                var bibliography = json["bibliography"][1];
-                                foreach (var bib in bibliography)
-                                {
-                                    SetBibliography((string)bib);
-                                }
-                            }
-                        }
-
-                        Logging.Debug特("Calling the BibliographyReadyDelegate");
-                        success = true;
-                        brd(this);
-                        Logging.Debug特("Called the BibliographyReadyDelegate");
-                    }
-
                     if (finished_processing)
                     {
-                        // Clean up
-                        if (null != web_browser)
+                        Logging.Info("Finished processing, so ignoring InCite JavaScript error: {0}", e.Message);
+                        return;
+                    }
+
+                    if (e.Message.Contains("Permission denied"))
+                    {
+                        Logging.Info("Skipping known exception: {0}", e.Message);
+                        return;
+                    }
+
+                    if (e.Message.Contains("SyntaxError"))
+                    {
+                        finished_processing = true;
+
+                        Logging.Info("Acting on InCite syntax error: {0}", e.Message);
+
+                        System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"line:\s+(\d+)\s+column:\s+(\d+)\s+");
+                        System.Text.RegularExpressions.MatchCollection matches = regex.Matches(e.Message);
+                        if (0 < matches.Count)
                         {
-                            Logging.Debug特("Disposing of web browser for InCite CSL processing");
-                            web_browser.Dispose();
-                            web_browser = null;
+                            int line = Int32.Parse(matches[0].Groups[1].Value);
+                            int pos = Int32.Parse(matches[0].Groups[2].Value);
+
+                            string[] citations_javascript_lines = citations_javascript.Split(new char[] { '\n' });
+
+                            int min = (int)Math.Max(0, line - 1 - 15);
+                            int max = (int)Math.Min(citations_javascript_lines.Length, line - 1 + 5);
+                            StringBuilder sb_error_region = new StringBuilder();
+                            sb_error_region.AppendFormat("Syntax error ({1},{2}): {0}\n", e.Message, line, pos);
+                            for (int i = min; i <= max; ++i)
+                            {
+                                string indicator = (i == line - 1) ? "?????? " : "       ";
+                                sb_error_region.AppendFormat("{0}{1}\n", indicator, citations_javascript_lines[i]);
+                            }
+
+                            error_message = sb_error_region.ToString();
+                        }
+                        else
+                        {
+                            error_message = e.Message;
+                        }
+
+                        Logging.Info("Calling the BibliographyReadyDelegate");
+                        success = false;
+                        brd(this);
+                        Logging.Info("Called the BibliographyReadyDelegate");
+                    }
+
+                    if (e.Message.Contains("INCITE_FINISHED"))
+                    {
+                        finished_processing = true;
+
+                        Logging.Info("Acting on signalling InCite JavaScript error: {0}", e.Message);
+
+                        Logging.Info("Received citeproc results");
+                        {
+                            string json_output_encoded = web_browser.DomDocument.GetHtmlElementById("ObjOutput").InnerHtml;
+                            string json_output = WebUtility.HtmlDecode(json_output_encoded);
+                            JObject json = JObject.Parse(json_output);
+
+                            // Pull out the inlines
+                            {
+                                Logging.Info("Pulling out the inlines");
+                                foreach (var inline in json["inlines"])
+                                {
+                                    string key = (string)inline["citation"]["citationID"];
+                                    int total_items_affected_by_key = inline["citation_output"].Count();
+                                    foreach (var citation_output in inline["citation_output"])
+                                    {
+                                        int position = (int)citation_output[0];
+                                        string text = (string)citation_output[1];
+
+                                        SetInline(key, position, text, total_items_affected_by_key);
+                                    }
+                                }
+                            }
+
+                            // Pull out the bibliography
+                            {
+                                Logging.Info("Pulling out the bibliography settings");
+
+                                // Do these results lack a bibliography?
+                                JToken has_bibliography = json["bibliography"] as JToken;
+                                if (null != has_bibliography && JTokenType.Boolean == has_bibliography.Type)
+                                {
+                                    Logging.Info("This style has no bibliography: json bibliography node is {0}", has_bibliography);
+                                }
+                                else
+                                {
+                                    var settings = json["bibliography"][0];
+                                    SetBibliographySettings(
+                                        (int)(settings["maxoffset"] ?? 0),
+                                        (int)(settings["entryspacing"] ?? 0),
+                                        (int)(settings["linespacing"] ?? 0),
+                                        (int)(settings["hangingindent"] ?? 0),
+                                        Convert.ToString(settings["second-field-align"] ?? ""),
+                                        (string)(settings["bibstart"] ?? ""),
+                                        (string)(settings["bibend"] ?? "")
+                                    );
+
+                                    Logging.Info("Pulling out the bibliography");
+                                    var bibliography = json["bibliography"][1];
+                                    foreach (var bib in bibliography)
+                                    {
+                                        SetBibliography((string)bib);
+                                    }
+                                }
+                            }
+
+                            Logging.Debug特("Calling the BibliographyReadyDelegate");
+                            success = true;
+                            brd(this);
+                            Logging.Debug特("Called the BibliographyReadyDelegate");
+                        }
+
+                        if (finished_processing)
+                        {
+                            // Clean up
+                            if (null != web_browser)
+                            {
+                                Logging.Debug特("Disposing of web browser for InCite CSL processing");
+                                web_browser.Dispose();
+                                web_browser = null;
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "There was a problem in the callback from citeproc");
-            }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "There was a problem in the callback from citeproc");
+                }
+            });
         }
 
         private bool finished_processing = false;
@@ -402,33 +407,36 @@ namespace Qiqqa.InCite
         {
             Logging.Debug("CSLProcessorOutputConsumer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources
-                    web_browser?.Dispose();
-                }
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        web_browser?.Dispose();
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    web_browser = null;
+
+                    brd = null;
+                    user_argument = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    position_to_inline.Clear();
+                    inline_to_positions.Clear();
+                    position_to_text.Clear();
+                    bibliography.Clear();
+                    logs.Clear();
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                web_browser = null;
-
-                brd = null;
-                user_argument = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                position_to_inline.Clear();
-                inline_to_positions.Clear();
-                position_to_text.Clear();
-                bibliography.Clear();
-                logs.Clear();
-            });
-
-            ++dispose_count;
         }
 
         #endregion

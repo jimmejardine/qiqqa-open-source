@@ -5,6 +5,10 @@ using System.Text;
 using Qiqqa.UtilisationTracking;
 using Utilities.Files;
 using Utilities.OCR;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
 {
@@ -17,13 +21,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.PDFExporting
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+            for (int page = 1; page <= pdf_document.PageCount; ++page)
             {
                 sb.AppendLine();
                 sb.AppendLine(String.Format("--- Page {0} ---", page));
                 sb.AppendLine();
 
-                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList words = pdf_document.GetOCRText(page);
                 if (null != words)
                 {
                     foreach (Word word in words)

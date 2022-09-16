@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -12,6 +11,9 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentConversionStuff
 {
@@ -66,7 +68,7 @@ namespace Qiqqa.DocumentConversionStuff
                     {
                         WPFDoEvents.InvokeInUIThread(() =>
                             {
-                                PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, WebLibraryManager.Instance.Library_Guest, filename, filename, null, null, null, true, false);
+                                PDFDocument pdf_document = WebLibraryManager.Instance.Library_Guest.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(pdf_filename, WebLibraryManager.Instance.Library_Guest, filename, filename, null, null, null, true);
                                 PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                                 pdf_reading_control.EnableGuestMoveNotification();
                             },

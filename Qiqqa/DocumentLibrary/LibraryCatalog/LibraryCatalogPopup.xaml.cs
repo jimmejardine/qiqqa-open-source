@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +17,10 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
 {
@@ -224,42 +227,54 @@ SourceURL: {0}
         {
             popup.Close();
 
-            int imported_count = 0;
-
-            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportLegacyAnnotations);
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
-                try
-                {
-                    imported_count += LegacyAnnotationConvertor.ImportLegacyAnnotations(pdf_document);   // TODO: do this sort of heavy task in a background task; now it locks up the UI
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Error while importing legacy annotations.");
-                }
-            }
+                int imported_count = 0;
 
-            MessageBoxes.Info(imported_count + " legacy annotations imported.");
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportLegacyAnnotations);
+                foreach (var pdf_document in pdf_documents)
+                {
+                    try
+                    {
+                        imported_count += LegacyAnnotationConvertor.ImportLegacyAnnotations(pdf_document);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Error while importing legacy annotations.");
+                    }
+                }
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    MessageBoxes.Info(imported_count + " legacy annotations imported.");
+                });
+            });
         }
 
         private void MenuForgetLegacyAnnotations_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
-            FeatureTrackingManager.Instance.UseFeature(Features.Library_ForgetLegacyAnnotations);
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
-                try
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_ForgetLegacyAnnotations);
+                foreach (var pdf_document in pdf_documents)
                 {
-                    LegacyAnnotationConvertor.ForgetLegacyAnnotations(pdf_document);
+                    try
+                    {
+                        LegacyAnnotationConvertor.ForgetLegacyAnnotations(pdf_document);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Error while forgetting legacy annotations.");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Error while forgetting legacy annotations.");
-                }
-            }
 
-            MessageBoxes.Info("Legacy annotations removed.");
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    MessageBoxes.Info("Legacy annotations removed.");
+                });
+            });
         }
 
         private void MenuForceOCR_Click(object sender, RoutedEventArgs e)
@@ -278,13 +293,16 @@ SourceURL: {0}
                 "language", language
                 );
 
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
-                if (pdf_document.DocumentExists)
+                foreach (var pdf_document in pdf_documents)
                 {
-                    pdf_document.PDFRenderer.ForceOCRText(language);
+                    if (pdf_document.DocumentExists)
+                    {
+                        pdf_document.ForceOCRText(language);
+                    }
                 }
-            }
+            });
         }
 
         private void MenuClearOCR_Click(object sender, RoutedEventArgs e)
@@ -293,10 +311,13 @@ SourceURL: {0}
 
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ClearOCR);
 
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
-                pdf_document.PDFRenderer.ClearOCRText();
-            }
+                foreach (var pdf_document in pdf_documents)
+                {
+                    pdf_document.ClearOCRText();
+                }
+            });
         }
 
         private void MenuAddMultipleTags_Click(object sender, RoutedEventArgs e)
@@ -403,7 +424,7 @@ SourceURL: {0}
             // Copying / Moving PDFDocuments takes a while, particularly if it's a large set.
             //
             // Hence this WORK should be executed by a background task.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 FeatureTrackingManager.Instance.UseFeature(feature);
 

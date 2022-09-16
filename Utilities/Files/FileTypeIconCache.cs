@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Files
 {
@@ -21,7 +24,7 @@ namespace Utilities.Files
         {
             get
             {
-                string extension = Path.GetExtension(path).ToLower(CultureInfo.CurrentCulture);
+                string extension = Path.GetExtension(path).ToLower();
 
                 BitmapSource result;
                 if (!icons.TryGetValue(extension, out result) || IsUncacheableExtension(extension))

@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using Qiqqa.Brainstorm.Connectors;
 using Qiqqa.Brainstorm.Nodes;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Mathematics.Geometry;
 using Utilities.Shutdownable;
 
@@ -22,11 +23,23 @@ namespace Qiqqa.Brainstorm.SceneManager
         // as this is only about rendering a network view, not about accessing critical data. Hence we forego the
         // effort to make this truly thread-safe: it's not worth it.
         //
-        private SceneRenderingControl scene_rendering_control;
+        private WeakReference<SceneRenderingControl> scene_rendering_control;
 
         public AutoArranger(SceneRenderingControl scene_rendering_control)
         {
-            this.scene_rendering_control = scene_rendering_control;
+            this.scene_rendering_control = new WeakReference<SceneRenderingControl>(scene_rendering_control);
+        }
+
+        public SceneRenderingControl SceneRenderingControl
+        {
+            get
+            {
+                if (scene_rendering_control != null && scene_rendering_control.TryGetTarget(out var control) && control != null)
+                {
+                    return control;
+                }
+                return null;
+            }
         }
 
         public void Enabled(bool enabled)
@@ -87,85 +100,89 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             int SPEED = 1;
 
-            // If the nodes and connectors have changed, recache them!
-            if (cache_scene_changed_marker != scene_rendering_control.SceneChangedMarker)
+            SceneRenderingControl scene_rendering_control = SceneRenderingControl;
+
+            if (scene_rendering_control != null)
             {
-                Logging.Info("Scene has changed, so autolayout is recaching.");
-                cache_scene_changed_marker = scene_rendering_control.SceneChangedMarker;
-                cache_node_controls = new List<NodeControl>(scene_rendering_control.NodeControls);
-                cache_connector_controls = new List<ConnectorControl>(scene_rendering_control.ConnectorControlManager.ConnectorControls);
-            }
-
-            // We reuse this so that it is memory allocation time efficient
-            NodesVector vector = new NodesVector();
-
-            // Also note that Utilities codebase had ATTRACTION *before* REPULSION.
-            // Haven't looked at the precise code, but wouldn't be surprised if this is
-            // very similar to the D3 force anneal code (D3.js) anyway. There aren't that
-            // many ways to stabilize a (large) graph in 2D.
-            //
-            // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
-
-            // Perform the repulsion
-            if (true)
-            {
-                int MAX_NODES = cache_node_controls.Count;
-                for (int i = 0; i < MAX_NODES; ++i)
+                // If the nodes and connectors have changed, recache them!
+                if (cache_scene_changed_marker != scene_rendering_control.SceneChangedMarker)
                 {
-                    NodeControlSceneData nodeI = cache_node_controls[i].NodeControlSceneData;
-                    if (nodeI.Deleted)
-                    {
-                        continue;
-                    }
+                    Logging.Info("Scene has changed, so autolayout is recaching.");
+                    cache_scene_changed_marker = scene_rendering_control.SceneChangedMarker;
+                    cache_node_controls = new List<NodeControl>(scene_rendering_control.NodeControls);
+                    cache_connector_controls = new List<ConnectorControl>(scene_rendering_control.ConnectorControlManager.ConnectorControls);
+                }
 
-                    for (int j = i + 1; j < MAX_NODES; ++j)
+                // We reuse this so that it is memory allocation time efficient
+                NodesVector vector = new NodesVector();
+
+                // Also note that Utilities codebase had ATTRACTION *before* REPULSION.
+                // Haven't looked at the precise code, but wouldn't be surprised if this is
+                // very similar to the D3 force anneal code (D3.js) anyway. There aren't that
+                // many ways to stabilize a (large) graph in 2D.
+                //
+                // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+
+                // Perform the repulsion
+                if (true)
+                {
+                    int MAX_NODES = cache_node_controls.Count;
+                    for (int i = 0; i < MAX_NODES; ++i)
                     {
-                        NodeControlSceneData nodeJ = cache_node_controls[j].NodeControlSceneData;
-                        if (nodeJ.Deleted)
+                        NodeControlSceneData nodeI = cache_node_controls[i].NodeControlSceneData;
+                        if (nodeI.Deleted)
                         {
                             continue;
                         }
 
-                        vector.Recalculate(nodeI, nodeJ);
+                        for (int j = i + 1; j < MAX_NODES; ++j)
+                        {
+                            NodeControlSceneData nodeJ = cache_node_controls[j].NodeControlSceneData;
+                            if (nodeJ.Deleted)
+                            {
+                                continue;
+                            }
 
-                        // Utilities code had:
-                        //
-                        // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
+                            vector.Recalculate(nodeI, nodeJ);
+
+                            // Utilities code had:
+                            //
+                            // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
 #if UNUSED_CODE
                         double strength = SPEED * Math.Min(2, (vector.minimum_extent / (vector.box_distance + 1)));
                         DoPushPull(nodeI, nodeJ, vector, strength);
 #else
-                        // Qiqqa code chunk alt:
-                        double strength = vector.maximum_extent * SPEED * (1 / (vector.box_distance + 1));
-                        strength = Math.Min(strength, 5);
-                        if (strength > 10)
-                        {
-                        }
-                        // end of Qiqqa alt chunk; looks to me like someone has been fiddling around here...
-                        // (including the logline below, which was also not in Utilities codebase...
-                        DoPushPull(nodeI, nodeJ, vector, strength);
-                        //Logging.Info("REPULSE STRENGTH={0}, box.distance={1}", strength, vector.box_distance);
+                            // Qiqqa code chunk alt:
+                            double strength = vector.maximum_extent * SPEED * (1 / (vector.box_distance + 1));
+                            strength = Math.Min(strength, 5);
+                            if (strength > 10)
+                            {
+                            }
+                            // end of Qiqqa alt chunk; looks to me like someone has been fiddling around here...
+                            // (including the logline below, which was also not in Utilities codebase...
+                            DoPushPull(nodeI, nodeJ, vector, strength);
+                            //Logging.Info("REPULSE STRENGTH={0}, box.distance={1}", strength, vector.box_distance);
 #endif
+                        }
                     }
                 }
-            }
 
-            // Perform the attraction
-            if (true)
-            {
-                int MAX_CONNECTORS = cache_connector_controls.Count;
-                for (int i = 0; i < MAX_CONNECTORS; ++i)
+                // Perform the attraction
+                if (true)
                 {
-                    ConnectorControl connector = cache_connector_controls[i];
-                    if (connector.Deleted)
+                    int MAX_CONNECTORS = cache_connector_controls.Count;
+                    for (int i = 0; i < MAX_CONNECTORS; ++i)
                     {
-                        continue;
-                    }
+                        ConnectorControl connector = cache_connector_controls[i];
+                        if (connector.Deleted)
+                        {
+                            continue;
+                        }
 
-                    NodeControlSceneData nodeI = connector.NodeFrom.NodeControlSceneData;
-                    NodeControlSceneData nodeJ = connector.NodeTo.NodeControlSceneData;
+                        NodeControlSceneData nodeI = connector.NodeFrom.NodeControlSceneData;
+                        NodeControlSceneData nodeJ = connector.NodeTo.NodeControlSceneData;
 
-                    vector.Recalculate(nodeI, nodeJ);
+                        vector.Recalculate(nodeI, nodeJ);
 
 #if UNUSED_CODE
 					// Utilities codebase was:
@@ -173,14 +190,15 @@ namespace Qiqqa.Brainstorm.SceneManager
 	                double strength = -1 * SPEED * (vector.distance / vector.minimum_extent);
 	                DoPushPull(nodeI, nodeJ, vector, strength);
 #else
-                    double strength = -1 * SPEED * (vector.box_distance / 50);
-                    DoPushPull(nodeI, nodeJ, vector, strength);
-                    //Logging.Info("ATTRACT STRENGTH={0}", strength);
+                        double strength = -1 * SPEED * (vector.box_distance / 50);
+                        DoPushPull(nodeI, nodeJ, vector, strength);
+                        //Logging.Info("ATTRACT STRENGTH={0}", strength);
 #endif
+                    }
                 }
-            }
 
-            NotifySceneRenderingControl();
+                NotifySceneRenderingControl();
+            }
         }
 
         private void DoPushPull(NodeControlSceneData nodeI, NodeControlSceneData nodeJ, NodesVector vector, double strength)
@@ -194,7 +212,15 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void NotifySceneRenderingControl()
         {
-            scene_rendering_control.Dispatcher.Invoke(new Action(() => scene_rendering_control.RecalculateAllNodeControlDimensions()), DispatcherPriority.Background);
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            {
+                SceneRenderingControl scene_rendering_control = SceneRenderingControl;
+
+                if (scene_rendering_control != null)
+                {
+                    scene_rendering_control.RecalculateAllNodeControlDimensions();
+                }
+            }, DispatcherPriority.Background);
         }
 
         private class NodesVector

@@ -103,7 +103,7 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff.CitationFinding
                                 continue;
                             }
 
-                            WordList word_list_page = pdf_document_other.PDFRenderer.GetOCRText(page_result.page);
+                            WordList word_list_page = pdf_document_other.GetOCRText(page_result.page);
                             if (null != word_list_page)
                             {
                                 StringBuilder sb = new StringBuilder();

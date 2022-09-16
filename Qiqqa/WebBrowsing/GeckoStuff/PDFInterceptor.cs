@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Threading;
@@ -15,6 +14,10 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
@@ -43,15 +46,6 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 #if DEBUG
             {
                 string abs_uri = channel.Uri.AbsoluteUri;
-                string disp_hdr = "(not specified)";
-                try
-                {
-                    disp_hdr = channel.ContentDispositionHeader;
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Gecko ContentDispositionHeader b0rk at {0}", abs_uri);
-                }
                 string mimetype = channel.ContentType;
                 uint rvc = channel.ResponseStatus;
                 var hdrs = channel.GetResponseHeadersDict();
@@ -69,6 +63,18 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                         else
                             hdrs_str += ";";
                         hdrs_str += elv;
+                    }
+                }
+                string disp_hdr = "(not specified)";
+                if (hdrs_str.Contains("Content-Disposition:"))
+                {
+                    try
+                    {
+                        disp_hdr = channel.ContentDispositionHeader;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Gecko ContentDispositionHeader b0rk at {0}", abs_uri);
                     }
                 }
                 Logging.Info("PDFInterceptor::Response URI: {0} ; disposition: {1}; mime: {2}; status: {3}; headers:\n{4}", abs_uri, disp_hdr, mimetype, rvc, hdrs_str);
@@ -115,66 +121,69 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 
         private void streamListener_Completed(object sender, EventArgs e)
         {
-            StreamListenerTee stream_listener_tee = null;
-
-            try
+            WPFDoEvents.SafeExec(() =>
             {
-                stream_listener_tee = (StreamListenerTee)sender;
+                StreamListenerTee stream_listener_tee = null;
 
-                // WARNING: `captured_data` is a reference. Delay Dispose() call until data has actually been written to disk!
-                byte[] captured_data = stream_listener_tee.GetCapturedData();
-
-                if (0 == captured_data.Length)
+                try
                 {
-                    if (!have_notified_about_installing_acrobat)
-                    {
-                        have_notified_about_installing_acrobat = true;
+                    stream_listener_tee = (StreamListenerTee)sender;
 
-                        NotificationManager.Instance.AddPendingNotification(
-                            new NotificationManager.Notification(
-                                "We notice that your PDF files are not loading in your browser.  Please install Acrobat Reader for Qiqqa to be able to automatically add PDFs to your libraries.",
-                                null,
-                                NotificationManager.NotificationType.Info,
-                                Icons.DocumentTypePdf,
-                                "Download",
-                                DownloadAndInstallAcrobatReader
-                            ));
+                    // WARNING: `captured_data` is a reference. Delay Dispose() call until data has actually been written to disk!
+                    byte[] captured_data = stream_listener_tee.GetCapturedData();
+
+                    if (0 == captured_data.Length)
+                    {
+                        if (!have_notified_about_installing_acrobat)
+                        {
+                            have_notified_about_installing_acrobat = true;
+
+                            NotificationManager.Instance.AddPendingNotification(
+                                new NotificationManager.Notification(
+                                    "We notice that your PDF files are not loading in your browser.  Please install Acrobat Reader for Qiqqa to be able to automatically add PDFs to your libraries.",
+                                    null,
+                                    NotificationManager.NotificationType.Info,
+                                    Icons.DocumentTypePdf,
+                                    "Download",
+                                    DownloadAndInstallAcrobatReader
+                                ));
+                        }
+
+                        Logging.Error("We seem to have been notified about a zero-length PDF - URL: {0}, FILE: {1}", document_source_url, document_source_filename);
+
+                        return;
                     }
 
-                    Logging.Error("We seem to have been notified about a zero-length PDF - URL: {0}, FILE: {1}", document_source_url, document_source_filename);
+                    string temp_pdf_filename = TempFile.GenerateTempFilename("pdf");
+                    File.WriteAllBytes(temp_pdf_filename, captured_data);
 
-                    return;
+                    SafeThreadPool.QueueUserWorkItem(() =>
+                    {
+                        PDFDocument pdf_document = Library.GuestInstance.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, Library.GuestInstance, document_source_filename, document_source_url, null, null, null, true);
+                        File.Delete(temp_pdf_filename);
+
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                            {
+                                PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
+                                pdf_reading_control.EnableGuestMoveNotification(potential_attachment_pdf_document);
+                            },
+                            priority: DispatcherPriority.Background
+                        );
+                    });
                 }
-
-                string temp_pdf_filename = TempFile.GenerateTempFilename("pdf");
-                File.WriteAllBytes(temp_pdf_filename, captured_data);
-
-                SafeThreadPool.QueueUserWorkItem(o =>
+                catch (Exception ex)
                 {
-                    PDFDocument pdf_document = Library.GuestInstance.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, Library.GuestInstance, document_source_filename, document_source_url, null, null, null, true, true);
-                    File.Delete(temp_pdf_filename);
-
-                    WPFDoEvents.InvokeInUIThread(() =>
-                        {
-                            PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
-                            pdf_reading_control.EnableGuestMoveNotification(potential_attachment_pdf_document);
-                        },
-                        priority: DispatcherPriority.Background
-                    );
-                });
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "There was a problem while intercepting the download of a PDF - URL: {0}, FILE: {1}", document_source_url, document_source_filename);
-            }
-            finally
-            {
-                // suggested by Microsoft Code Analysis Report, but with this done earlier than right here *after* the file WRITE action, some PDFs won't make it into the library!!
-                stream_listener_tee.Dispose();
-            }
+                    Logging.Error(ex, "There was a problem while intercepting the download of a PDF - URL: {0}, FILE: {1}", document_source_url, document_source_filename);
+                }
+                finally
+                {
+                    // suggested by Microsoft Code Analysis Report, but with this done earlier than right here *after* the file WRITE action, some PDFs won't make it into the library!!
+                    stream_listener_tee.Dispose();
+                }
+            });
         }
 
-        private void DownloadAndInstallAcrobatReader(object obj)
+        private void DownloadAndInstallAcrobatReader()
         {
             WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenUrlInBrowser(WebsiteAccess.Url_AdobeAcrobatDownload, true));
         }

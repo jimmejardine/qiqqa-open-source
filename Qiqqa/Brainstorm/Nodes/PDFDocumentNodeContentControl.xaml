@@ -10,8 +10,7 @@
                     <Grid Name="ObjThemeSwatch" />
                     <Image Name="ImageIcon" Grid.Column="0"  />
                 </Grid>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" Margin="3" >
                     <TextBlock Name="TextTitle" Text="{Binding TitleCombinedTrimmed}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>
                     <TextBlock Margin="5,0,0,0" Name="TextAuthors" Text="{Binding AuthorsCombinedTrimmed}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>
                     <TextBlock Margin="5,0,0,0" Name="TextPublication" Text="{Binding PublicationTrimmed}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="250"/>

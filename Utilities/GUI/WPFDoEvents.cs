@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -17,6 +18,7 @@ namespace Utilities.GUI
     /// </summary>
     public static class WPFDoEvents
     {
+#if false
         private static void DoEvents()
         {
             if (!ShutdownableManager.Instance.IsShuttingDown
@@ -65,13 +67,17 @@ namespace Utilities.GUI
                 Thread.Yield();
             }
         }
+#endif
 
+#if false
         internal static object ExitFrame(object f)
         {
             ((DispatcherFrame)f).Continue = false;
             return null;
         }
+#endif
 
+#if false
         //private static object DoEvents_lock = new object();
 
         public static void WaitForUIThreadActivityDone()
@@ -113,8 +119,9 @@ namespace Utilities.GUI
             }
             Logging.Debug("-WaitForUIThreadActivityDone end (time spent: {0} ms)", clk.ElapsedMilliseconds);
         }
+#endif
 
-        #region Forced Repaint of UI
+        // Forced Repaint of UI
 
         // as per: https://stackoverflow.com/questions/2886532/in-c-how-do-you-send-a-refresh-repaint-message-to-a-wpf-grid-or-canvas
 
@@ -126,10 +133,17 @@ namespace Utilities.GUI
             {
                 repaint_done = EmptyDelegate;
             }
+            else
+            {
+                Action wrapper_action = () =>
+                {
+                    WPFDoEvents.SafeExec(repaint_done, $"RepaintUIElement::{uiElement}");
+                };
+                repaint_done = wrapper_action;
+            }
             uiElement.Dispatcher.Invoke(DispatcherPriority.Render, repaint_done);
         }
 
-        #endregion
 
         public static void SetHourglassCursor()
         {
@@ -155,17 +169,38 @@ namespace Utilities.GUI
 
         public static bool CurrentThreadIsUIThread()
         {
-            if (Application.Current?.Dispatcher.CheckAccess() ?? false)
+            Thread t = Thread.CurrentThread;
+            ApartmentState state = t?.GetApartmentState() ?? ApartmentState.Unknown;
+            bool pooled = t?.IsThreadPoolThread ?? false;
+            bool bg = t?.IsBackground ?? false;
+            string n = t?.Name ?? "???";
+            bool nct = (Application.Current == null);
+            bool isMainDispatcher = (System.Windows.Threading.Dispatcher.CurrentDispatcher == Application.Current?.Dispatcher);
+            bool isUI = (!pooled && !bg && state == ApartmentState.STA);
+            bool acc = Application.Current?.Dispatcher.CheckAccess() ?? false;
+
+            if (state == ApartmentState.Unknown || (nct && !ShutdownableManager.Instance.IsShuttingDown) || (!isMainDispatcher && isUI) || acc != isUI)
+            {
+                // when we at the end of application lifetime, after signaling shutdown, at some point this mix shows up:
+                //     [Q] WARN[Main][198.658M] Running in odd context @ STA / False / False / True / ..... / True
+                //
+                //            STA(state)/False(pooled)/False(bg)/True(appl.curr)/True(isShuttingdown)/False(isMainDisp)/True(isUI)/True(accNotUI)/True(mix)
+#if false
+                Logging.Warn($"Running in odd context @ {state}/{pooled}/{bg}/{ (Application.Current == null) }/{ ShutdownableManager.Instance.IsShuttingDown }/{ isMainDispatcher }/{ isUI }/{ (acc != isUI) }/{ !(pooled || bg || state != ApartmentState.STA) }");
+#endif
+            }
+
+            if (acc)
             {
                 // https://stackoverflow.com/questions/10448987/dispatcher-currentdispatcher-vs-application-current-dispatcher
-                if (System.Windows.Threading.Dispatcher.CurrentDispatcher != Application.Current?.Dispatcher)
+                if (!isMainDispatcher || !isUI)
                 {
-                    Logging.Error(new Exception("Unexpected results"), "woops");
+                    Logging.Error(new Exception("Unexpected results"), $"woops @ {state}/{pooled}/{bg}/{ (Application.Current == null) }/{ ShutdownableManager.Instance.IsShuttingDown }/{ isMainDispatcher }/{ isUI }/{ (acc != isUI) }/{ !(pooled || bg || state != ApartmentState.STA) }");
                     return false;
                 }
                 return true;
             }
-            return Application.Current == null;
+            return isUI;
         }
 
         public static void InvokeInUIThread(Action action, Dispatcher override_dispatcher = null, DispatcherPriority priority = DispatcherPriority.Normal)
@@ -176,20 +211,45 @@ namespace Utilities.GUI
                 {
                     if (!override_dispatcher.CheckAccess())
                     {
-                        override_dispatcher.Invoke(action, priority);
+                        Action wrapper_action = () =>
+                        {
+                            WPFDoEvents.SafeExec(action, "InvokeInUIThread::override_dispatcher");
+                        };
+                        override_dispatcher.Invoke(wrapper_action, priority);
                     }
                     else
                     {
-                        action.Invoke();
+                        action();
                     }
                 }
                 else if (!CurrentThreadIsUIThread())
                 {
-                    Application.Current.Dispatcher.Invoke(action, priority);
+                    if (Application.Current != null)
+                    {
+                        Action wrapper_action = () =>
+                        {
+                            WPFDoEvents.SafeExec(action, "InvokeInUIThread");
+                        };
+                        Application.Current.Dispatcher.Invoke(wrapper_action, priority);
+                    }
+                    else
+                    {
+                        // Pray to the Big Kahuna; we're (probably) shutting down and don't know / cannot know any more if we're in UI thread or other.
+                        //
+                        // Fire off and pray...
+                        try
+                        {
+                            action();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "InvokeInUIThread::finalFallback: Error occurred while there's no current known UI thread.");
+                        }
+                    }
                 }
                 else
                 {
-                    action.Invoke();
+                    action();
                 }
             }
             catch (Exception ex)
@@ -202,11 +262,24 @@ namespace Utilities.GUI
         {
             if (Application.Current != null)
             {
-                Application.Current.Dispatcher.BeginInvoke(action, priority);
+                // wrap invoked code in exception catcher/handler so we don't get spurious unhandled exceptions in the UI.
+                Action wrapper_action = () =>
+                {
+                    WPFDoEvents.SafeExec(action, "InvokeAsyncInUIThread");
+                };
+                Application.Current.Dispatcher.BeginInvoke(wrapper_action, priority);
             }
             else
             {
-                throw new Exception("no known GUI thread to invoke async to...");
+                ASSERT.Test(ShutdownableManager.Instance.IsShuttingDown);
+                try
+                {
+                    throw new Exception("Ignoring async UI invocation during shutdown.");
+                }
+                catch (Exception ex)
+                {
+                    Logging.Warn(ex);
+                }
             }
         }
 
@@ -215,55 +288,124 @@ namespace Utilities.GUI
         {
             // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
             // Besides, the basic test would fail when we are shutting down the application.
-            ASSERT.Test(!CurrentThreadIsUIThread() || ShutdownableManager.Instance.IsShuttingDown, "This code MUST NOT execute in the Main UI Thread.", dont_throw: true);
+            bool state = !CurrentThreadIsUIThread() || ShutdownableManager.Instance.IsShuttingDown;
+            if (!state)
+            {
+                ASSERT.Test(state, "This code MUST NOT execute in the Main UI Thread.", dont_throw: true);
+            }
         }
 
         [Conditional("DEBUG")]
         public static void AssertThisCodeIsRunningInTheUIThread()
         {
             // This assertion check is important, but not severe enough to barf a hairball when it fails: dont_throw=true
-            ASSERT.Test(CurrentThreadIsUIThread(), "This code MUST execute in the Main UI Thread.", dont_throw: true);
+            bool state = CurrentThreadIsUIThread() || ShutdownableManager.Instance.IsShuttingDown;
+            if (!state)
+            {
+                ASSERT.Test(false, "This code MUST execute in the Main UI Thread.", dont_throw: true);
+            }
         }
 
-        public static void SafeExec(Action f, Dispatcher override_dispatcher = null, bool must_exec_in_UI_thread = false)
+        public static string StackTrace
         {
-            if ((!must_exec_in_UI_thread && override_dispatcher == null) || CurrentThreadIsUIThread())
+            get
             {
-                // exec in same thread:
-                try
-                {
-                    f();
-                }
-                catch (Exception ex)
-                {
-                    // NOTE: when you set a debugger breakpoint here, it should only be hit
-                    // AFTER the Logging singleton instance has shut down:
-                    // it's okay when we're *that far* into the application termination phase.
-                    if (!Logging.HasShutDown)
-                    {
-                        Logging.Error(ex, "Failed safe-exec in same thread.");
-                    }
-                }
+                return LogAssist.AppendStackTrace(null, "SafeExec");
             }
-            else
-            {
-                string trace = LogAssist.AppendStackTrace(null, "SafeExec");
+        }
 
-                WPFDoEvents.InvokeInUIThread(() =>
-                {
-                    try
-                    {
-                        f();
-                    }
-                    catch (Exception ex)
-                    {
-                        if (!Logging.HasShutDown)
-                        {
-                            Logging.Error(ex, "Failed safe-exec in UI thread.\n  Invoker call trace:\n{0}", trace);
-                        }
-                    }
-                }, override_dispatcher);
+        public static void SafeExec(Action f, string trace = null, [CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            // exec in same thread:
+            try
+            {
+                f();
             }
+            catch (Exception ex)
+            {
+                // NOTE: when you set a debugger breakpoint here, it should only be hit
+                // AFTER the Logging singleton instance has shut down:
+                // it's okay when we're *that far* into the application termination phase.
+                if (!Logging.HasShutDown)
+                {
+                    var func_call_str = GetInvokingFunctionName(callerName, sourceFilePath, sourceLineNumber);
+                    if (!String.IsNullOrEmpty(trace))
+                    {
+                        trace = $" -- Invoker call trace:\n{func_call_str}\n{trace}";
+                    }
+                    else
+                    {
+                        trace = $" -- Invoker call trace:\n{func_call_str}";
+                    }
+                    Logging.Error(ex, $"Failed safe-exec.{trace}");
+                }
+            }
+        }
+
+#if DEBUG
+#if false
+        public static void TestAsyncErrorHandling()
+        {
+            Action bad_f = () =>
+            {
+                throw new Exception("boom!");
+            };
+
+            SafeExec(bad_f);
+            WPFDoEvents.InvokeInUIThread(bad_f);
+            WPFDoEvents.InvokeInUIThread(() =>
+            {
+                SafeExec(bad_f, "TestAsyncErrorHandling::InvokeInUIThread");
+            });
+            WPFDoEvents.InvokeInUIThread(() =>
+            {
+                WPFDoEvents.InvokeInUIThread(bad_f);
+                WPFDoEvents.InvokeAsyncInUIThread(bad_f);
+            });
+            WPFDoEvents.InvokeAsyncInUIThread(bad_f);
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            {
+                WPFDoEvents.InvokeInUIThread(bad_f);
+                WPFDoEvents.InvokeAsyncInUIThread(bad_f);
+            });
+
+            // this is the only one which is expected to invoke the Unhandled Exception Handler code
+#if false
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                bad_f();
+            });
+#endif
+
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                SafeExec(bad_f, "TestAsyncErrorHandling::QueueUserWorkItem");
+            });
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                WPFDoEvents.InvokeInUIThread(bad_f);
+                WPFDoEvents.InvokeAsyncInUIThread(bad_f);
+            });
+        }
+#else
+        public static void TestAsyncErrorHandling()
+        {
+        }
+#endif
+#endif
+
+            // Get us the name of the function which calls this member. As such it serves to provide
+            // us with the "currently executing function".
+            //
+            // Derived from https://stackoverflow.com/a/15310053/1635910
+            // via https://stackoverflow.com/questions/44153/can-you-use-reflection-to-find-the-name-of-the-currently-executing-method/15310053#15310053
+            // and https://stackoverflow.com/questions/2652460/how-to-get-the-name-of-the-current-method-from-code
+            public static string GetInvokingFunctionName([CallerMemberName] string callerName = null, [CallerFilePath] string sourceFilePath = null, [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            string[] arr = sourceFilePath.Split('\\');
+            string[] arr2 = new string[4];
+            Array.Copy(arr, Math.Max(0, arr.Length - 4), arr2, 0, 4);
+            return $"{callerName ?? "???"}::...{String.Join("/", arr2)}@{sourceLineNumber}";
         }
     }
 }

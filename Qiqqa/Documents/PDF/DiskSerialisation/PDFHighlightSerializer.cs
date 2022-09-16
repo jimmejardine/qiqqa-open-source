@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using Qiqqa.DocumentLibrary;
-using Qiqqa.Documents.PDF.ThreadUnsafe;
+using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
+using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.DiskSerialisation
 {
     internal class PDFHighlightSerializer
     {
-        internal static void ReadFromStream(PDFDocument_ThreadUnsafe pdf_document, PDFHightlightList highlights, Dictionary<string, byte[]> /* can be null */ library_items_highlights_cache)
+        internal static void ReadFromStream(PDFDocument pdf_document, PDFHightlightList highlights, Dictionary<string, byte[]> /* can be null */ library_items_highlights_cache)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
@@ -25,7 +26,8 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
             else
             {
-                List<LibraryDB.LibraryItem> library_items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.HIGHLIGHTS);
+                List<LibraryDB.LibraryItem> library_items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(PDFDocumentFileLocations.HIGHLIGHTS, new List<string>() { pdf_document.Fingerprint });
+                ASSERT.Test(library_items.Count < 2);
                 if (0 < library_items.Count)
                 {
                     highlights_data = library_items[0].data;
@@ -53,7 +55,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                     {
                         foreach (PDFHighlight highlight in highlights_list)
                         {
-                            highlights.AddUpdatedHighlight(highlight);
+                            pdf_document.AddUpdatedHighlight(highlight);
                         }
                     }
                 }
@@ -79,7 +81,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
 
         // --------------------------------------------------------------------------------------------------------
 
-        internal static void WriteToDisk(PDFDocument_ThreadUnsafe pdf_document, bool force_flush_no_matter_what)
+        internal static void WriteToDisk(PDFDocument pdf_document, bool force_flush_no_matter_what)
         {
             if (!force_flush_no_matter_what)
             {

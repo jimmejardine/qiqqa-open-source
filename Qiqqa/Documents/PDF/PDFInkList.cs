@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Ink;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF
 {
@@ -11,9 +15,6 @@ namespace Qiqqa.Documents.PDF
     public class PDFInkList : ICloneable
     {
         private Dictionary<int, byte[]> page_ink_blobs = new Dictionary<int, byte[]>();
-
-        public delegate void OnPDFInkListChangedDelegate();
-        public event OnPDFInkListChangedDelegate OnPDFInkListChanged;
 
         /// <summary>
         /// TODO: NOT threadsafe - should clean this up...
@@ -42,11 +43,10 @@ namespace Qiqqa.Documents.PDF
             return null;
         }
 
-        internal void AddPageInkBlob(int page, byte[] page_ink_blob)
+        internal bool __AddPageInkBlob(int page, byte[] page_ink_blob)
         {
             page_ink_blobs[page] = page_ink_blob;
-
-            OnPDFInkListChanged?.Invoke();
+            return true;
         }
 
         /// <summary>
@@ -55,7 +55,6 @@ namespace Qiqqa.Documents.PDF
         public object Clone()
         {
             PDFInkList rv = (PDFInkList)MemberwiseClone();
-            rv.OnPDFInkListChanged = null;
             return rv;
         }
     }

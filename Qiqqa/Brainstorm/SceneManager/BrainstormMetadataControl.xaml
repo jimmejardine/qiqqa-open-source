@@ -5,16 +5,13 @@
     xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     >
     <StackPanel Orientation="Vertical">
-        <local_gui:AugmentedSpacer />
-        <TextBlock Text="Brainstorm Title:" />
+        <TextBlock Text="Brainstorm Title:"  Margin="3" />
         <TextBox Text="{Binding Title}" />
-        <local_gui:AugmentedSpacer />
-        <TextBlock Text="Brainstorm Description:" />
+        <TextBlock Text="Brainstorm Description:"  Margin="3" />
         <ScrollViewer MaxHeight="200">
             <TextBox Text="{Binding Description}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" />
         </ScrollViewer>
-        <local_gui:AugmentedSpacer />
-        <TextBlock Text="Brainstorm Filename:" />
+        <TextBlock Text="Brainstorm Filename:"  Margin="3" />
         <TextBox Text="{Binding LastOpenLocation}" IsEnabled="False" />
     </StackPanel>
 </UserControl>

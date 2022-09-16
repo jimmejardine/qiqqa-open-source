@@ -7,6 +7,7 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Collections;
+using Utilities.GUI;
 using Utilities.Language;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter.AuthorExplorerStuff
@@ -55,6 +56,8 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AuthorExplorerStuff
 
         internal static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             Logging.Info("+Getting node items for Authors");
 
             List<PDFDocument> pdf_documents = null;
@@ -84,7 +87,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AuthorExplorerStuff
 
         private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
+            WPFDoEvents.SafeExec(() =>
+            {
+                OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
+            });
         }
 
         #region --- Test ------------------------------------------------------------------------
