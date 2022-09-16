@@ -16,10 +16,6 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.ProcessTools;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.WebBrowsing
 {
@@ -81,7 +77,7 @@ namespace Qiqqa.WebBrowsing
                 pdf_document.Year = Convert.ToString(DateTime.Now.Year);
                 pdf_document.DownloadLocation = url;
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                     {
                         PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                         pdf_reading_control.EnableGuestMoveNotification();

@@ -53,7 +53,7 @@ namespace Qiqqa.AnnotationsReportBuilding
             // is the answer to everything and thus also to 'reasonable measure for one page/screen full'  ;-P  ) we simply DO NOT PASS
             // the set on to the query generator-annex-processor call GetLibraryItemsAsCache() but let that one follow its *default* 
             // behaviour *instead*, which is to dump the entire table in our lap and good riddance.
-            // For more than 42 documents in the set and medium to huge libraries, this is expected to be 'near enough to optimal'.  :-)
+            // for more than 42 documents in the set and medium to huge libraries, this is expected to be 'near enough to optimal'.  :-)
             // When you beg to differ, you may. Benchmarks, please! (I know you'll be able to improve on this, surely, but you get my drift:
             // is it worth it yet? Or are there other areas with bigger fish to fry?  ;-)
             //

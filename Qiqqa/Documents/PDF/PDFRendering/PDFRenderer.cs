@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using System.Windows.Media.Imaging;
-using icons;
-using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFRendering;
 #if !HAS_MUPDF_PAGE_RENDERER
 using Utilities.PDF.Sorax;
@@ -29,22 +25,24 @@ namespace Qiqqa.Documents.PDF
         private Dictionary<int, TypedWeakReference<WordList>> texts = new Dictionary<int, TypedWeakReference<WordList>>();
         private object texts_lock = new object();
 
+        //List<int> pages_to_render = new List<int>();
+
         public delegate void OnPageTextAvailableDelegate(int page_from, int page_to);
         public event OnPageTextAvailableDelegate OnPageTextAvailable;
 
+#if false
+        internal byte[] GetPageByDPIAsImage(int page, int dpi)
+        {
+#if !HAS_MUPDF_PAGE_RENDERER
+            return SoraxPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
+#else
+            return MuPDFRenderer.GetPageByDPIAsImage(DocumentPath, PDFPassword, page, dpi);
+#endif
+        }
+#endif
+
         internal byte[] GetPageByHeightAsImage(int page, int height, int width)
         {
-            // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
-            //
-            bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForReading") ||
-                ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels") ||
-                ConfigurationManager.IsEnabled("RenderPDFPagesForOCR");
-
-            if (!allow)
-            {
-                return Backgrounds.GetBackgroundAsByteArray(Backgrounds.PageRenderingDisabled);
-            }
-
 #if !HAS_MUPDF_PAGE_RENDERER
             return SoraxPDFRenderer.GetPageByHeightAsImage(DocumentPath, PDFPassword, page, height);
 #else
@@ -144,19 +142,20 @@ namespace Qiqqa.Documents.PDF
                         if (File.Exists(filename))
                         {
                             Dictionary<int, WordList> word_lists = WordList.ReadFromFile(filename);
-
-                            // cache these word lists for later queries:
                             foreach (var pair in word_lists)
                             {
                                 texts[pair.Key] = new TypedWeakReference<WordList>(pair.Value);
                             }
 
-                            // now see if we've got a slot for the requested page:
-                            WordList word_list;
-                            word_lists.TryGetValue(page, out word_list);
-                            if (null != word_list)
+                            TypedWeakReference<WordList> word_list_weak;
+                            texts.TryGetValue(page, out word_list_weak);
+                            if (null != word_list_weak)
                             {
-                                return word_list;
+                                WordList word_list = word_list_weak.TypedTarget;
+                                if (null != word_list)
+                                {
+                                    return word_list;
+                                }
                             }
                         }
                     }

@@ -18,7 +18,7 @@ namespace Qiqqa.Common.GUI
             BorderThickness = new Thickness(0, 0, 0, 1);
             BorderBrush = new SolidColorBrush(ThemeColours.Background_Color_Neutral_Light);
 
-            //RenderOptions.SetBitmapScalingMode(HeaderImage, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(HeaderImage, BitmapScalingMode.HighQuality);
         }
 
         public ImageSource Img

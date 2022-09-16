@@ -1,28 +1,30 @@
 ﻿using System;
 using Syncfusion.Pdf.Interactive;
 using Utilities;
-using Utilities.GUI;
-using Utilities.Misc;
 using Utilities.PDF;
 
 namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 {
     internal class BuildPopupFromPDF
     {
-        static internal void BuildMenu(JumpToSectionPopup popup, PDFReadingControl pdf_reading_control)
+        private JumpToSectionPopup popup;
+        private PDFDocument pdf_document;
+
+        internal BuildPopupFromPDF(JumpToSectionPopup popup, PDFDocument pdf_document)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            this.popup = popup;
+            this.pdf_document = pdf_document;
+        }
 
-            PDFDocument pdf_document = pdf_reading_control.GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
+        internal void BuildMenu()
+        {
             try
             {
                 using (AugmentedPdfLoadedDocument doc = new AugmentedPdfLoadedDocument(pdf_document.DocumentPath))
                 {
                     if (null != doc.Bookmarks)
                     {
-                        GenerateBookmarks(popup, pdf_reading_control, doc, doc.Bookmarks, 0);
+                        GenerateBookmarks(doc, doc.Bookmarks, 0);
                     }
                 }
             }
@@ -32,7 +34,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             }
         }
 
-        static private void GenerateBookmarks(JumpToSectionPopup popup, PDFReadingControl pdf_reading_control, AugmentedPdfLoadedDocument doc, PdfBookmarkBase bookmark_base, int depth)
+        private void GenerateBookmarks(AugmentedPdfLoadedDocument doc, PdfBookmarkBase bookmark_base, int depth)
         {
             // Don't go too deep in the bookmark hierarchy
             if (depth > 0)
@@ -77,13 +79,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
                 if (-1 != page_number)
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
-                    {
-                        popup.Children.Add(new JumpToSectionItem(popup, pdf_reading_control, bookmark.Title, page_number + 1));
-                    });
+                    popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, bookmark.Title, page_number + 1));
                 }
 
-                GenerateBookmarks(popup, pdf_reading_control, doc, bookmark, depth + 1);
+                GenerateBookmarks(doc, bookmark, depth + 1);
             }
         }
     }

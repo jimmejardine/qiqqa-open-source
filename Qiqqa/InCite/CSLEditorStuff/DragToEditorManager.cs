@@ -1,10 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
 using ICSharpCode.AvalonEdit;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.InCite.CSLEditorStuff
 {

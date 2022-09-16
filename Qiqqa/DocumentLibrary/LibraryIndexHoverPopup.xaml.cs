@@ -13,11 +13,6 @@ using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
 using Image = System.Drawing.Image;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-using Qiqqa.Common.Configuration;
-using icons;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -111,15 +106,6 @@ namespace Qiqqa.DocumentLibrary
                 return;
             }
 
-            // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
-            //
-            bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels");
-
-            if (!allow)
-            {
-                ImageThumbnail.Source = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
-            }
-
             SafeThreadPool.QueueUserWorkItem(() =>
             {
                 try
@@ -131,35 +117,38 @@ namespace Qiqqa.DocumentLibrary
 
                         using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByHeightAsImage(page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
                         {
-                            using (Image image = Image.FromStream(ms))
+                            using (Bitmap image = (Bitmap)Image.FromStream(ms))
                             {
                                 PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
                                 PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
                                 PDFOverlayRenderer.RenderInks(image, pdf_document, page);
 
-                                image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-                                ASSERT.Test(image_page.IsFrozen);
+                                using (Bitmap cloned_image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat))
+                                {
+                                    image_page = BitmapImageTools.CreateBitmapSourceFromImage(cloned_image);
+                                    ASSERT.Test(image_page.IsFrozen);
+                                }
                             }
                         }
 
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
-                        {
-                            ImageThumbnail.Source = image_page;
+                            WPFDoEvents.InvokeAsyncInUIThread(() =>
+                            {
+                                ImageThumbnail.Source = image_page;
 
-                            if (null != ImageThumbnail.Source)
-                            {
-                                ImageThumbnail.Visibility = Visibility.Visible;
-                            }
-                            else
-                            {
-                                ImageThumbnail.Visibility = Visibility.Collapsed;
-                            }
-                        });
+                                if (null != ImageThumbnail.Source)
+                                {
+                                    ImageThumbnail.Visibility = Visibility.Visible;
+                                }
+                                else
+                                {
+                                    ImageThumbnail.Visibility = Visibility.Collapsed;
+                                }
+                            });
                     }
                     else
                     {
-                        string abstract_text = pdf_document?.Abstract;
-                        if (null != abstract_text)
+                        string abstract_text = pdf_document.Abstract;
+                        if (PDFAbstractExtraction.CANT_LOCATE != abstract_text)
                         {
                             WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {

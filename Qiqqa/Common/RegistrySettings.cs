@@ -1,6 +1,4 @@
 ﻿using System;
-using Qiqqa.Common.Configuration;
-using Utilities;
 using Utilities.Misc;
 
 namespace Qiqqa.Common
@@ -94,12 +92,6 @@ namespace Qiqqa.Common
 
         private RegistrySettings() : base("Qiqqa")
         {
-        }
-
-        public static void AugmentDeveloperOverridesDB()
-        {
-            // now also check for a developer override config file in the Basedirectory and add those overrides to the set:
-            UnitTestDetector.AugmentDeveloperConfiguration(ref registry_overrides_db, ConfigurationManager.Instance.DeveloperTestSettingsFilename_2_LibsBase);
         }
     }
 }

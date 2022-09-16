@@ -98,9 +98,7 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         private void AITagsRegenerated_NON_GUI_THREAD(IAsyncResult ar)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
                 {
                     AITagsRegenerated_GUI_THREAD();
                 }
@@ -109,8 +107,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         private void AITagsRegenerated_GUI_THREAD()
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             Reset();
             GridVote.Visibility = Visibility.Visible;
         }

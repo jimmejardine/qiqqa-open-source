@@ -251,7 +251,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                             if (annotation_report_options.IncludeAbstract)
                             {
                                 string abstract_text = pdf_document.Abstract;
-                                if (!String.IsNullOrEmpty(abstract_text))
+                                if (PDFAbstractExtraction.CANT_LOCATE != abstract_text)
                                 {
                                     have_document_details = true;
 
@@ -405,9 +405,8 @@ namespace Qiqqa.AnnotationsReportBuilding
                             if ((!annotation_report_options.ObeySuppressedImages || !pdf_annotation.AnnotationReportSuppressImage) && !annotation_report_options.SuppressAllImages)
                             {
                                 Image image = new Image();
-                                    MouseWheelDisabler.DisableMouseWheelForControl(image);
+                                MouseWheelDisabler.DisableMouseWheelForControl(image);
                                 image.Source = Icons.GetAppIcon(Icons.AnnotationReportImageWaiting);
-                                image.Source.Freeze();
                                 BlockUIContainer image_container = new BlockUIContainer(image);
                                 Figure floater = new Figure(image_container);
                                 floater.HorizontalAnchor = FigureHorizontalAnchor.PageCenter;
@@ -559,12 +558,22 @@ namespace Qiqqa.AnnotationsReportBuilding
                 {
                     try
                     {
+                        // Clear the waiting for processing text
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        {
+                            annotation_work.processing_error.Text = "";
+                        });
+
+
                         if (pdf_document.DocumentExists)
                         {
                             // Fill in the paragraph text
                             if (null != annotation_work.annotation_paragraph)
                             {
-                                BuildAnnotationWork_FillAnnotationText(pdf_document, pdf_annotation, annotation_work);
+                                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                                {
+                                    BuildAnnotationWork_FillAnnotationText(pdf_document, pdf_annotation, annotation_work);
+                                });
                             }
 
                             if (null != annotation_work.report_floater)
@@ -579,7 +588,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                                         ASSERT.Test(cropped_image_page.IsFrozen);
                                     }
 
-                                    WPFDoEvents.InvokeInUIThread(() =>
+                                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                                     {
                                         annotation_work.report_image.Source = cropped_image_page;
                                         annotation_work.report_floater.Width = new FigureLength(cropped_image_page.PixelWidth / 1);
@@ -588,10 +597,9 @@ namespace Qiqqa.AnnotationsReportBuilding
                                 catch (Exception ex)
                                 {
                                     Logging.Warn(ex, "There was a problem while rendering an annotation.");
-                                    WPFDoEvents.InvokeInUIThread(() =>
+                                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                                     {
                                         annotation_work.report_image.Source = Icons.GetAppIcon(Icons.AnnotationReportImageError);
-                                        ASSERT.Test(annotation_work.report_image.Source.IsFrozen);
                                         annotation_work.processing_error.Text = "There was a problem while rendering this annotation.";
                                     });
                                 }
@@ -600,7 +608,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                         }
                         else
                         {
-                            WPFDoEvents.InvokeInUIThread(() =>
+                            WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {
                                 if (null != annotation_work.report_image)
                                 {
@@ -615,7 +623,7 @@ namespace Qiqqa.AnnotationsReportBuilding
                     {
                         Logging.Error(ex, "There was an error while rendering page {0} for document {1} for the annotation report", pdf_annotation.Page, pdf_annotation.DocumentFingerprint);
 
-                        WPFDoEvents.InvokeInUIThread(() =>
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
                         {
                             if (null != annotation_work.report_image)
                             {
@@ -642,16 +650,9 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         private static void BuildAnnotationWork_FillAnnotationText(PDFDocument pdf_document, PDFAnnotation pdf_annotation, AnnotationWorkGenerator.AnnotationWork annotation_work)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             int current_color = -1;
-            Run current_run = null;
-            WPFDoEvents.InvokeInUIThread(() =>
-            {
-                current_run = new Run();
-                annotation_work.annotation_paragraph.Inlines.Add(current_run);
-            });
-            ASSERT.Test(current_run != null);
+            Run current_run = new Run();
+            annotation_work.annotation_paragraph.Inlines.Add(current_run);
 
             try
             {
@@ -679,21 +680,18 @@ namespace Qiqqa.AnnotationsReportBuilding
                             // If the colour has change
                             if (new_color != current_color)
                             {
-                                WPFDoEvents.InvokeInUIThread(() =>
-                                {
-                                    // Emit the existing span
-                                    current_run.Text = current_sb.ToString();
+                                // Emit the existing span
+                                current_run.Text = current_sb.ToString();
 
-                                    // Create the new span
-                                    current_color = new_color;
-                                    current_run = new Run();
-                                    current_sb = new StringBuilder();
-                                    annotation_work.annotation_paragraph.Inlines.Add(current_run);
-                                    if (-1 != new_color)
-                                    {
-                                        current_run.Background = new SolidColorBrush(StandardHighlightColours.GetColor(new_color));
-                                    }
-                                });
+                                // Create the new span
+                                current_color = new_color;
+                                current_run = new Run();
+                                current_sb = new StringBuilder();
+                                annotation_work.annotation_paragraph.Inlines.Add(current_run);
+                                if (-1 != new_color)
+                                {
+                                    current_run.Background = new SolidColorBrush(StandardHighlightColours.GetColor(new_color));
+                                }
                             }
 
                             // Tidy up dashes on line-ends
@@ -711,42 +709,24 @@ namespace Qiqqa.AnnotationsReportBuilding
                         }
                     }
 
-                    WPFDoEvents.InvokeInUIThread(() =>
-                    {
-                        // Clear the waiting for processing text
-                        annotation_work.processing_error.Text = "";
-
-                        // Emit the final span
-                        current_run.Text = current_sb.ToString();
-                    });
+                    // Emit the final span
+                    current_run.Text = current_sb.ToString();
                 }
                 else
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
-                    {
-                        // Clear the waiting for processing text
-                        annotation_work.processing_error.Text = "";
-
-                        Run run = new Run();
-                        run.Background = Brushes.Orange;
-                        run.Text = String.Format("OCR is not complete for page {0}", pdf_annotation.Page);
-                        annotation_work.annotation_paragraph.Inlines.Add(run);
-                    });
+                    Run run = new Run();
+                    run.Background = Brushes.Orange;
+                    run.Text = String.Format("OCR is not complete for page {0}", pdf_annotation.Page);
+                    annotation_work.annotation_paragraph.Inlines.Add(run);
                 }
             }
             catch (Exception ex)
             {
                 Logging.Error(ex, "There was a problem while trying to add annotation text for document {0}", pdf_document.Fingerprint);
-                WPFDoEvents.InvokeInUIThread(() =>
-                {
-                    // Clear the waiting for processing text
-                    annotation_work.processing_error.Text = "";
-
-                    Run run = new Run();
-                    run.Background = Brushes.Red;
-                    run.Text = String.Format("Processing error: {0}", ex.Message);
-                    annotation_work.annotation_paragraph.Inlines.Add(run);
-                });
+                Run run = new Run();
+                run.Background = Brushes.Red;
+                run.Text = String.Format("Processing error: {0}", ex.Message);
+                annotation_work.annotation_paragraph.Inlines.Add(run);
             }
         }
 

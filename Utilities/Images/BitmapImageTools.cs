@@ -6,10 +6,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Media.Imaging;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Utilities.Images
 {
@@ -28,10 +24,8 @@ namespace Utilities.Images
 
         public static Bitmap CropImageRegion(Image image, double left, double top, double width, double height)
         {
-            using (Bitmap bitmap = new Bitmap(image))
-            {
-                return CropBitmapRegion(bitmap, left, top, width, height);
-            }
+            Bitmap bitmap = new Bitmap(image);
+            return CropBitmapRegion(bitmap, left, top, width, height);
         }
 
         public static Bitmap CropBitmapRegion(Bitmap bitmap, double left, double top, double width, double height)
@@ -52,30 +46,28 @@ namespace Utilities.Images
 
         public static Bitmap LoadImageRegion(string filename, double left, double top, double width, double height)
         {
-            using (Bitmap bitmap = (Bitmap)Image.FromFile(filename))
-            {
-                Rectangle rectangle = new Rectangle((int)(bitmap.Width * left), (int)(bitmap.Height * top), (int)(bitmap.Width * width), (int)(bitmap.Height * height));
-                return bitmap.Clone(rectangle, bitmap.PixelFormat);
-            }
+            Bitmap bitmap = (Bitmap)Image.FromFile(filename);
+            Rectangle rectangle = new Rectangle((int)(bitmap.Width * left), (int)(bitmap.Height * top), (int)(bitmap.Width * width), (int)(bitmap.Height * height));
+            return bitmap.Clone(rectangle, bitmap.PixelFormat);
         }
 
         [Obsolete("Use the byte[] version directly", true)]
         public static BitmapSource LoadBitmapImageRegion(string filename, double left, double top, double width, double height)
         {
-            using (Image image = LoadImageRegion(filename, left, top, width, height))
-            {
-                return FromImage(image);
-            }
+            Image image = LoadImageRegion(filename, left, top, width, height);
+            return FromImage(image);
         }
 
         public static BitmapSource LoadFromFile(string filename)
         {
-            return LoadFromBytes(File.ReadAllBytes(filename), null, out double _);
+            double maximum_height;
+            return LoadFromBytes(File.ReadAllBytes(filename), null, out maximum_height);
         }
 
         public static BitmapSource LoadFromBytes(byte[] image_data)
         {
-            return LoadFromBytes(image_data, null, out double _);
+            double maximum_height;
+            return LoadFromBytes(image_data, null, out maximum_height);
         }
 
         private static bool VOID_CALLBACK_METHOD() { return false; }

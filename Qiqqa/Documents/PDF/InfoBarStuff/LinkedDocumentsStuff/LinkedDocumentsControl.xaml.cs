@@ -89,7 +89,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
         private void RepopulatePanels(PDFDocument doc)
         {
             var links = doc.PDFDocumentCitationManager.GetLinkedDocuments();
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
                 CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, doc, links, Features.LinkedDocument_InfoBar_OpenDoc);
             });
@@ -105,7 +105,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
             {
                 List<IndexResult> matches = doc.LibraryRef.Xlibrary.LibraryIndex.GetFingerprintsForQuery(query);
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     List<TextBlock> text_blocks = new List<TextBlock>();
                     bool alternator = false;

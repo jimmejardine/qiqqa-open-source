@@ -4,10 +4,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Threading;
 using Utilities.GUI;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 #if !HAS_MUPDF_PAGE_RENDERER
 namespace Utilities.PDF.Sorax
@@ -21,7 +17,7 @@ namespace Utilities.PDF.Sorax
 
             public HDOCWrapper(string filename, string pdf_user_password, string pdf_owner_password)
             {
-                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
                 this.filename = filename;
                 HDOC = SoraxDLL.SPD_Open(filename, pdf_user_password, pdf_owner_password);
@@ -50,20 +46,23 @@ namespace Utilities.PDF.Sorax
             {
                 Logging.Debug("HDOCWrapper::Dispose({0}) @{1}", disposing, dispose_count);
 
-                WPFDoEvents.SafeExec(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    if (dispose_count == 0)
+                    WPFDoEvents.SafeExec(() =>
                     {
-                        // Get rid of managed resources
-                        if (IntPtr.Zero != HDOC)
+                        if (dispose_count == 0)
                         {
-                            SoraxDLL.SPD_Close(HDOC);
-                            HDOC = IntPtr.Zero;
+                            // Get rid of managed resources
+                            if (IntPtr.Zero != HDOC)
+                            {
+                                SoraxDLL.SPD_Close(HDOC);
+                                HDOC = IntPtr.Zero;
+                            }
                         }
-                    }
-                });
+                    });
 
-                ++dispose_count;
+                    ++dispose_count;
+                });
             }
         }
 
@@ -79,7 +78,7 @@ namespace Utilities.PDF.Sorax
 
         public static int GetPageCount(string filename, string pdf_user_password, string pdf_owner_password)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             using (HDOCWrapper hdoc = new HDOCWrapper(filename, pdf_user_password, pdf_owner_password))
             {
@@ -89,7 +88,7 @@ namespace Utilities.PDF.Sorax
 
         public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, double height)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             float actual_dpi = 0;
 
@@ -114,7 +113,7 @@ namespace Utilities.PDF.Sorax
 #if false
         public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, float dpi)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             using (HDOCWrapper hdoc = new HDOCWrapper(filename, pdf_user_password, pdf_owner_password))
             {
@@ -124,26 +123,25 @@ namespace Utilities.PDF.Sorax
 #endif
         private static byte[] GetPageByDPIAsImage_LOCK(HDOCWrapper hdoc, int page, float dpi)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
             IntPtr HDC_HDC = SoraxDLL.GetDC(IntPtr.Zero);
 
             try
             {
                 IntPtr hbitmap = SoraxDLL.SPD_GetPageBitmap(hdoc.HDOC, HDC_HDC, page, 0, dpi);
-                using (Bitmap bitmap = Image.FromHbitmap(hbitmap))
-                {
-                    SoraxDLL.DeleteObject(hbitmap);
+                Bitmap bitmap = Image.FromHbitmap(hbitmap);
+                SoraxDLL.DeleteObject(hbitmap);
 
-                    //using (FileStream fs = new FileStream(@"C:\temp\aax.png", FileMode.Create))
-                    //{
-                    //    bitmap.Save(fs, ImageFormat.Png);
-                    //}
+                //using (FileStream fs = new FileStream(@"C:\temp\aax.png", FileMode.Create))
+                //{
+                //    bitmap.Save(fs, ImageFormat.Png);
+                //}
 
-                    MemoryStream ms = new MemoryStream();
-                    bitmap.Save(ms, ImageFormat.Png);
-                    return ms.ToArray();
-                }
+                MemoryStream ms = new MemoryStream();
+                bitmap.Save(ms, ImageFormat.Png);
+                bitmap.Dispose();
+                return ms.ToArray();
             }
             catch (Exception ex)
             {

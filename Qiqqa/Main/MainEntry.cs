@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -86,50 +85,6 @@ namespace Qiqqa.Main
 
             Thread.CurrentThread.Name = "Main";
 
-            // Check if we're running in "Portable Application" mode:
-#if false
-            {
-                string[] app_paths = new string[] {
-                    Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"x"),
-                    Path.Combine(System.AppContext.BaseDirectory, @"x"),
-                    Process.GetCurrentProcess().MainModule.FileName,
-                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().Location).LocalPath,
-                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath,
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"x"),
-                    Environment.GetCommandLineArgs()[0]
-                };
-
-                foreach (string app_path in app_paths)
-                {
-                    string p = Path.GetFullPath(app_path);
-                    p = Path.GetDirectoryName(p);
-                    p = Path.Combine(p, @"Qiqqa.Portable.Settings.json5");
-                    if (File.Exists(p))
-                    {
-                        Logging.Info(p);
-                    }
-                }
-            }
-#endif
-
-            UserRegistry.DetectPortableApplicationMode();
-
-            {
-                if (UserRegistry.GetPortableApplicationMode())
-                {
-                    // set up defaults when they are absent:
-                    object v = null;
-                    UserRegistry.DeveloperOverridesDB.TryGetValue("BaseDataDirectory", out v);
-                    if (string.IsNullOrEmpty(v as string))
-                    {
-                        UserRegistry.DeveloperOverridesDB.Add("BaseDataDirectory", Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../My.Qiqqa.Libraries")));
-                    }
-                }
-            }
-
-            // now also check for a developer override config file in the Basedirectory and add those overrides to the set:
-            RegistrySettings.AugmentDeveloperOverridesDB();
-
             if (RegistrySettings.Instance.IsSet(RegistrySettings.DebugConsole))
             {
                 Console.Instance.Init();
@@ -158,14 +113,14 @@ namespace Qiqqa.Main
 
 #if CEFSHARP
 
-#region CEFsharp setup
+            #region CEFsharp setup
 
             // CEFsharp setup for AnyPC as per https://github.com/cefsharp/CefSharp/issues/1714:
             AppDomain.CurrentDomain.AssemblyResolve += CefResolver;
 
             InitCef();
 
-#endregion CEFsharp setup
+            #endregion CEFsharp setup
 
 #endif
 
@@ -435,7 +390,6 @@ namespace Qiqqa.Main
                 min_rounds--)
             {
                 GC.WaitForPendingFinalizers();
-                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
                 Logging.Info($"-static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): {GC.GetTotalMemory(false)} Bytes, {SafeThreadPool.RunningThreadCount} tasks active, {ComputerStatistics.GetTotalRunningThreadCount()} threads running");
 
@@ -482,7 +436,7 @@ namespace Qiqqa.Main
 
             if (!ShutdownableManager.Instance.IsShuttingDown)
             {
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     RemarkOnException_GUI_THREAD(ex, potentially_fatal);
                 }
@@ -501,7 +455,6 @@ namespace Qiqqa.Main
                 {
                     // Collect all generations of memory.
                     GC.WaitForPendingFinalizers();
-                    GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                     GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
                 });
 

@@ -15,10 +15,6 @@ using Utilities.BibTex.Parsing;
 using Utilities.Files;
 using Utilities.Internet;
 using Utilities.Strings;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.Documents.PDF.MetadataSuggestions
 {

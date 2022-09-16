@@ -54,7 +54,7 @@
                         </local_gui:AugmentedInfoBarItemControl>
                     </StackPanel>
                 </ScrollViewer>
-                <ScrollViewer Name="TabPreview">
+                <ScrollViewer Name="TabPreview" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <local_gui:AugmentedInfoBarItemControl
                             Name="ObjAbstract"

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -23,10 +24,6 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Strings;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 {
@@ -63,9 +60,9 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             TreeSearchTerms.Background = ThemeColours.Background_Brush_Blue_LightToDark;
 
             ObjImageRefresh.Source = Icons.GetAppIcon(Icons.Refresh);
-            //RenderOptions.SetBitmapScalingMode(ObjImageRefresh, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(ObjImageRefresh, BitmapScalingMode.HighQuality);
             ObjImageRefresh.ToolTip = "Refresh this list to reflect your latest documents and annotations.";
-            //ObjImageRefresh.Cursor = Cursors.Hand;
+            ObjImageRefresh.Cursor = Cursors.Hand;
             ObjImageRefresh.MouseUp += ObjImageRefresh_MouseUp;
 
             ObjBooleanAnd.ToolTip = "Choose this to display the documents that contain ALL the tags you have selected (more and more exclusive).\nYou can select/deselect multiple tags by toggling the checkbox or holding down SHIFT or CTRL while you click additional tags.";
@@ -94,6 +91,8 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             TreeSearchTerms.KeyUp += TreeSearchTerms_KeyUp;
 
             AllowDrop = true;
+
+            ObjSeries.MouseClick += ObjSeries_MouseClick;
 
             // Start with the chart collapsed
             Loaded += GenericLibraryExplorerControl_Loaded;
@@ -158,6 +157,10 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void GenericLibraryExplorerControl_Loaded(object sender, RoutedEventArgs e)
         {
+            WPFDoEvents.SafeExec(() =>
+            {
+                ObjChartRegion.Collapse();
+            });
         }
 
         private void ObjSort_Click(object sender, RoutedEventArgs e)
@@ -407,6 +410,9 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                     // Bind baby bind - tag list
                     TreeSearchTerms.DataContext = displayed_items;
 
+                    // Populate the chart
+                    PopulateChart(tags_with_fingerprints);
+
                     // Done in worker thread: Then we have to list the associated documents
 
                     // Done in worker thread: Implement the NEGATION
@@ -438,6 +444,54 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
                 });
             });
         }
+
+        #region --- Charting methods ------------------------------------------------------------------------------------------------------------------
+
+        private void PopulateChart(MultiMapSet<string, string> tags_with_fingerprints)
+        {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+            int N = 20;
+
+            List<KeyValuePair<string, HashSet<string>>> top_n = tags_with_fingerprints.GetTopN(N);
+
+            List<ChartItem> chart_items = new List<ChartItem>();
+            for (int i = 0; i < top_n.Count; ++i)
+            {
+                if ("(none)" != top_n[i].Key && "<Untagged>" != top_n[i].Key)
+                {
+                    chart_items.Add(
+                        new ChartItem
+                        {
+                            X = i,
+                            Caption = top_n[i].Key,
+                            Count = top_n[i].Value.Count
+                        }
+                        );
+                }
+            }
+
+            ChartSearchTerms.ToolTip = String.Format("Top {0} {1} in your library.", N, description_title);
+            ObjChartArea.PrimaryAxis.AxisVisibility = Visibility.Collapsed;
+            ObjChartArea.SecondaryAxis.AxisVisibility = Visibility.Collapsed;
+
+            ObjSeries.DataSource = chart_items;
+            ObjSeries.BindingPathX = "ID";
+            ObjSeries.BindingPathsY = new string[] { "Count" };
+        }
+
+        private void ObjSeries_MouseClick(object sender, ChartMouseEventArgs e)
+        {
+            FeatureTrackingManager.Instance.UseFeature(Features.Library_GenericExplorer_ChartItem);
+
+            ChartSegment chart_segment = e.Segment;
+            IList data_source = (IList)chart_segment.Series.DataSource;
+            ChartItem chart_item = (ChartItem)data_source[chart_segment.CorrespondingPoints[0].Index];
+            ToggleSelectItem(chart_item.Caption, KeyboardTools.IsCTRLDown() || KeyboardTools.IsShiftDown());
+        }
+
+        #endregion
+
     }
 
 

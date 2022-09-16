@@ -16,9 +16,6 @@ using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Main.LoginStuff
 {
@@ -115,7 +112,7 @@ namespace Qiqqa.Main.LoginStuff
         {
             string msg = status_entry.LastStatusMessageWithProgressPercentage;
 
-            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateStatusMessage(msg));
+            WPFDoEvents.InvokeInUIThread(() => UpdateStatusMessage(msg));
         }
 
         private void LoginWindow_Closed(object sender, EventArgs e)
@@ -161,17 +158,13 @@ namespace Qiqqa.Main.LoginStuff
             IsEnabled = false;
 
             ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
-            ConfigurationManager.Instance.ResetConfigurationRecord();
-
-            // Create the base directory in case it doesn't exist
-            Directory.CreateDirectory(ConfigurationManager.Instance.BaseDirectoryForUser);
-
+            ConfigurationManager.Instance.ResetConfigurationRecordToGuest();
             CloseToContinue();
         }
 
         private void LoginWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Key.Escape == e.Key || Key.Enter == e.Key || Key.Return == e.Key)
+            if (Key.Escape == e.Key)
             {
                 DoGuest();
                 e.Handled = true;
@@ -184,10 +177,12 @@ namespace Qiqqa.Main.LoginStuff
             {
                 is_closing = true;
 
-                if (have_done_config)
+                if (!have_done_config)
                 {
-                    StartMainApplication();
+                    DoGuest();
                 }
+
+                StartMainApplication();
             });
         }
 

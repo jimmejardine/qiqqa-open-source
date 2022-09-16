@@ -5,5 +5,8 @@
     xmlns:gecko="clr-namespace:Gecko;assembly=Geckofx-Winforms"
     >
     <Grid>
+        <WindowsFormsHost Name="ObjFormsHost">
+            <gecko:GeckoWebBrowser x:Name="ObjWebBrowser" />
+        </WindowsFormsHost>
     </Grid>
 </UserControl>

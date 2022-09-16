@@ -13,6 +13,6 @@
                 If you have associated BibTeX with your PDFs, Qiqqa will automatically extract their BibTeX type.
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
-        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree" Margin="3" />
+        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree"  Margin="3" />
     </DockPanel>
 </UserControl>

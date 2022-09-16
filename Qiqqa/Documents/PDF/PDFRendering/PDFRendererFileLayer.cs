@@ -26,7 +26,7 @@ namespace Qiqqa.Documents.PDF
             Directory.CreateDirectory(BASE_PATH_DEFAULT);
         }
 
-        private volatile int num_pages = PDFErrors.PAGECOUNT_PENDING;        // signal: -1 and below: pending/error; 0: empty document (rare/weird!); > 0: number of actual pages in document
+        private int num_pages = PDFErrors.PAGECOUNT_PENDING;        // signal: -1 and below: pending/error; 0: empty document (rare/weird!); > 0: number of actual pages in document
         private bool heuristic_retry_pagecount_at_startup_done = false;
 
         /// <summary>
@@ -41,7 +41,16 @@ namespace Qiqqa.Documents.PDF
         /// </summary>
         public bool HasOCRdata()
         {
-            string cached_count_filename = MakeFilename_PageCount();
+            // BasePath:
+            string base_path = ConfigurationManager.Instance.ConfigurationRecord.System_OverrideDirectoryForOCRs;
+            if (String.IsNullOrEmpty(base_path))
+            {
+                base_path = BASE_PATH_DEFAULT;
+            }
+            // string cached_count_filename = MakeFilename_PageCount(Fingerprint);
+            // return MakeFilenameWith2LevelIndirection("pagecount", "0", "txt");
+            string indirection_characters = Fingerprint.Substring(0, 2).ToUpper();
+            string cached_count_filename = Path.GetFullPath(Path.Combine(base_path, indirection_characters, String.Format("{0}.{1}.{2}.{3}", Fingerprint, @"pagecount", @"0", @"txt")));
 
             return File.Exists(cached_count_filename);
         }
@@ -130,17 +139,13 @@ namespace Qiqqa.Documents.PDF
         {
             get
             {
-                int num = num_pages;
-                if (num == PDFErrors.PAGECOUNT_PENDING)
+                if (num_pages == PDFErrors.PAGECOUNT_PENDING)
                 {
-                    // CountPDFPages() can be a very costly call: we DEFER that one until later and return 
-                    // a signal we're waiting instead.
-                    SafeThreadPool.QueueUserWorkItem(() =>
-                    {
-                        num_pages = CountPDFPages();
-                    });
+                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+                    num_pages = CountPDFPages();
                 }
-                return num;
+                return num_pages;
             }
         }
 
@@ -188,9 +193,13 @@ namespace Qiqqa.Documents.PDF
                 }
                 else
                 {
-                    // PDFTools.CountPDFPages() is a very costly call
+                    // PDFTools.CountPDFPages() is a very costly call: we DEFER that one until later and return 
+                    // a signal we're waiting instead.
+                    SafeThreadPool.QueueUserWorkItem(() =>
+                    {
+                        WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-                        num = PDFTools.CountPDFPages(DocumentPath, PDFPassword);
+                        int num = PDFTools.CountPDFPages(DocumentPath, PDFPassword);
 
                         Logging.Info("The result is {1} for using calculated PDF page count for file {0}", DocumentPath, num);
 
@@ -204,11 +213,8 @@ namespace Qiqqa.Documents.PDF
                         // we DO NOT count I/O errors around the cache file.
 
                         SavePageCountToCache(num);
+                    });
                 }
-            }
-            else
-            {
-                num = PDFErrors.PAGECOUNT_GENERAL_FAILURE;
             }
 
             return num;

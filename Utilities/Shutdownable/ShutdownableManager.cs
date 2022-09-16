@@ -30,7 +30,6 @@ namespace Utilities.Shutdownable
             }
         }
 
-        private bool console_application_ignores_auto_app_shut_downdetection = false;
         private bool is_being_shut_down = false;
         private object is_being_shut_down_lock = new object();
 
@@ -46,12 +45,13 @@ namespace Utilities.Shutdownable
                     //{
                     //	Logging.Error(new Exception("Unexpected results"), "woops");
                     //}
+
                     bool app_shuts_down = (null == Application.Current
                         || null == Application.Current.Dispatcher
                         || Application.Current.Dispatcher.HasShutdownStarted
                         || Application.Current.Dispatcher.HasShutdownFinished);
 
-                    return is_being_shut_down || (app_shuts_down && !console_application_ignores_auto_app_shut_downdetection);
+                    return is_being_shut_down || app_shuts_down;
                 }
             }
             set
@@ -61,24 +61,6 @@ namespace Utilities.Shutdownable
                 {
                     // l1_clk.LockPerfTimerStop();
                     is_being_shut_down = true;
-                }
-            }
-        }
-
-        public bool ConsoleApplicationIgnoresAutoAppShutdownDetection
-        {
-            get
-            {
-                lock (is_being_shut_down_lock)
-                {
-                    return console_application_ignores_auto_app_shut_downdetection;
-                }
-            }
-            set
-            {
-                lock (is_being_shut_down_lock)
-                {
-                    console_application_ignores_auto_app_shut_downdetection = value;
                 }
             }
         }

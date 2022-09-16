@@ -33,11 +33,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         //private TypedWeakReference<WebLibraryDetail> web_library_detail;
         //public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
-#if !HAS_NO_LUCENE
-        private LuceneIndex word_index_manager = null;
         private object word_index_manager_lock = new object();
-#endif
-        
         private Stopwatch time_of_last_library_scan = Stopwatch.StartNew();
         private Dictionary<string, PDFDocumentInLibrary> pdf_documents_in_library = null;
         private object pdf_documents_in_library_lock = new object();
@@ -88,22 +84,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 // l5_clk.LockPerfTimerStop();
 
-#if !HAS_NO_LUCENE
-                //Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
-                lock (pdf_documents_in_library_lock)
-                {
-                    lock (word_index_manager_lock)
-                    {
-                        //l4_clk.LockPerfTimerStop();
-                        if (null != pdf_documents_in_library && null != word_index_manager)
-                        {
-                            Logging.Warn("LibraryIndex has already been initialized.");
-                            return;
-                        }
-                    }
-                }
-#endif
-
                 Logging.Info("Try to load a historical progress file: {0}", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                 try
                 {
@@ -143,21 +123,11 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                 }
 
-#if !HAS_NO_LUCENE
-                // Utilities.LockPerfTimer l6_clk = Utilities.LockPerfChecker.Start();
-                lock (word_index_manager_lock)
-                {
-                    // l6_clk.LockPerfTimerStop();
-                    word_index_manager = new LuceneIndex(web_library_detail.LIBRARY_INDEX_BASE_PATH);
-                    word_index_manager.WriteMasterList();
-                }
-#endif
-
                 LibraryIndexIsLoaded = true;
             }
         }
 
-#region --- Disposal ----------------------------------------------------------------------------------------
+        #region --- Disposal ----------------------------------------------------------------------------------------
 
         ~LibraryIndex()
         {
@@ -182,16 +152,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources
-#if !HAS_NO_LUCENE
-                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                    lock (word_index_manager_lock)
-                    {
-                        // l1_clk.LockPerfTimerStop();
 
-                        word_index_manager?.Dispose();
-                        word_index_manager = null;
-                    }
-#endif
 
                     //this.library?.Dispose();
                 }
@@ -218,7 +179,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             ++dispose_count;
         }
 
-#endregion
+        #endregion
 
         public void IncrementalBuildIndex(WebLibraryDetail web_library_detail)
         {
@@ -252,16 +213,6 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 Stopwatch clk = Stopwatch.StartNew();
 
                 Logging.Info("+Writing the index master list");
-
-#if !HAS_NO_LUCENE
-                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (word_index_manager_lock)
-                {
-                    // l1_clk.LockPerfTimerStop();
-
-                    word_index_manager?.WriteMasterList();
-                }
-#endif
 
                 //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
@@ -341,63 +292,41 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public List<IndexResult> GetFingerprintsForQuery(string query)
         {
-#if !HAS_NO_LUCENE
-            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (word_index_manager_lock)
-            {
-                // l1_clk.LockPerfTimerStop();
-
-                return word_index_manager?.GetDocumentsWithQuery(query) ?? new List<IndexResult>();
-            }
-#else
-            return null;
-#endif
+                return new List<IndexResult>();
         }
 
         public List<IndexPageResult> GetPagesForQuery(string query)
         {
-#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
                 // l1_clk.LockPerfTimerStop();
 
-                return word_index_manager?.GetDocumentPagesWithQuery(query) ?? new List<IndexPageResult>();
+                return new List<IndexPageResult>();
             }
-#else
-            return null;
-#endif
         }
 
         [Obsolete("Do not use this attribute", true)]
         public HashSet<string> GetFingerprintsForKeyword(string keyword)
         {
-#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
                 // l1_clk.LockPerfTimerStop();
 
-                return word_index_manager?.GetDocumentsWithWord(keyword) ?? new HashSet<string>();
+                return new HashSet<string>();
             }
-#else
-            return null;
-#endif
         }
 
         public int GetDocumentCountForKeyword(string keyword)
         {
-#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
                 // l1_clk.LockPerfTimerStop();
 
-                return word_index_manager?.GetDocumentCountForKeyword(keyword) ?? 0;
+                return 0;
             }
-#else
-            return 0;
-#endif
         }
 
         private bool RescanLibrary(WebLibraryDetail web_library_detail)
@@ -490,16 +419,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public void InvalidateIndex()
         {
-#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
                 // l1_clk.LockPerfTimerStop();
 
-                word_index_manager?.InvalidateIndex();
             }
-#else
-#endif
         }
 
         // store to collect log/action data to help reduce logfile flooding (see the ORIGINAL_FLOODY_LOGLINE code chunk further below)
@@ -622,15 +547,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                 sb_tags.AppendLine(tag);
                             }
 
-#if !HAS_NO_LUCENE
                             // Utilities.LockPerfTimer l6_clk = Utilities.LockPerfChecker.Start();
                             lock (word_index_manager_lock)
                             {
                                 // l6_clk.LockPerfTimerStop();
 
-                                word_index_manager?.AddDocumentMetadata(pdf_document.Deleted, pdf_document.Fingerprint, pdf_document.TitleCombined, pdf_document.AuthorsCombined, pdf_document.YearCombined, pdf_document.Comments, sb_tags.ToString(), sb_annotations.ToString(), pdf_document.BibTex, pdf_document.BibTexItem);
                             }
-#endif
 
                             pdf_document_in_library.metadata_already_indexed = true;
                         }
@@ -698,16 +620,13 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                             }
                                         }
 
-#if !HAS_NO_LUCENE
                                         // Utilities.LockPerfTimer l7_clk = Utilities.LockPerfChecker.Start();
                                         lock (word_index_manager_lock)
                                         {
                                             // l7_clk.LockPerfTimerStop();
 
                                             // Index it
-                                            word_index_manager?.AddDocumentPage(pdf_document.Deleted, pdf_document_in_library.fingerprint, page, sb.ToString());
                                         }
-#endif
 
                                         // Indicate that we have managed to index this page
                                         if (null == pdf_document_in_library.pages_already_indexed)

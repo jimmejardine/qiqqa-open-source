@@ -8,7 +8,6 @@ using icons;
 using Qiqqa.Common.Configuration;
 using Utilities;
 using Utilities.GUI;
-using Utilities.Shutdownable;
 
 namespace Qiqqa.Common.SpeedRead
 {
@@ -18,23 +17,13 @@ namespace Qiqqa.Common.SpeedRead
     public partial class SpeedReadControl : UserControl, IDisposable
     {
         private List<string> words;
-        private bool unitIsWPM;
-        private double maximumWPM = 1000;
-
         public SpeedReadControl()
         {
             InitializeComponent();
 
-            unitIsWPM = true;
-
-            WordsPerMinute.IsChecked = true;
-            CharactersPerMinute.IsChecked = false;
-
-            SliderWPM.Maximum = maximumWPM;
-
             SliderLocation.ToolTip = "Current location.  Press PageUp/PageDown to jump 1000 words.";
             TxtWPM.ToolTip = SliderWPM.ToolTip = "Words per minute.  Press Plus/Minus to change this.";
-            TextCurrentWord.ToolTip = TextCurrentWordLeft.ToolTip = TextCurrentWordRight.ToolTip = RenderArea.ToolTip = "Press 1-9 to change the font size.";
+            TextCurrentWord.ToolTip = TextCurrentWordLeft.ToolTip = TextCurrentWordRight.ToolTip = "Press 1-9 to change the font size.";
 
             ButtonRewind.Icon = Icons.GetAppIcon(Icons.SpeedRead_Backward);
             ButtonRewind.ToolTip = "Rewind 100 words.\n(Backspace)";
@@ -53,39 +42,9 @@ namespace Qiqqa.Common.SpeedRead
 
             PreviewKeyDown += SpeedReadControl_KeyDown;
 
-            CheckPreamble.IsChecked = true;
-            CheckPostamble.IsChecked = true;
-
-            WordsPerMinute.Checked += WordsPerMinute_Checked;
-            CharactersPerMinute.Checked += CharactersPerMinute_Checked;
-
             DataContext = ConfigurationManager.Instance.ConfigurationRecord;
 
             TogglePlayPause();
-        }
-
-        private void WordsPerMinute_Checked(object sender, RoutedEventArgs e)
-        {
-            if (!unitIsWPM)
-            {
-                double new_value = SliderWPM.Value;
-                SliderWPM.Value = Math.Round(new_value / 7);
-                SliderWPM.Maximum = maximumWPM;
-                TxtWPM.ToolTip = SliderWPM.ToolTip = "Words per minute.  Press Plus/Minus to change this.";
-            }
-            unitIsWPM = true;
-        }
-
-        private void CharactersPerMinute_Checked(object sender, RoutedEventArgs e)
-        {
-            if (unitIsWPM)
-            {
-                SliderWPM.Maximum = maximumWPM * 7;
-                double new_value = SliderWPM.Value;
-                SliderWPM.Value = new_value * 7;
-                TxtWPM.ToolTip = SliderWPM.ToolTip = "Characters per minute.  Press Plus/Minus to change this.";
-            }
-            unitIsWPM = false;
         }
 
         private void SpeedReadControl_KeyDown(object sender, KeyEventArgs e)
@@ -230,15 +189,11 @@ namespace Qiqqa.Common.SpeedRead
 
         private void KickOffPlayingThread()
         {
-            bool playing_old = playing;
-
             if (null != thread)
             {
                 playing = false;
                 thread.Join();
             }
-
-            playing = playing_old;
 
             thread = new Daemon(daemon_name: "SpeedReader:Player");
             //thread.IsBackground = true;
@@ -267,27 +222,32 @@ namespace Qiqqa.Common.SpeedRead
                 // hence we NEED the Exception handling anyway and any unsafe checking of `playing`
                 // is but one potential failure mode, all of whom will be correctly caught by the
                 // outer `try...catch`, hence no critical section lock coding effort for `playing`:
-                while (playing && !ShutdownableManager.Instance.IsShuttingDown)
+                while (playing)
                 {
-                    int current_wpm = 1;
+                    int current_wpm = 0;
 
                     // Interrogate the GUI
                     WPFDoEvents.InvokeInUIThread(() =>
                         {
-                            current_wpm = Math.Max(1, (int)SliderWPM.Value);
+                            current_wpm = (int)SliderWPM.Value;
                         }
                     );
+
+
+                    // Sleep a bit to reflect the WPM
+                    int sleep_time_ms = (60 * 1000 / (current_wpm + 1));
+                    daemon.Sleep(sleep_time_ms);
 
                     int current_position = 0;
                     int current_maximum = 0;
                     // Interrogate the GUI
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                         {
                             current_position = (int)SliderLocation.Value;
                             current_maximum = (int)SliderLocation.Maximum;
                         }
                     );
-
+                    
                     // Can we move onto the next word?
                     if (current_position < current_maximum)
                     {
@@ -308,7 +268,7 @@ namespace Qiqqa.Common.SpeedRead
 
                         ++current_position;
 
-                        WPFDoEvents.InvokeInUIThread(() =>
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {
                                 SliderLocation.Value = current_position;
                                 TextCurrentWord.Text = current_word;
@@ -317,27 +277,14 @@ namespace Qiqqa.Common.SpeedRead
                             }
                         );
 
-                        // Sleep a bit to reflect the WPM
-                        int sleep_time_ms;
-                        if (unitIsWPM)
-                        {
-                            sleep_time_ms = 60 * 1000 / current_wpm;
-                        }
-                        else
-                        {
-                            sleep_time_ms = current_word.Length * 60 * 1000 / current_wpm;
-                        }
-                        daemon.Sleep(sleep_time_ms);
                     }
                     else
                     {
-                        playing = false;
                         WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {
                                 TogglePlayPause(force_stop: true);
                             }
                         );
-                        break;
                     }
                 }
             }
@@ -346,7 +293,7 @@ namespace Qiqqa.Common.SpeedRead
                 // all sorts of nasty stuff can happen. If it happens while `Dispose()`
                 // was invoked on the mainline, it's hunky-dory. So we merely rate this
                 // DEBUG level diagnostics.
-                Logging.Error(ex, "Crash in SpeedReader Player.");
+                Logging.Debug特(ex, "VERY PROBABLY HARMLESS AND EXPECTED crash in SpeedReader: if you just closed/quit the panel, this is due to Dispose() invocation in the Main thread and expected behaviour.");
             }
         }
 
@@ -391,18 +338,12 @@ namespace Qiqqa.Common.SpeedRead
 
         ~SpeedReadControl()
         {
-            // Get rid of managed resources and background threads
-            playing = false;
-
             Logging.Debug("~SpeedReadControl()");
             Dispose(false);
         }
 
         public void Dispose()
         {
-            // Get rid of managed resources and background threads
-            playing = false;
-
             Logging.Debug("Disposing SpeedReadControl");
             Dispose(true);
             GC.SuppressFinalize(this);
@@ -411,9 +352,6 @@ namespace Qiqqa.Common.SpeedRead
         private int dispose_count = 0;
         protected virtual void Dispose(bool disposing)
         {
-            // Get rid of managed resources and background threads
-            playing = false;
-
             Logging.Debug("SpeedReadControl::Dispose({0}) @{1}", disposing, dispose_count);
 
             WPFDoEvents.InvokeInUIThread(() =>

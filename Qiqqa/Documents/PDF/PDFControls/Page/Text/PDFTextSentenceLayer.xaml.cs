@@ -56,21 +56,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             //Unloaded += PDFTextSentenceLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-
-            // prefetch the text layer data: the words + coordinates:
-            SafeThreadPool.QueueUserWorkItem(() =>
-            {
-                PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-                ASSERT.Test(pdf_document != null);
-
-                if (pdf_document != null)
-                {
-                    _ = pdf_document.GetOCRText(page);
-                }
-            });
         }
-
         private PDFRendererControl GetPDFRendererControl()
         {
             if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
@@ -136,7 +122,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         private void drag_area_tracker_OnDragStarted(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
         {
             PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-            PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
+                PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
             if (pdf_document != null)

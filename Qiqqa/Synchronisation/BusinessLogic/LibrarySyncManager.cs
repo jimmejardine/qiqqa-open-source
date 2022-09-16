@@ -75,7 +75,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 // our numbers in a future call to this method.
                 //
                 GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
 
@@ -105,7 +105,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 // of our numbers in a future call to this method.
                 //
                 GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
 

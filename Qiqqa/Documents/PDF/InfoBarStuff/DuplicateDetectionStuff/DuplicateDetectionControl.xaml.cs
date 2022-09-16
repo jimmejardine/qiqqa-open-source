@@ -65,7 +65,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Invoke the GUI
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
                 ClearDuplicates();
             });
@@ -91,7 +91,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.DuplicateDetectionStuff
             Logging.Info("It took {0}ms to run the duplicate detection.", stopwatch.ElapsedMilliseconds);
 
             // Invoke the GUI
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
                 RenderDuplicates(duplicate_pdf_documents);
             }

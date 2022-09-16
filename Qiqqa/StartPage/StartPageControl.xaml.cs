@@ -234,6 +234,7 @@ namespace Qiqqa.StartPage
 
         private void ButtonNewBrainstorm_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenNewBrainstorm();
         }
 
@@ -263,11 +264,13 @@ namespace Qiqqa.StartPage
 
         private void ButtonInCite_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenInCite();
         }
 
         private void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
+            //ButtonToolsPopup.Close();
             FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_StartPage);
             MainWindowServiceDispatcher.Instance.OpenExpedition(null, null);
         }

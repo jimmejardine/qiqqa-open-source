@@ -2,8 +2,6 @@
 using System.Text;
 using System.Threading;
 using Utilities;
-using Utilities.PDF.MuPDF;
-using Utilities.Shutdownable;
 
 namespace QiqqaOCR
 {
@@ -44,15 +42,9 @@ namespace QiqqaOCR
             // This is used to return any errors to the OS
             int exit_code = 0;
             bool no_kill = (args.Length > 6 && 0 == args[6].ToUpper().CompareTo("NOKILL"));
-            bool debug = (args.Length > 6 && 0 == args[6].ToUpper().CompareTo("DEBUG"));
-            Logging.Info("\n\n============================================== Starting QiqqaOCR ===============================================\n");
-
-            TextExtractEngine.DEBUG = debug || no_kill;
-            MuPDFRenderer.DEBUG = debug || no_kill;
 
             try
             {
-                ShutdownableManager.Instance.ConsoleApplicationIgnoresAutoAppShutdownDetection = true;
                 Thread.CurrentThread.Name = "Main";
 
                 // Check that we were given the right number of parameters

@@ -1,18 +1,15 @@
-<UserControl
-    x:Class="Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff.PublicationExplorerControl"
+<UserControl x:Class="Qiqqa.DocumentLibrary.LibraryFilter.PublicationExplorerStuff.PublicationExplorerControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:local_explorer="clr-namespace:Qiqqa.DocumentLibrary.TagExplorerStuff"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities">
+>
     <DockPanel>
-        <local_gui:AugmentedClosableBorder
-            Name="AugCBforPublicationExplorer"
-            Padding="5"
-            DockPanel.Dock="Top">
+        <local_gui:AugmentedClosableBorder DockPanel.Dock="Top" Padding="5" Name="AugCBforPublicationExplorer" >
             <TextBlock TextWrapping="Wrap">
                 If you have associated BibTeX with your PDFs, Qiqqa will automatically extract their publications.
             </TextBlock>
         </local_gui:AugmentedClosableBorder>
-        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree" Margin="3" />
+        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree"  Margin="3" />
     </DockPanel>
 </UserControl>

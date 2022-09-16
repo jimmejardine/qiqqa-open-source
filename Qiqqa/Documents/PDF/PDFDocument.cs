@@ -129,9 +129,9 @@ namespace Qiqqa.Documents.PDF
             }
 
             // extra verification / sanity check: this will catch some very obscure DB corruption, or rather **manual editing**! ;-)
-            if (id != fingerprint)
+            if (id != fingerprint || true)
             {
-                // see which of them makes the most sense... And DO remember that Qiqqa fingerprint hashes are variable-length, due to an old systemic bug!
+                // see which of them makes the most sense... And DO remember that Qiqqa fingeerprint hashes are variable-length, due to an old systemic bug!
                 Regex re = new Regex(@"^[a-zA-Z0-9]{20,}(?:_REF)?$");
                 bool id_is_possibly_legal = re.IsMatch(id);
                 bool key_is_possibly_legal = re.IsMatch(fingerprint);

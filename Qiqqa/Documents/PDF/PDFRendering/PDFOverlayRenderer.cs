@@ -14,10 +14,6 @@ using Utilities.Misc;
 using Brush = System.Drawing.Brush;
 using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {

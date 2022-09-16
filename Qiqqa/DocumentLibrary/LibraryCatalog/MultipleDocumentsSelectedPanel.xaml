@@ -85,7 +85,7 @@
                 Header="Review - Edit Multiple"
                 ToolTip="Update the review details of many documents simultaneously.">
                 <StackPanel>
-                    <local_metadata:UserReviewControl x:Name="ObjUserReviewControl" Loaded="ObjUserReviewControl_Loaded" />
+                    <local_metadata:UserReviewControl x:Name="ObjUserReviewControl" />
                     <Grid Margin="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />

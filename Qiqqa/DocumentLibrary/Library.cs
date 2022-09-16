@@ -880,7 +880,6 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        [Obsolete("Do not use this attribute: it's the fastest count but very confusing for users (https://github.com/jimmejardine/qiqqa-open-source/issues/331)", true)]
         public int PDFDocuments_IncludingDeleted_Count
         {
             get
@@ -893,6 +892,7 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
         }
+
 
         /// <summary>
         /// Returns a list of the PDF documents in the library.  This will NOT include the deleted documents...
@@ -917,32 +917,6 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
                 return pdf_documents_list;
-            }
-        }
-
-        /// <summary>
-        /// Returns the number of PDF documents in the library.  This will NOT include the deleted documents...
-        /// </summary>
-        public int PDFDocuments_Count
-        {
-            get
-            {
-                List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
-                int count = 0;
-
-                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                lock (pdf_documents_lock)
-                {
-                    //l1_clk.LockPerfTimerStop();
-                    foreach (var x in pdf_documents.Values)
-                    {
-                        if (!x.Deleted)
-                        {
-                            count++;
-                        }
-                    }
-                }
-                return count;
             }
         }
 

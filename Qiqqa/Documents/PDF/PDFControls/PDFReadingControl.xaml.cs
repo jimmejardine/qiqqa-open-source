@@ -426,8 +426,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonOpenLibrary_Click(object sender, RoutedEventArgs e)
         {
-            ButtonMiscPopup.Close();
-
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
@@ -682,21 +680,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
             if (null == jtsp)
             {
                 Logging.Info("Building popup for first time");
-                jtsp = new JumpToSectionPopup();
-
-                SafeThreadPool.QueueSafeExecUserWorkItem(() =>
-                {
-                    Logging.Info("Exec-in-background: Building popup for first time");
-
-                    jtsp.BuildSectionList(this);
-
-                    jtsp.Open();
-                });
+                jtsp = new JumpToSectionPopup(this);
             }
-            else
-            {
-                jtsp.Open();
-            }
+
+            jtsp.Open();
         }
 
         private void ButtonAnnotation_Click(object sender, RoutedEventArgs e)
@@ -742,8 +729,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
-            ButtonMiscPopup.Close();
-
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
@@ -755,8 +740,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonDocumentSave_Click(object sender, RoutedEventArgs e)
         {
-            ButtonMiscPopup.Close();
-
             FeatureTrackingManager.Instance.UseFeature(Features.Document_Save);
 
             PDFDocument pdf_document = GetPDFDocument();
@@ -886,56 +869,46 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void Button1Up_Click(object sender, RoutedEventArgs e)
         {
-            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.Zoom1Up);
         }
 
         private void Button2Up_Click(object sender, RoutedEventArgs e)
         {
-            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.Zoom2Up);
         }
 
         private void ButtonNUp_Click(object sender, RoutedEventArgs e)
         {
-            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.ZoomNUp);
         }
 
         private void ButtonWholeUp_Click(object sender, RoutedEventArgs e)
         {
-            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.ZoomWholeUp);
         }
 
         private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
         {
-            ButtonZoomPopup.Close();
             pdf_renderer_control.IncrementalZoom(-1);
         }
 
         private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
         {
-            ButtonZoomPopup.Close();
             pdf_renderer_control.IncrementalZoom(+1);
         }
 
         private void ButtonInvertColours_Click(object sender, RoutedEventArgs e)
         {
-            ButtonMiscPopup.Close();
-
             pdf_renderer_control.InvertColours(ButtonInvertColours.IsChecked.Value);
         }
 
         private void ButtonRotate_Click(object sender, RoutedEventArgs e)
         {
-            ButtonZoomPopup.Close();
             pdf_renderer_control.RotatePage();
         }
 
         private void ButtonRotateAll_Click(object sender, RoutedEventArgs e)
         {
-            ButtonZoomPopup.Close();
             pdf_renderer_control.RotateAllPages();
         }
 
@@ -957,8 +930,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonExportToText_Click(object sender, RoutedEventArgs e)
         {
-            ButtonMiscPopup.Close();
-
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
@@ -999,8 +970,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonSpeedRead_Click(object sender, RoutedEventArgs e)
         {
-            ButtonMiscPopup.Close();
-
             FeatureTrackingManager.Instance.UseFeature(Features.Document_SpeedRead);
 
             List<string> words = new List<string>();
@@ -1189,7 +1158,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail);
                     ASSERT.Test(cloned_pdf_document != null);
 
-                    WPFDoEvents.InvokeAsyncInUIThread(() =>
+                    WPFDoEvents.InvokeInUIThread(() =>
                     {
                         // Open the new
                         if (null != cloned_pdf_document)

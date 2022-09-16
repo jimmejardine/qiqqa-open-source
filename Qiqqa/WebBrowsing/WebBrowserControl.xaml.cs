@@ -26,10 +26,24 @@ namespace Qiqqa.WebBrowsing
 
             InitializeComponent();
 
+            ObjWebBrowser.CreateControl();
+            ObjWebBrowser.Navigating += ObjWebBrowser_Navigating;
+            ObjWebBrowser.DocumentCompleted += ObjWebBrowser_DocumentCompleted;
+            ObjWebBrowser.CreateWindow += ObjWebBrowser_CreateWindow;
+
+            // Seems to crash Qiqqa in Gecko v13 - perhaps the statuses are updating too quickly or in parallel?!
+            // Seems to work with gecko v21...
+            ObjWebBrowser.StatusTextChanged += ObjWebBrowser_StatusTextChanged;
         }
 
         private void ObjWebBrowser_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
         {
+            WPFDoEvents.SafeExec(() =>
+            {
+                WebBrowserHostControl wbhc = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
+                WebBrowserControl wbc = wbhc.OpenNewWindow();
+                e.WebBrowser = wbc.ObjWebBrowser;
+            });
         }
 
         private void ObjWebBrowser_StatusTextChanged(object sender, EventArgs e)
@@ -62,18 +76,29 @@ namespace Qiqqa.WebBrowsing
 
         internal void GoForward()
         {
+            ObjWebBrowser.GoForward();
         }
 
         internal void GoBack()
         {
+            ObjWebBrowser.GoBack();
         }
 
         internal void Print()
         {
+            ObjWebBrowser.Navigate("javascript:print()");
         }
 
         internal void Refresh()
         {
+            try
+            {
+                ObjWebBrowser.Reload();
+            }
+            catch (Exception ex)
+            {
+                Logging.Warn(ex, "Problem refreshing web page");
+            }
         }
 
         internal void Navigate(String uri)
@@ -83,6 +108,19 @@ namespace Qiqqa.WebBrowsing
 
         internal void Navigate(Uri uri)
         {
+            try
+            {
+                // Clear out any pending uri
+                NavigateOnceVisibleUri = uri;
+
+                ObjWebBrowser.Navigate(uri?.ToString() ?? "");
+            }
+            catch (Exception ex)
+            {
+                string uristr = uri?.ToString() ?? "(???)";
+                Logging.Warn(ex, "Problem navigating to website {0}", uristr);
+                MessageBoxes.Error("There was a problem navigating to {0}.  Please try again after checking the web address.", uristr);
+            }
         }
 
         internal Uri NavigateOnceVisibleUri
@@ -100,13 +138,13 @@ namespace Qiqqa.WebBrowsing
             return uri;
         }
 
-        public string Title;
+        public string Title => ObjWebBrowser.DocumentTitle;
 
-        internal Uri CurrentUri;
+        internal Uri CurrentUri => ObjWebBrowser.Url;
 
-        public string PageText;
+        public string PageText => ObjWebBrowser.Document.Body.TextContent;
 
-        public string PageHTML;
+        public string PageHTML => ObjWebBrowser.Document.GetElementsByTagName("html")[0].OuterHtml;
 
         #region --- IDisposable ------------------------------------------------------------------------
 
@@ -163,6 +201,9 @@ namespace Qiqqa.WebBrowsing
                     //
                     if (dispose_count == 0)
                     {
+                        // Get rid of managed resources
+                        ObjWebBrowser?.Dispose();
+                        ObjWebBrowser = null;
 
                         // Multiple WebBrowserControl instances MAY SHARE a single WebBrowserHostControl.
                         // It is passed to this class/instance as a reference anyway, so we SHOULD NOT
@@ -175,6 +216,7 @@ namespace Qiqqa.WebBrowsing
 
                 WPFDoEvents.SafeExec(() =>
                 {
+                    ObjWebBrowser = null;
                     web_browser_host_control = null;
                 });
 

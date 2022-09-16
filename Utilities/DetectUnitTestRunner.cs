@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Utilities.Misc;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Utilities
 {
@@ -115,141 +110,6 @@ namespace Utilities
                 }
             }
         });
-
         public static string StartupDirectoryForQiqqa => _StartupDirectoryForQiqqa.Value;
-
-        public static string PortableApplicationConfigFilename => Path.Combine(StartupDirectoryForQiqqa, @"Qiqqa.Portable.Settings.json5");
-
-        public static string DeveloperTestSettingsFilename_1_App => Path.Combine(StartupDirectoryForQiqqa, @"Qiqqa.Developer.Settings.json5");
-
-
-        // TODO: refactor the next bit; plonking it in here for now until I know how I want to untangle the otherwise circular dependencies of Utilities <-> Qiqqa namespaces.
-
-
-        public static bool HasPortableApplicationConfigFilename()
-        {
-            return File.Exists(PortableApplicationConfigFilename);
-        }
-
-        public static Dictionary<string, object> LoadDeveloperConfiguration()
-        {
-            // Procedure:
-            // - load PortableApplication config record, if available
-            // - load application-level developer config record, if available: override existing entries
-            // - load BaseDirectory-level developer config record, if available: override existing entries
-
-            Dictionary<string, object> cfg = LoadConfigFile(PortableApplicationConfigFilename);
-            foreach (KeyValuePair<string, object> entry in LoadConfigFile(DeveloperTestSettingsFilename_1_App))
-            {
-                if (cfg.ContainsKey(entry.Key))
-                {
-                    cfg.Remove(entry.Key);
-                }
-                cfg.Add(entry.Key, entry.Value);
-            }
-            return cfg;
-        }
-
-        public static void AugmentDeveloperConfiguration(ref Dictionary<string, object> cfg, string extra_config_filepath)
-        {
-            foreach (KeyValuePair<string, object> entry in LoadConfigFile(extra_config_filepath))
-            {
-                if (cfg.ContainsKey(entry.Key))
-                {
-                    cfg.Remove(entry.Key);
-                }
-                cfg.Add(entry.Key, entry.Value);
-            }
-        }
-
-        private static Dictionary<string, object> LoadConfigFile(string cfg_filepath)
-        {
-            try
-            {
-                if (!String.IsNullOrEmpty(cfg_filepath) && File.Exists(cfg_filepath))
-                {
-                    Logging.Info("Loading developer test settings file {0}", cfg_filepath);
-
-                    // see also https://www.newtonsoft.com/json/help/html/SerializationErrorHandling.htm
-
-                    List<string> errors = new List<string>();
-
-                    Dictionary<string, object> developer_test_settings = JsonConvert.DeserializeObject<Dictionary<string, object>>(
-                        File.ReadAllText(cfg_filepath),
-                        new JsonSerializerSettings
-                        {
-                            Error = delegate (object sender, ErrorEventArgs args)
-                            {
-                                errors.Add(args.ErrorContext.Error.Message);
-                                args.ErrorContext.Handled = true;
-                            },
-                            //Converters = { new IsoDateTimeConverter() }
-                        });
-
-                    Logging.Info("Loaded developer test settings file {0}: {1}", cfg_filepath, errors.Count == 0 ? "no errors" : errors.ToString());
-
-                    return developer_test_settings;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "There was a problem loading developer test settings file {0}", cfg_filepath);
-            }
-
-            return new Dictionary<string, object>();
-        }
-
-        public static void SavePortableApplicationConfiguration(Dictionary<string, object> cfg)
-        {
-            string cfg_filepath = PortableApplicationConfigFilename;
-            // UnitTestDetector.SavePortableApplicationConfiguration(registry_overrides_db);
-
-            try
-            {
-                // only save config to REPLACE an already existing config file
-                if (!String.IsNullOrEmpty(cfg_filepath) && File.Exists(cfg_filepath))
-                {
-                    Logging.Info("Saving portable application settings file {0}", cfg_filepath);
-
-#if false
-                    // Note: only replace/update existing config entries; anything else should have landed
-                    // in the Developer Test config file(s).
-                    //
-                    // The exceptions to this rule are ... TODO
-                    Dictionary<string, object> old_cfg = LoadConfigFile(cfg_filepath);
-
-                    //... TODO
-#endif
-
-                    string json = JsonConvert.SerializeObject(cfg, Formatting.Indented);
-
-                    // keep all comments in the JSON5 file which precede the config data:
-                    string[] old_json = File.ReadAllLines(cfg_filepath);
-                    int i;
-                    for (i = 0; i < old_json.Length; i++)
-                    {
-                        if (old_json[i].StartsWith("{"))
-                            break;
-                    }
-                    string header = "";
-                    if (i > 0)
-                    {
-                        header = String.Join("\n", old_json, 0, i) + "\n";
-                    }
-                    json = header + json;
-
-                    string new_filepath = cfg_filepath + ".new";
-                    File.WriteAllText(new_filepath, json);
-                    File.Delete(cfg_filepath);
-                    File.Move(new_filepath, cfg_filepath);
-
-                    Logging.Info("Saved portable application settings file {0}", cfg_filepath);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "There was a problem saving portable application settings file {0}", cfg_filepath);
-            }
-        }
     }
 }

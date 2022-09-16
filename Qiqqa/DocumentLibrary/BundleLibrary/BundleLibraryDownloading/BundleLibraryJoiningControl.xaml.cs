@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using icons;
@@ -12,9 +13,6 @@ using Utilities.GUI;
 using Utilities.Internet;
 using Utilities.Misc;
 using Utilities.Shutdownable;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
 {

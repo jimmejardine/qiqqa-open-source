@@ -13,7 +13,7 @@
     ShowInTaskbar="True"
     SizeToContent="Height"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d" >
+    mc:Ignorable="d">
     <local_gui:AugmentedBorder Margin="10">
         <StackPanel>
             <Image

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Threading;
@@ -14,10 +15,6 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
@@ -46,6 +43,15 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
 #if DEBUG
             {
                 string abs_uri = channel.Uri.AbsoluteUri;
+                string disp_hdr = "(not specified)";
+                try
+                {
+                    disp_hdr = channel.ContentDispositionHeader;
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Gecko ContentDispositionHeader b0rk at {0}", abs_uri);
+                }
                 string mimetype = channel.ContentType;
                 uint rvc = channel.ResponseStatus;
                 var hdrs = channel.GetResponseHeadersDict();
@@ -63,18 +69,6 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                         else
                             hdrs_str += ";";
                         hdrs_str += elv;
-                    }
-                }
-                string disp_hdr = "(not specified)";
-                if (hdrs_str.Contains("Content-Disposition:"))
-                {
-                    try
-                    {
-                        disp_hdr = channel.ContentDispositionHeader;
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "Gecko ContentDispositionHeader b0rk at {0}", abs_uri);
                     }
                 }
                 Logging.Info("PDFInterceptor::Response URI: {0} ; disposition: {1}; mime: {2}; status: {3}; headers:\n{4}", abs_uri, disp_hdr, mimetype, rvc, hdrs_str);
@@ -162,7 +156,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
                         PDFDocument pdf_document = Library.GuestInstance.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(temp_pdf_filename, Library.GuestInstance, document_source_filename, document_source_url, null, null, null, true);
                         File.Delete(temp_pdf_filename);
 
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        WPFDoEvents.InvokeInUIThread(() =>
                             {
                                 PDFReadingControl pdf_reading_control = MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);
                                 pdf_reading_control.EnableGuestMoveNotification(potential_attachment_pdf_document);

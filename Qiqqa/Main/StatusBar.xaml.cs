@@ -68,7 +68,6 @@ namespace Qiqqa.Main
 
         private void CmdVersion_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundWorkerDaemon.Instance.InitClientUpdater();
 
             e.Handled = true;
         }

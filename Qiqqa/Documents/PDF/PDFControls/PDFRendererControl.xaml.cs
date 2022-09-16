@@ -123,16 +123,22 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             var doc = pdf_renderer_control_stats.pdf_document;
 
-            // Add the child pages
-            bool add_bells_and_whistles = (doc.PageCount < 50);
-
-            Logging.Info("+Creating child page controls");
-            for (int page = 1; page <= doc.PageCount; ++page)
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
-                PDFRendererPageControl page_control = new PDFRendererPageControl(this, page, add_bells_and_whistles);
-                ObjPagesPanel.Children.Add(page_control);
-            }
-            Logging.Info("-Creating child page controls");
+                // Add the child pages
+                bool add_bells_and_whistles = (doc.PageCount > 0 && doc.PageCount < 50);
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    Logging.Info("+Creating child page controls");
+                    for (int page = 1; page <= doc.PageCount; ++page)
+                    {
+                        PDFRendererPageControl page_control = new PDFRendererPageControl(this, page, add_bells_and_whistles);
+                        ObjPagesPanel.Children.Add(page_control);
+                    }
+                    Logging.Info("-Creating child page controls");
+                });
+            });
 
             Logging.Info("+Setting initial viewport");
             ReconsiderOperationMode(OperationMode.Hand);
@@ -226,6 +232,38 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     }
                 }
 
+                /*
+                    Logging.Info(
+                        "\n----------------------------------------------------------" +
+                        "\nExtentHeight={0}," +
+                        "\nExtentHeightChange={1}," +
+                        "\nExtentWidth={2}," +
+                        "\nExtentWidthChange={3}," +
+                        "\nHorizontalChange={4}," +
+                        "\nHorizontalOffset={5}," +
+                        "\nVerticalChange={6}," +
+                        "\nVerticalOffset={7}," +
+                        "\nViewportHeight={8}," +
+                        "\nViewportHeightChange={9}," +
+                        "\nViewportWidth={10}," +
+                        "\nViewportWidthChange={11}," +
+                        "",
+
+                        e.ExtentHeight,
+                        e.ExtentHeightChange,
+                        e.ExtentWidth,
+                        e.ExtentWidthChange,
+                        e.HorizontalChange,
+                        e.HorizontalOffset,
+                        e.VerticalChange,
+                        e.VerticalOffset,
+                        e.ViewportHeight,
+                        e.ViewportHeightChange,
+                        e.ViewportWidth,
+                        e.ViewportWidthChange
+                        );
+                 */
+
                 // Lets see which pages are in view
                 PDFRendererPageControl first_page_in_view = null;
                 List<PDFRendererPageControl> pages_in_view = new List<PDFRendererPageControl>();
@@ -262,7 +300,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                             selected_page_first_offscreen_timestamp = DateTime.UtcNow;
                         }
 
-                        // We wait for a few moments after it has gone off the screen...2 is arbitrary, but large enough that we can zoom without changing the selected page before the zoom gets time to move the selected page back onto the screen...
+                        // We wait for a few moments after it has gone off the screen...2 is arbitrary, but large enough that we can zoom without changing the selected page before the zoom gets time to move thesleected page back onto the screen...
                         if (DateTime.UtcNow.Subtract(selected_page_first_offscreen_timestamp).TotalSeconds > 1)
                         {
                             if (null != first_page_in_view)
@@ -278,6 +316,30 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     }
                 }
 
+#if false
+            {
+                // Lets pretend the pages just before and after the pages in view are in view - that way we don't have to wait for the render
+                int min_page = Int32.MaxValue;
+                int max_page = Int32.MinValue;
+                foreach (PDFRendererPageControl page in pages_in_view)
+                {
+                    min_page = Math.Min(min_page, page.PageNumber - 1);
+                    max_page = Math.Max(max_page, page.PageNumber + 1);
+                }
+                foreach (PDFRendererPageControl page in pages_not_in_view)
+                {
+                    if (min_page == page.PageNumber || max_page == page.PageNumber)
+                    {
+                        pages_in_view.Add(page);
+                    }
+                }
+                foreach (PDFRendererPageControl page in pages_in_view)
+                {
+                    pages_not_in_view.Remove(page);
+                }
+            }
+#endif
+
                 // Clear down the pages NOT in view
                 foreach (PDFRendererPageControl page in pages_not_in_view)
                 {
@@ -287,6 +349,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 // Notify the new pages that are in view
                 foreach (PDFRendererPageControl page in pages_in_view)
                 {
+                    //Logging.Debug("Page {0} is in view!!!!!!!!!!!!!!", page.PageNumber);
                     page.SetPageInView();
                 }
 

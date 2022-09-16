@@ -190,9 +190,9 @@ namespace Qiqqa.Main
             });
         }
 
-        public override bool SetupConfiguredDimensions()
+        public override bool SetupConfiguredDimensions(Size preferred_dimensions)
         {
-            bool has_cfg = base.SetupConfiguredDimensions();
+            bool has_cfg = base.SetupConfiguredDimensions(preferred_dimensions);
 
             if (!has_cfg)
             {
@@ -236,21 +236,21 @@ namespace Qiqqa.Main
                 ASSERT.Test(web_libary_details.Count > 0);
 
                 // Web library is small compared to guest library
-                if (WebLibraryManager.Instance.Library_Guest.Xlibrary.PDFDocuments_Count > 2 * web_libary_details[0].Xlibrary.PDFDocuments_Count)
+                if (WebLibraryManager.Instance.Library_Guest.Xlibrary.PDFDocuments_IncludingDeleted_Count > 2 * web_libary_details[0].Xlibrary.PDFDocuments_IncludingDeleted_Count)
                 {
                     should_open_guest = true;
                 }
 
-                WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0]));
+                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_libary_details[0]));
 
                 // don't open the guest library *twice* so check against `web_libary_details[0].library`
                 if (should_open_guest && web_libary_details[0] != WebLibraryManager.Instance.Library_Guest)
                 {
-                    WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest));
+                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(WebLibraryManager.Instance.Library_Guest));
                 }
 
                 // Make sure the start page is selected
-                WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenStartPage());
+                WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenStartPage());
             }
 
             WPFDoEvents.InvokeInUIThread(() =>

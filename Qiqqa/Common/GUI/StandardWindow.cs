@@ -7,7 +7,6 @@ using System.Windows.Interop;
 using icons;
 using Utilities;
 using Utilities.GUI;
-using Utilities.Misc;
 using Utilities.Shutdownable;
 using WpfScreenHelper;
 
@@ -135,25 +134,12 @@ namespace Qiqqa.Common.GUI
             this.Loaded += StandardWindow_Loaded;
             Closed += StandardWindow_Closed;
             Closing += StandardWindow_Closing;
-            this.SizeChanged += StandardWindow_SizeChanged;
-            this.StateChanged += StandardWindow_StateChanged;
-            this.IsVisibleChanged += StandardWindow_IsVisibleChanged;
 
             // keep a weak reference to this window instance to prevent GC hold-up and thus memory leaks:
             StandardWindowShutdownCbInstance.RegisterShutdownHandler(new StandardWindowShutdownCbInstance(this));
         }
 
-        private void StandardWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-        }
-
-        private void StandardWindow_StateChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void StandardWindow_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-        }
+        private Size xaml_preferred_dimensions;
 
         private void StandardWindow_Initialized(object sender, EventArgs e)
         {
@@ -161,6 +147,7 @@ namespace Qiqqa.Common.GUI
             // That means Width and Height are NaN **unless** the designer has set a preferred width and/or height
             // in the XAML resource itself!
             Logging.Info($"Window: {Name} @ {Left}/{Top}/{Width}/{Height}");
+            xaml_preferred_dimensions = new Size(Width, Height);
         }
 
         private void StandardWindow_Loaded(object sender, RoutedEventArgs e)
@@ -168,7 +155,7 @@ namespace Qiqqa.Common.GUI
             // when we get here, basic positioning has been done. Time to overide any default positioning
             // with the settings stored by the user during a previous run:
             Logging.Info($"Window: {Name} @ {Left}/{Top}/{Width}/{Height}");
-            SetupConfiguredDimensions();
+            SetupConfiguredDimensions(xaml_preferred_dimensions);
         }
 
         private void StandardWindow_ContentRendered(object sender, EventArgs e)
@@ -206,7 +193,7 @@ namespace Qiqqa.Common.GUI
             {
                 // silently ignore: we haven't started up properly yet.
             }
-            else if (IsMeasureValid && IsInitialized && IsLoaded)
+            else if (IsMeasureValid && IsInitialized)
             {
                 string name_to_find = Name;
                 Debug.Assert(!String.IsNullOrEmpty(name_to_find));
@@ -216,32 +203,15 @@ namespace Qiqqa.Common.GUI
                     return;
                 }
 
-                Rect rc;
+                Rect rc = Rect.Empty;
 
-                if (WindowState == WindowState.Normal)
+                if (WindowState != WindowState.Normal)
                 {
-                    if (!Double.IsNaN(Left) && 0 < Left + Width && Left < 1E6 &&
-                        !Double.IsNaN(Top) && 0 <= Top && Top < 1E6 &&
-                        !Double.IsNaN(Width) && 0 < Width && Width < 1E6 &&
-                        !Double.IsNaN(Height) && 0 < Height && Height < 1E6)
-                    {
-                        rc = new Rect(Left, Top, Width, Height);
-                        ASSERT.Test(RestoreBounds.IsEmpty || rc.IntersectsWith(RestoreBounds));
-                    }
-                    else 
-                    {
-                        rc = Rect.Empty;
-                    }
-                }
-                else
-                { 
                     rc = RestoreBounds;
                 }
                 if (rc.IsEmpty)
                 {
-                    rc = new Rect();
-                    ASSERT.Test(rc.Width == 0);
-                    ASSERT.Test(rc.Height == 0);
+                    rc = new Rect(Left, Top, Width, Height);
                 }
                 string position = String.Format("{0}|{1}|{2}|{3}|{4}", rc.X, rc.Y, rc.Width, rc.Height, WindowState);
 
@@ -313,7 +283,7 @@ namespace Qiqqa.Common.GUI
             }
         }
 
-        public virtual bool SetupConfiguredDimensions()
+        public virtual bool SetupConfiguredDimensions(Size preferred_dimensions)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -360,23 +330,20 @@ namespace Qiqqa.Common.GUI
 
                                 // when we have a valid corner coordinate, do we restore window *position*
                                 // (and possibly also *size*):
-                                if (!Double.IsNaN(pos.X) && !Double.IsNaN(pos.Y) &&
-                                    !Double.IsNaN(pos.Width) && !Double.IsNaN(pos.Height) &&
-                                    pos.Width > 0 && pos.Height > 0)
+                                if (!Double.IsNaN(pos.X) && !Double.IsNaN(pos.Y))
                                 {
-                                    WindowState = WindowState.Normal;
-
                                     Left = pos.X;
                                     Top = pos.Y;
-                                    Width = pos.Width;
-                                    Height = pos.Height;
-									
-									//RestoreBounds = pos;
+
+                                    if (!Double.IsNaN(pos.Width) && !Double.IsNaN(pos.Height))
+                                    {
+                                        Width = pos.Width;
+                                        Height = pos.Height;
+                                    }
+                                    done = true;
 
                                     // only restore WindowState when the (restore-)coordinates are valid too!
                                     WindowState = loc.state;
-
-                                    done = true;
                                 }
                             }
                             catch (Exception ex)

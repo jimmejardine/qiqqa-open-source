@@ -1,9 +1,5 @@
 ﻿using System.Drawing;
 using System.IO;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-
 
 namespace Utilities.Images
 {

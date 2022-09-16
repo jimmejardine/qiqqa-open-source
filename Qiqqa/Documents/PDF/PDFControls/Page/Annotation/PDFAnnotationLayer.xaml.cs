@@ -10,7 +10,6 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Wizard;
-using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 {
@@ -46,32 +45,24 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             drag_area_tracker = new DragAreaTracker(this);
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
 
-            SafeThreadPool.QueueUserWorkItem(() =>
+            // Add all the already existing annotations
+            foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
             {
-                // Add all the already existing annotations
-                var list = pdf_document.GetAnnotations();
-
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                if (pdf_annotation.Page == this.page)
                 {
-                    foreach (PDFAnnotation pdf_annotation in list)
+                    if (!pdf_annotation.Deleted)
                     {
-                        if (pdf_annotation.Page == this.page)
-                        {
-                            if (!pdf_annotation.Deleted)
-                            {
-                                Logging.Info("Loading annotation on page {0}", page);
-                                PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation);
-                                pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
-                                Children.Add(pdf_annotation_item);
-                            }
-                            else
-                            {
-                                Logging.Info("Not loading deleted annotation on page {0}", page);
-                            }
-                        }
+                        Logging.Info("Loading annotation on page {0}", page);
+                        PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation);
+                        pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
+                        Children.Add(pdf_annotation_item);
                     }
-                });
-            });
+                    else
+                    {
+                        Logging.Info("Not loading deleted annotation on page {0}", page);
+                    }
+                }
+            }
 
             //Unloaded += PDFAnnotationLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
