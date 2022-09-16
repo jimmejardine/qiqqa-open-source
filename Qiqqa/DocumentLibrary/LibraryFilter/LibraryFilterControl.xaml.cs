@@ -191,8 +191,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         private void ReExecuteAllSearches(PDFDocument pdf_document_to_focus_on)
         {
-            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
             library_filter_control_search.ExecuteSearchQuick(library_filter_control_search.SearchQuick.Text);
             ExecuteSearchTag();
             ReviewParameters(pdf_document_to_focus_on);

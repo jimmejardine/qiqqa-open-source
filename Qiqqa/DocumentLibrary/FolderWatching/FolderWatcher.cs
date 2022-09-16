@@ -161,7 +161,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             public int processed_file_count;
             public int scanned_file_count;
             public int skipped_file_count;
-            public int files_added_since_last_sleep;
 
             // Store the *hashes* of the files we have processed during this run.
             //
@@ -184,7 +183,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 processed_file_count = 0;
                 scanned_file_count = 0;
                 skipped_file_count = 0;
-                files_added_since_last_sleep = 0;
 
                 file_hashes_added = new Dictionary<string, string>();
 
@@ -195,46 +193,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         }
 
         private WatchStatistics watch_stats;
-
-
-        public class GlobalWatchStatistics
-        {
-            private double scanned_file_count;
-            private long previous_promillage;
-            private object _lock = new object();
-
-            // Return true when there's a significant change in promillage (one or more)
-            public void Inc(double step = 1.0)
-            {
-                lock (_lock)
-                {
-                    scanned_file_count += Math.Max(0.001, step);
-
-                    long rv = (long)scanned_file_count;
-                    if (previous_promillage != rv)
-                    {
-                        previous_promillage = rv;
-
-                        // When we hit the upper bound, we RESET the promillage counter:
-                        if (rv >= 1000)
-                        {
-                            scanned_file_count = 0;
-                        }
-
-                        StatusManager.Instance.UpdateStatus("FolderWatcher", "📂👀", rv, 1000);
-                    }
-                }
-            }
-
-            public GlobalWatchStatistics()
-            {
-                scanned_file_count = 0;
-                previous_promillage = -1;
-            }
-        }
-
-        // Track global statistics for UI display
-        public static GlobalWatchStatistics global_watch_stats = new GlobalWatchStatistics();
 
         /// <summary>
         /// The daemon code calls this occasionally to poke it into action to do work
@@ -356,8 +314,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 //     in a log, so that the enumeration continues as in the case of Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.ContinueOnException
                 //     option but the user will be informed about errors.
                 //
-                global_watch_stats.Inc();
-
                 DirectoryEnumerationFilters filter = new DirectoryEnumerationFilters();
                 filter.ErrorFilter = DecideIfErrorDuringDirScan;
                 filter.InclusionFilter = DecideIfIncludeDuringDirScan;
@@ -407,8 +363,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                         Logging.Error(ex, "Folder Watcher: skipping file {0} due to file I/O error {1}", filename, ex.Message);
                     }
                 }
-
-                Logging.Debug特("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
 
                 // Create the import records
                 List<FilenameWithMetadataImport> filename_with_metadata_imports = new List<FilenameWithMetadataImport>();
@@ -502,11 +456,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 throw new OperationCanceledException("FolderWatcher: Breaking out of inner processing loop due to disposed library and/or watch manager");
             }
 
-            global_watch_stats.Inc(0.1);
-            
             bool have_we_slept = false;
 
-            if (watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION && watch_stats.files_added_since_last_sleep > 42)
+            if (watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION)
             {
                 Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed, {1} threads pending", watch_stats.index_processing_clock.ElapsedMilliseconds / 1E3, SafeThreadPool.QueuedThreadCount);
 
@@ -519,7 +471,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                 int duration = 1 * 1000 + thr_cnt * 250 + queued_cnt * 20 + textify_count * 50 + ocr_count * 500;
 
-                watch_stats.daemon.Sleep(Math.Min(5 * 1000, duration));
+                watch_stats.daemon.Sleep(Math.Min(60 * 1000, duration));
 
                 // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
                 WPFDoEvents.WaitForUIThreadActivityDone();
@@ -604,7 +556,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
 
                 watch_stats.file_hashes_added.Add(fingerprint, obj.FullPath);
-                watch_stats.files_added_since_last_sleep++;
 
                 return true;
             }

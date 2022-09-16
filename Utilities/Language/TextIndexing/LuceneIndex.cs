@@ -13,7 +13,6 @@ using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Utilities.Files;
 using Utilities.GUI;
-using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -115,33 +114,15 @@ namespace Utilities.Language.TextIndexing
             Stopwatch clk = Stopwatch.StartNew();
 
             Logging.Info("+Flushing a lucene IndexWriter");
-            try
+            if (null != index_writer)
             {
-                if (null != index_writer)
-                {
-                    if (ShutdownableManager.Instance.IsShuttingDown)
-                    {
-                        Logging.Warn("Lucene:IndexWriter: Skipping commit + optimization due to breaking out due to application termination");
-                    }
-                    else
-                    {
-                        index_writer.Commit();
-                        index_writer.Optimize();
-                    }
-                    index_writer.Close();
-                    index_writer.Dispose();
-                    index_writer = null;
-                }
+                index_writer.Commit();
+                index_writer.Optimize();
+                index_writer.Close();
+                index_writer.Dispose();
+                index_writer = null;
             }
-            catch (Exception ex)
-            {
-                Logging.Error(ex, "Lucene:IndexWriter: Error occurred.");
-                throw;
-            }
-            finally
-            {
-                Logging.Info("-Flushing a lucene IndexWriter (time spent: {0} ms)", clk.ElapsedMilliseconds);
-            }
+            Logging.Info("-Flushing a lucene IndexWriter (time spent: {0} ms)", clk.ElapsedMilliseconds);
         }
 
         private static void AddDocumentMetadata_SB(Document document, StringBuilder sb, string field_name, string field_value)

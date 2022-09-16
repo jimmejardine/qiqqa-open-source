@@ -418,8 +418,6 @@ namespace Qiqqa.DocumentLibrary
                 last_pdf_add_time.Restart();
             }
 
-            FolderWatcher.global_watch_stats.Inc(0.1);
-
             if (String.IsNullOrEmpty(filename) || filename.EndsWith(".vanilla_reference"))
             {
                 return AddVanillaReferenceDocumentToLibrary(bibtex, web_library_detail, tags, comments, suppressDialogs, suppress_signal_that_docs_have_changed);
@@ -571,8 +569,6 @@ namespace Qiqqa.DocumentLibrary
                 SignalThatDocumentsHaveChanged(pdf_document);
             }
 
-            FolderWatcher.global_watch_stats.Inc();
-
             return pdf_document;
         }
 
@@ -650,8 +646,6 @@ namespace Qiqqa.DocumentLibrary
             {
                 SignalThatDocumentsHaveChanged(pdf_document);
             }
-
-            FolderWatcher.global_watch_stats.Inc();
 
             return pdf_document;
         }

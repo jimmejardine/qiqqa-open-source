@@ -147,8 +147,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.AITagExplorerStuff
 
         internal static MultiMapSet<string, string> GetNodeItems(WebLibraryDetail web_library_detail, HashSet<string> parent_fingerprints)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             Logging.Info("+Getting node items for AutoTags");
 
             if (null == web_library_detail.Xlibrary.AITagManager.AITags)

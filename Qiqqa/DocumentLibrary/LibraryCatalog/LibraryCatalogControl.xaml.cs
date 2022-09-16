@@ -10,7 +10,6 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
-using Utilities.Misc;
 using Utilities.Reflection;
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
@@ -37,13 +36,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ListPDFDocuments.MouseDoubleClick += ListPDFDocuments_MouseDoubleClick;
             ListPDFDocuments.IsVisibleChanged += ListPDFDocuments_IsVisibleChanged;
             ReconsiderPDFDocumentDetail();
-
-#if DEBUG
-            if (Runtime.IsRunningInVisualStudioDesigner)
-            {
-                //DataContext = dummy;
-            }
-#endif
         }
 
         private void ListPDFDocuments_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -133,49 +125,15 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
                 drag_to_library_manager = new DragToLibraryManager(web_library_detail);
                 drag_to_library_manager.RegisterControl(this);
-
-                web_library_detail = DataContext as WebLibraryDetail;
-                if (null != web_library_detail)
-                {
-                    // WEAK EVENT HANDLER FOR: web_library_detail.library.OnDocumentsChanged += library_OnDocumentsChanged;
-                    WeakEventHandler<Library.PDFDocumentEventArgs>.Register<WebLibraryDetail, LibraryCatalogControl>(
-                        web_library_detail,
-                        registerWeakEvent,
-                        deregisterWeakEvent,
-                        this,
-                        forwardWeakEvent
-                    );
-
-                    drag_to_library_manager.DefaultLibrary = web_library_detail;
-                }
             }
         }
 
-        private static void registerWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
+        public void SetPDFDocuments(IEnumerable<PDFDocument> pdf_documents, PDFDocument pdf_document_to_focus_on)
         {
-            sender.Xlibrary.OnDocumentsChanged += eh;
-        }
-        private static void deregisterWeakEvent(WebLibraryDetail sender, EventHandler<Library.PDFDocumentEventArgs> eh)
-        {
-            sender.Xlibrary.OnDocumentsChanged -= eh;
-        }
-        private static void forwardWeakEvent(LibraryCatalogControl me, object event_sender, Library.PDFDocumentEventArgs args)
-        {
-            me.library_OnDocumentsChanged();
+            SetPDFDocuments(pdf_documents, pdf_document_to_focus_on, null, null);
         }
 
-        private void library_OnDocumentsChanged()
-        {
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
-            {
-                if (ListPDFDocuments.IsVisible)
-                {
-                    ListPDFDocuments.UpdateLayout();
-                }
-            });
-        }
-
-        public void SetPDFDocuments(IEnumerable<PDFDocument> pdf_documents, PDFDocument pdf_document_to_focus_on = null, string filter_terms = null, Dictionary<string, double> search_scores = null)
+        public void SetPDFDocuments(IEnumerable<PDFDocument> pdf_documents, PDFDocument pdf_document_to_focus_on, string filter_terms, Dictionary<string, double> search_scores)
         {
             this.filter_terms = filter_terms;
             this.search_scores = search_scores;
