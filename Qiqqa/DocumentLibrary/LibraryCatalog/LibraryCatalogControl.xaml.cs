@@ -38,10 +38,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             ListPDFDocuments.IsVisibleChanged += ListPDFDocuments_IsVisibleChanged;
             ReconsiderPDFDocumentDetail();
 
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner)
             {
                 //DataContext = dummy;
             }
+#endif
         }
 
         private void ListPDFDocuments_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -192,11 +194,6 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                     }
                     else
                     {
-                        // TODO: consider https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/layout?redirectedfrom=MSDN&view=netframeworkdesktop-4.8
-                        //
-                        // For now, it works and has taken plenty hours to get it to this state. :-(
-                        //
-                        // This remark applies to all UpdateLayout() calls, by the way.
                         ListPDFDocuments.UpdateLayout();
 
                         ListPDFDocuments.SelectedIndex = selected_index;

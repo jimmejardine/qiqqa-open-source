@@ -12,6 +12,7 @@ namespace Utilities
 
         public const string VanillaReferenceFileType = "VANILLA_REFERENCE";
 
+#if DEBUG
         // These 4 constants are live-patched by the Pre-build task (Qiqqa.Build/patch_settings_file.js)
         // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         public const string QiqqaDevProjectDir = "W:/Projects/sites/library.visyond.gov/80/lib/tooling/qiqqa/Utilities/";
@@ -20,6 +21,7 @@ namespace Utilities
         public const string QiqqaDevBuild = "Debug";
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         // These 4 constants are live-patched by the Pre-build task (Qiqqa.Build/patch_settings_file.js)
+#endif
 
         /// <summary>
         /// The number of milliseconds we're willing to wait on (background-)tasks 

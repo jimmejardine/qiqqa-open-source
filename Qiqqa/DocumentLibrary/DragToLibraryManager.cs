@@ -116,7 +116,9 @@ namespace Qiqqa.DocumentLibrary
             }
 #endif
 
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {

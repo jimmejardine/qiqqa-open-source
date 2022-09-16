@@ -6,7 +6,7 @@
     <DockPanel VerticalAlignment="Center">
         <local_gui:AugmentedButton DockPanel.Dock="Bottom" Name="ButtonComments" />
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" MinWidth="40"  MaxHeight="200" MinHeight="80">
-            <TextBox Name="ObjCommentsBox" Text="{Binding Comments, FallbackValue='Visual Studio DesignMode Demo'}" AcceptsReturn="True" TextWrapping="Wrap"/>
+            <TextBox Name="ObjCommentsBox" Text="{Binding Comments}" AcceptsReturn="True" TextWrapping="Wrap"/>
         </ScrollViewer>
     </DockPanel>
 </UserControl>

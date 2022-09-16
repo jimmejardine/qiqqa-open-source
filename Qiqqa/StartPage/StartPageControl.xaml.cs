@@ -288,8 +288,9 @@ namespace Qiqqa.StartPage
         private void ButtonNewManual_Click(object sender, RoutedEventArgs e)
         {
             ButtonHelpPopup.Close();
-
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
             
             PDFDocument pdf_document = QiqqaManualTools.AddManualsToLibrary(WebLibraryManager.Instance.Library_Guest);
             MainWindowServiceDispatcher.Instance.OpenDocument(pdf_document);

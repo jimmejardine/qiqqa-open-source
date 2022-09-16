@@ -154,7 +154,9 @@ namespace Qiqqa.InCite.CSLEditorStuff
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             OpenFileDialog open_file_dialog = new OpenFileDialog();
             open_file_dialog.AddExtension = true;

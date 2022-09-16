@@ -44,6 +44,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             double mid = (ObjSceneRenderingControl.current_viewport_topleft.X + ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale / 2);
             double visible = ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale;
 
+#if DEBUG
             // Are we looking at this dialog in the Visual Studio Designer?
             if (Runtime.IsRunningInVisualStudioDesigner && 0 == ObjSceneRenderingControl.NodeControls.Count && Double.IsNaN(mid))
             {
@@ -52,6 +53,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 mid = 2500;
                 visible = 225;
             }
+#endif
 
             horizonal_changing = true;
             ScrollHorizonal.Minimum = min;
@@ -75,6 +77,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             double mid = (ObjSceneRenderingControl.current_viewport_topleft.Y + ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale / 2);
             double visible = ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale;
 
+#if DEBUG
             // Are we looking at this dialog in the Visual Studio Designer?
             if (Runtime.IsRunningInVisualStudioDesigner && 0 == ObjSceneRenderingControl.NodeControls.Count && Double.IsNaN(mid))
             {
@@ -83,6 +86,7 @@ namespace Qiqqa.Brainstorm.SceneManager
                 mid = 2500;
                 visible = 225;
             }
+#endif
 
             vertical_changing = true;
             ScrollVertical.Minimum = min;

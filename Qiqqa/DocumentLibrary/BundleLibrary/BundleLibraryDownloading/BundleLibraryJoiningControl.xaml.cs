@@ -126,7 +126,9 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
 
         private void ObjButtonManifestFilenameChoose_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             try
             {

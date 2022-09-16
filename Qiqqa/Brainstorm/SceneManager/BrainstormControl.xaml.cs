@@ -154,28 +154,36 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             SceneRenderingControl.New();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             SceneRenderingControl.SaveToDisk();
         }
 
         private void ButtonSaveAs_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             SceneRenderingControl.SaveAsToDisk();
         }
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             SceneRenderingControl.OpenFromDisk();
         }

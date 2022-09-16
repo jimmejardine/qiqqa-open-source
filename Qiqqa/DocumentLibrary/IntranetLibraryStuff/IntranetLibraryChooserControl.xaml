@@ -11,12 +11,12 @@
         <DockPanel DockPanel.Dock="Bottom">
             <DockPanel DockPanel.Dock="Right">
                 <local_gui:AugmentedButton Name="ButtonJoinCreate" DockPanel.Dock="Right" MinWidth="100" MinHeight="20" />
-                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinHeight="20" MinWidth="100"  Margin="0,0,9,0" />
+                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinHeight="20" MinWidth="100"  Margin="3" />
             </DockPanel>
         </DockPanel>
         <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
         <StackPanel DockPanel.Dock="Top" Margin="3" >
-            <TextBlock Margin="0,0,0,3">
+            <TextBlock>
                 Please select the shared directory to use as the synchronisation point for your Intranet Library:
             </TextBlock>
             <DockPanel>
@@ -25,11 +25,11 @@
                 </Button>
                 <TextBox Name="TxtPath"/>
             </DockPanel>
-            <TextBlock Margin="0,12,0,3" >
+            <TextBlock Margin="3" >
                 Intranet Library Title:
             </TextBlock>
             <TextBox Name="TxtTitle"/>
-            <TextBlock Margin="0,12,0,3" >
+            <TextBlock Margin="3" >
                 Intranet Library Description:
             </TextBlock>
             <TextBox Name="TxtDescription" AcceptsReturn="True" />

@@ -214,7 +214,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             _currentSelectedExportFile = null;
 
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             switch (_currentProvider)
             {
@@ -275,7 +277,9 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             _currentSelectedSupplementaryFolder = null;
 
+#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
+#endif
 
             switch (_currentProvider)
             {

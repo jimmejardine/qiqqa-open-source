@@ -1,15 +1,15 @@
-<commongui:StandardWindow
-    x:Class="Qiqqa.Documents.PDF.PDFControls.MetadataControls.MetadataBibTeXEditorControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-    xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    MinWidth="250">
+<commongui:StandardWindow x:Class="Qiqqa.Documents.PDF.PDFControls.MetadataControls.MetadataBibTeXEditorControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+  MinWidth="250"
+>
     <DockPanel>
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="6*" />
@@ -17,36 +17,28 @@
                 <ColumnDefinition Width="3" />
                 <ColumnDefinition Width="7*" />
             </Grid.ColumnDefinitions>
-            <local_gui:AugmentedButton Name="ButtonToggleBibTeX" Grid.Column="0">
+            <local_gui:AugmentedButton Name="ButtonToggleBibTeX" Grid.Column="0" >
                 Toggle
             </local_gui:AugmentedButton>
-            <local_gui:AugmentedButton Name="ButtonAckBibTeXParseErrors" Grid.Column="1">
+            <local_gui:AugmentedButton Name="ButtonAckBibTeXParseErrors" Grid.Column="1" >
                 Parse Errors
             </local_gui:AugmentedButton>
-            <local_gui:AugmentedButton Name="ButtonUndoBibTeXEdit" Grid.Column="2">
+            <local_gui:AugmentedButton Name="ButtonUndoBibTeXEdit" Grid.Column="2" >
                 Undo
             </local_gui:AugmentedButton>
             <local_gui:AugmentedSpacer Grid.Column="3" />
-            <local_gui:AugmentedButton
-                x:Name="ButtonSniffer"
-                Grid.Column="4"
-                MinHeight="10">
+            <local_gui:AugmentedButton x:Name="ButtonSniffer" Grid.Column="4" MinHeight="10">
                 Sniffer
             </local_gui:AugmentedButton>
             <local_gui:AugmentedSpacer Grid.Column="5" />
-            <local_gui:AugmentedButton
-                x:Name="ButtonCancel"
-                Grid.Column="6"
-                MinHeight="10">
+            <local_gui:AugmentedButton x:Name="ButtonCancel" Grid.Column="6" MinHeight="10" >
                 Close
             </local_gui:AugmentedButton>
         </Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
             <StackPanel>
-                <local_bibtex:BibTeXEditorControl
-                    x:Name="ObjBibTeXEditorControl"
-                    MinHeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}, Path=ActualHeight}"
-                    BibTeX="{Binding BibTex, Mode=TwoWay}" />
+                <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" MinHeight="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type ScrollViewer}},Path=ActualHeight}" />
             </StackPanel>
         </ScrollViewer>
     </DockPanel>

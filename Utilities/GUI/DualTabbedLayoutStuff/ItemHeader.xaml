@@ -1,17 +1,17 @@
-<UserControl
-    x:Class="Utilities.GUI.DualTabbedLayoutStuff.ItemHeader"
+<UserControl x:Class="Utilities.GUI.DualTabbedLayoutStuff.ItemHeader"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI">
+    xmlns:local_gui="clr-namespace:Utilities.GUI"
+>
     <DockPanel>
-        <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-            <Image Name="ImageIcon" Margin="3,0" />
+        <StackPanel  DockPanel.Dock="Left" Orientation="Horizontal">
+            <Image Name="ImageIcon" Margin="3" />
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-            <Image Name="ImageClose" Margin="3,0" />
+            <Image Name="ImageClose" Margin="3" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Name="TextHeader" Margin="3,0" />
+            <TextBlock Name="TextHeader"  Margin="3" />
         </StackPanel>
     </DockPanel>
 </UserControl>

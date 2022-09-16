@@ -7,6 +7,7 @@
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:local_metadata="clr-namespace:Qiqqa.Documents.PDF.PDFControls.MetadataControls"
     xmlns:tag="clr-namespace:Qiqqa.Common.TagManagement"
+    Height="1420"
     MinWidth="186">
     <ScrollViewer>
         <StackPanel>
@@ -20,7 +21,8 @@
                             </Run>
                         </Bold>
                         documents.
-                        Running tools from the toolbar (e.g., annotation reports, exports, etc.) will only run on these documents.</Paragraph>
+            Running tools from the toolbar (e.g., annotation reports, exports, etc.) will only run on these documents.
+                    </Paragraph>
                     <Paragraph>
                         You can select all the documents in the currently filtered library by pressing CTRL-A.
                     </Paragraph>
