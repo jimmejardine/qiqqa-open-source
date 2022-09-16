@@ -151,11 +151,6 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal void TaskDaemonEntryPoint(Utilities.Daemon daemon)
         {
-            if (ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
-            {
-                Logging.Debug特("FolderWatcherTask for library {0} SKIPPED: disabled by advanced settings.", LibraryRef);
-            }
-
             Logging.Debug特("FolderWatcherTask for library {0} START", LibraryRef);
 
             Dictionary<string, FolderWatcherRecord> folder_watchset = new Dictionary<string, FolderWatcherRecord>();

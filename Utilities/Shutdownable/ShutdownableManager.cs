@@ -93,10 +93,8 @@ namespace Utilities.Shutdownable
                 {
                     // l1_clk.LockPerfTimerStop();
                     if (!shutdown_delegates.Any()) break;
-                    // process Shutdown registered items in LIFO order: shutdown in reverse of init sequence!
-                    int idx = shutdown_delegates.Count - 1;
-                    shutdown_delegate = shutdown_delegates[idx];
-                    shutdown_delegates.RemoveAt(idx);
+                    shutdown_delegate = shutdown_delegates[0];
+                    shutdown_delegates.RemoveAt(0);
                 }
 
                 try

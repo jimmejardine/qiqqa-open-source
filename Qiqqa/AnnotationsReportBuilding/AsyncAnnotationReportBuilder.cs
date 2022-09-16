@@ -502,9 +502,7 @@ namespace Qiqqa.AnnotationsReportBuilding
 
             Run run = (Run)sender;
             PDFDocument pdf_document = (PDFDocument)run.Tag;
-            ASSERT.Test(pdf_document != null);
-			
-	        PDFDocumentCitingTools.CitePDFDocument(pdf_document, separate_author_and_date);
+            PDFDocumentCitingTools.CitePDFDocument(pdf_document, separate_author_and_date);
             e.Handled = true;
         }
 
@@ -516,8 +514,6 @@ namespace Qiqqa.AnnotationsReportBuilding
 
         private static void BackgroundRenderImages_BACKGROUND(FlowDocument flow_document, List<AnnotationWorkGenerator.AnnotationWork> annotation_works, AnnotationReportOptions annotation_report_options)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             ShutdownableManager.Sleep(annotation_report_options.InitialRenderDelayMilliseconds);
 
             PDFDocument last_pdf_document = null;
@@ -559,10 +555,11 @@ namespace Qiqqa.AnnotationsReportBuilding
                     try
                     {
                         // Clear the waiting for processing text
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        annotation_work.processing_error.Dispatcher.Invoke(new Action(() =>
                         {
                             annotation_work.processing_error.Text = "";
-                        });
+                        }
+                        ), DispatcherPriority.Background);
 
 
                         if (pdf_document.DocumentExists)
@@ -570,40 +567,35 @@ namespace Qiqqa.AnnotationsReportBuilding
                             // Fill in the paragraph text
                             if (null != annotation_work.annotation_paragraph)
                             {
-                                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                                {
-                                    BuildAnnotationWork_FillAnnotationText(pdf_document, pdf_annotation, annotation_work);
-                                });
+                                annotation_work.processing_error.Dispatcher.Invoke(
+                                    new Action(() => BuildAnnotationWork_FillAnnotationText(pdf_document, pdf_annotation, annotation_work)),
+                                    DispatcherPriority.Background);
                             }
 
                             if (null != annotation_work.report_floater)
                             {
-                                try
-                                {
-                                    System.Drawing.Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, 80);
-                                    BitmapSource cropped_image_page = BitmapImageTools.FromImage(annotation_image);
-
-                                    WPFDoEvents.InvokeAsyncInUIThread(() =>
+                                annotation_work.processing_error.Dispatcher.Invoke(new Action(() =>
                                     {
-                                        annotation_work.report_image.Source = cropped_image_page;
-                                        annotation_work.report_floater.Width = new FigureLength(cropped_image_page.PixelWidth / 1);
-                                    });
-                                }
-                                catch (Exception ex)
-                                {
-                                    Logging.Warn(ex, "There was a problem while rendering an annotation.");
-                                    WPFDoEvents.InvokeAsyncInUIThread(() =>
-                                    {
-                                        annotation_work.report_image.Source = Icons.GetAppIcon(Icons.AnnotationReportImageError);
-                                        annotation_work.processing_error.Text = "There was a problem while rendering this annotation.";
-                                    });
-                                }
-
+                                        try
+                                        {
+                                            System.Drawing.Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, 80);
+                                            BitmapSource cropped_image_page = BitmapImageTools.FromImage(annotation_image);
+                                            annotation_work.report_image.Source = cropped_image_page;
+                                            annotation_work.report_floater.Width = new FigureLength(cropped_image_page.PixelWidth / 1);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Logging.Warn(ex, "There was a problem while rendering an annotation.");
+                                            annotation_work.report_image.Source = Icons.GetAppIcon(Icons.AnnotationReportImageError);
+                                            annotation_work.processing_error.Text = "There was a problem while rendering this annotation.";
+                                        }
+                                    }
+                                ), DispatcherPriority.Background);
                             }
                         }
                         else
                         {
-                            WPFDoEvents.InvokeAsyncInUIThread(() =>
+                            annotation_work.processing_error.Dispatcher.Invoke(new Action(() =>
                             {
                                 if (null != annotation_work.report_image)
                                 {
@@ -611,14 +603,15 @@ namespace Qiqqa.AnnotationsReportBuilding
                                 }
 
                                 annotation_work.processing_error.Text = "Can't show image: The PDF does not exist locally.";
-                            });
+                            }
+                            ), DispatcherPriority.Background);
                         }
                     }
                     catch (Exception ex)
                     {
                         Logging.Error(ex, "There was an error while rendering page {0} for document {1} for the annotation report", pdf_annotation.Page, pdf_annotation.DocumentFingerprint);
 
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        annotation_work.processing_error.Dispatcher.Invoke(new Action(() =>
                         {
                             if (null != annotation_work.report_image)
                             {
@@ -626,7 +619,8 @@ namespace Qiqqa.AnnotationsReportBuilding
                             }
 
                             annotation_work.processing_error.Text = "Can't show image: There was an error rendering the metadata image.";
-                        });
+                        }
+                        ), DispatcherPriority.Background);
                     }
                 }
             }

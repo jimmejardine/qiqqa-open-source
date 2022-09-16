@@ -3,12 +3,11 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d"
   x:Class="Qiqqa.AnnotationsReportBuilding.AnnotationReportOptionsWindow"
-  d:DesignHeight="772"
-  x:Name="AnnotationReportOptions" d:DesignWidth="670" MinWidth="670"
+  d:DesignHeight="633"
   >
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Margin="3">
@@ -127,53 +126,46 @@
                         <local_gui:NonScrollingFlowDocumentScrollViewer>
                             <commongui:StandardFlowDocument>
                                 <Paragraph>
-                                    <Run Text="Each annotation in the annotation report shows"/>
-                                </Paragraph>
-                                <List MarkerStyle="LowerRoman" MarkerOffset="1">
-                                    <ListItem>
-                                        <Paragraph>
-                                            <Run Text=" your comments and "/>
-                                            <Run FontStyle="Italic" Text="both"/>
-                                            <Run Text=" "/>
-                                        </Paragraph>
-                                    </ListItem>
-                                    <ListItem>
-                                        <Paragraph>
-                                            <Run Text=" an image of the PDF under the annotation and "/>
-                                        </Paragraph>
-                                    </ListItem>
-                                    <ListItem>
-                                        <Paragraph>
-                                            <Run Text=" a snippet of the text under the annotation. "/>
-                                        </Paragraph>
-                                    </ListItem>
-                                </List>
-                                <Paragraph>
-                                    <Run Text="This lets you see equations and diagrams or copy-and-paste the annotation text. "/>
-                                </Paragraph>
-                                <Paragraph>
-                                    <Run Text="You can choose (ii) or (iii) individually by ticking those options in the editor popup on each annotation. You can apply blanket annotation settings here:"/>
+                                    Each annotation in the annotation report shows (i) your comments and both (ii) an image of the PDF under the annotation and (iii) a snippet of the text under the annotation.
+                This lets you see equations and diagrams or copy-and-paste the annotation text.
+                You can choose (ii) or (iii) individually by ticking those options in the editor popup on each annotation.  You can apply blanket annotation settings here:
                                 </Paragraph>
                                 <BlockUIContainer>
-                                    <Grid x:Name="ObjImageTextChoicesPanel" UseLayoutRounding="True" d:DesignUseLayoutRounding="True">
+                                    <Grid Name="ObjImageTextChoicesPanel">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" UseLayoutRounding="True" d:DesignUseLayoutRounding="True"><Run Text="Annotation Image:"/></TextBlock>
-                                        <RadioButton Content="Respect annotation" Grid.Column="1" GroupName="IMAGE" IsChecked="True" Grid.Row="0" UseLayoutRounding="True" d:DesignUseLayoutRounding="True"/>
-                                        <RadioButton x:Name="ObjIMAGEShow" Content="Show all images" Grid.Column="2" GroupName="IMAGE" Grid.Row="0" UseLayoutRounding="True" d:DesignUseLayoutRounding="True"/>
-                                        <RadioButton x:Name="ObjIMAGEHide" Content="Hide all images" Grid.Column="3" GroupName="IMAGE" Grid.Row="0" UseLayoutRounding="True" d:DesignUseLayoutRounding="True"/>
-                                        <TextBlock Grid.Row="1" UseLayoutRounding="True" d:DesignUseLayoutRounding="True"><Run Text="Annotation Text:"/></TextBlock>
-                                        <RadioButton Content="Respect annotation" Grid.Column="1" GroupName="TEXT" IsChecked="True" Grid.Row="1" UseLayoutRounding="True" d:DesignUseLayoutRounding="True"/>
-                                        <RadioButton x:Name="ObjTEXTShow" Content="Show all text" Grid.Column="2" GroupName="TEXT" Grid.Row="1" UseLayoutRounding="True" d:DesignUseLayoutRounding="True"/>
-                                        <RadioButton x:Name="ObjTEXTHide" Content="Hide all text" Grid.Column="3" GroupName="TEXT" Grid.Row="1" UseLayoutRounding="True" d:DesignUseLayoutRounding="True"/>
+                                        <TextBlock Grid.Row="0" >
+                                            Annotation Image:
+                                        </TextBlock>
+                                        <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="1" IsChecked="True">
+                                            Respect annotation
+                                        </RadioButton>
+                                        <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="2" Name="ObjIMAGEShow">
+                                            Show all images
+                                        </RadioButton>
+                                        <RadioButton GroupName="IMAGE" Grid.Row="0" Grid.Column="3" Name="ObjIMAGEHide">
+                                            Hide all images
+                                        </RadioButton>
+                                        <TextBlock Grid.Row="1" >
+                                            Annotation Text:
+                                        </TextBlock>
+                                        <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="1" IsChecked="True">
+                                            Respect annotation
+                                        </RadioButton>
+                                        <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="2" Name="ObjTEXTShow">
+                                            Show all text
+                                        </RadioButton>
+                                        <RadioButton GroupName="TEXT" Grid.Row="1" Grid.Column="3" Name="ObjTEXTHide">
+                                            Hide all text
+                                        </RadioButton>
                                     </Grid>
                                 </BlockUIContainer>
                             </commongui:StandardFlowDocument>

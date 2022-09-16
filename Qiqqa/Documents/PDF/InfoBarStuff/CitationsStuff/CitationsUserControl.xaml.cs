@@ -86,11 +86,12 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.CitationsStuff
 
         public void SetPDFDocument(PDFDocument doc)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             pdf_document = doc;
 
-            RepopulatePanels();
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                RepopulatePanels();
+            });
         }
 
         private void RepopulatePanels()

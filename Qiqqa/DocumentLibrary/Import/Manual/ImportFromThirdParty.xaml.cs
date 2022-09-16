@@ -36,7 +36,7 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
         {
             web_library_detail = _web_library_detail;
 
-            //Theme.Initialize(); -- already done in StandardWindow base class
+            Theme.Initialize();
 
             InitializeComponent();
 

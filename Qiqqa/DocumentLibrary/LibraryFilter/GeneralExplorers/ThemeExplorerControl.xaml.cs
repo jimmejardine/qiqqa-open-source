@@ -10,8 +10,6 @@ using Qiqqa.Expedition;
 using Utilities;
 using Utilities.Collections;
 using Utilities.GUI;
-using Utilities.Mathematics.Topics.LDAStuff;
-using Utilities.Misc;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 {
@@ -80,41 +78,32 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
             try
             {
                 // Check that expedition has been run...
-                    ExpeditionDataSource eds = web_library_detail.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
-                if (eds != null)
+                if (null == web_library_detail.Xlibrary.ExpeditionManager || null == web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource)
                 {
-                    HashSet<string> pdf_doc_fingerprints = web_library_detail.Xlibrary.GetAllDocumentFingerprints();
+                    return results;
+                }
 
-                    LDAAnalysis lda = eds.LDAAnalysis;
+                ExpeditionDataSource eds = web_library_detail.Xlibrary.ExpeditionManager.ExpeditionDataSource;
+                HashSet<string> pdf_doc_fingerprints = web_library_detail.Xlibrary.GetAllDocumentFingerprints();
 
-                    for (int t = 0; t < lda.NUM_TOPICS; ++t)
+                for (int t = 0; t < eds.LDAAnalysis.NUM_TOPICS; ++t)
+                {
+                    string topic_name = eds.GetDescriptionForTopic(t, include_topic_number: false, "; ");
+
+                    // Show the top % of docs
+                    int num_docs = eds.LDAAnalysis.NUM_DOCS / 10;
+                    num_docs = Math.Max(num_docs, 3);
+
+                    for (int d = 0; d < eds.LDAAnalysis.NUM_DOCS && d < num_docs; ++d)
                     {
-                        string topic_name = eds.GetDescriptionForTopic(t, include_topic_number: false, "; ");
-
-                        // Show the top % of docs
-                        int num_docs = lda.NUM_DOCS / 10;
-                        num_docs = Math.Max(num_docs, 3);
-
-                        for (int d = 0; d < lda.NUM_DOCS && d < num_docs; ++d)
+                        string fingerprint_to_look_for = eds.docs[eds.LDAAnalysis.DensityOfDocsInTopicsSorted[t][d].doc];
+                        if (!pdf_doc_fingerprints.Contains(fingerprint_to_look_for))
                         {
-                            DocProbability[] docs = lda.DensityOfDocsInTopicsSorted[t];
-                            ASSERT.Test(docs != null);
-                            ASSERT.Test(docs.Length == lda.NUM_DOCS);
-                            DocProbability prob = docs[d];
-                            ASSERT.Test(prob != null);
-                            ASSERT.Test(prob.doc >= 0);
-                            ASSERT.Test(prob.doc < lda.NUM_DOCS);
-                            ASSERT.Test(prob.doc < eds.docs.Count);
-
-                            string fingerprint_to_look_for = eds.docs[prob.doc];
-                            if (fingerprint_to_look_for == null || !pdf_doc_fingerprints.Contains(fingerprint_to_look_for))
-                            {
-                                Logging.Warn("ThemeExplorer: Cannot find document anymore for fingerprint {0}", fingerprint_to_look_for);
-                            }
-                            else if (null == parent_fingerprints || parent_fingerprints.Contains(fingerprint_to_look_for))
-                            {
-                                results.Add(topic_name, fingerprint_to_look_for);
-                            }
+                            Logging.Warn("ThemeExplorer: Cannot find document anymore for fingerprint {0}", fingerprint_to_look_for);
+                        }
+                        else if (null == parent_fingerprints || parent_fingerprints.Contains(fingerprint_to_look_for))
+                        {
+                            results.Add(topic_name, fingerprint_to_look_for);
                         }
                     }
                 }

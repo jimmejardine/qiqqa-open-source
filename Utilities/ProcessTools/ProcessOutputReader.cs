@@ -11,7 +11,7 @@ namespace Utilities.ProcessTools
         public string stdout;
         public string stderr;
 
-        public override string ToString()
+        public string ToString()
         {
             StringBuilder sb = new StringBuilder();
 

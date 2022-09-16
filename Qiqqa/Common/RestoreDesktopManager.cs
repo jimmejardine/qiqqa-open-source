@@ -39,14 +39,8 @@ namespace Qiqqa.Common
                     PDFReadingControl pdf_reading_control = framework_element as PDFReadingControl;
                     if (null != pdf_reading_control)
                     {
-                        PDFDocument pdf_document = pdf_reading_control.GetPDFDocument();
-                        ASSERT.Test(pdf_document != null);
-
-                        if (pdf_document != null)
-                        {
-                            Logging.Info("Remembering a PDF reader {0}", pdf_document.Fingerprint);
-                            restore_settings.Add(String.Format("PDF_DOCUMENT,{0},{1}", pdf_document.LibraryRef.Id, pdf_document.Fingerprint));
-                        }
+                        Logging.Info("Remembering a PDF reader {0}", pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint);
+                        restore_settings.Add(String.Format("PDF_DOCUMENT,{0},{1}", pdf_reading_control.PDFRendererControlStats.pdf_document.LibraryRef.Id, pdf_reading_control.PDFRendererControlStats.pdf_document.Fingerprint));
                     }
                 }
             }

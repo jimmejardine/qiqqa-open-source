@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Utilities.GUI;
-using Utilities.Misc;
 
 namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 {
@@ -11,13 +10,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
     public partial class JumpToSectionPopup : StackPanel
     {
         internal PDFReadingControl pdf_reading_control;
+        internal PDFRendererControl pdf_render_control;
+        internal PDFRendererControlStats pdf_renderer_control_stats;
         internal AugmentedPopup popup;
 
-        public JumpToSectionPopup(PDFReadingControl pdf_reading_control)
+        public JumpToSectionPopup(PDFReadingControl pdf_reading_control, PDFRendererControl pdf_render_control, PDFRendererControlStats pdf_renderer_control_stats)
         {
             InitializeComponent();
 
             this.pdf_reading_control = pdf_reading_control;
+            this.pdf_render_control = pdf_render_control;
+            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             popup = new AugmentedPopup(this);
 
             // Add the bit explaining how to use bookmarks
@@ -57,20 +60,16 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                 Children.Add(tb);
             }
 
-            // If there are not enough bookmarks, go the OCR route
-            PDFDocument pdf_document = pdf_reading_control.GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
             // First try from the PDF
-            if (pdf_document != null)
             {
-                BuildPopupFromPDF build_popup_from_pdf = new BuildPopupFromPDF(this, pdf_document);
+                BuildPopupFromPDF build_popup_from_pdf = new BuildPopupFromPDF(this);
                 build_popup_from_pdf.BuildMenu();
             }
 
-            if (pdf_document != null && pdf_document.PDFRenderer.PageCount < 100)
+            // If there are not enough bookmarks, go the OCR route
+            if (pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount < 100)
             {
-                BuildPopupFromOCR build_popup_from_ocr = new BuildPopupFromOCR(this, pdf_document);
+                BuildPopupFromOCR build_popup_from_ocr = new BuildPopupFromOCR(this);
                 build_popup_from_ocr.BuildMenu();
             }
 
@@ -93,6 +92,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
 
             pdf_reading_control = null;
+            pdf_render_control = null;
+            pdf_renderer_control_stats = null;
             popup = null;
         }
 

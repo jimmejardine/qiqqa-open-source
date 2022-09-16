@@ -1006,10 +1006,21 @@ namespace Qiqqa.DocumentLibrary
 
         #region --- Signaling that documents have been changed ------------------
 
-        private DataChangedTracker DocumentsHaveChanged = new DataChangedTracker();
+        public class PDFDocumentEventArgs : EventArgs
+        {
+            public PDFDocumentEventArgs(PDFDocument pdf_document)
+            {
+                PDFDocument = pdf_document;
+            }
 
-        // make sure it's a WEAK reference as the reference will only be updated when there's a new PDF loaded or updated!
-        private WeakReference<PDFDocument> documents_changed_optional_changed_pdf_document = null;
+            public PDFDocument PDFDocument { get; }
+
+        }
+        public event EventHandler<PDFDocumentEventArgs> OnDocumentsChanged;
+
+        private DateTime last_documents_changed_time = DateTime.MinValue;
+        private DateTime last_documents_changed_signal_time = DateTime.MinValue;
+        private PDFDocument documents_changed_optional_changed_pdf_document = null;
         private object last_documents_changed_lock = new object();
 
         public void SignalThatDocumentsHaveChanged(PDFDocument optional_changed_pdf_document)
@@ -1018,44 +1029,72 @@ namespace Qiqqa.DocumentLibrary
             lock (last_documents_changed_lock)
             {
                 //l1_clk.LockPerfTimerStop();
-                DocumentsHaveChanged.MarkAsUpdated();
-
-                // when multiple documents have changed since the observer(s) handled the previous signal,
-                // you'll only see the last PDF document as we update continuously...
-                if (optional_changed_pdf_document != null
-                    && documents_changed_optional_changed_pdf_document != null
-                    && documents_changed_optional_changed_pdf_document.TryGetTarget(out PDFDocument old_doc)
-                    && old_doc != null)
+                last_documents_changed_time = DateTime.UtcNow;
+                if (null == documents_changed_optional_changed_pdf_document || optional_changed_pdf_document == documents_changed_optional_changed_pdf_document)
                 {
-                    documents_changed_optional_changed_pdf_document.SetTarget(optional_changed_pdf_document);
+                    documents_changed_optional_changed_pdf_document = optional_changed_pdf_document;
+                }
+                else
+                {
+                    // multiple documents have changed since the observer(s) handled the previous signal...
+                    documents_changed_optional_changed_pdf_document = null;
                 }
             }
         }
 
-        public bool CheckIfDocumentsHaveChanged(ref long previous_marker, ref PDFDocument latest_document)
+        internal void CheckForSignalThatDocumentsHaveChanged()
         {
+            if (LibraryIsKilled)
+            {
+                return;
+            }
+
+            PDFDocument local_documents_changed_optional_changed_pdf_document;
+            DateTime now = DateTime.UtcNow;
+
+            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (last_documents_changed_lock)
             {
-                if (DocumentsHaveChanged.HasBeenUpdated(ref previous_marker))
+                //l1_clk.LockPerfTimerStop();
+                // If no docs have changed, nothing to do
+                if (last_documents_changed_signal_time >= last_documents_changed_time)
                 {
-                    PDFDocument doc = null;
-
-                    if (documents_changed_optional_changed_pdf_document != null)
-                    {
-                        _ = documents_changed_optional_changed_pdf_document.TryGetTarget(out doc);
-                    }
-                    latest_document = doc;
-                    return true;
+                    return;
                 }
+
+                // Don't refresh more than once every few seconds in busy-adding times
+                if (now.Subtract(last_documents_changed_time).TotalSeconds < 1 && now.Subtract(last_documents_changed_signal_time).TotalSeconds < 15)
+                {
+                    return;
+                }
+
+                // Don't refresh more than once a second in quiet times
+                if (now.Subtract(last_documents_changed_signal_time).TotalSeconds < 1)
+                {
+                    return;
+                }
+
+                // Let's signal!
+                local_documents_changed_optional_changed_pdf_document = documents_changed_optional_changed_pdf_document;
+                documents_changed_optional_changed_pdf_document = null;
+                last_documents_changed_signal_time = now;
             }
-            return false;
+
+            try
+            {
+                OnDocumentsChanged?.Invoke(this, new PDFDocumentEventArgs(local_documents_changed_optional_changed_pdf_document));
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "There was an exception while notifying that documents have changed.");
+            }
         }
 
-            #endregion
+        #endregion
 
-            #region --- IDisposable ------------------------------------------------------------------------
+        #region --- IDisposable ------------------------------------------------------------------------
 
-            ~Library()
+        ~Library()
         {
             Logging.Debug("~Library()");
             Dispose(false);

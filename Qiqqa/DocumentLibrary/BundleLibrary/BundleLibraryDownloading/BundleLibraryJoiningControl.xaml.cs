@@ -23,8 +23,6 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
     {
         public BundleLibraryJoiningControl()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             Title =

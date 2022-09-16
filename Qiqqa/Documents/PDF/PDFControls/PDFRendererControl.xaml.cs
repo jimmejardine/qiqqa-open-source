@@ -73,7 +73,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             //Unloaded += PDFRendererControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 
-            pdf_renderer_control_stats = new PDFRendererControlStats(pdf_document);
+            pdf_renderer_control_stats = new PDFRendererControlStats(this, pdf_document);
             this.remember_last_read_page = remember_last_read_page;
 
             ObjPagesPanel.Background = ThemeColours.Background_Brush_Blue_LightToDark;
@@ -116,49 +116,29 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     break;
             }
 
-            // Is the zoom type forced? (e.g. by the metadata panel or the sniffer)
+            // Is the zoomtype forced? (e.g. by the metadata panel or the sniffer)
             if (ZoomType.Other != force_zoom_type) zoom_type = force_zoom_type;
 
             PageZoom(zoom_type);
 
-            var doc = pdf_renderer_control_stats.pdf_document;
+            // Add the child pages
+            bool add_bells_and_whistles = pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount < 50;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            Logging.Info("+Creating child page controls");
+            for (int page = 1; page <= pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
-                // Add the child pages
-                bool add_bells_and_whistles = doc.PDFRenderer.PageCount < 50;
-
-                int page_count = doc.PDFRenderer.PageCount;
-
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                {
-                    Logging.Info("+Creating child page controls");
-                    for (int page = 1; page <= page_count; ++page)
-                    {
-                        PDFRendererPageControl page_control = new PDFRendererPageControl(this, page, add_bells_and_whistles);
-                        ObjPagesPanel.Children.Add(page_control);
-                    }
-                    Logging.Info("-Creating child page controls");
-                });
-            });
+                PDFRendererPageControl page_control = new PDFRendererPageControl(page, this, pdf_renderer_control_stats, add_bells_and_whistles);
+                ObjPagesPanel.Children.Add(page_control);
+            }
+            Logging.Info("-Creating child page controls");
 
             Logging.Info("+Setting initial viewport");
             ReconsiderOperationMode(OperationMode.Hand);
 
-            SetSearchKeywords();  // Eventually this should move into the ReconsiderOperationMode
+            SetSearchKeywords();  // Eventually this should move into the reconsideroperationmode
             ScrollPages.Focus();
 
             Logging.Info("-Setting initial viewport");
-        }
-
-        public PDFRendererControlStats GetPDFRendererControlStats()
-        {
-            return pdf_renderer_control_stats;
-        }
-
-        public PDFDocument GetPDFDocument()
-        {
-            return pdf_renderer_control_stats.pdf_document;
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -169,13 +149,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
         // Which says:
         //
-        // Note that the Unloaded event is not raised after an application begins shutting down.
-        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs.
-        // If you place cleanup code within a handler for the Unloaded event, such as for a Window
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
         // or a UserControl, it may not be called as expected.
         private void PDFRendererControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();
+            Dispose();   
         }
 
         private void PDFRendererControl_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -225,8 +205,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     {
                         Logging.Debug("********************************** Restoring page to page {0}", pdf_renderer_control_stats.pdf_document.PageLastRead);
                         PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[pdf_renderer_control_stats.pdf_document.PageLastRead - 1];
-                        ASSERT.Test(page_control != null);
-
                         page_control.BringIntoView();
                     }
                 }
@@ -575,8 +553,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.SetOperationMode(operation_mode);
             }
 
@@ -592,8 +568,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             if (null != search_result)
             {
                 PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[search_result.page - 1];
-                ASSERT.Test(page_control != null);
-
                 previous_search_result_placeholder = page_control.SetCurrentSearchPosition(search_result);
             }
         }
@@ -614,8 +588,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
                 {
-                    ASSERT.Test(page_control != null);
-
                     page_control.SetSearchKeywords(search_result_set);
                 }
             }
@@ -628,9 +600,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     for (int page = previous_search_result_placeholder.page; page <= ObjPagesPanel.Children.Count; ++page)
                     {
                         PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[page - 1];
-                        ASSERT.Test(page_control != null);
-
-                        previous_search_result_placeholder = page_control?.SetNextSearchPosition(previous_search_result_placeholder);
+                        previous_search_result_placeholder = page_control.SetNextSearchPosition(previous_search_result_placeholder);
 
                         // If it managed to find a successor search position, stick with that
                         if (null != previous_search_result_placeholder)
@@ -646,8 +616,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     for (int page = 1; page <= ObjPagesPanel.Children.Count; ++page)
                     {
                         PDFRendererPageControl page_control = (PDFRendererPageControl)ObjPagesPanel.Children[page - 1];
-                        ASSERT.Test(page_control != null);
-
                         previous_search_result_placeholder = page_control.SetNextSearchPosition(previous_search_result_placeholder);
 
                         // If it managed to find a successor search position, stick with that
@@ -822,8 +790,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
             }
 
             PDFRendererPageControl page_control = SelectedPage ?? (PDFRendererPageControl)ObjPagesPanel.Children[0];
-            ASSERT.Test(page_control != null);
-
             double zoom_factor_width = ObjPagesPanel.ActualWidth / page_control.RememberedImageWidth;
             double zoom_factor_height = ObjPagesPanel.ActualHeight / page_control.RememberedImageHeight;
             double zoom_factor = Math.Min(zoom_factor_width, zoom_factor_height);
@@ -932,8 +898,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>().Reverse())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RefreshPage();
             }
         }
@@ -977,8 +941,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RaiseHighlightChange(colourNumber);
             }
         }
@@ -987,8 +949,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RaiseInkChange(inkCanvasEditingMode);
             }
         }
@@ -997,8 +957,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RaiseInkChange(drawingAttributes);
             }
         }
@@ -1007,8 +965,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RaiseTextSelectModeChange(textLayerSelectionMode);
             }
         }
@@ -1037,8 +993,6 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             foreach (PDFRendererPageControl page_control in ObjPagesPanel.Children.OfType<PDFRendererPageControl>())
             {
-                ASSERT.Test(page_control != null);
-
                 page_control.RotatePage();
             }
         }

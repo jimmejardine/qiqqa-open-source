@@ -21,8 +21,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
     {
         public static Bitmap RenderHighlights(int width, int height, PDFDocument pdf_document, int page)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             // Render onto a scratch image in solid
             Bitmap bitmap = new Bitmap(width, height);     // <--- must b Dispose()d by caller
 
@@ -33,9 +31,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 double last_bottom = Double.NegativeInfinity;
                 PointF[] adjoinment_points = new PointF[4];
 
-                    // TODO: next call can be very costly; MUST run in background!
+                SafeThreadPool.QueueUserWorkItem(o =>
+                {
                     var highlights = pdf_document.Highlights.GetHighlightsForPage(page);
 
+                    WPFDoEvents.InvokeInUIThread(() =>
+                    {
                         foreach (PDFHighlight highlight in highlights)
                         {
                             using (Brush highlight_pen = new SolidBrush(StandardHighlightColours.GetColor_Drawing(highlight.Color)))
@@ -70,6 +71,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                                 last_bottom = highlight.Bottom;
                             }
                         }
+                    });
+                });
             }
 
             return bitmap;
@@ -77,11 +80,9 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public static void RenderHighlights(Image image, PDFDocument pdf_document, int page)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             using (Bitmap scratch = RenderHighlights(image.Width, image.Height, pdf_document, page))
             {
-                // Then render scratch onto target in transparent
+                // Then render scratch onto target in transparent            
                 var color_matrix = new ColorMatrix();
                 color_matrix.Matrix33 = (float)ConfigurationManager.Instance.ConfigurationRecord.GUI_AnnotationPrintTransparency;
                 using (var image_attributes = new ImageAttributes())

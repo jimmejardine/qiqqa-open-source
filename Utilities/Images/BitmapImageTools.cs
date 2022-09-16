@@ -145,42 +145,6 @@ namespace Utilities.Images
             }
         }
 
-        public static BitmapSource LoadFromStream(MemoryStream ms)
-        {
-            try
-            {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = ms;
-                image.EndInit();
-                image.StreamSource.Close();
-                image.StreamSource = null;
-                // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
-                image.Freeze();
-                return image;
-            }
-            catch (Exception ex)
-            {
-                // If there was an exception, log the contents of the memory stream as it may be a useful error message)
-                try
-                {
-                    ms.Seek(0, SeekOrigin.Begin);
-                    var ascii_encoding = new ASCIIEncoding();
-                    string output = ascii_encoding.GetString(ms.ToArray(), 0, 1024);
-                    Logging.Error("Could not decode BitmapImage.  First few bytes are: {0}", output);
-                    Logging.Error(ex);
-                }
-                catch (Exception ex2)
-                {
-                    Logging.Warn(ex2, "Error reporting image problem");
-                }
-
-                // Throw the exception anyway
-                throw;
-            }
-        }
-
         public static BitmapSource FromImage(Image image)
         {
             MemoryStream ms = new MemoryStream();

@@ -18,15 +18,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
     /// </summary>
     public partial class PDFAnnotationLayer : PageLayer, IDisposable
     {
-        private PDFDocument pdf_document;
+        private PDFRendererControlStats pdf_renderer_control_stats;
         private int page;
         private DragAreaTracker drag_area_tracker = null;
 
-        public PDFAnnotationLayer(PDFDocument pdf_document, int page)
+        public PDFAnnotationLayer(PDFRendererControlStats pdf_renderer_control_stats, int page)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            this.pdf_document = pdf_document;
+            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
 
             InitializeComponent();
@@ -46,14 +46,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             drag_area_tracker.OnDragComplete += drag_area_tracker_OnDragComplete;
 
             // Add all the already existing annotations
-            foreach (PDFAnnotation pdf_annotation in pdf_document.GetAnnotations())
+            foreach (PDFAnnotation pdf_annotation in pdf_renderer_control_stats.pdf_document.GetAnnotations())
             {
                 if (pdf_annotation.Page == this.page)
                 {
                     if (!pdf_annotation.Deleted)
                     {
                         Logging.Info("Loading annotation on page {0}", page);
-                        PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation);
+                        PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation, pdf_renderer_control_stats);
                         pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
                         Children.Add(pdf_annotation_item);
                     }
@@ -103,15 +103,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                 return;
             }
 
-            PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_document.PDFRenderer.DocumentFingerprint, page, PDFAnnotationEditorControl.LastAnnotationColor, ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname);
+            PDFAnnotation pdf_annotation = new PDFAnnotation(pdf_renderer_control_stats.pdf_document.PDFRenderer.DocumentFingerprint, page, PDFAnnotationEditorControl.LastAnnotationColor, ConfigurationManager.Instance.ConfigurationRecord.Account_Nickname);
             pdf_annotation.Left = Math.Min(mouse_up_point.X, mouse_down_point.X) / ActualWidth;
             pdf_annotation.Top = Math.Min(mouse_up_point.Y, mouse_down_point.Y) / ActualHeight;
             pdf_annotation.Width = Math.Abs(mouse_up_point.X - mouse_down_point.X) / ActualWidth;
             pdf_annotation.Height = Math.Abs(mouse_up_point.Y - mouse_down_point.Y) / ActualHeight;
 
-            pdf_document.AddUpdatedAnnotation(pdf_annotation);
+            pdf_renderer_control_stats.pdf_document.AddUpdatedAnnotation(pdf_annotation);
 
-            PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation);
+            PDFAnnotationItem pdf_annotation_item = new PDFAnnotationItem(this, pdf_annotation, pdf_renderer_control_stats);
             pdf_annotation_item.ResizeToPage(ActualWidth, ActualHeight);
             Children.Add(pdf_annotation_item);
         }
@@ -198,7 +198,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                 WPFDoEvents.SafeExec(() =>
                 {
                     // Clear the references for sanity's sake
-                    pdf_document = null;
+                    pdf_renderer_control_stats = null;
                     drag_area_tracker = null;
                 });
 

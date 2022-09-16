@@ -5,7 +5,6 @@ using icons;
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
-using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter
 {
@@ -16,11 +15,11 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
     {
         public LuceneSearchHelpControl()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             Header.Img = Icons.GetAppIcon(Icons.Search);
+
+            // TODO: size the dialog to fit the screen.
 
             HyperlinkLuceneExamples.Click += HyperlinkLuceneExamples_Click;
         }

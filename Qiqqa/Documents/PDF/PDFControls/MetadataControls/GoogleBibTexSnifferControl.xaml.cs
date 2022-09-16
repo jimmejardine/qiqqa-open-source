@@ -148,9 +148,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public GoogleBibTexSnifferControl()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
+            Theme.Initialize();
 
             InitializeComponent();
+
+            SetupConfiguredDimensions();
 
             // Search options
             search_options = new SearchOptions();
@@ -696,7 +698,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     pdf_document.PDFRenderer.GetOCRText(1);
 
                     // Set up the new renderer control
-                    pdf_renderer_control = new PDFRendererControl(pdf_document, remember_last_read_page: false, PDFRendererControl.ZoomType.Zoom1Up);
+                    pdf_renderer_control = new PDFRendererControl(pdf_document, false, PDFRendererControl.ZoomType.Zoom1Up);
                     pdf_renderer_control.ReconsiderOperationMode(PDFRendererControl.OperationMode.TextSentenceSelect);
                     pdf_renderer_control.TextSelected += pdf_renderer_control_TextSelected;
                     PDFRendererControlArea.Children.Add(pdf_renderer_control);

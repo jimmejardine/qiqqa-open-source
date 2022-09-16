@@ -24,8 +24,6 @@ namespace Qiqqa.Common.MessageBoxControls
     {
         private UnhandledExceptionMessageBox()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;

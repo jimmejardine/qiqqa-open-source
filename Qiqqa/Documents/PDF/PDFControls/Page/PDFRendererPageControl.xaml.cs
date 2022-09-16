@@ -33,9 +33,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
     {
         internal const int BASIC_PAGE_WIDTH = 850;
         internal const int BASIC_PAGE_HEIGHT = 1100;
-
-        private WeakReference<PDFRendererControl> pdf_renderer_control = null;
-
+        private PDFRendererControl pdf_renderer_control = null;
+        private PDFRendererControlStats pdf_renderer_control_stats = null;
         private int page = 0;
         private bool add_bells_and_whistles;
         private double remembered_image_width = BASIC_PAGE_WIDTH;
@@ -52,7 +51,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     ImagePage_HIDDEN_ = new Image();
                     ImagePage_HIDDEN.Stretch = Stretch.None;
 
-                    // THIS MUST BE IN PLACE SO THAT WE HAVE PIXEL PERFECT RENDERING
+                    // THIS MUST BE IN PLACE OS THAT WE HAVE PIXEL PERFECT RENDERING
                     ImagePage_HIDDEN.SnapsToDevicePixels = true;
                     RenderOptions.SetBitmapScalingMode(ImagePage_HIDDEN, BitmapScalingMode.NearestNeighbor);
                     RenderOptions.SetEdgeMode(ImagePage_HIDDEN, EdgeMode.Aliased);
@@ -73,8 +72,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         private class CurrentlyShowingImageClass
         {
             public BitmapSource Image;
-            public int requested_height;
-            public int requested_width;
+            public double requested_height;
+            public double requested_width;
         }
 
         private CurrentlyShowingImageClass _currently_showing_image = null;
@@ -113,9 +112,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         // Provide a cached copy of the PDF document fingerprint for Exception report logging,
         // when this instance has otherwise already been Disposed():
-        private string documentFingerprint;
+        internal string documentFingerprint = String.Empty;
 
-        public PDFRendererPageControl(PDFRendererControl pdf_renderer_control, int page, bool add_bells_and_whistles)
+        public PDFRendererPageControl(int page, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats, bool add_bells_and_whistles)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -124,17 +123,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             InitializeComponent();
 
             this.page = page;
-            this.pdf_renderer_control = new WeakReference<PDFRendererControl>(pdf_renderer_control);
+            this.pdf_renderer_control = pdf_renderer_control;
+            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.add_bells_and_whistles = add_bells_and_whistles;
-
-            PDFRendererControlStats pdf_renderer_control_stats = pdf_renderer_control.GetPDFRendererControlStats();
-
-            // cache the document fingerprint for the occasion where the RefreshPage_*() methods invoked/dispatched
-            // below happen to encounter a Disposed()-just-now state of affairs for this Control instance, where
-            // an exception may be thrown and *reported*: that's where we need this Fingerprint copy to prevent
-            // a second failure:
-            ASSERT.Test(pdf_renderer_control_stats.pdf_document != null);
-            documentFingerprint = pdf_renderer_control_stats.pdf_document?.Fingerprint;
 
             // Start with a reasonable size
             Background = Brushes.White;
@@ -150,7 +141,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             MouseDown += PDFRendererPageControl_MouseDown;
 
-            pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable += pdf_renderer_OnPageTextAvailable;
+            this.pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable += pdf_renderer_OnPageTextAvailable;
 
             if (add_bells_and_whistles)
             {
@@ -168,15 +159,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             //Unloaded += PDFRendererPageControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private PDFRendererControl GetPDFRendererControl()
-        {
-            if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
-            {
-                return control;
-            }
-            return null;
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -204,16 +186,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     // from the STA = UI thread to begin with!
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-
-                    if (pdf_renderer_control != null)
-                    {
-                        CanvasTextSentence_ = new PDFTextSentenceLayer(pdf_renderer_control, page);
-                        page_layers.Add(CanvasTextSentence_);
-                        KeyboardNavigation.SetDirectionalNavigation(CanvasTextSentence_, KeyboardNavigationMode.None);
-                        ReflectContentChildren();
-                    }
+                    page_layers.Add(CanvasTextSentence_ = new PDFTextSentenceLayer(pdf_renderer_control_stats, page));
+                    KeyboardNavigation.SetDirectionalNavigation(CanvasTextSentence_, KeyboardNavigationMode.None);
+                    ReflectContentChildren();
                 }
 
                 return CanvasTextSentence_;
@@ -233,15 +208,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     // from the STA = UI thread to begin with!
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-
-                    if (pdf_renderer_control != null)
-                    {
-                        CanvasSearch_ = new PDFSearchLayer(pdf_renderer_control, page);
-                        page_layers.Add(CanvasSearch_);
-                        ReflectContentChildren();
-                    }
+                    page_layers.Add(CanvasSearch_ = new PDFSearchLayer(pdf_renderer_control_stats, page));
+                    ReflectContentChildren();
                 }
 
                 return CanvasSearch_;
@@ -280,17 +248,9 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     //
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-                    PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-                    ASSERT.Test(pdf_document != null);
-
-                    if (pdf_document != null)
-                    {
-                        page_layers.Add(CanvasAnnotation_ = new PDFAnnotationLayer(pdf_document, page));
-                        KeyboardNavigation.SetDirectionalNavigation(CanvasAnnotation_, KeyboardNavigationMode.None);
-                        ReflectContentChildren();
-                    }
+                    page_layers.Add(CanvasAnnotation_ = new PDFAnnotationLayer(pdf_renderer_control_stats, page));
+                    KeyboardNavigation.SetDirectionalNavigation(CanvasAnnotation_, KeyboardNavigationMode.None);
+                    ReflectContentChildren();
                 }
 
                 return CanvasAnnotation_;
@@ -310,16 +270,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     // from the STA = UI thread to begin with!
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-                    PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-                    ASSERT.Test(pdf_document != null);
-
-                    if (pdf_document != null)
-                    {
-                        page_layers.Add(CanvasHighlight_ = new PDFHighlightLayer(pdf_document, page));
-                        ReflectContentChildren();
-                    }
+                    page_layers.Add(CanvasHighlight_ = new PDFHighlightLayer(pdf_renderer_control_stats, page));
+                    ReflectContentChildren();
                 }
 
                 return CanvasHighlight_;
@@ -339,16 +291,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     // from the STA = UI thread to begin with!
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-                    PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-                    ASSERT.Test(pdf_document != null);
-
-                    if (pdf_document != null)
-                    {
-                        page_layers.Add(CanvasCamera_ = new PDFCameraLayer(pdf_document, page));
-                        ReflectContentChildren();
-                    }
+                    page_layers.Add(CanvasCamera_ = new PDFCameraLayer(pdf_renderer_control_stats, page));
+                    ReflectContentChildren();
                 }
 
                 return CanvasCamera_;
@@ -368,15 +312,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     // from the STA = UI thread to begin with!
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-
-                    if (pdf_renderer_control != null)
-                    {
-                        CanvasHand_ = new PDFHandLayer(pdf_renderer_control, page);
-                        page_layers.Add(CanvasHand_);
-                        ReflectContentChildren();
-                    }
+                    page_layers.Add(CanvasHand_ = new PDFHandLayer(pdf_renderer_control_stats, page, pdf_renderer_control));
+                    ReflectContentChildren();
                 }
 
                 return CanvasHand_;
@@ -396,16 +333,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     // from the STA = UI thread to begin with!
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-                    PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-                    ASSERT.Test(pdf_document != null);
-
-                    if (pdf_document != null)
-                    {
-                        page_layers.Add(CanvasInk_ = new PDFInkLayer(pdf_document, page));
-                        ReflectContentChildren();
-                    }
+                    page_layers.Add(CanvasInk_ = new PDFInkLayer(pdf_renderer_control_stats.pdf_document, page));
+                    ReflectContentChildren();
                 }
 
                 return CanvasInk_;
@@ -418,45 +347,37 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-            ASSERT.Test(pdf_renderer_control != null);
-            PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
+            bool need_annots = PDFAnnotationLayer.IsLayerNeeded(pdf_renderer_control_stats.pdf_document, page);
+            bool need_inks = PDFInkLayer.IsLayerNeeded(pdf_renderer_control_stats.pdf_document, page);
+            bool need_highlights = PDFHighlightLayer.IsLayerNeeded(pdf_renderer_control_stats.pdf_document, page);
 
-            if (pdf_document != null)
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
-                bool need_annots = PDFAnnotationLayer.IsLayerNeeded(pdf_document, page);
-                bool need_inks = PDFInkLayer.IsLayerNeeded(pdf_document, page);
-                bool need_highlights = PDFHighlightLayer.IsLayerNeeded(pdf_document, page);
+                Stopwatch clk = Stopwatch.StartNew();
+                Logging.Info("+PopulateNeededLayers for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                try
                 {
-                    Stopwatch clk = Stopwatch.StartNew();
-                    Logging.Info("+PopulateNeededLayers for document {0}", pdf_document.Fingerprint);
-
-                    try
+                    if (need_annots)
                     {
-                        if (need_annots)
-                        {
-                            _ = CanvasAnnotation;
-                        }
-                        if (need_inks)
-                        {
-                            _ = CanvasInk;
-                        }
-                        if (need_highlights)
-                        {
-                            _ = CanvasHighlight;
-                        }
+                        _ = CanvasAnnotation;
                     }
-                    catch (Exception ex)
+                    if (need_inks)
                     {
-                        Logging.Error(ex, "PopulateNeededLayers: Error occurred while fetching annotations, inks and highlights for document {0}", pdf_document.Fingerprint);
+                        _ = CanvasInk;
                     }
+                    if (need_highlights)
+                    {
+                        _ = CanvasHighlight;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "PopulateNeededLayers: Error occurred while fetching annotations, inks and highlights for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+                }
 
-                    Logging.Info("-PopulateNeededLayers for document {1} (time spent: {0} ms)", clk.ElapsedMilliseconds, pdf_document.Fingerprint);
-                });
-            }
+                Logging.Info("-PopulateNeededLayers for document {1} (time spent: {0} ms)", clk.ElapsedMilliseconds, pdf_renderer_control_stats.pdf_document.Fingerprint);
+            });
         }
 
         private void ReflectContentChildren()
@@ -546,15 +467,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         {
             Focus();
             Keyboard.Focus(this);
-
-            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-            ASSERT.Test(pdf_renderer_control != null);
-
-            if (pdf_renderer_control != null)
-            {
-                pdf_renderer_control.SelectedPage = this;
-            }
-
+            pdf_renderer_control.SelectedPage = this;
             e.Handled = true;
 
 #if false
@@ -591,7 +504,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             RefreshPage(null, 0, 0);
         }
 
-        private void RefreshPage_ResizedImageCallback(BitmapSource requested_image_rescale, int requested_height, int requested_width)
+        private void RefreshPage_ResizedImageCallback(BitmapSource requested_image_rescale, double requested_height, double requested_width)
         {
             RefreshPage(requested_image_rescale, requested_height, requested_width);
         }
@@ -599,8 +512,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         private class PendingRefreshWork
         {
             public BitmapSource requested_image_rescale;
-            public int requested_height;
-            public int requested_width;
+            public double requested_height;
+            public double requested_width;
         }
 
         private object pending_refresh_work_lock = new object();
@@ -614,21 +527,17 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         /// Any previous queued refresh is ignored.  If another refresh is busy running, then the most recently received request is queued.
         /// </summary>
         /// <param name="requested_image_rescale">The suggested image to use, if null then will be requested asynchronously.</param>
-        private void RefreshPage(BitmapSource requested_image_rescale, int requested_height, int requested_width)
+        private void RefreshPage(BitmapSource requested_image_rescale, double requested_height, double requested_width)
         {
-            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-            ASSERT.Test(pdf_renderer_control != null);
-            PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            // prevent crashes by PDF page renders which call back late (when control has already expired)
-            if (pdf_document == null)
-                return;
+            PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height };
 
-            PendingRefreshWork pending_refresh_work = new PendingRefreshWork { requested_image_rescale = requested_image_rescale, requested_height = requested_height, requested_width = requested_width };
-
-            bool call_fast = false;
-            bool call_slow = false;
+            // cache the document fingerprint for the occasion where the RefreshPage_*() methods invoked/dispatched
+            // below happen to encounter a Disposed()-just-now state of affairs for this Control instance, where
+            // an exception may be thrown and *reported*: that's where we need this Fingerprint copy to prevent
+            // a second failure:
+            documentFingerprint = pdf_renderer_control_stats.pdf_document.Fingerprint;
 
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pending_refresh_work_lock)
@@ -638,30 +547,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 if (!pending_refresh_work_fast_running)
                 {
                     pending_refresh_work_fast_running = true;
-                    call_fast = true;
+                    WPFDoEvents.InvokeAsyncInUIThread(() => RefreshPage_INTERNAL_FAST());
                 }
 
                 pending_refresh_work_slow = pending_refresh_work;
                 if (!pending_refresh_work_slow_running)
                 {
                     pending_refresh_work_slow_running = true;
-                    call_slow = true;
+                    WPFDoEvents.InvokeAsyncInUIThread(() => RefreshPage_INTERNAL_SLOW(), DispatcherPriority.Background);
                 }
-            }
-
-            if (call_fast)
-            {
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                {
-                    RefreshPage_INTERNAL_FAST();
-                });
-            }
-            if (call_slow)
-            {
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
-                {
-                    RefreshPage_INTERNAL_SLOW();
-                }, DispatcherPriority.Background);
             }
         }
 
@@ -692,36 +586,27 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 // Do the work
                 try
                 {
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-                    PDFRendererControlStats pdf_renderer_control_stats = pdf_renderer_control?.GetPDFRendererControlStats();
-                    ASSERT.Test(pdf_renderer_control_stats != null);
-
-                    if (pdf_renderer_control_stats != null)
+                    if (page_is_in_view)
                     {
-                        if (page_is_in_view)
+                        double desired_rescaled_image_height = remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
+                        double desired_rescaled_image_width = remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
+                        if (null != CurrentlyShowingImage && (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width))
                         {
-                            int desired_rescaled_image_height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
-                            int desired_rescaled_image_width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
-                            if (null != CurrentlyShowingImage && (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width))
-                            {
-                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;  // TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
-                                //ImagePage_HIDDEN.Stretch = Stretch.None;
-                            }
-                            else
-                            {
-                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;
-                            }
+                            ImagePage_HIDDEN.Stretch = Stretch.None;
                         }
-
-                        //
-                        // WARNING: we MAY be executing this bit of code while the control
-                        // has just been Dispose()d!
-                        //
-                        // When that happens, we're okay with FAILURE here...
-                        Height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
-                        Width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
+                        else
+                        {
+                            ImagePage_HIDDEN.Stretch = Stretch.Uniform;
+                        }
                     }
+
+                    //
+                    // WARNING: we MAY be executing this bit of code while the control
+                    // has just been Dispose()d! 
+                    //
+                    // When that happens, we're okay with FAILURE here...
+                    Height = (int)(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
+                    Width = (int)(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
                 }
                 catch (Exception ex)
                 {
@@ -758,91 +643,82 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 // Do the work
                 try
                 {
-                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                    ASSERT.Test(pdf_renderer_control != null);
-                    PDFRendererControlStats pdf_renderer_control_stats = pdf_renderer_control?.GetPDFRendererControlStats();
-                    ASSERT.Test(pdf_renderer_control_stats != null);
-
-                    if (pdf_renderer_control_stats != null)
+                    // Invert colours if required
+                    if (page_is_in_view)
                     {
-                        // Invert colours if required
-                        if (page_is_in_view)
-                        {
-                            InvertColours(pdf_renderer_control_stats.are_colours_inverted);
-                        }
+                        InvertColours(pdf_renderer_control_stats.are_colours_inverted);
+                    }
 
-                        // Page is not in view, be nice to memory and clean up
-                        //
-                        // WARNING: we MAY be executing this bit of code while the control
-                        // has just been Dispose()d! Hence the extra control_Stats check!
-                        if (!page_is_in_view && null != pdf_renderer_control_stats)
-                        {
-                            CurrentlyShowingImage = null;
-                            Height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
-                            Width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
-                            continue;
-                        }
+                    // Page is not in view, be nice to memory and clean up
+                    //
+                    // WARNING: we MAY be executing this bit of code while the control
+                    // has just been Dispose()d! Hence the extra control_Stats check!
+                    if (!page_is_in_view && null != pdf_renderer_control_stats)
+                    {
+                        CurrentlyShowingImage = null;
+                        Height = (int)(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
+                        Width = (int)(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
+                        continue;
+                    }
 
-                        if (page_is_in_view)
-                        {
-                            // Work out the size of the image we would like to have
-                            int desired_rescaled_image_height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
-                            int desired_rescaled_image_width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
+                    if (page_is_in_view)
+                    {
+                        // Work out the size of the image we would like to have
+                        double desired_rescaled_image_height = remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
+                        double desired_rescaled_image_width = remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI;
 
-                            // Is the current image not good enough?  Then perhaps use a provided one
-                            if (null == CurrentlyShowingImage || (CurrentlyShowingImage.requested_height != desired_rescaled_image_height && CurrentlyShowingImage.requested_width != desired_rescaled_image_width))
+                        // Is the current image not good enough?  Then perhaps use a provided one
+                        if (null == CurrentlyShowingImage || (CurrentlyShowingImage.requested_height != desired_rescaled_image_height && CurrentlyShowingImage.requested_width != desired_rescaled_image_width))
+                        {
+                            // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
+                            lock (pending_refresh_work_lock)
                             {
-                                // Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-                                lock (pending_refresh_work_lock)
+                                // l2_clk.LockPerfTimerStop();
+                                // Check if we want to use the supplied image
+                                if (null != pending_refresh_work.requested_image_rescale)
                                 {
-                                    // l2_clk.LockPerfTimerStop();
-                                    // Check if we want to use the supplied image
-                                    if (null != pending_refresh_work.requested_image_rescale)
-                                    {
-                                        // Choose the closer image
-                                        double discrepancy_existing_image = (null == CurrentlyShowingImage) ? Double.MaxValue : Math.Min(Math.Abs(CurrentlyShowingImage.requested_height - desired_rescaled_image_height), Math.Abs(CurrentlyShowingImage.requested_width - desired_rescaled_image_width));
-                                        double discrepancy_supplied_image = (null == pending_refresh_work.requested_image_rescale) ? Double.MaxValue : Math.Min(Math.Abs(pending_refresh_work.requested_height - desired_rescaled_image_height), Math.Abs(pending_refresh_work.requested_width - desired_rescaled_image_width));
+                                    // Choose the closer image
+                                    double discrepancy_existing_image = (null == CurrentlyShowingImage) ? Double.MaxValue : Math.Min(Math.Abs(CurrentlyShowingImage.requested_height - desired_rescaled_image_height), Math.Abs(CurrentlyShowingImage.requested_width - desired_rescaled_image_width));
+                                    double discrepancy_supplied_image = (null == pending_refresh_work.requested_image_rescale) ? Double.MaxValue : Math.Min(Math.Abs(pending_refresh_work.requested_height - desired_rescaled_image_height), Math.Abs(pending_refresh_work.requested_width - desired_rescaled_image_width));
 
-                                        // If the request image is better, use it
-                                        if (discrepancy_supplied_image < discrepancy_existing_image)
-                                        {
-                                            CurrentlyShowingImage = new CurrentlyShowingImageClass
-                                            {
-                                                Image = pending_refresh_work.requested_image_rescale,
-                                                requested_height = pending_refresh_work.requested_height,
-                                                requested_width = pending_refresh_work.requested_width
-                                            };
-                                        }
+                                    // If the request image is better, use it
+                                    if (discrepancy_supplied_image < discrepancy_existing_image)
+                                    {
+                                        CurrentlyShowingImage = new CurrentlyShowingImageClass { 
+                                            Image = pending_refresh_work.requested_image_rescale, 
+                                            requested_height = pending_refresh_work.requested_height,
+                                            requested_width = pending_refresh_work.requested_width
+                                        };
                                     }
                                 }
                             }
+                        }
 
-                            // If our current image is still not good enough, request one
-                            if (null == CurrentlyShowingImage || (CurrentlyShowingImage.requested_height != desired_rescaled_image_height && CurrentlyShowingImage.requested_width != desired_rescaled_image_width))
+                        // If our current image is still not good enough, request one
+                        if (null == CurrentlyShowingImage || (CurrentlyShowingImage.requested_height != desired_rescaled_image_height && CurrentlyShowingImage.requested_width != desired_rescaled_image_width))
+                        {
+                            pdf_renderer_control_stats.GetResizedPageImage(this, page, desired_rescaled_image_height, desired_rescaled_image_width, RefreshPage_ResizedImageCallback);
+                        }
+
+                        // Recalculate the aspect ratio
+                        if (null != CurrentlyShowingImage)
+                        {
+                            if (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width)
                             {
-                                pdf_renderer_control_stats.GetResizedPageImage(this, page, desired_rescaled_image_height, desired_rescaled_image_width, RefreshPage_ResizedImageCallback);
+                                ImagePage_HIDDEN.Stretch = Stretch.None;
+                            }
+                            else
+                            {
+                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;
                             }
 
-                            // Recalculate the aspect ratio
-                            if (null != CurrentlyShowingImage)
-                            {
-                                if (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width)
-                                {
-                                    ImagePage_HIDDEN.Stretch = Stretch.Uniform;  // TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
-                                }
-                                else
-                                {
-                                    ImagePage_HIDDEN.Stretch = Stretch.Uniform;
-                                }
+                            remembered_image_height = BASIC_PAGE_HEIGHT;
+                            remembered_image_width = BASIC_PAGE_HEIGHT * CurrentlyShowingImage.Image.Width / CurrentlyShowingImage.Image.Height;
+                            pdf_renderer_control_stats.largest_page_image_width = Math.Max(pdf_renderer_control_stats.largest_page_image_width, remembered_image_width);
+                            pdf_renderer_control_stats.largest_page_image_height = Math.Max(pdf_renderer_control_stats.largest_page_image_height, remembered_image_height);
 
-                                remembered_image_height = BASIC_PAGE_HEIGHT;
-                                remembered_image_width = BASIC_PAGE_HEIGHT * CurrentlyShowingImage.Image.Width / CurrentlyShowingImage.Image.Height;
-                                pdf_renderer_control_stats.largest_page_image_width = Math.Max(pdf_renderer_control_stats.largest_page_image_width, remembered_image_width);
-                                pdf_renderer_control_stats.largest_page_image_height = Math.Max(pdf_renderer_control_stats.largest_page_image_height, remembered_image_height);
-
-                                Height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
-                                Width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
-                            }
+                            Height = (int)(remembered_image_height * pdf_renderer_control_stats.zoom_factor);
+                            Width = (int)(remembered_image_width * pdf_renderer_control_stats.zoom_factor);
                         }
                     }
                 }
@@ -934,7 +810,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         internal void SetPageNotInView()
         {
-            // Do nothing if nothing has changed
+            // Do nothing if nothign has changed
             if (!page_is_in_view)
             {
                 return;
@@ -949,7 +825,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         internal void SetPageInView()
         {
-            // Do nothing if nothing has changed
+            // Do nothing if nothign has changed
             if (page_is_in_view)
             {
                 return;
@@ -1009,34 +885,20 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 {
                     if (dispose_count == 0)
                     {
-                        PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                        ASSERT.Test(pdf_renderer_control != null);
-                        PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-                        ASSERT.Test(pdf_document != null);
+                        pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
 
-                        if (pdf_document != null)
-                        {
-                            pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
-                        }
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    if (dispose_count == 0)
-                    {
                         foreach (PageLayer page_layer in page_layers)
                         {
                             page_layer.Dispose();
                         }
                         page_layers.Clear();
 
-                                // Also erase any pending RefreshPage work:
-                                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                                lock (pending_refresh_work_lock)
+                        // Also erase any pending RefreshPage work:
+                        // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                        lock (pending_refresh_work_lock)
                         {
-                                    // l1_clk.LockPerfTimerStop();
-                                    pending_refresh_work_fast = null;
+                            // l1_clk.LockPerfTimerStop();
+                            pending_refresh_work_fast = null;
                             pending_refresh_work_slow = null;
                         }
 
@@ -1049,7 +911,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                             CanvasHand_.Dispose();
                             CanvasInk_.Dispose();
 #endif
-                            }
+                        page_layers = null;
+                    }
                 });
 
                 WPFDoEvents.SafeExec(() =>
@@ -1066,6 +929,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 WPFDoEvents.SafeExec(() =>
                 {
                     pdf_renderer_control = null;
+                    pdf_renderer_control_stats = null;
                 });
 
                 WPFDoEvents.SafeExec(() =>

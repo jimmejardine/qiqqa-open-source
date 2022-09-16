@@ -7,27 +7,25 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
     internal class BuildPopupFromOCR
     {
         private JumpToSectionPopup popup;
-        private PDFDocument pdf_document;
 
-        internal BuildPopupFromOCR(JumpToSectionPopup popup, PDFDocument pdf_document)
+        internal BuildPopupFromOCR(JumpToSectionPopup popup)
         {
             this.popup = popup;
-            this.pdf_document = pdf_document;
         }
 
         internal void BuildMenu()
         {
-            if (null == pdf_document)
+            if (null == popup.pdf_renderer_control_stats)
             {
                 Logging.Info("No document has been selected, so no jump to can be built");
                 return;
             }
 
-            WordList[] word_lists = new WordList[pdf_document.PDFRenderer.PageCount + 1];
+            WordList[] word_lists = new WordList[popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount + 1];
             bool missing_text = false;
-            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+            for (int page = 1; page <= popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
-                WordList word_list = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList word_list = popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
                 if (null != word_list)
                 {
                     word_lists[page] = word_list;
@@ -75,7 +73,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
             string section_lower = section.ToLower();
 
-            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+            for (int page = 1; page <= popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)
@@ -97,7 +95,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
 
             if (0 != largest_page)
             {
-                popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, section, largest_page));
+                popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, section, largest_page));
             }
         }
 
@@ -115,7 +113,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
         {
             string section_lower = section.ToLower();
 
-            for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+            for (int page = 1; page <= popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; ++page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)
@@ -125,7 +123,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                         Word word = word_list[i];
                         if (word.Text.ToLower().Contains(section_lower))
                         {
-                            popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, section, page));
+                            popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, section, page));
                             return;
                         }
                     }
@@ -137,7 +135,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
         {
             string section_lower = section.ToLower();
 
-            for (int page = pdf_document.PDFRenderer.PageCount; page >= 1; --page)
+            for (int page = popup.pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount; page >= 1; --page)
             {
                 WordList word_list = word_lists[page];
                 if (null != word_list)
@@ -147,7 +145,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
                         Word word = word_list[i];
                         if (word.Text.ToLower().Contains(section_lower))
                         {
-                            popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, section, page));
+                            popup.Children.Add(new JumpToSectionItem(popup, popup.pdf_reading_control, popup.pdf_render_control, popup.pdf_renderer_control_stats, section, page));
                             return;
                         }
                     }

@@ -9,7 +9,6 @@ using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities.Misc;
-using Utilities.GUI;
 
 namespace Qiqqa.Common
 {
@@ -23,8 +22,6 @@ namespace Qiqqa.Common
         public AssociatePDFWithVanillaReferenceWindow(PDFDocument pdf_document)
         {
             this.pdf_document = pdf_document;
-
-            //Theme.Initialize(); -- already done in StandardWindow base class
 
             InitializeComponent();
 

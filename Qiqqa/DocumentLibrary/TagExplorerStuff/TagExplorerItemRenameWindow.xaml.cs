@@ -26,8 +26,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             this.web_library_detail = web_library_detail;
             this.tag = tag;
 
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             Title = "Qiqqa - Rename or Delete Tag";
@@ -46,25 +44,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             TextNewTagName.KeyUp += TextNewTagName_KeyUp;
 
             RefreshSpans();
-
-            SizeChanged += RecalcTextFieldWidthCb;
-            Loaded += CalcTextFieldWidthCb;
-        }
-
-        private void CalcTextFieldWidthCb(object sender, RoutedEventArgs e)
-        {
-            RecalcTextFieldWidth();
-        }
-        private void RecalcTextFieldWidthCb(object sender, SizeChangedEventArgs e)
-        {
-            RecalcTextFieldWidth();
-        }
-
-        private void RecalcTextFieldWidth()
-        {
-            double w = TextNewTagName.Width;
-            double pw = RenameFormFieldsContainer.Width;
-            TextNewTagName.Width = pw - 60;
         }
 
         private static void SetSpan(Span span, string text)

@@ -12,15 +12,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
     {
         private JumpToSectionPopup jtsp;
         private PDFReadingControl pdf_reading_control;
+        private PDFRendererControl pdf_render_control;
+        private PDFRendererControlStats pdf_renderer_control_stats;
         private string section;
         private int page;
 
-        public JumpToSectionItem(JumpToSectionPopup jtsp, PDFReadingControl pdf_reading_control, string section, int page)
+        public JumpToSectionItem(JumpToSectionPopup jtsp, PDFReadingControl pdf_reading_control, PDFRendererControl pdf_render_control, PDFRendererControlStats pdf_renderer_control_stats, string section, int page)
         {
             InitializeComponent();
 
             this.jtsp = jtsp;
             this.pdf_reading_control = pdf_reading_control;
+            this.pdf_render_control = pdf_render_control;
+            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.section = section;
             this.page = page;
 
@@ -32,16 +36,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_JumpToSection);
 
-            PDFRendererControl pdf_renderer_control = pdf_reading_control.GetPDFRendererControl();
-
-            PDFRendererPageControl prpc = pdf_renderer_control.GetPageControl(page);
+            PDFRendererPageControl prpc = pdf_render_control.GetPageControl(page);
 
             string search_query = '"' + section + '"';
             pdf_reading_control.SetSearchKeywords(search_query);
-            pdf_renderer_control.SelectedPage = prpc;
-            if (null != pdf_renderer_control.SelectedPage)
+            pdf_render_control.SelectedPage = prpc;
+            if (null != pdf_render_control.SelectedPage)
             {
-                pdf_renderer_control.SelectedPage.BringIntoView();
+                pdf_render_control.SelectedPage.BringIntoView();
             }
             jtsp.Close();
         }

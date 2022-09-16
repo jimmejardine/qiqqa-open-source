@@ -13,13 +13,15 @@ namespace Utilities.PDF.MuPDF
 {
     public class MuPDFRenderer
     {
-        private static int render_count = 0;
-
         public static MemoryStream RenderPDFPage(string pdf_filename, int page_number, int dpi, int height, int width, string password, ProcessPriorityClass priority_class)
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            render_count++;
+            // make sure we send a sane DPI value to mudraw all the time:
+            if (dpi == 0)
+            {
+                dpi = 600;
+            }
 
             string process_parameters = String.Format(
                 $"-q -w {width} -h {height} -r {dpi} -o -"

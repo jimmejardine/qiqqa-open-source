@@ -41,7 +41,7 @@ namespace Qiqqa.Main
         {
             MainWindowServiceDispatcher.Instance.MainWindow = this;
 
-            //Theme.Initialize(); -- already done in StandardWindow base class
+            Theme.Initialize();
 
             InitializeComponent();
 
@@ -58,6 +58,18 @@ namespace Qiqqa.Main
             if (WebsiteAccess.IsTestEnvironment)
             {
                 Title = String.Format("Qiqqa v{0} (TEST ENVIRONMENT)", ClientVersion.CurrentBuild);
+            }
+
+            // Check that we actually are fitting on the user's screen
+            if (Left > SystemParameters.VirtualScreenWidth || Width > SystemParameters.FullPrimaryScreenWidth)
+            {
+                Left = 0;
+                Width = SystemParameters.FullPrimaryScreenWidth;
+            }
+            if (Top > SystemParameters.VirtualScreenHeight || Height > SystemParameters.FullPrimaryScreenHeight)
+            {
+                Top = 0;
+                Height = SystemParameters.FullPrimaryScreenHeight;
             }
 
             DockingManager.WindowIcon = Icons.GetAppIconICO(Icons.Qiqqa);
@@ -118,9 +130,9 @@ namespace Qiqqa.Main
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
         // Which says:
         //
-        // Note that the Unloaded event is not raised after an application begins shutting down.
-        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs.
-        // If you place cleanup code within a handler for the Unloaded event, such as for a Window
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
         // or a UserControl, it may not be called as expected.
         private void MainWindow_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -175,21 +187,6 @@ namespace Qiqqa.Main
             ResetHourglassWhenAllIsDone();
         }
 
-        public override bool SetupConfiguredDimensions(Size preferred_dimensions)
-        {
-            bool has_cfg = base.SetupConfiguredDimensions(preferred_dimensions);
-
-            if (!has_cfg)
-            {
-                if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
-                {
-                    WindowState = WindowState.Maximized;
-                }
-            }
-
-            return has_cfg;
-        }
-
         private void keyboard_hook_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keys.Z == e.KeyCode && KeyboardTools.IsWinDown())
@@ -240,6 +237,18 @@ namespace Qiqqa.Main
 
             WPFDoEvents.InvokeInUIThread(() =>
             {
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_RestoreLocationAtStartup)
+                {
+                    SetupConfiguredDimensions();
+                }
+                else
+                {
+                    if (!RegistrySettings.Instance.IsSet(RegistrySettings.StartNotMaximized))
+                    {
+                        WindowState = WindowState.Maximized;
+                    }
+                }
+
                 // Install the global keyboard and mouse hooks
                 if (!RegistrySettings.Instance.IsSet(RegistrySettings.DisableGlobalKeyHook))
                 {

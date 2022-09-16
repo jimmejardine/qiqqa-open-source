@@ -1,16 +1,16 @@
-<UserControl
-    x:Class="Qiqqa.Documents.PDF.PDFControls.CanvasToolbars.InkCanvasToolbarControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-    xmlns:wpfext="clr-namespace:Xceed.Wpf.Toolkit;assembly=WPFToolkit.Extended">
+<UserControl x:Class="Qiqqa.Documents.PDF.PDFControls.CanvasToolbars.InkCanvasToolbarControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:wpfext="clr-namespace:Xceed.Wpf.Toolkit;assembly=WPFToolkit.Extended"
+>
     <local_gui:AugmentedBorder Background="White">
         <StackPanel>
-            <local_gui:AugmentedButton x:Name="ButtonDraw" />
-            <wpfext:ColorPicker Name="ObjColorPicker" Width="40" />
+            <local_gui:AugmentedButton x:Name="ButtonDraw"/>
+            <wpfext:ColorPicker Width="40" Name="ObjColorPicker" />
             <local_gui:AugmentedButton x:Name="ButtonStrokeErase" Margin="3" />
-            <local_gui:AugmentedButton x:Name="ButtonPointErase" />
-            <local_gui:AugmentedButton x:Name="ButtonSelect" />
+            <local_gui:AugmentedButton x:Name="ButtonPointErase"/>
+            <local_gui:AugmentedButton x:Name="ButtonSelect"/>
         </StackPanel>
     </local_gui:AugmentedBorder>
 </UserControl>

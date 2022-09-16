@@ -42,11 +42,11 @@ namespace Qiqqa.Documents.PDF.PDFControls
     public partial class PDFReadingControl : UserControl, IDisposable
     {
         private PDFRendererControl pdf_renderer_control = null;
+        private PDFRendererControlStats pdf_renderer_control_stats = null;
 
         public PDFReadingControl(PDFDocument pdf_document)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-            ASSERT.Test(pdf_document != null);
 
             InitializeComponent();
 
@@ -59,6 +59,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
             pdf_renderer_control.OperationModeChanged += pdf_renderer_control_OperationModeChanged;
             pdf_renderer_control.ZoomTypeChanged += pdf_renderer_control_ZoomTypeChanged;
             pdf_renderer_control.SelectedPageChanged += pdf_renderer_control_SelectedPageChanged;
+
+            pdf_renderer_control_stats = new PDFRendererControlStats(pdf_renderer_control, pdf_document);
 
             Utilities.GUI.Animation.Animations.EnableHoverFade(ObjToolbarGrid);
 
@@ -241,7 +243,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             TagCloud.TagClick += TagCloud_TagClick;
 
             JumpToPageNumber.Text = "" + 1;
-            JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
+            JumpToPageNumberMax.Text = " of " + pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount;
             JumpToPageNumber.KeyDown += JumpToPageNumber_KeyDown;
             JumpToPageNumber.KeyUp += JumpToPageNumber_KeyUp;
             JumpToPageNumber.GotFocus += JumpToPageNumber_GotFocus;
@@ -266,27 +268,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ObjDocumentMetadataControlsPanel.SelectedPageChanged += ObjDocumentMetadataControlsPanel_ObjDocumentMetadataControlsPanel_SelectedPageChanged;
 
             // Kick off a thread that populates the interesting analysis
-            SafeThreadPool.QueueUserWorkItem(o =>
-            {
-                PDFRendererControlInterestingAnalysis.DoInterestingAnalysis(this, pdf_renderer_control, pdf_document);
-            });
+            SafeThreadPool.QueueUserWorkItem(o => PDFRendererControlInterestingAnalysis.DoInterestingAnalysis(this, pdf_renderer_control, pdf_renderer_control_stats));
 
             Loaded += PDFReadingControl_Loaded;
-        }
-
-        public PDFRendererControl GetPDFRendererControl()
-        {
-            return pdf_renderer_control;
-        }
-
-        public PDFRendererControlStats GetPDFRendererControlStats()
-        {
-            return pdf_renderer_control?.GetPDFRendererControlStats();
-        }
-
-        public PDFDocument GetPDFDocument()
-        {
-            return pdf_renderer_control?.GetPDFDocument();
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -297,9 +281,9 @@ namespace Qiqqa.Documents.PDF.PDFControls
         // WARNING: https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.unloaded?view=net-5.0
         // Which says:
         //
-        // Note that the Unloaded event is not raised after an application begins shutting down.
-        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs.
-        // If you place cleanup code within a handler for the Unloaded event, such as for a Window
+        // Note that the Unloaded event is not raised after an application begins shutting down. 
+        // Application shutdown occurs when the condition defined by the ShutdownMode property occurs. 
+        // If you place cleanup code within a handler for the Unloaded event, such as for a Window 
         // or a UserControl, it may not be called as expected.
         private void PDFReadingControl_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -309,6 +293,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
         private void CleanUp()
         {
             // TODO: kill the pdf renderer
+            //throw new NotImplementedException();
 
             Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
         }
@@ -327,103 +312,70 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ObjDocumentMetadataControlsPanel_ObjDocumentMetadataControlsPanel_SelectedPageChanged(int page)
         {
-            ASSERT.Test(pdf_renderer_control != null);
-
             pdf_renderer_control.SelectPage(page);
         }
+
+        public PDFRendererControlStats PDFRendererControlStats => pdf_renderer_control_stats;
 
         private void ButtonInCite_Word_Click(object sender, RoutedEventArgs e)
         {
             ButtonInCitePopup.Close();
-
-            FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitation_FromDocument);
-
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
             {
-                PDFDocumentCitingTools.CitePDFDocument(pdf_document, false);
+                FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitation_FromDocument);
+                PDFDocumentCitingTools.CitePDFDocument(pdf_renderer_control_stats.pdf_document, false);
+                e.Handled = true;
             }
-
-            e.Handled = true;
         }
 
         private void ButtonInCite_WordSeparate_Click(object sender, RoutedEventArgs e)
         {
             ButtonInCitePopup.Close();
-
-            FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitation_FromDocument);
-
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
             {
-                PDFDocumentCitingTools.CitePDFDocument(pdf_document, true);
+                FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitation_FromDocument);
+                PDFDocumentCitingTools.CitePDFDocument(pdf_renderer_control_stats.pdf_document, true);
+                e.Handled = true;
             }
-
-            e.Handled = true;
         }
 
         private void ButtonInCite_Snippet_Click(object sender, RoutedEventArgs e)
         {
             ButtonInCitePopup.Close();
-
-            FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitationSnippet_FromDocument);
-
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
             {
-                PDFDocumentCitingTools.CiteSnippetPDFDocument(false, pdf_document);
+                FeatureTrackingManager.Instance.UseFeature(Features.InCite_AddNewCitationSnippet_FromDocument);
+                PDFDocumentCitingTools.CiteSnippetPDFDocument(false, pdf_renderer_control_stats.pdf_document);
+                e.Handled = true;
             }
-
-            e.Handled = true;
         }
 
         private void ButtonInCite_BibTeXKey_Click(object sender, RoutedEventArgs e)
         {
             ButtonInCitePopup.Close();
-
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
             {
-                if (!String.IsNullOrEmpty(pdf_document.BibTexKey))
+                if (!String.IsNullOrEmpty(pdf_renderer_control_stats.pdf_document.BibTexKey))
                 {
-                    string result = @"\cite{" + pdf_document.BibTexKey + @"}";
+                    string result = @"\cite{" + pdf_renderer_control_stats.pdf_document.BibTexKey + @"}";
                     ClipboardTools.SetText(result);
                     StatusManager.Instance.UpdateStatus("CopyBibTeXKey", String.Format("Copied '{0}' to clipboard.", result));
-                }
-            }
 
-            e.Handled = true;
+                }
+
+                e.Handled = true;
+            }
         }
 
         private void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
             ButtonExplorePopup.Close();
-
-            FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_Document);
-
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
             {
-                MainWindowServiceDispatcher.Instance.OpenExpedition(pdf_document.LibraryRef, pdf_document);
+
+                FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_Document);
+                MainWindowServiceDispatcher.Instance.OpenExpedition(pdf_renderer_control_stats.pdf_document.LibraryRef, pdf_renderer_control_stats.pdf_document);
             }
         }
 
         private void ButtonOpenLibrary_Click(object sender, RoutedEventArgs e)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            MainWindowServiceDispatcher.Instance.OpenLibrary(pdf_document.LibraryRef);
+            MainWindowServiceDispatcher.Instance.OpenLibrary(pdf_renderer_control_stats.pdf_document.LibraryRef);
         }
 
         #region IDisposable
@@ -452,28 +404,19 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 {
                     if (dispose_count == 0)
                     {
-                        // GetPDFDocument() depends on a valid pdf_renderer_control reference, so we do this one first!
-                        PDFDocument pdf_document = GetPDFDocument();
-                        ASSERT.Test(pdf_document != null);
-
-                        pdf_document?.PDFRenderer.FlushCachedPageRenderings();
-                    }
-                });
-
-                WPFDoEvents.SafeExec(() =>
-                {
-                    if (dispose_count == 0)
-                    {
                         // Get rid of managed resources
                         PDFRendererControlArea.Children.Clear();
 
                         pdf_renderer_control?.Dispose();
+
+                        pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
                     }
                 });
 
                 WPFDoEvents.SafeExec(() =>
                 {
                     pdf_renderer_control = null;
+                    pdf_renderer_control_stats = null;
                 });
 
                 ++dispose_count;
@@ -558,14 +501,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void pdf_renderer_control_SelectedPageChanged(int page)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
-            {
-                JumpToPageNumber.Text = "" + page;
-                JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
-            }
+            JumpToPageNumber.Text = "" + page;
         }
 
         private void JumpToPageNumber_GotFocus(object sender, RoutedEventArgs e)
@@ -602,21 +538,13 @@ namespace Qiqqa.Documents.PDF.PDFControls
             try
             {
                 int page_number = Int32.Parse(JumpToPageNumber.Text) + offset;
+                if (page_number < 1) page_number = pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount;
+                if (page_number > pdf_renderer_control_stats.pdf_document.PDFRenderer.PageCount) page_number = 1;
 
-                PDFDocument pdf_document = GetPDFDocument();
-                ASSERT.Test(pdf_document != null);
+                pdf_renderer_control.MoveSelectedPageAbsolute(page_number);
 
-                if (pdf_document != null)
-                {
-                    if (page_number < 1) page_number = pdf_document.PDFRenderer.PageCount;
-                    if (page_number > pdf_document.PDFRenderer.PageCount) page_number = 1;
-
-                    pdf_renderer_control.MoveSelectedPageAbsolute(page_number);
-
-                    JumpToPageNumber.Text = "" + page_number;
-                    JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
-                    JumpToPageNumber.SelectAll();
-                }
+                JumpToPageNumber.Text = "" + page_number;
+                JumpToPageNumber.SelectAll();
             }
             catch (Exception ex)
             {
@@ -662,7 +590,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             if (null == jtsp)
             {
                 Logging.Info("Building popup for first time");
-                jtsp = new JumpToSectionPopup(this);
+                jtsp = new JumpToSectionPopup(this, pdf_renderer_control, pdf_renderer_control_stats);
             }
 
             jtsp.Open();
@@ -698,25 +626,15 @@ namespace Qiqqa.Documents.PDF.PDFControls
             using (AugmentedPopupAutoCloser apac = new AugmentedPopupAutoCloser(ButtonExplorePopup))
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_ExploreDocumentInBrainstorm);
-
-                PDFDocument pdf_document = GetPDFDocument();
-                ASSERT.Test(pdf_document != null);
-
-                if (pdf_document != null)
-                {
-                    MainWindowServiceDispatcher.Instance.ExploreDocumentInBrainstorm(pdf_document);
-                }
+                MainWindowServiceDispatcher.Instance.ExploreDocumentInBrainstorm(pdf_renderer_control_stats.pdf_document);
             }
         }
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (null != pdf_document)
+            if (null != pdf_renderer_control_stats && null != pdf_renderer_control_stats.pdf_document)
             {
-                PDFPrinter.Print(pdf_document, pdf_document.PDFRenderer, "PDFRenderer");
+                PDFPrinter.Print(pdf_renderer_control_stats.pdf_document, pdf_renderer_control_stats.pdf_document.PDFRenderer, "PDFRenderer");
             }
         }
 
@@ -724,31 +642,25 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_Save);
 
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
+            string filename = ExportingTools.MakeExportFilename(pdf_renderer_control_stats.pdf_document);
 
-            if (pdf_document != null)
+            //string desktop_directory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            //filename = Path.GetFullPath(Path.Combine(desktop_directory, filename));
+
+            SaveFileDialog save_file_dialog = new SaveFileDialog();
+            save_file_dialog.AddExtension = true;
+            save_file_dialog.CheckPathExists = true;
+            save_file_dialog.DereferenceLinks = true;
+            save_file_dialog.OverwritePrompt = true;
+            save_file_dialog.ValidateNames = true;
+            save_file_dialog.DefaultExt = "pdf";
+            save_file_dialog.Filter = "PDF files|*.pdf" + "|" + "All files|*.*";
+            save_file_dialog.FileName = filename;
+
+            if (true == save_file_dialog.ShowDialog())
             {
-                string filename = ExportingTools.MakeExportFilename(pdf_document);
-
-                //string desktop_directory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                //filename = Path.GetFullPath(Path.Combine(desktop_directory, filename));
-
-                SaveFileDialog save_file_dialog = new SaveFileDialog();
-                save_file_dialog.AddExtension = true;
-                save_file_dialog.CheckPathExists = true;
-                save_file_dialog.DereferenceLinks = true;
-                save_file_dialog.OverwritePrompt = true;
-                save_file_dialog.ValidateNames = true;
-                save_file_dialog.DefaultExt = "pdf";
-                save_file_dialog.Filter = "PDF files|*.pdf" + "|" + "All files|*.*";
-                save_file_dialog.FileName = filename;
-
-                if (true == save_file_dialog.ShowDialog())
-                {
-                    Logging.Info("Saving PDF with fingerprint {1} file to {0}", save_file_dialog.FileName, pdf_document.Fingerprint);
-                    File.Copy(pdf_document.DocumentPath, save_file_dialog.FileName);
-                }
+                Logging.Info("Saving PDF with fingerprint {1} file to {0}", save_file_dialog.FileName, pdf_renderer_control_stats.pdf_document.Fingerprint);
+                File.Copy(pdf_renderer_control_stats.pdf_document.DocumentPath, save_file_dialog.FileName);
             }
         }
 
@@ -790,14 +702,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Document_Search);
                 previous_search_string = search_string;
-
-                PDFDocument pdf_document = GetPDFDocument();
-                ASSERT.Test(pdf_document != null);
-
-                if (pdf_document != null)
-                {
-                    previous_search_result_set = PDFSearcher.Search(pdf_document, search_string);
-                }
+                previous_search_result_set = PDFSearcher.Search(pdf_renderer_control_stats.pdf_document, search_string);
             }
             else
             {
@@ -890,15 +795,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonMoreMenus_Click(object sender, RoutedEventArgs e)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
-            {
-                LibraryCatalogPopup popup = new LibraryCatalogPopup(new List<PDFDocument> { pdf_document });
-                popup.Open();
-            }
-
+            LibraryCatalogPopup popup = new LibraryCatalogPopup(new List<PDFDocument> { pdf_renderer_control_stats.pdf_document });
+            popup.Open();
             e.Handled = true;
         }
 
@@ -906,15 +804,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonExportToText_Click(object sender, RoutedEventArgs e)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
-            {
-                //ExportToText.ExportToTextAndLaunch(pdf_document);
-                ExportToWord.ExportToTextAndLaunch(pdf_document);
-            }
-
+            //ExportToText.ExportToTextAndLaunch(this.pdf_renderer_control_stats.pdf_document);
+            ExportToWord.ExportToTextAndLaunch(pdf_renderer_control_stats.pdf_document);
             e.Handled = true;
         }
 
@@ -924,13 +815,10 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void GetCombinedWordsList(List<string> words, List<int> page_word_offsets, int single_page_only = -1)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (null != pdf_document)
+            if (null != pdf_renderer_control_stats)
             {
                 int start_page = 0;
-                int end_page = pdf_document.SafePageCount - 1;
+                int end_page = pdf_renderer_control_stats.pdf_document.SafePageCount - 1;
 
                 if (-1 != single_page_only)
                 {
@@ -940,7 +828,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 for (int page = start_page; page <= end_page; ++page)
                 {
-                    WordList words_on_page = pdf_document.PDFRenderer.GetOCRText(page + 1);
+                    WordList words_on_page = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page + 1);
                     page_word_offsets.Add(words.Count);
                     if (null != words_on_page)
                     {
@@ -973,36 +861,25 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
             if (null != button.IsChecked && button.IsChecked.Value)
             {
-                if (null != pdf_renderer_control.SelectedPage)
+                if (null != pdf_renderer_control_stats && null != pdf_renderer_control.SelectedPage)
                 {
-                    PDFDocument pdf_document = GetPDFDocument();
-                    ASSERT.Test(pdf_document != null);
-
-                    if (pdf_document != null)
+                    int page = pdf_renderer_control.SelectedPage.PageNumber;
+                    WordList words = pdf_renderer_control_stats.pdf_document.PDFRenderer.GetOCRText(page);
+                    if (null != words)
                     {
-                        int page = pdf_renderer_control.SelectedPage.PageNumber;
-                        WordList words = pdf_document.PDFRenderer.GetOCRText(page);
-                        if (null != words)
+                        StringBuilder sb = new StringBuilder();
+                        foreach (var word in words)
                         {
-                            StringBuilder sb = new StringBuilder();
-                            foreach (var word in words)
-                            {
-                                sb.Append(word.Text);
-                                sb.Append(' ');
-                            }
+                            sb.Append(word.Text);
+                            sb.Append(' ');
+                        }
 
-                            ReadOutLoudManager.Instance.Read(sb.ToString());
-                        }
-                        else
-                        {
-                            Logging.Info("No OCR to read");
-                            ReadOutLoudManager.Instance.Read("Please run OCR on this page before it can be read.");
-                        }
+                        ReadOutLoudManager.Instance.Read(sb.ToString());
                     }
                     else
                     {
-                        Logging.Info("No document to read");
-                        ReadOutLoudManager.Instance.Read("INTERNAL ERROR: no document to read.");
+                        Logging.Info("No OCR to read");
+                        ReadOutLoudManager.Instance.Read("Please run OCR on this page before it can be read.");
                     }
                 }
                 else
@@ -1096,23 +973,17 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Library_AttachToVanilla_Web);
 
-                PDFDocument pdf_document = GetPDFDocument();
-                ASSERT.Test(pdf_document != null);
+                PDFDocument source_pdf_document = pdf_renderer_control_stats.pdf_document;
+                PDFDocument cloned_pdf_document = potential_attachment_pdf_document.AssociatePDFWithVanillaReference(pdf_renderer_control_stats.pdf_document.DocumentPath);
 
-                if (pdf_document != null)
+                // Close the old
+                MainWindowServiceDispatcher.Instance.ClosePDFReadingControl(this);
+
+                // Delete the old
+                if (cloned_pdf_document != source_pdf_document)
                 {
-                    PDFDocument source_pdf_document = pdf_document;
-                    PDFDocument cloned_pdf_document = potential_attachment_pdf_document.AssociatePDFWithVanillaReference(pdf_document.DocumentPath);
-
-                    // Close the old
-                    MainWindowServiceDispatcher.Instance.ClosePDFReadingControl(this);
-
-                    // Delete the old
-                    if (cloned_pdf_document != source_pdf_document)
-                    {
-                        source_pdf_document.Deleted = true;
-                        source_pdf_document.Bindable.NotifyPropertyChanged(nameof(source_pdf_document.Deleted));
-                    }
+                    source_pdf_document.Deleted = true;
+                    source_pdf_document.Bindable.NotifyPropertyChanged(nameof(source_pdf_document.Deleted));
                 }
 
                 // Forget the target attachment
@@ -1131,42 +1002,35 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void MoveGuestPreviewPDFDocument(WebLibraryDetail web_library_detail)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
+            PDFDocument source_pdf_document = pdf_renderer_control_stats.pdf_document;
 
-            if (pdf_document != null)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                PDFDocument source_pdf_document = pdf_document;
+                PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail);
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail);
-                    ASSERT.Test(cloned_pdf_document != null);
-
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    // Open the new
+                    if (null != cloned_pdf_document)
                     {
-                        // Open the new
-                        if (null != cloned_pdf_document)
-                        {
-                            MainWindowServiceDispatcher.Instance.OpenDocument(cloned_pdf_document);
-                        }
-                        else
-                        {
-                            MessageBoxes.Warn("There was a problem moving this document to another library.");
-                        }
+                        MainWindowServiceDispatcher.Instance.OpenDocument(cloned_pdf_document);
+                    }
+                    else
+                    {
+                        MessageBoxes.Warn("There was a problem moving this document to another library.");
+                    }
 
-                        // Close the old
-                        MainWindowServiceDispatcher.Instance.ClosePDFReadingControl(this);
+                    // Close the old
+                    MainWindowServiceDispatcher.Instance.ClosePDFReadingControl(this);
 
-                        // Delete the old
-                        if (cloned_pdf_document != null && cloned_pdf_document != source_pdf_document)
-                        {
-                            source_pdf_document.Deleted = true;
-                            source_pdf_document.Bindable.NotifyPropertyChanged(nameof(source_pdf_document.Deleted));
-                        }
-                    });
+                    // Delete the old
+                    if (cloned_pdf_document != source_pdf_document)
+                    {
+                        source_pdf_document.Deleted = true;
+                        source_pdf_document.Bindable.NotifyPropertyChanged(nameof(source_pdf_document.Deleted));
+                    }
                 });
-            }
+            });
         }
     }
 }

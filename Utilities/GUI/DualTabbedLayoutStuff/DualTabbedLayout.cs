@@ -285,7 +285,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="reference_key">Is used as a unique id for when you want to bring the window to the front, check for uniqueness, etc</param>
         /// <param name="header">The title on the tab header or window</param>
@@ -754,10 +754,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
                     if (make_visible)
                     {
                         MarkAsRecentlyUsed(item);
-                        if (w.WindowState == WindowState.Minimized)
-                        {
-                            w.WindowState = WindowState.Normal;
-                        }
+                        if (w.WindowState == WindowState.Minimized) w.WindowState = WindowState.Normal;
                         w.Focus();
                     }
                     return item;

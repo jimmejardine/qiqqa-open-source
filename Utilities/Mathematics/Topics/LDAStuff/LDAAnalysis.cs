@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Utilities.GUI;
 
 namespace Utilities.Mathematics.Topics.LDAStuff
 {
@@ -326,22 +325,14 @@ namespace Utilities.Mathematics.Topics.LDAStuff
 
         private TopicProbability[][] CalculateDensityOfTopicsInDocsSorted(int max_topics_to_retain)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             try
             {
                 TopicProbability[][] local_density_of_topics_in_docs_sorted = new TopicProbability[lda.NUM_DOCS][];
 
                 // How many topics will we remember for each doc?
                 int topics_to_retain = max_topics_to_retain;
-                if (topics_to_retain <= 0)
-                {
-                    topics_to_retain = lda.NUM_TOPICS;
-                }
-                else if (topics_to_retain > lda.NUM_TOPICS)
-                {
-                    topics_to_retain = lda.NUM_TOPICS;
-                }
+                if (topics_to_retain <= 0) topics_to_retain = lda.NUM_TOPICS;
+                else if (topics_to_retain > lda.NUM_TOPICS) topics_to_retain = lda.NUM_TOPICS;
 
                 // Calculate the density
                 float[,] densityoftopicsindocuments = DensityOfTopicsInDocuments;

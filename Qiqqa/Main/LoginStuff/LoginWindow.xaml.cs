@@ -37,8 +37,6 @@ namespace Qiqqa.Main.LoginStuff
 
         public LoginWindow()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             ProgressInfo.Text = "";
@@ -186,13 +184,6 @@ namespace Qiqqa.Main.LoginStuff
         private void StartMainApplication()
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
-
-            // prevent invocation loop via close() call at the end of this function body:
-            if (StandardWindowFactory.Has(nameof(MainWindow)))
-            {
-                return;
-            }
-
             WPFDoEvents.SetHourglassCursor();
 
             ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
@@ -238,18 +229,10 @@ namespace Qiqqa.Main.LoginStuff
 
             StatusManager.Instance.UpdateStatus("AppStart", "Launching Qiqqa!");
             FireStartUseFeature();
-
-            StandardWindowFactory.Create(nameof(MainWindow), () =>
-            {
-                MainWindow window = new MainWindow();
-
-                window.Show();
-
-                return window;
-            });
+            MainWindow window = new MainWindow();
+            window.Show();
 
             Hide();
-            Close();
         }
 
         private void FireStartUseFeature()

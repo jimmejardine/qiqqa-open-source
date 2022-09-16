@@ -6,7 +6,6 @@ using icons;
 using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Utilities;
-using Utilities.GUI;
 using Utilities.Reflection;
 
 namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
@@ -20,8 +19,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         public MetadataCommentEditorControl()
         {
-            //Theme.Initialize(); -- already done in StandardWindow base class
-
             InitializeComponent();
 
             Title = "Qiqqa Metadata Comment Editor";

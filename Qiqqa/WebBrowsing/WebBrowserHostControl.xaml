@@ -1,40 +1,34 @@
-<UserControl
-    x:Class="Qiqqa.WebBrowsing.WebBrowserHostControl"
+<UserControl x:Class="Qiqqa.WebBrowsing.WebBrowserHostControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
     xmlns:local_gui_dual="clr-namespace:Utilities.GUI.DualTabbedLayoutStuff;assembly=Utilities"
-    xmlns:local_library="clr-namespace:Qiqqa.DocumentLibrary">
+    xmlns:local_library="clr-namespace:Qiqqa.DocumentLibrary"
+  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    >
     <DockPanel>
         <local_gui:AugmentedToolBarTray DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <local_gui:AugmentedToolBarButton x:Name="ButtonNewBrowser" MinWidth="15" />
-                <local_gui:AugmentedToolBarButton
-                    x:Name="ButtonBack"
-                    MinWidth="15"
-                    Margin="3" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonBack" MinWidth="15"  Margin="3" />
                 <local_gui:AugmentedToolBarButton x:Name="ButtonForward" MinWidth="15" />
-                <local_gui:AugmentedBorder Margin="3">
+                <local_gui:AugmentedBorder Margin="3" >
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Name="TxtWebAddress">
                             Web Address:
                         </TextBlock>
-                        <local_gui:AugmentedSearchBox Name="TextBoxUrl" Width="200" />
+                        <local_gui:AugmentedSearchBox Name="TextBoxUrl" Width="200"/>
                     </StackPanel>
                 </local_gui:AugmentedBorder>
-                <local_gui:AugmentedBorder Margin="3">
+                <local_gui:AugmentedBorder Margin="3" >
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Name="TxtSearchTheWeb">
                             Search the Web:
                         </TextBlock>
-                        <local_gui:AugmentedSearchBox Name="TextBoxGoogleScholar" Width="200" />
+                        <local_gui:AugmentedSearchBox Name="TextBoxGoogleScholar" Width="200"/>
                     </StackPanel>
                 </local_gui:AugmentedBorder>
-                <local_gui:AugmentedToolBarButton
-                    x:Name="ButtonEZProxy"
-                    MinWidth="15"
-                    Margin="3" />
+                <local_gui:AugmentedToolBarButton x:Name="ButtonEZProxy" MinWidth="15"  Margin="3" />
                 <local_gui:AugmentedToolBarButton x:Name="ButtonPrint" MinWidth="15" />
                 <local_gui:AugmentedToolBarButton x:Name="ButtonGrabWebPage" MinWidth="25" />
                 <local_gui:AugmentedToolBarButton x:Name="ButtonGrabPDFs" MinWidth="25" />
@@ -43,13 +37,8 @@
         </local_gui:AugmentedToolBarTray>
         <Grid Name="BrowserContainer">
             <local_gui_dual:DualTabbedLayout Name="TabWebBrowserControls" />
-            <local_gui:AugmentedBorder
-                Name="lblHintHowToUse"
-                MaxWidth="800"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="White">
-                <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Auto">
+            <local_gui:AugmentedBorder Name="lblHintHowToUse" Background="White"  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="800" >
+                <FlowDocumentScrollViewer  IsToolBarVisible="False" VerticalScrollBarVisibility="Auto">
                     <commongui:StandardFlowDocument>
                         <List>
                             <ListItem>

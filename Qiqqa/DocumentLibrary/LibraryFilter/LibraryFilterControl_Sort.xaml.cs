@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.Documents.PDF;
 using Utilities;
-using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.LibraryFilter
 {
@@ -48,8 +47,6 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter
 
         internal void ApplySort(List<PDFDocument> pdf_documents, Dictionary<string, double> search_quick_scores)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
             // Now apply the sort
             if (sort_hyperlink == HyperlinkScore)
             {

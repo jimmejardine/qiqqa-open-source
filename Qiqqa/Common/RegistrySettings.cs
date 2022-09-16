@@ -74,7 +74,7 @@ namespace Qiqqa.Common
         /// </summary>
         public static readonly string SnapToPixels = "SnapToPixels";                                // (deprecated in v82pre5)
         /// <summary>
-        /// false: starts Qiqqa maximized. Old way to set this configuration option.
+        /// false: starts Qiqqa maximized. Old way to set this configuarion option.
         /// Obsoleted in Qiqqa Open Source since v82.
         ///
         /// Since v82, Qiqqa tracks window position and maximize settings in the `GUI_RestoreLocationAtStartup` plus
