@@ -55,7 +55,7 @@ namespace Qiqqa.DocumentLibrary.AutoSyncStuff
                 Logging.Info("At least one library needs to autosync");
                 WebLibraryManager.Instance.NotifyOfChangeToWebLibraryDetail();
 
-                LibrarySyncManager.SyncRequest sync_request = new LibrarySyncManager.SyncRequest(false, libraries_to_sync, true, true, true);
+                LibrarySyncManager.SyncRequest sync_request = new LibrarySyncManager.SyncRequest(wants_user_intervention: false, libraries_to_sync, suppress_already_in_progress_notification: true);
                 WPFDoEvents.InvokeInUIThread(() =>
                     LibrarySyncManager.Instance.RequestSync(sync_request)
                 );

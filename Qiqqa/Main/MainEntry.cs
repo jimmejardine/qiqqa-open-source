@@ -269,7 +269,9 @@ namespace Qiqqa.Main
             {
                 StatusManager.Instance.UpdateStatus("AppStart", "Loading themes");
                 Theme.Initialize();
-                DualTabbedLayout.GetWindowOverride = delegate () { return new StandardWindow(); };
+                DualTabbedLayout.GetWindowOverride = delegate () {
+                    return new StandardWindow();
+                };
 
                 // Force tooltips to stay open
                 ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(3600000));

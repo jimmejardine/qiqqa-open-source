@@ -4,7 +4,8 @@
       xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
         xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
     xmlns:tagedit="clr-namespace:Qiqqa.Common.TagManagement"
->
+x:Name="QuickAddTags"
+                          >
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Margin="3" >
             <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate"  Margin="3" >

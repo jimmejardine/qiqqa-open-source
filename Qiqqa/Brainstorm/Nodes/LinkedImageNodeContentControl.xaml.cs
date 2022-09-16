@@ -32,9 +32,7 @@ namespace Qiqqa.Brainstorm.Nodes
         {
             if (2 == e.ClickCount)
             {
-#if DEBUG
                 if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
                 OpenFileDialog dialog = new OpenFileDialog();
                 dialog.Filter = "Image files|*.jpeg;*.jpg;*.png;*.gif;*.bmp" + "|" + "All files|*.*";

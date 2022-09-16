@@ -139,7 +139,7 @@ namespace Qiqqa.Brainstorm.SceneManager
             //this.Background = ThemeColours.Background_Brush_Blue_LightToDark;
             Background = Brushes.White;
             //
-            // ^^^^ now *this* line hints to me that the Qiqqa Brainstrom copy
+            // ^^^^ now *this* line hints to me that the Qiqqa Brainstorm copy
             // is a copy off the Utilities/GUI/BrainStorm code!
             // The Utils copy had the commented out Background setting.
             // See also https://github.com/jimmejardine/qiqqa-open-source/issues/26
@@ -544,7 +544,7 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             scene_changed_marker++;
 
-            // Check that we don't already have a recurrent node we can use            
+            // Check that we don't already have a recurrent node we can use
             if (NodeAdditionPolicyEnum.AlwaysUseExisting == node_addition_policy)
             {
                 IRecurrentNodeContent recurrent_node_content = node_content as IRecurrentNodeContent;
@@ -865,7 +865,7 @@ namespace Qiqqa.Brainstorm.SceneManager
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns>true if the user proceeded with clearing the brainstorm.</returns>
         public void New()

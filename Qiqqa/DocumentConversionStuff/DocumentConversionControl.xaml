@@ -12,7 +12,7 @@
                 <Paragraph>
                     What do you wish to do with the resulting PDFs?
                     <LineBreak />
-                    <StackPanel>
+                    <StackPanel Margin="0,12,0,0">
                         <CheckBox Name="ObjAddToGuest" IsChecked="True">
                             Add PDFs to Guest Library.
                         </CheckBox>

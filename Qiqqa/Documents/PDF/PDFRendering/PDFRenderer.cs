@@ -33,11 +33,6 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         private SoraxPDFRenderer sorax_pdf_renderer;
 
-        public PDFRenderer(string pdf_filename, string pdf_user_password, string pdf_owner_password)
-            : this(null, pdf_filename, pdf_user_password, pdf_owner_password)
-        {
-        }
-
         public PDFRenderer(string precomputed_document_fingerprint, string pdf_filename, string pdf_user_password, string pdf_owner_password)
         {
             this.pdf_filename = pdf_filename;
@@ -87,12 +82,12 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         /// <param name="page"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        internal byte[] GetPageByHeightAsImage(int page, double height)
+        internal byte[] GetPageByHeightAsImage(int page, int height, int width)
         {
-            return sorax_pdf_renderer.GetPageByHeightAsImage(page, height);
+            return sorax_pdf_renderer.GetPageByHeightAsImage(page, height, width);
         }
 
-        internal byte[] GetPageByDPIAsImage(int page, float dpi)
+        internal byte[] GetPageByDPIAsImage(int page, int dpi)
         {
             return sorax_pdf_renderer.GetPageByDPIAsImage(page, dpi);
         }
@@ -100,9 +95,10 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         public void CauseAllPDFPagesToBeOCRed()
         {
             // jobqueue this one too - saves us one PDF access + parse action inline when invoked in the UI thread by OpenDocument()
-            int pgcount = PageCount;
             SafeThreadPool.QueueUserWorkItem(o =>
             {
+                int pgcount = PageCount;
+
                 for (int i = pgcount; i >= 1; --i)
                 {
                     GetOCRText(i);
@@ -372,7 +368,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
         {
             Logging.Info("Flushing the cached page renderings for {0}", document_fingerprint);
 
-            sorax_pdf_renderer.Flush();
+            // TODO: ditch cached PDF page images?
         }
 
         public void FlushCachedTexts()

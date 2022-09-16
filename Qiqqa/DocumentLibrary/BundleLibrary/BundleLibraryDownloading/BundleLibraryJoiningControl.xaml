@@ -1,58 +1,76 @@
-<commongui:StandardWindow x:Class="Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading.BundleLibraryJoiningControl"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
-  xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
->
+<commongui:StandardWindow
+    x:Class="Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading.BundleLibraryJoiningControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
+    xmlns:local_gui="clr-namespace:Utilities.GUI;assembly=Utilities"
+    xmlns:local_gui_conv="clr-namespace:Utilities.GUI.Converters;assembly=Utilities"
+    x:Name="BundleLibraryJoiningWindow">
     <DockPanel>
         <commongui:StandardPageHeader x:Name="Header" DockPanel.Dock="Top" />
-        <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+        <!--  The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
         <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
-            <DockPanel >
+            <DockPanel>
                 <DockPanel DockPanel.Dock="Right">
-                    <local_gui:AugmentedButton Name="ButtonDownload" DockPanel.Dock="Right" MinWidth="100" MinHeight="20" />
-                    <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinWidth="100" MinHeight="20"  Margin="3" />
+                    <local_gui:AugmentedButton
+                        Name="ButtonDownload"
+                        MinWidth="100"
+                        MinHeight="20"
+                        DockPanel.Dock="Right" />
+                    <local_gui:AugmentedButton
+                        Name="ButtonCancel"
+                        MinWidth="100"
+                        MinHeight="20"
+                        Margin="3"
+                        DockPanel.Dock="Left" />
                 </DockPanel>
             </DockPanel>
         </local_gui:AugmentedPadder>
-        <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+        <!--  The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
         <local_gui:AugmentedPadder DockPanel.Dock="Top">
-            <StackPanel >
+            <StackPanel>
                 <TextBlock>
                     Please select the Bundle Library Manifest file for the Bundle Library you wish to download:
                 </TextBlock>
                 <DockPanel>
-                    <Button DockPanel.Dock="Right" Name="ObjButtonManifestFilenameChoose">
+                    <Button Name="ObjButtonManifestFilenameChoose" DockPanel.Dock="Right">
                         ...
                     </Button>
-                    <TextBox IsEnabled="False" Name="TxtManifestFilename"/>
+                    <TextBox Name="TxtManifestFilename" IsEnabled="False" />
                 </DockPanel>
-                <TextBlock Margin="10" >
+                <TextBlock Margin="10">
                     Bundle Version
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding Version}" />
-                <TextBlock Margin="3" >
+                <TextBlock Margin="3">
                     Bundle Library Title
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding Title}" />
-                <TextBlock Margin="3" >
+                <TextBlock Margin="3">
                     Bundle Library Description
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding Description}" />
-                <TextBlock Margin="3" >
+                <TextBlock Margin="3">
                     Bundle Library Comments
                 </TextBlock>
-                <TextBox IsEnabled="False" Text="{Binding Comments}" Height="50" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
-                <TextBlock Margin="3" >
+                <TextBox
+                    Height="50"
+                    AcceptsReturn="True"
+                    IsEnabled="False"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    Text="{Binding Comments}" />
+                <TextBlock Margin="3">
                     Base url where Bundle will be hosted
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding BaseUrl}" />
-                <TextBlock Margin="3" >
+                <TextBlock Margin="3">
                     Bundle support email address
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding SupportEmail}" />
-                <CheckBox IsEnabled="False" IsChecked="{Binding IncludesPDFs}" Margin="3" >
+                <CheckBox
+                    Margin="3"
+                    IsChecked="{Binding IncludesPDFs}"
+                    IsEnabled="False">
                     Include PDFs in Bundle?
                 </CheckBox>
             </StackPanel>

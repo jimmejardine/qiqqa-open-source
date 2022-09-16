@@ -23,6 +23,8 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
     {
         public BundleLibraryJoiningControl()
         {
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             Title =
@@ -126,9 +128,7 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleDownloading
 
         private void ObjButtonManifestFilenameChoose_Click(object sender, RoutedEventArgs e)
         {
-#if DEBUG
             if (Runtime.IsRunningInVisualStudioDesigner) return;
-#endif
 
             try
             {

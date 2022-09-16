@@ -15,7 +15,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         private double actual_height;
         private WordList last_selected_words = WORDS_EMPTY;
 
-        public WordList OnDragStarted(TextLayerSelectionMode text_layer_selection_mode, WordList words, double actual_width, double actual_height, bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
+        public void OnDragStarted(TextLayerSelectionMode text_layer_selection_mode, WordList words, double actual_width, double actual_height, bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
         {
             this.text_layer_selection_mode = text_layer_selection_mode;
             this.words = words;
@@ -25,7 +25,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
             if (null == words)
             {
                 Logging.Info("OCR has not been done so no text to select");
-                return WORDS_EMPTY;
+                return;
             }
 
             if (button_left_pressed)
@@ -44,12 +44,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
                         selected_words.Add(word);
                     }
                 }
-
-                return selected_words;
-            }
-            else
-            {
-                return WORDS_EMPTY;
             }
         }
         public WordList OnDragInProgress(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_move_point)
@@ -171,7 +165,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
                 }
             }
 
-            // If they didnt click directly on a boundary word, look for the nearest word            
+            // If they didnt click directly on a boundary word, look for the nearest word
             if (null == word_down)
             {
                 word_down = FindNearestWord(words, down_left, down_top);

@@ -14,12 +14,9 @@ namespace Qiqqa.Synchronisation.GUI
         }
 
         public bool UserRequestedSync { get; set; }
-        public bool SyncMetadata { get; set; }
-        public bool SyncDocuments { get; set; }
+        public bool SyncLibrary { get; set; }
 
-        public bool CanSyncMetadata => library_sync_detail.sync_decision.can_sync_metadata;
-
-        public bool CanSyncDocuments => library_sync_detail.sync_decision.can_sync;
+        public bool CanSyncLibrary => library_sync_detail.sync_decision.can_sync;
 
         public bool IsReadOnly => library_sync_detail.sync_decision.is_readonly;
 

@@ -22,7 +22,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
     {
         private PDFAnnotationLayer pdf_annotation_layer;
         private PDFAnnotation pdf_annotation;
-        private PDFRendererControlStats pdf_renderer_control_stats;
         private AugmentedToolWindow pdf_annotation_editor_control_popup;
         private double actual_page_width;
         private double actual_page_height;
@@ -30,11 +29,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
         private bool scaling_because_of_double_tap = false;
         private Point mouse_down_position;
 
-        public PDFAnnotationItem(PDFAnnotationLayer pdf_annotation_layer, PDFAnnotation pdf_annotation, PDFRendererControlStats pdf_renderer_control_stats)
+        public PDFAnnotationItem(PDFAnnotationLayer pdf_annotation_layer, PDFAnnotation pdf_annotation)
         {
             this.pdf_annotation_layer = pdf_annotation_layer;
             this.pdf_annotation = pdf_annotation;
-            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
 
             DataContext = pdf_annotation.Bindable;
 
@@ -69,12 +67,19 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
             ReColor();
 
-            this.Unloaded += PDFAnnotationItem_Unloaded;
+            //Unloaded += PDFAnnotationItem_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
         }
 
         private void PDFAnnotationItem_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
 
         private void ObjTagEditorControl_LostFocus(object sender, RoutedEventArgs e)
@@ -89,7 +94,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         private void ButtonAnnotationDetails_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // If we have never had a popup, create it now
+            // If we have never had a pop-up, create it now
             if (null == pdf_annotation_editor_control_popup)
             {
                 PDFAnnotationEditorControl pdf_annotation_editor_control = new PDFAnnotationEditorControl();
@@ -200,7 +205,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
         {
             ReColor();
 
-            // If we are suddenly deleted, we need to cloe our popup and notify our parent so they can remove us from their viewing list
+            // If we are suddenly deleted, we need to cloe our pop-up and notify our parent so they can remove us from their viewing list
             if (pdf_annotation.Deleted)
             {
                 pdf_annotation_layer.DeletePDFAnnotationItem(this);
@@ -315,6 +320,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
                         ObjTagEditorControl.TagFeature_Add = null;
                         ObjTagEditorControl.TagFeature_Remove = null;
+
+                        Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                     }
                 });
 
@@ -328,7 +335,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
                 {
                     pdf_annotation_layer = null;
                     pdf_annotation = null;
-                    pdf_renderer_control_stats = null;
 
                     pdf_annotation_editor_control_popup = null;
                 });

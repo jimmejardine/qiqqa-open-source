@@ -13,26 +13,26 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
     /// </summary>
     public partial class PDFHandLayer : PageLayer, IDisposable
     {
-        private PDFRendererControlStats pdf_renderer_control_stats;
         private int page;
-        private PDFRendererControl pdf_renderer_control;
+        private WeakReference<PDFRendererControl> pdf_renderer_control;
         private bool mouse_pressed = false;
         private Point mouse_down_position;
         private Point mouse_last_position;
         private Point mouse_last_delta = new Point();
 
-        public PDFHandLayer(PDFRendererControlStats pdf_renderer_control_stats, int page, PDFRendererControl pdf_renderer_control)
+        public PDFHandLayer(PDFRendererControl pdf_renderer_control, int page)
         {
             WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
-            this.pdf_renderer_control_stats = pdf_renderer_control_stats;
             this.page = page;
-            this.pdf_renderer_control = pdf_renderer_control;
+            this.pdf_renderer_control = new WeakReference<PDFRendererControl>(pdf_renderer_control);
 
             InitializeComponent();
 
             Background = Brushes.Transparent;
             Cursor = Cursors.Hand;
+
+            PDFRendererControlStats pdf_renderer_control_stats = pdf_renderer_control.GetPDFRendererControlStats();
 
             int start_page_offset = pdf_renderer_control_stats.StartPageOffset;
             if (0 != start_page_offset)
@@ -48,51 +48,83 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
             MouseUp += PDFHandLayer_MouseUp;
             MouseMove += PDFHandLayer_MouseMove;
 
-            this.Unloaded += PDFHandLayer_Unloaded;
+            //Unloaded += PDFHandLayer_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
+
+        private PDFRendererControl GetPDFRendererControl()
+        {
+            if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
+            {
+                return control;
+            }
+            return null;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
         }
 
         private void PDFHandLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
 
         private void PDFHandLayer_MouseUp(object sender, MouseButtonEventArgs e)
         {
             mouse_pressed = false;
+
             ReleaseMouseCapture();
 
-            pdf_renderer_control.ScrollPageArea(new Point(0, 0), mouse_last_delta);
+            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
+
+                if (pdf_renderer_control != null)
+            {
+                pdf_renderer_control.ScrollPageArea(new Point(0, 0), mouse_last_delta);
+            }
 
             e.Handled = true;
         }
 
         private void PDFHandLayer_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            mouse_pressed = true;
-            mouse_last_position = mouse_down_position = e.GetPosition(pdf_renderer_control);
+            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
 
-            mouse_last_delta.X = 0;
-            mouse_last_delta.Y = 0;
+            if (pdf_renderer_control != null)
+            {
+                mouse_pressed = true;
 
-            CaptureMouse();
+                mouse_last_position = mouse_down_position = e.GetPosition(pdf_renderer_control);
+
+                mouse_last_delta.X = 0;
+                mouse_last_delta.Y = 0;
+
+                CaptureMouse();
+            }
         }
 
         private void PDFHandLayer_MouseMove(object sender, MouseEventArgs e)
         {
-            Point mouse_current_position = e.GetPosition(pdf_renderer_control);
+            PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
 
-            if (mouse_pressed)
+            if (pdf_renderer_control != null)
             {
-                if (mouse_last_position.X != mouse_current_position.X || mouse_last_position.Y != mouse_current_position.Y)
+                Point mouse_current_position = e.GetPosition(pdf_renderer_control);
+
+                if (mouse_pressed)
                 {
-                    mouse_last_delta.X = mouse_last_position.X - mouse_current_position.X;
-                    mouse_last_delta.Y = mouse_last_position.Y - mouse_current_position.Y;
+                    if (mouse_last_position.X != mouse_current_position.X || mouse_last_position.Y != mouse_current_position.Y)
+                    {
+                        mouse_last_delta.X = mouse_last_position.X - mouse_current_position.X;
+                        mouse_last_delta.Y = mouse_last_position.Y - mouse_current_position.Y;
 
-                    pdf_renderer_control.ScrollPageArea(mouse_last_delta, new Point(0, 0));
+                        pdf_renderer_control.ScrollPageArea(mouse_last_delta, new Point(0, 0));
+                    }
                 }
-            }
 
-            mouse_last_position = mouse_current_position;
+                mouse_last_position = mouse_current_position;
+            }
         }
 
         #region --- IDisposable ------------------------------------------------------------------------
@@ -144,6 +176,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
                     MouseDown -= PDFHandLayer_MouseDown;
                     MouseUp -= PDFHandLayer_MouseUp;
                     MouseMove -= PDFHandLayer_MouseMove;
+
+                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>
@@ -154,7 +188,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Hand
                 WPFDoEvents.SafeExec(() =>
                 {
                     // Clear the references for sanity's sake
-                    pdf_renderer_control_stats = null;
                     pdf_renderer_control = null;
                 });
 

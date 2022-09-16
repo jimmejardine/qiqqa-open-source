@@ -7,6 +7,7 @@ using icons;
 using Qiqqa.Common.GUI;
 using Utilities;
 using Utilities.Misc;
+using Utilities.GUI;
 
 namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 {
@@ -38,6 +39,8 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private WebLibraryPicker()
         {
+            //Theme.Initialize(); -- already done in StandardWindow base class
+
             InitializeComponent();
 
             Title = TITLE;

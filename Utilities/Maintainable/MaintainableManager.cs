@@ -274,7 +274,7 @@ namespace Utilities.Maintainable
             while (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
             {
                 if (!IsHoldOffPending(do_maintenance_delegate_wrapper.hold_off_level)) break;
-                daemon.Sleep(15000);
+                daemon.Sleep(Math.Max(250, do_maintenance_delegate_wrapper.delay_before_start_milliseconds / 10));
             }
 
             // only sleep the extra delay time when there's still a chance we will be running the actual thread code.

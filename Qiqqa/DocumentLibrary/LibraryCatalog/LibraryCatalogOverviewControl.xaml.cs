@@ -69,6 +69,11 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             MouseLeave += LibraryCatalogOverviewControl_MouseLeave;
 
             DataContextChanged += LibraryCatalogOverviewControl_DataContextChanged;
+
+            if (Runtime.IsRunningInVisualStudioDesigner)
+            {
+				//...
+            }
         }
 
         private void ButtonThemeSwatch_Click(object sender, RoutedEventArgs e)
@@ -110,10 +115,9 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                         _library_catalog_control = GUITools.GetParentControl<LibraryCatalogControl>(this);
                     }
                 }
-
                 catch (Exception ex)
                 {
-                    Logging.Warn(ex, "There was a problem while trying to detemine the parent of the library catalog overview control");
+                    Logging.Warn(ex, "There was a problem while trying to determine the parent of the library catalog overview control");
                     _library_catalog_control = null;
                 }
 

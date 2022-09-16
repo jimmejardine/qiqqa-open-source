@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Media;
@@ -40,18 +41,36 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
             RebuildInkParameters();
         }
 
-        private PDFRendererControl pdf_renderer_control = null;
+        private WeakReference<PDFRendererControl> pdf_renderer_control = null;
         public PDFRendererControl PDFRendererControl
         {
-            get => pdf_renderer_control;
-            set => pdf_renderer_control = value;
+            get
+            {
+                if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
+                {
+                    return control;
+                }
+                return null;
+            }
+            set
+            {
+                if (pdf_renderer_control == null)
+                {
+                    pdf_renderer_control = new WeakReference<PDFRendererControl>(value);
+                }
+                else
+                {
+                    pdf_renderer_control.SetTarget(value);
+                }
+            }
         }
+
 
         private void RaiseInkChange(InkCanvasEditingMode inkCanvasEditingMode)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_ChangeInkEditingMode);
 
-            pdf_renderer_control.RaiseInkChange(inkCanvasEditingMode);
+            PDFRendererControl.RaiseInkChange(inkCanvasEditingMode);
         }
 
         private void RebuildInkParameters()
@@ -62,7 +81,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.CanvasToolbars
 
             drawingAttributes.Color = ObjColorPicker.SelectedColor;
 
-            pdf_renderer_control.RaiseInkChange(drawingAttributes);
+            PDFRendererControl.RaiseInkChange(drawingAttributes);
         }
 
         private void ButtonSelect_Click(object sender, RoutedEventArgs e)

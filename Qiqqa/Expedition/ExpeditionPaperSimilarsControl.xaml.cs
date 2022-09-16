@@ -6,6 +6,8 @@ using System.Windows.Input;
 using Qiqqa.Common.GUI;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
+using Utilities.GUI;
+using Utilities.Misc;
 using Utilities.Reflection;
 
 namespace Qiqqa.Expedition
@@ -51,28 +53,40 @@ namespace Qiqqa.Expedition
                 return;
             }
 
+            ASSERT.Test(this.IsHitTestVisible);
+
             PDFDocument pdf_document = pdf_document_bindable.Underlying;
-            List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(pdf_document, NumberOfRelevantPapersToDisplay);
-            foreach (ExpeditionPaperSuggestions.Result result in results)
+
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                // Do we have specific event handling logic?                        
-                MouseButtonEventHandler mouse_down_event_handler = null;
-                if (null != PDFDocumentSelected)
+                List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(pdf_document, NumberOfRelevantPapersToDisplay);
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
-                    mouse_down_event_handler = DocumentDocumentPressed_MouseButtonEventHandler;
-                }
+                    ASSERT.Test(this.IsHitTestVisible);
 
-                string doc_percentage = String.Format("{0:N0}%", 100 * result.relevance);
+                    foreach (ExpeditionPaperSuggestions.Result result in results)
+                    {
+                        // Do we have specific event handling logic?
+                        MouseButtonEventHandler mouse_down_event_handler = null;
+                        if (null != PDFDocumentSelected)
+                        {
+                            mouse_down_event_handler = DocumentDocumentPressed_MouseButtonEventHandler;
+                        }
 
-                bool alternator = false;
-                TextBlock text_doc =
-                    ShowRelevancePercentage
-                        ? ListFormattingTools.GetDocumentTextBlock(result.pdf_document, ref alternator, Features.Expedition_TopicDocument, mouse_down_event_handler, doc_percentage + " - ")
-                        : ListFormattingTools.GetDocumentTextBlock(result.pdf_document, ref alternator, Features.Expedition_TopicDocument, mouse_down_event_handler, null);
-                ObjPapers.Children.Add(text_doc);
-            }
+                        string doc_percentage = String.Format("{0:N0}%", 100 * result.relevance);
 
-            TxtPleaseRunExpedition.Visibility = Visibility.Collapsed;
+                        bool alternator = false;
+                        TextBlock text_doc =
+                            ShowRelevancePercentage
+                                ? ListFormattingTools.GetDocumentTextBlock(result.pdf_document, ref alternator, Features.Expedition_TopicDocument, mouse_down_event_handler, doc_percentage + " - ")
+                                : ListFormattingTools.GetDocumentTextBlock(result.pdf_document, ref alternator, Features.Expedition_TopicDocument, mouse_down_event_handler, null);
+                        ObjPapers.Children.Add(text_doc);
+                    }
+
+                    TxtPleaseRunExpedition.Visibility = Visibility.Collapsed;
+                });
+            });
         }
 
         private void DocumentDocumentPressed_MouseButtonEventHandler(object sender, MouseButtonEventArgs e)

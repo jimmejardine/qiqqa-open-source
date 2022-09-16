@@ -178,6 +178,8 @@ namespace Qiqqa.InCite
             if (null != text_block)
             {
                 ListFormattingTools.DocumentTextBlockTag tag = (ListFormattingTools.DocumentTextBlockTag)text_block.Tag;
+                ASSERT.Test(tag != null);
+                ASSERT.Test(tag.pdf_document != null);
 
                 if (as_snippet)
                 {

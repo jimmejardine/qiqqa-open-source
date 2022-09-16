@@ -45,12 +45,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
             RaiseInkChange(InkCanvasEditingMode.Ink);
 
-            this.Unloaded += PDFInkLayer_Unloaded;
+            //Unloaded += PDFInkLayer_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Dispose();
         }
 
         private void PDFInkLayer_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
 
         public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
@@ -214,6 +220,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
                 {
                     // Clear the references for sanity's sake
                     pdf_document = null;
+
+                    Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
                 });
 
                 WPFDoEvents.SafeExec(() =>

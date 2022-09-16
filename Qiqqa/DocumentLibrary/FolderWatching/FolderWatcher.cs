@@ -154,6 +154,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         }
 
         public const int MAX_SECONDS_PER_ITERATION = 5 * 1000;
+        public const int SECONDS_TO_RELAX_PER_ITERATION = (int)(1.5 * 1000);
 
         internal class WatchStatistics
         {
@@ -161,6 +162,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             public int processed_file_count;
             public int scanned_file_count;
             public int skipped_file_count;
+            public int files_added_since_last_sleep;
 
             // Store the *hashes* of the files we have processed during this run.
             //
@@ -183,6 +185,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 processed_file_count = 0;
                 scanned_file_count = 0;
                 skipped_file_count = 0;
+                files_added_since_last_sleep = 0;
 
                 file_hashes_added = new Dictionary<string, string>();
 
@@ -193,6 +196,46 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         }
 
         private WatchStatistics watch_stats;
+
+
+        public class GlobalWatchStatistics
+        {
+            private double scanned_file_count;
+            private long previous_promillage;
+            private object _lock = new object();
+
+            // Return true when there's a significant change in promillage (one or more)
+            public void Inc(double step = 1.0)
+            {
+                lock (_lock)
+                {
+                    scanned_file_count += Math.Max(0.001, step);
+
+                    long rv = (long)scanned_file_count;
+                    if (previous_promillage != rv)
+                    {
+                        previous_promillage = rv;
+
+                        // When we hit the upper bound, we RESET the promillage counter:
+                        if (rv >= 1000)
+                        {
+                            scanned_file_count = 0;
+                        }
+
+                        StatusManager.Instance.UpdateStatus("FolderWatcher", "📂👀", rv, 1000);
+                    }
+                }
+            }
+
+            public GlobalWatchStatistics()
+            {
+                scanned_file_count = 0;
+                previous_promillage = -1;
+            }
+        }
+
+        // Track global statistics for UI display
+        public static GlobalWatchStatistics global_watch_stats = new GlobalWatchStatistics();
 
         /// <summary>
         /// The daemon code calls this occasionally to poke it into action to do work
@@ -238,6 +281,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 return;
             }
 
+            Stopwatch breathing_time = Stopwatch.StartNew();
+
             Logging.Debug("FolderWatcher BEGIN");
 
             // To recover from a fatal library failure and re-indexing attempt for very large libraries,
@@ -281,6 +326,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
+                if (!ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
+                {
+                    Logging.Info("Watched folder {0} will not be watched/scanned due to Developer Override setting {1}=false", configured_folder_to_watch, nameof(FolderWatcher));
+                    break;
+                }
+
                 // reset counters for logging/reporting:
                 watch_stats.Reset(daemon);
 
@@ -314,6 +365,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 //     in a log, so that the enumeration continues as in the case of Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.ContinueOnException
                 //     option but the user will be informed about errors.
                 //
+                global_watch_stats.Inc();
+
                 DirectoryEnumerationFilters filter = new DirectoryEnumerationFilters();
                 filter.ErrorFilter = DecideIfErrorDuringDirScan;
                 filter.InclusionFilter = DecideIfIncludeDuringDirScan;
@@ -364,6 +417,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     }
                 }
 
+                Logging.Debug特("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
+
                 // Create the import records
                 List<FilenameWithMetadataImport> filename_with_metadata_imports = new List<FilenameWithMetadataImport>();
                 foreach (var filename in filenames_that_are_new)
@@ -385,7 +440,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 // Get the library to import all these new files
                 if (filename_with_metadata_imports.Count > 0)
                 {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(LibraryRef, true, true, filename_with_metadata_imports.ToArray());
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(LibraryRef, true, filename_with_metadata_imports.ToArray());
 
                     // TODO: refactor the ImportingIntoLibrary class
                 }
@@ -394,7 +449,16 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
                 Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", watch_stats.processed_file_count, watch_stats.processing_file_count, watch_stats.scanned_file_count, watch_stats.skipped_file_count, watch_stats.scanned_file_count - watch_stats.skipped_file_count - watch_stats.processing_file_count);
 
-                Logging.Debug("FolderWatcher End-Of-Round");
+                if (watch_stats.index_processing_clock.ElapsedMilliseconds >= FolderWatcher.MAX_SECONDS_PER_ITERATION)
+                {
+                    Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed, {1} threads pending", watch_stats.index_processing_clock.ElapsedMilliseconds / 1E3, SafeThreadPool.QueuedThreadCount);
+
+                    watch_stats.daemon.Sleep(SECONDS_TO_RELAX_PER_ITERATION);
+
+                    watch_stats.index_processing_clock.Restart();
+                }
+
+                Logging.Debug("FolderWatcher End-Of-Round ({0} ms)", clk.ElapsedMilliseconds);
             }
 
             Logging.Debug("FolderWatcher END");
@@ -456,25 +520,13 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 throw new OperationCanceledException("FolderWatcher: Breaking out of inner processing loop due to disposed library and/or watch manager");
             }
 
+            global_watch_stats.Inc(0.1);
+
             bool have_we_slept = false;
 
             if (watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION)
             {
-                Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed, {1} threads pending", watch_stats.index_processing_clock.ElapsedMilliseconds / 1E3, SafeThreadPool.QueuedThreadCount);
-
-                // Collect various 'pending' counts to help produce a stretched sleep/delay period
-                // in order to allow the other background tasks to keep up with the PDF series being
-                // fed into them by this task.
-                int thr_cnt = Math.Max(0, SafeThreadPool.QueuedThreadCount - 2);
-                int queued_cnt = Qiqqa.Documents.Common.DocumentQueuedStorer.Instance.PendingQueueCount;
-                Qiqqa.Documents.PDF.PDFRendering.PDFTextExtractor.Instance.GetJobCounts(out var textify_count, out var ocr_count);
-
-                int duration = 1 * 1000 + thr_cnt * 250 + queued_cnt * 20 + textify_count * 50 + ocr_count * 500;
-
-                watch_stats.daemon.Sleep(Math.Min(60 * 1000, duration));
-
-                // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
-                WPFDoEvents.WaitForUIThreadActivityDone();
+                watch_stats.daemon.Sleep(SECONDS_TO_RELAX_PER_ITERATION);
 
                 // reset:
                 watch_stats.index_processing_clock.Restart();
@@ -556,6 +608,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 }
 
                 watch_stats.file_hashes_added.Add(fingerprint, obj.FullPath);
+                watch_stats.files_added_since_last_sleep++;
 
                 return true;
             }
