@@ -27,15 +27,6 @@
             <local_dualtab:DualTabbedLayout Name="ObjTabs">
                 <ScrollViewer Name="TabMetadata" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <local_gui:AugmentedInfoBarItemControl Header="Reference Summary">
-                            <local_metadata:QuickMetadataControl />
-                        </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedInfoBarItemControl Header="Reference Details (BibTeX)">
-                            <local_metadata:BibTeXControl />
-                        </local_gui:AugmentedInfoBarItemControl>
-                        <local_gui:AugmentedInfoBarItemControl Collapsed="True" Header="Password">
-                            <local_metadata:PasswordControl />
-                        </local_gui:AugmentedInfoBarItemControl>
                     </StackPanel>
                 </ScrollViewer>
                 <ScrollViewer Name="TabUserData" VerticalScrollBarVisibility="Auto">
