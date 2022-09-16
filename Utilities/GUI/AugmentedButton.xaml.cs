@@ -5,6 +5,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
 using System.Windows.Media;
 using icons;
+using Utilities.Misc;
 
 namespace Utilities.GUI
 {
@@ -27,6 +28,12 @@ namespace Utilities.GUI
             HorizontalContentAlignment = HorizontalAlignment.Stretch;
             VerticalContentAlignment = VerticalAlignment.Stretch;
 
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            VerticalAlignment = VerticalAlignment.Stretch;
+
+            TextCaption.HorizontalAlignment = HorizontalAlignment.Stretch;
+            TextCaption.VerticalAlignment = VerticalAlignment.Stretch;
+
             RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             IsEnabledChanged += AugmentedButton_IsEnabledChanged;
@@ -40,34 +47,44 @@ namespace Utilities.GUI
 
             ApplyStyling(this);
 
-            HorizontalAlignment = HorizontalAlignment.Stretch;
-            VerticalAlignment = VerticalAlignment.Stretch;
-            HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            VerticalContentAlignment = VerticalAlignment.Stretch;
-
-            ObjPanelCentered.Visibility = System.Windows.Visibility.Collapsed;
-
             cachedDefaultFontSize = FontSize;
             if (cachedDefaultFontSize < 1)        // don't check against exact 0 as size is a `double` type
             {
                 cachedDefaultFontSize = 12;
             }
+
+#if DEBUG
+            // When in Designer mode, show a bit of stuff or the thing looks weird:
+            if (Runtime.IsRunningInVisualStudioDesigner)
+            {
+                if (String.IsNullOrWhiteSpace(Caption))
+                {
+                    Caption = "Sample in DesignMode";
+                }
+                if (ImageIcon == null || ImageIcon.Source == null || ImageIcon.Width < 1 || ImageIcon.Height < 1)
+                {
+                    ImageIcon.Source = Icons.GetAppIcon(Icons.SaveAs);
+                }
+            }
+#endif
         }
 
         public bool CenteredMode
         {
-            get => (ObjPanelCentered.Visibility == System.Windows.Visibility.Visible);
+            // Visual Studio b0rks in Designer when this one doesn't have a get method:
+            get
+            {
+                return TextCaption.HorizontalAlignment == HorizontalAlignment.Center;
+            }
             set
             {
                 if (value)
                 {
-                    ObjPanelDetailed.Visibility = System.Windows.Visibility.Collapsed;
-                    ObjPanelCentered.Visibility = System.Windows.Visibility.Visible;
+                    TextCaption.HorizontalAlignment = HorizontalAlignment.Center;
                 }
                 else
                 {
-                    ObjPanelDetailed.Visibility = System.Windows.Visibility.Visible;
-                    ObjPanelCentered.Visibility = System.Windows.Visibility.Collapsed;
+                    TextCaption.HorizontalAlignment = HorizontalAlignment.Left;
                 }
             }
         }
@@ -93,47 +110,46 @@ namespace Utilities.GUI
 
         public string Caption
         {
-            get => TextCaptionCentered.Text;
+            get => TextCaption.Text;
 
             set
             {
-                if (null != value)
+                if (!String.IsNullOrEmpty(value))
                 {
                     TextCaption.Visibility = Visibility.Visible;
                     TextCaption.Text = value;
-                    TextCaptionCentered.Text = value;
 
-                    RecheckSpacerVisibility();
+                    RecheckVisibility();
                 }
                 else
                 {
                     TextCaption.Visibility = Visibility.Collapsed;
                     TextCaption.Text = value;
-                    TextCaptionCentered.Text = value;
 
-                    RecheckSpacerVisibility();
+                    RecheckVisibility();
                 }
             }
         }
 
-        private void RecheckSpacerVisibility()
+        private void RecheckVisibility()
         {
-            if (Visibility.Collapsed == TextCaption.Visibility || Visibility.Collapsed == ImageIcon.Visibility)
+            if (Visibility.Visible == TextCaption.Visibility && Visibility.Visible == ImageIcon.Visibility)
             {
-                ObjSpacer.Visibility = Visibility.Collapsed;
+                //TextCaption.HorizontalAlignment = HorizontalAlignment.Left;
+                MinWidth = IconWidth + 25;
+            }
+            else if (Visibility.Visible == TextCaption.Visibility)
+            {
+                //TextCaption.HorizontalAlignment = HorizontalAlignment.Center;
+                MinWidth = 25;
+            }
+            else if (Visibility.Visible == ImageIcon.Visibility)
+            {
+                MinWidth = IconWidth;
             }
             else
             {
-                ObjSpacer.Visibility = Visibility.Visible;
-            }
-
-            if (Visibility.Visible == TextCaption.Visibility)
-            {
-                MinWidth = (IconVisibility == Visibility.Visible ? IconWidth : 25);
-            }
-            else
-            {
-                MinWidth = 0;
+                MinWidth = 25;
             }
         }
 
@@ -144,7 +160,7 @@ namespace Utilities.GUI
             {
                 ImageIcon.Visibility = value;
 
-                RecheckSpacerVisibility();
+                RecheckVisibility();
             }
         }
 
@@ -163,7 +179,7 @@ namespace Utilities.GUI
                     ImageIcon.Visibility = Visibility.Visible;
                 }
 
-                RecheckSpacerVisibility();
+                RecheckVisibility();
             }
         }
 
@@ -181,36 +197,36 @@ namespace Utilities.GUI
             get => ImageIcon.Height;
         }
 
+        private Dock _dockmode = Dock.Bottom;
+
         public Dock CaptionDock
         {
-            get => Dock.Bottom;
+            get => _dockmode;
 
             set
             {
+                _dockmode = value;
+
                 switch (value)
                 {
                     case Dock.Top:
                         TextCaption.TextAlignment = TextAlignment.Center;
                         DockPanel.SetDock(ImageIcon, Dock.Bottom);
-                        DockPanel.SetDock(ObjSpacer, Dock.Bottom);
                         DockPanel.SetDock(TextCaption, Dock.Bottom);
                         break;
                     case Dock.Bottom:
                         TextCaption.TextAlignment = TextAlignment.Center;
                         DockPanel.SetDock(ImageIcon, Dock.Top);
-                        DockPanel.SetDock(ObjSpacer, Dock.Top);
                         DockPanel.SetDock(TextCaption, Dock.Top);
                         break;
                     case Dock.Left:
                         TextCaption.TextAlignment = TextAlignment.Right;
                         DockPanel.SetDock(ImageIcon, Dock.Right);
-                        DockPanel.SetDock(ObjSpacer, Dock.Right);
                         DockPanel.SetDock(TextCaption, Dock.Right);
                         break;
                     case Dock.Right:
                         TextCaption.TextAlignment = TextAlignment.Left;
                         DockPanel.SetDock(ImageIcon, Dock.Left);
-                        DockPanel.SetDock(ObjSpacer, Dock.Left);
                         DockPanel.SetDock(TextCaption, Dock.Left);
                         break;
                     default:
@@ -250,7 +266,6 @@ namespace Utilities.GUI
         {
             const double THRESHOLD = 48;
 
-            //if (!this.NeverMeasured)
             if (AutoScaleText)
             {
                 if (ActualWidth > 0)

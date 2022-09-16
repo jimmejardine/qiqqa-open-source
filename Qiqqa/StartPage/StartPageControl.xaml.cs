@@ -349,12 +349,15 @@ namespace Qiqqa.StartPage
         {
             Logging.Debug("StartPageControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                DataContext = null;
-            });
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
 
-            ++dispose_count;
+                ++dispose_count;
+            });
         }
     }
 }

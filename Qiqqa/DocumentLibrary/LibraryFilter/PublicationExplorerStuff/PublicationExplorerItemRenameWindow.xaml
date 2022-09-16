@@ -5,16 +5,12 @@
         xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
  >
     <DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-        <DockPanel DockPanel.Dock="Bottom">
-            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" MinHeight="20"  />
-            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" MinHeight="20"  />
+        <DockPanel DockPanel.Dock="Bottom" Margin="3" >
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdGenerate" MinHeight="20"  Margin="3"  />
+            <local_gui:AugmentedButton DockPanel.Dock="Right" Name="CmdCancel" MinHeight="20"  Margin="3"  />
             <Grid/>
         </DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-        <Grid>
+        <Grid Margin="3" >
             <local_gui:AugmentedBorder Grid.Column="0">
                 <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Auto">
                     <commongui:StandardFlowDocument>

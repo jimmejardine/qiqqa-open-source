@@ -64,6 +64,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Tools
             MenuItemAuthorAppend.Click += MenuItemAuthorAppend_Click;
 
             popup = new AugmentedPopup(this);
+
+            this.Unloaded += PDFTextSelectPopup_Unloaded;
+        }
+
+        private void PDFTextSelectPopup_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.selected_text = null;
+            this.pdf_document = null;
+            this.popup = null;
         }
 
         private void MenuItemBibTexSet_Click(object sender, RoutedEventArgs e)

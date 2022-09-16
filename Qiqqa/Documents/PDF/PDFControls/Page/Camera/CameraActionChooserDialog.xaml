@@ -26,8 +26,7 @@
             <local_gui:AugmentedButton Grid.Row="0" Grid.Column="0" Name="CmdImage"/>
             <!-- SocialMedia logo overlay -->
             <DockPanel Grid.Row="0" Grid.Column="1">
-                <Image DockPanel.Dock="Bottom" Name="ObjImageSocialMedia" Opacity="0.5" />
-                <local_gui:AugmentedSpacer />
+                <Image DockPanel.Dock="Bottom" Name="ObjImageSocialMedia" Opacity="0.5"  Margin="3" />
             </DockPanel>
         </Grid>
         <ScrollViewer Grid.Row="2" Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -42,8 +41,7 @@
             <local_gui:AugmentedButton Grid.Row="0" Grid.Column="1" Name="CmdTabulatedCharts"/>
             <!-- Datacopia logo overlay -->
             <DockPanel Grid.Row="0" Grid.Column="1">
-                <Image DockPanel.Dock="Bottom" Name="ObjImageDatacopia" Opacity="0.5" />
-                <local_gui:AugmentedSpacer />
+                <Image DockPanel.Dock="Bottom" Name="ObjImageDatacopia" Opacity="0.5"  Margin="3" />
             </DockPanel>
         </Grid>
         <ScrollViewer Grid.Row="4" Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">

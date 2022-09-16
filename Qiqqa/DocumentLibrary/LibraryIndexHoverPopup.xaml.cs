@@ -55,24 +55,27 @@ namespace Qiqqa.DocumentLibrary
         {
             Logging.Debug("LibraryIndexHoverPopup::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                ImageThumbnail.Visibility = Visibility.Collapsed;
-                ImageThumbnail.Source = null;
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ImageThumbnail.Visibility = Visibility.Collapsed;
+                    ImageThumbnail.Source = null;
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                pdf_document = null;
-                specific_pdf_annotation = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    pdf_document = null;
+                    specific_pdf_annotation = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    DataContext = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                DataContext = null;
-            });
-
-            ++dispose_count;
         }
 
         public void SetPopupContent(PDFDocument pdf_document, int page, PDFAnnotation specific_pdf_annotation = null)

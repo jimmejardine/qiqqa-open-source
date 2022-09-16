@@ -27,6 +27,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         private Dictionary<string, FolderWatcherRecord> folder_watcher_records = new Dictionary<string, FolderWatcherRecord>();
         private object folder_watcher_records_lock = new object();
+        // TODO: Remove the HashSet: > 1MByte for 7000 entries
         private HashSet<string> filenames_processed = new HashSet<string>();
         private int managed_thread_index = -1;
 

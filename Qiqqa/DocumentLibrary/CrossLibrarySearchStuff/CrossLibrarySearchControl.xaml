@@ -13,8 +13,7 @@
         </Grid.RowDefinitions>
         <DockPanel Background="{StaticResource Background_Brush_Blue_Dark}">
             <Image x:Name="ObjImage" DockPanel.Dock="Left" Width="64"/>
-            <local_gui:AugmentedSpacer DockPanel.Dock="Left" />
-            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="3" >
                 <local_gui:AugmentedBorder>
                     <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
                         <local_gui:AugmentedSearchBox Name="SearchQuick" EmptyTextPrompt="Search across all libraries..." />
@@ -24,8 +23,7 @@
             </StackPanel>
             <DockPanel DockPanel.Dock="Right" >
             </DockPanel>
-            <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-            <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled" Grid.Row="0">
+            <FlowDocumentScrollViewer IsToolBarVisible="False" VerticalScrollBarVisibility="Disabled" Grid.Row="0" Margin="3" >
                 <commongui:StandardFlowDocument Background="Transparent">
                     <Paragraph>
                         You can search across all your libraries using this screen.  Click on the coloured percentage scores button next to each search result to see where each document matches your search query.

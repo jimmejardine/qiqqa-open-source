@@ -5,9 +5,9 @@
   xmlns:local_bibtex="clr-namespace:Qiqqa.Documents.BibTeXEditor"
   xmlns:webbrowser="clr-namespace:Qiqqa.WebBrowsing"
   xmlns:commongui="clr-namespace:Qiqqa.Common.GUI"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-  mc:Ignorable="d" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
   Width="1024" Height="700"
   x:Name="BibTexSnifferWindow"
 >
@@ -99,8 +99,7 @@
                                     </StackPanel>
                                 </Grid>
                             </DockPanel>
-                            <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-                            <DockPanel>
+                            <DockPanel Margin="3" >
                                 <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonNext"/>
                                 <local_gui:AugmentedButton DockPanel.Dock="Right" Name="ButtonPrev"/>
                                 <Grid>
@@ -114,7 +113,7 @@
                         <Grid>
                             <ScrollViewer>
                                 <StackPanel>
-                                    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" Loaded="ObjBibTeXEditorControl_Loaded" SizeChanged="ObjBibTeXEditorControl_SizeChanged"  MinHeight="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                    <local_bibtex:BibTeXEditorControl x:Name="ObjBibTeXEditorControl" BibTeX="{Binding BibTex, Mode=TwoWay}" ForceHideNoBibTeXInstructions="True" Loaded="ObjBibTeXEditorControl_Loaded" SizeChanged="ObjBibTeXEditorControl_SizeChanged"  MinHeight="{Binding RelativeSource={RelativeSource FindAncestor,
     AncestorType={x:Type ScrollViewer}},Path=ActualHeight}"  />
                                 </StackPanel>
                             </ScrollViewer>

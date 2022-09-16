@@ -7,17 +7,12 @@
         <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
         <DockPanel DockPanel.Dock="Bottom">
             <DockPanel DockPanel.Dock="Right">
-                <local_gui:AugmentedButton Name="ButtonRefresh" DockPanel.Dock="Right" MinWidth="200"/>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="ButtonCiteApart" DockPanel.Dock="Right" MinWidth="200"/>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="ButtonCiteTogether" DockPanel.Dock="Right" MinWidth="200"/>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="ButtonSnippet" DockPanel.Dock="Right"/>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left"/>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
-                <CheckBox Name="ObjCheckKeepOpen" DockPanel.Dock="Left">
+                <local_gui:AugmentedButton Name="ButtonRefresh" DockPanel.Dock="Right" MinWidth="200" Margin="3" />
+                <local_gui:AugmentedButton Name="ButtonCiteApart" DockPanel.Dock="Right" MinWidth="200" Margin="3" />
+                <local_gui:AugmentedButton Name="ButtonCiteTogether" DockPanel.Dock="Right" MinWidth="200" Margin="3" />
+                <local_gui:AugmentedButton Name="ButtonSnippet" DockPanel.Dock="Right" Margin="3" />
+                <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" Margin="3" />
+                <CheckBox Name="ObjCheckKeepOpen" DockPanel.Dock="Left" Margin="3" >
                     <StackPanel>
                         <TextBlock>
                             Keep this
@@ -35,8 +30,7 @@
         <!-- The buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
         <local_gui:AugmentedBorder DockPanel.Dock="Top">
             <DockPanel>
-                <local_gui:AugmentedButton Name="ObjIcon" DockPanel.Dock="Left" />
-                <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
+                <local_gui:AugmentedButton Name="ObjIcon" DockPanel.Dock="Left"  Margin="3" />
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>

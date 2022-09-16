@@ -9,8 +9,7 @@
                 Items in cluster (ENTER opens, DEL deletes):
             </TextBlock>
             <ListBox Name="ObjCitationsInCluster" />
-            <local_gui:AugmentedSpacer />
-            <TextBlock>
+            <TextBlock Margin="3" >
                 Specify page/section/chapter/etc:
             </TextBlock>
             <Grid>
@@ -41,8 +40,7 @@
                 </TextBlock>
                 <TextBox Grid.Row="3" Grid.Column="1" Name="ObjSuffix" MinWidth="50" />
             </Grid>
-            <local_gui:AugmentedSpacer />
-            <CheckBox Name="ObjCheckSeparateAuthorDate">
+            <CheckBox Name="ObjCheckSeparateAuthorDate" Margin="3" >
                 Separate author &amp; date?
             </CheckBox>
             <TextBlock>
@@ -50,12 +48,9 @@
                     e.g. Rand (2008) vs. (Rand, 2008)
                 </Italic>
             </TextBlock>
-            <local_gui:AugmentedSpacer />
-            <DockPanel>
-                <local_gui:AugmentedButton Name="CmdApply" />
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedButton Name="CmdRevert" />
-                <local_gui:AugmentedSpacer />
+            <DockPanel >
+                <local_gui:AugmentedButton Name="CmdApply"  Margin="3" />
+                <local_gui:AugmentedButton Name="CmdRevert"  Margin="3" />
             </DockPanel>
         </StackPanel>
         <Grid Name="ObjGridNoCitationSelectedInstructions" >

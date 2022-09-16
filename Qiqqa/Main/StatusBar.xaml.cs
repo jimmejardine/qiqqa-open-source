@@ -55,6 +55,7 @@ namespace Qiqqa.Main
 
         private void CmdVersion_Click(object sender, RoutedEventArgs e)
         {
+            BackgroundWorkerDaemon.Instance.InitClientUpdater();
 
             e.Handled = true;
         }
@@ -90,7 +91,7 @@ namespace Qiqqa.Main
 
             if (do_invoke)
             {
-                WPFDoEvents.InvokeAsyncInUIThread(() => StatusManager_OnStatusEntryUpdate_GUI(), DispatcherPriority.Background);
+                WPFDoEvents.InvokeAsyncInUIThread(() => StatusManager_OnStatusEntryUpdate_GUI(), DispatcherPriority.Normal);
             }
         }
 
@@ -99,6 +100,7 @@ namespace Qiqqa.Main
             while (true)
             {
                 StatusManager.StatusEntry status_entry = null;
+                
                 //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (status_entries_still_to_process_lock)
                 {
@@ -109,15 +111,10 @@ namespace Qiqqa.Main
                         status_entry = pair.Value;
                         status_entries_still_to_process.Remove(pair.Key);
                     }
-                }
 
-                // Is there nothing left to do?
-                if (null == status_entry)
-                {
-                    //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
-                    lock (status_entries_still_to_process_lock)
+                    // Is there nothing left to do?
+                    if (null == status_entry)
                     {
-                        //l2_clk.LockPerfTimerStop();
                         status_entries_still_to_process_fresh_thread_running = false;
                         break;
                     }

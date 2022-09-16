@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -56,7 +57,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                 MaxRecordCount = 0;
             }
 
-            var items = web_library_detail.Xlibrary.LibraryDB.GetLibraryItems(TxtFingerprint.Text, TxtExtension.Text, MaxRecordCount);
+            var items = web_library_detail.Xlibrary.LibraryDB.GetLibraryItems(TxtExtension.Text, new List<string>() { TxtFingerprint.Text }, MaxRecordCount);
             if (0 == items.Count)
             {
                 MessageBoxes.Warn("No entry was found.");
@@ -186,7 +187,7 @@ namespace Qiqqa.DocumentLibrary.LibraryDBStuff
                             case "metadata":
                                 try
                                 {
-                                    PDFDocument doc = PDFDocument.LoadFromMetaData(web_library_detail, item.fingerprint, item.data, null);
+                                    PDFDocument doc = PDFDocument.LoadFromMetaData(web_library_detail, item.fingerprint, item.data);
                                     string bibtexStr = doc.BibTex;
                                     if (null == bibtexStr)
                                     {

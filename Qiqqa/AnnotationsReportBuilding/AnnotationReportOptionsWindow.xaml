@@ -8,8 +8,7 @@
   d:DesignHeight="633"
   >
     <DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
-        <DockPanel DockPanel.Dock="Bottom">
+        <DockPanel DockPanel.Dock="Bottom" Margin="3">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -20,7 +19,6 @@
                 <local_gui:AugmentedButton Name="CmdGenerate" MinHeight="20" MinWidth="100" Grid.Column="2" />
             </Grid>
         </DockPanel>
-        <local_gui:AugmentedSpacer DockPanel.Dock="Bottom" />
         <ScrollViewer>
             <StackPanel>
                 <local_gui:AugmentedInfoBarItemControl Header="Tag Filters">
@@ -28,7 +26,7 @@
                         <local_gui:NonScrollingFlowDocumentScrollViewer>
                             <commongui:StandardFlowDocument>
                                 <Paragraph>
-                                    Please select the annotation tags you want to filter into your annotation report.  
+                                    Please select the annotation tags you want to filter into your annotation report.
 				You will get a complete annotation report if you select either ALL tags or NO tags:
                                     <Hyperlink Name="CmdSelectAll">
                                         Select All

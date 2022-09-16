@@ -47,6 +47,8 @@ namespace Qiqqa.InCite
 
         public CSLProcessorOutputConsumer(string script_directory, string citations_javascript, BibliographyReadyDelegate brd, object user_argument)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             this.citations_javascript = citations_javascript;
             this.brd = brd;
             this.user_argument = user_argument;
@@ -402,33 +404,36 @@ namespace Qiqqa.InCite
         {
             Logging.Debug("CSLProcessorOutputConsumer::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources
-                    web_browser?.Dispose();
-                }
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        web_browser?.Dispose();
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    web_browser = null;
+
+                    brd = null;
+                    user_argument = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    position_to_inline.Clear();
+                    inline_to_positions.Clear();
+                    position_to_text.Clear();
+                    bibliography.Clear();
+                    logs.Clear();
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                web_browser = null;
-
-                brd = null;
-                user_argument = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                position_to_inline.Clear();
-                inline_to_positions.Clear();
-                position_to_text.Clear();
-                bibliography.Clear();
-                logs.Clear();
-            });
-
-            ++dispose_count;
         }
 
         #endregion

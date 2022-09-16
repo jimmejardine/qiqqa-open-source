@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
@@ -114,6 +115,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         public PDFRendererPageControl(int page, PDFRendererControl pdf_renderer_control, PDFRendererControlStats pdf_renderer_control_stats, bool add_bells_and_whistles)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             Theme.Initialize();
 
             InitializeComponent();
@@ -148,6 +151,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             SafeThreadPool.QueueUserWorkItem(o =>
             {
+                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
                 PopulateNeededLayers();
             });
         }
@@ -160,6 +165,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 if (null == CanvasTextSentence_)
                 {
+                    // WARNING: this UI thread check is necessary as I had quite a bit of trouble with this. Turns out
+                    // code internal to PDFAnnotationLayer constructor uses classes which are derived off system classes
+                    // (PageLayer, ...) which internally perform VerifyAccess() calls (the exception-throwing twin of
+                    // CheckAccess()) and thus fail with a dramatic STA-only exception when the *constructor* wasn't invoked
+                    // from the STA = UI thread to begin with!
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                     page_layers.Add(CanvasTextSentence_ = new PDFTextSentenceLayer(pdf_renderer_control_stats, page));
                     KeyboardNavigation.SetDirectionalNavigation(CanvasTextSentence_, KeyboardNavigationMode.None);
                     ReflectContentChildren();
@@ -175,6 +187,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 if (null == CanvasSearch_)
                 {
+                    // WARNING: this UI thread check is necessary as I had quite a bit of trouble with this. Turns out
+                    // code internal to PDFAnnotationLayer constructor uses classes which are derived off system classes
+                    // (PageLayer, ...) which internally perform VerifyAccess() calls (the exception-throwing twin of
+                    // CheckAccess()) and thus fail with a dramatic STA-only exception when the *constructor* wasn't invoked
+                    // from the STA = UI thread to begin with!
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                     page_layers.Add(CanvasSearch_ = new PDFSearchLayer(pdf_renderer_control_stats, page));
                     ReflectContentChildren();
                 }
@@ -189,6 +208,32 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 if (null == CanvasAnnotation_)
                 {
+                    // WARNING: this UI thread check is necessary as I had quite a bit of trouble with this. Turns out
+                    // code internal to PDFAnnotationLayer constructor uses classes which are derived off system classes
+                    // (PageLayer, ...) which internally perform VerifyAccess() calls (the exception-throwing twin of
+                    // CheckAccess()) and thus fail with a dramatic STA-only exception when the *constructor* wasn't invoked
+                    // from the STA = UI thread to begin with!
+                    //
+                    // Such an exception's stacktrace looks like this:
+                    //
+                    //```
+                    //at System.Windows.Input.InputManager..ctor()
+                    //at System.Windows.Input.InputManager.GetCurrentInputManagerImpl()
+                    //at System.Windows.Input.KeyboardNavigation..ctor()
+                    //at System.Windows.FrameworkElement.FrameworkServices..ctor()
+                    //at System.Windows.FrameworkElement.EnsureFrameworkServices()
+                    //at System.Windows.FrameworkElement..ctor()
+                    //at System.Windows.Controls.Panel..ctor()
+                    //at System.Windows.Controls.Canvas..ctor()
+                    //at Qiqqa.Documents.PDF.PDFControls.Page.Tools.PageLayer..ctor() in W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\Documents\PDF\PDFControls\Page\Tools\PageLayer.cs:line 10
+                    //at Qiqqa.Documents.PDF.PDFControls.Page.Annotation.PDFAnnotationLayer..ctor(PDFRendererControlStats pdf_renderer_control_stats, Int32 page) in W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\Documents\PDF\PDFControls\Page\Annotation\PDFAnnotationLayer.xaml.cs:line 25
+                    //at Qiqqa.Documents.PDF.PDFControls.Page.PDFRendererPageControl.get_CanvasAnnotation() in W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\Documents\PDF\PDFControls\Page\PDFRendererPageControl.xaml.cs:line 225
+                    //at Qiqqa.Documents.PDF.PDFControls.Page.PDFRendererPageControl.PopulateNeededLayers() in W:\Projects\sites\library.visyond.gov\80\lib\tooling\qiqqa\Qiqqa\Documents\PDF\PDFControls\Page\PDFRendererPageControl.xaml.cs:line 330
+                    //...
+                    //```
+                    //
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                     page_layers.Add(CanvasAnnotation_ = new PDFAnnotationLayer(pdf_renderer_control_stats, page));
                     KeyboardNavigation.SetDirectionalNavigation(CanvasAnnotation_, KeyboardNavigationMode.None);
                     ReflectContentChildren();
@@ -204,6 +249,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 if (null == CanvasHighlight_)
                 {
+                    // WARNING: this UI thread check is necessary as I had quite a bit of trouble with this. Turns out
+                    // code internal to PDFAnnotationLayer constructor uses classes which are derived off system classes
+                    // (PageLayer, ...) which internally perform VerifyAccess() calls (the exception-throwing twin of
+                    // CheckAccess()) and thus fail with a dramatic STA-only exception when the *constructor* wasn't invoked
+                    // from the STA = UI thread to begin with!
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                     page_layers.Add(CanvasHighlight_ = new PDFHighlightLayer(pdf_renderer_control_stats, page));
                     ReflectContentChildren();
                 }
@@ -218,6 +270,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 if (null == CanvasCamera_)
                 {
+                    // WARNING: this UI thread check is necessary as I had quite a bit of trouble with this. Turns out
+                    // code internal to PDFAnnotationLayer constructor uses classes which are derived off system classes
+                    // (PageLayer, ...) which internally perform VerifyAccess() calls (the exception-throwing twin of
+                    // CheckAccess()) and thus fail with a dramatic STA-only exception when the *constructor* wasn't invoked
+                    // from the STA = UI thread to begin with!
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                     page_layers.Add(CanvasCamera_ = new PDFCameraLayer(pdf_renderer_control_stats, page));
                     ReflectContentChildren();
                 }
@@ -232,6 +291,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 if (null == CanvasHand_)
                 {
+                    // WARNING: this UI thread check is necessary as I had quite a bit of trouble with this. Turns out
+                    // code internal to PDFAnnotationLayer constructor uses classes which are derived off system classes
+                    // (PageLayer, ...) which internally perform VerifyAccess() calls (the exception-throwing twin of
+                    // CheckAccess()) and thus fail with a dramatic STA-only exception when the *constructor* wasn't invoked
+                    // from the STA = UI thread to begin with!
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                     page_layers.Add(CanvasHand_ = new PDFHandLayer(pdf_renderer_control_stats, page, pdf_renderer_control));
                     ReflectContentChildren();
                 }
@@ -246,7 +312,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 if (null == CanvasInk_)
                 {
-                    page_layers.Add(CanvasInk_ = new PDFInkLayer(pdf_renderer_control_stats, page));
+                    // WARNING: this UI thread check is necessary as I had quite a bit of trouble with this. Turns out
+                    // code internal to PDFAnnotationLayer constructor uses classes which are derived off system classes
+                    // (PageLayer, ...) which internally perform VerifyAccess() calls (the exception-throwing twin of
+                    // CheckAccess()) and thus fail with a dramatic STA-only exception when the *constructor* wasn't invoked
+                    // from the STA = UI thread to begin with!
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                    page_layers.Add(CanvasInk_ = new PDFInkLayer(pdf_renderer_control_stats.pdf_document, page));
                     ReflectContentChildren();
                 }
 
@@ -260,18 +333,37 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            if (PDFAnnotationLayer.IsLayerNeeded(pdf_renderer_control_stats, page))
+            bool need_annots = PDFAnnotationLayer.IsLayerNeeded(pdf_renderer_control_stats.pdf_document, page);
+            bool need_inks = PDFInkLayer.IsLayerNeeded(pdf_renderer_control_stats.pdf_document, page);
+            bool need_highlights = PDFHighlightLayer.IsLayerNeeded(pdf_renderer_control_stats.pdf_document, page);
+
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
-                var a = CanvasAnnotation;
-            }
-            if (PDFInkLayer.IsLayerNeeded(pdf_renderer_control_stats, page))
-            {
-                var a = CanvasInk;
-            }
-            if (PDFHighlightLayer.IsLayerNeeded(pdf_renderer_control_stats, page))
-            {
-                var a = CanvasHighlight;
-            }
+                Stopwatch clk = Stopwatch.StartNew();
+                Logging.Info("+PopulateNeededLayers for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+
+                try
+                {
+                    if (need_annots)
+                    {
+                        _ = CanvasAnnotation;
+                    }
+                    if (need_inks)
+                    {
+                        _ = CanvasInk;
+                    }
+                    if (need_highlights)
+                    {
+                        _ = CanvasHighlight;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "PopulateNeededLayers: Error occurred while fetching annotations, inks and highlights for document {0}", pdf_renderer_control_stats.pdf_document.Fingerprint);
+                }
+
+                Logging.Info("-PopulateNeededLayers for document {1} (time spent: {0} ms)", clk.ElapsedMilliseconds, pdf_renderer_control_stats.pdf_document.Fingerprint);
+            });
         }
 
         private void ReflectContentChildren()
@@ -760,75 +852,78 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
         {
             Logging.Debug("PDFRendererPageControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
-
-                    foreach (PageLayer page_layer in page_layers)
+                    if (dispose_count == 0)
                     {
-                        page_layer.Dispose();
-                    }
-                    page_layers.Clear();
+                        pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
 
-                    // Also erase any pending RefreshPage work:
-                    // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-                    lock (pending_refresh_work_lock)
-                    {
-                        // l1_clk.LockPerfTimerStop();
-                        pending_refresh_work_fast = null;
-                        pending_refresh_work_slow = null;
-                    }
+                        foreach (PageLayer page_layer in page_layers)
+                        {
+                            page_layer.Dispose();
+                        }
+                        page_layers.Clear();
+
+                        // Also erase any pending RefreshPage work:
+                        // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                        lock (pending_refresh_work_lock)
+                        {
+                            // l1_clk.LockPerfTimerStop();
+                            pending_refresh_work_fast = null;
+                            pending_refresh_work_slow = null;
+                        }
 
 #if false               // These Dispose() calls have already been done above in the page_layers.Dispose() loop!
-                        CanvasTextSentence_.Dispose();
-                        CanvasSearch_.Dispose();
-                        CanvasAnnotation_.Dispose();
-                        CanvasHighlight_.Dispose();
-                        CanvasCamera_.Dispose();
-                        CanvasHand_.Dispose();
-                        CanvasInk_.Dispose();
+                            CanvasTextSentence_.Dispose();
+                            CanvasSearch_.Dispose();
+                            CanvasAnnotation_.Dispose();
+                            CanvasHighlight_.Dispose();
+                            CanvasCamera_.Dispose();
+                            CanvasHand_.Dispose();
+                            CanvasInk_.Dispose();
 #endif
+                        page_layers = null;
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
                     page_layers = null;
-                }
-            }, must_exec_in_UI_thread: true);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                page_layers = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    CurrentlyShowingImage = null;
+                    ImagePage_HIDDEN = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    pdf_renderer_control = null;
+                    pdf_renderer_control_stats = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    CanvasTextSentence_ = null;
+                    CanvasSearch_ = null;
+                    CanvasAnnotation_ = null;
+                    CanvasHighlight_ = null;
+                    CanvasCamera_ = null;
+                    CanvasHand_ = null;
+                    CanvasInk_ = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    DataContext = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                CurrentlyShowingImage = null;
-                ImagePage_HIDDEN = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                pdf_renderer_control = null;
-                pdf_renderer_control_stats = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                CanvasTextSentence_ = null;
-                CanvasSearch_ = null;
-                CanvasAnnotation_ = null;
-                CanvasHighlight_ = null;
-                CanvasCamera_ = null;
-                CanvasHand_ = null;
-                CanvasInk_ = null;
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                DataContext = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion

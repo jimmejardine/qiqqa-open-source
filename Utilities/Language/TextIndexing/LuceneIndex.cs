@@ -31,6 +31,8 @@ namespace Utilities.Language.TextIndexing
 
         public LuceneIndex(string LIBRARY_INDEX_BASE_PATH)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             this.LIBRARY_INDEX_BASE_PATH = LIBRARY_INDEX_BASE_PATH;
 
             CheckIndexVersion();

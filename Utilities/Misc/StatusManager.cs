@@ -162,12 +162,16 @@ namespace Utilities.Misc
                 lock (status_entries_lock)
                 {
                     // l1_clk.LockPerfTimerStop();
+
+                    // Make sure there's a status_entry slot waiting for us to fill.
                     if (!status_entries.TryGetValue(key, out status_entry))
                     {
                         status_entry = new StatusEntry();
                         status_entry.key = key;
                         status_entries[key] = status_entry;
                     }
+
+                    // Fill the assigned slot now.
 
                     //status_entry.last_updated = DateTime.UtcNow;
                     status_entry.InsertStatusMessage(new StatusMessage(message, cancellable, current_update_number, total_update_count));

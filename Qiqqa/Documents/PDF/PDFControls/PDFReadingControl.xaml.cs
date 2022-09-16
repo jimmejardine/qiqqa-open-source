@@ -46,6 +46,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         public PDFReadingControl(PDFDocument pdf_document)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             InitializeComponent();
 
             Unloaded += PDFReadingControl_Unloaded;
@@ -383,26 +385,29 @@ namespace Qiqqa.Documents.PDF.PDFControls
         {
             Logging.Debug("PDFReadingControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources
-                    PDFRendererControlArea.Children.Clear();
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        PDFRendererControlArea.Children.Clear();
 
-                    pdf_renderer_control?.Dispose();
+                        pdf_renderer_control?.Dispose();
 
-                    pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
-                }
-            }, must_exec_in_UI_thread: true);
+                        pdf_renderer_control_stats?.pdf_document.PDFRenderer.FlushCachedPageRenderings();
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                pdf_renderer_control = null;
-                pdf_renderer_control_stats = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    pdf_renderer_control = null;
+                    pdf_renderer_control_stats = null;
+                });
+
+                ++dispose_count;
             });
-
-            ++dispose_count;
         }
 
         #endregion

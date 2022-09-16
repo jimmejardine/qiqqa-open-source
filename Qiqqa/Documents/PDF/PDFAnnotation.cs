@@ -52,7 +52,7 @@ namespace Qiqqa.Documents.PDF
             return String.Format("Annotation {0} for document {1} on page {2}", Guid, DocumentFingerprint, Page);
         }
 
-        #region --- Protected  properties -------------------------------------------------------------
+        // --- Protected  properties -------------------------------------------------------------
 
         public string DocumentFingerprint
         {
@@ -99,9 +99,7 @@ namespace Qiqqa.Documents.PDF
             set => dictionary["Creator"] = value as string;
         }
 
-        #endregion
-
-        #region --- Public properties -------------------------------------------------------------
+        // --- Public properties -------------------------------------------------------------
 
         public double Left
         {
@@ -172,7 +170,7 @@ namespace Qiqqa.Documents.PDF
             set => dictionary["AnnotationTextAlwaysVisible"] = value;
         }
 
-        #endregion --------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------
 
         [NonSerialized]
         private AugmentedBindable<PDFAnnotation> bindable = null;

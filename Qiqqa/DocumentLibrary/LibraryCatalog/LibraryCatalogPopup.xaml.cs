@@ -224,42 +224,54 @@ SourceURL: {0}
         {
             popup.Close();
 
-            int imported_count = 0;
-
-            FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportLegacyAnnotations);
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                try
-                {
-                    imported_count += LegacyAnnotationConvertor.ImportLegacyAnnotations(pdf_document);   // TODO: do this sort of heavy task in a background task; now it locks up the UI
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Error while importing legacy annotations.");
-                }
-            }
+                int imported_count = 0;
 
-            MessageBoxes.Info(imported_count + " legacy annotations imported.");
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_ImportLegacyAnnotations);
+                foreach (var pdf_document in pdf_documents)
+                {
+                    try
+                    {
+                        imported_count += LegacyAnnotationConvertor.ImportLegacyAnnotations(pdf_document);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Error while importing legacy annotations.");
+                    }
+                }
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    MessageBoxes.Info(imported_count + " legacy annotations imported.");
+                });
+            });
         }
 
         private void MenuForgetLegacyAnnotations_Click(object sender, RoutedEventArgs e)
         {
             popup.Close();
 
-            FeatureTrackingManager.Instance.UseFeature(Features.Library_ForgetLegacyAnnotations);
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                try
+                FeatureTrackingManager.Instance.UseFeature(Features.Library_ForgetLegacyAnnotations);
+                foreach (var pdf_document in pdf_documents)
                 {
-                    LegacyAnnotationConvertor.ForgetLegacyAnnotations(pdf_document);
+                    try
+                    {
+                        LegacyAnnotationConvertor.ForgetLegacyAnnotations(pdf_document);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Error while forgetting legacy annotations.");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Error while forgetting legacy annotations.");
-                }
-            }
 
-            MessageBoxes.Info("Legacy annotations removed.");
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    MessageBoxes.Info("Legacy annotations removed.");
+                });
+            });
         }
 
         private void MenuForceOCR_Click(object sender, RoutedEventArgs e)
@@ -278,13 +290,16 @@ SourceURL: {0}
                 "language", language
                 );
 
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                if (pdf_document.DocumentExists)
+                foreach (var pdf_document in pdf_documents)
                 {
-                    pdf_document.PDFRenderer.ForceOCRText(language);
+                    if (pdf_document.DocumentExists)
+                    {
+                        pdf_document.PDFRenderer.ForceOCRText(language);
+                    }
                 }
-            }
+            });
         }
 
         private void MenuClearOCR_Click(object sender, RoutedEventArgs e)
@@ -293,10 +308,13 @@ SourceURL: {0}
 
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ClearOCR);
 
-            foreach (var pdf_document in pdf_documents)
+            SafeThreadPool.QueueUserWorkItem(o =>
             {
-                pdf_document.PDFRenderer.ClearOCRText();
-            }
+                foreach (var pdf_document in pdf_documents)
+                {
+                    pdf_document.PDFRenderer.ClearOCRText();
+                }
+            });
         }
 
         private void MenuAddMultipleTags_Click(object sender, RoutedEventArgs e)

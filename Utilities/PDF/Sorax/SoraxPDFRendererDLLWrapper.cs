@@ -16,6 +16,8 @@ namespace Utilities.PDF.Sorax
 
             public HDOCWrapper(string filename, string pdf_user_password, string pdf_owner_password)
             {
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                 this.filename = filename;
                 HDOC = SoraxDLL.SPD_Open(filename, pdf_user_password, pdf_owner_password);
 
@@ -43,20 +45,23 @@ namespace Utilities.PDF.Sorax
             {
                 Logging.Debug("HDOCWrapper::Dispose({0}) @{1}", disposing, dispose_count);
 
-                WPFDoEvents.SafeExec(() =>
+                WPFDoEvents.InvokeInUIThread(() =>
                 {
-                    if (dispose_count == 0)
+                    WPFDoEvents.SafeExec(() =>
                     {
-                        // Get rid of managed resources
-                        if (IntPtr.Zero != HDOC)
+                        if (dispose_count == 0)
                         {
-                            SoraxDLL.SPD_Close(HDOC);
-                            HDOC = IntPtr.Zero;
+                            // Get rid of managed resources
+                            if (IntPtr.Zero != HDOC)
+                            {
+                                SoraxDLL.SPD_Close(HDOC);
+                                HDOC = IntPtr.Zero;
+                            }
                         }
-                    }
-                });
+                    });
 
-                ++dispose_count;
+                    ++dispose_count;
+                });
             }
         }
 

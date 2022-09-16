@@ -25,22 +25,16 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
             }
         }
 
-        internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document, ref PDFAnnotationList annotations, Dictionary<string, byte[]> library_items_annotations_cache)
+        internal static void ReadFromDisk(PDFDocument_ThreadUnsafe pdf_document)
         {
             byte[] annotations_data = null;
 
-            // Try the cache
-            if (null != library_items_annotations_cache)
+            // Try to load the annotations from file if they exist
+            var items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(PDFDocumentFileLocations.ANNOTATIONS, new List<string>() { pdf_document.Fingerprint });
+            ASSERT.Test(items.Count < 2);
+            if (0 < items.Count)
             {
-                library_items_annotations_cache.TryGetValue(pdf_document.Fingerprint, out annotations_data);
-            }
-            else // Try to load the annotations from file if they exist
-            {
-                var items = pdf_document.LibraryRef.Xlibrary.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.ANNOTATIONS);
-                if (0 < items.Count)
-                {
-                    annotations_data = items[0].data;
-                }
+                annotations_data = items[0].data;
             }
 
             // If we actually have some annotations, load them
@@ -61,7 +55,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
                     foreach (DictionaryBasedObject annotation_dictionary in annotation_dictionaries)
                     {
                         PDFAnnotation pdf_annotation = new PDFAnnotation(annotation_dictionary, false);
-                        annotations.AddUpdatedAnnotation(pdf_annotation);
+                        pdf_document.AddUpdatedAnnotation(pdf_annotation);
                     }
                 }
             }

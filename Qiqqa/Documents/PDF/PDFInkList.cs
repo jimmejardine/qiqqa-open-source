@@ -12,9 +12,6 @@ namespace Qiqqa.Documents.PDF
     {
         private Dictionary<int, byte[]> page_ink_blobs = new Dictionary<int, byte[]>();
 
-        public delegate void OnPDFInkListChangedDelegate();
-        public event OnPDFInkListChangedDelegate OnPDFInkListChanged;
-
         /// <summary>
         /// TODO: NOT threadsafe - should clean this up...
         /// </summary>
@@ -42,11 +39,10 @@ namespace Qiqqa.Documents.PDF
             return null;
         }
 
-        internal void AddPageInkBlob(int page, byte[] page_ink_blob)
+        internal bool __AddPageInkBlob(int page, byte[] page_ink_blob)
         {
             page_ink_blobs[page] = page_ink_blob;
-
-            OnPDFInkListChanged?.Invoke();
+            return true;
         }
 
         /// <summary>
@@ -55,7 +51,6 @@ namespace Qiqqa.Documents.PDF
         public object Clone()
         {
             PDFInkList rv = (PDFInkList)MemberwiseClone();
-            rv.OnPDFInkListChanged = null;
             return rv;
         }
     }

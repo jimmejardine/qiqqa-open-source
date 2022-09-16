@@ -1387,45 +1387,48 @@ namespace Qiqqa.Brainstorm.SceneManager
         {
             Logging.Debug("SceneRenderingControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                if (dispose_count == 0)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    // Get rid of managed resources
-                    AutoArranger?.Enabled(false);
+                    if (dispose_count == 0)
+                    {
+                        // Get rid of managed resources
+                        AutoArranger?.Enabled(false);
 
+                        node_controls.Clear();
+                    }
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    brainstorm_metadata_control = null;
+                    brainstorm_metadata = null;
+
+                    auto_arranger = null;
+                    drag_drop_manager = null;
+                    basic_drag_drop_behaviours = null;
+
+                    selected_connector_control = null;
+                    selecting_nodes_control = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
                     node_controls.Clear();
-                }
-            }, must_exec_in_UI_thread: true);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                brainstorm_metadata_control = null;
-                brainstorm_metadata = null;
+                WPFDoEvents.SafeExec(() =>
+                {
+                    connector_control_manager = null;
 
-                auto_arranger = null;
-                drag_drop_manager = null;
-                basic_drag_drop_behaviours = null;
+                    SelectedNodeControlChanged = null;
 
-                selected_connector_control = null;
-                selecting_nodes_control = null;
+                    ScrollInfoChanged = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                node_controls.Clear();
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                connector_control_manager = null;
-
-                SelectedNodeControlChanged = null;
-
-                ScrollInfoChanged = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion

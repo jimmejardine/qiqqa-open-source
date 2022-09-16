@@ -9,8 +9,7 @@
         <local_gui:AugmentedPadder DockPanel.Dock="Bottom">
             <DockPanel>
                 <local_gui:AugmentedButton Name="CmdSave" DockPanel.Dock="Right" MinHeight="20" />
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                <local_gui:AugmentedButton Name="CmdCancel" DockPanel.Dock="Right" MinHeight="20" />
+                <local_gui:AugmentedButton Name="CmdCancel" DockPanel.Dock="Right" MinHeight="20"  Margin="3" />
                 <Grid />
             </DockPanel>
         </local_gui:AugmentedPadder>

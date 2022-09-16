@@ -129,16 +129,13 @@
                                 <Button Name="ObjUserAgent_Clear">
                                     Clear
                                 </Button>
-                                <local_gui:AugmentedSpacer />
-                                <Button Name="ObjUserAgent_IE">
+                                <Button Name="ObjUserAgent_IE" Margin="3" >
                                     Internet Explorer
                                 </Button>
-                                <local_gui:AugmentedSpacer />
-                                <Button Name="ObjUserAgent_Chrome">
+                                <Button Name="ObjUserAgent_Chrome" Margin="3" >
                                     Chrome
                                 </Button>
-                                <local_gui:AugmentedSpacer />
-                                <Button Name="ObjUserAgent_Safari">
+                                <Button Name="ObjUserAgent_Safari" Margin="3" >
                                     Safari
                                 </Button>
                             </StackPanel>
@@ -180,8 +177,7 @@
                                 <WrapPanel Name="ObjColoursPanel" Orientation="Horizontal" />
                                 <StackPanel Orientation="Horizontal">
                                     <wpfext:ColorPicker Name="ObjColorPicker" />
-                                    <local_gui:AugmentedSpacer />
-                                    <Button Name="CmdClearColour">
+                                    <Button Name="CmdClearColour" Margin="3" >
                                         Clear
                                     </Button>
                                 </StackPanel>

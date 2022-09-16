@@ -232,7 +232,7 @@ namespace Qiqqa.DocumentLibrary
                 long prev_clk = 0;
                 long elapsed = 0;
                 Logging.Debug特("+Build library {0} from repository", web_library_detail.Id);
-                List<LibraryDB.LibraryItem> library_items = library_db.GetLibraryItems(null, PDFDocumentFileLocations.METADATA);
+                List<LibraryDB.LibraryItem> library_items = library_db.GetLibraryItems(PDFDocumentFileLocations.METADATA);
                 /* const */
                 int library_item_count = library_items.Count;
 
@@ -241,7 +241,7 @@ namespace Qiqqa.DocumentLibrary
                 prev_clk = elapsed;
 
                 // Get the annotations cache
-                Dictionary<string, byte[]> library_items_annotations_cache = library_db.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
+                //Dictionary<string, byte[]> library_items_annotations_cache = library_db.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
 
                 // abort work when this library instance has already been Dispose()d in the main UI thread:
                 if (LibraryIsKilled)
@@ -299,7 +299,7 @@ namespace Qiqqa.DocumentLibrary
 
                     try
                     {
-                        LoadDocumentFromMetadata(library_item, library_items_annotations_cache, web_library_detail, false);
+                        LoadDocumentFromMetadata(library_item, web_library_detail, false);
                     }
                     catch (Exception ex)
                     {
@@ -334,14 +334,14 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        private void LoadDocumentFromMetadata(LibraryDB.LibraryItem library_item, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache, WebLibraryDetail web_library_detail, bool notify_changed_pdf_document)
+        private void LoadDocumentFromMetadata(LibraryDB.LibraryItem library_item, WebLibraryDetail web_library_detail, bool notify_changed_pdf_document)
         {
             if (library_item.data == null)
             {
                 throw new Exception(String.Format("Skipping corrupted NULL record for ID {0}", library_item.ToString()));
             }
 
-            PDFDocument pdf_document = PDFDocument.LoadFromMetaData(web_library_detail, library_item.fingerprint, library_item.data, library_items_annotations_cache);
+            PDFDocument pdf_document = PDFDocument.LoadFromMetaData(web_library_detail, library_item.fingerprint, library_item.data);
 
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
@@ -714,6 +714,17 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
+        // Helper API
+        public static List<string> GetDocumentsAsFingerprints(List<PDFDocument> pdf_documents)
+        {
+            List<string> rv = new List<string>();
+            foreach(PDFDocument doc in pdf_documents)
+            {
+                rv.Add(doc.Fingerprint);
+            }
+            return rv;
+        }
+
         public List<PDFDocument> GetDocumentByFingerprints(IEnumerable<string> fingerprints)
         {
             List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
@@ -968,8 +979,17 @@ namespace Qiqqa.DocumentLibrary
             Logging.Info("Library has been notified that {0} has changed", fingerprint);
             try
             {
-                LibraryDB.LibraryItem library_item = library_db.GetLibraryItem(fingerprint, PDFDocumentFileLocations.METADATA);
-                LoadDocumentFromMetadata(library_item, null, web_library_detail, true);
+                var items = library_db.GetLibraryItems(PDFDocumentFileLocations.METADATA, new List<string>() { fingerprint });
+                if (0 == items.Count)
+                {
+                    throw new Exception(String.Format("We were expecting one item matching {0}.{1} but found none.", fingerprint, PDFDocumentFileLocations.METADATA));
+                }
+                if (1 != items.Count)
+                {
+                    throw new Exception(String.Format("We were expecting only one item matching {0}.{1}", fingerprint, PDFDocumentFileLocations.METADATA));
+                }
+
+                LoadDocumentFromMetadata(items[0], web_library_detail, true);
             }
             catch (Exception ex)
             {
@@ -1139,8 +1159,6 @@ namespace Qiqqa.DocumentLibrary
                 folder_watcher_manager = null;
                 library_db = null;
             });
-
-            var self = this;
 
             ++dispose_count;
         }

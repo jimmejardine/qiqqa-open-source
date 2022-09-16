@@ -31,9 +31,7 @@
             <TextBlock/>
             <DockPanel>
                 <local_gui:AugmentedButton Width="64" DockPanel.Dock="Right" x:Name="ButtonOk"/>
-                <local_gui:AugmentedSpacer DockPanel.Dock="Right" />
-                <local_gui:AugmentedButton Width="64" DockPanel.Dock="Right" x:Name="ButtonCancel"/>
-                <local_gui:AugmentedSpacer />
+                <local_gui:AugmentedButton Width="64" DockPanel.Dock="Right" x:Name="ButtonCancel" Margin="3" />
             </DockPanel>
         </StackPanel>
     </Grid>

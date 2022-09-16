@@ -676,62 +676,66 @@ namespace Qiqqa.Documents.BibTeXEditor
         {
             Logging.Debug("BibTeXEditorControl::Dispose({0}) @{1}", disposing, dispose_count);
 
-            WPFDoEvents.SafeExec(() =>
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
-                BindingOperations.ClearBinding(this, BibTeXProperty);
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Get rid of managed resources / get rid of cyclic references:
-                if (null != wdpcn)
+                WPFDoEvents.SafeExec(() =>
                 {
-                    wdpcn.ValueChanged -= OnBibTeXPropertyChanged;
-                }
-            }, must_exec_in_UI_thread: true);
+                    // *Nobody* gets any updates from us anymore, so we can delete cached content etc. in peace. (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                    BindingOperations.ClearBinding(this, BibTeXProperty);
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
-                BibTeXParseErrorButtonRef?.SetTarget(null);
-                BibTeXModeToggleButtonRef?.SetTarget(null);
-                BibTeXUndoEditButtonRef?.SetTarget(null);
-            }, must_exec_in_UI_thread: true);
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    if (null != wdpcn)
+                    {
+                        wdpcn.ValueChanged -= OnBibTeXPropertyChanged;
+                    }
+                });
 
-            WPFDoEvents.SafeExec(() =>
-            {
-                bindable = null;
-                // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // discard all references which might otherwise potentially cause memleaks due to (potential) references cycles:
+                    BibTeXParseErrorButtonRef?.SetTarget(null);
+                    BibTeXModeToggleButtonRef?.SetTarget(null);
+                    BibTeXUndoEditButtonRef?.SetTarget(null);
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    bindable = null;
+                    // BibTeX = "";  <-- forbidden to reset as that MAY trigger a dependency update! (https://github.com/jimmejardine/qiqqa-open-source/issues/121)
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Get rid of managed resources / get rid of cyclic references:
+                    wdpcn?.Dispose();
+                    wdpcn = null;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
+                    TxtRecordKey.TextChanged -= OnGridTextChanged;
+
+                    ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;
+                    ComboRecordType.KeyUp -= ComboRecordType_KeyUp;
+                });
+
+                WPFDoEvents.SafeExec(() =>
+                {
+                    // Clear the references for sanity's sake
+                    BibTeXParseErrorButtonRef = null;
+                    BibTeXModeToggleButtonRef = null;
+                    BibTeXUndoEditButtonRef = null;
+
+                    wdpcn = null;
+                    bindable = null;
+                });
+
+                ++dispose_count;
             });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Get rid of managed resources / get rid of cyclic references:
-                wdpcn?.Dispose();
-            });
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
-                TxtRecordKey.TextChanged -= OnGridTextChanged;
-
-                ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;
-                ComboRecordType.KeyUp -= ComboRecordType_KeyUp;
-            }, must_exec_in_UI_thread: true);
-
-            WPFDoEvents.SafeExec(() =>
-            {
-                // Clear the references for sanity's sake
-                BibTeXParseErrorButtonRef = null;
-                BibTeXModeToggleButtonRef = null;
-                BibTeXUndoEditButtonRef = null;
-
-                wdpcn = null;
-                bindable = null;
-            });
-
-            ++dispose_count;
         }
 
         #endregion

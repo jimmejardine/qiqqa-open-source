@@ -126,7 +126,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 // Boundary issue was discovered during customer log file analysis (log files courtesy of Chris Hicks)
                 try
                 {
-                    throw new ArgumentException($"INTERNAL ERROR: requesting page text for page {page} which lies outside the detected document page range 1..{PageCount}");
+                    throw new ArgumentException($"INTERNAL ERROR: requesting page text for page {page} which lies outside the detected document page range 1..{PageCount} for PDF document {DocumentFingerprint}");
                 }
                 catch (Exception ex)
                 {

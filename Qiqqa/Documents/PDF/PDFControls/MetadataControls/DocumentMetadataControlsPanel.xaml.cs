@@ -42,7 +42,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
         private void DocumentMetadataControlsPanel_Unloaded(object sender, RoutedEventArgs e)
         {
             // TODO: ditch the pdf renders in the GridPreview children list...
-            //throw new System.NotImplementedException();
+            DataContextChanged -= DocumentMetadataControlsPanel_DataContextChanged;
+            DataContext = null;
         }
 
         private void HyperlinkRestore_Click(object sender, RoutedEventArgs e)

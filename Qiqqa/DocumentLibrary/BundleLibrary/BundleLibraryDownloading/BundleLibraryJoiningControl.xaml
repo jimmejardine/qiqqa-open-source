@@ -12,10 +12,7 @@
             <DockPanel >
                 <DockPanel DockPanel.Dock="Right">
                     <local_gui:AugmentedButton Name="ButtonDownload" DockPanel.Dock="Right" MinWidth="100" MinHeight="20" />
-                    <local_gui:AugmentedSpacer DockPanel.Dock="Right"/>
-                    <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinWidth="100" MinHeight="20" />
-                    <local_gui:AugmentedSpacer DockPanel.Dock="Left"/>
-                    <local_gui:AugmentedSpacer />
+                    <local_gui:AugmentedButton Name="ButtonCancel" DockPanel.Dock="Left" MinWidth="100" MinHeight="20"  Margin="3" />
                 </DockPanel>
             </DockPanel>
         </local_gui:AugmentedPadder>
@@ -31,40 +28,31 @@
                     </Button>
                     <TextBox IsEnabled="False" Name="TxtManifestFilename"/>
                 </DockPanel>
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedSpacer />
-                <local_gui:AugmentedSpacer />
-                <TextBlock>
+                <TextBlock Margin="10" >
                     Bundle Version
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding Version}" />
-                <local_gui:AugmentedSpacer />
-                <TextBlock>
+                <TextBlock Margin="3" >
                     Bundle Library Title
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding Title}" />
-                <local_gui:AugmentedSpacer />
-                <TextBlock>
+                <TextBlock Margin="3" >
                     Bundle Library Description
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding Description}" />
-                <local_gui:AugmentedSpacer />
-                <TextBlock>
+                <TextBlock Margin="3" >
                     Bundle Library Comments
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding Comments}" Height="50" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
-                <local_gui:AugmentedSpacer />
-                <TextBlock>
+                <TextBlock Margin="3" >
                     Base url where Bundle will be hosted
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding BaseUrl}" />
-                <local_gui:AugmentedSpacer />
-                <TextBlock>
+                <TextBlock Margin="3" >
                     Bundle support email address
                 </TextBlock>
                 <TextBox IsEnabled="False" Text="{Binding SupportEmail}" />
-                <local_gui:AugmentedSpacer />
-                <CheckBox IsEnabled="False" IsChecked="{Binding IncludesPDFs}">
+                <CheckBox IsEnabled="False" IsChecked="{Binding IncludesPDFs}" Margin="3" >
                     Include PDFs in Bundle?
                 </CheckBox>
             </StackPanel>

@@ -7,7 +7,12 @@
         <FlowDocumentScrollViewer  IsToolBarVisible="False">
             <commongui:StandardFlowDocument>
                 <Paragraph>
-                    About Qiqqa
+                    <InlineUIContainer>
+                        <Image Source="pack://application:,,,/icons;component/Application/QiqqaLogoSmall.png" Width="180"/>
+                    </InlineUIContainer>
+                </Paragraph>
+                <Paragraph>
+                    <Bold>About Qiqqa</Bold>
                 </Paragraph>
                 <Paragraph>
                     This is Qiqqa version
@@ -24,7 +29,7 @@
             All rights reserved.  All other trademarks are copyright their respective owners.
                 </Paragraph>
                 <Paragraph>
-                    Useful links
+                    <Bold>Useful links</Bold>
                 </Paragraph>
                 <List>
                     <ListItem>
@@ -55,7 +60,7 @@
                     </ListItem>
                 </List>
                 <Paragraph>
-                    Thanks!
+                    <Bold>Thanks!</Bold>
                 </Paragraph>
                 <Paragraph>
                     We would like to thank the following for their contributions to Qiqqa:
@@ -219,7 +224,7 @@
                     </ListItem>
                 </List>
                 <Paragraph>
-                    Qiqqa Terms and Conditions and 3rd Party Licences
+                    <Bold>Qiqqa Terms and Conditions and 3rd Party Licences</Bold>
                 </Paragraph>
                 <List>
                     <ListItem>

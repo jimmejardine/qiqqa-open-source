@@ -104,58 +104,41 @@
                         <TextBlock FontWeight="Bold">
                             Bundle Details
                         </TextBlock>
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Bundle Id
                         </TextBlock>
                         <TextBox IsEnabled="False" Text="{Binding Id}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Bundle Version
                         </TextBlock>
                         <TextBox IsEnabled="False" Text="{Binding Version}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Bundle Library Title
                         </TextBlock>
                         <TextBox Text="{Binding Title}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Bundle Library Description
                         </TextBlock>
                         <TextBox Text="{Binding Description}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Bundle Library Comments
                         </TextBlock>
                         <TextBox Text="{Binding Comments}" Height="50" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock FontWeight="Bold">
+                        <TextBlock FontWeight="Bold" Margin="9" >
                             Bundle Hosting Details
                         </TextBlock>
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Base URL where Bundle will be hosted (e.g. http://www.xyz.com/BundleA)
                         </TextBlock>
                         <TextBox Text="{Binding BaseUrl}" />
-                        <local_gui:AugmentedSpacer />
-                        <TextBlock>
+                        <TextBlock Margin="3" >
                             Bundle support email address
                         </TextBlock>
                         <TextBox Text="{Binding SupportEmail}" />
-                        <local_gui:AugmentedSpacer />
-                        <CheckBox IsChecked="{Binding IncludesPDFs}">
+                        <CheckBox IsChecked="{Binding IncludesPDFs}" Margin="3" >
                             Include PDFs in Bundle?
                         </CheckBox>
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedSpacer />
-                        <local_gui:AugmentedButton Name="CmdCreateBundle" MinHeight="20" />
+                        <local_gui:AugmentedButton Name="CmdCreateBundle" MinHeight="20"  Margin="20" />
                     </StackPanel>
                 </ScrollViewer>
             </local_gui:AugmentedBorder>

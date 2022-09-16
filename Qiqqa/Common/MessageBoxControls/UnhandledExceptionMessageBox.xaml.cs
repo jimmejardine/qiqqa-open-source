@@ -45,6 +45,14 @@ namespace Qiqqa.Common.MessageBoxControls
                 throw new OutOfMemoryException("Out of memory", ex);
             }
 
+            // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
+            SafeThreadPool.QueueUserWorkItem(o =>
+            {
+                // Collect all generations of memory.
+                GC.WaitForPendingFinalizers();
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+            });
+
             string useful_text_heading = "Something unexpected has happened, but it's okay. " + ex.Message;
             string useful_text_subheading = "You can continue working, but we would appreciate it if you would send us some feedback on what you were doing when this happened.";
 
