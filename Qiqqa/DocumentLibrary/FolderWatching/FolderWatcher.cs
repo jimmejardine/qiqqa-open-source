@@ -221,7 +221,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                             scanned_file_count = 0;
                         }
 
-                        StatusManager.Instance.UpdateStatus("FolderWatcher", "📂👀", rv, 1000);
+                        StatusManager.Instance.UpdateStatus("FolderWatcher", "Watcher", rv, 1000);
                     }
                 }
             }
