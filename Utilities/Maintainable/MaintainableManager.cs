@@ -267,6 +267,8 @@ namespace Utilities.Maintainable
 
         private void DaemonThreadEntryPoint(object wrapper)
         {
+            try 
+            { 
             DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = (DoMaintenanceDelegateWrapper)wrapper;
             Daemon daemon = do_maintenance_delegate_wrapper.daemon;
 
@@ -310,6 +312,11 @@ namespace Utilities.Maintainable
                 }
 
                 daemon.Sleep(Math.Max(500, do_maintenance_delegate_wrapper.delay_before_repeat_milliseconds));
+            }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Manager!");
             }
         }
 

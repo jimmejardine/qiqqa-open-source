@@ -240,12 +240,12 @@ namespace Utilities.GUI
                 }
                 else
                 {
-                // we assume this ctor is called from the UI thread!
-                //
-                // (keep the current context around for when Application.Current starts to fail and we still need access to the UI thread during shutdown.)
-                _syncContext = SynchronizationContext.Current;
+                    // we assume this ctor is called from the UI thread!
+                    //
+                    // (keep the current context around for when Application.Current starts to fail and we still need access to the UI thread during shutdown.)
+                    _syncContext = SynchronizationContext.Current;
 
-                action.Invoke();
+                    action.Invoke();
                 }
             }
             catch (Exception ex)
@@ -256,33 +256,40 @@ namespace Utilities.GUI
 
         public static void InvokeAsyncInUIThread(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
         {
-            if (Application.Current != null)
-            {
-                Application.Current.Dispatcher.BeginInvoke(action, priority);
-            }
-            else
-            {
-                // Pray to the Big Kahuna; we're probably shutting down and don't know / cannot know any more if we're in UI thread or other.
-                //
-                // Fire off and pray...
-                if (_syncContext != null)
+            try 
+            { 
+                if (Application.Current != null)
                 {
-                    _syncContext.Post(o =>
-                    {
-                        try
-                        {
-                            action.Invoke();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Error("InvokeInUIThread::syncContext:POST: Error occurred.");
-                        }
-                    }, null);
+                    Application.Current.Dispatcher.BeginInvoke(action, priority);
                 }
                 else
                 {
-                    throw new Exception("no known GUI thread to invoke async to...");
+                    // Pray to the Big Kahuna; we're probably shutting down and don't know / cannot know any more if we're in UI thread or other.
+                    //
+                    // Fire off and pray...
+                    if (_syncContext != null)
+                    {
+                        _syncContext.Post(o =>
+                        {
+                            try
+                            {
+                                action.Invoke();
+                            }
+                            catch (Exception ex)
+                            {
+                                Logging.Error("InvokeInUIThread::syncContext:POST: Error occurred.");
+                            }
+                        }, null);
+                    }
+                    else
+                    {
+                        throw new Exception("no known GUI thread to invoke async to...");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "InvokeInUIThread");
             }
         }
 
