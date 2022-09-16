@@ -77,6 +77,8 @@ namespace Utilities.PDF.Sorax
 
         public static int GetPageCount(string filename, string pdf_user_password, string pdf_owner_password)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             using (HDOCWrapper hdoc = new HDOCWrapper(filename, pdf_user_password, pdf_owner_password))
             {
                 return SoraxDLL.SPD_GetPageCount(hdoc.HDOC);
@@ -85,6 +87,8 @@ namespace Utilities.PDF.Sorax
 
         public static byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, double height)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             float actual_dpi = 0;
 
             using (HDOCWrapper hdoc = new HDOCWrapper(filename, pdf_user_password, pdf_owner_password))
@@ -107,6 +111,8 @@ namespace Utilities.PDF.Sorax
 
         public static byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, string pdf_owner_password, int page, float dpi)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             using (HDOCWrapper hdoc = new HDOCWrapper(filename, pdf_user_password, pdf_owner_password))
             {
                 return GetPageByDPIAsImage_LOCK(hdoc, page, dpi);
@@ -115,6 +121,8 @@ namespace Utilities.PDF.Sorax
 
         private static byte[] GetPageByDPIAsImage_LOCK(HDOCWrapper hdoc, int page, float dpi)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             IntPtr HDC_HDC = SoraxDLL.GetDC(IntPtr.Zero);
 
             try

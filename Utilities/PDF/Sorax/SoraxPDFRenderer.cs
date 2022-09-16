@@ -1,4 +1,6 @@
-﻿namespace Utilities.PDF.Sorax
+﻿using Utilities.GUI;
+
+namespace Utilities.PDF.Sorax
 {
     public class SoraxPDFRenderer
     {
@@ -18,6 +20,8 @@
 
         public byte[] GetPageByHeightAsImage(int page, double height)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (cache)
             {
