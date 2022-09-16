@@ -77,10 +77,9 @@
                     DockPanel.Dock="Top"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
-                    <TextBox
+                    <RichTextBox
                         AcceptsReturn="True"
-                        DockPanel.Dock="Top"
-                        TextWrapping="Wrap" />
+                        DockPanel.Dock="Top" />
                 </ScrollViewer>
             </Grid>
             <Grid Name="ObjErrorPanel">
