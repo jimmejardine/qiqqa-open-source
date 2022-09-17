@@ -71,7 +71,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             //ObjErrorPanel.Opacity = .3;
             ObjErrorPanel.IsHitTestVisible = false;
 
-            ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning;
+            //ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning;
             //ObjBibTeXErrorText.Background.Opacity = 1.0;
 
             // Initial visibility
@@ -94,8 +94,8 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             ComboRecordType.ItemsSource = EntryTypes.Instance.EntryTypeList;
 
-            ObjBibTeXText.TextChanged += ObjBibTeXText_TextChanged;
-            TxtRecordKey.TextChanged += OnGridTextChanged;
+            //ObjBibTeXText.TextChanged += ObjBibTeXText_TextChanged;
+            //TxtRecordKey.TextChanged += OnGridTextChanged;
 
             ComboRecordType.SelectionChanged += ComboRecordType_SelectionChanged;
             ComboRecordType.KeyUp += ComboRecordType_KeyUp;
@@ -104,9 +104,8 @@ namespace Qiqqa.Documents.BibTeXEditor
                 ComboRecordType.ToolTip =
                     "Please select the type of reference this points to.\nThis affects the way Qiqqa InCite and BibTeX format the reference in your bibliographies.";
 
-            TxtRecordKeyHeader.ToolTip =
-                TxtRecordKey.ToolTip =
-                "Please enter a BibTeX key for this article.\nIt needs to be unique in your library as it is used to identify this reference when you use Qiqqa InCite or in LaTeX when you use the \\cite{KEY} command.";
+            //TxtRecordKeyHeader.ToolTip =
+                //TxtRecordKey.ToolTip = "Please enter a BibTeX key for this article.\nIt needs to be unique in your library as it is used to identify this reference when you use Qiqqa InCite or in LaTeX when you use the \\cite{KEY} command.";
 
             RebuidTextAndGrid();
         }
@@ -287,18 +286,9 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         public void ToggleBibTeXErrorView()
         {
-            if (!String.IsNullOrEmpty(ObjBibTeXErrorText.Text))
-            {
-                ObjErrorPanel.Visibility = (ObjErrorPanel.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible);
-
-                Grid.SetZIndex(ObjErrorPanel, ObjErrorPanel.Visibility == Visibility.Visible ? 6 : 2);
-            }
-            else
-            {
                 ObjErrorPanel.Visibility = Visibility.Hidden;
 
                 Grid.SetZIndex(ObjErrorPanel, 2);
-            }
         }
 
         private void OnBibTeXPropertyChanged(object sender, EventArgs e)
@@ -336,7 +326,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             {
                 string error_msg = bibtex_item.GetExceptionsAndMessagesString().Trim();
 
-                ObjBibTeXErrorText.Text = error_msg;
+                //ObjBibTeXErrorText.Text = error_msg;
 
                 ObjErrorPanel.ToolTip = error_msg;
                 ObjErrorPanel.Visibility = Visibility.Visible;
@@ -352,7 +342,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             }
             else
             {
-                ObjBibTeXErrorText.Text = "";
+                //ObjBibTeXErrorText.Text = "";
 
                 ObjErrorPanel.ToolTip = null;
                 ObjErrorPanel.Visibility = Visibility.Hidden;
@@ -432,7 +422,7 @@ namespace Qiqqa.Documents.BibTeXEditor
         private void UpdateFromText()
         {
             updating_from_text = true;
-            BibTeX = ObjBibTeXText.Text;
+            //BibTeX = ObjBibTeXText.Text;
             updating_from_text = false;
         }
 
@@ -442,7 +432,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             BibTexItem bibtex_item = new BibTexItem();
             bibtex_item.Type = ComboRecordType.Text;
-            bibtex_item.Key = TxtRecordKey.Text;
+            //bibtex_item.Key = TxtRecordKey.Text;
 
             foreach (object child_obj in ObjBibTeXGrid.Children)
             {
@@ -554,7 +544,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             s = d.ToString();
             s = s.Normalize();
             
-            ObjBibTeXText.Text = s;
+            //ObjBibTeXText.Text = s;
         }
 
         private void BuildGridFromBibTeX(string bibtex, BibTexItem bibtex_item)
@@ -564,7 +554,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             // Refill the headers
             rebuilding_grid = true;
             ComboRecordType.Text = bibtex_item.Type;
-            TxtRecordKey.Text = bibtex_item.Key;
+            //TxtRecordKey.Text = bibtex_item.Key;
             rebuilding_grid = false;
 
             // Reset the grid            
@@ -816,8 +806,8 @@ namespace Qiqqa.Documents.BibTeXEditor
 
                 WPFDoEvents.SafeExec(() =>
                 {
-                    ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
-                    TxtRecordKey.TextChanged -= OnGridTextChanged;
+                    //ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
+                    //TxtRecordKey.TextChanged -= OnGridTextChanged;
                     Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
 
                     ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;

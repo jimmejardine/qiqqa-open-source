@@ -56,12 +56,6 @@
                         FontWeight="Bold">
                         Key
                     </TextBlock>
-                    <TextBox
-                        Name="TxtRecordKey"
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        MinWidth="50"
-                        BorderThickness="0" />
                 </Grid>
                 <Grid x:Name="ObjBibTeXGrid" Margin="3">
                     <Grid.ColumnDefinitions>
@@ -77,12 +71,6 @@
                     DockPanel.Dock="Top"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
-                    <TextBox
-                        Name="ObjBibTeXText"
-                        AcceptsReturn="True"
-                        Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Background}"
-                        DockPanel.Dock="Top"
-                        TextWrapping="Wrap" />
                 </ScrollViewer>
             </Grid>
             <Grid Name="ObjErrorPanel">
@@ -93,14 +81,6 @@
                     VerticalScrollBarVisibility="Auto">
                     <DockPanel>
                         <Rectangle Width="15" Fill="Red" />
-                        <TextBox
-                            Name="ObjBibTeXErrorText"
-                            Background="#F0FFDBDB"
-                            FontFamily="Lucida Console"
-                            IsReadOnly="True"
-                            TextWrapping="NoWrap">
-                            Error Report
-                        </TextBox>
                     </DockPanel>
                 </ScrollViewer>
             </Grid>
