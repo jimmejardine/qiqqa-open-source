@@ -521,7 +521,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
                         case '\t':
                             // keep
-                            //ch = ' ';
+                            ch = ' ';
                             break;
 
                         default:
