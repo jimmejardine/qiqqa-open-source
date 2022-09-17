@@ -71,7 +71,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             //ObjErrorPanel.Opacity = .3;
             ObjErrorPanel.IsHitTestVisible = false;
 
-            //ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning;
+            ObjBibTeXErrorText.Background = ThemeColours.Background_Brush_Warning;
             //ObjBibTeXErrorText.Background.Opacity = 1.0;
 
             // Initial visibility
@@ -287,9 +287,18 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         public void ToggleBibTeXErrorView()
         {
+            if (!String.IsNullOrEmpty(ObjBibTeXErrorText.Text))
+            {
+                ObjErrorPanel.Visibility = (ObjErrorPanel.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible);
+
+                Grid.SetZIndex(ObjErrorPanel, ObjErrorPanel.Visibility == Visibility.Visible ? 6 : 2);
+            }
+            else
+            {
                 ObjErrorPanel.Visibility = Visibility.Hidden;
 
                 Grid.SetZIndex(ObjErrorPanel, 2);
+            }
         }
 
         private void OnBibTeXPropertyChanged(object sender, EventArgs e)
@@ -327,7 +336,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             {
                 string error_msg = bibtex_item.GetExceptionsAndMessagesString().Trim();
 
-                //ObjBibTeXErrorText.Text = error_msg;
+                ObjBibTeXErrorText.Text = error_msg;
 
                 ObjErrorPanel.ToolTip = error_msg;
                 ObjErrorPanel.Visibility = Visibility.Visible;
@@ -343,7 +352,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             }
             else
             {
-                //ObjBibTeXErrorText.Text = "";
+                ObjBibTeXErrorText.Text = "";
 
                 ObjErrorPanel.ToolTip = null;
                 ObjErrorPanel.Visibility = Visibility.Hidden;

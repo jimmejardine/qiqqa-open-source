@@ -87,6 +87,14 @@
                     VerticalScrollBarVisibility="Auto">
                     <DockPanel>
                         <Rectangle Width="15" Fill="Red" />
+                        <TextBox
+                            Name="ObjBibTeXErrorText"
+                            Background="#F0FFDBDB"
+                            FontFamily="Lucida Console"
+                            IsReadOnly="True"
+                            TextWrapping="NoWrap">
+                            Error Report
+                        </TextBox>
                     </DockPanel>
                 </ScrollViewer>
             </Grid>
