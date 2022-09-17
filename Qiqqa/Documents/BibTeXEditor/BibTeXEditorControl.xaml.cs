@@ -95,7 +95,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             ComboRecordType.ItemsSource = EntryTypes.Instance.EntryTypeList;
 
             //ObjBibTeXText.TextChanged += ObjBibTeXText_TextChanged;
-            //TxtRecordKey.TextChanged += OnGridTextChanged;
+            TxtRecordKey.TextChanged += OnGridTextChanged;
 
             ComboRecordType.SelectionChanged += ComboRecordType_SelectionChanged;
             ComboRecordType.KeyUp += ComboRecordType_KeyUp;
@@ -104,8 +104,9 @@ namespace Qiqqa.Documents.BibTeXEditor
                 ComboRecordType.ToolTip =
                     "Please select the type of reference this points to.\nThis affects the way Qiqqa InCite and BibTeX format the reference in your bibliographies.";
 
-            //TxtRecordKeyHeader.ToolTip =
-                //TxtRecordKey.ToolTip = "Please enter a BibTeX key for this article.\nIt needs to be unique in your library as it is used to identify this reference when you use Qiqqa InCite or in LaTeX when you use the \\cite{KEY} command.";
+            TxtRecordKeyHeader.ToolTip =
+                TxtRecordKey.ToolTip =
+                "Please enter a BibTeX key for this article.\nIt needs to be unique in your library as it is used to identify this reference when you use Qiqqa InCite or in LaTeX when you use the \\cite{KEY} command.";
 
             RebuidTextAndGrid();
         }
@@ -432,7 +433,7 @@ namespace Qiqqa.Documents.BibTeXEditor
 
             BibTexItem bibtex_item = new BibTexItem();
             bibtex_item.Type = ComboRecordType.Text;
-            //bibtex_item.Key = TxtRecordKey.Text;
+            bibtex_item.Key = TxtRecordKey.Text;
 
             foreach (object child_obj in ObjBibTeXGrid.Children)
             {
@@ -554,7 +555,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             // Refill the headers
             rebuilding_grid = true;
             ComboRecordType.Text = bibtex_item.Type;
-            //TxtRecordKey.Text = bibtex_item.Key;
+            TxtRecordKey.Text = bibtex_item.Key;
             rebuilding_grid = false;
 
             // Reset the grid            
@@ -807,7 +808,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 WPFDoEvents.SafeExec(() =>
                 {
                     //ObjBibTeXText.TextChanged -= ObjBibTeXText_TextChanged;
-                    //TxtRecordKey.TextChanged -= OnGridTextChanged;
+                    TxtRecordKey.TextChanged -= OnGridTextChanged;
                     Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
 
                     ComboRecordType.SelectionChanged -= ComboRecordType_SelectionChanged;

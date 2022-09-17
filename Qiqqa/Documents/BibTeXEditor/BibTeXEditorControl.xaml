@@ -56,6 +56,12 @@
                         FontWeight="Bold">
                         Key
                     </TextBlock>
+                    <TextBox
+                        Name="TxtRecordKey"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        MinWidth="50"
+                        BorderThickness="0" />
                 </Grid>
                 <Grid x:Name="ObjBibTeXGrid" Margin="3">
                     <Grid.ColumnDefinitions>
