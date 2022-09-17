@@ -554,7 +554,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             s = d.ToString();
             s = s.Normalize();
             
-            ObjBibTeXText.Text = s;
+            ObjBibTeXText.Text = "hello world";
         }
 
         private void BuildGridFromBibTeX(string bibtex, BibTexItem bibtex_item)
