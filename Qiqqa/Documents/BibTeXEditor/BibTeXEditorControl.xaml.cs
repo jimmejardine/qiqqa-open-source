@@ -740,7 +740,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             });
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -754,9 +754,9 @@ namespace Qiqqa.Documents.BibTeXEditor
         }
 #endif
 
-        #endregion
+#endregion
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~BibTeXEditorControl()
         {
@@ -839,7 +839,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             });
         }
 
-        #endregion
+#endregion
 
     }
 }
