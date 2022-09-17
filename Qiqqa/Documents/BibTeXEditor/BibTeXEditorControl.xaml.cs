@@ -503,7 +503,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             for (int i = 0; i < s.Length; i++)
             {
                 ch = s[i];
-                if (ch >= ' ' && ch < 0xD800) // char is up to first high surrogate
+                if (ch >= ' ' && ch < 127) // char is up to first high surrogate
                 {
                 }
                 else if (ch < ' ') 
@@ -516,37 +516,44 @@ namespace Qiqqa.Documents.BibTeXEditor
 
                         case '\n':
                             // keep
+                            //ch = '?';
                             break;
 
                         case '\t':
                             // keep
+                            ch = ' ';
                             break;
 
                         default:
                             // unexpected control character: replace
-                            ch = '�';
+                            ch = '?';
                             break;
                     }
                 }
                 else if (ch >= 0xD800 && ch <= 0xDBFF)
                 {
                     // found high surrogate -> discard
-                    ch = '�';
+                    ch = '?';
                 }
                 else if (ch >= 0xDC00 && ch <= 0xDFFF)
                 {
                     // unexpected low surrogate
-                    ch = '�';
+                    ch = '?';
                 }
                 else if (ch >= 0xFDD0 && ch <= 0xFDEF)
                 {
                     // non-chars are considered invalid by System.Text.Encoding.GetBytes() and String.Normalize()
-                    ch = '�';
+                    ch = '?';
                 }
                 else if ((ch & 0xFFFE) == 0xFFFE)
                 {
                     // other non-char found
-                    ch = '�';
+                    ch = '?';
+                }
+                else 
+                {
+                    // just in case...
+                    ch = '?';
                 }
                 d[i] = ch;
             }
@@ -740,7 +747,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             });
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -754,9 +761,9 @@ namespace Qiqqa.Documents.BibTeXEditor
         }
 #endif
 
-        #endregion
+#endregion
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~BibTeXEditorControl()
         {
@@ -839,7 +846,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             });
         }
 
-        #endregion
+#endregion
 
     }
 }
