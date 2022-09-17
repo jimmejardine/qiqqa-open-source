@@ -548,13 +548,18 @@ namespace Qiqqa.Documents.BibTeXEditor
                     // other non-char found
                     ch = '�';
                 }
+                else 
+                {
+                    // just in case...
+                    ch = '�';
+                }
                 d[i] = ch;
             }
 
             s = d.ToString();
             s = s.Normalize();
             
-            ObjBibTeXText.Text = "hello world";
+            ObjBibTeXText.Text = s;
         }
 
         private void BuildGridFromBibTeX(string bibtex, BibTexItem bibtex_item)
