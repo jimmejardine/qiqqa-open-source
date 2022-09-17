@@ -36,7 +36,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             ButtonToggleBibTeX.Click += ButtonToggleBibTeX_Click;
             ButtonAckBibTeXParseErrors.Click += ButtonAckBibTeXParseErrors_Click;
             ButtonUndoBibTeXEdit.Click += ButtonUndoBibTeXEdit_Click;
-            //ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit, IconHeight: 24);
+            ObjBibTeXEditorControl.RegisterOverlayButtons(ButtonAckBibTeXParseErrors, ButtonToggleBibTeX, ButtonUndoBibTeXEdit, IconHeight: 24);
 
             ButtonBibTexAutoFind.Caption = "Find";
             ButtonBibTexAutoFind.ToolTip = LocalisationManager.Get("LIBRARY/TIP/BIBTEX_AUTOFIND");
@@ -61,12 +61,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ButtonAckBibTeXParseErrors_Click(object sender, RoutedEventArgs e)
         {
-            //ObjBibTeXEditorControl.ToggleBibTeXErrorView();
+            ObjBibTeXEditorControl.ToggleBibTeXErrorView();
         }
 
         private void ButtonToggleBibTeX_Click(object sender, RoutedEventArgs e)
         {
-            //ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
+            ObjBibTeXEditorControl.ToggleBibTeXMode(TriState.Arbitrary);
         }
 
         private void ButtonBibTexClear_Click(object sender, RoutedEventArgs e)

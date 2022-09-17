@@ -222,7 +222,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             Webcasts.FormatWebcastButton(ButtonWebcast, Webcasts.BIBTEX_SNIFFER);
 
-            //ObjBibTeXEditorControl.ObjBibTeXText.TextChanged += TxtBibTeX_TextChanged;
+            ObjBibTeXEditorControl.ObjBibTeXText.TextChanged += TxtBibTeX_TextChanged;
 
             // Navigate to GS in a bid to not have the first .bib prompt for download
             ObjWebBrowser.DefaultWebSearcherKey = WebSearchers.SCHOLAR_KEY;
@@ -1097,7 +1097,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
                     ObjWebBrowser.PageLoaded -= ObjWebBrowser_PageLoaded;
                     ObjWebBrowser.TabChanged -= ObjWebBrowser_TabChanged;
 
-                    //ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
+                    ObjBibTeXEditorControl.ObjBibTeXText.TextChanged -= TxtBibTeX_TextChanged;
                 });
 
                 WPFDoEvents.SafeExec(() =>

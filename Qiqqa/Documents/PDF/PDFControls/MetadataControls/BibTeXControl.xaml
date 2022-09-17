@@ -28,6 +28,11 @@
                 Summary
             </local_gui:AugmentedButton>
         </Grid>
+        <local_bibtex:BibTeXEditorControl
+            x:Name="ObjBibTeXEditorControl"
+            MinHeight="230"
+            Margin="3"
+            BibTeX="{Binding BibTex, Mode=TwoWay}" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*" />
