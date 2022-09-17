@@ -516,12 +516,12 @@ namespace Qiqqa.Documents.BibTeXEditor
 
                         case '\n':
                             // keep
-                            ch = '?';
+                            //ch = '?';
                             break;
 
                         case '\t':
                             // keep
-                            ch = '?';
+                            //ch = ' ';
                             break;
 
                         default:
