@@ -55,7 +55,7 @@ namespace Qiqqa.Common
 
         private void CmdWeb_Click(object sender, RoutedEventArgs e)
         {
-            PDFInterceptor.Instance.PotentialAttachmentPDFDocument = pdf_document;
+            //PDFInterceptor.Instance.PotentialAttachmentPDFDocument = pdf_document;
             MainWindowServiceDispatcher.Instance.SearchWeb(pdf_document.TitleCombined);
             Close();
         }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
-using tessnet2;
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;

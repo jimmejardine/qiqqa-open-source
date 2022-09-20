@@ -270,7 +270,7 @@ namespace Qiqqa.Common.Configuration
                     SaveConfigurationRecord();
                 }, skip_task_at_app_shutdown: true);
 
-                GeckoManager.SetupProxyAndUserAgent(false);
+                //GeckoManager.SetupProxyAndUserAgent(false);
             }
             else
             {

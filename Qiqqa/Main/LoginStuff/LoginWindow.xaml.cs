@@ -211,8 +211,8 @@ namespace Qiqqa.Main.LoginStuff
                 StatusManager.Instance.UpdateStatus("AppStart", "Installing browser components");
                 GeckoInstaller.CheckForInstall();
                 StatusManager.Instance.UpdateStatus("AppStart", "Initialising browser components");
-                GeckoManager.Initialise();
-                GeckoManager.RegisterPDFInterceptor();
+                //GeckoManager.Initialise();
+                //GeckoManager.RegisterPDFInterceptor();
             }
             catch (Exception ex)
             {

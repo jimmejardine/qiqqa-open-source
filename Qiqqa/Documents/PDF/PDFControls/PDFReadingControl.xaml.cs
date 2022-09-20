@@ -1162,7 +1162,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                 }
 
                 // Forget the target attachment
-                PDFInterceptor.Instance.PotentialAttachmentPDFDocument = null;
+                //PDFInterceptor.Instance.PotentialAttachmentPDFDocument = null;
             }
         }
 

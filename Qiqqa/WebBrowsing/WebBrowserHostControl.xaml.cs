@@ -130,7 +130,7 @@ namespace Qiqqa.WebBrowsing
 
         private void ButtonEZProxy_Click(object sender, RoutedEventArgs e)
         {
-            string current_url = active_wbc.CurrentUri.ToString();
+            string current_url = "http://todo.example.com/";
 
             string ezproxy = ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy;
             if (!String.IsNullOrEmpty(ezproxy))
@@ -346,7 +346,7 @@ namespace Qiqqa.WebBrowsing
                     Logging.Debug特("Active browser control changed");
                     active_wbc = wbc;
 
-                    uri = wbc.CurrentUri;
+                    uri = new Uri("http://todo.example.com/");
                     ASSERT.Test(uri != null);
                     TextBoxUrl.Text = uri.ToString();
                 }
@@ -535,14 +535,14 @@ namespace Qiqqa.WebBrowsing
             }
         }
 
-        public Uri CurrentUri => active_wbc.CurrentUri;
+        public Uri CurrentUri => new Uri("http://todo.example.com/");
 
 
-        public string CurrentTitle => active_wbc.Title;
+        public string CurrentTitle => "http://todo.example.com/";
 
-        public string CurrentPageText => active_wbc.PageText;
+        public string CurrentPageText => "http://todo.example.com/";
 
-        public string CurrentPageHTML => active_wbc.PageHTML;
+        public string CurrentPageHTML => "http://todo.example.com/";
 
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
@@ -556,8 +556,8 @@ namespace Qiqqa.WebBrowsing
 
         private void ButtonGrabPDFs_Click(object sender, RoutedEventArgs e)
         {
-            Uri current_uri = CurrentWebBrowserControl.CurrentUri;
-            string html = CurrentWebBrowserControl.PageHTML;
+            Uri current_uri = new Uri("http://todo.example.com/");
+            string html = "http://todo.example.com/";
 
             List<string> urls = DownloadableFileGrabber.Grab(current_uri, html, "pdf");
 

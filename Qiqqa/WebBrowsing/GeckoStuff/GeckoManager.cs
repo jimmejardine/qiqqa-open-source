@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Gecko;
 using Qiqqa.Common.Configuration;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -10,11 +9,12 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 
+#if false
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
     public static class GeckoManager
     {
-        #region --- Some external DLLs that we will need ------------------------------------------------
+#region --- Some external DLLs that we will need ------------------------------------------------
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -34,9 +34,9 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         //static uint LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE = 0x00000040;
         private static uint LOAD_WITH_ALTERED_SEARCH_PATH = 0x00000008;
 
-        #endregion ------------------------------------------------------------------------------------
+#endregion ------------------------------------------------------------------------------------
 
-        #region --- Our dependency DLLs ---------------------------------------------------------------
+#region --- Our dependency DLLs ---------------------------------------------------------------
 
         private static List<string> DEPENDENCY_DLLS = new List<string>
         {
@@ -76,7 +76,7 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
             "AccessibleMarshal",
         };
 
-        #endregion ------------------------------------------------------------------------------------
+#endregion ------------------------------------------------------------------------------------
 
 
         private static bool have_initialised = false;
@@ -236,3 +236,4 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         }
     }
 }
+#endif

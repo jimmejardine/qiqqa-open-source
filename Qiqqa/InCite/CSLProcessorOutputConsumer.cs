@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using Gecko;
 using Newtonsoft.Json.Linq;
 using Utilities;
 using Utilities.GUI;
@@ -41,7 +40,7 @@ namespace Qiqqa.InCite
         public string error_message = null;
 
         public bool success;
-        private GeckoWebBrowser web_browser;
+        //private GeckoWebBrowser web_browser;
 
         public delegate void BibliographyReadyDelegate(CSLProcessorOutputConsumer ip);
 
@@ -55,8 +54,8 @@ namespace Qiqqa.InCite
 
             // Create the browser
             Logging.Info("Creating web browser for InCite CSL processing");
-            web_browser = new GeckoWebBrowser();
-            web_browser.CreateControl();
+            //web_browser = new GeckoWebBrowser();
+            //web_browser.CreateControl();
 
             // Add the name of the script to run
             script_directory = Path.GetFullPath(Path.Combine(script_directory, @"runengine.html"));
@@ -67,41 +66,44 @@ namespace Qiqqa.InCite
             Logging.Info("CSLProcessorOutputConsumer is about to browse to {0}", uri);
 
             // This is the only way we can communicate from JavaScript to .NET!!
-            web_browser.EnableConsoleMessageNotfication();
-            web_browser.ConsoleMessage += web_browser_ConsoleMessage;
+            //web_browser.EnableConsoleMessageNotfication();
+            //web_browser.ConsoleMessage += web_browser_ConsoleMessage;
 
-            // Kick off citeproc computation
+// Kick off citeproc computation
+#if false
             web_browser.Navigate(uri.ToString());
+#endif
         }
 
-        private void web_browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        private void web_browser_ConsoleMessage(object sender, EventArgs e)
         {
             WPFDoEvents.SafeExec(() =>
             {
-                Logging.Debug特("JAVASCRIPT CONSOLE MESSAGE: {0}", e.Message);
+                string msg = "TODO TODO TODO";
+                Logging.Debug特("JAVASCRIPT CONSOLE MESSAGE: {0}", msg);
 
                 try
                 {
                     if (finished_processing)
                     {
-                        Logging.Info("Finished processing, so ignoring InCite JavaScript error: {0}", e.Message);
+                        Logging.Info("Finished processing, so ignoring InCite JavaScript error: {0}", msg);
                         return;
                     }
 
-                    if (e.Message.Contains("Permission denied"))
+                    if (msg.Contains("Permission denied"))
                     {
-                        Logging.Info("Skipping known exception: {0}", e.Message);
+                        Logging.Info("Skipping known exception: {0}", msg);
                         return;
                     }
 
-                    if (e.Message.Contains("SyntaxError"))
+                    if (msg.Contains("SyntaxError"))
                     {
                         finished_processing = true;
 
-                        Logging.Info("Acting on InCite syntax error: {0}", e.Message);
+                        Logging.Info("Acting on InCite syntax error: {0}", msg);
 
                         System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"line:\s+(\d+)\s+column:\s+(\d+)\s+");
-                        System.Text.RegularExpressions.MatchCollection matches = regex.Matches(e.Message);
+                        System.Text.RegularExpressions.MatchCollection matches = regex.Matches(msg);
                         if (0 < matches.Count)
                         {
                             int line = Int32.Parse(matches[0].Groups[1].Value);
@@ -112,7 +114,7 @@ namespace Qiqqa.InCite
                             int min = (int)Math.Max(0, line - 1 - 15);
                             int max = (int)Math.Min(citations_javascript_lines.Length, line - 1 + 5);
                             StringBuilder sb_error_region = new StringBuilder();
-                            sb_error_region.AppendFormat("Syntax error ({1},{2}): {0}\n", e.Message, line, pos);
+                            sb_error_region.AppendFormat("Syntax error ({1},{2}): {0}\n", msg, line, pos);
                             for (int i = min; i <= max; ++i)
                             {
                                 string indicator = (i == line - 1) ? "?????? " : "       ";
@@ -123,7 +125,7 @@ namespace Qiqqa.InCite
                         }
                         else
                         {
-                            error_message = e.Message;
+                            error_message = msg;
                         }
 
                         Logging.Info("Calling the BibliographyReadyDelegate");
@@ -132,15 +134,15 @@ namespace Qiqqa.InCite
                         Logging.Info("Called the BibliographyReadyDelegate");
                     }
 
-                    if (e.Message.Contains("INCITE_FINISHED"))
+                    if (msg.Contains("INCITE_FINISHED"))
                     {
                         finished_processing = true;
 
-                        Logging.Info("Acting on signalling InCite JavaScript error: {0}", e.Message);
+                        Logging.Info("Acting on signalling InCite JavaScript error: {0}", msg);
 
                         Logging.Info("Received citeproc results");
                         {
-                            string json_output_encoded = web_browser.DomDocument.GetHtmlElementById("ObjOutput").InnerHtml;
+                            string json_output_encoded = ""; //  web_browser.DomDocument.GetHtmlElementById("ObjOutput").InnerHtml;
                             string json_output = WebUtility.HtmlDecode(json_output_encoded);
                             JObject json = JObject.Parse(json_output);
 
@@ -202,12 +204,14 @@ namespace Qiqqa.InCite
                         if (finished_processing)
                         {
                             // Clean up
+#if false
                             if (null != web_browser)
                             {
                                 Logging.Debug特("Disposing of web browser for InCite CSL processing");
                                 web_browser.Dispose();
                                 web_browser = null;
                             }
+#endif
                         }
                     }
                 }
@@ -220,7 +224,7 @@ namespace Qiqqa.InCite
 
         private bool finished_processing = false;
 
-        private void web_browser_JavascriptError(object sender, JavascriptErrorEventArgs e)
+        private void web_browser_JavascriptError(object sender, EventArgs e)
         {
         }
 
@@ -387,7 +391,7 @@ namespace Qiqqa.InCite
             return sb.ToString();
         }
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~CSLProcessorOutputConsumer()
         {
@@ -414,13 +418,13 @@ namespace Qiqqa.InCite
                     if (dispose_count == 0)
                     {
                         // Get rid of managed resources
-                        web_browser?.Dispose();
+                        //web_browser?.Dispose();
                     }
                 });
 
                 WPFDoEvents.SafeExec(() =>
                 {
-                    web_browser = null;
+                    //web_browser = null;
 
                     brd = null;
                     user_argument = null;
@@ -439,6 +443,6 @@ namespace Qiqqa.InCite
             });
         }
 
-        #endregion
+#endregion
     }
 }

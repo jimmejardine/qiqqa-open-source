@@ -2,8 +2,6 @@
 using System.Net;
 using System.Windows;
 using System.Windows.Threading;
-using Gecko.Net;
-using Gecko.Observers;
 using icons;
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
@@ -19,6 +17,7 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 
+#if false
 namespace Qiqqa.WebBrowsing.GeckoStuff
 {
     internal class PDFInterceptor : BaseHttpRequestResponseObserver
@@ -189,3 +188,4 @@ namespace Qiqqa.WebBrowsing.GeckoStuff
         }
     }
 }
+#endif
