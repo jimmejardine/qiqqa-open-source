@@ -582,7 +582,11 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                         try
                         {
                             var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
-                            ASSERT.Test(img.IsFrozen);
+                            //ASSERT.Test(img.IsFrozen);
+                            if (!img.IsFrozen)
+                            {
+                                img.Freeze();
+                            }
                             ddw.page_bitmap_source = img;
 
                             UpdateLibraryStatistics_Stats_Background_GUI_FillPlaceHolder(ddw);
@@ -614,7 +618,7 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
                             try
                             {
                                 var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_2);
-                                ASSERT.Test(img.IsFrozen);
+                                //ASSERT.Test(img.IsFrozen);
                                 if (!img.IsFrozen)
                                 {
                                     img.Freeze();
