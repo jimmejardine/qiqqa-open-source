@@ -496,72 +496,80 @@ namespace Qiqqa.Documents.BibTeXEditor
             // anything Unicode in the high planes, etc.
 
             // https://stackoverflow.com/questions/27049478/net-string-object-and-invalid-unicode-code-points
-            string s = bibtex ?? "";
-            StringBuilder d = new StringBuilder(s);
-            char ch;
-
-            for (int i = 0; i < s.Length; i++)
+            try
             {
-                ch = s[i];
-                if (ch >= ' ' && ch < 127) // char is up to first high surrogate
+                string s = bibtex ?? "";
+                StringBuilder d = new StringBuilder();
+                char ch;
+
+                for (int i = 0; i < s.Length; i++)
                 {
-                }
-                else if (ch < ' ') 
-                {
-                    switch (ch)
+                    ch = s[i];
+                    if (ch >= ' ' && ch < 0xD800) // char is up to first high surrogate
                     {
-                        case '\r':
-                            // strip
-                            continue;
-
-                        case '\n':
-                            // keep
-                            //ch = '?';
-                            break;
-
-                        case '\t':
-                            // keep
-                            ch = ' ';
-                            break;
-
-                        default:
-                            // unexpected control character: replace
-                            ch = '?';
-                            break;
                     }
-                }
-                else if (ch >= 0xD800 && ch <= 0xDBFF)
-                {
-                    // found high surrogate -> discard
-                    ch = '?';
-                }
-                else if (ch >= 0xDC00 && ch <= 0xDFFF)
-                {
-                    // unexpected low surrogate
-                    ch = '?';
-                }
-                else if (ch >= 0xFDD0 && ch <= 0xFDEF)
-                {
-                    // non-chars are considered invalid by System.Text.Encoding.GetBytes() and String.Normalize()
-                    ch = '?';
-                }
-                else if ((ch & 0xFFFE) == 0xFFFE)
-                {
-                    // other non-char found
-                    ch = '?';
-                }
-                else 
-                {
-                    // just in case...
-                    ch = '?';
-                }
-                d[i] = ch;
-            }
+                    else if (ch < ' ')
+                    {
+                        switch (ch)
+                        {
+                            case '\r':
+                                // strip
+                                continue;
 
-            s = d.ToString();
-            s = s.Normalize();
-            
-            ObjBibTeXText.Text = s;
+                            case '\n':
+                                // enforce CRLF:
+                                d.Append('\r');
+                                d.Append('\n');
+                                continue;
+
+                            case '\t':
+                                // keep
+                                ch = ' ';
+                                break;
+
+                            default:
+                                // unexpected control character: replace
+                                ch = '?';
+                                break;
+                        }
+                    }
+                    else if (ch >= 0xD800 && ch <= 0xDBFF)
+                    {
+                        // found high surrogate -> discard
+                        ch = '?';
+                    }
+                    else if (ch >= 0xDC00 && ch <= 0xDFFF)
+                    {
+                        // unexpected low surrogate
+                        ch = '?';
+                    }
+                    else if (ch >= 0xFDD0 && ch <= 0xFDEF)
+                    {
+                        // non-chars are considered invalid by System.Text.Encoding.GetBytes() and String.Normalize()
+                        ch = '?';
+                    }
+                    else if ((ch & 0xFFFE) == 0xFFFE)
+                    {
+                        // other non-char found
+                        ch = '?';
+                    }
+                    else
+                    {
+                        // just in case...
+                        ch = '?';
+                    }
+                    d.Append(ch);
+                }
+
+                s = d.ToString();
+                s = s.Normalize();
+
+                ObjBibTeXText.Text = s;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "B0rk b0rk b0rk in TextBox::BuildTextFromBibTeX while processing input {0} (key: {1})", bibtex, bibtex_item.Key);
+            }
         }
 
         private void BuildGridFromBibTeX(string bibtex, BibTexItem bibtex_item)
