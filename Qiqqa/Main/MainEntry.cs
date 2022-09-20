@@ -234,9 +234,12 @@ namespace Qiqqa.Main
             application.SessionEnding += Application_SessionEnding;
 
             // All the exception handling
-            application.DispatcherUnhandledException += application_DispatcherUnhandledException;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            SafeThreadPool.UnhandledException += SafeThreadPool_UnhandledException;
+            if (!Debugger.IsAttached)
+            {
+                application.DispatcherUnhandledException += application_DispatcherUnhandledException;
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+                SafeThreadPool.UnhandledException += SafeThreadPool_UnhandledException;
+            }
 
             Process proc = Process.GetCurrentProcess();
             //     Occurs each time an application writes a line to its redirected System.Diagnostics.Process.StandardOutput/StandardError
