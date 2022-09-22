@@ -74,3 +74,7 @@ Release*/
 # Intel VTune Profiler
 /Qiqqa/VTune Profiler Results/
 /icons/Logo/research
+
+# misc.
+/docs-src/Dcoumentation/
+
