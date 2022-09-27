@@ -209,7 +209,45 @@ Now we assume all commit records in the commit graph for this PDF have the same 
 - "selection" commit? That one takes a bit more work. When such a commit is added, the referenced subtrees need to be completely `UPDATE`d to assign each record the new `element` id.
   
   > Hm, that's not nice when you wish to *revert*/*undo* the select action: once you *disconnect* the select, each subtree must be inspected to find if it is now entirely *detached* from the CURRENT and only when it is MUST it be renumbered in its entirety -- it isn't detached when there are other "*select*"s still pulling in \[parts of] this subtree. All this involves a potentially large number of commit & link records in the undo `UPDATE` database action. An ameliorating thought here is that *undo*-ing a *select* action is expected to be quite rare: how often do you expect to undo work, really?
-  
+
+```graphviz
+strict digraph {
+    rankdir="LR"
+
+    a [shape="ellipse" style="filled" fillcolor="#bfd7f4"] [label="CURRENT"]
+    c [shape="polygon" style="filled" fillcolor="#ff7f0e"] [label="Sync/In" ordering="out"]
+    g [label="action"]
+    l [label="action\nby teammate\n[+ their Sync/In]"]
+    i [label="action\nby teammate"]
+    k [label="..."]
+    h [label="action\nby teammate\n[+ their Sync/Out]"]
+    j [shape="polygon" style="filled" fillcolor="#ff7f0e"] [label="Sync Out"]
+    d [label="action"]
+    e [label="action"]
+    f [label="action"]
+    
+subgraph clusterone {
+    a; c; d; e; f; g; j; k;
+    label="our own activity";
+    graph[style=dotted];
+ }
+
+    
+subgraph clustertwo {
+    h; i; l;
+    label="remote activity / teammate";
+    graph[style=dotted];
+ }
+
+    a -> c
+    c -> d -> e -> f -> g  [weight=2]
+    c -> h [fillcolor="#a6cee3" color="#1f78b4"]
+    h -> i   [fillcolor="#a6cee3" color="#1f78b4"] [weight=2]
+    i -> l -> j [fillcolor="#a6cee3" color="#1f78b4"]
+    g -> j -> k [weight=2]
+}
+```
+
 * Import/merge from Sync Source: we WILL find those LINK records will have quite different`element` ids, particularly when we have teammates working on the same database. However, those commit trees can be matched against ours as one thing's for sure: a single PDF file (and thus a unique PDF hash) cannot legally exist in two different commit trees! If it could, we would be able to involve a single PDF in multiple, **fully independent**, metadata and content development trees! Why would you do that? Arguing that different libraries may need different "*views*" re certain PDFs is an argument for a  _commit tree **branch**_ instead: you can do anything like that (give a PDF different metadata and other attributes) when its commit tree is branched. There's no need to allow a single PDF in multiple independent commit trees. And *hence* we can simply match those incoming foreign commit trees to our own, 1:1 for every PDF document. Which results in an easy renumbering approach -- or ~-mapping so we can quickly discover whether our commit tree is different from "theirs" and decide whether any work must be done to merge the two... Not super-easy like it was before with Qiqqa, but I don't see screaming costs surfacing here either.
 * Security of edits vs. another library? When we have two libraries, each with their own branch and thus desired metadata for a shared PDF, then their historic commit tree up to the point where this PDF is assigned and the commit tree branches, is shared among the two libraries. That is proper behaviour as anything leading up to this PDF is common history.
   The library-specific stuff sits in its own branch and it MUST NOT access our branch: this is a security issue in the software as the fast SQL query will produce the *entire* commit tree, *including both branches*. 
