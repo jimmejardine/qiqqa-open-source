@@ -207,7 +207,7 @@ Now set $bit_{62}$, extract the 4 *precision bits* at $bit_{0..3}$, and we're le
 > 
 > I *like* it!  😈
  
-Here's the layout for regular date/timestamps, using only *63* bits, i.e. this is the layout when we decide to leave $bit_{63}$ *untouched* entirely, hence *no worries about unsigned vs. signed integer misbehaviour* when mixing various programming languages (including SQLite `rowid`):
+Here's the layout for regular date/timestamps, using only *63* bits, i.e. this is the layout when we decide to leave $bit_{63}$ *untouched* entirely, hence *no worries about unsigned vs. signed integer misbehaviour* when mixing various programming languages (including [SQLite `rowid`](https://sqlite.org/lang_createtable.html#rowid)):
 
 ```wavedrom 
 {reg: [
