@@ -167,7 +167,7 @@ That's plenty to encode the first written word at ~ 8000 [BP](https://www.artoba
 
 Meanwhile we then need to fix two issues that matter for the *sortability* of our date numbers:
 
-- relatively young years now have 2 ways in which they can be encoded: in the Option A bitfield style, or as *prehistoric years* (negative values) as described above: the obvious solution there is to forbit these dates to be written using the second system. Or offset the second by this (negligible) offset so that any negative number is automatically "in legal range".
+- relatively young years now have 2 ways in which they can be encoded: in the Option A bitfield style, or as *prehistoric years* (negative values) as described above: the obvious solution there is to forbid these dates to be written using the second system. Or offset the second by this (negligible) offset so that any negative number is automatically "in legal range".
 - while these negative numbers have a direction where "more negative" means "older", the regular, positive value date values have the opposite direction: "more positive" means "larger negative offset since epoch" i.e. "older!"
 
 One of these value ranges has to budge to ensure their direction is the same.
@@ -200,9 +200,9 @@ Now set $bit_{62}$, extract the 4 *precision bits* at $bit_{0..3}$, and we're le
 > Let's have a look at the possible resolution then, for curiosity's sake:
 >
 > When we take [the Big Bang estimate, i.e. the age of the universe](https://www.ncbi.nlm.nih.gov/books/NBK230211/) worst-case value at 20 billion years BP, then we'd need $\lceil log_2( 20 \text{ billion} ) \rceil = \lceil log_2( 20 * 10^9 ) \rceil = 35$ bits.
-> Assuming our worst-case design, i.e. using $bit_{62}$ instead of $bit_{63}$, that still would leave us $62 - 35 - 4_{\text{precision bits}} = 23$ bits for the within-the-year stuff. Which we can do either as a set of bitfields,, or as a continuous numeric range. In the latter case, we'ld want to encode *presence-or-absence* for each date/time part as we have for the other range, and since we don't have "magic values" when we don't have bitfields, that's going to cost a couple of extra bits.
+> Assuming our worst-case design, i.e. using $bit_{62}$ instead of $bit_{63}$, that still would leave us $62 - 35 - 4_{\text{precision bits}} = 23$ bits for the within-the-year stuff. Which we can do either as a set of bitfields or as a continuous numeric range. In the latter case, we'ld want to encode *presence-or-absence* for each date/time part as we have for the other range, and since we don't have "magic values" when we don't have bitfields, that's going to cost a couple of extra bits.
 > But before we do that, let's see what the maximum is we can squeeze into those 23 bits:
-> $2^{23} / ( 366 \times 24 \times 60 ) \approx 15.9$, meaning we have (almost) 4 bits left which represent *seconds*, i.ee. we can encode to within a single *minute* of time without a fuss!
+> $2^{23} / ( 366 \times 24 \times 60 ) \approx 15.9$, meaning we have (almost) 4 bits left which represent *seconds*, i.e. we can encode to within a single *minute* of time without a fuss!
 > Now we introduce those extra *presence-or-absence* bits alongside with that, resulting in a slightly lower resolution: assuming we signal *month*, *day*, *hour* and *minute*, that's 4 bits less, giving us $2^{19} / ( 366 \times 24 \times 60 ) \approx 0.9948$, i.e. we'ld *still* be able to encode the date/timestamp to (almost) within the *minute* precise. All the way to the Big Bang. Now that's an *insane range & accuracy*.
 > 
 > I *like* it!  😈
