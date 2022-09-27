@@ -7,7 +7,7 @@ We want to store dates and timestamps in a single 64-bit integer value, where:
 - dates are expected to lack some components, resulting in a "*rough estimate*". For example, a date may only list year and maybe the month, but not the day-of-the-month or any of the more detailing parts (timestamp within the day: HH:MM:SS)
 - we also expect to store *anomalies* where the *most significant parts* of a date/timestamps are missing, e.g. an event timestamp which specifies the time-within-the-day to the microsecond precise, but lacks the entire year-month-day chunk.
 
-The overall goal is to be able to store "arbitrary dates and timestamps" in a single 64-bit integer number format, which is (largely) sortable **and** includes a mechanism to reproduce the stored *imprecise date/timestamp* in its original detail, i.e. the formatter MUST be able to reproduce the date "January 2022" when it had been specified like that before, while "13 January 2022 @ 12:40" and "13 January 2022 @ 12:40.31.049352" are other examples of the same requirement, but with different levels of *original precision*. Ditto for *anomalous precision dates* such as "13 January @ 12:40" where both the *year* and *seconds + microseconds* components are absent.
+The overall goal is to be able to store "arbitrary dates and timestamps" in a single 64-bit integer number format, which is (largely) sortable **and** includes a mechanism to reproduce the stored *imprecise date/timestamp* in its original detail, i.e. the formatter MUST be able to reproduce the date "`January 2022`" when it had been specified like that before, while "`13 January 2022 @ 12:40`" and "`13 January 2022 @ 12:40.31.049352`" are other examples of the same requirement, but with different levels of *original precision*. Ditto for *anomalous precision dates* such as "`13 January @ 12:40`" where both the *year* and *seconds + microseconds* components are absent.
 
 
 ## The Solution: Pre-design Analysis
@@ -16,9 +16,9 @@ The overall goal is to be able to store "arbitrary dates and timestamps" in a si
 
 Let's see if we can get away with a system where each component consumes $n$ bits in the 64-bit number:
 
-The required date range implies we need to span a range [from about 6000 B.C.]([A brief guide to the history of the written word. – New Archaeology](http://www.newarchaeology.com/writing/)) till today (2022 A.D.), which we stretch by the mentioned *margin of a few 1000 years*, say 10,000 BC to 2200 AD (or wider).
+The required date range implies we need to span a range [from about 6000 B.C.](http://www.newarchaeology.com/writing/) till today (2022 A.D.), which we stretch by the mentioned *margin of a few 1000 years*, say 10,000 BC to 2200 AD (or wider).
 
-> While we don't see a pressing need to move the upper bound further into the future (even when we consider [SF novels]([Foundation series - Wikipedia](https://en.wikipedia.org/wiki/Foundation_series)) written at imaginary dates: those can get pretty wild and are deemed of minimal interest w.r.t. the dates *mentioned in those novels*: the SF novel itself will be written sometime before or during our lifetime, after all.
+> While we don't see a pressing need to move the upper bound further into the future (even when we consider [SF novels](https://en.wikipedia.org/wiki/Foundation_series) written at imaginary dates: those can get pretty wild and are deemed of minimal interest w.r.t. the dates *mentioned in those novels*: the SF novel itself will be written sometime before or during our lifetime, after all.
 > **Iff** we expand this date range further, it'll be into the past for history / archeology has surprised us before and we'ld be better prepared if we can encode those surprises easily.
 
 As 6000 BC to 2022 AD is already 8022 years, the next power-of-2 (8192) is deemed *too tight* and we thus intend to pick the next one: $2^{14} = 16384$ years.
@@ -29,7 +29,7 @@ We won't accept +/- 8192 years anyway (way too much range lost to fantastical fu
 
 12 Months encode in a 4-bit range: $2^4 = 16$, while the maximum of 31 days per month encodes in 5 bits: $2^5 = 32$
 
-24 Hours take another 5 bits then, 60 minutes consume 6 bits ($2^6 = 64$), ditto for the seconds and what's left is good for the milli- or microseconds, depending on how much will be left for those.
+24 Hours take another 5 bits then, 60 minutes consume 6 bits ( $2^6 = 64$ ), ditto for the seconds and what's left is good for the milli- or microseconds, depending on how much will be left for those.
 
 Summing the rough bit costs per component, we arrive at $14 + 4 + 5 + 5 + 6 + 6 + m = 64$ where $m$ is the number of bits still *potentially* available for the milli/microseconds.  $\Longrightarrow m = 64 - (14 + 4 + 5 + 5 + 6 + 6) = 64 - 40 = 24$ which is *plenty* for the microseconds, as we won't be needing more than 20 since $2^{20} = 1,048,576$
 
@@ -61,7 +61,7 @@ We specify the *day* field to be **6 bits** wide (rather than *5 bits*), resulti
 ### Sortability vs. Continuity of the 64-bit number
 Should we do anything about the other *invalid values*, e.g. `day = 42`, given that our fields can store more values then strictly necessary?
 
-While this "*$n$ bits per field*" layout perfectly allows us to encode any date or timestamp we crave, it is clearly *sortable* as the order of appearance of the bitfields within the number determines their sort priority, while our simple "*not specified* is encoded as the highest possible value of the field" rule allows a consistent and useful sort order for arbitrary dates and timestamps, date/time *differences*, i.e. "*time deltas*" or "*time spent*" has become a little harder to calculate: to do that we need to diff all the fields, do something extra for the *not specified fields* and construct a continuous time delta from those individual differences. That's several subtractions, multiplications and additions per round.
+While this *"$n$ bits per field"* layout perfectly allows us to encode any date or timestamp we crave, it is clearly *sortable* as the order of appearance of the bitfields within the number determines their sort priority, while our simple "*not specified* is encoded as the highest possible value of the field" rule allows a consistent and useful sort order for arbitrary dates and timestamps, date/time *differences*, i.e. "*time deltas*" or "*time spent*" has become a little harder to calculate: to do that we need to diff all the fields, do something extra for the *not specified fields* and construct a continuous time delta from those individual differences. That's several subtractions, multiplications and additions per round.
 
 
 
@@ -101,7 +101,7 @@ Of course, we *could* go and encode the magic values for *not specified fields* 
 
 We *could* also analyze the bitmask and observe:
 - that any somewhat valid date/time has *at least one specified field* hence one of the bits will always be 1. Can we *compress* the bitfield then, as that's one bit of the 7 that's always useless; the problem being that it can be *any of the 7*?
-- Generally dates and times lack specificity at the head or tail end, but only "crazy" timestamps lack fields in the middle of the set, e.g. "13 January @ 12:00" is a sane date (missing seconds+microseconds at the tail and year(+century) at the head; so is "1200 BC", which lacks all but the year, i.e. a long missing tail, while "biblical teatime: 0 A.D. @ 15:00 hours" is "insane" from this perspective: day and month are missing in the middle!
+- Generally dates and times lack specificity at the head or tail end, but only "crazy" timestamps lack fields in the middle of the set, e.g. "`13 January @ 12:00`" is a sane date (missing seconds+microseconds at the tail and year(+century) at the head; so is "`1200 BC`", which lacks all but the year, i.e. a long missing tail, while "`biblical teatime: 0 A.D. @ 15:00 hours`" is "*insane*" from this perspective: day and month are missing in the middle!
 
 Hence it *could* be possible to encode every date as a "how much of the head and tail are you missing" code: of 7 fields, you can miss 6 at most (given our first observation), resulting in these legal head+tail missing spec sets, where we specify the *length* of the missing heads and tails, 0 thus meaning "*nothing's missing on this side*":
 
@@ -113,7 +113,7 @@ Hence it *could* be possible to encode every date as a "how much of the head and
 - 5 + 0..1
 - 6 + 0      (a bit of an odd one as this says all but the sub-second microseconds part are missing from the timestamp -- which can happen for performance measurements, but otherwise... hm.)
 
-When we count these, we get the total number of legal head+tail specs: $7 + 6 + 5 + 4 + 3 + 2 + 1 = 28$, thus fitting in an `enum` occupying 5 bits ($2^5 = 32$), giving us back 2 bits of offset range, expanding our offset range to $4557 \times 2^2 \approx 18229$ years into the past from epoch, i.e. $3000 - 18229 = -15229$, i.e. 15229 B.C. will then be the oldest date we can address using this *microseconds since epoch* system.
+When we count these, we get the total number of legal head+tail specs: $7 + 6 + 5 + 4 + 3 + 2 + 1 = 28$, thus fitting in an `enum` occupying 5 bits ( ${2^5 = 32}$ ), giving us back 2 bits of offset range, expanding our offset range to $4557 \times 2^2 \approx 18229$ years into the past from epoch, i.e. $3000 - 18229 = -15229$, i.e. 15229 B.C. will then be the oldest date we can address using this *microseconds since epoch* system.
 
 
 ### Is it worth it?
@@ -144,7 +144,7 @@ Hence it's opportune to pick the Option A design: it is *sortable* while it has 
 
 Say we want to store *century* as a (sub)field of *year*, so we we can say things like "5th Century B.C." rather than "500 B.C.", what would be the impact on the bitfields-based Option A design in terms of *range*, etc.?
 
-The current design reserves 14 bits for the year+century -- which can be expanded to 17 bits if we accept negative 64bit numbers! -- giving us a range of 16000 .. 128000 years. Chopping that bitfield into two parts, we would have to give the *year* part 7 bits ($2^7 = 128$), leaving 7 .. 10 bits for the century, i.e. $2^7 = 128$ .. $2^{10} = 1024$, shrinking our *at extremum* range from about 1280 centuries down to a *mere* 1024 -- still *abundantly plenty* when we realize that the current oldest known written words are about *90* centuries old in our number design: 9000 years before *epoch*.
+The current design reserves 14 bits for the year+century -- which can be expanded to 17 bits if we accept negative 64bit numbers! -- giving us a range of 16000 .. 128000 years. Chopping that bitfield into two parts, we would have to give the *year* part 7 bits ( $2^7 = 128$ ), leaving 7 .. 10 bits for the century, i.e. $2^7 = 128$ .. $2^{10} = 1024$, shrinking our *at extremum* range from about 1280 centuries down to a *mere* 1024 -- still *abundantly plenty* when we realize that the current oldest known written words are about *90* centuries old in our number design: 9000 years before *epoch*.
 
 Thus, while we cannot easily encode [the date of creation for the human expression on Pseudodon shell DUB1006-fL](https://en.wikipedia.org/wiki/Pseudodon_shell_DUB1006-fL), which, worst case, clocks in at 540,000 [BP](https://www.artobatours.com/articles/archaeology/bp-bc-bce-ad-ce-cal-mean/) and lies therefore *far* outside our addressable range, which maxes out at 101,000 BP .. 127,000 BP unless we include some semi-logarithmic scaling for our oldest dates or other trickery to allow for historic dates way further back.
 
@@ -167,7 +167,7 @@ That's plenty to encode the first written word at ~ 8000 [BP](https://www.artoba
 
 Meanwhile we then need to fix two issues that matter for the *sortability* of our date numbers:
 
-- relatively young years now have 2 ways in which they can be encoded: in the Option A bitfield style, or as *prehistoric years* (negative values) as described above: the obvious solution there is to forbit these dates to be written using the second system. Or offset the second by this (negligible) offset so that any negative number is automatically "in legal range".
+- relatively young years now have 2 ways in which they can be encoded: in the Option A bitfield style, or as *prehistoric years* (negative values) as described above: the obvious solution there is to forbid these dates to be written using the second system. Or offset the second by this (negligible) offset so that any negative number is automatically "in legal range".
 - while these negative numbers have a direction where "more negative" means "older", the regular, positive value date values have the opposite direction: "more positive" means "larger negative offset since epoch" i.e. "older!"
 
 One of these value ranges has to budge to ensure their direction is the same.
@@ -200,14 +200,14 @@ Now set $bit_{62}$, extract the 4 *precision bits* at $bit_{0..3}$, and we're le
 > Let's have a look at the possible resolution then, for curiosity's sake:
 >
 > When we take [the Big Bang estimate, i.e. the age of the universe](https://www.ncbi.nlm.nih.gov/books/NBK230211/) worst-case value at 20 billion years BP, then we'd need $\lceil log_2( 20 \text{ billion} ) \rceil = \lceil log_2( 20 * 10^9 ) \rceil = 35$ bits.
-> Assuming our worst-case design, i.e. using $bit_{62}$ instead of $bit_{63}$, that still would leave us $62 - 35 - 4_{\text{precision bits}} = 23$ bits for the within-the-year stuff. Which we can do either as a set of bitfields,, or as a continuous numeric range. In the latter case, we'ld want to encode *presence-or-absence* for each date/time part as we have for the other range, and since we don't have "magic values" when we don't have bitfields, that's going to cost a couple of extra bits.
+> Assuming our worst-case design, i.e. using $bit_{62}$ instead of $bit_{63}$, that still would leave us $62 - 35 - 4_{\text{precision bits}} = 23$ bits for the within-the-year stuff. Which we can do either as a set of bitfields or as a continuous numeric range. In the latter case, we'ld want to encode *presence-or-absence* for each date/time part as we have for the other range, and since we don't have "magic values" when we don't have bitfields, that's going to cost a couple of extra bits.
 > But before we do that, let's see what the maximum is we can squeeze into those 23 bits:
-> $2^{23} / ( 366 \times 24 \times 60 ) \approx 15.9$, meaning we have (almost) 4 bits left which represent *seconds*, i.ee. we can encode to within a single *minute* of time without a fuss!
+> $2^{23} / ( 366 \times 24 \times 60 ) \approx 15.9$, meaning we have (almost) 4 bits left which represent *seconds*, i.e. we can encode to within a single *minute* of time without a fuss!
 > Now we introduce those extra *presence-or-absence* bits alongside with that, resulting in a slightly lower resolution: assuming we signal *month*, *day*, *hour* and *minute*, that's 4 bits less, giving us $2^{19} / ( 366 \times 24 \times 60 ) \approx 0.9948$, i.e. we'ld *still* be able to encode the date/timestamp to (almost) within the *minute* precise. All the way to the Big Bang. Now that's an *insane range & accuracy*.
 > 
 > I *like* it!  😈
  
-Here's the layout for regular date/timestamps, using only *63* bits, i.e. this is the layout when we decide to leave $bit_{63}$ *untouched* entirely, hence *no worries about unsigned vs. signed integer misbehaviour* when mixing various programming languages (including SQLite `rowid`):
+Here's the layout for regular date/timestamps, using only *63* bits, i.e. this is the layout when we decide to leave $bit_{63}$ *untouched* entirely, hence *no worries about unsigned vs. signed integer misbehaviour* when mixing various programming languages (including [SQLite `rowid`](https://sqlite.org/lang_createtable.html#rowid)):
 
 ```wavedrom 
 {reg: [
