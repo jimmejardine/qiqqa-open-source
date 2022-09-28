@@ -64,6 +64,8 @@ This results in this preliminary design (see further beelow for the "mode" bit: 
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
 
+![layout](../asserts/wavedrom07.png)
+
 
 ### Coping with the fields that weren't specified in the input
 
