@@ -4,7 +4,7 @@
 
 We want to store dates and timestamps in a single 64-bit integer value, where:
 - the date range is expected to cover the entire period where humans have been *assumed* to produce written words, plus a few 1000 years *margin*, so anyone using the library system can store their dates without any fuss while we can quickly compare (and sort) these dates.
-- dates are expected to lack some components, resulting in a "*rough estimate*". For example, a date may only list year and maybe the month, but not the day-of-the-month or any of the more detailing parts (timestamp within the day: HH:MM:SS)
+- dates are expected to lack some components, resulting in a "*rough estimate*". For example, a date may only list year and maybe the month, but not the day-of-the-month or any of the more detailing parts (timestamp within the day: `HH:MM:SS`)
 - we also expect to store *anomalies* where the *most significant parts* of a date/timestamps are missing, e.g. an event timestamp which specifies the time-within-the-day to the microsecond precise, but lacks the entire year-month-day chunk.
 
 The overall goal is to be able to store "arbitrary dates and timestamps" in a single 64-bit integer number format, which is (largely) sortable **and** includes a mechanism to reproduce the stored *imprecise date/timestamp* in its original detail, i.e. the formatter MUST be able to reproduce the date "`January 2022`" when it had been specified like that before, while "`13 January 2022 @ 12:40`" and "`13 January 2022 @ 12:40.31.049352`" are other examples of the same requirement, but with different levels of *original precision*. Ditto for *anomalous precision dates* such as "`13 January @ 12:40`" where both the *year* and *seconds + microseconds* components are absent.
@@ -14,7 +14,7 @@ The overall goal is to be able to store "arbitrary dates and timestamps" in a si
 
 ### Option A: Every component has its own bit set
 
-Let's see if we can get away with a system where each component consumes $n$ bits in the 64-bit number:
+Let's see if we can get away with a system where each component consumes (​$n$​) bits in the 64-bit number:
 
 The required date range implies we need to span a range [from about 6000 B.C.](http://www.newarchaeology.com/writing/) till today (2022 A.D.), which we stretch by the mentioned *margin of a few 1000 years*, say 10,000 BC to 2200 AD (or wider).
 
@@ -180,7 +180,7 @@ Then we can simply specify that, once $bit_{63}$ has been set, the encoded *offs
  
 Analysis:
 - Re sortability: we *do* have a "*steadily increasing*" numeric value for increasingly older date/timestamps up to at least the "boundary value" where $bit_{63}$ flips, since all values with $bit_{63}$ *unset*, i.e. zero(0), are positive integer values counting down from epoch, where the *field order* determines the significance of the various date/timestamp parts in the overall numeric value. While this numeric range may therefor not be theoretically [*continuous*](https://www.math.net/continuous), sorting isn't bothered by *discontinuities* as long as the numeric value is **steadily increasing**.
-- At the boundary ($bit_{63}$ is flipped from zero(0) to one(1)), the earlier thought/definition said the **unsigned numeric value** would be **steadily increasing**: all dates with $bit_{63} = 1$ are older than any of the dates with $bit_{63} = 0$ by definition: when this is not true, we have a date format *conversion bug* that needs to be fixed.
+- At the boundary (​$bit_{63}$ is flipped from zero(0) to one(1)), the earlier thought/definition said the **unsigned numeric value** would be **steadily increasing**: all dates with $bit_{63} = 1$ are older than any of the dates with $bit_{63} = 0$ by definition: when this is not true, we have a date format *conversion bug* that needs to be fixed.
 - Beyond the boundary, the **unsigned numeric value** of the numbers steadily increases as the dates get older: that's why we must, at date conversion, subtract our "delta from epoch" from MAX_INT when the conversion calculation finds the given date is old enough to land in the  $bit_{63} = 1$ value zone. Given that our *precision bits* are positioned at the LSBs (Least Significant Bits), they won't alter the notion of **steadily increasing** numeric value: any *less precise* yet *earlier* date will have a lower unsigned numeric value than any *precise* (or imprecise) yet *older* date, thus keeping the criterion for sortability intact and simple:
 hence $bit_{63}$ decides between two *different date conversion processes* when transforming these 64-bit integer numbers to & from human-readable date/timestamps, yet *any* encoded 64-bit numeric timestamp can thus safely be compared to any other 64-bit unsigned integer timestamp value for quickly deciding on their *sorting order*: the entire value range is *steadily increasing* (away from epoch into antiquity and beyond).
 
@@ -193,7 +193,7 @@ If we worry about that, for it can be a spot of bother when using multiple progr
 
 Let's see what that'll do to our century range, etc...
 
-The *century field* will then only be $14 + 1 - 7 = 8$ bits: 14bits base design, *in extremum* adding 1 surplus bit ($bit_{61}$), while the other surplus bit ($bit_{62}$) will serve as *format switch signal* and leaving $bit_{63}$ well alone. Anyway, this means you can go back to $2^8 = 256$, i.e. $3000 - 25600 = -22600$, i.e. 22600 BP. Plenty range for *the written word*, even when we get a surprise find some day -- unless it's of *history rewriting* power. But then that's where our "*extended date range*" will serve!
+The *century field* will then only be $14 + 1 - 7 = 8$ bits: 14bits base design, *in extremum* adding 1 surplus bit (​$bit_{61}$), while the other surplus bit (​$bit_{62}$) will serve as *format switch signal* and leaving $bit_{63}$ well alone. Anyway, this means you can go back to $2^8 = 256$, i.e. $3000 - 25600 = -22600$, i.e. 22600 BP. Plenty range for *the written word*, even when we get a surprise find some day -- unless it's of *history rewriting* power. But then that's where our "*extended date range*" will serve!
 
 Now set $bit_{62}$, extract the 4 *precision bits* at $bit_{0..3}$, and we're left with a $61 - 4 = 57$ bit value representing the *years before epoch*.  As the estimated date range till Big Bang is well within 44 bits, this number still has plenty room for some insane precision, e.g. seasons, months or days.
 
