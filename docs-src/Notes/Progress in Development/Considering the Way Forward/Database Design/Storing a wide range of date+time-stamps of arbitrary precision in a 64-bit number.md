@@ -14,7 +14,7 @@ The overall goal is to be able to store "arbitrary dates and timestamps" in a si
 
 ### Option A: Every component has its own bit set
 
-Let's see if we can get away with a system where each component consumes (​$n$​) bits in the 64-bit number:
+Let's see if we can get away with a system where each component consumes $n$ bits in the 64-bit number:
 
 The required date range implies we need to span a range [from about 6000 B.C.](http://www.newarchaeology.com/writing/) till today (2022 A.D.), which we stretch by the mentioned *margin of a few 1000 years*, say 10,000 BC to 2200 AD (or wider).
 
@@ -25,11 +25,11 @@ As 6000 BC to 2022 AD is already 8022 years, the next power-of-2 (8192) is deeme
 
 Will it then be useful to have 0 AD encoded at a bit boundary? 
 
-We won't accept +/- 8192 years anyway (way too much range lost to fantastical future dates), so we'll have an offset in the value when encoding/decoding anyway. Bit-shifting is not faster than simple addition or subtraction, so we can pick the upper bound and derive all years from that one instead: at an upper bound of 3000 AD the 14-bit unsigned number can then be used as a simple negative offset for the encoded year.
+We won't accept ±8192 years anyway (way too much range lost to fantastical future dates), so we'll have an offset in the value when encoding/decoding anyway. Bit-shifting is not faster than simple addition or subtraction, so we can pick the upper bound and derive all years from that one instead: at an upper bound of 3000 AD the 14-bit unsigned number can then be used as a simple negative offset for the encoded year.
 
 12 Months encode in a 4-bit range: $2^4 = 16$, while the maximum of 31 days per month encodes in 5 bits: $2^5 = 32$
 
-24 Hours take another 5 bits then, 60 minutes consume 6 bits ( $2^6 = 64$ ), ditto for the seconds and what's left is good for the milli- or microseconds, depending on how much will be left for those.
+24 Hours take another 5 bits then, 60 minutes consume 6 bits $(2^6 = 64)$, ditto for the seconds and what's left is good for the milli- or microseconds, depending on how much will be left for those.
 
 Summing the rough bit costs per component, we arrive at $14 + 4 + 5 + 5 + 6 + 6 + m = 64$ where $m$ is the number of bits still *potentially* available for the milli/microseconds.  $\Longrightarrow m = 64 - (14 + 4 + 5 + 5 + 6 + 6) = 64 - 40 = 24$ which is *plenty* for the microseconds, as we won't be needing more than 20 since $2^{20} = 1,048,576$
 
@@ -43,23 +43,42 @@ Also, while a 64-bit (or 63-bit?) number formatted this way is very well *sortab
 > 
 > We also completely disregard the *timezones*: as far as I am concerned any date and time should be UTC and *nothing else matters*; any timezone conversion should be driven by other means, e.g. geolocation or nationality attributes of the data at large, of which this timestamp will be a mere *particle*.
 
+This results in this preliminary design (see further beelow for the "mode" bit: that's for going back all the way to the time of the birth of our universe: the Big Bang:
+
+```wavedrom
+{reg: [
+  {bits: 10, name: "µsecs", type: 5},
+  {bits: 10, name: "msecs", type: 5},
+
+  {bits: 6, name: 'SS', type: 2},
+  {bits: 6, name: 'MM', type: 2},
+  {bits: 5, name: 'HH', type: 2},
+  
+  {bits: 5, name: 'DD', type: 6},
+  {bits: 4, name: 'MM', type: 6},
+  
+  {bits: 16, name: "Century+Year (3000 AD - 62536 BC)", type: 3},
+  {bits: 1, name: "0", attr: "mode", type: 1},
+  {bits: 1, name: "0"},
+
+], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
+```
 
 
 ### Coping with the fields that weren't specified in the input
 
 *Not Specified* for any field in this timestamp number design would then require the use of *magic values*, where each field has an associated *magic value* (zero(0) or otherwise), which encodes the notion of "this field has not been specified".
 
-For sorting purposes it is useful to have that magic value set to zero(0), so it always ends up at the (sub)top; alternatively we can choose to pick the *maximum value* as the magic number, resulting in "underspecified" dates ending in the (sub)bottom, preceded by all the dates which *do* have that field set to sane values.
+For sorting purposes it is useful to have that magic value set to zero(0), so it always ends up at the (sub)top; alternatively we can choose to pick the *maximum value* as the magic number, resulting in "underspecified" dates ending in the (sub)bottom rows, preceded by all the dates which *do* have that field set to sane values.
 
 > This assumes we are sorting from old to new. The order reverses when we sort from new to old, e.g. when we wish to see the latest publications *first*.
 
-Considering we can easily encode `month = 0` as a magic, but would be in serious trouble if we were to do the same for the time fields (e.g. `minute = 0`), it makes sense to -- if we want to be rigorous and keep the magic rules to an absolute minimum -- for every field, define the *maximum value* as the magical value signaling "*not specified*"; meanwhile we can still bicker about whether months (and days?) should start numbering at 1 or 0 without any harm to the number layout at large: `month = 15` is an obvious magic value, but  `day = 31` is *not*. While none of the other fields suffer that way from this "*maximum is magic*" rule, the *day* field does, so here's where we can make those *surplus bits* be useful:
-
-We specify the *day* field to be **6 bits** wide (rather than *5 bits*), resulting in the obvious magic value `day = 63` while we can encode any day in the range 0 .. 31 without a fuss.
+Considering we can easily encode `month = 0` as a magic, but would be in serious trouble if we were to do the same for the time fields (e.g. `minute = 0`), it makes sense to -- if we want to be rigorous and keep the magic rules to an absolute minimum -- for every field, define the *maximum value* as the magical value signaling "*not specified*"; meanwhile we can still bicker about whether months (and days?) should start numbering at 1 or 0 without any harm to the number layout at large: `month = 15` is an obvious magic value, but  `day = 31` is *not*. While none of the other fields suffer that way from this "*maximum is magic*" rule, the *day* field does, so here's where we have to be restrictive as we do not wish to expend another bit for this: you either pick ZERO(0) as your "this is not defined" marker value, *or* specify the "maximum field value" as that signal, in which case your regular date's days will be numbered 0..30.
 
 
 ### Sortability vs. Continuity of the 64-bit number
-Should we do anything about the other *invalid values*, e.g. `day = 42`, given that our fields can store more values then strictly necessary?
+
+Should we do anything about the other *invalid values*, e.g. `month = 14`, given that most of our fields can store more values then strictly necessary?
 
 While this *"$n$ bits per field"* layout perfectly allows us to encode any date or timestamp we crave, it is clearly *sortable* as the order of appearance of the bitfields within the number determines their sort priority, while our simple "*not specified* is encoded as the highest possible value of the field" rule allows a consistent and useful sort order for arbitrary dates and timestamps, date/time *differences*, i.e. "*time deltas*" or "*time spent*" has become a little harder to calculate: to do that we need to diff all the fields, do something extra for the *not specified fields* and construct a continuous time delta from those individual differences. That's several subtractions, multiplications and additions per round.
 
@@ -70,7 +89,7 @@ While this *"$n$ bits per field"* layout perfectly allows us to encode any date 
 
 Instead of the above (Option A), we might want to look at these, ubiquitous, date/timestamp numbering systems: we can achieve our goals by defining the 64-bit number as a bitfield signaling which date fields are *not* specified (which are then encoded as value zero(0)) and a *numeric part* which indicates the number of microseconds since epoch.
 
-Given our preference to be able to go back in time as far as possible, we can fix our epoch at 1 January 3000 AD @ 00:00:00.000000 and have all numeric values represent the offset back in time from that epoch: that makes the numeric part an unsigned entity, which is always *subtracted* from the epoch to arrive at the indicated date/time.
+Given our preference to be able to go back in time as far as possible, we can fix our epoch at `1 January 3000 AD @ 00:00:00.000000` and have all numeric values represent the offset back in time from that epoch: that makes the numeric part an *unsigned* entity, which is always *subtracted* from the epoch to arrive at the indicated date/time.
 
 ### How many bits for the field specification signals?
 
@@ -115,6 +134,17 @@ Hence it *could* be possible to encode every date as a "how much of the head and
 
 When we count these, we get the total number of legal head+tail specs: $7 + 6 + 5 + 4 + 3 + 2 + 1 = 28$, thus fitting in an `enum` occupying 5 bits ( ${2^5 = 32}$ ), giving us back 2 bits of offset range, expanding our offset range to $4557 \times 2^2 \approx 18229$ years into the past from epoch, i.e. $3000 - 18229 = -15229$, i.e. 15229 B.C. will then be the oldest date we can address using this *microseconds since epoch* system.
 
+```wavedrom
+{reg: [
+  {bits: 5, name: 'gap enum (0..28)', type: 2},
+  {bits: 57, name: "µsecs before epoch (3000 AD - 1557 BC)", type: 5},
+  {bits: 1, name: "0", attr: "mode", type: 1},
+  {bits: 1, name: "0"},
+
+], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
+```
+
+
 
 ### Is it worth it?
 
@@ -146,20 +176,20 @@ Say we want to store *century* as a (sub)field of *year*, so we we can say thing
 
 The current design reserves 14 bits for the year+century -- which can be expanded to 17 bits if we accept negative 64bit numbers! -- giving us a range of 16000 .. 128000 years. Chopping that bitfield into two parts, we would have to give the *year* part 7 bits ( $2^7 = 128$ ), leaving 7 .. 10 bits for the century, i.e. $2^7 = 128$ .. $2^{10} = 1024$, shrinking our *at extremum* range from about 1280 centuries down to a *mere* 1024 -- still *abundantly plenty* when we realize that the current oldest known written words are about *90* centuries old in our number design: 9000 years before *epoch*.
 
-Thus, while we cannot easily encode [the date of creation for the human expression on Pseudodon shell DUB1006-fL](https://en.wikipedia.org/wiki/Pseudodon_shell_DUB1006-fL), which, worst case, clocks in at 540,000 [BP](https://www.artobatours.com/articles/archaeology/bp-bc-bce-ad-ce-cal-mean/) and lies therefore *far* outside our addressable range, which maxes out at 101,000 BP .. 127,000 BP unless we include some semi-logarithmic scaling for our oldest dates or other trickery to allow for historic dates way further back.
+Thus, while we cannot easily encode [the date of creation for the human expression on Pseudodon shell DUB1006-fL](https://en.wikipedia.org/wiki/Pseudodon_shell_DUB1006-fL), which, worst case, clocks in at 540,000 [BP](https://www.artobatours.com/articles/archaeology/bp-bc-bce-ad-ce-cal-mean/) and lies therefore *far* outside our addressable range, which maxes out at 101,000 BP .. 128,000 BP unless we include some semi-logarithmic scaling for our oldest dates or other trickery to allow for historic dates way further back.
 
 Meanwhile, [the first (undisputed?) human work of art is already cleanly addressable given our current design, including the Century Feature, at 73,000 BP](https://en.wikipedia.org/wiki/Prehistoric_art).
 
 
 ### Okay, geeking out here, but what if we want to encode *far older dates*?
 
-Well, the easiest observation there is that any event before about 5000 BC does not come with a *time value* -- I picked 5000 BC for this as one can argue that some documented events can be placed at some time within the day, e.g. the murder of Julius Caesar can be conjectured about. And then I *extrapolate* from that one: some document events, possibly also some writing done itself, can be placed somewhere in a day, e.g. at night, afternoon or morning, and some sort of a *conjectured* partial timestamp may be constructed.
+Well, the easiest observation there is that any event before about 5000 BC does not come with a *time value* -- I picked 5000 BC for this as one can argue that some documented events can be placed at some time within the day, e.g. the murder of Julius Caesar can be conjectured about. And then I *extrapolate* from that one: some documented events, possibly also some writing done itself, can be placed somewhere in a day, e.g. at night, afternoon or morning, and some sort of a *conjectured* partial timestamp may be constructed.
 
 Meanwhile the benefit of having all this precision available may be minimal, but so is extending the date/timestamp into deep prehistory, so we're looking for any easy tweak that gives us a *metric ton of additional range* while keeping the 64bit number *sortable* across the entire range.
 
 ### Another use for $bit_{63}$
 
-Say we limit our more or less sane data/time range to the *non-negative value range* of the 64-bit number, hence we *exclude* $bit_{63}$ and thus our year+century bitfield can be, *in extremum*, $14+2 = 16$ bits. With the Century Feature, that would then divide up into 7 bits for the year and 9 bits for the century, giving us a range of $2^9 = 512$ centuries, i.e. all the way back to $3000 - 51200 = -48200$ i.e. 48200 BP. 
+Say we limit our more or less sane data/time range to the *non-negative value range* of the 64-bit number, hence we *exclude* $bit_{63}$ and thus our year+century bitfield can be, *in extremum*, $14+2 = 16$ bits. With the Century Feature, that would then divide up into 7 bits for the year and 9 bits for the century, giving us a range of $2^9 = 512$ centuries, i.e. all the way back to $3000 - 51200 = -48200$ i.e. 48200 BC. 
 
 That's plenty to encode the first written word at ~ 8000 [BP](https://www.artobatours.com/articles/archaeology/bp-bc-bce-ad-ce-cal-mean/)  (~ 6000 [BC](https://www.artobatours.com/articles/archaeology/bp-bc-bce-ad-ce-cal-mean/) ), while earlier lasting human expressions must then use the "*extended range*" in our number: when we specify that *all negative 64-bit numbers* are the number of years [BP](https://www.artobatours.com/articles/archaeology/bp-bc-bce-ad-ce-cal-mean/), we easily encode [dates back to the creation of the universe!](https://www.ncbi.nlm.nih.gov/books/NBK230211/) As that would only cost about 40 bits or so, we have plenty left to do wicked things, like encode the *precision* of the given numbers in *number of significant decimal digits* in, say, 4 bits at the bottom, giving us 1..16 significant digits (expect a lot of those dates having a 1..2, maybe with luck 3, decimal digits of precision). 
 
@@ -176,12 +206,49 @@ We therefor pick the *negative value range* and reconsider: that value range wil
 
 Then we can simply specify that, once $bit_{63}$ has been set, the encoded *offset since epoch* still is "*years before epoch*" where the years can be calculated from this offset by subtracting the $2^{63}$ value first (and possibly the extra offset to account for the first bullet point above). Then, while already having taken care of those lower *precision bits* (see above), obviously, we get a number that's quite usable as *years before epoch* going all the way back to [the Dawn Of Time](https://www.ncbi.nlm.nih.gov/books/NBK230211/) ... and *beyond*.
 
+```wavedrom
+{reg: [
+  {bits: 4, name: "yr:precision", type: 5},
+
+  {bits: 5, name: 'MM / 2', type: 2},
+  {bits: 5, name: 'HH', type: 2},
+  
+  {bits: 5, name: 'DD', type: 6},
+  {bits: 4, name: 'MM', type: 6},
+  
+  {bits: 40, name: "years since epoch B", type: 3},
+  {bits: 1, name: "1", attr: "mode", type: 1},
+
+], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
+```
+
+and for 63bit *always non-negative values* you get:
+
+```wavedrom
+{reg: [
+  {bits: 4, name: "yr:precision", type: 5},
+
+  {bits: 4, name: 'MM / 4', type: 2},
+  {bits: 5, name: 'HH', type: 2},
+  
+  {bits: 5, name: 'DD', type: 6},
+  {bits: 4, name: 'MM', type: 6},
+  
+  {bits: 40, name: "years since epoch B", type: 3},
+  {bits: 1, name: "1", attr: "mode", type: 1},
+  {bits: 1, name: "0"},
+
+], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
+```
+
+
+
 #### Sortability & *steadily increasing numeric values for increasingly older date/timestamps?
  
 Analysis:
 - Re sortability: we *do* have a "*steadily increasing*" numeric value for increasingly older date/timestamps up to at least the "boundary value" where $bit_{63}$ flips, since all values with $bit_{63}$ *unset*, i.e. zero(0), are positive integer values counting down from epoch, where the *field order* determines the significance of the various date/timestamp parts in the overall numeric value. While this numeric range may therefor not be theoretically [*continuous*](https://www.math.net/continuous), sorting isn't bothered by *discontinuities* as long as the numeric value is **steadily increasing**.
-- At the boundary (​$bit_{63}$ is flipped from zero(0) to one(1)), the earlier thought/definition said the **unsigned numeric value** would be **steadily increasing**: all dates with $bit_{63} = 1$ are older than any of the dates with $bit_{63} = 0$ by definition: when this is not true, we have a date format *conversion bug* that needs to be fixed.
-- Beyond the boundary, the **unsigned numeric value** of the numbers steadily increases as the dates get older: that's why we must, at date conversion, subtract our "delta from epoch" from MAX_INT when the conversion calculation finds the given date is old enough to land in the  $bit_{63} = 1$ value zone. Given that our *precision bits* are positioned at the LSBs (Least Significant Bits), they won't alter the notion of **steadily increasing** numeric value: any *less precise* yet *earlier* date will have a lower unsigned numeric value than any *precise* (or imprecise) yet *older* date, thus keeping the criterion for sortability intact and simple:
+- At the boundary (where $bit_{63}$ is flipped from zero(0) to one(1)), the earlier thought/definition said the **unsigned numeric value** would be **steadily increasing**: all dates with $bit_{63} = 1$ are older than any of the dates with $bit_{63} = 0$ by definition: when this is not true, we have a date format *conversion bug* that needs to be fixed.
+- Beyond the boundary, the **unsigned numeric value** of the numbers steadily increases as the dates get older: that's why we must, at date conversion, subtract our "delta from epoch" from MAX_INT when the conversion calculation finds the given date is old enough to land in the $bit_{63} = 1$ value zone. Given that our *precision bits* are positioned at the LSBs (Least Significant Bits), they won't alter the notion of **steadily increasing** numeric value: any *less precise* yet *earlier* date will have a lower unsigned numeric value than any *precise* (or imprecise) yet *older* date, thus keeping the criterion for sortability intact and simple:
 hence $bit_{63}$ decides between two *different date conversion processes* when transforming these 64-bit integer numbers to & from human-readable date/timestamps, yet *any* encoded 64-bit numeric timestamp can thus safely be compared to any other 64-bit unsigned integer timestamp value for quickly deciding on their *sorting order*: the entire value range is *steadily increasing* (away from epoch into antiquity and beyond).
 
 
@@ -193,7 +260,7 @@ If we worry about that, for it can be a spot of bother when using multiple progr
 
 Let's see what that'll do to our century range, etc...
 
-The *century field* will then only be $14 + 1 - 7 = 8$ bits: 14bits base design, *in extremum* adding 1 surplus bit (​$bit_{61}$), while the other surplus bit (​$bit_{62}$) will serve as *format switch signal* and leaving $bit_{63}$ well alone. Anyway, this means you can go back to $2^8 = 256$, i.e. $3000 - 25600 = -22600$, i.e. 22600 BP. Plenty range for *the written word*, even when we get a surprise find some day -- unless it's of *history rewriting* power. But then that's where our "*extended date range*" will serve!
+The *century field* will then only be $14 + 1 - 7 = 8$ bits: 14bits base design, *in extremum* adding 1 surplus bit $(bit_{61})$, while the other surplus bit $(bit_{62})$ will serve as *format switch signal* and leaving $bit_{63}$ well alone. Anyway, this means you can go back to $2^8 = 256$, i.e. $3000 - 25600 = -22600$, i.e. 22600 BP. Plenty range for *the written word*, even when we get a surprise find some day -- unless it's of *history rewriting* power. But then that's where our "*extended date range*" will serve!
 
 Now set $bit_{62}$, extract the 4 *precision bits* at $bit_{0..3}$, and we're left with a $61 - 4 = 57$ bit value representing the *years before epoch*.  As the estimated date range till Big Bang is well within 44 bits, this number still has plenty room for some insane precision, e.g. seasons, months or days.
 
@@ -206,22 +273,24 @@ Now set $bit_{62}$, extract the 4 *precision bits* at $bit_{0..3}$, and we're le
 > Now we introduce those extra *presence-or-absence* bits alongside with that, resulting in a slightly lower resolution: assuming we signal *month*, *day*, *hour* and *minute*, that's 4 bits less, giving us $2^{19} / ( 366 \times 24 \times 60 ) \approx 0.9948$, i.e. we'ld *still* be able to encode the date/timestamp to (almost) within the *minute* precise. All the way to the Big Bang. Now that's an *insane range & accuracy*.
 > 
 > I *like* it!  😈
- 
-Here's the layout for regular date/timestamps, using only *63* bits, i.e. this is the layout when we decide to leave $bit_{63}$ *untouched* entirely, hence *no worries about unsigned vs. signed integer misbehaviour* when mixing various programming languages (including [SQLite `rowid`](https://sqlite.org/lang_createtable.html#rowid)):
+
+
+Here's the layout for regular date/timestamps, using only *63* bits, i.e. this is the layout when we decide to leave $bit_{63}$ *untouched* entirely, hence *no worries about unsigned vs. signed integer misbehaviour* when mixing various programming languages and/or storage systems (including [SQLite `rowid`](https://sqlite.org/lang_createtable.html#rowid)):
 
 ```wavedrom 
 {reg: [
+  {bits: 10, name: "µsecs", type: 5},
   {bits: 10, name: "msecs", type: 5},
 
   {bits: 6, name: 'SS', type: 2},
   {bits: 6, name: 'MM', type: 2},
   {bits: 5, name: 'HH', type: 2},
   
-  {bits: 6, name: 'DD', type: 6},
+  {bits: 5, name: 'DD', type: 6},
   {bits: 5, name: 'MM', type: 6},
   {bits: 7, name: 'YY', type: 3},
 
-  {bits: 17, name: "Century", type: 3},
+  {bits: 8, name: "Century (3000 AD - 22600 BC)", type: 3},
   {bits: 1, name: "0", attr: "mode", type: 1},
   {bits: 1, name: "0"},
 
@@ -237,8 +306,8 @@ and here's the second layout, the one for the *prehistoric times*, as discussed 
   
   {bits: 19, name: 'months + days + hours + minutes', type: 6},
 
-  {bits: 5, name: "Years Since B.B.", type: 3},
-  {bits: 30, name: "Years Since Big-Bang", type: 3},
+  {bits: 5, name: "Years Since E.", type: 3},
+  {bits: 30, name: "Years Since Epoch (22600 BC) all the way back to The Big Bang", type: 3},
   {bits: 1, name: "1", attr: "mode", type: 1},
   {bits: 1, name: "0"},
 
@@ -262,3 +331,43 @@ Incidentally, this guarantees that any given date/time **is guaranteed to be uni
 Which is a great boon for equality tests, etc.!
 
 
+P.S.: here's the "prehistoric dates", i.e. the second layout, once again, but now done as fields, like we did in the primary layout, instead of those "is this part specified" bits occupying 4 bits in the layout:
+
+```wavedrom
+{reg: [
+  {bits: 4, name: 'precision', attr: "years", type: 5},
+
+  {bits: 3, name: 'SS / 10', type: 2},
+  {bits: 6, name: 'MM', type: 2},
+  {bits: 5, name: 'HH', type: 2},
+  
+  {bits: 5, name: 'DD', type: 6},
+  {bits: 4, name: 'MM', type: 6},
+  
+  {bits: 5, name: "Years Since E.", type: 3},
+  {bits: 30, name: "Years Since Epoch (22600 BC) all the way back to The Big Bang", type: 3},
+  {bits: 1, name: "1", attr: "mode", type: 1},
+  {bits: 1, name: "0"},
+
+], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
+```
+
+Notice how we now, *again*, have way more precision available as we can specify the time down to 10 second intervals? Since we are convinced this is less useful than providing a little more range to the "years since epoch" so someone can still use this number [while arguing that the Universe is much older than we even thought](https://scienceblogs.com/interactions/2007/09/27/answering-objections-to-the-bi), so we pass on those seconds and add those 3 bits to the *years since epoch* field, thus allowing it to go back billions of years before the current worst-case estimates of The Big Bang:
+
+```wavedrom
+{reg: [
+  {bits: 4, name: 'precision', attr: "years", type: 5},
+
+  {bits: 6, name: 'MM', type: 2},
+  {bits: 5, name: 'HH', type: 2},
+  
+  {bits: 5, name: 'DD', type: 6},
+  {bits: 4, name: 'MM', type: 6},
+  
+  {bits: 8, name: "Years Since Epoch", type: 3},
+  {bits: 30, name: "Years Since Epoch (22600 BC) all the way back to The Big Bang (and way beyond: 274 billion years)", type: 3},
+  {bits: 1, name: "1", attr: "mode", type: 1},
+  {bits: 1, name: "0"},
+
+], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
+```
