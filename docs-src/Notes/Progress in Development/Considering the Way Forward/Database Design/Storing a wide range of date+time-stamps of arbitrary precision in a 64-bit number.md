@@ -64,7 +64,9 @@ This results in this preliminary design (see further beelow for the "mode" bit: 
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
 
-![layout](../asserts/wavedrom07.png)
+![layout](../assets/wavedrom07.png)
+
+
 
 
 ### Coping with the fields that weren't specified in the input
@@ -146,6 +148,9 @@ When we count these, we get the total number of legal head+tail specs: $7 + 6 + 
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
 
+![layout](../assets/wavedrom08.png)
+
+
 
 
 ### Is it worth it?
@@ -224,6 +229,9 @@ Then we can simply specify that, once $bit_{63}$ has been set, the encoded *offs
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
 
+![layout](../assets/wavedrom09.png)
+
+
 and for 63bit *always non-negative values* you get:
 
 ```wavedrom
@@ -242,6 +250,9 @@ and for 63bit *always non-negative values* you get:
 
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
+
+![layout](../assets/wavedrom10.png)
+
 
 
 
@@ -299,6 +310,9 @@ Here's the layout for regular date/timestamps, using only *63* bits, i.e. this i
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
 
+![layout](../assets/wavedrom11.png)
+
+
 and here's the second layout, the one for the *prehistoric times*, as discussed above:
 
 ```wavedrom
@@ -315,6 +329,9 @@ and here's the second layout, the one for the *prehistoric times*, as discussed 
 
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
+
+![layout](../assets/wavedrom12.png)
+
 
 > **Aside**: anyone checking the `wavedrom` sources: the latter has the 35-bit "Years since Big Bang" split into two fields for display purposes as we instructed `wavedrom` to render this layout in 2 *lanes*.
 
@@ -354,6 +371,9 @@ P.S.: here's the "prehistoric dates", i.e. the second layout, once again, but no
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
 
+![layout](../assets/wavedrom13.png)
+
+
 Notice how we now, *again*, have way more precision available as we can specify the time down to 10 second intervals? Since we are convinced this is less useful than providing a little more range to the "years since epoch" so someone can still use this number [while arguing that the Universe is much older than we even thought](https://scienceblogs.com/interactions/2007/09/27/answering-objections-to-the-bi), so we pass on those seconds and add those 3 bits to the *years since epoch* field, thus allowing it to go back billions of years before the current worst-case estimates of The Big Bang:
 
 ```wavedrom
@@ -373,3 +393,6 @@ Notice how we now, *again*, have way more precision available as we can specify 
 
 ], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
 ```
+
+![layout](../assets/wavedrom14.png)
+
