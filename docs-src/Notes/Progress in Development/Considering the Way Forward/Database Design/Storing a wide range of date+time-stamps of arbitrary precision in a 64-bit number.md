@@ -80,7 +80,7 @@ Considering we can easily encode `month = 0` as a magic, but would be in serious
 
 Should we do anything about the other *invalid values*, e.g. `month = 14`, given that most of our fields can store more values then strictly necessary?
 
-While this *"$n$ bits per field"* layout perfectly allows us to encode any date or timestamp we crave, it is clearly *sortable* as the order of appearance of the bitfields within the number determines their sort priority, while our simple "*not specified* is encoded as the highest possible value of the field" rule allows a consistent and useful sort order for arbitrary dates and timestamps, date/time *differences*, i.e. "*time deltas*" or "*time spent*" has become a little harder to calculate: to do that we need to diff all the fields, do something extra for the *not specified fields* and construct a continuous time delta from those individual differences. That's several subtractions, multiplications and additions per round.
+While this "*n* bits per field" layout perfectly allows us to encode any date or timestamp we crave, it is clearly *sortable* as the order of appearance of the bitfields within the number determines their sort priority, while our simple "*not specified* is encoded as the highest possible value of the field" rule allows a consistent and useful sort order for arbitrary dates and timestamps, date/time *differences*, i.e. "*time deltas*" or "*time spent*" has become a little harder to calculate: to do that we need to diff all the fields, do something extra for the *not specified fields* and construct a continuous time delta from those individual differences. That's several subtractions, multiplications and additions per round.
 
 
 
@@ -150,7 +150,7 @@ When we count these, we get the total number of legal head+tail specs: $7 + 6 + 
 
 Comparing our range with the Option A design, we seem to be able to get farther back, as Option A can only reach back to $3000 - 16384 = -13384$ i.e. 13384 BC.
 
-*However*, *Option A* had given away its *negative value range* by ignoring bit 63: when we re-introduce that one, Option A can reach back much further: $3000 - 32768 = -29768$, i.e. 29768 B.C.: that's much farther back than 15229 B.C.! But we're not done there! Next to $bit_{63}$, there are still 2 unused *surplus bits* available, which would result in a year+century field at extremum of $14+2+1 = 17$ bits, resulting in the oldest representable year being $3000 - 2^{17} = -128072$, i.e. the 128<sup>th</sup> *millennium B.C.* as oldest addressable dates for the Option A format!
+*However*, *Option A* had given away its *negative value range* by ignoring $bit_{63}$: when we re-introduce that one, Option A can reach back much further: $3000 - 32768 = -29768$, i.e. 29768 B.C.: that's much farther back than 15229 B.C.! But we're not done there! Next to $bit_{63}$, there are still 2 unused *surplus bits* available, which would result in a year+century field at extremum of $14+2+1 = 17$ bits, resulting in the oldest representable year being $3000 - 2^{17} = -128072$, i.e. the 128<sup>th</sup> *millennium B.C.* as oldest addressable dates for the Option A format!
 
 Meanwhile our *microseconds since epoch* did not freely give up *any* bits, so we cannot pull the same rabbit out of our hat for the latter scheme. Option A wins on this aspect hands down then, regrettably.
 
