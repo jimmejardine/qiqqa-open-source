@@ -396,3 +396,8 @@ Notice how we now, *again*, have way more precision available as we can specify 
 
 ![layout](../assets/wavedrom14.png)
 
+---
+
+## Software
+
+[libeternaltimestamp](https://github.com/GerHobbelt/libeternaltimestamp) is a small library based on these ideas.
