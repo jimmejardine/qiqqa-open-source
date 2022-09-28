@@ -4,7 +4,7 @@ It's pretty useless to pursue OpenMP support for our purposes: OpenMP, simply pu
 - your CPU cores have no other work pending, thus distributing a single task across multiple threads is not delaying other important jobs.
 - you only run a **single OCR task** at a time (and need that one done as quickly as possible). 
 
-  Corollary to this: when there are multiple OCR tasks incoming, your use case is very specific about needing them done *in order*, despite that multiple images *can potentially by OCR-ed in parallel* (by running multiple tesseract instances in multiple threads, one thread each).
+  Corollary to this: when there are multiple OCR tasks incoming, your use case is very specific about needing them done *in order*, despite that multiple images *can potentially be OCR-ed in parallel* (by running multiple tesseract instances in multiple threads, one thread each).
 - you are not bothered at all about OpenMP's task chunk distribution across threads and recombination once complete will consume noticeable, often even *severe* additional CPU sources, thus increasing both your CPU cycle count costs per OCR round *and* its carbon footprint (thanks to a lot of extra heat being produced by your CPU). 
 
 ## Why this does not apply to Qiqqa
