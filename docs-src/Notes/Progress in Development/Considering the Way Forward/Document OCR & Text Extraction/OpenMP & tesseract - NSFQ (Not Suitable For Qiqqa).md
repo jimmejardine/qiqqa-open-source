@@ -8,7 +8,7 @@ It's pretty useless to pursue OpenMP support for our purposes: OpenMP, simply pu
 - you are not bothered at all about OpenMP's task chunk distribution across threads and recombination once complete will consume noticeable, often even *severe* additional CPU sources, thus increasing both your CPU cycle count costs per OCR round *and* its carbon footprint (thanks to a lot of extra heat being produced by your CPU). 
 
 ## Why this does not apply to Qiqqa
-Qiqqa will **always** employ tesseract in batch mode, even when you might not realize it does. There are several scenarios, all of which end us as classic queued batches in the end:
+Qiqqa will **always** employ tesseract in batch mode, even when you might not realize it does. There are several scenarios, all of which end up as classic queued batches in the end:
 - you download or import a new PDF, which, upon inspection, is flagged for OCR-ing as there's no text layer (or rather: the pages don't carry any text).
 
   This becomes a batch because Qiqqa will immediately queue all pages in the PDF for OCR processing. For any document that spans more than 1 page, this effectively is *a batch*. Almost all documents span more than a single page.
