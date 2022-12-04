@@ -256,7 +256,7 @@ namespace Qiqqa.DocumentLibrary
                 // Reasoning is as follows: 
                 //
                 // Without this, each PDFdocument will individually query the databasee for any annotation records and load them into memory.
-                // At N document records in the database, that's N extra SQL queries. On the dev box, this cloks in at ~12K queries in 7-14 seconds, 
+                // At N document records in the database, that's N extra SQL queries. On the dev box, this clocks in at ~12K queries in 7-14 seconds, 
                 // depending on the planets (and very probably how many annotations the test databases have ;-)) -- do note that there aren't many,
                 // so these timings are for **mostly empty** results. Expect worse results for folks who have heavily annotated their collection.)
                 //
@@ -268,8 +268,8 @@ namespace Qiqqa.DocumentLibrary
                 //
                 // Thus we replace an O(N) behaviour (N queries) with an O(1) behaviour (single query), while the added cost per operation should
                 // be negligible for large numbers, assuming the O(1) lookup cost for a Dictionary<> holds.
-                // Expected results would be a marginally slower load for small libraries (slower singular query plus in-memory dictionary lookups instead of N fast queries)
-                // while this should significantly improve load performance for (very) large libraries.
+                // Expected results would be a marginally slower load for small libraries (slower singular query plus in-memory dictionary lookups
+                // instead of N fast queries) while this should significantly improve load performance for (very) large libraries.
                 Logging.Debug特("+Bulk Prefetch annotations for library {0} ('{1}') from repository", web_library_detail.Id, web_library_detail.DescriptiveTitle);
                 Dictionary<string, PDFAnnotationList> prefetched_annotations = PDFAnnotationSerializer.BulkReadFromDisk(web_library_detail);
 
@@ -327,12 +327,12 @@ namespace Qiqqa.DocumentLibrary
                         _ = prefetched_annotations.TryGetValue(library_item.fingerprint, out prefetched_annotations_for_document);
 
                         // The trick here is to deliver a ZERO LENGTH annotation list for every document which does not have any annotation records yet.
-                        // That way PDFDocument.GetAnnotations() et al can quickly spot that the annotations indeed havee already been loaded.
+                        // That way PDFDocument.GetAnnotations() et al can quickly spot that the annotations indeed have already been loaded.
                         // (Okay, so there weren't any!)
                         //
                         // The cost? Say .NET eats about (12+4+24+4*4)=56 bytes per class instance for a PDFAnnotationList, then with a lib @ ~12K records,
                         // this would eat about ~700K RAM for "useless" zero-length annotation sets.
-                        // The alternative is tracking whether the PDFDocument.annotation_list referencee has been set up in a separate `bool` member, which
+                        // The alternative is tracking whether the PDFDocument.annotation_list referencee has been set up, using a separate `bool` member, which
                         // also will cost about 12 bytes extra per PDFDocument instance (12*12K=144K RAM) while the application code would becomee far more
                         // convoluted than it already is. (I looked at this option today and decided against it, after having coded it about half-way through:
                         // there's too many extra checks and conditional code needed throughout the system.)

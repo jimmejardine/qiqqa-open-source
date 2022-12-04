@@ -31,7 +31,7 @@ namespace Qiqqa.Documents.PDF.DiskSerialisation
         {
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-            // Every document which has any annotations, may have many. So its one fingerprint, many annotation records.
+            // Every document, which has any annotations, may have many. So its one fingerprint -> many annotation records.
             // We do not (yet) bother about potential fringe cases where annotations end up in a corrupted database in duplicate:
             // we KNOW that PDFAnnotationList code can manage that as it does compare incoming annotations
             // to already existing ones (used by the GUI annotation editor, of course :-) )
