@@ -78,3 +78,8 @@ Release*/
 # misc.
 /docs-src/Dcoumentation/
 
+# temporarily ignore dev/trial directories, which we don't want to be bothered with right now during git-status and similar invocations:
+/QiqqaLaunchMonitor
+/QiqqaSystemSanityChecker
+/docs-intermediate
+
