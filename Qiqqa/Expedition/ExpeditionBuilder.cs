@@ -100,6 +100,14 @@ namespace Qiqqa.Expedition
 
                     List<int> tags_in_document = new List<int>();
 
+                    // condition added to help give us a significant performance boost when loading an initial Expedition:
+                    // when we ARE NOT filtering on *tags* yet (data_source.words.Count == 0) then the entire PDF Text fetch+scan
+                    // activity below is superfluous. GetFullOCRText() is an API which will perform several disk accesses when 
+                    // the PDF text data has not been cached. That API MAY, at the same time, long-running OCR processes when
+                    // it finds the text cache files are *missing on disk*, resulting in a yet *more severe cost*.
+                    //
+                    // We skip that entirely here IFF the number of tags to filter on is NIL.
+                    if (data_source.words.Count > 0)
                     {
                         PDFDocument pdf_document = pdf_documents[d];
                         string full_text = " " + pdf_document.GetFullOCRText() + " ";

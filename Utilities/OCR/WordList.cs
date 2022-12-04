@@ -112,7 +112,7 @@ namespace Utilities.OCR
                         continue;
                     }
 
-                    // Parse the line
+                    // Parse the line. Format: "x0,y0,x1,y1: word"
                     int colon_pos = line.IndexOf(':');
                     string locations_string = line.Substring(0, colon_pos);
                     string[] locations = locations_string.Split(',');
