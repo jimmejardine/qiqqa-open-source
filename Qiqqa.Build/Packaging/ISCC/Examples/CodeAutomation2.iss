@@ -2,16 +2,16 @@
 ;
 ; This script shows how to use IUnknown based COM Automation objects.
 ;
-; REQUIRES UNICODE INNO SETUP!
-;
 ; Note: some unneeded interface functions which had special types have been replaced
 ; by dummies to avoid having to define those types. Do not remove these dummies as
 ; that would change the function indices which is bad. Also, not all function
-; protoypes have been tested, only those used by this example.
+; prototypes have been tested, only those used by this example.
 
 [Setup]
 AppName=My Program
 AppVersion=1.5
+WizardStyle=modern
+DisableWelcomePage=no
 CreateAppDir=no
 DisableProgramGroupPage=yes
 DefaultGroupName=My Program
@@ -80,9 +80,9 @@ begin
 
   { Save the shortcut }
   PF := IPersistFile(Obj);
-  OleCheck(PF.Save(ExpandConstant('{commondesktop}\CodeAutomation2 Test.lnk'), True));
+  OleCheck(PF.Save(ExpandConstant('{autodesktop}\CodeAutomation2 Test.lnk'), True));
 
-  MsgBox('Saved a shortcut named ''CodeAutomation2 Test'' on the common desktop.', mbInformation, mb_Ok);
+  MsgBox('Saved a shortcut named ''CodeAutomation2 Test'' on the desktop.', mbInformation, mb_Ok);
 end;
 
 {--- ITaskScheduler ---}
@@ -115,7 +115,7 @@ type
     rgfDaysOfTheWeek: WORD;
   end;
 
-  TMonthyDate = record
+  TMonthlyDate = record
     rgfDays: DWORD;
     rgfMonths: WORD;
   end;
@@ -267,7 +267,7 @@ end;
 
 procedure CreateButton(ALeft, ATop: Integer; ACaption: String; ANotifyEvent: TNotifyEvent);
 begin
-  with TButton.Create(WizardForm) do begin
+  with TNewButton.Create(WizardForm) do begin
     Left := ALeft;
     Top := ATop;
     Width := (WizardForm.CancelButton.Width*3)/2;

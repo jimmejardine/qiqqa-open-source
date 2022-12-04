@@ -1,10 +1,12 @@
 ; -- CodeExample1.iss --
 ;
-; This script shows various things you can achieve using a [Code] section
+; This script shows various things you can achieve using a [Code] section.
 
 [Setup]
 AppName=My Program
 AppVersion=1.5
+WizardStyle=modern
+DisableWelcomePage=no
 DefaultDirName={code:MyConst}\My Program
 DefaultGroupName=My Program
 UninstallDisplayIcon={app}\MyProg.exe
@@ -33,6 +35,17 @@ begin
     MsgBox('InitializeSetup:' #13#13 'Ok, bye bye.', mbInformation, MB_OK);
 end;
 
+procedure InitializeWizard;
+begin
+  Log('InitializeWizard called');
+end;
+
+<event('InitializeWizard')>
+procedure InitializeWizard2;
+begin
+  Log('InitializeWizard2 called');
+end;
+
 procedure DeinitializeSetup();
 var
   FileName: String;
@@ -56,6 +69,11 @@ begin
     FinishedInstall := True;
 end;
 
+procedure CurInstallProgressChanged(CurProgress, MaxProgress: Integer);
+begin
+  Log('CurInstallProgressChanged(' + IntToStr(CurProgress) + ', ' + IntToStr(MaxProgress) + ') called');
+end;
+
 function NextButtonClick(CurPageID: Integer): Boolean;
 var
   ResultCode: Integer;
@@ -70,7 +88,7 @@ begin
       begin
         if MsgBox('NextButtonClick:' #13#13 'Using the script, files can be extracted before the installation starts. For example we could extract ''MyProg.exe'' now and run it.' #13#13 'Do you want to do this?', mbConfirmation, MB_YESNO) = idYes then begin
           ExtractTemporaryFile('myprog.exe');
-          if not Exec(ExpandConstant('{tmp}\myprog.exe'), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then
+          if not ExecAsOriginalUser(ExpandConstant('{tmp}\myprog.exe'), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then
             MsgBox('NextButtonClick:' #13#13 'The file could not be executed. ' + SysErrorMessage(ResultCode) + '.', mbError, MB_OK);
         end;
         BringToFrontAndRestore();
@@ -144,6 +162,6 @@ end;
 function MyConst(Param: String): String;
 begin
   Log('MyConst(''' + Param + ''') called');
-  Result := ExpandConstant('{pf}');
+  Result := ExpandConstant('{autopf}');
 end;
 

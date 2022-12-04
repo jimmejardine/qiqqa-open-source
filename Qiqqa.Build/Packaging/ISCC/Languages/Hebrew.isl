@@ -1,8 +1,7 @@
-; *** Inno Setup version 5.1.11+ Hebrew messages (stilgar(at)divrei-tora.com) ***
+; *** Inno Setup version 6.1.0+ Hebrew messages (s_h(at)enativ.com) ***
 ;
-;
-;	Translated by Stilgar (stilgar(at)divrei-tora.com) (c) 2005
-;		( AntiSpam: replace (at) with @ )
+;   https://jrsoftware.org/files/istrans/
+;	Translated by s_h (s_h@enativ.com) (c) 2020
 ;
 
 
@@ -14,8 +13,8 @@ LanguageCodePage=1255
 ; sizes, uncomment any of the following entries and change them accordingly.
 ;DialogFontName=
 ;DialogFontSize=8
-WelcomeFontName=Tahoma
-WelcomeFontSize=11
+;WelcomeFontName=Tahoma
+;WelcomeFontSize=11
 ;TitleFontName=Arial
 ;TitleFontSize=29
 ;CopyrightFontName=Arial
@@ -45,16 +44,29 @@ LastErrorMessage=%1.%n%nשגיאה %2: %3
 SetupFileMissing=לא ניתן לאתר את הקובץ %1 בתיקיית ההתקנה. אנא תקן את הבעיה או נסה שוב עם עותק חדש של התוכנה.
 SetupFileCorrupt=קבצי ההתקנה קטועים. אנא נסה להתקין עם עותק חדש של התוכנה.
 SetupFileCorruptOrWrongVer=קבצי ההתקנה קטועים, או שאינם תואמים לגירסה זו של תוכנת ההתקנה. אנא תקן את הבעיה או התקן את התוכנה מהתקנה חדשה.
+InvalidParameter=הוכנס פרמט לא חוקי לשורת הפקודה:%n%n%1
+SetupAlreadyRunning=התקנה אחרת כבר עובדת.
+WindowsVersionNotSupported=תוכנה זו אינה נתמכת במערכת ההפעלה שלך.
+WindowsServicePackRequired=התוכנה דורשת שיהיה מותקן %1 חבילת עדכונים %2 או יותר.
 NotOnThisPlatform=תוכנה זו לא תפעל על %1.
 OnlyOnThisPlatform=תוכנה זו חייבת לפעול על %1.
 OnlyOnTheseArchitectures=ניתן להתקין תוכנה זו רק על גירסאות של 'חלונות' שתוכננות לארכיטקטורות מעבד אלו:%n%n%1
-MissingWOW64APIs=הגירסה של 'חלונות' עליה אתה עובד לא מכילה את הפונקציונליות הדרושה להתקנת 64-ביט. כדי לתקן שגיאה זו, אנא התקן ערכת שירות %1.
 WinVersionTooLowError=תוכנה זו מצריכה %1 לפחות בגרסה %2.
 WinVersionTooHighError=לא ניתן להתקין תוכנה זו על %1 בגירסה %2 או מאוחרת יותר
 AdminPrivilegesRequired=אתה חייב להתחבר כמנהל המחשב כדי להתקין תוכנה זו.
 PowerUserPrivilegesRequired=עליך להתחבר כמנהל המחשב, או כחבר של קבוצת 'משתמשי על' כדי להתקין תוכנה זו.
 SetupAppRunningError=תוכנת ההתקנה איבחנה כי %1 כרגע פועלת ברקע.%n%nאנא סגור את כל החלונות שלה, ולחץ על 'אישור' להמשך, או 'ביטול' ליציאה.
 UninstallAppRunningError=תוכנת ההסרה איבחנה כי %1 כרגע פועלת ברקע.%n%nאנא סגור את כל החלונות שלה, ולחץ על 'אישור' להמשך, או 'ביטול' ליציאה.
+
+; *** Startup questions
+PrivilegesRequiredOverrideTitle=בחר את מצה ההתקנה
+PrivilegesRequiredOverrideInstruction=בחר מצב התקנה
+PrivilegesRequiredOverrideText1=%1 יכול להיות מותקן עבור כל המשתמשים (נדרש הרשאות מנהל), או עבורך בלבד.
+PrivilegesRequiredOverrideText2=%1 יכול להיות מותקן עבורך בלבד, או עבור על המשתמשים (נדרש הרשאות מנהל).
+PrivilegesRequiredOverrideAllUsers=התקן עבור &כל המשתמשים
+PrivilegesRequiredOverrideAllUsersRecommended=התקן עבור &כל המשתמשים (מומלץ)
+PrivilegesRequiredOverrideCurrentUser=התקן רק &עבורי
+PrivilegesRequiredOverrideCurrentUserRecommended=התקן רק &עבורי (מומלץ)
 
 ; *** Misc. errors
 ErrorCreatingDir=תוכנת ההתקנה לא הצליחה ליצור את התיקיה "%1"
@@ -86,7 +98,7 @@ ButtonNewFolder=&צור תיקיה חדשה
 
 ; *** "Select Language" dialog messages
 SelectLanguageTitle=בחר שפת התקנה
-SelectLanguageLabel=בחר את שפת ההתקנה של תוכנת ההתקנה:
+SelectLanguageLabel=בחר את שפת ההתקנה של תוכנת ההתקנה.
 
 ; *** Common wizard text
 ClickNext=לחץ על 'הבא' כדי להמשיך בתהליך ההתקנה, או 'ביטול' ליציאה.
@@ -134,8 +146,10 @@ WizardSelectDir=בחר יעד להתקנה
 SelectDirDesc=היכן להתקין את [name]?
 SelectDirLabel3=תוכנת ההתקנה תתקין את [name] לתוך התיקייה הבאה.
 SelectDirBrowseLabel=להמשך, לחץ על 'הבא'. אם ברצונך לבחור תיקיה אחרת להתקנה, לחץ על 'עיון'.
+DiskSpaceGBLabel=דרושים להתקנה לפחות [gb] GB של שטח דיסק פנוי.
 DiskSpaceMBLabel=דרושים להתקנה לפחות [mb] MB של שטח דיסק פנוי.
-ToUNCPathname=תוכנת ההתקנה לא יכולה להתקין לנתיב UNC. אם אתה מנסה להתקין לרשת, תצטרך למפות כונן רשת.
+CannotInstallToNetworkDrive=לא ניתן להתקין את התוכנה על כונן רשת.
+CannotInstallToUNCPath=לא ניתן להתקין את התוכנה בנתיב UNC.
 InvalidPath=עליך לספק נתיב מלא עם אות הכונן; לדוגמה:%n%nC:\APP%n%nאו נתיב UNC בתצורה:%n%n\\server\share
 InvalidDrive=הכונן או שיתופית ה-UNC שבחרת לא קיימים או שאינם נגישים. אנא בחר כונן או שיתופית אחרים.
 DiskSpaceWarningTitle=שטח פנוי אינו מספיק
@@ -160,6 +174,7 @@ NoUninstallWarningTitle=רכיבים קיימים
 NoUninstallWarning=תוכנת ההתקנה זיהתה שהרכיבים הבאים כבר מותקנים על מחשבך:%n%n%1%nהסרת הסימון מרכיבים אלו לא תסיר אותם ממחשבך.%n%nהאם ברצונך להמשיך בכל זאת?
 ComponentSize1=%1 KB
 ComponentSize2=%1 MB
+ComponentsDiskSpaceGBLabel=להתקנת הרכיבים שנבחרו דרושים לפחות [gb] GB פנויים על כונן היעד.
 ComponentsDiskSpaceMBLabel=להתקנת הרכיבים שנבחרו דרושים לפחות [mb] MB פנויים על כונן היעד.
 
 ; *** "Select Additional Tasks" wizard page
@@ -190,11 +205,29 @@ ReadyMemoComponents=רכיבים שנבחרו:
 ReadyMemoGroup=תיקיה בתפריט 'התחל':
 ReadyMemoTasks=משימות נוספות לביצוע:
 
+; *** TDownloadWizardPage wizard page and DownloadTemporaryFile
+DownloadingLabel=מוריד קבצים נדרשים...
+ButtonStopDownload=&עצור הורדה
+StopDownload=אתה בטוח שאתה מעוניין לעצור את ההורדה?
+ErrorDownloadAborted=הורדה בוטלה
+ErrorDownloadFailed=הורדה נכשלה: %1 %2
+ErrorDownloadSizeFailed=איחזור גודל הקובץ נכשל: %1 %2
+ErrorFileHash1=אימות מזהה  הקובץ נכשל: %2
+ErrorFileHash2=מזהה קובץ לא חוקי: מצופה %2, נמצא %2
+ErrorProgress=תהליך לא חוקי: %1 מתוך %1
+ErrorFileSize=גודל קובץ לא חוקי: מצופה %1, נמצא %1
+
 ; *** "Preparing to Install" wizard page
 WizardPreparing=מתכונן להתקנה
 PreparingDesc=תוכנת ההתקנה מתכוננת להתקנת [name] על מחשבך.
 PreviousInstallNotCompleted=התקנת/הסרת יישום קודם לא הושלמה. עליך להפעיל את מחשבך מחדש כדי להשלימה.%n%nלאחר הפעלת המחשב מחדש, הפעל את תוכנת ההתקנה שוב כדי להתקין את [name].
 CannotContinue=אין באפשרות תוכנת ההתקנה להמשיך בתהליך ההתקנה. נא לחץ 'ביטול' ליציאה.
+ApplicationsFound=היישומים הבאים עושים שימוש בקבצים שצריכים להתעדכן על ידי תוכנת ההתקנה. מומלץ שתאפשר לתוכנת ההתקנה לסגור יישומים אלו אוטומטית.
+ApplicationsFound2=היישומים הבאים עושים שימוש בקבצים שצריכים להתעדכן על ידי תוכנת ההתקנה. מומלץ שתאפשר לתוכנת ההתקנה לסגור יישומים אלו אוטומטית. לאחר שההתקנה תסתיים, תוכנית ההתקנה תנסה לפתוח מחדש את אותם יישומים.
+CloseApplications=&סגור יישומים אוטומטית
+DontCloseApplications=&אל תסגור יישומים אלו
+ErrorCloseApplications=המתקין אינו יכול לסגור אוטומטית את התהליכים. מומלץ שתסגור את כל התוכניות שעושות שימוש בקבצים שנדרשים לעדכון על ידי תהליך ההתקנה ולאחר מכן תמשיך בהתקנה.
+PrepareToInstallNeedsRestart=לצורך השלמת ההתקנה נדרש הפעלה מחדש של המערכת. לאחר שהמחשב יופעל מחדש, הפעל שום את המתקין לצורך השלמת ההתקנה של [name].%n%nתרצה להפעיל מחדש כעת?
 
 ; *** "Installing" wizard page
 WizardInstalling=מתקין
@@ -224,9 +257,13 @@ SelectDirectoryLabel=אנא בחר את מיקומו של הדיסק הבא.
 
 ; *** Installation phase messages
 SetupAborted=תהליך ההתקנה לא הושלם.%n%nאנא תקן את הבעיה והפעל את תהליך ההתקנה שוב.
-EntryAbortRetryIgnore=לחץ על 'נסה שוב' לנסות שוב, 'התעלם' כדי להמשיך בכל מקרה או 'ביטול' כדי לבטל את ההתקנה.
+AbortRetryIgnoreSelectAction=בחר פעולה
+AbortRetryIgnoreRetry=&נסה שוב
+AbortRetryIgnoreIgnore=&התעלם מהשגיאה והמשך בהתקנה
+AbortRetryIgnoreCancel=בטל התקנה
 
 ; *** Installation status messages
+StatusClosingApplications=סוגר יישומים...
 StatusCreateDirs=יוצר תיקיות...
 StatusExtractFiles=מעתיק קבצים...
 StatusCreateIcons=יוצר קיצורי דרך...
@@ -235,6 +272,7 @@ StatusCreateRegistryEntries=יוצר רשומות בקובץ הרישום...
 StatusRegisterFiles=רושם קבצים...
 StatusSavingUninstall=שומר מידע החיוני להסרת התוכנה...
 StatusRunProgram=מסיים התקנה...
+StatusRestartingApplications=מפעיל יישומים מחדש...
 StatusRollback=מבטל שינויים...
 
 ; *** Misc. errors
@@ -253,14 +291,24 @@ ErrorRegWriteKey=שגיאה בעת כתיבה למפתח רישום:%n%1\%2
 ErrorIniEntry=שגיאה בעת כתיבת רשומת INI לקובץ "%1".
 
 ; *** File copying errors
-FileAbortRetryIgnore=לחץ על 'נסה שוב' כדי לנסות שוב, 'התעלם' כדי לדלג על הקובץ הזה (לא מומלץ), או 'ביטול' כדי לבטל את ההתקנה.
-FileAbortRetryIgnore2=לחץ על 'נסה שוב' כדי לנסות שוב, 'התעלם' כדי להמשיך בכל אופן (לא מומלץ), או 'ביטול' כדי לבטל את ההתקנה.
+FileAbortRetryIgnoreSkipNotRecommended=&דלג על קובץ זה (לא מומלץ)
+FileAbortRetryIgnoreIgnoreNotRecommended=&התעלם מהשגיאה והמשך (לא מומלץ)
 SourceIsCorrupted=קובץ המקור קטוע
 SourceDoesntExist=קובץ המקור "%1" אינו קיים
-ExistingFileReadOnly=הקובץ הקיים מסומן כקובץ לקריאה בלבד.%n%nלחץ על 'נסה שוב' כדי להוריד את תכונת הקריאה בלבד ולנסות שוב, 'התעלם' כדי לדלג על קובץ זה, או 'ביטול' כדי לבטל את ההתקנה.
+ExistingFileReadOnly2=לא ניתן לשכתב את הקובץ הקיים כיון שהוא מוגדר לקריאה בלבד.
+ExistingFileReadOnlyRetry=&הסר את תוכנת קריאה בלבד ונסה שוב
+ExistingFileReadOnlyKeepExisting=&השאר את הקובץ הקיים
 ErrorReadingExistingDest=שגיאה בעת נסיון לקרוא את הקובץ הקיים:
-FileExists=הקובץ כבר קיים.%n%nהאם ברצונך שתוכנת ההתקנה תשכתב אותו?
-ExistingFileNewer=הקובץ הקיים חדש יותר מהקובץ שתוכנת ההתקנה רוצה להתקין. המלצתנו היא שתשמור על הקובץ הקיים.%n%nהאם ברצונך לשמור את הקובץ הקיים?
+FileExistsSelectAction=בחר פעולה
+FileExists2=הקובץ כבר קיים.
+FileExistsOverwriteExisting=&החלף את הקובץ הקיים
+FileExistsKeepExisting=&שמור את הקובץ הקיים
+FileExistsOverwriteOrKeepAll=&עשה זאת גם בקבצים הכפולים הבאים
+ExistingFileNewerSelectAction=בחר פעולה
+ExistingFileNewer2=הקובץ הקיים חדש יותר מהקובץ שאותו אתה מנסה להתקין
+ExistingFileNewerOverwriteExisting=&החלף את הקובץ הקיים
+ExistingFileNewerKeepExisting=&שמור את הקובץ הקיים (מומלץ)
+ExistingFileNewerOverwriteOrKeepAll=&עשה זאת גם בקבצים הכפולים הבאים
 ErrorChangingAttr=שגיאה בעת נסיון לשנות מאפיינים של הקובץ הקיים:
 ErrorCreatingTemp=שגיאה בעת נסיון ליצור קובץ בתיקיית היעד:
 ErrorReadingSource=שגיאה בעת קריאת קובץ המקור:
@@ -271,6 +319,14 @@ ErrorRenamingTemp=שגיאה בעת נסיון לשנות שם קובץ בתיקיית היעד:
 ErrorRegisterServer=שגיאה בעת רישום DLL/OCX: %1
 ErrorRegSvr32Failed=RegSvr32 כשל עם קוד יציאה %1
 ErrorRegisterTypeLib=לא ניתן לרשום את ספריית הטיפוס: %1
+
+; *** Uninstall display name markings
+UninstallDisplayNameMark=%1 (%2)
+UninstallDisplayNameMarks=%1 (%2, %3)
+UninstallDisplayNameMark32Bit=32-bit
+UninstallDisplayNameMark64Bit=64-bit
+UninstallDisplayNameMarkAllUsers=כל המשתמשים
+UninstallDisplayNameMarkCurrentUser=משתמש נוכחי
 
 ; *** Post-installation errors
 ErrorOpeningReadme=שגיאה בנסיון פתיחת קובץ 'קרא אותי'.
@@ -298,6 +354,10 @@ SharedFileLocationLabel=מיקום:
 WizardUninstalling=מצב תהליך ההסרה
 StatusUninstalling=מסיר את %1...
 
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=מתקין %1.
+ShutdownBlockReasonUninstallingApp=מסיר %1.
+
 ; The custom messages below aren't used by Setup itself, but if you make
 ; use of them in your scripts, you'll want to translate them.
 
@@ -312,3 +372,6 @@ UninstallProgram=הסר את %1
 LaunchProgram=הפעל %1
 AssocFileExtension=&קשר את %1 עם סיומת הקובץ %2
 AssocingFileExtension=מקשר את %1 עם סיומת הקובץ %2
+AutoStartProgramGroupDescription=הפעלה אוטומטית:
+AutoStartProgram=הפעל אוטומטית %1
+AddonHostProgramNotFound=%1 לא נמצא בתיקיה שבחרת.%n%nאתה רוצה להמשיך בכל זאת?

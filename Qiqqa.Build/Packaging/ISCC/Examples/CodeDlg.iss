@@ -8,10 +8,13 @@
 [Setup]
 AppName=My Program
 AppVersion=1.5
-DefaultDirName={pf}\My Program
+WizardStyle=modern
+DisableWelcomePage=no
+DefaultDirName={autopf}\My Program
 DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\MyProg.exe
 OutputDir=userdocs:Inno Setup Examples Output
+PrivilegesRequired=lowest
 
 [Files]
 Source: "MyProg.exe"; DestDir: "{app}"
@@ -19,11 +22,11 @@ Source: "MyProg.chm"; DestDir: "{app}"
 Source: "Readme.txt"; DestDir: "{app}"; Flags: isreadme
 
 [Registry]
-Root: HKCU; Subkey: "Software\My Company"; Flags: uninsdeletekeyifempty
-Root: HKCU; Subkey: "Software\My Company\My Program"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "Software\My Company\My Program\Settings"; ValueType: string; ValueName: "Name"; ValueData: "{code:GetUser|Name}"
-Root: HKCU; Subkey: "Software\My Company\My Program\Settings"; ValueType: string; ValueName: "Company"; ValueData: "{code:GetUser|Company}"
-Root: HKCU; Subkey: "Software\My Company\My Program\Settings"; ValueType: string; ValueName: "DataDir"; ValueData: "{code:GetDataDir}"
+Root: HKA; Subkey: "Software\My Company"; Flags: uninsdeletekeyifempty
+Root: HKA; Subkey: "Software\My Company\My Program"; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\My Company\My Program\Settings"; ValueType: string; ValueName: "Name"; ValueData: "{code:GetUser|Name}"
+Root: HKA; Subkey: "Software\My Company\My Program\Settings"; ValueType: string; ValueName: "Company"; ValueData: "{code:GetUser|Company}"
+Root: HKA; Subkey: "Software\My Company\My Program\Settings"; ValueType: string; ValueName: "DataDir"; ValueData: "{code:GetDataDir}"
 ; etc.
 
 [Dirs]
@@ -41,7 +44,7 @@ var
 procedure InitializeWizard;
 begin
   { Create the pages }
-
+  
   UserPage := CreateInputQueryPage(wpWelcome,
     'Personal Information', 'Who are you?',
     'Please specify your name and the company for whom you work, then click Next.');
@@ -150,7 +153,7 @@ begin
     finally
       ProgressPage.Hide;
     end;
-    if KeyPage.Values[0] = 'inno' then
+    if GetSHA1OfString('codedlg' + KeyPage.Values[0]) = '8013f310d340dab18a0d0cda2b5b115d2dcd97e4' then
       Result := True
     else begin
       MsgBox('You must enter a valid registration key. (Hint: The key is "inno".)', mbError, MB_OK);
