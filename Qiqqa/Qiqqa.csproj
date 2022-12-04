@@ -297,10 +297,6 @@
       <Project>{F5C676ED-6D7F-4D2B-9C3A-9B2AE87B53E5}</Project>
       <Name>libs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QiqqaOCR\QiqqaOCR.csproj">
-      <Project>{32C275F8-5235-485B-80B2-32270D415E85}</Project>
-      <Name>QiqqaOCR</Name>
-    </ProjectReference>
     <ProjectReference Include="..\thirdparty\ookii-dialogs-wpf\src\Ookii.Dialogs.Wpf\Ookii.Dialogs.Wpf.csproj">
       <Project>{fc4aec94-5c85-49d9-95ef-dfe85624fc3e}</Project>
       <Name>Ookii.Dialogs.Wpf</Name>
