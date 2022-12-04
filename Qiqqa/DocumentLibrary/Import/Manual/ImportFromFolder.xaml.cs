@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Reflection;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -113,27 +114,31 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private void FolderLocationButton_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            var dialog = new VistaFolderBrowserDialog();
+
+            dialog.Description = "Please select a folder.  All the PDFs in the folder will be added to your document library.";
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            string default_folder = bindable.Underlying.DefaultSelectedPath;
+            if (default_folder != null)
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select a folder.  All the PDFs in the folder will be added to your document library.";
+                dialog.SelectedPath = default_folder;
+            }
 
-                string default_folder = bindable.Underlying.DefaultSelectedPath;
-                if (default_folder != null)
-                {
-                    dialog.DefaultDirectory = default_folder;
-                }
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+            {
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
 
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                {
-                    bindable.Underlying.SelectedPath = dialog.FileName;
-                    bindable.NotifyPropertyChanged(nameof(bindable.Underlying.SelectedPath));
-                    Logging.Debug特("User selected import folder path: " + bindable.Underlying.SelectedPath);
-                }
-                else
-                {
-                    Logging.Debug特("User canceled directory selection. Import folder path: " + bindable.Underlying.SelectedPath);
-                }
+            if ((bool)dialog.ShowDialog())
+            {
+                bindable.Underlying.SelectedPath = dialog.SelectedPath;
+                bindable.NotifyPropertyChanged(nameof(bindable.Underlying.SelectedPath));
+                Logging.Debug特("User selected import folder path: " + bindable.Underlying.SelectedPath);
+            }
+            else
+            {
+                Logging.Debug特("User canceled directory selection. Import folder path: " + bindable.Underlying.SelectedPath);
             }
         }
 

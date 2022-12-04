@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Backups;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
@@ -88,18 +88,29 @@ namespace Qiqqa.Main.LoginStuff
 
         private void ButtonChangeBasePath_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
-            {
-                dialog.InitialDirectory = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
-                dialog.IsFolderPicker = true;
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                {
-                    ConfigurationManager.Instance.BaseDirectoryForQiqqa = dialog.FileName;
-                    ObjQiqqaDatabaseLocation.Text = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
-                    ObjQiqqaDatabaseLocation.ToolTip = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+            var dialog = new VistaFolderBrowserDialog();
 
-                    Logging.Info("The user changed the Qiqqa Base directory to folder: {0}", dialog.FileName);
-                }
+            dialog.Description = "Change Qiqqa data Base Path";
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            string default_folder = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+            if (default_folder != null)
+            {
+                dialog.SelectedPath = default_folder;
+            }
+
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+            {
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
+
+            if ((bool)dialog.ShowDialog())
+            {
+                ConfigurationManager.Instance.BaseDirectoryForQiqqa = dialog.SelectedPath;
+                ObjQiqqaDatabaseLocation.Text = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+                ObjQiqqaDatabaseLocation.ToolTip = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+
+                Logging.Info("The user changed the Qiqqa Base directory to folder: {0}", dialog.SelectedPath);
             }
         }
 

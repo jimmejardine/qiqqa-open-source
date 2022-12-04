@@ -5,8 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using icons;
-//using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
 using Qiqqa.Synchronisation.BusinessLogic;
@@ -65,21 +64,32 @@ namespace Qiqqa.Synchronisation.GUI
                         // turn this lib into an IntranetLibrary with a new path?
                         //
                         // https://stackoverflow.com/questions/11624298/how-to-use-openfiledialog-to-select-a-folder/41511598#answer-41511598
-                        using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+                        var dialog = new VistaFolderBrowserDialog();
+
+                        dialog.Description = "Select Sync Base Path";
+                        dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+                        string default_folder = item.SyncTarget;
+                        if (default_folder != null)
                         {
-                            dialog.InitialDirectory = item.SyncTarget;
-                            dialog.IsFolderPicker = true;
-                            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                            dialog.SelectedPath = default_folder;
+                        }
+
+                        if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+                        {
+                            MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+                        }
+
+                        if ((bool)dialog.ShowDialog())
+                        {
+                            try
                             {
-                                try
-                                {
-                                    item.SyncTarget = dialog.FileName;
-                                    GridLibraryGrid.Items.Refresh();
-                                }
-                                catch (NotImplementedException ex)
-                                {
-                                    MessageBoxes.Warn(ex.Message);
-                                }
+                                item.SyncTarget = dialog.SelectedPath;
+                                GridLibraryGrid.Items.Refresh();
+                            }
+                            catch (NotImplementedException ex)
+                            {
+                                MessageBoxes.Warn(ex.Message);
                             }
                         }
                     }

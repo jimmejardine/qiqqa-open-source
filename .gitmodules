@@ -48,3 +48,6 @@
 [submodule "thirdparty/DirScanner"]
 	path = thirdparty/DirScanner
 	url = git@github.com:GerHobbelt/DirScanner.git
+[submodule "thirdparty/ookii-dialogs-wpf"]
+	path = thirdparty/ookii-dialogs-wpf
+	url = git@github.com:GerHobbelt/ookii-dialogs-wpf.git

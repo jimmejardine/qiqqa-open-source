@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF.CitationManagerStuff;
@@ -54,19 +54,24 @@ namespace Qiqqa.DocumentLibrary.BundleLibrary.LibraryBundleCreation
 
         private void CmdCreateBundle_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            var dialog = new VistaFolderBrowserDialog();
+
+            dialog.Description = "Please select the folder into which the two Library Bundle files should be placed.";
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select the folder into which the two Library Bundle files should be placed.";
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result == CommonFileDialogResult.Ok)
-                {
-                    CreateBundle(dialog.FileName);
-                }
-                else
-                {
-                    MessageBoxes.Warn("Your Library Bundle creation has been canceled.");
-                }
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
+
+            if ((bool)dialog.ShowDialog())
+            {
+                MessageBoxes.Info($"The selected folder was:{Environment.NewLine}{dialog.SelectedPath}", "Sample folder browser dialog");
+                CreateBundle(dialog.SelectedPath);
+            }
+            else
+            {
+                MessageBoxes.Warn("Your Library Bundle creation has been canceled.");
             }
         }
 

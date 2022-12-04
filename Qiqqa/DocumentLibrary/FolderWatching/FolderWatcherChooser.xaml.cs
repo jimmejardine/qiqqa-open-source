@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
@@ -56,23 +56,27 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         private void CmdAddFolder_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
-            {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select the folder you want to watch for new PDFs.";
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result == CommonFileDialogResult.Ok)
-                {
-                    Logging.Info("The user starting watching folder {0}", dialog.FileName);
+            var dialog = new VistaFolderBrowserDialog();
 
-                    if (string.IsNullOrEmpty(TxtFolders.Text))
-                    {
-                        TxtFolders.Text = dialog.FileName;
-                    }
-                    else
-                    {
-                        TxtFolders.Text += "\r\n" + dialog.FileName;
-                    }
+            dialog.Description = "Please select the folder you want to watch for new PDFs.";
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+            {
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
+
+            if ((bool)dialog.ShowDialog())
+            {
+                Logging.Info("The user starting watching folder {0}", dialog.SelectedPath);
+
+                if (string.IsNullOrEmpty(TxtFolders.Text))
+                {
+                    TxtFolders.Text = dialog.SelectedPath;
+                }
+                else
+                {
+                    TxtFolders.Text += "\r\n" + dialog.SelectedPath;
                 }
             }
         }

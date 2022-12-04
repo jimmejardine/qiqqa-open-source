@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -126,16 +126,25 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         private void ObjButtonFolderChoose_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            var dialog = new VistaFolderBrowserDialog();
+
+            dialog.Description = "Please select the shared directory for your Intranet Library.";
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            string default_folder = TxtPath.Text;
+            if (default_folder != null)
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select the shared directory for your Intranet Library.";
-                dialog.DefaultDirectory = TxtPath.Text;
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result == CommonFileDialogResult.Ok)
-                {
-                    TxtPath.Text = dialog.FileName;
-                }
+                dialog.SelectedPath = default_folder;
+            }
+
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+            {
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
+
+            if ((bool)dialog.ShowDialog())
+            {
+                TxtPath.Text = dialog.SelectedPath;
             }
         }
 

@@ -233,7 +233,7 @@ namespace Qiqqa.Main
             application.Startup += Application_Startup;
             application.SessionEnding += Application_SessionEnding;
 
-            // All the exception handling
+            // DO NOT set up all the exception handling when we're running in a Developer Environment, i.e. when we were attached to a debugger, such as Visual Studio:
             if (!Debugger.IsAttached)
             {
                 application.DispatcherUnhandledException += application_DispatcherUnhandledException;
