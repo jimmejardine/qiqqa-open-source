@@ -27,15 +27,15 @@ A few questions need to be asked and evaluated:
   > > The BASE58X part is only important when you wish to reduce the published ASCII string hash id in a short form: BASE58X delivers the BLAKE3 hash in 44 characters while a simple `hex(hash)` function will produce a 64 characters wide string for the same.
   > 
   > Another important subsystem (Lucene/SOLR/manticore) usually produces its own unique document ids in UUID v4 form (SOLR). Ours are shorter strings, but we do not know whether this will be acceptable to these subsystems and whether performance is impacted negatively when we feed it custom document ids.
-  > x
+  > 
   > > \[Edit:] looks like there's no impact... but what about their storage cost? That remains unmentioned so we'll have to find out ourselves.
 
 - **acceptable to all subsystems**: is the BLAKE3 256bit hash acceptable as identifying *unique document id* for all our subsystems (much of which we won't have written ourselves) or do we need to jump through a couple of hoops to get them accepted?
 
   > My *initial guess* is that everybody will be able to cope, more or less easily, but actual practice can open a few cans of worms, if you are onto Murphy's Law.
-  > x
+  > 
   > In point of fact, the FTS subsystem will not be able to accept plain binary BLAKE3 hashes anyway (iff we stick to our path towards SOLR) as this subsystem will be expecting *text data formats* only, including any enforced *document ids* we may be feeding it. This then is an area of use for our BASE58X encoding design as a size-optimal competitor for ubiquitous `hex()`.
-  > x
+  > 
   > External use through scripting (as mentioned further above) is another such source/destination where binary data is not welcome in raw form, at least not for basic fields such as `document_id` as we intend to provide this possibility through offering up our subsystems as small(-ish) web services which any script language of the user's choice and preference can easily query: those "web queries" will be a lot easier for everyone to code and process when I can give them some JSON or XML data to munch on instead of *raw binary*: another spot where BASE58X may shine.
 
 
@@ -51,14 +51,14 @@ While one can argue that any user scripts will run locally and that we do not ex
 
 ### ease of use of Qiqqa subsystems from a programmable origin / transportability of raw search results
 
-That one has already been addressed above (and in the notes in the questions) as it is argued that this is very closeely related to "re-use on other nodes": it's not the scripts *peer se*, but their output that benefits from unambiguous transportability everywhere.
+That one has already been addressed above (and in the notes in the questions) as it is argued that this is very closely related to "re-use on other nodes": it's not the scripts *peer se*, but their output that benefits from unambiguous transportability everywhere.
 
 
 ## performance penalties
 
 Ditto: see the notes at the question.  SQLite benefits from using a 64bit integer number internally, so that one SHOULD use the mapping table for internal id -> BLAKE3-based globally unique id. We'll just have to put up with the consequences.
 
-After all, it is near identical to having a basic database table where the primary kay is *not* an `INTEGER PRIMARY KEEY`: under the hood, SQLite will do an additional lookup, i.e.e use a mapping table, *anyhow*. Only *this time* around it'll be called *an index on the primary key*. Which is not `rowid` then.
+After all, it is near identical to having a basic database table where the primary kay is *not* an `INTEGER PRIMARY KEEY`: under the hood, SQLite will do an additional lookup, i.e. use a mapping table, *anyhow*. Only *this time* around it'll be called *an index on the primary key*. Which is not `rowid` then.
 
 Thus I expect minimal impact on that front (storage in database), while the programming costs for queries will increase as we now have to address that *explicit* mapping table (which is merely there to host that same lookup index).
 
@@ -69,14 +69,14 @@ This would, therefor, be a little hairy, compared to direct blatant use of the B
 
 Nope. Not in raw binary form. Hence BLAKE3+BASE58X for anyone who needs it as a string. The FTS subsystem is one customer for those. Future user-defined scripts (for the *scriptable access to all subsystems*) are another.
 
-Also note that iff we were to go with `manticore` instead of `SOLR`, then we'ld be facing *document id* issues as manticore assumes you're feeding it 64bit integers or auto-generating them *for you* AFAICT. (See also: [Migrating to Manticore 3: document ids – Manticore Search](https://manticoresearch.com/2019/07/04/migrating-to-manticore-3-document-ids/))
-That would mean there's yet another 64bit integer to BLAKEE3+BASE58X string-based globally unique id mapping table parked in your subsystems, but then the question becomes: is *this* FTS database transportable across nodes, now that we know it's restricted to using 64bit unique id integers?
+Also note that iff we were to go with `manticore` instead of `SOLR`, then we'd be facing *document id* issues as manticore assumes you're feeding it 64bit integers or auto-generating them *for you* AFAICT. (See also: [Migrating to Manticore 3: document ids – Manticore Search](https://manticoresearch.com/2019/07/04/migrating-to-manticore-3-document-ids/))
+That would mean there's yet another 64bit integer to BLAKE3+BASE58X string-based globally unique id mapping table parked in your subsystems, but then the question becomes: is *this* FTS database transportable across nodes, now that we know it's restricted to using 64bit unique id integers?
 
 Yes, it is... *probably*. **With caveats, however!**
 Here the reasoning goes like this:
 
 Suppose you can make manticore use the SQLite `INTEGER PRIMARY KEY` 64bit unique ids, then that would be a handy 1:1 mapping without much fuss for anyone to peruse.
-When you need the BLAKE3 hash, you can do a quick SQLite table lookup query to add those and you'ld be set.
+When you need the BLAKE3 hash, you can do a quick SQLite table lookup query to add those and you'd be set.
 
 So far, so good.
 

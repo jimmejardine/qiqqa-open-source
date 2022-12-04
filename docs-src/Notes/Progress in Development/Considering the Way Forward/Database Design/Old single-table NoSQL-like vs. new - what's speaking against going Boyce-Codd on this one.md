@@ -1,6 +1,6 @@
 # Old single-table NoSQL-like vs. new multi-table approach :: what's speaking against going Boyce-Codd on this one?
 
-The original Qiqqa database layout was simple, rather *crude*: all data is stored in a JSON record, which is hash-integrity checked and stored in a single database row: key/value lookup and all you'ld get is a JSON field value, that itself represents an entire JSON file, which *includes* the whole document BibTeX record as one of its JSON-encoded fields. It's a bit nasty, really.
+The original Qiqqa database layout was simple, rather *crude*: all data is stored in a JSON record, which is hash-integrity checked and stored in a single database row: key/value lookup and all you'd get is a JSON field value, that itself represents an entire JSON file, which *includes* the whole document BibTeX record as one of its JSON-encoded fields. It's a bit nasty, really.
 
 While I haven't coded it yet, I'm pondering the database design which should follow this one, where I hope to provide a better service for these audiences:
 
@@ -64,7 +64,7 @@ The trouble with that approach, though, is that nobody can easily search the dat
 > > 
 > > Anyway, that Info Datum implies that my document size estimate is either way too optimistic / small, or-r-r-r-r-r, we are looking at far more than 100K 'unique' documents here.
 > > 
-> > Remember the "*near-identical PDFs cluttering the library*" section in [[SHA1B - Qiqqa Fingerprint 1.0 Classic]]? There are several reasons this dump bin has far more than 100K 'unique' documents, thanks to multiple download actions and crashed library recovery attempts, combined with several rather unsatisfactory attempts at improving OCR output, meanwhile 'deprotecting' obnoxious PDFs (I'm looking at you, On-Semi!), plus *possibly* a late realization that even though the previous factors are all very significant, there also *might* be a chance that the actual library hiding in that bin has grown at tad by now, say, another 25% since I last measured this in 0 B.C. (the Year Zero Before COVID) - 25% sounds quite reasonable given what I've being doing lately and the fact that this lib has been growing at a steady pace since at least 2015, with plenty of stuff already collected before then! This is about 30 years worth of professional living, after all.)
+> > Remember the "*near-identical PDFs cluttering the library*" section in [[SHA1B - Qiqqa Fingerprint 1.0 Classic]]? There are several reasons this dump bin has far more than 100K 'unique' documents, thanks to multiple download actions and crashed library recovery attempts, combined with several rather unsatisfactory attempts at improving OCR output, meanwhile 'deprotecting' obnoxious PDFs (I'm looking at you, On-Semi!), plus *possibly* a late realization that even though the previous factors are all very significant, there also *might* be a chance that the actual library hiding in that bin has grown at tad by now, say, another 25% since I last measured this in 0 B.C. (the Year Zero Before COVID) - 25% sounds quite reasonable given what I've been doing lately and the fact that this lib has been growing at a steady pace since at least 2015, with plenty of stuff already collected before then! This is about 30 years worth of professional living, after all.)
 
 
 ## Some thoughts on (database) speed
@@ -78,7 +78,7 @@ Meanwhile, having a non-unique field index on the metadata fields table, would *
 
 ### Maybe a bit of duplication isn't so bad...
 
-Another idea is to store the metadata *twice*. Heck, it's already *encoded once more* in the FTS/SOLR system to facilitate "google style" searching there, and at an estimated cost of ${ 10K } / D = 10 / 400 = 1 / 40 \approx { 3{ \\% } }$ of $D$, *doubling* that cost isn't high impact!
+Another idea is to store the metadata *twice*. Heck, it's already *encoded once more* in the FTS/SOLR system to facilitate "google style" searching there, and at an estimated cost of ${ 10K } / D = 10 / 400 = 1 / 40 \approx { 3{ \% } }$ of $D$, *doubling* that cost isn't high impact!
 
 What about we store those metadata fields in one table all separate, thus producing a huge search table with a compound index on `(document, fieldname)`, while the "*I want it all*" folks among us can query the second table where this data is stored in a single record, just like before, only now cleaned up and easier to parse: all the stuff together in a single field, JSON-formatted [MODS](https://www.loc.gov/standards/mods/userguide/index.html), ready for quick and easy use? I think that might be good and is relatively easy to do.
 

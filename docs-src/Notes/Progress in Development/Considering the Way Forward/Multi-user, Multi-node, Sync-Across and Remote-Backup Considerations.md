@@ -36,7 +36,7 @@ Anything you do involving replicating/duplicating/backing-up your Qiqqa library,
 
 Old SMB had a nasty network bug around file locking.
 NFS, much older still, also had a “known issue” re network file locking.
-Bottom linee: it doesn’t work.
+Bottom line: it doesn’t work.
 
 Empirical data / personal experience: nobody has fixed that issue. 
 That is discounting _specific network **monocultures**_ where the software involved is kept up to date and, *more importantly*, kept in sync with all the other network nodes. 

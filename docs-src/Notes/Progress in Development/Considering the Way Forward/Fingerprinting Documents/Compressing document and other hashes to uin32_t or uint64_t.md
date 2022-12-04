@@ -52,7 +52,7 @@ First, let's identify the several sources we would like to index/identify that w
   When we map these to internal, *system-native* `uint64_t` numbers, that would cost 8 bytes per index number and a very fast integer equality test.
   
   *Alas*, we should wonder whether this is an undesirable  *micro-optimization* now that we've much bigger fish to fry still.
-  Given the amount of extra work and confusion I can see already, I'ld say: *nice thought, but not making it past the mark*. *Rejected.*
+  Given the amount of extra work and confusion I can see already, I'd say: *nice thought, but not making it past the mark*. *Rejected.*
   
   > After all, *huge* Qiqqa libraries would be between 10K .. 100K documents, where each document would, perhaps, average at less than 100 pages, thus resulting in about 100K document hashes and 10M (100K * 100) *task hashes*, which would clock in at 480M space (sans terminating NUL bytes, etc.) if we'd kept all those hashes around forever, which is kind of ridiculous.
   > 

@@ -4,7 +4,7 @@ Check out [Migrating to Manticore 3: document ids – Manticore Search](https://
 
 Now, I hear you say -- and you are *so utterly correct* -- "*but that's so damn easy, no bloody $2^{64} - \text{value}$ subtraction needed! It's just a `(int64_t)id` typecast away and that's **zero cost**! What's the bloody fuss? And why do you come up with* 63-bit, *anyway?!"
 
-Yes, as long as we all remain in the nice computer programming languages (C/C++ preferentially, [for there's *no admittance* ones like, well, *JavaScript* and *TypeScript*]([Number.MAX_SAFE_INTEGER - JavaScript | MDN (mozilla.org)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER))!)
+Yes, as long as we all remain in the nice computer programming languages (C/C++ preferentially, [for there's *no admittance* ones like, well, *JavaScript* and *TypeScript*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)!)
 
 However, there are many circumstances where we will have some form of *formatted-as-text* ids traveling the communications' paths, both between Qiqqa subsystems (FTS <-> SQLite metadata database core engine, f.e.) and external access APIs (localhost web queries where external user-written scripts interface with our subsystems directly using cURL/REST like interfaces and/or larger JSON/XML data containers): in these circumstances it is highly desirable to keep the risk of confusion, including confusion and subtle bugs about whether something should be encoded and then (re)parsed as either *signed* or *unsigned* 64bit integer to a bare minimum.
 
@@ -31,7 +31,7 @@ This has consequences elsewhere in our codebases, of course, because folding a 2
 v &= 1 + bit_0 \mathbin{◮} 1 + bit_{63} \mathbin{⧩} (63 - 2) + bit_{64+63} \mathbin{⧩} (64 + 63 - 3)      \\
 &  \qquad  + \:  bit_{2 \cdot 64+63} \mathbin{⧩} (2 \cdot 64 + 63 - 4) + bit_{3 \cdot 64+63} \mathbin{⧩} (3 \cdot 64 + 63 - 5)  \\
 
-      &= 1 + bit_0 \mathbin{◮} 1 + bit_{63} \mathbin{⧩} 61 + bit_{127} \mathbin{⧩} 124 + bit_{191} \mathbin{⧩} (187) + bit_{255} \mathbin{⧩} 250
+      &= 1 + bit_0 \mathbin{◮} 1 + bit_{63} \mathbin{⧩} 61 + bit_{127} \mathbin{⧩} 124 + bit_{191} \mathbin{⧩} 187 + bit_{255} \mathbin{⧩} 250
       
       \end{aligned}$$
   where $\mathbin{◮}$ and $\mathbin{⧩}$ are the logical shift *left* and *right* operators, respectively. Then mix this value $v$ into the *masked* 64bit folded hash (the mask throwing away both $bit_{0}$ and $bit_{63}$). The idea being that the $\mathbin{+} 1$ ensures our end value will not be zero(0), but XOR-ing that one in just like that would loose us $bit_0$ so we take that one, alongside all the bits at $bit_{63}$-equivalent positions in the quadwords of the BLAKE3 hash that we would loose by restricting the result to a *positive 64bit integer range* and give them a new place in a new value $v$ (at bit positions 1,2,3,4 and 5) and then mix that value into the folded value.

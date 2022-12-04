@@ -295,7 +295,7 @@ where we have one table per library (fast for many, small & large libs; **prefer
 > - flag: *do-not-update*:  default FALSE. Set when you want a particular commit to remain in the library, no matter what.
 > - library id: identifies the library this record is part of.
 > 
-> This approach would reduce the number of database tables, but you'ld have (slightly?) slower document lookup queries as added cost vs. the first approach. Meanwhile we assume the overarching *general document repo* database table is *always fast*, even when storing 100K+ documents, as we expect most queries into this table to be indexed by *document hash*: the unique key for these records.
+> This approach would reduce the number of database tables, but you'd have (slightly?) slower document lookup queries as added cost vs. the first approach. Meanwhile we assume the overarching *general document repo* database table is *always fast*, even when storing 100K+ documents, as we expect most queries into this table to be indexed by *document hash*: the unique key for these records.
 > 
 
 Of course, both approaches assume a library metadata record to be kept somewhere, as the LIBRARY table's purpose is to *link/reference* documents (and *their* metadata state of affairs) *to* that LIBRARY_METADATA record, i.e. the library instance:
