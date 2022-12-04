@@ -587,6 +587,12 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     break;
                 }
 
+                if (LibraryRef == null || folder_watcher_manager?.TypedTarget == null)
+                {
+                    Logging.Info("FolderWatcher: Breaking out of inner processing loop due to disposed library and/or watch manager");
+                    throw new OperationCanceledException("FolderWatcher: Breaking out of inner processing loop due to disposed library and/or watch manager");
+                }
+
                 // check if the PDF is already known:
                 PDFDocument doc = LibraryRef.Xlibrary.GetDocumentByFingerprint(fingerprint);
 

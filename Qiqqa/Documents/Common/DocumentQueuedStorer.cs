@@ -29,17 +29,24 @@ namespace Qiqqa.Documents.Common
 
         private void DoMaintenance_FlushDocuments(Daemon daemon)
         {
-            if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            try
             {
-                // do run the flush task, but delayed!
-                return;
-            }
+                if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+                {
+                    // do run the flush task, but delayed!
+                    return;
+                }
 
-            // Quit this delayed storing of PDF files when we've hit the end of the execution run:
-            // we'll have to save them all to disk in one go then, and quickly too!
-            if (!ShutdownableManager.Instance.IsShuttingDown)
+                // Quit this delayed storing of PDF files when we've hit the end of the execution run:
+                // we'll have to save them all to disk in one go then, and quickly too!
+                if (!ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    FlushDocuments(force_flush_no_matter_what: false);
+                }
+            }
+            catch (Exception ex)
             {
-                FlushDocuments(force_flush_no_matter_what: false);
+                Logging.Error(ex, "Terminating the Flush-Documents background thread due to an otherwise unhandled exception.");
             }
         }
 

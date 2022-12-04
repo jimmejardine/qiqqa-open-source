@@ -267,49 +267,56 @@ namespace Utilities.Maintainable
 
         private void DaemonThreadEntryPoint(object wrapper)
         {
-            DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = (DoMaintenanceDelegateWrapper)wrapper;
-            Daemon daemon = do_maintenance_delegate_wrapper.daemon;
-
-            // first wait until the hold off signal is released
-            while (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
+            try
             {
-                if (!IsHoldOffPending(do_maintenance_delegate_wrapper.hold_off_level)) break;
-                daemon.Sleep(Math.Max(250, do_maintenance_delegate_wrapper.delay_before_start_milliseconds / 10));
-            }
+                DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = (DoMaintenanceDelegateWrapper)wrapper;
+                Daemon daemon = do_maintenance_delegate_wrapper.daemon;
 
-            // only sleep the extra delay time when there's still a chance we will be running the actual thread code.
-            if (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
-            {
-                if (0 != do_maintenance_delegate_wrapper.delay_before_start_milliseconds)
+                // first wait until the hold off signal is released
+                while (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
                 {
-                    Logging.Info("+MaintainableManager is waiting some startup time ({1}ms) for {0}", do_maintenance_delegate_wrapper.maintainable_description, do_maintenance_delegate_wrapper.delay_before_start_milliseconds);
-                    daemon.Sleep(do_maintenance_delegate_wrapper.delay_before_start_milliseconds);
-                    Logging.Info("-MaintainableManager was waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
+                    if (!IsHoldOffPending(do_maintenance_delegate_wrapper.hold_off_level)) break;
+                    daemon.Sleep(Math.Max(250, do_maintenance_delegate_wrapper.delay_before_start_milliseconds / 10));
                 }
-            }
 
-            while (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
-            {
-                try
+                // only sleep the extra delay time when there's still a chance we will be running the actual thread code.
+                if (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
                 {
-                    object target = do_maintenance_delegate_wrapper.target.Target;
-                    if (null != target)
+                    if (0 != do_maintenance_delegate_wrapper.delay_before_start_milliseconds)
                     {
-                        do_maintenance_delegate_wrapper.method_info.Invoke(target, new object[] { daemon });
-                        target = null;
-                    }
-                    else
-                    {
-                        Logging.Info("Target maintainable ({0}) has been garbage collected, so closing down Maintainable thread.", do_maintenance_delegate_wrapper.maintainable_description);
-                        daemon.Stop();
+                        Logging.Info("+MaintainableManager is waiting some startup time ({1}ms) for {0}", do_maintenance_delegate_wrapper.maintainable_description, do_maintenance_delegate_wrapper.delay_before_start_milliseconds);
+                        daemon.Sleep(do_maintenance_delegate_wrapper.delay_before_start_milliseconds);
+                        Logging.Info("-MaintainableManager was waiting some startup time for {0}", do_maintenance_delegate_wrapper.maintainable_description);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "Maintainable {0} has thrown an unhandled exception.", do_maintenance_delegate_wrapper.maintainable_description);
-                }
 
-                daemon.Sleep(Math.Max(500, do_maintenance_delegate_wrapper.delay_before_repeat_milliseconds));
+                while (daemon.StillRunning && !ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    try
+                    {
+                        object target = do_maintenance_delegate_wrapper.target.Target;
+                        if (null != target)
+                        {
+                            do_maintenance_delegate_wrapper.method_info.Invoke(target, new object[] { daemon });
+                            target = null;
+                        }
+                        else
+                        {
+                            Logging.Info("Target maintainable ({0}) has been garbage collected, so closing down Maintainable thread.", do_maintenance_delegate_wrapper.maintainable_description);
+                            daemon.Stop();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "Maintainable {0} has thrown an unhandled exception.", do_maintenance_delegate_wrapper.maintainable_description);
+                    }
+
+                    daemon.Sleep(Math.Max(500, do_maintenance_delegate_wrapper.delay_before_repeat_milliseconds));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "Terminating a background thread due to otherwise unhandled exception.");
             }
         }
 
