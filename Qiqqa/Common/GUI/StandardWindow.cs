@@ -122,7 +122,7 @@ namespace Qiqqa.Common.GUI
             Left = 10;
 #endif
 
-            UseLayoutRounding = true;
+            UseLayoutRounding = false;
 
             if (SnapToPixels)
             {
