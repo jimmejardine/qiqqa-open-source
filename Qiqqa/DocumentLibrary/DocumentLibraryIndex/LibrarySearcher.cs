@@ -27,6 +27,12 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 return EMPTY_PAGE_LIST;
             }
 
+            // fix crash due to nullref at shutdown:
+            if (web_library_detail.Xlibrary == null || web_library_detail.Xlibrary.LibraryIndex == null)
+            {
+                return EMPTY_PAGE_LIST;
+            }
+
             return web_library_detail.Xlibrary.LibraryIndex.GetPagesForQuery(query);
         }
     }

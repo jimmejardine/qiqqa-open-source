@@ -13,6 +13,7 @@ using Utilities.Language.TextIndexing;
 using Utilities.Mathematics;
 using Utilities.Misc;
 using Utilities.OCR;
+using Utilities.Shutdownable;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -169,6 +170,12 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                             break;
                         }
 
+                        if (ShutdownableManager.Instance.IsShuttingDown)
+                        {
+                            Logging.Error("Canceling creation of Autotags due to signaled application shutdown");
+                            break;
+                        }
+
                         StatusManager.Instance.UpdateStatus("AITags", String.Format("AutoTagging papers with '{0}'", tag), i, ai_tags_list.Count, true);
 
                         // Surround the tag with quotes and search the index
@@ -182,6 +189,17 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
                             {
                                 Logging.Info("Skipping AutoTag {0} because too many documents have it ({1} out of {2} ~ {3:P1})...", tag, fingerprints_potential.Count, pdf_documents.Count, Perunage.Calc(fingerprints_potential.Count, pdf_documents.Count));
                                 continue;
+                            }
+
+                            if (StatusManager.Instance.IsCancelled("AITags"))
+                            {
+                                break;
+                            }
+
+                            if (ShutdownableManager.Instance.IsShuttingDown)
+                            {
+                                Logging.Error("Canceling creation of Autotags due to signaled application shutdown");
+                                break;
                             }
 
                             foreach (var fingerprint_potential in fingerprints_potential)
@@ -272,7 +290,11 @@ namespace Qiqqa.DocumentLibrary.AITagsStuff
 
                 bool use_new_autotags = true;
 
-                if (StatusManager.Instance.IsCancelled("AITags"))
+                if (ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    use_new_autotags = false;
+                }
+                else if (StatusManager.Instance.IsCancelled("AITags"))
                 {
                     if (!MessageBoxes.AskQuestion("You canceled the generation of your AutoTags.  Do you want to use the partially generated AutoTags (YES) or keep your old AutoTags (NO)?"))
                     {
