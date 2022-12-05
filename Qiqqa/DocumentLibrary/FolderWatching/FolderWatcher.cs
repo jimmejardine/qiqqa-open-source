@@ -6,6 +6,7 @@ using Alphaleonis.Win32.Filesystem;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.TagManagement;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
+using Qiqqa.Documents.Common;
 using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.Files;
@@ -153,8 +154,10 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             }
         }
 
-        public const int MAX_SECONDS_PER_ITERATION = 5 * 1000;
-        public const int SECONDS_TO_RELAX_PER_ITERATION = (int)(1.5 * 1000);
+        public const int MAX_MILLISECONDS_PER_ITERATION = 5 * 1000;
+        public const int MILLISECONDS_TO_RELAX_PER_ITERATION = (int)(1.5 * 1000);
+        public const int MAX_NUMBER_OF_FILES_TO_ADD_PER_ROUND = 1000;
+		public const int MAX_NUMBER_OF_FILES_TO_ADD_BEFORE_FLUSH = 50;
 
         internal class WatchStatistics
         {
@@ -381,78 +384,21 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     DirectoryEnumerationOptions.Recursive,
                     filter);
                 // SearchOption.AllDirectories);
-                Logging.Debug特("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
-
-                // Do NOT count files which are already present in our library/DB,
-                // despite the fact that those also *do* take time and effort to check
-                // in the code above.
-                //
-                // The issue here is that when we would import files A,B,C,D,E,F,G,H,I,J,K,
-                // we would do so in tiny batches, resulting in a rescan after each batch
-                // where the already processed files will be included in the set, but must
-                // be filtered out as 'already in there' in the code above.
-                // Iff we had counted *all* files we inspect from the Watch Directory,
-                // we would never make it batch the first batch as then our count limit
-                // would trigger already for every round through here!
-
-                List<string> filenames_that_are_new = new List<string>();
+                int raw_file_count = 0;
                 foreach (string filename in filenames_in_folder)
                 {
-                    Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", watch_stats.processed_file_count, watch_stats.processing_file_count, watch_stats.scanned_file_count, watch_stats.skipped_file_count, watch_stats.scanned_file_count - watch_stats.skipped_file_count - watch_stats.processing_file_count);
-
-                    try
-                    {
-                        // check the file once again: it MAY have disappeared while we were slowly scanning the remainder of the dirtree.
-                        FileSystemEntryInfo info = File.GetFileSystemEntryInfo(filename);
-
-                        watch_stats.processing_file_count++;
-
-                        Logging.Info("FolderWatcher is importing {0}", filename);
-                        filenames_that_are_new.Add(filename);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "Folder Watcher: skipping file {0} due to file I/O error {1}", filename, ex.Message);
-                    }
+                    raw_file_count++;
                 }
 
-                Logging.Debug特("Directory.EnumerateFiles took {0} ms", clk.ElapsedMilliseconds);
-
-                // Create the import records
-                List<FilenameWithMetadataImport> filename_with_metadata_imports = new List<FilenameWithMetadataImport>();
-                foreach (var filename in filenames_that_are_new)
-                {
-                    filename_with_metadata_imports.Add(new FilenameWithMetadataImport
-                    {
-                        filename = filename,
-                        tags = new HashSet<string>(tags)
-                    });
-
-#if false
-                    // delay until the PDF has actually been processed completely!
-                    //
-                    // Add this file to the list of processed files...
-                    folder_watcher_manager.RememberProcessedFile(filename);
-#endif
-                }
-
-                // Get the library to import all these new files
-                if (filename_with_metadata_imports.Count > 0)
-                {
-                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(LibraryRef, true, filename_with_metadata_imports.ToArray());
-
-                    // TODO: refactor the ImportingIntoLibrary class
-                }
-
-                watch_stats.processed_file_count = watch_stats.processing_file_count;
+                Logging.Debug特("Directory.EnumerateFiles({1}) took {0} ms and produced {2} entries.", clk.ElapsedMilliseconds, configured_folder_to_watch, raw_file_count);
 
                 Logging.Info("FolderWatcher: {0} of {1} files have been processed/inspected (total {2} scanned, {3} skipped, {4} ignored)", watch_stats.processed_file_count, watch_stats.processing_file_count, watch_stats.scanned_file_count, watch_stats.skipped_file_count, watch_stats.scanned_file_count - watch_stats.skipped_file_count - watch_stats.processing_file_count);
 
-                if (watch_stats.index_processing_clock.ElapsedMilliseconds >= FolderWatcher.MAX_SECONDS_PER_ITERATION)
+                if (watch_stats.files_added_since_last_sleep > 0 && watch_stats.index_processing_clock.ElapsedMilliseconds >= FolderWatcher.MAX_MILLISECONDS_PER_ITERATION)
                 {
-                    Logging.Info("FolderWatcher: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed, {1} threads pending", watch_stats.index_processing_clock.ElapsedMilliseconds / 1E3, SafeThreadPool.QueuedThreadCount);
+                    Logging.Info("FolderWatcher: Taking a nap due to MAX_MILLISECONDS_PER_ITERATION: {0} seconds consumed, {1} threads pending", watch_stats.index_processing_clock.ElapsedMilliseconds / 1E3, SafeThreadPool.QueuedThreadCount);
 
-                    watch_stats.daemon.Sleep(SECONDS_TO_RELAX_PER_ITERATION);
+                    watch_stats.daemon?.Sleep(MILLISECONDS_TO_RELAX_PER_ITERATION);
 
                     watch_stats.index_processing_clock.Restart();
                 }
@@ -499,6 +445,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         internal bool DecideIfIncludeDuringDirScan(FileSystemEntryInfo obj)
         {
             bool isRegularFile = !(obj.IsDevice || obj.IsDirectory || obj.IsMountPoint || /* obj.IsReparsePoint (hardlink!) || */ obj.IsOffline || obj.IsSystem || obj.IsTemporary);
+
             Logging.Debug("FolderWatcher: testing {1} '{0}' for inclusion in the Qiqqa library.", obj.FullPath, isRegularFile ? "regular File" : obj.IsDirectory ? "directory" : "node");
 
             if (ShutdownableManager.Instance.IsShuttingDown)
@@ -523,9 +470,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             bool have_we_slept = false;
 
-            if (watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_SECONDS_PER_ITERATION)
+            if (watch_stats.files_added_since_last_sleep > 0 && watch_stats.index_processing_clock.ElapsedMilliseconds > MAX_MILLISECONDS_PER_ITERATION)
             {
-                watch_stats.daemon.Sleep(SECONDS_TO_RELAX_PER_ITERATION);
+                watch_stats.daemon?.Sleep(MILLISECONDS_TO_RELAX_PER_ITERATION);
 
                 // reset:
                 watch_stats.index_processing_clock.Restart();
@@ -615,6 +562,64 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 watch_stats.file_hashes_added.Add(fingerprint, obj.FullPath);
                 watch_stats.files_added_since_last_sleep++;
 
+                // add the file to the library right away, as some Watched Folders are quite deep (in our case) and take quite a while to scan.
+                // Better to add the new found PDFs ASAP!
+                string filename = obj.FullPath;
+
+                try
+                {
+                    // check the file once again: it MAY have disappeared while we were slowly scanning the remainder of the dirtree.
+                    FileSystemEntryInfo info = File.GetFileSystemEntryInfo(filename);
+
+                    watch_stats.processing_file_count++;
+
+                    Logging.Info("FolderWatcher is importing {0}", filename);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Folder Watcher: skipping file {0} due to file I/O error {1}", filename, ex.Message);
+                    break;
+                }
+
+                try
+                {
+                    // Create the import record
+                    List<FilenameWithMetadataImport> filename_with_metadata_imports = new List<FilenameWithMetadataImport>();
+
+                    filename_with_metadata_imports.Add(new FilenameWithMetadataImport
+                    {
+                        filename = filename,
+                        tags = new HashSet<string>(tags)
+                    });
+
+#if false
+                // delay until the PDF has actually been processed completely!
+                //
+                // Add this file to the list of processed files...
+                folder_watcher_manager.RememberProcessedFile(filename);
+#endif
+
+                    // Get the library to import all these new files
+                    ASSERT.Test(filename_with_metadata_imports.Count > 0);
+
+                    ImportingIntoLibrary.AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(LibraryRef, true, filename_with_metadata_imports.ToArray());
+
+                    watch_stats.processed_file_count++;
+
+					// flush the DB when we've added plenty:
+					if (watch_stats.processed_file_count % MAX_NUMBER_OF_FILES_TO_ADD_BEFORE_FLUSH == 0)
+					{
+                        DocumentQueuedStorer.Instance.FlushDocuments(force_flush_no_matter_what: true);
+					}
+
+                    // TODO: refactor the ImportingIntoLibrary class
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "Folder Watcher: skipping file {0} due to file I/O error {1}", filename, ex.Message);
+                    break;
+                }
+
                 return true;
             }
 
@@ -641,6 +646,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
         internal bool DecideIfRecurseDuringDirScan(FileSystemEntryInfo obj)
         {
             Logging.Debug("FolderWatcher: scanning directory: {0}", obj.FullPath);
+
+            if (watch_stats.files_added_since_last_sleep >= MAX_NUMBER_OF_FILES_TO_ADD_PER_ROUND)
+                return false;
 
             return true;
         }

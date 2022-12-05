@@ -64,7 +64,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             if (ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
             {
-                managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, extra_descr: $".Lib({LibraryRef})");
+                managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 10 * 1000, extra_descr: $".Lib({LibraryRef})");
             }
         }
 
@@ -96,6 +96,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             {
                 Utilities.Maintainable.MaintainableManager.Instance.CleanupEntry(managed_thread_index);
             });
+            managed_thread_index = -1;
 
             WPFDoEvents.SafeExec(() =>
             {
@@ -112,6 +113,11 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     filenames_processed.Clear();
                 }
             });
+        }
+
+        public int GetBackgroundTaskIndex()
+        {
+            return managed_thread_index;
         }
 
         public string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.folder_watcher"));
@@ -236,6 +242,20 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             {
                 Logging.Error(ex, "Terminating the Folder Watch background thread due to an otherwise unhandled exception.");
             }
+        }
+
+        public void TriggerExec()
+        {
+            SafeThreadPool.QueueAsyncUserWorkItem(async () =>
+            {
+                ConfigurationManager.GetDeveloperSettingsReference()[nameof(FolderWatcher)] = true;
+                Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks = false;
+                ASSERT.Test(ConfigurationManager.IsEnabled(nameof(FolderWatcher)));
+
+                ResetHistory();
+
+                TaskDaemonEntryPoint(null);
+            });
         }
     }
 }

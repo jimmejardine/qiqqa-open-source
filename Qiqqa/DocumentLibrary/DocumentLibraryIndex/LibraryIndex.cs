@@ -576,7 +576,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 if (clk.ElapsedMilliseconds > MAX_MILLISECONDS_PER_ITERATION)
                 {
-                    Logging.Info("IncrementalBuildNextDocuments: Breaking out of processing loop due to MAX_SECONDS_PER_ITERATION: {0}ms consumed", clk.ElapsedMilliseconds);
+                    Logging.Info("IncrementalBuildNextDocuments: Breaking out of processing loop due to MAX_MILLISECONDS_PER_ITERATION: {0}ms consumed", clk.ElapsedMilliseconds);
                     break;
                 }
 

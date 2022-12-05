@@ -341,5 +341,23 @@ namespace Utilities.Maintainable
                 hold_off--;
             }
         }
+
+        public void TriggerExec(int index)
+        {
+            DoMaintenanceDelegateWrapper do_maintenance_delegate_wrapper = GetEntry(index);
+            if (do_maintenance_delegate_wrapper == null)
+                return;
+
+            int old_level = 0;
+            int old_delay = 0;
+            lock (hold_off_lock)
+            {
+                old_level = do_maintenance_delegate_wrapper.hold_off_level;
+                do_maintenance_delegate_wrapper.hold_off_level = hold_off + 1;
+
+                old_delay = do_maintenance_delegate_wrapper.delay_before_start_milliseconds;
+                do_maintenance_delegate_wrapper.delay_before_start_milliseconds = 0;
+            }
+        }
     }
 }

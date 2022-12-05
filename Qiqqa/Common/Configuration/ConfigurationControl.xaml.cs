@@ -9,6 +9,7 @@ using System.Windows.Media;
 using icons;
 using Qiqqa.Common.MessageBoxControls;
 using Qiqqa.DocumentLibrary;
+using Qiqqa.DocumentLibrary.FolderWatching;
 using Qiqqa.DocumentLibrary.LibraryDBStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
@@ -75,6 +76,10 @@ namespace Qiqqa.Common.Configuration
             ButtonLibraryDBExplorer.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
             ButtonLibraryDBExplorer.Click += ButtonLibraryDBExplorer_Click;
 
+            ButtonRunFolderWatcherNow.Caption = "Run Folder Watcher Now!";
+            ButtonRunFolderWatcherNow.Icon = Icons.GetAppIcon(Icons.GarbageCollect);
+            ButtonRunFolderWatcherNow.Click += ButtonRunFolderWatcherNow_Click;
+
             CmdResetDevCfgToFactoryDefaults.Click += CmdResetDevCfgToFactoryDefaults_Click;
 
             GUI_LoadKnownWebLibraries.IsChecked = ConfigurationManager.IsEnabled("LoadKnownWebLibraries");
@@ -91,7 +96,7 @@ namespace Qiqqa.Common.Configuration
             GUI_DoInterestingAnalysis_GoogleScholar.Checked += GUI_DevAdvCfg_Unchecked;
             GUI_DoInterestingAnalysis_GoogleScholar.Unchecked += GUI_DevAdvCfg_Checked;
 
-            GUI_FolderWatcher.IsChecked = ConfigurationManager.IsEnabled("FolderWatcher");
+            GUI_FolderWatcher.IsChecked = ConfigurationManager.IsEnabled(nameof(FolderWatcher));
             GUI_FolderWatcher.Checked += GUI_DevAdvCfg_Unchecked;
             GUI_FolderWatcher.Unchecked += GUI_DevAdvCfg_Checked;
             GUI_TextExtraction.IsChecked = ConfigurationManager.IsEnabled("TextExtraction");
@@ -396,6 +401,17 @@ namespace Qiqqa.Common.Configuration
         {
             var link = (Hyperlink)sender;
             Process.Start(link.NavigateUri.ToString());
+        }
+
+        private void ButtonRunFolderWatcherNow_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var web_library_detail in WebLibraryManager.Instance.WebLibraryDetails_All_IncludingDeleted)
+            {
+                Library library = web_library_detail.Xlibrary;
+
+                FolderWatcherManager mgr = library.FolderWatcherManager;
+                mgr.TriggerExec();
+            }
         }
     }
 }

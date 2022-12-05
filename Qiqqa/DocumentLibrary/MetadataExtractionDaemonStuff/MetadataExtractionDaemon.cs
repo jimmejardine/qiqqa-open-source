@@ -44,8 +44,8 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
             // we'll be sure to have run out of files to process for sure...
             const int MAX_NUMBER_OF_PDF_FILES_TO_PROCESS = 30;
             const int MIN_NUMBER_OF_PDF_FILES_TO_PROCESS_PER_ITERATION = 10;
-            const int MAX_SECONDS_PER_ITERATION = 10 * 60;
-            long clk_bound = clk.ElapsedMilliseconds + MAX_SECONDS_PER_ITERATION * 1000;
+            const int MAX_MILLISECONDS_PER_ITERATION = 10 * 60 * 1000;
+            long clk_bound = clk.ElapsedMilliseconds + MAX_MILLISECONDS_PER_ITERATION;
 
             try
             {
@@ -151,7 +151,7 @@ namespace Qiqqa.DocumentLibrary.MetadataExtractionDaemonStuff
 					// is allowed to fire.
                     if (clk_bound <= clk.ElapsedMilliseconds && stats.documentsProcessedCount >= MIN_NUMBER_OF_PDF_FILES_TO_PROCESS_PER_ITERATION)
                     {
-                        Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to MAX_SECONDS_PER_ITERATION: {0} ms consumed", clk.ElapsedMilliseconds);
+                        Logging.Debug特("Breaking out of MetadataExtractionDaemon PDF fingerprinting loop due to MAX_MILLISECONDS_PER_ITERATION: {0} ms consumed", clk.ElapsedMilliseconds);
                         return;
                     }
                 }

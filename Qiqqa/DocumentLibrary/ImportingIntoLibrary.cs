@@ -105,7 +105,6 @@ namespace Qiqqa.DocumentLibrary
                     Logging.Warn("User chose to stop bulk adding documents to the library");
                     break;
                 }
-                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i + 1, filename_with_metadata_imports.Length), i, filename_with_metadata_imports.Length, true);
 
                 FilenameWithMetadataImport filename_with_metadata_import = filename_with_metadata_imports[i];
 
@@ -113,6 +112,11 @@ namespace Qiqqa.DocumentLibrary
                 {
                     string filename = filename_with_metadata_import.filename;
                     string bibtex = filename_with_metadata_import.bibtex;
+
+                    StatusManager.Instance.UpdateStatus("BulkLibraryDocument", (filename_with_metadata_imports.Length > 1 ?
+    String.Format("Adding document {0} of {1} to your library", i + 1, filename_with_metadata_imports.Length) :
+    String.Format("Adding document {0} to your library", Path.GetFileName(filename))),
+    i, filename_with_metadata_imports.Length, true);
 
                     PDFDocument pdf_document = web_library_detail.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(filename, web_library_detail, filename, filename, bibtex, filename_with_metadata_import.tags, filename_with_metadata_import.notes, suppress_notifications);
                     if (null != pdf_document)
@@ -159,11 +163,11 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
 
-                if (breathing_time.ElapsedMilliseconds >= FolderWatcher.MAX_SECONDS_PER_ITERATION)
+                if (breathing_time.ElapsedMilliseconds >= FolderWatcher.MAX_MILLISECONDS_PER_ITERATION)
                 {
-                    Logging.Info("AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", breathing_time.ElapsedMilliseconds / 1E3);
+                    Logging.Info("AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS: Taking a nap due to MAX_MILLISECONDS_PER_ITERATION: {0} seconds consumed", breathing_time.ElapsedMilliseconds / 1E3);
 
-                    ShutdownableManager.Sleep(FolderWatcher.SECONDS_TO_RELAX_PER_ITERATION);
+                    ShutdownableManager.Sleep(FolderWatcher.MILLISECONDS_TO_RELAX_PER_ITERATION);
 
                     breathing_time.Restart();
                 }
@@ -171,7 +175,9 @@ namespace Qiqqa.DocumentLibrary
 
             if (filename_with_metadata_imports.Length > 0)
             {
-                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Added {0} of {1} document(s) to your library", successful_additions, filename_with_metadata_imports.Length));
+                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", (filename_with_metadata_imports.Length > 1 ?
+                    String.Format("Added {0} of {1} document(s) to your library", successful_additions, filename_with_metadata_imports.Length) :
+                    String.Format("Added {0} to your library", Path.GetFileName(filename_with_metadata_imports[0].filename))));
             }
             else
             {
