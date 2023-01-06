@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
@@ -246,7 +247,8 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         public void TriggerExec()
         {
-            SafeThreadPool.QueueAsyncUserWorkItem(async () =>
+            Func<Task> cb = null;
+            cb = async () =>
             {
                 ConfigurationManager.GetDeveloperSettingsReference()[nameof(FolderWatcher)] = true;
                 Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks = false;
@@ -255,7 +257,9 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                 ResetHistory();
 
                 TaskDaemonEntryPoint(null);
-            });
+            };
+
+            SafeThreadPool.QueueAsyncUserWorkItem(cb);
         }
     }
 }
