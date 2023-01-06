@@ -51,3 +51,6 @@
 [submodule "thirdparty/ookii-dialogs-wpf"]
 	path = thirdparty/ookii-dialogs-wpf
 	url = git@github.com:GerHobbelt/ookii-dialogs-wpf.git
+[submodule "thirdparty/YamlDotNet"]
+	path = thirdparty/YamlDotNet
+	url = git@github.com:GerHobbelt/YamlDotNet.git
