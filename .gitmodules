@@ -54,3 +54,6 @@
 [submodule "thirdparty/YamlDotNet"]
 	path = thirdparty/YamlDotNet
 	url = git@github.com:GerHobbelt/YamlDotNet.git
+[submodule "thirdparty/CacheTower"]
+	path = thirdparty/CacheTower
+	url = git@github.com:GerHobbelt/CacheTower.git
