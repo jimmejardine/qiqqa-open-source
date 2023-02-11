@@ -48,7 +48,7 @@
 ### Demarcated Projects = producing a Tool or a Procedure To Use A Tool:
 
 - Qiqqa GUI
-	- [[wxWidgets + CEF for UI - or should we go electron anyway|wxwindows + CEF for UI - or should we go `electron` anyway?]]
+	- [[wxWidgets + CEF for UI - or should we go electron anyway⁈ ⇒ WebView2 et al|wxwindows + CEF for UI - or should we go `electron` anyway?]]
 	- [[The Qiqqa Sniffer UI-UX - PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine|The Qiqqa Sniffer UI / UX: PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine]]
 	- [[Web UI/visual BibTex Editor|Web UI: visual BibTex Editor]]
 	- [[Web UI/visual Metadata Editor|Web UI: visual Metadata Editor (for abstract, title, DOI, **tags**, etc.)]]

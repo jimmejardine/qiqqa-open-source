@@ -4,7 +4,7 @@ Check out [Migrating to Manticore 3: document ids – Manticore Search](https://
 
 Now, I hear you say -- and you are *so utterly correct* -- "*but that's so damn easy, no bloody $2^{64} - \text{value}$ subtraction needed! It's just a `(int64_t)id` typecast away and that's **zero cost**! What's the bloody fuss? And why do you come up with* 63-bit, *anyway?!"
 
-Yes, as long as we all remain in the nice computer programming languages (C/C++ preferentially, [for there's *no admittance* ones like, well, *JavaScript* and *TypeScript*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)!)
+Yes, as long as we all remain in the nice computer programming languages (C/C++ preferentially, [for there's *no admittance* for ones like, well, *JavaScript* and *TypeScript*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)!)
 
 However, there are many circumstances where we will have some form of *formatted-as-text* ids traveling the communications' paths, both between Qiqqa subsystems (FTS <-> SQLite metadata database core engine, f.e.) and external access APIs (localhost web queries where external user-written scripts interface with our subsystems directly using cURL/REST like interfaces and/or larger JSON/XML data containers): in these circumstances it is highly desirable to keep the risk of confusion, including confusion and subtle bugs about whether something should be encoded and then (re)parsed as either *signed* or *unsigned* 64bit integer to a bare minimum.
 
