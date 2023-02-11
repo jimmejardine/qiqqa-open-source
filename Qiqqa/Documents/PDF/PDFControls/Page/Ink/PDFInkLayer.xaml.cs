@@ -10,6 +10,11 @@ using Qiqqa.UtilisationTracking;
 using Utilities;
 using Utilities.GUI;
 using Utilities.GUI.Animation;
+using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 {
@@ -41,7 +46,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
             ObjInkCanvas.RequestBringIntoView += ObjInkCanvas_RequestBringIntoView;
 
-            RebuildInks(page, pdf_document.Inks);
+            SafeThreadPool.QueueUserWorkItem(() =>
+            {
+                RebuildInks(page, pdf_document.Inks);
+            });
 
             RaiseInkChange(InkCanvasEditingMode.Ink);
 
@@ -76,7 +84,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
             StrokeCollection stroke_collection = pdf_ink_list.GetInkStrokeCollection(page);
             if (null != stroke_collection)
             {
-                ObjInkCanvas.Strokes = stroke_collection;
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    ObjInkCanvas.Strokes = stroke_collection;
+                });
             }
         }
 
@@ -102,22 +113,34 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
         private void ObjInkCanvas_SelectionResized(object sender, EventArgs e)
         {
-            InkChanged();
+            WPFDoEvents.SafeExec(() =>
+            {
+                InkChanged();
+            });
         }
 
         private void ObjInkCanvas_SelectionMoved(object sender, EventArgs e)
         {
-            InkChanged();
+            WPFDoEvents.SafeExec(() =>
+            {
+                InkChanged();
+            });
         }
 
         private void ObjInkCanvas_StrokeErased(object sender, RoutedEventArgs e)
         {
-            InkChanged();
+            WPFDoEvents.SafeExec(() =>
+            {
+                InkChanged();
+            });
         }
 
         private void ObjInkCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
-            InkChanged();
+            WPFDoEvents.SafeExec(() =>
+            {
+                InkChanged();
+            });
         }
 
         private void InkChanged()
@@ -134,8 +157,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Ink
 
         private void PDFInkLayer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ObjBaseGrid.Width = ActualWidth;
-            ObjBaseGrid.Height = ActualHeight;
+            WPFDoEvents.SafeExec(() =>
+            {
+                ObjBaseGrid.Width = ActualWidth;
+                ObjBaseGrid.Height = ActualHeight;
+            });
         }
 
         internal void RaiseInkChange(InkCanvasEditingMode inkCanvasEditingMode)

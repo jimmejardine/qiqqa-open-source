@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Qiqqa.Brainstorm.Nodes;
+using Utilities.GUI;
 using Utilities.Misc;
 
 namespace Qiqqa.Brainstorm.SceneManager
@@ -23,8 +24,11 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ObjSceneRenderingControl_ScrollInfoChanged()
         {
-            DoHorizontal();
-            DoVertical();
+            WPFDoEvents.SafeExec(() =>
+            {
+                DoHorizontal();
+                DoVertical();
+            });
         }
 
         private bool horizonal_changing = false;
@@ -94,20 +98,26 @@ namespace Qiqqa.Brainstorm.SceneManager
 
         private void ScrollHorizonal_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (!horizonal_changing)
+            WPFDoEvents.SafeExec(() =>
             {
-                ObjSceneRenderingControl.current_viewport_topleft.X = e.NewValue - ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale / 2;
-                ObjSceneRenderingControl.ViewportHasChanged();
-            }
+                if (!horizonal_changing)
+                {
+                    ObjSceneRenderingControl.current_viewport_topleft.X = e.NewValue - ObjSceneRenderingControl.ActualWidth / ObjSceneRenderingControl.CurrentPowerScale / 2;
+                    ObjSceneRenderingControl.ViewportHasChanged();
+                }
+            });
         }
 
         private void ScrollVertical_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (!vertical_changing)
+            WPFDoEvents.SafeExec(() =>
             {
-                ObjSceneRenderingControl.current_viewport_topleft.Y = e.NewValue - ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale / 2;
-                ObjSceneRenderingControl.ViewportHasChanged();
-            }
+                if (!vertical_changing)
+                {
+                    ObjSceneRenderingControl.current_viewport_topleft.Y = e.NewValue - ObjSceneRenderingControl.ActualHeight / ObjSceneRenderingControl.CurrentPowerScale / 2;
+                    ObjSceneRenderingControl.ViewportHasChanged();
+                }
+            });
         }
     }
 }

@@ -41,84 +41,87 @@ namespace Qiqqa.Expedition
 
         private void ExpeditionPaperThemesControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            // Clear the old
-            ObjSeriesTopics.DataSource = null;
-            TxtPleaseRunExpedition.Visibility = Visibility.Visible;
-            ChartTopics.Visibility = Visibility.Collapsed;
-
-            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
-            if (null == pdf_document_bindable)
+            WPFDoEvents.SafeExec(() =>
             {
-                return;
-            }
+                // Clear the old
+                ObjSeriesTopics.DataSource = null;
+                TxtPleaseRunExpedition.Visibility = Visibility.Visible;
+                ChartTopics.Visibility = Visibility.Collapsed;
 
-            PDFDocument pdf_document = pdf_document_bindable.Underlying;
-
-            SafeThreadPool.QueueUserWorkItem(o =>
-            {
-                ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
-
-                if (null == eds)
+                AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
+                if (null == pdf_document_bindable)
                 {
                     return;
                 }
-                else
+
+                PDFDocument pdf_document = pdf_document_bindable.Underlying;
+
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
-                    LDAAnalysis lda_analysis = eds.LDAAnalysis;
+                    ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
 
-                    // Draw the pie chart
-                    try
+                    if (null == eds)
                     {
-                        if (!eds.docs_index.ContainsKey(pdf_document.Fingerprint))
+                        return;
+                    }
+                    else
+                    {
+                        LDAAnalysis lda_analysis = eds.LDAAnalysis;
+
+                        // Draw the pie chart
+                        try
                         {
-                            return;
-                        }
-
-                        int doc_id = eds.docs_index[pdf_document.Fingerprint];
-                        TopicProbability[] topics = lda_analysis.DensityOfTopicsInDocsSorted[doc_id];
-
-                        int ITEMS_IN_CHART = Math.Min(topics.Length, 3);
-
-                        WPFDoEvents.InvokeAsyncInUIThread(() =>
-                        {
-                            Brush[] brushes = new Brush[ITEMS_IN_CHART + 1];
-
-                            List<ChartItem> chart_items = new List<ChartItem>();
-                            double remaining_segment_percentage = 1.0;
-                            for (int t = 0; t < ITEMS_IN_CHART; ++t)
+                            if (!eds.docs_index.ContainsKey(pdf_document.Fingerprint))
                             {
-                                string topic_name = eds.GetDescriptionForTopic(topics[t].topic);
-                                double percentage = topics[t].prob;
-
-                                chart_items.Add(new ChartItem { Topic = topic_name, Percentage = percentage });
-                                brushes[t] = new SolidColorBrush(eds.Colours[topics[t].topic]);
-
-                                remaining_segment_percentage -= percentage;
+                                return;
                             }
 
-                            chart_items.Add(new ChartItem { Topic = "Others", Percentage = remaining_segment_percentage });
-                            brushes[ITEMS_IN_CHART] = new SolidColorBrush(Colors.White);
+                            int doc_id = eds.docs_index[pdf_document.Fingerprint];
+                            TopicProbability[] topics = lda_analysis.DensityOfTopicsInDocsSorted[doc_id];
 
-                            ObjChartTopicsArea.ColorModel.CustomPalette = brushes;
-                            ObjChartTopicsArea.ColorModel.Palette = ChartColorPalette.Custom;
-                            ObjSeriesTopics.DataSource = chart_items;
+                            int ITEMS_IN_CHART = Math.Min(topics.Length, 3);
 
-                            // Silly
-                            ObjSeriesTopics.AnimationDuration = TimeSpan.FromMilliseconds(1000);
-                            ObjSeriesTopics.EnableAnimation = false;
-                            ObjSeriesTopics.AnimateOneByOne = true;
-                            ObjSeriesTopics.AnimateOption = AnimationOptions.Fade;
-                            ObjSeriesTopics.EnableAnimation = true;
+                            WPFDoEvents.InvokeAsyncInUIThread(() =>
+                            {
+                                Brush[] brushes = new Brush[ITEMS_IN_CHART + 1];
 
-                            TxtPleaseRunExpedition.Visibility = Visibility.Collapsed;
-                            ChartTopics.Visibility = Visibility.Visible;
-                        });
+                                List<ChartItem> chart_items = new List<ChartItem>();
+                                double remaining_segment_percentage = 1.0;
+                                for (int t = 0; t < ITEMS_IN_CHART; ++t)
+                                {
+                                    string topic_name = eds.GetDescriptionForTopic(topics[t].topic);
+                                    double percentage = topics[t].prob;
+
+                                    chart_items.Add(new ChartItem { Topic = topic_name, Percentage = percentage });
+                                    brushes[t] = new SolidColorBrush(eds.Colours[topics[t].topic]);
+
+                                    remaining_segment_percentage -= percentage;
+                                }
+
+                                chart_items.Add(new ChartItem { Topic = "Others", Percentage = remaining_segment_percentage });
+                                brushes[ITEMS_IN_CHART] = new SolidColorBrush(Colors.White);
+
+                                ObjChartTopicsArea.ColorModel.CustomPalette = brushes;
+                                ObjChartTopicsArea.ColorModel.Palette = ChartColorPalette.Custom;
+                                ObjSeriesTopics.DataSource = chart_items;
+
+                                // Silly
+                                ObjSeriesTopics.AnimationDuration = TimeSpan.FromMilliseconds(1000);
+                                ObjSeriesTopics.EnableAnimation = false;
+                                ObjSeriesTopics.AnimateOneByOne = true;
+                                ObjSeriesTopics.AnimateOption = AnimationOptions.Fade;
+                                ObjSeriesTopics.EnableAnimation = true;
+
+                                TxtPleaseRunExpedition.Visibility = Visibility.Collapsed;
+                                ChartTopics.Visibility = Visibility.Visible;
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error(ex, "There was a problem while generating the topics chart for document {0}", pdf_document.Fingerprint);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Logging.Error(ex, "There was a problem while generating the topics chart for document {0}", pdf_document.Fingerprint);
-                    }
-                }
+                });
             });
         }
     }

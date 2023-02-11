@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using Qiqqa.Common.TagManagement;
@@ -18,6 +19,7 @@ using Utilities.BibTex.Parsing;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Utilities.PDF.MuPDF;
 using Utilities.Reflection;
 using Utilities.Strings;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -25,7 +27,7 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 
-namespace Qiqqa.Documents.PDF.ThreadUnsafe
+namespace Qiqqa.Documents.PDF
 {
     /// <summary>
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
@@ -38,15 +40,13 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
     /// ******************* NB NB NB NB NB NB NB NB NB NB NB ********************************
     /// </summary>
 
-    public class PDFDocument_ThreadUnsafe
+    public partial class PDFDocument
     {
-        [NonSerialized]
         private TypedWeakReference<WebLibraryDetail> library;
         public WebLibraryDetail LibraryRef => library?.TypedTarget;
 
         private DictionaryBasedObject dictionary = new DictionaryBasedObject();
 
-        [NonSerialized]
         internal bool dirtyNeedsReindexing = false;
 
         public string GetAttributesAsJSON()
@@ -57,9 +57,9 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         internal static readonly PropertyDependencies property_dependencies = new PropertyDependencies();
 
-        static PDFDocument_ThreadUnsafe()
+        static PDFDocument()
         {
-            PDFDocument_ThreadUnsafe p = null;
+            PDFDocument p = null;
 
             property_dependencies.Add(() => p.TitleCombined, () => p.Title);
             property_dependencies.Add(() => p.TitleCombined, () => p.BibTex);
@@ -102,81 +102,72 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             property_dependencies.Add(() => p.BibTex, () => p.Abstract);
         }
 
-        internal PDFDocument_ThreadUnsafe(WebLibraryDetail web_library_detail)
+        internal PDFDocument(WebLibraryDetail web_library_detail)
         {
             this.library = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
             dictionary = new DictionaryBasedObject();
         }
 
-        internal PDFDocument_ThreadUnsafe(WebLibraryDetail web_library_detail, DictionaryBasedObject dictionary)
+        internal PDFDocument(WebLibraryDetail web_library_detail, DictionaryBasedObject dictionary, PDFAnnotationList prefetched_annotations_for_document = null)
         {
             this.library = new TypedWeakReference<WebLibraryDetail>(web_library_detail);
             this.dictionary = dictionary;
-        }
 
-        [NonSerialized]
-        private PDFRenderer pdf_renderer;
-        public PDFRenderer PDFRenderer
-        {
-            get
+            // process any prefetched annotations that we may have as usual:
+            if (prefetched_annotations_for_document != null)
             {
-                if (null == pdf_renderer)
+                annotations = prefetched_annotations_for_document;
+                lock (access_lock)
                 {
-                    pdf_renderer = new PDFRenderer(Fingerprint, DocumentPath, LibraryRef.Xlibrary.PasswordManager.GetPassword(this), LibraryRef.Xlibrary.PasswordManager.GetPassword(this));
-                }
-
-                return pdf_renderer;
-            }
-        }
-
-        [NonSerialized]
-        private PDFRendererFileLayer pdf_renderer_file_layer;
-        public PDFRendererFileLayer PDFRendererFileLayer
-        {
-            get
-            {
-                if (null == pdf_renderer_file_layer)
-                {
-                    pdf_renderer_file_layer = new PDFRendererFileLayer(Fingerprint, DocumentPath);
-                }
-
-                return pdf_renderer_file_layer;
-            }
-        }
-
-        public int SafePageCount
-        {
-            get
-            {
-                if (DocumentExists)
-                {
-                    return PDFRenderer.PageCount;
-                }
-                else
-                {
-                    return 0;
+                    dirtyNeedsReindexing = (prefetched_annotations_for_document.Count > 0);
                 }
             }
         }
 
-        /// <summary>
-        /// This is an approximate response: it takes a *fast* shortcut to check if the given
-        /// PDF has been OCR'd in the past.
-        ///
-        /// The emphasis here is on NOT triggering a new OCR action! Just taking a peek, *quickly*.
-        ///
-        /// The cost: one(1) I/O per check.
-        /// </summary>
-        public bool HasOCRdata =>
-                // do not check if DocumentExists: our pagecount cache check is sufficient and one I/O per check.
-                PDFRendererFileLayer.HasOCRdata(Fingerprint);
+        public string PageCountAsString
+        {
+            get
+            {
+                int n = PageCount;
+                if (n < 0)
+                {
+                    string rv = PDFErrors.ToString(n);
+                    if (rv != null)
+                    {
+                        return rv;
+                    }
+                    return $"<ERROR { n }>";
+                }
+                if (n == 0)
+                {
+                    if (IsVanillaReference) return "<vanilla ref>";
+                    if (IsCorruptedDocument) return "<corrupted PDF>";
+                    return "<empty document>";
+                }
+                return n.ToString();
+            }
+        }
 
         public string Fingerprint
         {
-            get => dictionary["Fingerprint"] as string;
+            get
+            {
+                string rv = dictionary["Fingerprint"] as string;
+                if (String.IsNullOrEmpty(rv))
+                {
+                    ASSERT.Test(false, "Should never get here!");
+                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+                    rv = StreamFingerprint.FromFile(DocumentPath);
+                    dictionary["Fingerprint"] = rv;
+                }
+                return rv;
+            }
             /* protected */
             set => dictionary["Fingerprint"] = value;
         }
+
+        public string PDFPassword => LibraryRef.Xlibrary.PasswordManager.GetPassword(this);
 
         /// <summary>
         /// Unique id for both this document and the library that it exists in.
@@ -189,9 +180,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             set => dictionary["FileType"] = value.ToLower();
         }
 
-        [NonSerialized]
         private BibTexItem bibtex_item = null;
-        [NonSerialized]
         private bool bibtex_item_parsed = false;
         public BibTexItem BibTexItem
         {
@@ -513,7 +502,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             set => dictionary["DownloadLocation"] = value;
         }
 
-        [NonSerialized]
         private DateTime? date_added_to_db = null;
         public DateTime? DateAddedToDatabase
         {
@@ -531,7 +519,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
         }
 
-        [NonSerialized]
         private DateTime? date_last_modified = null;
         public DateTime? DateLastModified
         {
@@ -549,7 +536,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
         }
 
-        [NonSerialized]
         private DateTime? date_last_read = null;
         public DateTime? DateLastRead
         {
@@ -608,36 +594,82 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             set => dictionary["Comments"] = value as string;
         }
 
+        // https://bytes.com/topic/c-sharp/answers/649936-when-volatile-used-instead-lock
+        // `volatile` is NOT good enough here as there's TWO ways this variable may get updated in the code
+        // below in the `Abstract` get/set.
+        // And then the deferred writer, which pulls the abstract from the document content, can CLASH with 
+        // a user edit action, which happens to write this value when the user hits SAVE/ENTER to submit his
+        // edits. THAT can happen before the deferred abstract extractor code actually finishes or is even
+        // started (when the threadpool is heavily loaded).
+        // Hence we MUST use locking and CANNOT USE `volatile`.
+        private /* volatile */ string cached_abstract = null;
+        private object cached_abstract_lock = new object();
         public string Abstract
         {
             get
             {
-                // First check if there is an abstract override
+                string a;
+                lock (cached_abstract_lock)
                 {
-                    string abstract_override = dictionary["AbstractOverride"] as string;
-                    if (!String.IsNullOrEmpty(abstract_override))
-                    {
-                        return abstract_override;
-                    }
+                    a = cached_abstract;
                 }
 
-                // Then check if there is an abstract in the bibtex
+                if (a != null)
                 {
-                    BibTexItem item = BibTexItem;
-                    if (null != item)
+                    return a;
+                }
+                else
+                {
+                    // First check if there is an abstract override
+                    lock (cached_abstract_lock)
                     {
-                        string abstract_bibtex = item["abstract"];
-                        if (!String.IsNullOrEmpty(abstract_bibtex))
+                        string abstract_override = dictionary["AbstractOverride"] as string;
+                        if (!String.IsNullOrEmpty(abstract_override))
                         {
-                            return abstract_bibtex;
+                            cached_abstract = abstract_override;
+                            return abstract_override;
                         }
                     }
-                }
 
-                // Otherwise try get the abstract from the doc itself
-                return PDFAbstractExtraction.GetAbstractForDocument(this);
+                    // Then check if there is an abstract in the bibtex
+                    {
+                        BibTexItem item = BibTexItem;
+                        if (null != item)
+                        {
+                            string abstract_bibtex = item["abstract"];
+                            if (!String.IsNullOrEmpty(abstract_bibtex))
+                            {
+                                lock (cached_abstract_lock)
+                                {
+                                    cached_abstract = abstract_bibtex;
+                                }
+                                return abstract_bibtex;
+                            }
+                        }
+                    }
+
+                    // Otherwise try get the abstract from the doc itself
+                    SafeThreadPool.QueueUserWorkItem(() =>
+                    {
+                        string abstract_extracted = PDFAbstractExtraction.GetAbstractForDocument(this);
+                        lock (cached_abstract_lock)
+                        {
+                            cached_abstract = abstract_extracted;
+                        }
+                    });
+
+                    return null;    // Abstract is PENDING...
+                }
             }
-            set => dictionary["AbstractOverride"] = value as string;
+            set 
+            {
+                string v = value as string;
+                lock (cached_abstract_lock)
+                {
+                    cached_abstract = v;
+                    dictionary["AbstractOverride"] = v;
+                }
+            }
         }
 
         public string Bookmarks
@@ -657,20 +689,20 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             get
             {
                 int value = Convert.ToInt32(dictionary["PageLastRead"] ?? 0);
-                int pageCount = this.SafePageCount;
+                int pageCount = PageCount;
                 if (value < 0 || value > pageCount)
                 {
-                    Logging.Error("Reading an invalid PageLastRead value {0} from the database, while the total page count is {1}", dictionary["PageLastRead"], SafePageCount);
+                    Logging.Error($"Reading an invalid PageLastRead value { dictionary["PageLastRead"] } from the database, while the total page count is { PageCountAsString }");
                     value = Math.Max(0, Math.Min(pageCount, value));
                 }
                 return value;
             }
             set
             {
-                int pageCount = this.SafePageCount;
+                int pageCount = PageCount;
                 if (value < 0 || value > pageCount)
                 {
-                    Logging.Error("Setting an invalid PageLastRead value {0}, while the total page count is {1}", value, SafePageCount);
+                    Logging.Error($"Setting an invalid PageLastRead value { value }, while the total page count is { PageCountAsString }");
                     value = Math.Max(0, Math.Min(pageCount, value));
                 }
                 dictionary["PageLastRead"] = value;
@@ -683,7 +715,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             set => dictionary["Deleted"] = value;
         }
 
-        #region --- AutoSuggested ------------------------------------------------------------------------------
+        // --- AutoSuggested ------------------------------------------------------------------------------
 
         public bool AutoSuggested_PDFMetadata
         {
@@ -703,11 +735,42 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             set => dictionary["AutoSuggested_BibTeXSearch"] = value;
         }
 
-        #endregion
+        //
 
-        #region --- Tags ------------------------------------------------------------------------------
+        // --- Tags ------------------------------------------------------------------------------
 
-        public bool AddTag(string new_tag_bundle)
+        public void AddTag(string new_tag_bundle)
+        {
+            bool notify;
+            lock (access_lock)
+            {
+                notify = __AddTag(new_tag_bundle);
+            }
+
+            if (notify)
+            {
+                Bindable.NotifyPropertyChanged(nameof(Tags));
+                TagManager.Instance.ProcessDocument(this);
+            }
+        }
+
+        public void RemoveTag(string dead_tag_bundle)
+        {
+            bool notify;
+
+            lock (access_lock)
+            {
+                notify = __RemoveTag(dead_tag_bundle);
+            }
+
+            if (notify)
+            {
+                Bindable.NotifyPropertyChanged(nameof(Tags));
+                TagManager.Instance.ProcessDocument(this);
+            }
+        }
+
+        private bool __AddTag(string new_tag_bundle)
         {
             HashSet<string> new_tags = TagTools.ConvertTagBundleToTags(new_tag_bundle);
 
@@ -725,7 +788,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             return false;
         }
 
-        public bool RemoveTag(string dead_tag_bundle)
+        private bool __RemoveTag(string dead_tag_bundle)
         {
             HashSet<string> dead_tags = TagTools.ConvertTagBundleToTags(dead_tag_bundle);
 
@@ -779,7 +842,7 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             set => dictionary["Tags"] = value;
         }
 
-        #endregion ----------------------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------
 
         public string DocumentBasePath => PDFDocumentFileLocations.DocumentBasePath(LibraryRef, Fingerprint);
 
@@ -788,7 +851,6 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         /// </summary>
         public string DocumentPath => PDFDocumentFileLocations.DocumentPath(LibraryRef, Fingerprint, FileType);
 
-        [NonSerialized]
         private bool? document_exists = null;
         public bool DocumentExists
         {
@@ -801,7 +863,20 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             }
         }
 
-        [NonSerialized]
+        private bool? document_is_corrupted = null;
+        public bool IsCorruptedDocument
+        {
+            get
+            {
+                if (document_is_corrupted.HasValue) return document_is_corrupted.Value;
+                return false;
+            }
+            set
+            {
+                document_is_corrupted = value;
+            }
+        }
+
         private long document_size = 0;
         public long GetDocumentSizeInBytes(long uncached_document_storage_size_override = -1)
         {
@@ -820,6 +895,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
             if (!DocumentExists) return 0;
             if (document_size > 0) return document_size;
 
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             // Execute file system query and cache its result:
             document_size = File.GetSize(DocumentPath);
             return document_size;
@@ -827,9 +904,8 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public bool IsVanillaReference => String.Compare(FileType, Constants.VanillaReferenceFileType, StringComparison.OrdinalIgnoreCase) == 0;
 
-        #region --- Annotations / highlights / ink ----------------------------------------------------------------------
+        // --- Annotations / highlights / ink ----------------------------------------------------------------------
 
-        [NonSerialized]
         private PDFAnnotationList annotations = null;
 
         public PDFAnnotationList GetAnnotations()
@@ -840,7 +916,10 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 annotations = new PDFAnnotationList();
                 PDFAnnotationSerializer.ReadFromDisk(this);
-                dirtyNeedsReindexing = true;
+                lock (access_lock)
+                {
+                    dirtyNeedsReindexing = true;
+                }
             }
 
             return annotations;
@@ -872,28 +951,33 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public void AddUpdatedAnnotation(PDFAnnotation annotation)
         {
-            if (annotations.__AddUpdatedAnnotation(annotation))
+            lock (access_lock)
             {
-                dirtyNeedsReindexing = true;
+                if (annotations.__AddUpdatedAnnotation(annotation))
+            {
+                    dirtyNeedsReindexing = true;
+                }
             }
         }
 
-        [NonSerialized]
         private PDFHightlightList highlights = null;
         public PDFHightlightList Highlights => GetHighlights(null);
 
         internal PDFHightlightList GetHighlights(Dictionary<string, byte[]> library_items_highlights_cache)
         {
-            if (null == highlights)
+            lock (access_lock)
             {
-                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+                if (null == highlights)
+                {
+                    WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
-                highlights = new PDFHightlightList();
-                PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
-                dirtyNeedsReindexing = true;
+                    highlights = new PDFHightlightList();
+                    PDFHighlightSerializer.ReadFromStream(this, highlights, library_items_highlights_cache);
+                    dirtyNeedsReindexing = true;
+                }
+
+                return (PDFHightlightList)highlights.Clone();
             }
-
-            return highlights;
         }
 
         public string GetHighlightsAsJSON()
@@ -917,19 +1001,22 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
         public void AddUpdatedHighlight(PDFHighlight highlight)
         {
-            if (highlights.__AddUpdatedHighlight(highlight))
+            lock (access_lock)
             {
+                highlights.__AddUpdatedHighlight(highlight);
                 dirtyNeedsReindexing = true;
             }
         }
 
         public void RemoveUpdatedHighlight(PDFHighlight highlight)
         {
-            highlights.__RemoveUpdatedHighlight(highlight);
-            dirtyNeedsReindexing = true;
+            lock (access_lock)
+            {
+                highlights.__RemoveUpdatedHighlight(highlight);
+                dirtyNeedsReindexing = true;
+            }
         }
 
-        [NonSerialized]
         private PDFInkList inks = null;
         public PDFInkList Inks => GetInks();
 
@@ -941,7 +1028,10 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
 
                 inks = new PDFInkList();
                 PDFInkSerializer.ReadFromDisk(this, inks);
-                dirtyNeedsReindexing = true;
+                lock (access_lock)
+                {
+                    dirtyNeedsReindexing = true;
+                }
             }
 
             return inks;
@@ -972,251 +1062,181 @@ namespace Qiqqa.Documents.PDF.ThreadUnsafe
         {
             if (inks.__AddPageInkBlob(page, page_ink_blob))
             {
-                dirtyNeedsReindexing = true;
+                lock (access_lock)
+                {
+                    dirtyNeedsReindexing = true;
+                }
             }
         }
 
-        #endregion -------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------
 
         public void SaveToMetaData(bool force_flush_no_matter_what)
         {
-            // Save the metadata
-            PDFMetadataSerializer.WriteToDisk(this, force_flush_no_matter_what);
+            lock (access_lock)
+            {
+                // Save the metadata
+                PDFMetadataSerializer.WriteToDisk(this, force_flush_no_matter_what);
 
-            // Save the annotations
-            PDFAnnotationSerializer.WriteToDisk(this, force_flush_no_matter_what);
+                // Save the annotations
+                PDFAnnotationSerializer.WriteToDisk(this, force_flush_no_matter_what);
 
-            // Save the highlights
-            PDFHighlightSerializer.WriteToDisk(this, force_flush_no_matter_what);
+                // Save the highlights
+                PDFHighlightSerializer.WriteToDisk(this, force_flush_no_matter_what);
 
-            // Save the inks
-            PDFInkSerializer.WriteToDisk(this, force_flush_no_matter_what);
+                // Save the inks
+                PDFInkSerializer.WriteToDisk(this, force_flush_no_matter_what);
+            }
         }
 
-#if false
-        /// <summary>
-        /// Throws exception when metadata could not be converted to a valid PDFDocument instance.
-        /// </summary>
-        /// <param name="library"></param>
-        /// <param name="data"></param>
-        /// <param name="library_items_annotations_cache"></param>
-        /// <returns></returns>
-        public static PDFDocument LoadFromMetaData(WebLibraryDetail web_library_detail, byte[] data, Dictionary<string, byte[]> /* can be null */ library_items_annotations_cache)
+        public void CopyMetaData(PDFDocument pdf_document_template, bool copy_fingerprint = true, bool copy_filetype = true)
         {
-            DictionaryBasedObject dictionary = PDFMetadataSerializer.ReadFromStream(data);
-            PDFDocument pdf_document = new PDFDocument(library, dictionary);
-            pdf_document.GetAnnotations(library_items_annotations_cache);
-            return pdf_document;
-        }
-
-        public static PDFDocument CreateFromPDF(WebLibraryDetail web_library_detail, string filename, string precalculated_fingerprint__can_be_null)
-        {
-            string fingerprint = precalculated_fingerprint__can_be_null;
-            if (String.IsNullOrEmpty(fingerprint))
+            // prevent deadlock due to possible incorrect use of this API:
+            if (pdf_document_template != this)
             {
-                fingerprint = StreamFingerprint.FromFile(filename);
-            }
-
-            PDFDocument pdf_document = new PDFDocument(library);
-
-            // Store the most important information
-            pdf_document.FileType = Path.GetExtension(filename).TrimStart('.');
-            pdf_document.Fingerprint = fingerprint;
-            pdf_document.DateAddedToDatabase = DateTime.UtcNow;
-            pdf_document.DateLastModified = DateTime.UtcNow;
-
-            Directory.CreateDirectory(pdf_document.DocumentBasePath);
-
-            pdf_document.StoreAssociatedPDFInRepository(filename);
-
-            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
-            if (0 == library_items.Count)
-            {
-                pdf_document.QueueToStorage();
-            }
-            else
-            {
-                try
+                lock (access_lock)
                 {
-                    LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(library, library_item.data, null);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
-                    pdf_document.QueueToStorage();
-                    //pdf_document.SaveToMetaData();
-                }
-            }
+                    // TODO: do a proper merge, based on flags from the caller about to do and what to pass:
 
-            return pdf_document;
-        }
-
-        public static PDFDocument CreateFromVanillaReference(Library library)
-        {
-            PDFDocument pdf_document = new PDFDocument(library);
-
-            // Store the most important information
-            pdf_document.FileType = Constants.VanillaReferenceFileType;
-            pdf_document.Fingerprint = VanillaReferenceCreating.CreateVanillaReferenceFingerprint();
-            pdf_document.DateAddedToDatabase = DateTime.UtcNow;
-            pdf_document.DateLastModified = DateTime.UtcNow;
-
-            Directory.CreateDirectory(pdf_document.DocumentBasePath);
-
-            List<LibraryDB.LibraryItem> library_items = library.LibraryDB.GetLibraryItems(pdf_document.Fingerprint, PDFDocumentFileLocations.METADATA);
-            if (0 == library_items.Count)
-            {
-                pdf_document.QueueToStorage();
-            }
-            else
-            {
-                try
-                {
-                    LibraryDB.LibraryItem library_item = library_items[0];
-                    pdf_document = LoadFromMetaData(library, library_item.data, null);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "There was a problem reloading an existing PDF from existing metadata, so overwriting it! (Fingerprint: {0})", pdf_document.Fingerprint);
-                    pdf_document.QueueToStorage();
-                }
-            }
-
-            return pdf_document;
-        }
-#endif
-
-        public void CopyMetaData(PDFDocument_ThreadUnsafe pdf_document_template, bool copy_fingerprint = true, bool copy_filetype = true)
-        {
-            // TODO: do a proper merge, based on flags from the caller about to do and what to pass:
-            HashSet<string> keys = new HashSet<string>(dictionary.Keys);
-            foreach (var k2 in pdf_document_template.dictionary.Keys)
-            {
-                keys.Add(k2);
-            }
-            // now go through the list and see where the clashes are:
-            foreach (var k in keys)
-            {
-                if (null == dictionary[k])
-                {
-                    // no collision possible: overwriting NULL or empty/non-existing slot, so we're good
-                    dictionary[k] = pdf_document_template.dictionary[k];
-                }
-                else
-                {
-                    object o1 = dictionary[k];
-                    object o2 = pdf_document_template.dictionary[k];
-                    string s1 = o1?.ToString();
-                    string s2 = o2?.ToString();
-                    string t1 = o1?.GetType().ToString();
-                    string t2 = o2?.GetType().ToString();
-                    if (s1 == s2 && t1 == t2)
+                    HashSet<string> keys = new HashSet<string>(dictionary.Keys);
+                    foreach (var k2 in pdf_document_template.dictionary.Keys)
                     {
-                        // values match, so no change. We're golden.
+                        keys.Add(k2);
                     }
-                    else
+                    // now go through the list and see where the clashes are:
+                    foreach (var k in keys)
                     {
-                        Logging.Warn("Copying/Moving metadata into {0}: collision on key {1}: old value = ({4})'{2}', new value = ({5})'{3}'", this.Fingerprint, k, s1, s2, t1, t2);
-
-                        // TODO: when this is used for merging metadata anyway...
-                        switch (k)
+                        if (null == dictionary[k])
                         {
-                            case "DateAddedToDatabase":
-                                // take oldest date:
-                                break;
+                            // no collision possible: overwriting NULL or empty/non-existing slot, so we're good
+                            dictionary[k] = pdf_document_template.dictionary[k];
+                        }
+                        else
+                        {
+                            object o1 = dictionary[k];
+                            object o2 = pdf_document_template.dictionary[k];
+                            string s1 = o1?.ToString();
+                            string s2 = o2?.ToString();
+                            string t1 = o1?.GetType().ToString();
+                            string t2 = o2?.GetType().ToString();
+                            if (s1 == s2 && t1 == t2)
+                            {
+                                // values match, so no change. We're golden.
+                            }
+                            else
+                            {
+                                Logging.Warn("Copying/Moving metadata into {0}: collision on key {1}: old value = ({4})'{2}', new value = ({5})'{3}'", this.Fingerprint, k, s1, s2, t1, t2);
 
-                            case "DateLastModified":
-                                // take latest, unless the last mod dates match the DateAddedToDatabase records: in that case, use the picked DateAddedToDatabase
-                                break;
-
-                            case "FileType":
-                                // do not copy old value into current record?
-                                if (copy_filetype)
+                                // TODO: when this is used for merging metadata anyway...
+                                switch (k)
                                 {
-                                    dictionary[k] = pdf_document_template.dictionary[k];
-                                }
-                                break;
+                                    case "DateAddedToDatabase":
+                                        // take oldest date:
+                                        break;
 
-                            case "Fingerprint":
-                                // do not copy old value into current record?
-                                if (copy_fingerprint)
-                                {
-                                    dictionary[k] = pdf_document_template.dictionary[k];
+                                    case "DateLastModified":
+                                        // take latest, unless the last mod dates match the DateAddedToDatabase records: in that case, use the picked DateAddedToDatabase
+                                        break;
+
+                                    case "FileType":
+                                        // do not copy old value into current record?
+                                        if (copy_filetype)
+                                        {
+                                            dictionary[k] = pdf_document_template.dictionary[k];
+                                        }
+                                        break;
+
+                                    case "Fingerprint":
+                                        // do not copy old value into current record?
+                                        if (copy_fingerprint)
+                                        {
+                                            dictionary[k] = pdf_document_template.dictionary[k];
+                                        }
+                                        break;
                                 }
-                                break;
+                            }
                         }
                     }
+
+                    dictionary["ColorWrapper"] = pdf_document_template.dictionary["ColorWrapper"];
+                    dictionary["DateAddedToDatabase"] = pdf_document_template.dictionary["DateAddedToDatabase"];
+                    dictionary["DateLastCited"] = pdf_document_template.dictionary["DateLastCited"];
+                    dictionary["DateLastModified"] = pdf_document_template.dictionary["DateLastModified"];
+                    dictionary["DateLastRead"] = pdf_document_template.dictionary["DateLastRead"];
+                    dictionary["AbstractOverride"] = pdf_document_template.dictionary["AbstractOverride"];
+                    dictionary["Authors"] = pdf_document_template.dictionary["Authors"];
+                    dictionary["AuthorsSuggested"] = pdf_document_template.dictionary["AuthorsSuggested"];
+                    dictionary["AutoSuggested_BibTeXSearch"] = pdf_document_template.dictionary["AutoSuggested_BibTeXSearch"];
+                    dictionary["AutoSuggested_OCRFrontPage"] = pdf_document_template.dictionary["AutoSuggested_OCRFrontPage"];
+                    dictionary["AutoSuggested_PDFMetadata"] = pdf_document_template.dictionary["AutoSuggested_PDFMetadata"];
+                    dictionary["BibTex"] = pdf_document_template.dictionary["BibTex"];
+                    dictionary["Bookmarks"] = pdf_document_template.dictionary["Bookmarks"];
+                    dictionary["Comments"] = pdf_document_template.dictionary["Comments"];
+                    dictionary["Deleted"] = pdf_document_template.dictionary["Deleted"];
+                    dictionary["DownloadLocation"] = pdf_document_template.dictionary["DownloadLocation"];
+                    if (copy_filetype)
+                    {
+                        dictionary["FileType"] = pdf_document_template.dictionary["FileType"];
+                    }
+                    if (copy_fingerprint)
+                    {
+                        dictionary["Fingerprint"] = pdf_document_template.dictionary["Fingerprint"];
+                    }
+                    dictionary["HaveHardcopy"] = pdf_document_template.dictionary["HaveHardcopy"];
+                    dictionary["IsFavourite"] = pdf_document_template.dictionary["IsFavourite"];
+                    dictionary["PageLastRead"] = pdf_document_template.dictionary["PageLastRead"];
+                    dictionary["Rating"] = pdf_document_template.dictionary["Rating"];
+                    dictionary["ReadingStage"] = pdf_document_template.dictionary["ReadingStage"];
+                    dictionary["Tags"] = pdf_document_template.dictionary["Tags"];
+                    dictionary["Title"] = pdf_document_template.dictionary["Title"];
+                    dictionary["TitleSuggested"] = pdf_document_template.dictionary["TitleSuggested"];
+                    dictionary["Year"] = pdf_document_template.dictionary["Year"];
+                    dictionary["YearSuggested"] = pdf_document_template.dictionary["YearSuggested"];
+
+                    annotations = (PDFAnnotationList)pdf_document_template.GetAnnotations().Clone();
+                    highlights = (PDFHightlightList)pdf_document_template.Highlights.Clone();
+                    inks = (PDFInkList)pdf_document_template.Inks.Clone();
                 }
             }
-
-            dictionary["ColorWrapper"] = pdf_document_template.dictionary["ColorWrapper"];
-            dictionary["DateAddedToDatabase"] = pdf_document_template.dictionary["DateAddedToDatabase"];
-            dictionary["DateLastCited"] = pdf_document_template.dictionary["DateLastCited"];
-            dictionary["DateLastModified"] = pdf_document_template.dictionary["DateLastModified"];
-            dictionary["DateLastRead"] = pdf_document_template.dictionary["DateLastRead"];
-            dictionary["AbstractOverride"] = pdf_document_template.dictionary["AbstractOverride"];
-            dictionary["Authors"] = pdf_document_template.dictionary["Authors"];
-            dictionary["AuthorsSuggested"] = pdf_document_template.dictionary["AuthorsSuggested"];
-            dictionary["AutoSuggested_BibTeXSearch"] = pdf_document_template.dictionary["AutoSuggested_BibTeXSearch"];
-            dictionary["AutoSuggested_OCRFrontPage"] = pdf_document_template.dictionary["AutoSuggested_OCRFrontPage"];
-            dictionary["AutoSuggested_PDFMetadata"] = pdf_document_template.dictionary["AutoSuggested_PDFMetadata"];
-            dictionary["BibTex"] = pdf_document_template.dictionary["BibTex"];
-            dictionary["Bookmarks"] = pdf_document_template.dictionary["Bookmarks"];
-            dictionary["Comments"] = pdf_document_template.dictionary["Comments"];
-            dictionary["Deleted"] = pdf_document_template.dictionary["Deleted"];
-            dictionary["DownloadLocation"] = pdf_document_template.dictionary["DownloadLocation"];
-            if (copy_filetype)
-            {
-                dictionary["FileType"] = pdf_document_template.dictionary["FileType"];
-            }
-            if (copy_fingerprint)
-            {
-                dictionary["Fingerprint"] = pdf_document_template.dictionary["Fingerprint"];
-            }
-            dictionary["HaveHardcopy"] = pdf_document_template.dictionary["HaveHardcopy"];
-            dictionary["IsFavourite"] = pdf_document_template.dictionary["IsFavourite"];
-            dictionary["PageLastRead"] = pdf_document_template.dictionary["PageLastRead"];
-            dictionary["Rating"] = pdf_document_template.dictionary["Rating"];
-            dictionary["ReadingStage"] = pdf_document_template.dictionary["ReadingStage"];
-            dictionary["Tags"] = pdf_document_template.dictionary["Tags"];
-            dictionary["Title"] = pdf_document_template.dictionary["Title"];
-            dictionary["TitleSuggested"] = pdf_document_template.dictionary["TitleSuggested"];
-            dictionary["Year"] = pdf_document_template.dictionary["Year"];
-            dictionary["YearSuggested"] = pdf_document_template.dictionary["YearSuggested"];
-
-            annotations = (PDFAnnotationList)pdf_document_template.GetAnnotations().Clone();
-            highlights = (PDFHightlightList)pdf_document_template.Highlights.Clone();
-            inks = (PDFInkList)pdf_document_template.Inks.Clone();
         }
 
         /// <summary>
         /// NB: only call this as part of document creation.
         /// </summary>
-        public void CloneMetaData(PDFDocument_ThreadUnsafe existing_pdf_document)
+        public void CloneMetaData(PDFDocument existing_pdf_document)
         {
-            //bindable = null;
+            // prevent deadlock due to possible incorrect use of this API:
+            if (existing_pdf_document != this)
+            {
+                Logging.Warn("TODO: CloneMetaData: MERGE metadata for existing document and document which was copied/moved into this library. Target Document: {0}, Source Document: {1}", this.Fingerprint, existing_pdf_document.LibraryRef);
 
-            Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document.Fingerprint, existing_pdf_document.TitleCombined);
+                lock (existing_pdf_document.access_lock)
+                {
+                    lock (access_lock)
+                    {
+                        bindable = null;
 
-            //dictionary = (DictionaryBasedObject)existing_pdf_document.dictionary.Clone();
-            CopyMetaData(existing_pdf_document);
+                        Logging.Info("Cloning metadata from {0}: {1}", existing_pdf_document.Fingerprint, existing_pdf_document.TitleCombined);
+
+                        //dictionary = (DictionaryBasedObject)existing_pdf_document.dictionary.Clone();
+                        CopyMetaData(existing_pdf_document);
+
+                        // Copy the citations
+                        PDFDocumentCitationManager.CloneFrom(existing_pdf_document.PDFDocumentCitationManager);
+
+                        QueueToStorage();
 
 #if false
-            // Copy the citations
-            PDFDocumentCitationManager.CloneFrom(existing_pdf_document.PDFDocumentCitationManager);
+                        SaveToMetaData();
 
-            QueueToStorage();
+                        //  Now clear out the references for the annotations and highlights, so that when they are reloaded the events are resubscribed
+                        annotations = null;
+                        highlights = null;
+                        inks = null;
 #endif
-
-#if false
-            SaveToMetaData();
-
-            //  Now clear out the references for the annotations and highlights, so that when they are reloaded the events are resubscribed
-            annotations = null;
-            highlights = null;
-            inks = null;
-#endif
+                    }
+                }
+            }
         }
 
         public void StoreAssociatedPDFInRepository(string filename)

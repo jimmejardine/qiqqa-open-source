@@ -1,0 +1,293 @@
+﻿{
+  "info": {
+    "PageCount": 1,
+    "PDFVersion": "PDF-1.7",
+    "Chapters": 0,
+    "ChapterPages": null,
+    "Title": null,
+    "Author": null,
+    "Format": "PDF 1.7",
+    "Encryption": null,
+    "PDFCreator": "Adobe Acrobat 8.1 Combine Files",
+    "PDFProducer": "Adobe Acrobat 8.1",
+    "Subject": null,
+    "Keywords": null,
+    "Creation_Date": "2006-07-06T15:50:33Z",
+    "Modification_Date": "2009-06-12T14:38:52Z",
+    "Permissions": "print, copy, edit, annotate",
+    "PDFStatus": "PDF linearized document with 1 update.",
+    "DocumentUpdateCount": 1,
+    "ChangeHistoryValidation": "Change history seems valid.",
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": "Document changes conform to permissions",
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": false,
+    "HasDocumentOutlines": false,
+    "AttachedFilesCount": 1,
+    "EmbeddedJavaScriptFilesCount": 1,
+    "DocumentIsCorrupted": true,
+    "errors": [
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[0].Images[0].ImageFilter', line 121, position 22."
+    ],
+    "raw_metadump_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\attachment.formular.pdf",
+      "GlobalInfo": {
+        "Version": "PDF-1.7",
+        "Info": {
+          "CreationDate": "D:20060706175033+02'00'",
+          "Creator": "Adobe Acrobat 8.1 Combine Files",
+          "Keywords": "",
+          "Producer": "Adobe Acrobat 8.1",
+          "ModDate": "D:20090612163852+02'00'"
+        },
+        "Metadata": {
+          "type": "stream",
+          "raw_data": "(error: data dump is restricted due to size)",
+          "__MuPDFRestrictedXMLDisplay__": true
+        },
+        "Pages": 1,
+        "Chapters": 1,
+        "AttachedFiles": {
+          "JavaScript": {
+            "Names": [
+              {
+                "Name": "ADBE::FileAttachmentsCompatibility",
+                "Value": {
+                  "S": "JavaScript",
+                  "JS": "var v = app.viewerVersion;\nif (v < 7)\n{\n\tvar n = 0;\n\tif (this.dataObjects != null)\n\t\tn = this.dataObjects.length;\n\tif (v >= 5 && v < 6 && n > 0 && (app.viewerVariation == \"Full\" || app.viewerVariation == \"Fill-In\"))\n\t{\n\t\tif (this.external)\n\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen klicken Sie auf \"Speichern\", um eine Kopie des Dokuments zu speichern. Öffnen Sie die Kopie in Adobe Acrobat, und wählen Sie \"Datei\" > \"Dokumenteigenschaften\" > \"Eingebettete Datenobjekte\".\", 3, 0);\n\t\telse\n\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen wählen Sie \"Datei\" > \"Dokumenteigenschaften\" > \"Eingebettete Datenobjekte\".\", 3, 0);\n\t}\n\telse if (v >= 6 && v < 7)\n\t{\n\t\tif (n == 0)\n\t\t{\n\t\t\tvar np = this.numPages;\n\t\t\tsyncAnnotScan();\n\t\t\tfor (var p = 0; p < np && n == 0; ++p)\n\t\t\t{\n\t\t\t\tvar annots = this.getAnnots(p);\n\t\t\t\tif (annots != null)\n\t\t\t\t{\n\t\t\t\t\tfor (var i = 0; i < annots.length; ++i)\n\t\t\t\t\t{\n\t\t\t\t\t\tif (annots[i].type == \"FileAttachment\")\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tn = 1;\n\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif (n > 0)\n\t\t{\n\t\t\tif (this.external)\n\t\t\t\tapp.alert(\"Dieses Dokument hat  Dateianlagen. Zum Anzeigen der Anlagen klicken Sie oben in der vertikalen Bildlaufleiste des Dokumentfensters auf das schwarze Dreieck und wählen \"Dateianlagen\".\", 3, 0);\n\t\t\telse\n\t\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen wählen Sie \"Dokument\" > \"Dateianlagen\".\", 3, 0);\n\t\t}\n\t}\n}\n"
+                }
+              }
+            ]
+          },
+          "EmbeddedFiles": {
+            "Names": [
+              {
+                "Name": "nbb_fbl_3-vanilla.pdf",
+                "Value": {
+                  "IsEmbeddedFile": true,
+                  "EmbeddedFileType": "application/pdf",
+                  "EmbeddedFileName": "nbb_fbl_3-vanilla.pdf",
+                  "EmbeddedFileIndex": 0,
+                  "EmbedLength": 231036,
+                  "EmbedFilter": "FlateDecode",
+                  "FileDataLength": 342414,
+                  "FileCreationDate": "D:20090129155910+02'00'",
+                  "FileModDate": "D:20090129155910+02'00'",
+                  "FileSize": 342414,
+                  "FileCheckSum": "B2 2A 29 D6 33 90 3A 35 C1 66 13 81 D0 0E 02 96",
+                  "FileDesc": "",
+                  "FileRecType": "Filespec",
+                  "UF": "nbb_fbl_3-vanilla.pdf",
+                  "CI": {
+                    "Index": 0
+                  },
+                  "F": "nbb_fbl_3-vanilla.pdf",
+                  "EF": {
+                    "F": {
+                      "type": "stream",
+                      "raw_data": {
+                        "Subtype": "application/pdf",
+                        "Length": 231036,
+                        "Filter": "FlateDecode",
+                        "DL": 342414,
+                        "Params": {
+                          "CreationDate": "D:20090129155910+02'00'",
+                          "ModDate": "D:20090129155910+02'00'",
+                          "Size": 342414,
+                          "CheckSum": "B2 2A 29 D6 33 90 3A 35 C1 66 13 81 D0 0E 02 96"
+                        }
+                      }
+                    }
+                  },
+                  "Desc": "",
+                  "Type": "Filespec"
+                }
+              }
+            ]
+          }
+        },
+        "EmbeddedJavaScripts": [
+          {
+            "JSFilePath": "Root/Names/JavaScript/Names/2/JS",
+            "JSScriptLength": 1443,
+            "JSScriptContent": "var v = app.viewerVersion;\nif (v < 7)\n{\n\tvar n = 0;\n\tif (this.dataObjects != null)\n\t\tn = this.dataObjects.length;\n\tif (v >= 5 && v < 6 && n > 0 && (app.viewerVariation == \"Full\" || app.viewerVariation == \"Fill-In\"))\n\t{\n\t\tif (this.external)\n\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen klicken Sie auf \"Speichern\", um eine Kopie des Dokuments zu speichern. Öffnen Sie die Kopie in Adobe Acrobat, und wählen Sie \"Datei\" > \"Dokumenteigenschaften\" > \"Eingebettete Datenobjekte\".\", 3, 0);\n\t\telse\n\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen wählen Sie \"Datei\" > \"Dokumenteigenschaften\" > \"Eingebettete Datenobjekte\".\", 3, 0);\n\t}\n\telse if (v >= 6 && v < 7)\n\t{\n\t\tif (n == 0)\n\t\t{\n\t\t\tvar np = this.numPages;\n\t\t\tsyncAnnotScan();\n\t\t\tfor (var p = 0; p < np && n == 0; ++p)\n\t\t\t{\n\t\t\t\tvar annots = this.getAnnots(p);\n\t\t\t\tif (annots != null)\n\t\t\t\t{\n\t\t\t\t\tfor (var i = 0; i < annots.length; ++i)\n\t\t\t\t\t{\n\t\t\t\t\t\tif (annots[i].type == \"FileAttachment\")\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tn = 1;\n\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif (n > 0)\n\t\t{\n\t\t\tif (this.external)\n\t\t\t\tapp.alert(\"Dieses Dokument hat  Dateianlagen. Zum Anzeigen der Anlagen klicken Sie oben in der vertikalen Bildlaufleiste des Dokumentfensters auf das schwarze Dreieck und wählen \"Dateianlagen\".\", 3, 0);\n\t\t\telse\n\t\t\t\tapp.alert(\"Dieses Dokument hat Dateianlagen. Zum Anzeigen der Anlagen wählen Sie \"Dokument\" > \"Dateianlagen\".\", 3, 0);\n\t\t}\n\t}\n}\n"
+          }
+        ]
+      },
+      "FirstPage": 1,
+      "LastPage": 1,
+      "PageInfo": [
+        {
+          "PageNumber": 1,
+          "Mediaboxes": [
+            {
+              "Page": 1,
+              "Bounds": [
+                0,
+                0,
+                576,
+                360
+              ]
+            }
+          ],
+          "FontsCount": 3,
+          "Fonts": [
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "MLZAMU+MyriadPro-Bold",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "MLZAMU+MyriadPro-Regular",
+              "FontEncoding": "WinAnsiEncoding"
+            },
+            {
+              "Page": 1,
+              "FontType": "Type1",
+              "FontName": "MLZAMU+MyriadPro-Semibold",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 1,
+              "ImageFilter": "DCT",
+              "ImageWidth": 576,
+              "ImageHeight": 360,
+              "ImageDimensions": {
+                "W": 576,
+                "H": 360
+              },
+              "ImageBPC": 8,
+              "ImageCS": "DevGray",
+              "ImageColorSpace": "DeviceGray"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            576,
+            360
+          ],
+          "LinksInPage": [
+            {
+              "LinkType": "External",
+              "Url": "http://www.adobe.com/de/products/acrobat/readstep2.html",
+              "LinkBounds": [
+                108.963,
+                230.661,
+                479.246,
+                250.001
+              ]
+            },
+            {
+              "LinkType": "External",
+              "Url": "http://www.adobe.com/de/products/acrobat/readstep2.html",
+              "LinkBounds": [
+                188.236,
+                250.047,
+                393.896,
+                269.387
+              ]
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        }
+      ],
+      "DocumentGeneralInfo": {
+        "Format": "PDF 1.7",
+        "Encryption": "None",
+        "PDF_Creator": "Adobe Acrobat 8.1 Combine Files",
+        "PDF_Producer": "Adobe Acrobat 8.1",
+        "Keywords": "",
+        "Creation_Date": "D:20060706175033+02'00'",
+        "Modification_Date": "D:20090612163852+02'00'",
+        "MetaInfoDictionary": {
+          "CreationDate": "D:20060706175033+02'00'",
+          "Creator": "Adobe Acrobat 8.1 Combine Files",
+          "Keywords": "",
+          "Producer": "Adobe Acrobat 8.1",
+          "ModDate": "D:20090612163852+02'00'"
+        },
+        "Permissions": "print, copy, edit, annotate",
+        "Status": "PDF linearized document with 1 update.",
+        "DocWasLinearized": true,
+        "DocumentUpdateCount": 1,
+        "ChangeHistoryValidation": "Change history seems valid.",
+        "UpdatesStatus": "Document changes conform to permissions",
+        "WasRepaired": false,
+        "NeedsPassword": false,
+        "WasCryptedWithEmptyPassword": false
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 24,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "1",
+        "OverprintingModes": "1",
+        "BlendModes": "0",
+        "ContentBoundsSmallest": "(empty)",
+        "ContentBoundsLargest": [
+          0,
+          0,
+          576,
+          360
+        ],
+        "LayerNamesCount": 3,
+        "LayerNames": [
+          "Figure",
+          "PlacedGraphic",
+          "Span"
+        ],
+        "FillPathCount": 1,
+        "StrokePathCount": 4,
+        "ClipPathCount": 3,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 18,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 0,
+        "FillShadeCount": 0,
+        "FillImageCount": 1,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 0,
+        "ClipCount": 3,
+        "ClipDepth": 3,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 0,
+        "GroupDepth": 0,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 0,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 1,
+        "LayerCount": 20,
+        "LayerDepth": 2,
+        "StackDepth": 3,
+        "GreyColorspaceCount": 1,
+        "RgbColorspaceCount": 1,
+        "CmykColorspaceCount": 1,
+        "IndexedColorspaceCount": 24,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 24
+      }
+    }
+  ]
+}

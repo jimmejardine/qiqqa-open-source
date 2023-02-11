@@ -11,6 +11,7 @@ using Qiqqa.Documents.PDF;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Images;
+using Utilities.Misc;
 using Image = System.Drawing.Image;
 
 namespace Qiqqa.Brainstorm.Nodes
@@ -44,7 +45,7 @@ namespace Qiqqa.Brainstorm.Nodes
             Focusable = true;
 
             ImageIcon.Source = Icons.GetAppIcon(Icons.BrainstormPDFAnnotation);
-            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             ImageIcon.Width = NodeThemes.image_width;
             TextBorder.CornerRadius = NodeThemes.corner_radius;
@@ -108,8 +109,12 @@ namespace Qiqqa.Brainstorm.Nodes
                 int actual_resolution = target_resolution;
                 double resolution_rescale_factor = 1;
 
-                Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, actual_resolution);
-                BitmapSource cropped_image_page = BitmapImageTools.FromImage(annotation_image, (int)(annotation_image.Width * resolution_rescale_factor), (int)(annotation_image.Height * resolution_rescale_factor));
+                BitmapSource cropped_image_page = null;
+                using (Image annotation_image = PDFAnnotationToImageRenderer.RenderAnnotation(pdf_document, pdf_annotation, actual_resolution))
+                {
+                    cropped_image_page = BitmapImageTools.FromImage(annotation_image, (int)(annotation_image.Width * resolution_rescale_factor), (int)(annotation_image.Height * resolution_rescale_factor));
+                    ASSERT.Test(cropped_image_page.IsFrozen);
+                }
 
                 ImageIcon.Source = cropped_image_page;
                 ImageIcon.Width = cropped_image_page.Width / 2;

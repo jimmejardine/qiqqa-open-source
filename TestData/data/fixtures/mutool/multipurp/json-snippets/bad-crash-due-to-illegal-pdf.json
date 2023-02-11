@@ -1,0 +1,13 @@
+[
+	{
+		"DocumentFilePath": "G:\\Qiqqa\\evil-base\\TestData\\data\\fixtures\\PDF\\qpdf\\issue-141b.pdf",
+		"GatheredErrors": {
+			"Log": "unknown PDF version: 100.0\nexpected generation number (0 ? obj)\nTrailer object number cannot be 0\n\ntrying to repair broken xref after encountering error: Trailer object number cannot be 0\nrepairing PDF document\nignoring object with invalid object number (0 0 R)\nno objects found\n",
+			"LogOverflow": false
+		}
+	},
+	{
+		"Type": "TerminalFailureInfo",
+		"FailureMessage": "no objects found"
+	}
+]

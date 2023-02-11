@@ -50,6 +50,8 @@ namespace Qiqqa.InCite
 
         private void DoMaintenance(Daemon daemon)
         {
+            try
+            {
 #if false
             if (Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
             {
@@ -58,24 +60,29 @@ namespace Qiqqa.InCite
             }
 #endif
 
-            if (paused || repopulating_clusters)
-            {
-                Logging.Info("WordConnector paused");
-                return;
-            }
+                if (paused || repopulating_clusters)
+                {
+                    Logging.Info("WordConnector paused");
+                    return;
+                }
 
-            try
-            {
-                EnsureWordIsConnected();
-                CheckTheCurrentTextContext();
+                try
+                {
+                    EnsureWordIsConnected();
+                    CheckTheCurrentTextContext();
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex, "There was a problem attaching to Word.");
+                    DisconnectFromWord();
+                }
+
+                have_iterated_at_least_once = true;
             }
             catch (Exception ex)
             {
-                Logging.Error(ex, "There was a problem attaching to Word.");
-                DisconnectFromWord();
+                Logging.Error(ex, "Terminating the MSWord Connector background thread due to an otherwise unhandled exception.");
             }
-
-            have_iterated_at_least_once = true;
         }
 
         public void WaitForAtLeastOneIteration()

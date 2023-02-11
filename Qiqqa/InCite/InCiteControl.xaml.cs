@@ -275,11 +275,14 @@ namespace Qiqqa.InCite
 
         private void ObjCitationClusterEditorControl_CitationClusterOpenPDFByReferenceKey(string reference_key)
         {
-            CSLProcessorBibTeXFinder.MatchingBibTeXRecord matching_bibtex_record = CSLProcessorBibTeXFinder.LocateBibTexForCitationItem(reference_key, DefaultLibrary);
-            if (null != matching_bibtex_record)
+            WPFDoEvents.SafeExec(() =>
             {
-                MainWindowServiceDispatcher.Instance.OpenDocument(matching_bibtex_record.pdf_document);
-            }
+                CSLProcessorBibTeXFinder.MatchingBibTeXRecord matching_bibtex_record = CSLProcessorBibTeXFinder.LocateBibTexForCitationItem(reference_key, DefaultLibrary);
+                if (null != matching_bibtex_record)
+                {
+                    MainWindowServiceDispatcher.Instance.OpenDocument(matching_bibtex_record.pdf_document);
+                }
+            });
         }
 
         private void ButtonEditCSL_Internal_Click(object sender, RoutedEventArgs e)
@@ -510,13 +513,15 @@ namespace Qiqqa.InCite
 
         private void word_connector_CitationClusterChanged(CitationCluster context_citation_cluster)
         {
-            Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
-
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                ObjCitationClusterEditorControl.SetCitationCluster(context_citation_cluster);
-            }
-            );
+                Logging.Debug特("InCite: CitationClusterChanged: {0}", context_citation_cluster);
+
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                {
+                    ObjCitationClusterEditorControl.SetCitationCluster(context_citation_cluster);
+                });
+            });
         }
 
         private void ButtonToggleWatcher_Click(object sender, RoutedEventArgs e)
@@ -532,24 +537,27 @@ namespace Qiqqa.InCite
 
         private void word_connector_ContextChanged(string context_word, string context_backward, string context_surround)
         {
-            Logging.Debug特("InCite: ContextChanged");
-
-            WPFDoEvents.InvokeAsyncInUIThread(() =>
+            WPFDoEvents.SafeExec(() =>
             {
-                word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(context_word, context_backward, context_surround);
-            }, DispatcherPriority.Background);
+                Logging.Debug特("InCite: ContextChanged");
 
-            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (context_thread_lock)
-            {
-                // l1_clk.LockPerfTimerStop();
-                context_thread_next_context = context_backward;
-                if (!context_thread_running)
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
-                    context_thread_running = true;
-                    SafeThreadPool.QueueUserWorkItem(o => word_connector_ContextChanged_BACKGROUND_FindRecommendations());
+                    word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(context_word, context_backward, context_surround);
+                }, DispatcherPriority.Background);
+
+                // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (context_thread_lock)
+                {
+                    // l1_clk.LockPerfTimerStop();
+                    context_thread_next_context = context_backward;
+                    if (!context_thread_running)
+                    {
+                        context_thread_running = true;
+                        SafeThreadPool.QueueUserWorkItem(() => word_connector_ContextChanged_BACKGROUND_FindRecommendations());
+                    }
                 }
-            }
+            });
         }
 
         private void word_connector_ContextChanged_BACKGROUND_UpdateButtonEnabledness(string context_word, string context_backward, string context_surround)
@@ -738,9 +746,12 @@ namespace Qiqqa.InCite
 
         private void ObjCitationClusterEditorControl_CitationClusterChanged(CitationCluster citation_cluster)
         {
-            FeatureTrackingManager.Instance.UseFeature(Features.InCite_EditCitationCluster);
+            WPFDoEvents.SafeExec(() =>
+            {
+                FeatureTrackingManager.Instance.UseFeature(Features.InCite_EditCitationCluster);
 
-            WordConnector.Instance.ModifyCitation(citation_cluster);
+                WordConnector.Instance.ModifyCitation(citation_cluster);
+            });
         }
 
         private void ButtonAddBibliography_Click(object sender, RoutedEventArgs e)

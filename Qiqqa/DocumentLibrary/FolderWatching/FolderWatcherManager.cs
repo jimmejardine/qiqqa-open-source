@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Utilities;
@@ -64,7 +65,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
             if (ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
             {
-                managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 30 * 1000, extra_descr: $".Lib({LibraryRef})");
+                managed_thread_index = Utilities.Maintainable.MaintainableManager.Instance.RegisterHeldOffTask(TaskDaemonEntryPoint, 10 * 1000, extra_descr: $".Lib({LibraryRef})");
             }
         }
 
@@ -96,6 +97,7 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
             {
                 Utilities.Maintainable.MaintainableManager.Instance.CleanupEntry(managed_thread_index);
             });
+            managed_thread_index = -1;
 
             WPFDoEvents.SafeExec(() =>
             {
@@ -112,6 +114,11 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
                     filenames_processed.Clear();
                 }
             });
+        }
+
+        public int GetBackgroundTaskIndex()
+        {
+            return managed_thread_index;
         }
 
         public string Filename_Store => Path.GetFullPath(Path.Combine(LibraryRef.LIBRARY_BASE_PATH, @"Qiqqa.folder_watcher"));
@@ -151,84 +158,108 @@ namespace Qiqqa.DocumentLibrary.FolderWatching
 
         internal void TaskDaemonEntryPoint(Utilities.Daemon daemon)
         {
-            if (ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
+            try
             {
-                Logging.Debug特("FolderWatcherTask for library {0} SKIPPED: disabled by advanced settings.", LibraryRef);
-            }
-
-            Logging.Debug特("FolderWatcherTask for library {0} START", LibraryRef);
-
-            Dictionary<string, FolderWatcherRecord> folder_watchset = new Dictionary<string, FolderWatcherRecord>();
-
-            // Get the new list of folders to watch
-            string folders_to_watch_batch = LibraryRef?.FolderToWatch;
-            HashSet<string> folders_to_watch = new HashSet<string>();
-            if (null != folders_to_watch_batch)
-            {
-                foreach (var folder_to_watch_batch in folders_to_watch_batch.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                if (ConfigurationManager.IsEnabled(nameof(FolderWatcher)))
                 {
-                    folders_to_watch.Add(folder_to_watch_batch);
-                }
-            }
-            else
-            {
-                return;
-            }
-
-            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (folder_watcher_records_lock)
-            {
-                //l1_clk.LockPerfTimerStop();
-                // Kill off any unwanted folders
-                HashSet<string> folders_to_watch_deleted = new HashSet<string>(folder_watcher_records.Keys);
-                foreach (var folder_to_watch in folders_to_watch)
-                {
-                    folders_to_watch_deleted.Remove(folder_to_watch);
-                }
-                foreach (var folder_to_watch_deleted in folders_to_watch_deleted)
-                {
-                    Logging.Info("Deleting FolderWatcher for '{0}'", folder_to_watch_deleted);
-
-                    folder_watcher_records[folder_to_watch_deleted].folder_watcher.Dispose();
-                    folder_watcher_records.Remove(folder_to_watch_deleted);
+                    Logging.Debug特("FolderWatcherTask for library {0} SKIPPED: disabled by advanced settings.", LibraryRef);
                 }
 
-                // Create any new folders
-                foreach (var folder_to_watch in folders_to_watch)
+                Logging.Debug特("FolderWatcherTask for library {0} START", LibraryRef);
+
+                Dictionary<string, FolderWatcherRecord> folder_watchset = new Dictionary<string, FolderWatcherRecord>();
+
+                // Get the new list of folders to watch
+                string folders_to_watch_batch = LibraryRef?.FolderToWatch;
+                HashSet<string> folders_to_watch = new HashSet<string>();
+                if (null != folders_to_watch_batch)
                 {
-                    if (!folder_watcher_records.ContainsKey(folder_to_watch))
+                    foreach (var folder_to_watch_batch in folders_to_watch_batch.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
                     {
-                        Logging.Info("Creating FolderWatcher for '{0}'", folder_to_watch);
-                        string[] parts = folder_to_watch.Split(new char[] { ';' }, 2);
+                        folders_to_watch.Add(folder_to_watch_batch);
+                    }
+                }
+                else
+                {
+                    return;
+                }
 
-                        FolderWatcherRecord fwr = new FolderWatcherRecord();
-                        fwr.path = parts[0];
-                        fwr.tags = (1 < parts.Length) ? parts[1] : null;
-                        fwr.folder_watcher = new FolderWatcher(this, LibraryRef, fwr.path, fwr.tags);
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (folder_watcher_records_lock)
+                {
+                    //l1_clk.LockPerfTimerStop();
+                    // Kill off any unwanted folders
+                    HashSet<string> folders_to_watch_deleted = new HashSet<string>(folder_watcher_records.Keys);
+                    foreach (var folder_to_watch in folders_to_watch)
+                    {
+                        folders_to_watch_deleted.Remove(folder_to_watch);
+                    }
+                    foreach (var folder_to_watch_deleted in folders_to_watch_deleted)
+                    {
+                        Logging.Info("Deleting FolderWatcher for '{0}'", folder_to_watch_deleted);
 
-                        folder_watcher_records[folder_to_watch] = fwr;
+                        folder_watcher_records[folder_to_watch_deleted].folder_watcher.Dispose();
+                        folder_watcher_records.Remove(folder_to_watch_deleted);
+                    }
+
+                    // Create any new folders
+                    foreach (var folder_to_watch in folders_to_watch)
+                    {
+                        if (!folder_watcher_records.ContainsKey(folder_to_watch))
+                        {
+                            Logging.Info("Creating FolderWatcher for '{0}'", folder_to_watch);
+                            string[] parts = folder_to_watch.Split(new char[] { ';' }, 2);
+
+                            FolderWatcherRecord fwr = new FolderWatcherRecord();
+                            fwr.path = parts[0];
+                            fwr.tags = (1 < parts.Length) ? parts[1] : null;
+                            fwr.folder_watcher = new FolderWatcher(this, LibraryRef, fwr.path, fwr.tags);
+
+                            folder_watcher_records[folder_to_watch] = fwr;
+                        }
+                    }
+
+                    // Copy the list to local dict:
+                    foreach (var folder_watcher_record in folder_watcher_records)
+                    {
+                        folder_watchset.Add(folder_watcher_record.Key, folder_watcher_record.Value);
                     }
                 }
 
-                // Copy the list to local dict:
-                foreach (var folder_watcher_record in folder_watcher_records)
+                // Do the actual folder processing
+                foreach (var folder_watcher_record in folder_watchset)
                 {
-                    folder_watchset.Add(folder_watcher_record.Key, folder_watcher_record.Value);
+                    try
+                    {
+                        folder_watcher_record.Value.folder_watcher.ExecuteBackgroundProcess(daemon);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Warn(ex, "There was an exception while processing the watched folder '{0}'.", folder_watcher_record.Value.path);
+                    }
                 }
             }
-
-            // Do the actual folder processing
-            foreach (var folder_watcher_record in folder_watchset)
+            catch (Exception ex)
             {
-                try
-                {
-                    folder_watcher_record.Value.folder_watcher.ExecuteBackgroundProcess(daemon);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Warn(ex, "There was an exception while processing the watched folder '{0}'.", folder_watcher_record.Value.path);
-                }
+                Logging.Error(ex, "Terminating the Folder Watch background thread due to an otherwise unhandled exception.");
             }
+        }
+
+        public void TriggerExec()
+        {
+            Func<Task> cb = null;
+            cb = async () =>
+            {
+                ConfigurationManager.GetDeveloperSettingsReference()[nameof(FolderWatcher)] = true;
+                Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks = false;
+                ASSERT.Test(ConfigurationManager.IsEnabled(nameof(FolderWatcher)));
+
+                ResetHistory();
+
+                TaskDaemonEntryPoint(null);
+            };
+
+            SafeThreadPool.QueueAsyncUserWorkItem(cb);
         }
     }
 }

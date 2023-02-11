@@ -76,6 +76,6 @@
                 MinHeight="20"
                 DockPanel.Dock="Top" />
         </Grid>
-        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree"  Margin="3" />
+        <local_explorer:GenericLibraryExplorerControl x:Name="TagExplorerTree" Margin="3" />
     </DockPanel>
 </UserControl>

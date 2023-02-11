@@ -67,7 +67,9 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
         private void OnChildWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
             // Remember it by tacking it onto the front and removing it from the middle
-            ConfigurationManager.Instance.ConfigurationRecord.GUI_LastSelectedLibraryId = web_library_detail.Id + ConfigurationManager.Instance.ConfigurationRecord.GUI_LastSelectedLibraryId.Replace(web_library_detail.Id, "");
+            var str = web_library_detail.Id + ':' + ConfigurationManager.Instance.ConfigurationRecord.GUI_LastSelectedLibraryId.Replace(web_library_detail.Id, "");
+            str = str.Replace("::", ":");
+            ConfigurationManager.Instance.ConfigurationRecord.GUI_LastSelectedLibraryId = str;
             ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.GUI_LastSelectedLibraryId));
 
             // Callback

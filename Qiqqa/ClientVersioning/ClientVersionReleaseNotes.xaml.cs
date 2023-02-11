@@ -32,7 +32,7 @@ namespace Qiqqa.ClientVersioning
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
             Logging.Info("User clicked to download from the release notes window");
-            ClientUpdater.Instance.DownloadNewClientVersion(null);
+            ClientUpdater.Instance.DownloadNewClientVersion();
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)

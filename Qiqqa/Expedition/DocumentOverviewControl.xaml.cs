@@ -82,51 +82,54 @@ namespace Qiqqa.Expedition
 
         private void TopicOverviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            // Clear the old
-            ObjPDFRendererControlPlaceholder.Children.Clear();
-
-            AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
-            if (null == pdf_document_bindable)
+            WPFDoEvents.SafeExec(() =>
             {
-                return;
-            }
+                // Clear the old
+                ObjPDFRendererControlPlaceholder.Children.Clear();
 
-            PDFDocument pdf_document = pdf_document_bindable.Underlying;
-
-            ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
-            ASSERT.Test(eds != null);
-
-            if (null != eds)
-            {
-                LDAAnalysis lda_analysis = eds.LDAAnalysis;
-
-                try
+                AugmentedBindable<PDFDocument> pdf_document_bindable = DataContext as AugmentedBindable<PDFDocument>;
+                if (null == pdf_document_bindable)
                 {
-                    if (!eds.docs_index.ContainsKey(pdf_document.Fingerprint))
+                    return;
+                }
+
+                PDFDocument pdf_document = pdf_document_bindable.Underlying;
+
+                ExpeditionDataSource eds = pdf_document.LibraryRef.Xlibrary?.ExpeditionManager?.ExpeditionDataSource;
+                ASSERT.Test(eds != null);
+
+                if (null != eds)
+                {
+                    LDAAnalysis lda_analysis = eds.LDAAnalysis;
+
+                    try
                     {
-                        MessageBoxes.Warn("Expedition doesn't have any information about this paper.  Please Refresh your Expedition.");
-                        return;
+                        if (!eds.docs_index.ContainsKey(pdf_document.Fingerprint))
+                        {
+                            MessageBoxes.Warn("Expedition doesn't have any information about this paper.  Please Refresh your Expedition.");
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Error(ex, "There was a problem with Expedition for document {0}", pdf_document.Fingerprint);
+                    }
+
+                    if (pdf_document.DocumentExists)
+                    {
+                        ObjPDFRendererControlPlaceholderBorder.Visibility = Visibility.Visible;
+                        ObjPDFRendererControlPlaceholderRow.Height = new GridLength(1, GridUnitType.Star);
+
+                        PDFRendererControl pdf_renderer_control = new PDFRendererControl(pdf_document, remember_last_read_page: false, PDFRendererControl.ZoomType.Zoom1Up);
+                        ObjPDFRendererControlPlaceholder.Children.Add(pdf_renderer_control);
+                    }
+                    else
+                    {
+                        ObjPDFRendererControlPlaceholderBorder.Visibility = Visibility.Collapsed;
+                        ObjPDFRendererControlPlaceholderRow.Height = new GridLength(0, GridUnitType.Pixel);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Logging.Error(ex, "There was a problem with Expedition for document {0}", pdf_document.Fingerprint);
-                }
-
-                if (pdf_document.DocumentExists)
-                {
-                    ObjPDFRendererControlPlaceholderBorder.Visibility = Visibility.Visible;
-                    ObjPDFRendererControlPlaceholderRow.Height = new GridLength(1, GridUnitType.Star);
-
-                    PDFRendererControl pdf_renderer_control = new PDFRendererControl(pdf_document, remember_last_read_page: false, PDFRendererControl.ZoomType.Zoom1Up);
-                    ObjPDFRendererControlPlaceholder.Children.Add(pdf_renderer_control);
-                }
-                else
-                {
-                    ObjPDFRendererControlPlaceholderBorder.Visibility = Visibility.Collapsed;
-                    ObjPDFRendererControlPlaceholderRow.Height = new GridLength(0, GridUnitType.Pixel);
-                }
-            }
+            });
         }
     }
 }

@@ -1,0 +1,1190 @@
+[
+  {
+  "DocumentFilePath": "W:\\Projects\\sites\\library.visyond.gov\\80\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\1.Doc-Many.Metadata.Formats\\0001-LDA-paper\\2004.04.PNAS.ef997ae1b01762b57b75d8c22fb8cec87406.pdf",
+  "GlobalInfo": {
+  "Version":
+"PDF-1.3",
+  "Info":
+{
+  "Creator": "XPP",
+  "CreationDate": "D:20090312125059-07'00'",
+  "ModDate": "D:20090312125059-07'00'",
+  "Producer": "Mac OS X 10.4.11 Quartz PDFContext"
+},
+  "Pages": 8,
+  "Chapters": 1,
+  "DocumentOutlines": [
+
+],
+  "GatheredErrors": {
+  "Log": "first object in xref is not free\n",
+  "LogOverflow": false
+}
+},
+  "PageInfoSeries": [
+  {
+  "InfoMode": "AllPages",
+  "PageSequence": [
+  {
+  "FirstPage": 1,
+  "LastPage": 8,
+  "Info": [
+  {
+  "PageNumber": 1,
+  "Mediaboxes": [
+  {
+  "Page": 1,
+  "Bounds": [0, 0 ,612, 801]
+}
+],
+  "Fonts": [
+  {
+  "Page": 1,
+  "FontType": "Type1",
+  "FontName": "NHDEPC+Universal-GreekwithMathPi",
+  "FontEncoding": ""
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "LQTHPP+Dutch801BT-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "NPXAJB+MathematicalPi-One",
+  "FontEncoding": ""
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "ZTKOSW+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "RFXAJB+MathematicalPi-Three",
+  "FontEncoding": ""
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "TWCPNC+Dutch801BT-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "PSHAOC+Frutiger-BoldCn",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "NZQHNC+Frutiger-BoldItalic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "TWKFST+Frutiger-BlackCn",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "VFYZGI+Frutiger-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+    "Page": 1,
+  "FontType": "Type1",
+  "FontName": "DUDJQL+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+}
+],
+  "Images": [
+  {
+  "Page": 1,
+  "ImageFilter": {
+  "Filter": "DCT"
+},
+  "ImageWidth": 38,
+  "ImageHeight": 1632,
+  "ImageDimensions": {
+  "W": 38,
+  "H": 1632
+},
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+    "type": "stream", "data":
+{
+        "Length": 27518,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 38,
+  "Height": 1632,
+  "ColorSpace": [ "/ICCBased", {
+            "type": "stream", "data":
+{
+                "Length": 706,
+      "N": 3,
+      "Alternate": "/DeviceRGB",
+      "Filter": "/FlateDecode"
+    }
+        } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+}
+}
+],
+  "PageBounds": [0, 0, 594, 783]
+},
+  {
+    "PageNumber": 2,
+  "Mediaboxes": [
+  {
+        "Page": 2,
+  "Bounds": [0, 0, 612, 801]
+}
+],
+  "Fonts": [
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "NHDEPC+Universal-GreekwithMathPi",
+  "FontEncoding": ""
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "NPXAJB+MathematicalPi-One",
+  "FontEncoding": ""
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "LQTHPP+Dutch801BT-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "ZTKOSW+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "JDOWIE+Frutiger-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "RFXAJB+MathematicalPi-Three",
+  "FontEncoding": ""
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "TWCPNC+Dutch801BT-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "FDVBPF+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "TWKFST+Frutiger-BlackCn",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "JXCBJB+Universal-NewswithCommPi",
+  "FontEncoding": ""
+},
+  {
+        "Page": 2,
+  "FontType": "Type1",
+  "FontName": "JDUJRL+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+}
+],
+  "Images": [
+  {
+        "Page": 2,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 38,
+  "ImageHeight": 1632,
+"ImageDimensions": {
+  "W": 38,
+  "H": 1632
+},
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 27518,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 38,
+  "Height": 1632,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": 706,
+      "N": 3,
+      "Alternate": "/DeviceRGB",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    }
+],
+  "PageBounds": [0 ,0 ,594 ,783]
+},
+  {
+    "PageNumber": 3,
+  "Mediaboxes": [
+  {
+        "Page": 3,
+  "Bounds": [0 ,0 ,612 ,801]
+}
+],
+  "Fonts": [
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "NHDEPC+Universal-GreekwithMathPi",
+  "FontEncoding": ""
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "LQTHPP+Dutch801BT-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "NPXAJB+MathematicalPi-One",
+  "FontEncoding": ""
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "ZTKOSW+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "JDOWIE+Frutiger-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "PSHAOC+Frutiger-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "RFXAJB+MathematicalPi-Three",
+  "FontEncoding": ""
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "DOMWBZ+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "TWCPNC+Dutch801BT-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "FDVBPF+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "TWKFST+Frutiger-BlackCn",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "JXCBJB+Universal-NewswithCommPi",
+  "FontEncoding": ""
+},
+  {
+        "Page": 3,
+  "FontType": "Type1",
+  "FontName": "JDUJRL+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+}
+],
+  "Images": [
+  {
+        "Page": 3,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 513,
+  "ImageHeight": 438,
+                    "ImageDimensions": {
+                      "W": 513,
+                      "H": 438
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 38270,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 513,
+  "Height": 438,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 58,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 1,
+      "Alternate": "/DeviceGray",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    },
+  {
+        "Page": 3,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 38,
+  "ImageHeight": 1632,
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 27518,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 38,
+  "Height": 1632,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 28,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 3,
+      "Alternate": "/DeviceRGB",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    }
+],
+  "PageBounds": [0 ,0 ,594 ,783]
+},
+  {
+    "PageNumber": 4,
+  "Mediaboxes": [
+  {
+        "Page": 4,
+  "Bounds": [0, 0, 612, 801]
+}
+],
+  "Fonts": [
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "NHDEPC+Universal-GreekwithMathPi",
+  "FontEncoding": ""
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "NPXAJB+MathematicalPi-One",
+  "FontEncoding": ""
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "ZTKOSW+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "JDOWIE+Frutiger-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "RFXAJB+MathematicalPi-Three",
+  "FontEncoding": ""
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "DOMWBZ+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "TWCPNC+Dutch801BT-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "FDVBPF+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "TWKFST+Frutiger-BlackCn",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "XAWWMN+Dutch801BT-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 4,
+  "FontType": "Type1",
+  "FontName": "JDUJRL+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+}
+],
+  "Images": [
+  {
+        "Page": 4,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 513,
+  "ImageHeight": 411,
+                    "ImageDimensions": {
+                      "W": 513,
+                      "H": 411
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 53185,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 513,
+  "Height": 411,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 58,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 1,
+      "Alternate": "/DeviceGray",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    },
+  {
+        "Page": 4,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 38,
+  "ImageHeight": 1632,
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 27518,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 38,
+  "Height": 1632,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 28,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 3,
+      "Alternate": "/DeviceRGB",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    }
+],
+  "PageBounds": [0, 0, 594, 783]
+},
+  {
+    "PageNumber": 5,
+  "Mediaboxes": [
+  {
+        "Page": 5,
+  "Bounds": [0, 0, 612, 801]
+}
+],
+  "Fonts": [
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "NPXAJB+MathematicalPi-One",
+  "FontEncoding": ""
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "ZTKOSW+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "JDOWIE+Frutiger-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "PSHAOC+Frutiger-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "RFXAJB+MathematicalPi-Three",
+  "FontEncoding": ""
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "DOMWBZ+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "TWCPNC+Dutch801BT-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "FDVBPF+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "TWKFST+Frutiger-BlackCn",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "XAWWMN+Dutch801BT-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 5,
+  "FontType": "Type1",
+  "FontName": "JDUJRL+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+}
+],
+  "Images": [
+  {
+        "Page": 5,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 38,
+  "ImageHeight": 1632,
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 27518,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 38,
+  "Height": 1632,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 28,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 3,
+      "Alternate": "/DeviceRGB",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    }
+],
+  "PageBounds": [0, 0, 594, 783]
+},
+  {
+    "PageNumber": 6,
+  "Mediaboxes": [
+  {
+        "Page": 6,
+  "Bounds": [0, 0, 612, 801]
+}
+],
+  "Fonts": [
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "NHDEPC+Universal-GreekwithMathPi",
+  "FontEncoding": ""
+},
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "NPXAJB+MathematicalPi-One",
+  "FontEncoding": ""
+},
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "JDOWIE+Frutiger-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "PSHAOC+Frutiger-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "RFXAJB+MathematicalPi-Three",
+  "FontEncoding": ""
+},
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "DOMWBZ+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "FDVBPF+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "XAWWMN+Dutch801BT-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 6,
+  "FontType": "Type1",
+  "FontName": "JDUJRL+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+}
+],
+  "Images": [
+  {
+        "Page": 6,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 38,
+  "ImageHeight": 1632,
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 27518,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 38,
+  "Height": 1632,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 28,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 3,
+      "Alternate": "/DeviceRGB",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    },
+  {
+        "Page": 6,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 804,
+  "ImageHeight": 1159,
+                    "ImageDimensions": {
+                      "W": 804,
+                      "H": 1159
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 164559,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 804,
+  "Height": 1159,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 58,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 1,
+      "Alternate": "/DeviceGray",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    }
+],
+  "PageBounds": [0, 0, 594, 783]
+},
+  {
+    "PageNumber": 7,
+  "Mediaboxes": [
+  {
+        "Page": 7,
+  "Bounds": [0, 0, 612, 801]
+}
+],
+  "Fonts": [
+  {
+        "Page": 7,
+  "FontType": "Type1",
+  "FontName": "JDUJRL+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 7,
+  "FontType": "Type1",
+  "FontName": "FDVBPF+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 7,
+  "FontType": "Type1",
+  "FontName": "DOMWBZ+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 7,
+  "FontType": "Type1",
+  "FontName": "JDOWIE+Frutiger-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 7,
+  "FontType": "Type1",
+  "FontName": "RFXAJB+MathematicalPi-Three",
+  "FontEncoding": ""
+},
+  {
+        "Page": 7,
+  "FontType": "Type1",
+  "FontName": "TWKFST+Frutiger-BlackCn",
+  "FontEncoding": "MacRomanEncoding"
+}
+],
+  "Images": [
+  {
+        "Page": 7,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 950,
+  "ImageHeight": 232,
+                    "ImageDimensions": {
+                      "W": 950,
+                      "H": 232
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 54347,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 950,
+  "Height": 232,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 58,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 1,
+      "Alternate": "/DeviceGray",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    },
+  {
+        "Page": 7,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 38,
+  "ImageHeight": 1632,
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 27518,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 38,
+  "Height": 1632,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 28,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 3,
+      "Alternate": "/DeviceRGB",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    },
+  {
+        "Page": 7,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 890,
+  "ImageHeight": 531,
+                    "ImageDimensions": {
+                      "W": 890,
+                      "H": 531
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 63745,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 890,
+  "Height": 531,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 58,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 1,
+      "Alternate": "/DeviceGray",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    }
+],
+  "PageBounds": [0, 0, 594, 783]
+},
+  {
+    "PageNumber": 8,
+  "Mediaboxes": [
+  {
+        "Page": 8,
+  "Bounds": [0, 0, 612, 801]
+}
+],
+  "Fonts": [
+  {
+        "Page": 8,
+  "FontType": "Type1",
+  "FontName": "ZTKOSW+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 8,
+  "FontType": "Type1",
+  "FontName": "JDOWIE+Frutiger-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 8,
+  "FontType": "Type1",
+  "FontName": "RFXAJB+MathematicalPi-Three",
+  "FontEncoding": ""
+},
+  {
+        "Page": 8,
+  "FontType": "Type1",
+  "FontName": "DOMWBZ+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 8,
+  "FontType": "Type1",
+  "FontName": "TWCPNC+Dutch801BT-Bold",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 8,
+  "FontType": "Type1",
+  "FontName": "FDVBPF+Dutch801BT-Roman",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 8,
+  "FontType": "Type1",
+  "FontName": "XAWWMN+Dutch801BT-Italic",
+  "FontEncoding": "MacRomanEncoding"
+},
+  {
+        "Page": 8,
+  "FontType": "Type1",
+  "FontName": "JDUJRL+Frutiger-Roman",
+  "FontEncoding": "MacRomanEncoding"
+}
+],
+  "Images": [
+  {
+        "Page": 8,
+  "ImageFilter": {
+            "Filter": "DCT"
+},
+  "ImageWidth": 38,
+  "ImageHeight": 1632,
+                    "ImageDimensions": {
+                      "W": 38,
+                      "H": 1632
+                    },
+  "ImageBPC": 8,
+  "ImageCS":
+"ICC",
+  "Image":
+{
+            "type": "stream", "data":
+{
+                "Length": 27518,
+  "Type": "/XObject",
+  "Subtype": "/Image",
+  "Width": 38,
+  "Height": 1632,
+  "ColorSpace": [ "/ICCBased", {
+                    "type": "stream", "data":
+{
+                        "Length": {
+                            "type": "R",
+  "num": 28,
+  "gen": 0,
+  "S_D_R": 1
+                  },
+      "N": 3,
+      "Alternate": "/DeviceRGB",
+      "Filter": "/FlateDecode"
+    }
+                } ],
+  "BitsPerComponent": 8,
+  "Filter": "/DCTDecode"
+}
+        }
+    }
+],
+  "PageBounds": [0, 0, 594, 783]
+}
+]
+}
+],
+  "DocumentGeneralInfo": {
+    "Format": "PDF 1.3",
+  "Encryption": "None",
+  "PDF_Creator": "XPP",
+  "PDF_Producer": "Mac OS X 10.4.11 Quartz PDFContext",
+  "Creation_Date": "D:20090312125059-07'00'",
+  "Modification_Date": "D:20090312125059-07'00'",
+  "MetaInfoDictionary":
+{
+        "Creator": "XPP",
+  "CreationDate": "D:20090312125059-07'00'",
+  "ModDate": "D:20090312125059-07'00'",
+  "Producer": "Mac OS X 10.4.11 Quartz PDFContext"
+},
+  "Permissions": "print, copy, edit, annotate",
+  "Status":
+"PDF document with 1 update.",
+  "DocWasLinearized": false,
+  "DocumentUpdateCount": 1,
+  "ChangeHistoryValidation": "Change history seems valid.",
+  "UpdatesStatus": "Document changes conform to permissions",
+  "WasRepaired": false,
+  "NeedsPassword": false
+}
+}
+]
+}
+]

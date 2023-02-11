@@ -43,7 +43,7 @@ namespace Utilities
         /// in QiqqaOCR will always win. This is encoded in the
         /// `EXTRA_TIME_MS_FOR_WAITING_ON_QIQQA_OCR_TASK_TERMINATION` constant.
         /// </summary>
-        public const int MAX_WAIT_TIME_MS_FOR_QIQQA_OCR_TASK_TO_TERMINATE = 4 * 60 * 1000;
+        public const int MAX_WAIT_TIME_MS_FOR_QIQQA_OCR_TASK_TO_TERMINATE = 15 * 60 * 1000;
         public const int EXTRA_TIME_MS_FOR_WAITING_ON_QIQQA_OCR_TASK_TERMINATION = 5 * 1000;
     }
 }

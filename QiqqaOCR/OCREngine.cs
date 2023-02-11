@@ -5,22 +5,19 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
-#if TESSERACT_ANTIQUE
-using tessnet2;
-#endif
 using Utilities;
 using Utilities.Encryption;
+using Utilities.GUI;
 using Utilities.OCR;
-#if SORAX_ANTIQUE
+#if !HAS_MUPDF_PAGE_RENDERER
 using Utilities.PDF.Sorax;
+#else
+using Utilities.PDF.MuPDF;
+using static QiqqaOCR.PDFRegionLocator;
 #endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-#if TESSERACT_ANTIQUE
-using Word = tessnet2.Word;
-#endif
-
 
 namespace QiqqaOCR
 {
@@ -96,6 +93,15 @@ namespace QiqqaOCR
                 Logging.Info("Defaulting to language eng");
                 language = "eng";
             }
+
+            // Some code is shared with the Qiqqa GUI and the WPFDoEvents.* assertions expect a WPF environment...
+            // https://stackoverflow.com/questions/35902815/why-does-application-current-null-in-a-winforms-application
+            if (null == System.Windows.Application.Current)
+            {
+                new System.Windows.Application();
+            }
+
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // When should the various processes die?
             Stopwatch clk = Stopwatch.StartNew();
@@ -243,31 +249,34 @@ namespace QiqqaOCR
         public static WordList DoOCR(string pdf_filename, int page_number)
         {
             Logging.Info("+Rendering page {1} for PDF file {0}", pdf_filename, page_number);
-#if SORAX_ANTIQUE
-            SoraxPDFRenderer renderer = new SoraxPDFRenderer(pdf_filename, pdf_user_password, pdf_user_password);
-            using (MemoryStream ms = new MemoryStream(renderer.GetPageByDPIAsImage(page_number, 200)))
+#if !HAS_MUPDF_PAGE_RENDERER
+            MemoryStream ms = new MemoryStream(SoraxPDFRenderer.GetPageByHeightAsImage(pdf_filename, pdf_user_password, page_number, 300 * 12));
+#else
+            MemoryStream ms = new MemoryStream(MuPDFRenderer.GetPageByHeightAsImage(pdf_filename, pdf_user_password, page_number, 300 * 12, 300 * 12));
+#endif
+            using (ms)
             {
-                Bitmap bitmap = (Bitmap)Image.FromStream(ms);
-
-                Logging.Info("-Rendering page #{0}", page_number);
-
-                Logging.Info("Startup directory is {0}", Environment.CurrentDirectory);
-                Logging.Info("Language is '{0}'", language);
-
-                using (Tesseract ocr = new Tesseract())
+                using (Bitmap bitmap = (Bitmap)Image.FromStream(ms))
                 {
-                    ocr.Init(null, language, false);
+                    Logging.Info("-Rendering page #{0}", page_number);
+
+                    Logging.Info("Startup directory is {0}", Environment.CurrentDirectory);
+                    Logging.Info("Language is '{0}'", language);
+
+                    Logging.Error("TODO: OCR!");
+                    //ocr.Init(null, language, false);
 
                     Logging.Info("+Doing OCR");
 
                     const int MIN_WIDTH = 0;
+                    const int MIN_HEIGHT = 0;
 
                     // Build a list of all the rectangles to process
-                    PDFRegionLocator pdf_region_locator = new PDFRegionLocator(bitmap);
-                    PDFRegionLocator.Region last_region = pdf_region_locator.regions[0];
+                    List<OCRRegion> regions = PDFRegionLocator.GetRegions(bitmap);
+                    OCRRegion last_region = regions[0];
                     List<Rectangle> rectangles = new List<Rectangle>();
                     Rectangle last_rectangle = new Rectangle();
-                    foreach (PDFRegionLocator.Region region in pdf_region_locator.regions)
+                    foreach (OCRRegion region in regions)
                     {
                         int rect_height = region.y - last_region.y;
                         bool alarming_height = (rect_height <= 0);
@@ -276,21 +285,12 @@ namespace QiqqaOCR
 
                         if (last_region.state == PDFRegionLocator.SegmentState.BLANKS)
                         {
-                            // LHS
-                            {
-                                rectangle = new Rectangle(0, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
-                            }
-                            // RHS
-                            {
-                                rectangle = new Rectangle(bitmap.Width / 2, last_region.y, bitmap.Width / 2, Math.Max(MIN_WIDTH, rect_height));
-                            }
+                            rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_HEIGHT, rect_height));
                         }
                         else if (last_region.state == PDFRegionLocator.SegmentState.PIXELS)
                         {
                             // Full column
-                            {
-                                rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_WIDTH, rect_height));
-                            }
+                            rectangle = new Rectangle(0, last_region.y, bitmap.Width, Math.Max(MIN_HEIGHT, rect_height));
                         }
 
                         if (alarming_height || rectangle.Height <= 0)
@@ -327,15 +327,15 @@ namespace QiqqaOCR
                         Graphics g = Graphics.FromImage(bitmap);
                         foreach (Rectangle rectangle in rectangles)
                         {
-                            if (rectangle.Width <= MIN_WIDTH && rectangle.Height > MIN_WIDTH)
+                            if (rectangle.Width <= MIN_WIDTH && rectangle.Height > MIN_HEIGHT)
                             {
                                 DrawRectangleOutline(g, Pens.Purple, rectangle);
                             }
-                            else if (rectangle.Width > MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
+                            else if (rectangle.Width > MIN_WIDTH && rectangle.Height <= MIN_HEIGHT)
                             {
                                 DrawRectangleOutline(g, Pens.PowderBlue, rectangle);
                             }
-                            else if (rectangle.Width <= MIN_WIDTH && rectangle.Height <= MIN_WIDTH)
+                            else if (rectangle.Width <= MIN_WIDTH && rectangle.Height <= MIN_HEIGHT)
                             {
                                 DrawRectangleOutline(g, Pens.Red, rectangle);
                             }
@@ -359,7 +359,12 @@ namespace QiqqaOCR
                         }
 
                         Logging.Info("Doing OCR for region {0} on bitmap WxH: {1}x{2}", rectangle.ToString(), bitmap.Width, bitmap.Height);
+#if false
                         List<Word> result = ocr.DoOCR(bitmap, rectangle);
+#else
+                        Logging.Error("TODO: Doing OCR for region {0} on bitmap WxH: {1}x{2}", rectangle.ToString(), bitmap.Width, bitmap.Height);
+                        List<Word> result = new List<Word>();
+#endif
                         Logging.Info("Got {0} words", result.Count);
                         word_list.AddRange(ConvertToWordList(result, rectangle, bitmap));
                     }
@@ -379,9 +384,6 @@ namespace QiqqaOCR
                     return word_list;
                 }
             }
-#else
-            return new WordList();
-#endif
         }
 
         private static void DrawRectangleOutline(Graphics g, Pen baseColorPen, Rectangle rect)

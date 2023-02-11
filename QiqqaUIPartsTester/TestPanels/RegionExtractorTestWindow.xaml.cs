@@ -15,6 +15,10 @@ using Utilities.PDF.MuPDF;
 using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
 using Rectangle = System.Windows.Shapes.Rectangle;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace QiqqaOCR
 {
@@ -47,14 +51,16 @@ namespace QiqqaOCR
             using (MemoryStream ms = MuPDFRenderer.RenderPDFPage(pdf_filename, page_number, 200, null, ProcessPriorityClass.Normal))
             {
                 BitmapSource bitmap_image = BitmapImageTools.LoadFromBytes(ms.ToArray());
-                Bitmap bitmap = new Bitmap(ms);
-                Logging.Info("-Rendering page");
+                using (Bitmap bitmap = new Bitmap(ms))
+                {
+                    Logging.Info("-Rendering page");
 
-                Image = bitmap_image;
+                    Image = bitmap_image;
 
-                Logging.Info("+Finding regions");
-                region_locator = new PDFRegionLocator(bitmap);
-                Logging.Info("-Finding regions");
+                    Logging.Info("+Finding regions");
+                    region_locator = new PDFRegionLocator(bitmap);
+                    Logging.Info("-Finding regions");
+                }
             }
 
             Recalc();

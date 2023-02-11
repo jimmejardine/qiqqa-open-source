@@ -50,11 +50,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 if (null == ImagePage_HIDDEN_)
                 {
                     ImagePage_HIDDEN_ = new Image();
-                    ImagePage_HIDDEN.Stretch = Stretch.None;
+                    ImagePage_HIDDEN.Stretch = Stretch.Uniform;
 
                     // THIS MUST BE IN PLACE SO THAT WE HAVE PIXEL PERFECT RENDERING
                     ImagePage_HIDDEN.SnapsToDevicePixels = true;
-                    RenderOptions.SetBitmapScalingMode(ImagePage_HIDDEN, BitmapScalingMode.NearestNeighbor);
+                    //RenderOptions.SetBitmapScalingMode(ImagePage_HIDDEN, BitmapScalingMode.NearestNeighbor);
                     RenderOptions.SetEdgeMode(ImagePage_HIDDEN, EdgeMode.Aliased);
                 }
 
@@ -85,6 +85,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             set
             {
+                WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
                 _currently_showing_image = value;
                 if (null != _currently_showing_image)
                 {
@@ -150,7 +152,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             MouseDown += PDFRendererPageControl_MouseDown;
 
-            pdf_renderer_control_stats.pdf_document.PDFRenderer.OnPageTextAvailable += pdf_renderer_OnPageTextAvailable;
+            pdf_renderer_control_stats.pdf_document.OnPageTextAvailable += pdf_renderer_OnPageTextAvailable;
 
             if (add_bells_and_whistles)
             {
@@ -159,12 +161,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 Effect = dse;
             }
 
-            SafeThreadPool.QueueUserWorkItem(o =>
-            {
-                WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-                PopulateNeededLayers();
-            });
+            PopulateNeededLayers();
 
             //Unloaded += PDFRendererPageControl_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
@@ -416,7 +413,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         private void PopulateNeededLayers()
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+            //WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
             ASSERT.Test(pdf_renderer_control != null);
@@ -425,26 +422,26 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
             if (pdf_document != null)
             {
-                bool need_annots = PDFAnnotationLayer.IsLayerNeeded(pdf_document, page);
-                bool need_inks = PDFInkLayer.IsLayerNeeded(pdf_document, page);
-                bool need_highlights = PDFHighlightLayer.IsLayerNeeded(pdf_document, page);
+                //bool need_annots = PDFAnnotationLayer.IsLayerNeeded(pdf_document, page);
+                //bool need_inks = PDFInkLayer.IsLayerNeeded(pdf_document, page);
+                //bool need_highlights = PDFHighlightLayer.IsLayerNeeded(pdf_document, page);
 
-                WPFDoEvents.InvokeAsyncInUIThread(() =>
+                //WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     Stopwatch clk = Stopwatch.StartNew();
-                    Logging.Info("+PopulateNeededLayers for document {0}", pdf_document.Fingerprint);
+                    Logging.Info("+PopulateNeededLayers for document {0}, page {1} (in view: {2})", pdf_document.Fingerprint, page, page_is_in_view);
 
                     try
                     {
-                        if (need_annots)
+                        //if (need_annots)
                         {
                             _ = CanvasAnnotation;
                         }
-                        if (need_inks)
+                        //if (need_inks)
                         {
                             _ = CanvasInk;
                         }
-                        if (need_highlights)
+                        //if (need_highlights)
                         {
                             _ = CanvasHighlight;
                         }
@@ -455,7 +452,8 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     }
 
                     Logging.Info("-PopulateNeededLayers for document {1} (time spent: {0} ms)", clk.ElapsedMilliseconds, pdf_document.Fingerprint);
-                });
+                }
+                //);
             }
         }
 
@@ -467,6 +465,11 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
             {
                 // The image layer
                 Children.Add(ImagePage_HIDDEN);
+
+                // TODO: assign CurrentlyShowingImage and use CurrentlyShowingImage.Image, while tracking the work done in
+                // a ProgressiveWork tracker.
+                //
+                ImagePage_HIDDEN.Source = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
 
                 // Make the curly layer
                 if (add_bells_and_whistles)
@@ -566,10 +569,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
         private void pdf_renderer_OnPageTextAvailable(int page_from, int page_to)
         {
-            if (page_from <= page && page_to >= page || page == 0)
+            WPFDoEvents.SafeExec(() =>
             {
-                WPFDoEvents.InvokeAsyncInUIThread(OnPageTextAvailable_DISPATCHER, DispatcherPriority.Background);
-            }
+                if (page_from <= page && page_to >= page || page == 0)
+                {
+                    WPFDoEvents.InvokeAsyncInUIThread(OnPageTextAvailable_DISPATCHER, DispatcherPriority.Background);
+                }
+            });
         }
 
         private void OnPageTextAvailable_DISPATCHER()
@@ -656,7 +662,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                     RefreshPage_INTERNAL_FAST();
                 });
             }
-            if (call_slow)
+            else if (call_slow)
             {
                 WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
@@ -699,21 +705,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
                     if (pdf_renderer_control_stats != null)
                     {
-                        if (page_is_in_view)
-                        {
-                            int desired_rescaled_image_height = (int)Math.Round(remembered_image_height * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
-                            int desired_rescaled_image_width = (int)Math.Round(remembered_image_width * pdf_renderer_control_stats.zoom_factor * pdf_renderer_control_stats.DPI);
-                            if (null != CurrentlyShowingImage && (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width))
-                            {
-                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;  // TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
-                                //ImagePage_HIDDEN.Stretch = Stretch.None;
-                            }
-                            else
-                            {
-                                ImagePage_HIDDEN.Stretch = Stretch.Uniform;
-                            }
-                        }
-
                         //
                         // WARNING: we MAY be executing this bit of code while the control
                         // has just been Dispose()d!
@@ -826,15 +817,6 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                             // Recalculate the aspect ratio
                             if (null != CurrentlyShowingImage)
                             {
-                                if (CurrentlyShowingImage.requested_height == desired_rescaled_image_height || CurrentlyShowingImage.requested_width == desired_rescaled_image_width)
-                                {
-                                    ImagePage_HIDDEN.Stretch = Stretch.Uniform;  // TODO: WTF? With this hack (see previous commit for old value) the PDF render scales correctly on screen, finally)
-                                }
-                                else
-                                {
-                                    ImagePage_HIDDEN.Stretch = Stretch.Uniform;
-                                }
-
                                 remembered_image_height = BASIC_PAGE_HEIGHT;
                                 remembered_image_width = BASIC_PAGE_HEIGHT * CurrentlyShowingImage.Image.Width / CurrentlyShowingImage.Image.Height;
                                 pdf_renderer_control_stats.largest_page_image_width = Math.Max(pdf_renderer_control_stats.largest_page_image_width, remembered_image_width);
@@ -848,7 +830,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, documentFingerprint));
+                    Logging.Error(ex, "There was a problem while trying to SLOW render the page image for page {0} of document {1}", page, documentFingerprint);
                 }
             }
         }
@@ -1016,7 +998,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page
 
                         if (pdf_document != null)
                         {
-                            pdf_document.PDFRenderer.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
+                            pdf_document.OnPageTextAvailable -= pdf_renderer_OnPageTextAvailable;
                         }
                     }
                 });

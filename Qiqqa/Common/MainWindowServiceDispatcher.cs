@@ -97,14 +97,14 @@ namespace Qiqqa.Common
             LibraryControl existing_control = (LibraryControl)main_window.DockingManager.MakeActive(window_key);
             if (null != existing_control)
             {
-                Logging.Info("OpenLibrary: (ExistingControl) Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_IncludingDeleted_Count);
+                Logging.Info("OpenLibrary: (ExistingControl) Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_Count);
                 return existing_control;
             }
             else
             {
                 LibraryControl library_control = new LibraryControl(web_library_detail);
                 main_window.DockingManager.AddContent(window_key, web_library_detail.Title, Icons.GetAppIcon(Icons.ModuleDocumentLibrary), true, true, library_control);
-                Logging.Info("OpenLibrary: Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_IncludingDeleted_Count);
+                Logging.Info("OpenLibrary: Library {0} has {1} documents loaded", web_library_detail.Title, library.PDFDocuments_Count);
                 return library_control;
             }
         }
@@ -222,7 +222,7 @@ namespace Qiqqa.Common
             }
 
             // Cause all pages to be OCRed
-            pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
+            pdf_document.CauseAllPDFPagesToBeOCRed();
 
             // Create a title for the window
             string title = "PDF " + pdf_document.Fingerprint;
@@ -297,11 +297,16 @@ namespace Qiqqa.Common
 
         private void OnShowTagOptionsComplete(WebLibraryDetail web_library_detail, List<PDFDocument> pdf_documents, AnnotationReportOptions annotation_report_options)
         {
-            AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report)
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
-                ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
-                string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
-                OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
+                AsyncAnnotationReportBuilder.BuildReport(web_library_detail, pdf_documents, annotation_report_options, delegate (AsyncAnnotationReportBuilder.AnnotationReport annotation_report)
+                {
+                    WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
+                    ReportViewerControl report_view_control = new ReportViewerControl(annotation_report);
+                    string title = String.Format("Annotation report at {0}", DateTime.UtcNow.ToShortTimeString());
+                    OpenNewWindow(title, Icons.GetAppIcon(Icons.ModulePDFAnnotationReport), true, true, report_view_control);
+                });
             });
         }
 
@@ -414,6 +419,8 @@ namespace Qiqqa.Common
 
         public void OpenUrlInBrowser(string url, bool force_external_browser)
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             if (force_external_browser || ConfigurationManager.Instance.ConfigurationRecord.System_UseExternalWebBrowser)
             {
                 BrowserStarter.OpenBrowser(url);
@@ -695,6 +702,7 @@ namespace Qiqqa.Common
             window.Content = src;
             window.Width = 700;
             window.Height = 340;
+            window.Name = "SpeedReadWindow";
 
             window.Show();
 

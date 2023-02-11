@@ -3,6 +3,10 @@ using System.IO;
 using System.Windows.Controls;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Advanced;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.VisualGalleryStuff
 {

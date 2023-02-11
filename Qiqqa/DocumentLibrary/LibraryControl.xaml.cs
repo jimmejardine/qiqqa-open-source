@@ -60,9 +60,9 @@ namespace Qiqqa.DocumentLibrary
             InitializeComponent();
 
             ImageLibraryEmptyAddFiles.Source = Icons.GetAppIcon(Icons.LibraryEmptyAddFiles);
-            RenderOptions.SetBitmapScalingMode(ImageLibraryEmptyAddFiles, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageLibraryEmptyAddFiles, BitmapScalingMode.HighQuality);
             ImageLibraryMissingBibTeX.Source = Icons.GetAppIcon(Icons.BibTexSniffer);
-            RenderOptions.SetBitmapScalingMode(ImageLibraryMissingBibTeX, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageLibraryMissingBibTeX, BitmapScalingMode.HighQuality);
 
             bool ADVANCED_MENUS = ConfigurationManager.Instance.ConfigurationRecord.GUI_AdvancedMenus;
 
@@ -411,7 +411,7 @@ namespace Qiqqa.DocumentLibrary
         private void ButtonGenerateReferences_Click(object sender, RoutedEventArgs e)
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Library_GenerateReferences);
-            SafeThreadPool.QueueUserWorkItem(o => CitationFinder.FindCitations(web_library_detail));
+            SafeThreadPool.QueueUserWorkItem(() => CitationFinder.FindCitations(web_library_detail));
         }
 
         private void ButtonFindDuplicates_Click(object sender, RoutedEventArgs e)

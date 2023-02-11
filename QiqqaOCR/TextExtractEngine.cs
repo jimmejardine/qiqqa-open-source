@@ -29,8 +29,15 @@ namespace QiqqaOCR
         private static Exception exception_text_extract = null;
         private static object global_vars_access_lock = new object();
 
+        public static bool DEBUG = false;
+
         internal static void MainEntry(string[] args, bool no_kill)
         {
+            thread_text_extract = null;
+            word_lists_text_extract = null;
+            has_exited_text_extract = false;
+            exception_text_extract = null;
+
             // Check that we were given the right number of parameters
             if (args.Length < 6)
             {
@@ -55,7 +62,7 @@ namespace QiqqaOCR
 
             while (true)
             {
-                // --- TEST FOR STARTUP ------------------------------------------------------------------------------------------------------------------------------------------------
+                // --- TEST FOR STARTUP -----------------------------------------------------------------------------------------------------------------------
 
                 // Do we need to start the word list extractor thread?
                 bool must_start_thread;
@@ -81,7 +88,17 @@ namespace QiqqaOCR
                 {
                     if (null != word_lists_text_extract)
                     {
-                        Logging.Info("We have a text extract word list of length {0}", word_lists_text_extract.Count);
+                        int pageCount = word_lists_text_extract.Count;
+                        int[] wordCountPerPage = new int[Math.Max(1, pageCount)];
+
+                        int pg = 0;
+                        foreach(var el in word_lists_text_extract)
+                        {
+                            var wl = el.Value;
+                            wordCountPerPage[pg++] = wl.Count;
+                        }
+
+                        Logging.Info("We have a text extract word list: page count: {0}, word count: {1}", pageCount, pageCount > 0 ? String.Join(",", wordCountPerPage) : "---");
                         break;
                     }
                 }
@@ -154,7 +171,7 @@ namespace QiqqaOCR
         {
             try
             {
-                Dictionary<int, WordList> word_lists = DoOCR(pdf_filename, page_numbers, pdf_user_password);
+                Dictionary<int, WordList> word_lists = DoOCR(pdf_filename, page_numbers, pdf_user_password, DEBUG ? $"{ ocr_output_filename }.dbg" : null);
                 bool word_lists_text_extract_credible = WordListCredibility.Instance.IsACredibleWordList(word_lists);
                 if (word_lists_text_extract_credible)
                 {
@@ -181,14 +198,14 @@ namespace QiqqaOCR
             }
         }
 
-        public static Dictionary<int, WordList> DoOCR(string pdf_filename, string page_numbers, string pdf_user_password)
+        public static Dictionary<int, WordList> DoOCR(string pdf_filename, string page_numbers, string pdf_user_password, string dbg_output_file_template = null)
         {
-            List<MuPDFRenderer.TextChunk> text_chunks = MuPDFRenderer.GetEmbeddedText(pdf_filename, page_numbers, pdf_user_password, ProcessPriorityClass.BelowNormal);
-            Dictionary<int, WordList> word_lists = ConvertToWordList(text_chunks);
+            List<MuPDFRenderer.TextChunk> text_chunks = MuPDFRenderer.GetEmbeddedText(pdf_filename, page_numbers, pdf_user_password, ProcessPriorityClass.BelowNormal, dbg_output_file_template);
+            Dictionary<int, WordList> word_lists = ConvertToWordList(text_chunks, pdf_filename);
             return word_lists;
         }
 
-        private static Dictionary<int, WordList> ConvertToWordList(List<MuPDFRenderer.TextChunk> text_chunks)
+        private static Dictionary<int, WordList> ConvertToWordList(List<MuPDFRenderer.TextChunk> text_chunks, string pdf_filename)
         {
             Dictionary<int, WordList> word_lists = new Dictionary<int, WordList>();
             int current_page = 0;
@@ -207,11 +224,19 @@ namespace QiqqaOCR
                 // Create the new word
                 Word word = new Word();
                 word.Text = text_chunk.text;
+                if (!String.IsNullOrEmpty(text_chunk.post_diagnostic))
+                {
+                    word.Text = word.Text.PadRight(32) + "\t\t\t" + text_chunk.post_diagnostic;
+                }
                 word.Confidence = 1.0;
                 word.Left = text_chunk.x0;
                 word.Top = text_chunk.y0;
                 word.Width = text_chunk.x1 - text_chunk.x0;
                 word.Height = text_chunk.y1 - text_chunk.y0;
+                if (word.Width < MuPDFRenderer.MINIMUM_SANE_WORD_WIDTH || word.Height < MuPDFRenderer.MINIMUM_SANE_WORD_WIDTH)
+                {
+                    throw new Exception(String.Format("OCR file '{0}': format error: zero word width/height @PAGE {1}", pdf_filename, current_page));
+                }
 
                 // And add it to the word list
                 current_word_list.Add(word);

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Common.Configuration;
 using Qiqqa.DocumentLibrary;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.UtilisationTracking;
 using Utilities;
+using Utilities.GUI;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -27,21 +28,30 @@ namespace Qiqqa.Exporting
             if (null == initial_directory) initial_directory = Path.GetDirectoryName(ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder);
             if (null == initial_directory) initial_directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
-            {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select the folder to which you wish to export your entire Qiqqa library.";
-                dialog.DefaultDirectory = initial_directory;
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result == CommonFileDialogResult.Ok)
-                {
-                    // Remember the filename for next time
-                    string base_path = dialog.FileName;
-                    ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder = base_path;
-                    ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder));
+            var dialog = new VistaFolderBrowserDialog();
 
-                    SafeThreadPool.QueueUserWorkItem(o => Export(web_library_detail, pdf_documents, base_path));
-                }
+            dialog.Description = "Please select the folder to which you wish to export your entire Qiqqa library.";
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            string default_folder = initial_directory;
+            if (default_folder != null)
+            {
+                dialog.SelectedPath = default_folder;
+            }
+
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+            {
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
+
+            if ((bool)dialog.ShowDialog())
+            {
+                // Remember the filename for next time
+                string base_path = dialog.SelectedPath;
+                ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder = base_path;
+                ConfigurationManager.Instance.ConfigurationRecord_Bindable.NotifyPropertyChanged(nameof(ConfigurationManager.Instance.ConfigurationRecord.System_LastLibraryExportFolder));
+
+                SafeThreadPool.QueueUserWorkItem(() => Export(web_library_detail, pdf_documents, base_path));
             }
         }
 

@@ -8,7 +8,7 @@ using QiqqaTestHelpers;
 
 // https://www.automatetheplanet.com/mstest-cheat-sheet/
 
-namespace QiqqaUnitTester
+namespace QiqqaUnitTester.Fundamentals
 {
     [TestClass]
     public class AsyncFireAndForget

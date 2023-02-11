@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QiqqaTestHelpers;
 
-namespace QiqqaUnitTester
+namespace QiqqaUnitTester.Fundamentals.Libraries
 {
     [TestClass]
     public class TestJSONDeserializeFromArbitrary

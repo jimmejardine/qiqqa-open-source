@@ -17,6 +17,10 @@ using Utilities.Collections;
 using Utilities.GUI;
 using Utilities.Mathematics;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.LibraryPivotReport
 {
@@ -139,7 +143,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
             string identifier_name = (string)ObjIdentifier.SelectedItem;
 
 #if SYNCFUSION_ANTIQUE
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 MultiMapSet<string, string> map_y_axis = LibraryPivotReportBuilder.GenerateAxisMap(map_y_axis_name, LibraryRef, parent_fingerprints);
                 MultiMapSet<string, string> map_x_axis = LibraryPivotReportBuilder.GenerateAxisMap(map_x_axis_name, LibraryRef, parent_fingerprints);

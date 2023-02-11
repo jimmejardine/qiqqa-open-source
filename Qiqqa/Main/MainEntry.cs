@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -48,7 +49,7 @@ namespace Qiqqa.Main
                 DoPreamble();
                 DoApplicationCreate();
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     //DoUpgrades();  -- delay doing updates until we have had the 'login' dialog where we show and possibly *change* the base directory!
 
@@ -85,6 +86,50 @@ namespace Qiqqa.Main
 
             Thread.CurrentThread.Name = "Main";
 
+            // Check if we're running in "Portable Application" mode:
+#if false
+            {
+                string[] app_paths = new string[] {
+                    Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"x"),
+                    Path.Combine(System.AppContext.BaseDirectory, @"x"),
+                    Process.GetCurrentProcess().MainModule.FileName,
+                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().Location).LocalPath,
+                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath,
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"x"),
+                    Environment.GetCommandLineArgs()[0]
+                };
+
+                foreach (string app_path in app_paths)
+                {
+                    string p = Path.GetFullPath(app_path);
+                    p = Path.GetDirectoryName(p);
+                    p = Path.Combine(p, @"Qiqqa.Portable.Settings.json5");
+                    if (File.Exists(p))
+                    {
+                        Logging.Info(p);
+                    }
+                }
+            }
+#endif
+
+            UserRegistry.DetectPortableApplicationMode();
+
+            {
+                if (UserRegistry.GetPortableApplicationMode())
+                {
+                    // set up defaults when they are absent:
+                    object v = null;
+                    UserRegistry.DeveloperOverridesDB.TryGetValue("BaseDataDirectory", out v);
+                    if (string.IsNullOrEmpty(v as string))
+                    {
+                        UserRegistry.DeveloperOverridesDB.Add("BaseDataDirectory", Path.GetFullPath(Path.Combine(UnitTestDetector.StartupDirectoryForQiqqa, @"../My.Qiqqa.Libraries")));
+                    }
+                }
+            }
+
+            // now also check for a developer override config file in the Basedirectory and add those overrides to the set:
+            RegistrySettings.AugmentDeveloperOverridesDB();
+
             if (RegistrySettings.Instance.IsSet(RegistrySettings.DebugConsole))
             {
                 Console.Instance.Init();
@@ -113,14 +158,14 @@ namespace Qiqqa.Main
 
 #if CEFSHARP
 
-            #region CEFsharp setup
+#region CEFsharp setup
 
             // CEFsharp setup for AnyPC as per https://github.com/cefsharp/CefSharp/issues/1714:
             AppDomain.CurrentDomain.AssemblyResolve += CefResolver;
 
             InitCef();
 
-            #endregion CEFsharp setup
+#endregion CEFsharp setup
 
 #endif
 
@@ -188,10 +233,13 @@ namespace Qiqqa.Main
             application.Startup += Application_Startup;
             application.SessionEnding += Application_SessionEnding;
 
-            // All the exception handling
-            application.DispatcherUnhandledException += application_DispatcherUnhandledException;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            SafeThreadPool.UnhandledException += SafeThreadPool_UnhandledException;
+            // DO NOT set up all the exception handling when we're running in a Developer Environment, i.e. when we were attached to a debugger, such as Visual Studio:
+            if (!Debugger.IsAttached)
+            {
+                application.DispatcherUnhandledException += application_DispatcherUnhandledException;
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+                SafeThreadPool.UnhandledException += SafeThreadPool_UnhandledException;
+            }
 
             Process proc = Process.GetCurrentProcess();
             //     Occurs each time an application writes a line to its redirected System.Diagnostics.Process.StandardOutput/StandardError
@@ -280,6 +328,11 @@ namespace Qiqqa.Main
             // and kick off the Login Dialog to start the application proper:
             WPFDoEvents.InvokeAsyncInUIThread(() => ShowLoginDialog());
 
+#if DEBUG
+            // regression test the error catching the various sync and async handlers...
+            WPFDoEvents.TestAsyncErrorHandling();
+#endif
+
             // NB NB NB NB: You CANT USE ANYTHING IN THE USER CONFIG AT THIS POINT - it is not yet decided until LOGIN has completed...
         }
 
@@ -304,7 +357,7 @@ namespace Qiqqa.Main
 
         private static int log_close_down_counter = 2;  // 2: once at end of main, plus once at (hopefully) end of threadpool queue.
 
-        public static void CloseLogFile(object o)
+        public static void CloseLogFile()
         {
             ComputerStatistics.ReportMemoryStatus($"Status at termination end stage {3 - log_close_down_counter}");
 
@@ -385,6 +438,7 @@ namespace Qiqqa.Main
                 min_rounds--)
             {
                 GC.WaitForPendingFinalizers();
+                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
                 Logging.Info($"-static Heap after forced GC compacting at the end (in the wait-for-all-threads-to-terminate loop): {GC.GetTotalMemory(false)} Bytes, {SafeThreadPool.RunningThreadCount} tasks active, {ComputerStatistics.GetTotalRunningThreadCount()} threads running");
 
@@ -393,7 +447,7 @@ namespace Qiqqa.Main
             }
             Logging.Info($"Last machine state observation before shutting down the log at the very end of the application run: Heap after forced GC compacting: {GC.GetTotalMemory(false)} Bytes, {SafeThreadPool.RunningThreadCount} tasks active, {ComputerStatistics.GetTotalRunningThreadCount()} threads running, {wait_time / 1000} seconds overtime unused (more than zero for this one is good!)");
 
-            CloseLogFile(null);
+            CloseLogFile();
         }
 
         private static void SafeThreadPool_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -431,7 +485,7 @@ namespace Qiqqa.Main
 
             if (!ShutdownableManager.Instance.IsShuttingDown)
             {
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     RemarkOnException_GUI_THREAD(ex, potentially_fatal);
                 }
@@ -446,10 +500,11 @@ namespace Qiqqa.Main
                 Logging.Error(ex, "RemarkOnException_GUI_THREAD...");
 
                 // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     // Collect all generations of memory.
                     GC.WaitForPendingFinalizers();
+                    GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                     GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
                 });
 

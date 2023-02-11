@@ -37,7 +37,10 @@ SetupIconFile={#AppIcon}
 Compression=lzma/Max
 SolidCompression=yes
 SetupLogging=yes
+; see https://jrsoftware.org/ishelp/index.php?topic=setup_privilegesrequired
+PrivilegesRequiredOverridesAllowed=commandline dialog
 PrivilegesRequired=admin
+UsePreviousPrivileges=no
 ; the Windows file version as reported by the Properties of the generated setup.exe:
 VersionInfoVersion={#AppFullVersion}
 
@@ -115,9 +118,9 @@ var
     shouldUninstallPrevious: Boolean;
 begin
     //  check if already running (check all possible running exe's)
-    while (IsAppRunning('{#ExeName}') or IsAppRunning('pdfdraw.exe') or IsAppRunning('QiqqaOCR.exe')) do
+    while (IsAppRunning('{#ExeName}') or IsAppRunning('pdfdraw.exe') or IsAppRunning('mutool.exe') or IsAppRunning('QiqqaOCR.exe')) do
     begin
-        if (MsgBox( '{#AppName} is currently running, please close it and retry.  This can also happen if you have renamed the Qiqqa setup.exe program to "Qiqqa.exe".  Alternatively you can terminate any running processes called "Qiqqa.exe", "QiqqaOCR.exe" or "pdfdraw.exe".', mbError, MB_RETRYCANCEL ) = IDCANCEL) then
+        if (MsgBox( '{#AppName} is currently running, please close it and retry.  This can also happen if you have renamed the Qiqqa setup.exe program to "Qiqqa.exe".  Alternatively you can terminate any running processes called "Qiqqa.exe", "QiqqaOCR.exe", "mutool.exe" or "pdfdraw.exe".', mbError, MB_RETRYCANCEL ) = IDCANCEL) then
         begin
           Result := False;
           Exit;
@@ -266,7 +269,7 @@ begin
   end;
 
   // check if app is running
-  if (IsAppRunningU('{#ExeName}') or IsAppRunningU('pdfdraw.exe') or IsAppRunningU('QiqqaOCR.exe')) then
+  if (IsAppRunningU('{#ExeName}') or IsAppRunningU('pdfdraw.exe') or IsAppRunningU('mutool.exe') or IsAppRunningU('QiqqaOCR.exe')) then
   begin
     MsgBox( '{#AppName} is running, please close it and run uninstall again.', mbError, MB_OK );
     Result := false;

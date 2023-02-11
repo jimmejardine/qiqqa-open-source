@@ -77,9 +77,6 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
             }
             Logging.Debug特("TagExplorerControl: processing {0} documents from library {1}", pdf_documents.Count, web_library_detail.Title);
 
-            // Load all the annotations upfront so we don't have to go to the database for each PDF
-            Dictionary<string, byte[]> library_items_annotations_cache = web_library_detail.Xlibrary.LibraryDB.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
-
             // Build up the map of PDFs associated with each tag
             MultiMapSet<string, string> tags_with_fingerprints = new MultiMapSet<string, string>();
             foreach (PDFDocument pdf_document in pdf_documents)
@@ -163,7 +160,10 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void TagExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
+            WPFDoEvents.SafeExec(() =>
+            {
+                OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
+            });
         }
 
         #region --- Test ------------------------------------------------------------------------

@@ -463,6 +463,9 @@
                                         <local_gui:AugmentedButton x:Name="ButtonClearAutoSuggests" Grid.Column="3">
                                             Clear out all the auto-suggestions for title, author and year
                                         </local_gui:AugmentedButton>
+                                        <local_gui:AugmentedButton x:Name="ButtonRunFolderWatcherNow" Grid.Column="4">
+                                            Run Folder Watcher Now!
+                                        </local_gui:AugmentedButton>
                                     </Grid>
                                 </StackPanel>
                             </StackPanel>
@@ -607,7 +610,7 @@
                                 Margin="0,15,0,0"
                                 FontSize="15"
                                 IsEnabled="False">
-                                Save the list of discovered, i.e. &quot;known&quot;, Libraries As collected at Application Start
+                                Save the list of discovered, i.e. &quot;known&quot;, Libraries as collected at Application Start
                             </CheckBox>
                             <TextBlock
                                 FontSize="10"

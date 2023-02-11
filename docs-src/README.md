@@ -1,45 +1,13 @@
-# Qiqqa
+# Documentation (Source Directory)
 
-You can [[The Qiqqa Manual|read the manual by clicking here]].
+This one contains the collection of documentation for Qiqqa and related tools and materials.
 
+It includes:
 
-::: warning
-
-# NOTE / Caveat Emptor
-
-This website is still in its infancy / under construction. The manual is *old* (it dates back to 2016) and the other content is currently quite, ahh, haphazard.
-
-We're working on it to improve this state of affairs...
-
-:::
-
-
-# Table of contents
-
-<:GlobalTableOfContents />
-
-
-# Pages...
-
-- [[The Qiqqa Manual]]
-  - [[The Qiqqa Manual reference]]
-- FAQ
-  - [[Software Releases - Where To Get Them?]]
-  - [[How to locate your Qiqqa Base Directory]]
-- [[Roadmap]]
-- Technical Info / Developer Info
-  + [[Contributing :: What Can You Do To Help]]
-  + [[Human Communications :: Where Goes What]]
-  + Qiqqa Internals
-    + [[Configuration Overrides for Developers and Testers]]
-    + [[Extracting the text from PDF documents]]
-    + [[Processing PDF documents' text and the impact on UI+UX]]
-  + Progress in Development
-    + [[Notes From The Trenches - Odd, Odder, Oddest, ...PDF!]]
-    + [[Towards Migrating the PDF Viewer + Renderer (+ Text Extractor)]]
-    + Considering the Way Forward
-      + [[Essential yet hard(er) to port UI features]] 
-      + [[Full-Text Search Engines]]
-      + [[Qiqqa library storage, database, DropBox (and *frenemies*), backups and backwards compatibility]]
-  + [[!dummy|*irreverent test for the deGaulle site generator*]]
-
+- The Qiqqa User Manuals
+- Both [**the old one from back in the Commercial Qiqqa days**](<./The Official Manual (v79 Old Commercial)/>)
+- And [**the new Open Source Qiqqa Manual** (under development)](<./The Official Manual (v80-89 Open Source)/>)
+- [The (**old**) getsatisfaction forum 'mirror' (or rather: partial recovery)](./getsatisfaction-mirror/), which contains additional information and user discussions from older days. Still some very useful stuff in there, so we keep it around.^[The getsatisfaction forum site is another example of sites disappearing after parent company buyout, alas. No backups or official recovery were provided.]
+- [The Qiqqa FAQ and other Qiqqa user & developer articles & notes](./Notes/), currently managed through [Obsidian](https://obsidian.md/).
+- Site design work, scripting and miscellaneaous...
+- 

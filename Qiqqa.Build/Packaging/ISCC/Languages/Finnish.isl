@@ -1,9 +1,8 @@
-; *** Inno Setup version 5.1.11+ Finnish messages ***
+; *** Inno Setup version 6.1.0+ Finnish messages ***
 ;
 ; Finnish translation by Antti Karttunen
-; E-mail: antti.karttunen@joensuu.fi
-; Translation home page: http://cc.joensuu.fi/~ankarttu/innosetup/
-; Last modification date: 2008-04-23
+; E-mail: antti.j.karttunen@iki.fi
+; Last modification date: 2020-08-02
 
 [LangOptions]
 LanguageName=Suomi
@@ -33,16 +32,29 @@ LastErrorMessage=%1.%n%nVirhe %2: %3
 SetupFileMissing=Tiedostoa %1 ei löydy asennushakemistosta. Korjaa ongelma tai hanki uusi kopio ohjelmasta.
 SetupFileCorrupt=Asennustiedostot ovat vaurioituneet. Hanki uusi kopio ohjelmasta.
 SetupFileCorruptOrWrongVer=Asennustiedostot ovat vaurioituneet tai ovat epäyhteensopivia tämän Asennuksen version kanssa. Korjaa ongelma tai hanki uusi kopio ohjelmasta.
+InvalidParameter=Virheellinen komentoriviparametri:%n%n%1
+SetupAlreadyRunning=Asennus on jo käynnissä.
+WindowsVersionNotSupported=Tämä ohjelma ei tue käytössä olevaa Windowsin versiota.
+WindowsServicePackRequired=Tämä ohjelma vaatii %1 Service Pack %2 -päivityksen tai myöhemmän.
 NotOnThisPlatform=Tämä ohjelma ei toimi %1-käyttöjärjestelmässä.
 OnlyOnThisPlatform=Tämä ohjelma toimii vain %1-käyttöjärjestelmässä.
 OnlyOnTheseArchitectures=Tämä ohjelma voidaan asentaa vain niihin Windowsin versioihin, jotka on suunniteltu seuraaville prosessorityypeille:%n%n%1
-MissingWOW64APIs=Tämä Windowsin versio ei sisällä ominaisuuksia, joita Asennus tarvitsee suorittaakseen 64-bittisen asennuksen. Korjaa ongelma asentamalla Service Pack %1.
 WinVersionTooLowError=Tämä ohjelma vaatii version %2 tai myöhemmän %1-käyttöjärjestelmästä.
 WinVersionTooHighError=Tätä ohjelmaa ei voi asentaa %1-käyttöjärjestelmän versioon %2 tai myöhempään.
 AdminPrivilegesRequired=Sinun täytyy kirjautua sisään järjestelmänvalvojana asentaaksesi tämän ohjelman.
 PowerUserPrivilegesRequired=Sinun täytyy kirjautua sisään järjestelmänvalvojana tai tehokäyttäjänä asentaaksesi tämän ohjelman.
 SetupAppRunningError=Asennus löysi käynnissä olevan kopion ohjelmasta %1.%n%nSulje kaikki käynnissä olevat kopiot ohjelmasta ja valitse OK jatkaaksesi, tai valitse Peruuta poistuaksesi.
 UninstallAppRunningError=Asennuksen poisto löysi käynnissä olevan kopion ohjelmasta %1.%n%nSulje kaikki käynnissä olevat kopiot ohjelmasta ja valitse OK jatkaaksesi, tai valitse Peruuta poistuaksesi.
+
+; *** Startup questions
+PrivilegesRequiredOverrideTitle=Valitse asennustapa
+PrivilegesRequiredOverrideInstruction=Valitse, kenen käyttöön ohjelma asennetaan
+PrivilegesRequiredOverrideText1=%1 voidaan asentaa kaikille käyttäjille (vaatii järjestelmänvalvojan oikeudet) tai vain sinun käyttöösi.
+PrivilegesRequiredOverrideText2=%1 voidaan asentaa vain sinun käyttöösi tai kaikille käyttäjille (vaatii järjestelmänvalvojan oikeudet).
+PrivilegesRequiredOverrideAllUsers=Asenna &kaikille käyttäjille
+PrivilegesRequiredOverrideAllUsersRecommended=Asenna &kaikille käyttäjille (suositus)
+PrivilegesRequiredOverrideCurrentUser=Asenna vain &minun käyttööni
+PrivilegesRequiredOverrideCurrentUserRecommended=Asenna vain &minun käyttööni (suositus)
 
 ; *** Misc. errors
 ErrorCreatingDir=Asennus ei voinut luoda hakemistoa "%1"
@@ -55,7 +67,7 @@ AboutSetupMenuItem=&Tietoja Asennuksesta...
 AboutSetupTitle=Tietoja Asennuksesta
 AboutSetupMessage=%1 versio %2%n%3%n%n%1 -ohjelman kotisivu:%n%4
 AboutSetupNote=
-TranslatorNote=Suomenkielinen käännös: Antti Karttunen (antti.karttunen@joensuu.fi)
+TranslatorNote=Suomenkielinen käännös: Antti Karttunen (antti.j.karttunen@iki.fi)
 
 ; *** Buttons
 ButtonBack=< &Takaisin
@@ -74,7 +86,7 @@ ButtonNewFolder=&Luo uusi kansio
 
 ; *** "Select Language" dialog messages
 SelectLanguageTitle=Valitse Asennuksen kieli
-SelectLanguageLabel=Valitse asentamisen aikana käytettävä kieli:
+SelectLanguageLabel=Valitse asentamisen aikana käytettävä kieli.
 
 ; *** Common wizard text
 ClickNext=Valitse Seuraava jatkaaksesi tai Peruuta poistuaksesi.
@@ -122,8 +134,10 @@ WizardSelectDir=Valitse kohdekansio
 SelectDirDesc=Mihin [name] asennetaan?
 SelectDirLabel3=[name] asennetaan tähän kansioon.
 SelectDirBrowseLabel=Valitse Seuraava jatkaaksesi. Jos haluat vaihtaa kansiota, valitse Selaa.
+DiskSpaceGBLabel=Vapaata levytilaa tarvitaan vähintään [gb] Gt.
 DiskSpaceMBLabel=Vapaata levytilaa tarvitaan vähintään [mb] Mt.
-ToUNCPathname=Asennus ei osaa käyttää UNC-polunnimiä. Jos haluat asentaa ohjelman verkkolevylle, yhdistä verkkoasema ensin levyasematunnukseen.
+CannotInstallToNetworkDrive=Asennus ei voi asentaa ohjelmaa verkkoasemalle.
+CannotInstallToUNCPath=Asennus ei voi asentaa ohjelmaa UNC-polun alle.
 InvalidPath=Anna täydellinen polku levyaseman kirjaimen kanssa. Esimerkiksi %nC:\OHJELMA%n%ntai UNC-polku muodossa %n%n\\palvelin\resurssi
 InvalidDrive=Valitsemaasi asemaa tai UNC-polkua ei ole olemassa tai sitä ei voi käyttää. Valitse toinen asema tai UNC-polku.
 DiskSpaceWarningTitle=Ei tarpeeksi vapaata levytilaa
@@ -147,6 +161,7 @@ NoUninstallWarningTitle=Asennettuja osia löydettiin
 NoUninstallWarning=Seuraavat osat on jo asennettu koneelle:%n%n%1%n%nNäiden osien valinnan poistaminen ei poista niitä koneelta.%n%nHaluatko jatkaa tästä huolimatta?
 ComponentSize1=%1 kt
 ComponentSize2=%1 Mt
+ComponentsDiskSpaceGBLabel=Nykyiset valinnat vaativat vähintään [gb] Gt levytilaa.
 ComponentsDiskSpaceMBLabel=Nykyiset valinnat vaativat vähintään [mb] Mt levytilaa.
 
 ; *** "Select Additional Tasks" wizard page
@@ -177,11 +192,29 @@ ReadyMemoComponents=Asennettavaksi valitut osat:
 ReadyMemoGroup=Käynnistä-valikon kansio:
 ReadyMemoTasks=Muut toiminnot:
 
+; *** TDownloadWizardPage wizard page and DownloadTemporaryFile
+DownloadingLabel=Ladataan tarvittavia tiedostoja...
+ButtonStopDownload=&Pysäytä lataus
+StopDownload=Oletko varma, että haluat pysäyttää tiedostojen latauksen?
+ErrorDownloadAborted=Tiedostojen lataaminen keskeytettiin
+ErrorDownloadFailed=Tiedoston lataaminen epäonnistui: %1 %2
+ErrorDownloadSizeFailed=Latauksen koon noutaminen epäonnistui: %1 %2
+ErrorFileHash1=Tiedoston tiivisteen luominen epäonnistui: %1
+ErrorFileHash2=Tiedoston tiiviste on virheellinen: odotettu %1, löydetty %2
+ErrorProgress=Virheellinen edistyminen: %1 / %2
+ErrorFileSize=Virheellinen tiedoston koko: odotettu %1, löydetty %2
+
 ; *** "Preparing to Install" wizard page
 WizardPreparing=Valmistellaan asennusta
 PreparingDesc=Valmistaudutaan asentamaan [name] koneellesi.
 PreviousInstallNotCompleted=Edellisen ohjelman asennus tai asennuksen poisto ei ole valmis. Sinun täytyy käynnistää kone uudelleen viimeistelläksesi edellisen asennuksen.%n%nAja [name] -asennusohjelma uudestaan, kun olet käynnistänyt koneen uudelleen.
 CannotContinue=Asennusta ei voida jatkaa. Valitse Peruuta poistuaksesi.
+ApplicationsFound=Seuraavat sovellukset käyttävät tiedostoja, joita Asennuksen pitää päivittää. On suositeltavaa, että annat Asennuksen sulkea nämä sovellukset automaattisesti.
+ApplicationsFound2=Seuraavat sovellukset käyttävät tiedostoja, joita Asennuksen pitää päivittää. On suositeltavaa, että annat Asennuksen sulkea nämä sovellukset automaattisesti. Valmistumisen jälkeen Asennus yrittää uudelleenkäynnistää sovellukset.
+CloseApplications=&Sulje sovellukset automaattisesti
+DontCloseApplications=&Älä sulje sovelluksia
+ErrorCloseApplications=Asennus ei pystynyt sulkemaan tarvittavia sovelluksia automaattisesti. On suositeltavaa, että ennen jatkamista suljet sovellukset, jotka käyttävät asennuksen aikana päivitettäviä tiedostoja.
+PrepareToInstallNeedsRestart=Asennuksen täytyy käynnistää tietokone uudelleen. Aja Asennus uudelleenkäynnistyksen jälkeen, jotta [name] voidaan asentaa.%n%nHaluatko käynnistää tietokoneen uudelleen nyt?
 
 ; *** "Installing" wizard page
 WizardInstalling=Asennus käynnissä
@@ -209,9 +242,13 @@ SelectDirectoryLabel=Määritä seuraavan levykkeen sisällön sijainti.
 
 ; *** Installation phase messages
 SetupAborted=Asennusta ei suoritettu loppuun.%n%nKorjaa ongelma ja suorita Asennus uudelleen.
-EntryAbortRetryIgnore=Valitse Uudelleen yrittääksesi uudelleen, Ohita jatkaaksesi kaikesta huolimatta tai Hylkää peruuttaaksesi asennuksen.
+AbortRetryIgnoreSelectAction=Valitse toiminto
+AbortRetryIgnoreRetry=&Yritä uudelleen
+AbortRetryIgnoreIgnore=&Jatka virheestä huolimatta
+AbortRetryIgnoreCancel=Peruuta asennus
 
 ; *** Installation status messages
+StatusClosingApplications=Suljetaan sovellukset...
 StatusCreateDirs=Luodaan hakemistoja...
 StatusExtractFiles=Puretaan tiedostoja...
 StatusCreateIcons=Luodaan pikakuvakkeita...
@@ -220,6 +257,7 @@ StatusCreateRegistryEntries=Luodaan rekisterimerkintöjä...
 StatusRegisterFiles=Rekisteröidään tiedostoja...
 StatusSavingUninstall=Tallennetaan Asennuksen poiston tietoja...
 StatusRunProgram=Viimeistellään asennusta...
+StatusRestartingApplications=Uudelleenkäynnistetään sovellukset...
 StatusRollback=Peruutetaan tehdyt muutokset...
 
 ; *** Misc. errors
@@ -228,6 +266,10 @@ ErrorFunctionFailedNoCode=%1 epäonnistui
 ErrorFunctionFailed=%1 epäonnistui; virhekoodi %2
 ErrorFunctionFailedWithMessage=%1 epäonnistui; virhekoodi %2.%n%3
 ErrorExecutingProgram=Virhe suoritettaessa tiedostoa%n%1
+
+; *** Shutdown block reasons
+ShutdownBlockReasonInstallingApp=Asennetaan %1.
+ShutdownBlockReasonUninstallingApp=Poistetaan %1.
 
 ; *** Registry errors
 ErrorRegOpenKey=Virhe avattaessa rekisteriavainta%n%1\%2
@@ -238,14 +280,24 @@ ErrorRegWriteKey=Virhe kirjoitettaessa rekisteriavaimeen%n%1\%2
 ErrorIniEntry=Virhe luotaessa INI-merkintää tiedostoon "%1".
 
 ; *** File copying errors
-FileAbortRetryIgnore=Valitse Uudelleen yrittääksesi uudelleen, Ohita ohittaaksesi tämän tiedoston (ei suositeltavaa) tai Hylkää peruuttaaksesi asennuksen.
-FileAbortRetryIgnore2=Valitse Uudelleen yrittääksesi uudelleen, Ohita jatkaaksesi kaikesta huolimatta (ei suositeltavaa) tai Hylkää peruuttaaksesi asennuksen.
+FileAbortRetryIgnoreSkipNotRecommended=&Ohita tämä tiedosto (ei suositeltavaa)
+FileAbortRetryIgnoreIgnoreNotRecommended=&Jatka virheestä huolimatta (ei suositeltavaa)
 SourceIsCorrupted=Lähdetiedosto on vaurioitunut
 SourceDoesntExist=Lähdetiedostoa "%1" ei ole olemassa
-ExistingFileReadOnly=Nykyinen tiedosto on Vain luku -tiedosto.%n%nValitse Uudelleen poistaaksesi Vain luku -määritteen uudelleenyritystä varten, Ohita ohittaaksesi tämän tiedoston tai Hylkää peruuttaaksesi asennuksen.
+ExistingFileReadOnly2=Nykyistä tiedostoa ei voitu korvata, koska se on Vain luku -tiedosto.
+ExistingFileReadOnlyRetry=&Poista Vain luku -asetus ja yritä uudelleen
+ExistingFileReadOnlyKeepExisting=&Säilytä nykyinen tiedosto
 ErrorReadingExistingDest=Virhe luettaessa nykyistä tiedostoa:
-FileExists=Tiedosto on jo olemassa.%n%nKorvataanko se?
-ExistingFileNewer=Nykyinen tiedosto on uudempi kuin asennettava tiedosto. Nykyisen tiedoston säilyttäminen on suositeltavaa.n%nHaluatko säilyttää nykyisen tiedoston?
+FileExistsSelectAction=Valitse toiminto
+FileExists2=Tiedosto on jo olemassa.
+FileExistsOverwriteExisting=Korvaa &olemassa oleva tiedosto
+FileExistsKeepExisting=&Säilytä olemassa oleva tiedosto
+FileExistsOverwriteOrKeepAll=&Hoida muut vastaavat tilanteet samalla tavalla
+ExistingFileNewerSelectAction=Valitse toiminto
+ExistingFileNewer2=Olemassa oleva tiedosto on uudempi kuin Asennuksen sisältämä tiedosto.
+ExistingFileNewerOverwriteExisting=Korvaa &olemassa oleva tiedosto
+ExistingFileNewerKeepExisting=&Säilytä olemassa oleva tiedosto (suositeltavaa)
+ExistingFileNewerOverwriteOrKeepAll=&Hoida muut vastaavat tilanteet samalla tavalla
 ErrorChangingAttr=Virhe vaihdettaessa nykyisen tiedoston määritteitä:
 ErrorCreatingTemp=Virhe luotaessa tiedostoa kohdehakemistoon:
 ErrorReadingSource=Virhe luettaessa lähdetiedostoa:
@@ -256,6 +308,14 @@ ErrorRenamingTemp=Virhe uudelleennimettäessä tiedostoa kohdehakemistossa:
 ErrorRegisterServer=DLL/OCX -laajennuksen rekisteröinti epäonnistui: %1
 ErrorRegSvr32Failed=RegSvr32-toiminto epäonnistui. Virhekoodi: %1
 ErrorRegisterTypeLib=Tyyppikirjaston rekisteröiminen epäonnistui: %1
+
+; *** Uninstall display name markings
+UninstallDisplayNameMark=%1 (%2)
+UninstallDisplayNameMarks=%1 (%2, %3)
+UninstallDisplayNameMark32Bit=32-bittinen
+UninstallDisplayNameMark64Bit=64-bittinen
+UninstallDisplayNameMarkAllUsers=Kaikki käyttäjät
+UninstallDisplayNameMarkCurrentUser=Tämänhetkinen käyttäjä
 
 ; *** Post-installation errors
 ErrorOpeningReadme=Virhe avattaessa LUEMINUT-tiedostoa.
@@ -294,3 +354,6 @@ UninstallProgram=Poista %1
 LaunchProgram=&Käynnistä %1
 AssocFileExtension=&Yhdistä %1 tiedostopäätteeseen %2
 AssocingFileExtension=Yhdistetään %1 tiedostopäätteeseen %2 ...
+AutoStartProgramGroupDescription=Käynnistys:
+AutoStartProgram=Käynnistä %1 automaattisesti
+AddonHostProgramNotFound=%1 ei ole valitsemassasi kansiossa.%n%nHaluatko jatkaa tästä huolimatta?

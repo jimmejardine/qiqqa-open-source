@@ -53,11 +53,17 @@ namespace Qiqqa.DocumentLibrary.TagExplorerStuff
 
         private void CalcTextFieldWidthCb(object sender, RoutedEventArgs e)
         {
-            RecalcTextFieldWidth();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RecalcTextFieldWidth();
+            });
         }
         private void RecalcTextFieldWidthCb(object sender, SizeChangedEventArgs e)
         {
-            RecalcTextFieldWidth();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RecalcTextFieldWidth();
+            });
         }
 
         private void RecalcTextFieldWidth()

@@ -206,7 +206,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         {
             // TODO: REMOVE AFTER TESTING
             Library library = WebLibraryManager.Instance.Library_Guest;
-            while (!library.LibraryIsLoaded)
+            while (!WebLibraryDetail.LibraryIsLoaded(library))
             {
                 Thread.Sleep(100);
             }
@@ -224,7 +224,7 @@ namespace Qiqqa.DocumentLibrary.LibraryPivotReport
         public static void Test2()
         {
             Library library = WebLibraryManager.Instance.Library_Guest;
-            while (!library.LibraryIsLoaded)
+            while (!WebLibraryDetail.LibraryIsLoaded(library))
             {
                 Thread.Sleep(100);
             }

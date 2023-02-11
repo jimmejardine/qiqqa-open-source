@@ -81,9 +81,12 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
 
         private void MultipleDocumentsSelectedPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (null == SelectedPDFDocuments) return;
+            WPFDoEvents.SafeExec(() =>
+            {
+                if (null == SelectedPDFDocuments) return;
 
-            TxtNumDocuments.Text = Convert.ToString(SelectedPDFDocuments.Count);
+                TxtNumDocuments.Text = Convert.ToString(SelectedPDFDocuments.Count);
+            });
         }
 
         // ---------------------------------------------------------------------------------------------------
@@ -175,6 +178,10 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
             public string Rating { get; set; }
             public bool? IsFavourite { get; set; }
             public Color Color { get; set; }
+
+            public DateTime? DateLastRead { get; set; }
+            public DateTime? DateLastCited { get; set; }
+            public DateTime? DateAddedToDatabase { get; set; }
         }
 
         private ReviewStub review_stub = null;
@@ -224,6 +231,23 @@ namespace Qiqqa.DocumentLibrary.LibraryCatalog
                     pdf_document.Color = review_stub.Color;
                     pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.Color));
                 }
+#if false
+                if (review_stub.DateAddedToDatabase != null)
+                {
+                    pdf_document.DateAddedToDatabase = review_stub.DateAddedToDatabase.Value;
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.DateAddedToDatabase));
+                }
+                if (review_stub.DateLastCited != null)
+                {
+                    pdf_document.DateLastCited = review_stub.DateLastCited.Value;
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.DateLastCited));
+                }
+                if (review_stub.DateLastRead != null)
+                {
+                    pdf_document.DateLastRead = review_stub.DateLastRead.Value;
+                    pdf_document.Bindable.NotifyPropertyChanged(nameof(pdf_document.DateLastRead));
+                }
+#endif
             }
         }
 

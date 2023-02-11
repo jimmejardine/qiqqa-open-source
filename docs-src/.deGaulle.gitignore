@@ -1,0 +1,16 @@
+# ...
+# 
+_meta/
+
+# deGaulle config & helper files
+docs-src.js
+dummy.md.include
+
+
+# build files
+*.vcxproj*
+site-builder\.*
+Makefile
+
+# review feedback files
+The Official Manual (v80-89 Open Source)/audio-review/

@@ -10,7 +10,9 @@ namespace Qiqqa.Documents.PDF.CitationManagerStuff
 {
     public class PDFDocumentCitationManager
     {
+        // TODO: make this a WeakReference, or better yet: get rid of it entirely!
         private PDFDocument pdf_document;
+
         private object citations_lock = new object();
         private List<Citation> _citations = null;
 

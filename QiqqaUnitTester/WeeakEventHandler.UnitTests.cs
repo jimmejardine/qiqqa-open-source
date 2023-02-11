@@ -5,7 +5,7 @@ using Utilities.Misc;
 
 // https://www.automatetheplanet.com/mstest-cheat-sheet/
 
-namespace QiqqaUnitTester.B
+namespace QiqqaUnitTester.Fundamentals.A
 {
     using Wrapper = WeakEventHandler;
     using IdWrapper = WeakEventHandler<RaisedIdEventArgs>;

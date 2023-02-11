@@ -135,17 +135,20 @@ namespace Utilities.GUI
 
         private void LensPanelLoaded(object sender, RoutedEventArgs e)
         {
-            if (Children == null || Children.Count == 0)
-                return;
-
-            foreach (UIElement child in Children)
+            WPFDoEvents.SafeExec(() =>
             {
-                _elementWidth += child.DesiredSize.Width;
-            }
+                if (Children == null || Children.Count == 0)
+                    return;
 
-            _elementWidth /= Children.Count;
+                foreach (UIElement child in Children)
+                {
+                    _elementWidth += child.DesiredSize.Width;
+                }
 
-            InvalidateArrange();
+                _elementWidth /= Children.Count;
+
+                InvalidateArrange();
+            });
         }
 
         private void LensPanelMouseMove(object sender, MouseEventArgs e)

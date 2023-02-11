@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +19,10 @@ using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.DocumentLibrary.LibraryCatalog
 {
@@ -227,7 +230,7 @@ SourceURL: {0}
             popup.Close();
 
 #if SYNCFUSION_ANTIQUE
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 int imported_count = 0;
 
@@ -259,7 +262,7 @@ SourceURL: {0}
             popup.Close();
 
 #if SYNCFUSION_ANTIQUE
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 FeatureTrackingManager.Instance.UseFeature(Features.Library_ForgetLegacyAnnotations);
                 foreach (var pdf_document in pdf_documents)
@@ -298,13 +301,13 @@ SourceURL: {0}
                 "language", language
                 );
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 foreach (var pdf_document in pdf_documents)
                 {
                     if (pdf_document.DocumentExists)
                     {
-                        pdf_document.PDFRenderer.ForceOCRText(language);
+                        pdf_document.ForceOCRText(language);
                     }
                 }
             });
@@ -316,11 +319,11 @@ SourceURL: {0}
 
             FeatureTrackingManager.Instance.UseFeature(Features.Library_ClearOCR);
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 foreach (var pdf_document in pdf_documents)
                 {
-                    pdf_document.PDFRenderer.ClearOCRText();
+                    pdf_document.ClearOCRText();
                 }
             });
         }
@@ -429,7 +432,7 @@ SourceURL: {0}
             // Copying / Moving PDFDocuments takes a while, particularly if it's a large set.
             //
             // Hence this WORK should be executed by a background task.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 FeatureTrackingManager.Instance.UseFeature(feature);
 

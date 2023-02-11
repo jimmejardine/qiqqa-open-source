@@ -31,7 +31,7 @@ namespace Qiqqa.InCite
 
         public void Refresh(WebLibraryDetail web_library_detail)
         {
-            SafeThreadPool.QueueUserWorkItem(o => Refresh_BACKGROUND(web_library_detail));
+            SafeThreadPool.QueueUserWorkItem(() => Refresh_BACKGROUND(web_library_detail));
         }
 
         private class UsedCitation
@@ -139,7 +139,6 @@ namespace Qiqqa.InCite
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 Logging.Error(ex, "Error locating used citation.");

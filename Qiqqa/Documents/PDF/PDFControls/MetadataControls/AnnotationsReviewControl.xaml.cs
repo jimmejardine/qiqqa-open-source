@@ -45,7 +45,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
             PDFDocument pdf_document = (PDFDocument)ObjTooManyAnnotationsButton.Tag;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 PopulateWithAnnotationReport(pdf_document);
             });
@@ -62,12 +62,18 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
 
         private void ObjRefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            Rebuild();
+            WPFDoEvents.SafeExec(() =>
+            {
+                Rebuild();
+            });
         }
 
         private void AnnotationsReviewControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Rebuild();
+            WPFDoEvents.SafeExec(() =>
+            {
+                Rebuild();
+            });
         }
 
         private void Rebuild()
@@ -82,7 +88,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.MetadataControls
             {
                 PDFDocument pdf_document = pdf_document_bindable.Underlying;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     // TODO: [GHo] what are these 'heuristic' conditions good for?!?!
                     if (pdf_document.GetAnnotations().Count > 50 || pdf_document.Highlights.Count > 1000)

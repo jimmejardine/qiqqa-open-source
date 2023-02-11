@@ -1,36 +1,46 @@
 ﻿using Utilities.GUI;
 
+#if !HAS_MUPDF_PAGE_RENDERER
 namespace Utilities.PDF.Sorax
 {
     public class SoraxPDFRenderer
     {
-        private string pdf_filename;
-        private string pdf_user_password;
-        private string pdf_owner_password;
-
-        public SoraxPDFRenderer(string pdf_filename, string pdf_user_password, string pdf_owner_password)
-        {
-            this.pdf_filename = pdf_filename;
-            this.pdf_user_password = pdf_user_password;
-            this.pdf_owner_password = pdf_owner_password;
-        }
+        static private SoraxPDFRendererCache cache = new SoraxPDFRendererCache();
 
         // ------------------------------------------------------------------------------------------------------------------------
 
-        public byte[] GetPageByHeightAsImage(int page, int height, int width)
+        static public byte[] GetPageByHeightAsImage(string filename, string pdf_user_password, int page, double height)
         {
-            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
-
-            // TODO: check if we have a higher size image cached already: use that one instead of bothering the PDF renderer again
-            byte[] bitmap = SoraxPDFRendererDLLWrapper.GetPageByHeightAsImage(pdf_filename, pdf_owner_password, pdf_user_password, page, height, width);
-
-            return bitmap;
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (cache)
+            {
+                // l1_clk.LockPerfTimerStop();
+                byte[] bitmap = cache.Get(filename, page, height);
+                if (null == bitmap)
+                {
+                    bitmap = SoraxPDFRendererDLLWrapper.GetPageByHeightAsImage(filename, pdf_user_password, pdf_user_password, page, height);
+                    cache.Put(filename, page, height, bitmap);
+                }
+                return bitmap;
+            }
         }
 
-        public byte[] GetPageByDPIAsImage(int page, int dpi)
+#if false
+        static public byte[] GetPageByDPIAsImage(string filename, string pdf_user_password, int page, float dpi)
         {
-            // TODO: check if we have a higher size image cached already: use that one instead of bothering the PDF renderer again
-            return SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage(pdf_filename, pdf_owner_password, pdf_user_password, page, dpi);
+            return SoraxPDFRendererDLLWrapper.GetPageByDPIAsImage(filename, pdf_user_password, pdf_user_password, page, dpi);
+        }
+#endif
+
+        static public void Flush()
+        {
+            // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+            lock (cache)
+            {
+                // l1_clk.LockPerfTimerStop();
+                cache.Flush();
+            }
         }
     }
 }
+#endif

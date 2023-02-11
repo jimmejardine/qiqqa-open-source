@@ -1,29 +1,25 @@
-; -- ISPPExample1.iss --
-;
-; This script shows various basic things you can achieve using Inno Setup Preprocessor (ISPP) by Alex Yackimoff.
-; To enable commented #define's, either remove the ';' or use ISPPCC with the /D switch.
-;
-; To download and install ISPP, get the Inno Setup QuickStart Pack from http://www.jrsoftware.org/isdl.php#qsp
-
-#pragma option -v+
+// -- ISPPExample1.iss --
+//
+// This script shows various basic things you can achieve using Inno Setup Preprocessor (ISPP).
+// To enable commented #define's, either remove the '//' or use ISCC with the /D switch.
+//
 #pragma verboselevel 9
-
-#define Debug
-
-;#define AppEnterprise
-
+//
+//#define AppEnterprise
+//
 #ifdef AppEnterprise
   #define AppName "My Program Enterprise Edition"
 #else
   #define AppName "My Program"
 #endif
-
-#define AppVersion GetFileVersion(AddBackslash(SourcePath) + "MyProg.exe")
-
+//
+#define AppVersion GetVersionNumbersString(AddBackslash(SourcePath) + "MyProg.exe")
+//
 [Setup]
 AppName={#AppName}
 AppVersion={#AppVersion}
-DefaultDirName={pf}\{#AppName}
+WizardStyle=modern
+DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
 UninstallDisplayIcon={app}\MyProg.exe
 LicenseFile={#file AddBackslash(SourcePath) + "ISPPExample1License.txt"}
@@ -40,7 +36,3 @@ Source: "Readme.txt"; DestDir: "{app}"; \
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\MyProg.exe"
-
-#ifdef Debug
-  #expr SaveToFile(AddBackslash(SourcePath) + "Preprocessed.iss")
-#endif

@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using icons;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.Page.Tools;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -12,6 +14,10 @@ using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
 using Utilities.OCR;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 {
@@ -55,39 +61,43 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
         private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
-            FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
-
-            double width_page = Math.Abs(mouse_up_point.X - mouse_down_point.X);
-            double height_page = Math.Abs(mouse_up_point.Y - mouse_down_point.Y);
-            if (3 <= width_page && 3 <= height_page)
+            WPFDoEvents.SafeExec(() =>
             {
-                DocPageInfo page_info = new DocPageInfo{
-                    pdf_document = @pdf_document,
-                    page = @page,
-                    ActualHeight = @ActualHeight,
-                    ActualWidth = @ActualWidth
-                };
+                FeatureTrackingManager.Instance.UseFeature(Features.Document_Camera);
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                double width_page = Math.Abs(mouse_up_point.X - mouse_down_point.X);
+                double height_page = Math.Abs(mouse_up_point.Y - mouse_down_point.Y);
+                if (3 <= width_page && 3 <= height_page)
                 {
-                    // GetSnappedImage() invokes the background renderer, hence run it in a background thread itself:
-                    BitmapSource image = GetSnappedImage(page_info, mouse_up_point, mouse_down_point);
-                    List<Word> words = GetSnappedWords(page_info, mouse_up_point, mouse_down_point);
-                    string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
-                    string tabled_text = SelectedWordsToFormattedTextConvertor.ConvertToTable(words);
-
-                    WPFDoEvents.InvokeAsyncInUIThread(() =>
+                    DocPageInfo page_info = new DocPageInfo
                     {
-                        CameraActionChooserDialog cacd = new CameraActionChooserDialog();
-                        cacd.SetLovelyDetails(image, raw_text, tabled_text);
-                        cacd.ShowDialog();
+                        pdf_document = @pdf_document,
+                        page = @page,
+                        ActualHeight = @ActualHeight,
+                        ActualWidth = @ActualWidth
+                    };
+
+                    SafeThreadPool.QueueUserWorkItem(() =>
+                    {
+                        // GetSnappedImage() invokes the background renderer, hence run it in a background thread itself:
+                        BitmapSource image = GetSnappedImage(page_info, mouse_up_point, mouse_down_point);
+                        List<Word> words = GetSnappedWords(page_info, mouse_up_point, mouse_down_point);
+                        string raw_text = SelectedWordsToFormattedTextConvertor.ConvertToParagraph(words);
+                        string tabled_text = SelectedWordsToFormattedTextConvertor.ConvertToTable(words);
+
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        {
+                            CameraActionChooserDialog cacd = new CameraActionChooserDialog();
+                            cacd.SetLovelyDetails(image, raw_text, tabled_text);
+                            cacd.ShowDialog();
+                        });
                     });
-                });
-            }
-            else
-            {
-                Logging.Info("Region too small to screen grab");
-            }
+                }
+                else
+                {
+                    Logging.Info("Region too small to screen grab");
+                }
+            });
         }
 
         private class DocPageInfo
@@ -109,7 +119,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             List<Word> words_in_selection = new List<Word>();
 
-            WordList word_list = page_info.pdf_document.PDFRenderer.GetOCRText(page_info.page);
+            WordList word_list = page_info.pdf_document.GetOCRText(page_info.page);
             if (null != word_list)
             {
                 foreach (var word in word_list)
@@ -130,7 +140,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Camera
 
             BitmapSource cropped_image_page = null;
 
-            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.PDFRenderer.GetPageByDPIAsImage(page_info.page, 150)))
+            using (MemoryStream ms = new MemoryStream(page_info.pdf_document.GetPageByHeightAsImage(page_info.page, (int)Math.Round(page_info.ActualHeight), (int)Math.Round(page_info.ActualWidth))))
             {
                 PngBitmapDecoder decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                 BitmapSource image_page = decoder.Frames[0];

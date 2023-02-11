@@ -92,24 +92,27 @@ namespace Qiqqa.Main
 
         private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
         {
-            bool do_invoke = false;
-
-            //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
-            lock (status_entries_still_to_process_lock)
+            WPFDoEvents.SafeExec(() =>
             {
-                //l1_clk.LockPerfTimerStop();
-                status_entries_still_to_process[status_entry.key] = status_entry;
-                if (!status_entries_still_to_process_fresh_thread_running)
+                bool do_invoke = false;
+
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (status_entries_still_to_process_lock)
                 {
-                    status_entries_still_to_process_fresh_thread_running = true;
-                    do_invoke = true;
+                    //l1_clk.LockPerfTimerStop();
+                    status_entries_still_to_process[status_entry.key] = status_entry;
+                    if (!status_entries_still_to_process_fresh_thread_running)
+                    {
+                        status_entries_still_to_process_fresh_thread_running = true;
+                        do_invoke = true;
+                    }
                 }
-            }
 
-            if (do_invoke)
-            {
-                WPFDoEvents.InvokeAsyncInUIThread(() => StatusManager_OnStatusEntryUpdate_GUI(), DispatcherPriority.Normal);
-            }
+                if (do_invoke)
+                {
+                    WPFDoEvents.InvokeAsyncInUIThread(() => StatusManager_OnStatusEntryUpdate_GUI(), DispatcherPriority.Normal);
+                }
+            });
         }
 
         private void StatusManager_OnStatusEntryUpdate_GUI()

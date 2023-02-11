@@ -29,17 +29,24 @@ namespace Qiqqa.Documents.Common
 
         private void DoMaintenance_FlushDocuments(Daemon daemon)
         {
-            if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+            try
             {
-                // do run the flush task, but delayed!
-                return;
-            }
+                if (Qiqqa.Common.Configuration.ConfigurationManager.Instance.ConfigurationRecord.DisableAllBackgroundTasks)
+                {
+                    // do run the flush task, but delayed!
+                    return;
+                }
 
-            // Quit this delayed storing of PDF files when we've hit the end of the execution run:
-            // we'll have to save them all to disk in one go then, and quickly too!
-            if (!ShutdownableManager.Instance.IsShuttingDown)
+                // Quit this delayed storing of PDF files when we've hit the end of the execution run:
+                // we'll have to save them all to disk in one go then, and quickly too!
+                if (!ShutdownableManager.Instance.IsShuttingDown)
+                {
+                    FlushDocuments(force_flush_no_matter_what: false);
+                }
+            }
+            catch (Exception ex)
             {
-                FlushDocuments(force_flush_no_matter_what: false);
+                Logging.Error(ex, "Terminating the Flush-Documents background thread due to an otherwise unhandled exception.");
             }
         }
 
@@ -73,7 +80,7 @@ namespace Qiqqa.Documents.Common
             }
         }
 
-        private void FlushDocuments(bool force_flush_no_matter_what)
+        public void FlushDocuments(bool force_flush_no_matter_what)
         {
             // use a lock to ensure the time-delayed flush doesn't ever collide with the
             // end-of-execution-run flush initiated by ShutdownableManager.
@@ -108,12 +115,23 @@ namespace Qiqqa.Documents.Common
                     // No flushing while still adding... unless we're quitting the executable already.
                     if (Library.IsBusyAddingPDFs)
                     {
-                        return;
+                        // wait a short while and then check again iff we're still adding PDF documents (bulk import apparently).
+                        // If it isn't we'll just have delayed the flush by a few seconds.
+                        ShutdownableManager.Sleep(FolderWatcher.MILLISECONDS_TO_RELAX_PER_ITERATION);
+
+                        // reset:
+                        breathing_time.Restart();
+
+                        if (Library.IsBusyAddingPDFs)
+                        {
+                            continue;
+                        }
                     }
 
-                    if (breathing_time.ElapsedMilliseconds > FolderWatcher.MAX_SECONDS_PER_ITERATION)
+                    // Relinquish control to the UI thread to make sure responsiveness remains tolerable at 100% CPU load.
+                    if (breathing_time.ElapsedMilliseconds > FolderWatcher.MAX_MILLISECONDS_PER_ITERATION)
                     {
-                        ShutdownableManager.Sleep(FolderWatcher.SECONDS_TO_RELAX_PER_ITERATION);
+                        ShutdownableManager.Sleep(FolderWatcher.MILLISECONDS_TO_RELAX_PER_ITERATION);
 
                         // reset:
                         breathing_time.Restart();

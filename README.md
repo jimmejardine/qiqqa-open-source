@@ -10,6 +10,8 @@ Now open source award-winning Qiqqa research management tool for Windows.
 
 This version includes **every** feature available in [Commercial Qiqqa](qiqqa.com), including Premium and Premium+.
 
+The original Qiqqa website [is now here](https://jimmejardine.github.io/qiqqa-open-source-website/), and can be edited [here on GitHub](https://github.com/jimmejardine/qiqqa-open-source-website). 
+
 > Unfortunately we have had to **remove the web cloud sync** ability as that involves storage costs. Users are encouraged to migrate their Web Libraries into Intranet libraries, and **use Google Drive or Dropbox**
  as the 'sync point' for those libraries.
 
@@ -127,4 +129,37 @@ I'm not discouraging you from emailing me, but rather suggesting that there may 
 > In the EU we now have a law giving us "[*the right to be forgotten on the Internet*](https://en.wikipedia.org/wiki/Right_to_be_forgotten)" but frankly, I'm not counting on it and never have assumed as much since the day I encountered "writing" and computers 40+ years ago. Your data is perhaps *perishable* at the most inconvenient of times, but when you *want* it to be *vamoosed*, you can bet your bottom it's clinging to a wall some place. 😉  
 > *The point being?* It's up to you to consider and decide on the amount and level of privacy of your Qiqqa data and act and communicate accordingly at all times.
 
+
+
+
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/jimmejardine/qiqqa-open-source/graphs/contributors"><img src="https://opencollective.com/qiqqa-open-source/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/qiqqa-open-source/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/qiqqa-open-source"><img src="https://opencollective.com/qiqqa-open-source/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/qiqqa-open-source/contribute)]
+
+<a href="https://opencollective.com/qiqqa-open-source/organization/0/website"><img src="https://opencollective.com/qiqqa-open-source/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/1/website"><img src="https://opencollective.com/qiqqa-open-source/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/2/website"><img src="https://opencollective.com/qiqqa-open-source/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/3/website"><img src="https://opencollective.com/qiqqa-open-source/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/4/website"><img src="https://opencollective.com/qiqqa-open-source/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/5/website"><img src="https://opencollective.com/qiqqa-open-source/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/6/website"><img src="https://opencollective.com/qiqqa-open-source/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/7/website"><img src="https://opencollective.com/qiqqa-open-source/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/8/website"><img src="https://opencollective.com/qiqqa-open-source/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/qiqqa-open-source/organization/9/website"><img src="https://opencollective.com/qiqqa-open-source/organization/9/avatar.svg"></a>
 

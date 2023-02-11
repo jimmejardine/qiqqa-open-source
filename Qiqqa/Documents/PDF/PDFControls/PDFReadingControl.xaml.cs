@@ -243,7 +243,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             TagCloud.TagClick += TagCloud_TagClick;
 
             JumpToPageNumber.Text = "" + 1;
-            JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
+            JumpToPageNumberMax.Text = $" of { pdf_document.PageCountAsString }";
             JumpToPageNumber.KeyDown += JumpToPageNumber_KeyDown;
             JumpToPageNumber.KeyUp += JumpToPageNumber_KeyUp;
             JumpToPageNumber.GotFocus += JumpToPageNumber_GotFocus;
@@ -268,7 +268,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
             ObjDocumentMetadataControlsPanel.SelectedPageChanged += ObjDocumentMetadataControlsPanel_ObjDocumentMetadataControlsPanel_SelectedPageChanged;
 
             // Kick off a thread that populates the interesting analysis
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 PDFRendererControlInterestingAnalysis.DoInterestingAnalysis(this, pdf_renderer_control, pdf_document);
             });
@@ -317,21 +317,27 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void PDFReadingControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
+            WPFDoEvents.SafeExec(() =>
             {
-                GridRIGHT.Collapse();
-            }
-            else
-            {
-                GridRIGHT.Restore();
-            }
+                if (ConfigurationManager.Instance.ConfigurationRecord.GUI_IsNovice)
+                {
+                    GridRIGHT.Collapse();
+                }
+                else
+                {
+                    GridRIGHT.Restore();
+                }
+            });
         }
 
         private void ObjDocumentMetadataControlsPanel_ObjDocumentMetadataControlsPanel_SelectedPageChanged(int page)
         {
-            ASSERT.Test(pdf_renderer_control != null);
+            WPFDoEvents.SafeExec(() =>
+            {
+                ASSERT.Test(pdf_renderer_control != null);
 
-            pdf_renderer_control.SelectPage(page);
+                pdf_renderer_control.SelectPage(page);
+            });
         }
 
         private void ButtonInCite_Word_Click(object sender, RoutedEventArgs e)
@@ -422,6 +428,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonOpenLibrary_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
@@ -458,7 +466,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                         PDFDocument pdf_document = GetPDFDocument();
                         ASSERT.Test(pdf_document != null);
 
-                        pdf_document?.PDFRenderer.FlushCachedPageRenderings();
+                        pdf_document?.FlushCachedPageRenderings();
                     }
                 });
 
@@ -486,88 +494,97 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void pdf_renderer_control_OperationModeChanged(PDFRendererControl.OperationMode operation_mode)
         {
-            // Reset the toggle buttons
-            ButtonHand.IsChecked = false;
-            ButtonTextSentenceSelect.IsChecked = false;
-            ButtonAnnotation.IsChecked = false;
-            ButtonHighlighter.IsChecked = false;
-            ButtonCamera.IsChecked = false;
-            ButtonInk.IsChecked = false;
-
-            // Hide the various toolboxes
-            InkCanvasToolbarBorder.Visibility = Visibility.Collapsed;
-            HighlightCanvasToolbarBorder.Visibility = Visibility.Collapsed;
-            TextCanvasToolbarBorder.Visibility = Visibility.Collapsed;
-
-            // Set the selected toggle button
-            switch (operation_mode)
+            WPFDoEvents.SafeExec(() =>
             {
-                case PDFRendererControl.OperationMode.Hand:
-                    ButtonHand.IsChecked = true;
-                    break;
-                case PDFRendererControl.OperationMode.Annotation:
-                    ButtonAnnotation.IsChecked = true;
-                    break;
-                case PDFRendererControl.OperationMode.Highlighter:
-                    ButtonHighlighter.IsChecked = true;
-                    HighlightCanvasToolbarBorder.Visibility = Visibility.Visible;
-                    break;
-                case PDFRendererControl.OperationMode.Camera:
-                    ButtonCamera.IsChecked = true;
-                    break;
-                case PDFRendererControl.OperationMode.Ink:
-                    ButtonInk.IsChecked = true;
-                    InkCanvasToolbarBorder.Visibility = Visibility.Visible;
-                    break;
-                case PDFRendererControl.OperationMode.TextSentenceSelect:
-                    ButtonTextSentenceSelect.IsChecked = true;
-                    TextCanvasToolbarBorder.Visibility = Visibility.Visible;
-                    break;
-                default:
-                    Logging.Warn("Unknown operation mode {0}", operation_mode);
-                    break;
-            }
+                // Reset the toggle buttons
+                ButtonHand.IsChecked = false;
+                ButtonTextSentenceSelect.IsChecked = false;
+                ButtonAnnotation.IsChecked = false;
+                ButtonHighlighter.IsChecked = false;
+                ButtonCamera.IsChecked = false;
+                ButtonInk.IsChecked = false;
+
+                // Hide the various toolboxes
+                InkCanvasToolbarBorder.Visibility = Visibility.Collapsed;
+                HighlightCanvasToolbarBorder.Visibility = Visibility.Collapsed;
+                TextCanvasToolbarBorder.Visibility = Visibility.Collapsed;
+
+                // Set the selected toggle button
+                switch (operation_mode)
+                {
+                    case PDFRendererControl.OperationMode.Hand:
+                        ButtonHand.IsChecked = true;
+                        break;
+                    case PDFRendererControl.OperationMode.Annotation:
+                        ButtonAnnotation.IsChecked = true;
+                        break;
+                    case PDFRendererControl.OperationMode.Highlighter:
+                        ButtonHighlighter.IsChecked = true;
+                        HighlightCanvasToolbarBorder.Visibility = Visibility.Visible;
+                        break;
+                    case PDFRendererControl.OperationMode.Camera:
+                        ButtonCamera.IsChecked = true;
+                        break;
+                    case PDFRendererControl.OperationMode.Ink:
+                        ButtonInk.IsChecked = true;
+                        InkCanvasToolbarBorder.Visibility = Visibility.Visible;
+                        break;
+                    case PDFRendererControl.OperationMode.TextSentenceSelect:
+                        ButtonTextSentenceSelect.IsChecked = true;
+                        TextCanvasToolbarBorder.Visibility = Visibility.Visible;
+                        break;
+                    default:
+                        Logging.Warn("Unknown operation mode {0}", operation_mode);
+                        break;
+                }
+            });
         }
 
         private void pdf_renderer_control_ZoomTypeChanged(PDFRendererControl.ZoomType zoom_type)
         {
-            Button1Up.IsChecked = false;
-            Button2Up.IsChecked = false;
-            ButtonNUp.IsChecked = false;
-            ButtonWholeUp.IsChecked = false;
-
-            switch (zoom_type)
+            WPFDoEvents.SafeExec(() =>
             {
-                case PDFRendererControl.ZoomType.Zoom1Up:
-                    Button1Up.IsChecked = true;
-                    break;
-                case PDFRendererControl.ZoomType.Zoom2Up:
-                    Button2Up.IsChecked = true;
-                    break;
-                case PDFRendererControl.ZoomType.ZoomNUp:
-                    ButtonNUp.IsChecked = true;
-                    break;
-                case PDFRendererControl.ZoomType.ZoomWholeUp:
-                    ButtonWholeUp.IsChecked = true;
-                    break;
-                case PDFRendererControl.ZoomType.Other:
-                    break;
-                default:
-                    Logging.Warn("Unknown zoom type {0}", zoom_type);
-                    break;
-            }
+                Button1Up.IsChecked = false;
+                Button2Up.IsChecked = false;
+                ButtonNUp.IsChecked = false;
+                ButtonWholeUp.IsChecked = false;
+
+                switch (zoom_type)
+                {
+                    case PDFRendererControl.ZoomType.Zoom1Up:
+                        Button1Up.IsChecked = true;
+                        break;
+                    case PDFRendererControl.ZoomType.Zoom2Up:
+                        Button2Up.IsChecked = true;
+                        break;
+                    case PDFRendererControl.ZoomType.ZoomNUp:
+                        ButtonNUp.IsChecked = true;
+                        break;
+                    case PDFRendererControl.ZoomType.ZoomWholeUp:
+                        ButtonWholeUp.IsChecked = true;
+                        break;
+                    case PDFRendererControl.ZoomType.Other:
+                        break;
+                    default:
+                        Logging.Warn("Unknown zoom type {0}", zoom_type);
+                        break;
+                }
+            });
         }
 
         private void pdf_renderer_control_SelectedPageChanged(int page)
         {
-            PDFDocument pdf_document = GetPDFDocument();
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
+            WPFDoEvents.SafeExec(() =>
             {
-                JumpToPageNumber.Text = "" + page;
-                JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
-            }
+                PDFDocument pdf_document = GetPDFDocument();
+                ASSERT.Test(pdf_document != null);
+
+                if (pdf_document != null)
+                {
+                    JumpToPageNumber.Text = "" + page;
+                    JumpToPageNumberMax.Text = $" of { pdf_document.PageCountAsString }";
+                }
+            });
         }
 
         private void JumpToPageNumber_GotFocus(object sender, RoutedEventArgs e)
@@ -610,13 +627,16 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
                 if (pdf_document != null)
                 {
-                    if (page_number < 1) page_number = pdf_document.PDFRenderer.PageCount;
-                    if (page_number > pdf_document.PDFRenderer.PageCount) page_number = 1;
+                    // cycle around when jumping to page #N:
+                    int modulo = Math.Max(1, pdf_document.PageCount);
+                    page_number = (page_number - 1) + 2 * modulo;     // guaranteed to end up with a positive number here...
+                    page_number %= modulo;
+                    page_number++;            // and make it 1-based again after the MODULO math.
 
                     pdf_renderer_control.MoveSelectedPageAbsolute(page_number);
 
                     JumpToPageNumber.Text = "" + page_number;
-                    JumpToPageNumberMax.Text = " of " + pdf_document.PDFRenderer.PageCount;
+                    JumpToPageNumberMax.Text = $" of { pdf_document.PageCountAsString }";
                     JumpToPageNumber.SelectAll();
                 }
             }
@@ -664,10 +684,21 @@ namespace Qiqqa.Documents.PDF.PDFControls
             if (null == jtsp)
             {
                 Logging.Info("Building popup for first time");
-                jtsp = new JumpToSectionPopup(this);
-            }
+                jtsp = new JumpToSectionPopup();
 
-            jtsp.Open();
+                SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+                {
+                    Logging.Info("Exec-in-background: Building popup for first time");
+
+                    jtsp.BuildSectionList(this);
+
+                    jtsp.Open();
+                });
+            }
+            else
+            {
+                jtsp.Open();
+            }
         }
 
         private void ButtonAnnotation_Click(object sender, RoutedEventArgs e)
@@ -713,17 +744,21 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
             if (null != pdf_document)
             {
-                PDFPrinter.Print(pdf_document, pdf_document.PDFRenderer, "PDFRenderer");
+                PDFPrinter.Print(pdf_document, "PDFRenderer");
             }
         }
 
         private void ButtonDocumentSave_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Document_Save);
 
             PDFDocument pdf_document = GetPDFDocument();
@@ -762,12 +797,18 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void TextBoxFind_OnHardSearch()
         {
-            SetSearchKeywords();
+            WPFDoEvents.SafeExec(() =>
+            {
+                SetSearchKeywords();
+            });
         }
 
         private void ListSearchDetails_SearchSelectionChanged(PDFSearchResult search_result)
         {
-            pdf_renderer_control.FlashSelectedSearchItem(search_result);
+            WPFDoEvents.SafeExec(() =>
+            {
+                pdf_renderer_control.FlashSelectedSearchItem(search_result);
+            });
         }
 
         public void SetSearchKeywords(string keywords)
@@ -847,46 +888,56 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void Button1Up_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.Zoom1Up);
         }
 
         private void Button2Up_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.Zoom2Up);
         }
 
         private void ButtonNUp_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.ZoomNUp);
         }
 
         private void ButtonWholeUp_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.PageZoom(PDFRendererControl.ZoomType.ZoomWholeUp);
         }
 
         private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.IncrementalZoom(-1);
         }
 
         private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.IncrementalZoom(+1);
         }
 
         private void ButtonInvertColours_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             pdf_renderer_control.InvertColours(ButtonInvertColours.IsChecked.Value);
         }
 
         private void ButtonRotate_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.RotatePage();
         }
 
         private void ButtonRotateAll_Click(object sender, RoutedEventArgs e)
         {
+            ButtonZoomPopup.Close();
             pdf_renderer_control.RotateAllPages();
         }
 
@@ -908,6 +959,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonExportToText_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
@@ -926,25 +979,16 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
 #region --- Speed read and text-to-speech ------------------------------------------------------------------------------------------------------------------------------------------
 
-        private void GetCombinedWordsList(List<string> words, List<int> page_word_offsets, int single_page_only = -1)
+        private void GetCombinedWordsList(List<string> words, List<int> page_word_offsets)
         {
             PDFDocument pdf_document = GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
             if (null != pdf_document)
             {
-                int start_page = 0;
-                int end_page = pdf_document.SafePageCount - 1;
-
-                if (-1 != single_page_only)
+                for (int page = 1; page <= pdf_document.PageCount; ++page)
                 {
-                    start_page = single_page_only;
-                    end_page = single_page_only;
-                }
-
-                for (int page = start_page; page <= end_page; ++page)
-                {
-                    WordList words_on_page = pdf_document.PDFRenderer.GetOCRText(page + 1);
+                    WordList words_on_page = pdf_document.GetOCRText(page);
                     page_word_offsets.Add(words.Count);
                     if (null != words_on_page)
                     {
@@ -959,6 +1003,8 @@ namespace Qiqqa.Documents.PDF.PDFControls
 
         private void ButtonSpeedRead_Click(object sender, RoutedEventArgs e)
         {
+            ButtonMiscPopup.Close();
+
             FeatureTrackingManager.Instance.UseFeature(Features.Document_SpeedRead);
 
             List<string> words = new List<string>();
@@ -985,7 +1031,7 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     if (pdf_document != null)
                     {
                         int page = pdf_renderer_control.SelectedPage.PageNumber;
-                        WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                        WordList words = pdf_document.GetOCRText(page);
                         if (null != words)
                         {
                             StringBuilder sb = new StringBuilder();
@@ -1144,12 +1190,12 @@ namespace Qiqqa.Documents.PDF.PDFControls
             {
                 PDFDocument source_pdf_document = pdf_document;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     PDFDocument cloned_pdf_document = ImportingIntoLibrary.ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(source_pdf_document, web_library_detail);
                     ASSERT.Test(cloned_pdf_document != null);
 
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
                         // Open the new
                         if (null != cloned_pdf_document)

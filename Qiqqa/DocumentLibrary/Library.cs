@@ -11,6 +11,7 @@ using Qiqqa.DocumentLibrary.PasswordStuff;
 using Qiqqa.DocumentLibrary.RecentlyReadStuff;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
+using Qiqqa.Documents.PDF.DiskSerialisation;
 using Qiqqa.Expedition;
 using Utilities;
 using Utilities.Files;
@@ -74,7 +75,7 @@ namespace Qiqqa.DocumentLibrary
 
         public event OnLibraryLoadedHandler OnLibraryLoaded;
 
-        public bool LibraryIsLoaded
+        public bool XLibraryIsLoaded
         {
             get
             {
@@ -216,7 +217,7 @@ namespace Qiqqa.DocumentLibrary
             try
             {
                 // short-circuit the work when this library instance has already been loaded via this call before:
-                if (LibraryIsLoaded)
+                if (XLibraryIsLoaded)
                 {
                     return;
                 }
@@ -238,10 +239,6 @@ namespace Qiqqa.DocumentLibrary
 
                 elapsed = clk.ElapsedMilliseconds;
                 Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed, library_item_count, web_library_detail.DescriptiveTitle);
-                prev_clk = elapsed;
-
-                // Get the annotations cache
-                //Dictionary<string, byte[]> library_items_annotations_cache = library_db.GetLibraryItemsAsCache(PDFDocumentFileLocations.ANNOTATIONS);
 
                 // abort work when this library instance has already been Dispose()d in the main UI thread:
                 if (LibraryIsKilled)
@@ -250,8 +247,35 @@ namespace Qiqqa.DocumentLibrary
                     return;
                 }
 
+                prev_clk = elapsed;
+
+                // PERFORMANCE TWEAK: 
+                // as profiling the application has shown us that the code takes a long time fetching the Document Annotations, which augment these documents,
+                // we load the annotations in BULK and then feed them as an EXTRA parameter to the document instantiation logic.
+                //
+                // Reasoning is as follows: 
+                //
+                // Without this, each PDFdocument will individually query the databasee for any annotation records and load them into memory.
+                // At N document records in the database, that's N extra SQL queries. On the dev box, this clocks in at ~12K queries in 7-14 seconds, 
+                // depending on the planets (and very probably how many annotations the test databases have ;-)) -- do note that there aren't many,
+                // so these timings are for **mostly empty** results. Expect worse results for folks who have heavily annotated their collection.)
+                //
+                // Now we counter this load by **prefetching** the annotation records in BULK, i.e. we submit a SINGLE query, which is expected
+                // to deliver MANY annotation records. Probably thousands, if not more, but we're fine with that and so should the SQLite database.
+                // Then we decode/parse those annotation query results into ready-to-use PDFAnnotation instances, which we keep in a Dictionary<>
+                // type, which in .NET should be hash-based and thus deliver O(1) lookup performance when looking up the list-of-annotations for
+                // a given document fingerprint.
+                //
+                // Thus we replace an O(N) behaviour (N queries) with an O(1) behaviour (single query), while the added cost per operation should
+                // be negligible for large numbers, assuming the O(1) lookup cost for a Dictionary<> holds.
+                // Expected results would be a marginally slower load for small libraries (slower singular query plus in-memory dictionary lookups
+                // instead of N fast queries) while this should significantly improve load performance for (very) large libraries.
+                Logging.Debug特("+Bulk Prefetch annotations for library {0} ('{1}') from repository", web_library_detail.Id, web_library_detail.DescriptiveTitle);
+                Dictionary<string, PDFAnnotationList> prefetched_annotations = PDFAnnotationSerializer.BulkReadFromDisk(web_library_detail);
+
                 elapsed = clk.ElapsedMilliseconds;
-                Logging.Debug特(":Build library '{2}' from repository -- time spent: {0} ms on fetching annotation cache for {1} records.", elapsed - prev_clk, library_item_count, web_library_detail.DescriptiveTitle);
+                Logging.Debug特(":Bulk Prefetch annotations for library '{2}' from repository -- time spent: {0} ms on fetching {1} records from SQLite DB.", elapsed - prev_clk, prefetched_annotations.Count, web_library_detail.DescriptiveTitle);
+                prev_clk = elapsed;
 
                 Logging.Info("Library '{2}': Loading {0} files from repository at {1}", library_item_count, web_library_detail.LIBRARY_DOCUMENTS_BASE_PATH, web_library_detail.DescriptiveTitle);
 
@@ -299,7 +323,30 @@ namespace Qiqqa.DocumentLibrary
 
                     try
                     {
-                        LoadDocumentFromMetadata(library_item, web_library_detail, false);
+                        PDFAnnotationList prefetched_annotations_for_document = null;
+                        _ = prefetched_annotations.TryGetValue(library_item.fingerprint, out prefetched_annotations_for_document);
+
+                        // The trick here is to deliver a ZERO LENGTH annotation list for every document which does not have any annotation records yet.
+                        // That way PDFDocument.GetAnnotations() et al can quickly spot that the annotations indeed have already been loaded.
+                        // (Okay, so there weren't any!)
+                        //
+                        // The cost? Say .NET eats about (12+4+24+4*4)=56 bytes per class instance for a PDFAnnotationList, then with a lib @ ~12K records,
+                        // this would eat about ~700K RAM for "useless" zero-length annotation sets.
+                        // The alternative is tracking whether the PDFDocument.annotation_list referencee has been set up, using a separate `bool` member, which
+                        // also will cost about 12 bytes extra per PDFDocument instance (12*12K=144K RAM) while the application code would becomee far more
+                        // convoluted than it already is. (I looked at this option today and decided against it, after having coded it about half-way through:
+                        // there's too many extra checks and conditional code needed throughout the system.)
+                        //
+                        // the 12 bytes, etc. stuff is gleaned of these articles (last one read comes first in this list):
+                        // - https://stackoverflow.com/questions/1508215/c-sharp-listdouble-size-vs-double-size
+                        // - https://stackoverflow.com/questions/22986431/how-much-memory-instance-of-my-class-uses-pragmatic-answer
+                        // - https://stackoverflow.com/questions/3694423/size-of-a-class-object-in-net
+                        if (prefetched_annotations_for_document == null)
+                        {
+                            prefetched_annotations_for_document = new PDFAnnotationList();
+                        }
+
+                        LoadDocumentFromMetadata(library_item, web_library_detail, notify_changed_pdf_document: false, prefetched_annotations_for_document);
                     }
                     catch (Exception ex)
                     {
@@ -324,7 +371,7 @@ namespace Qiqqa.DocumentLibrary
             }
             finally
             {
-                LibraryIsLoaded = true;
+                XLibraryIsLoaded = true;
 
                 if (!LibraryIsKilled)
                 {
@@ -334,14 +381,14 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
-        private void LoadDocumentFromMetadata(LibraryDB.LibraryItem library_item, WebLibraryDetail web_library_detail, bool notify_changed_pdf_document)
+        private void LoadDocumentFromMetadata(LibraryDB.LibraryItem library_item, WebLibraryDetail web_library_detail, bool notify_changed_pdf_document, PDFAnnotationList prefetched_annotations_for_document = null)
         {
             if (library_item.data == null)
             {
                 throw new Exception(String.Format("Skipping corrupted NULL record for ID {0}", library_item.ToString()));
             }
 
-            PDFDocument pdf_document = PDFDocument.LoadFromMetaData(web_library_detail, library_item.fingerprint, library_item.data);
+            PDFDocument pdf_document = PDFDocument.LoadFromMetaData(web_library_detail, library_item.fingerprint, library_item.data, prefetched_annotations_for_document);
 
             //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (pdf_documents_lock)
@@ -567,7 +614,7 @@ namespace Qiqqa.DocumentLibrary
                 }
 
                 // Get OCR queued
-                pdf_document.PDFRenderer.CauseAllPDFPagesToBeOCRed();
+                pdf_document.CauseAllPDFPagesToBeOCRed();
             }
 
             SignalThatDocumentsHaveChanged(pdf_document);
@@ -837,6 +884,7 @@ namespace Qiqqa.DocumentLibrary
             }
         }
 
+        [Obsolete("Do not use this attribute: it's the fastest count but very confusing for users (https://github.com/jimmejardine/qiqqa-open-source/issues/331)", true)]
         public int PDFDocuments_IncludingDeleted_Count
         {
             get
@@ -849,7 +897,6 @@ namespace Qiqqa.DocumentLibrary
                 }
             }
         }
-
 
         /// <summary>
         /// Returns a list of the PDF documents in the library.  This will NOT include the deleted documents...
@@ -874,6 +921,32 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
                 return pdf_documents_list;
+            }
+        }
+
+        /// <summary>
+        /// Returns the number of PDF documents in the library.  This will NOT include the deleted documents...
+        /// </summary>
+        public int PDFDocuments_Count
+        {
+            get
+            {
+                List<PDFDocument> pdf_documents_list = new List<PDFDocument>();
+                int count = 0;
+
+                //Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
+                lock (pdf_documents_lock)
+                {
+                    //l1_clk.LockPerfTimerStop();
+                    foreach (var x in pdf_documents.Values)
+                    {
+                        if (!x.Deleted)
+                        {
+                            count++;
+                        }
+                    }
+                }
+                return count;
             }
         }
 
@@ -993,7 +1066,7 @@ namespace Qiqqa.DocumentLibrary
                     throw new Exception(String.Format("We were expecting only one item matching {0}.{1}", fingerprint, PDFDocumentFileLocations.METADATA));
                 }
 
-                LoadDocumentFromMetadata(items[0], web_library_detail, true);
+                LoadDocumentFromMetadata(items[0], web_library_detail, notify_changed_pdf_document: true);
             }
             catch (Exception ex)
             {

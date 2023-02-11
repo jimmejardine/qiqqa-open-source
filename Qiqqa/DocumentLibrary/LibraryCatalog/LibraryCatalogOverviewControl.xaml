@@ -82,6 +82,11 @@
                     DockPanel.Dock="Right" />
                 <TextBlock
                     DockPanel.Dock="Right"
+                    Text="{Binding PageCountAsString, FallbackValue='Pages#'}"
+                    ToolTip="Page count" />
+                <TextBlock DockPanel.Dock="Right" Text=" - " />
+                <TextBlock
+                    DockPanel.Dock="Right"
                     Text="{Binding Rating, FallbackValue='Rating Demo'}"
                     ToolTip="Rating" />
                 <TextBlock DockPanel.Dock="Right" Text=" - " />

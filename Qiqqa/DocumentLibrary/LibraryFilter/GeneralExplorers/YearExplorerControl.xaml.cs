@@ -120,7 +120,10 @@ namespace Qiqqa.DocumentLibrary.LibraryFilter.GeneralExplorers
 
         private void YearExplorerTree_OnTagSelectionChanged(HashSet<string> fingerprints, Span descriptive_span)
         {
-            OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
+            WPFDoEvents.SafeExec(() =>
+            {
+                OnTagSelectionChanged?.Invoke(fingerprints, descriptive_span);
+            });
         }
     }
 }

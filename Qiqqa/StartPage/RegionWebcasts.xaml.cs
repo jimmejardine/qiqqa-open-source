@@ -30,7 +30,7 @@ namespace Qiqqa.StartPage
             Webcasts.FormatWebcaseHyperlink(LnkPlay, Webcasts.PLAY);
 
             ImageHelpers.Source = Icons.GetAppIcon(Icons.GlossHelpers, "jpg");
-            RenderOptions.SetBitmapScalingMode(ImageHelpers, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageHelpers, BitmapScalingMode.HighQuality);
             MouseWheelDisabler.DisableMouseWheelForControl(ImageHelpers);
 
             HyperlinkForums.Click += HyperlinkForums_Click;

@@ -487,7 +487,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Tom Terrific",
-        "title": "An $O(n \\log n / \\! \\log\\log n)$ Sorting Algorithm",
+        "title": "An $O(n łog n / \\! łogłog n)$ Sorting Algorithm",
         "institution": "Fanstord University",
         "year": "1988"
       }
@@ -499,7 +499,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Tom Térrific",
-        "title": "An $O(n \\log n / \\! \\log\\log n)$ Sorting Algorithm",
+        "title": "An $O(n łog n / \\! łogłog n)$ Sorting Algorithm",
         "institution": "Fanstord University",
         "type": "Wishful Research Result",
         "number": "7",
@@ -875,7 +875,7 @@
       "Warnings": [],
       "Fields": {
         "author": "Joan Bresnan and Sam Mchombo",
-        "title": "Topic, Pronoun, and Agreement in Chiche\\^wa",
+        "title": "Topic, Pronoun, and Agreement in Chicheŵa",
         "journal": "Language",
         "year": "1987",
         "volume": "63",
@@ -1272,7 +1272,7 @@
       "Warnings": [],
       "Fields": {
         "title": "Über die Verschiedenheit des menschlichen Sprachbaues und Ihren\r\n\tEinfluss aud die geistige Entwicklung des Menschengeschlechts",
-        "publisher": "Kӧningliche Akademie der Wissenschaften",
+        "publisher": "Köningliche Akademie der Wissenschaften",
         "year": "1836",
         "author": "Wilhelm von Humboldt",
         "address": "Berlin"
@@ -66416,7 +66416,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jacek Kopeck\\'y",
+        "author": "Jacek Kopecký",
         "howpublished": "\\urlhttp://www.w3.org/Submission/WSMO-related/",
         "title": "Relationship of WSMO to other relevant technologies",
         "note": "W3C Member Submission 3 June 2005",
@@ -67868,7 +67868,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Sean Bechhofer and Ralf Mӧller and Peter Crowther",
+        "author": "Sean Bechhofer and Ralf Möller and Peter Crowther",
         "note": "To appear in DL2003 International Workshop on Description Logics, Rome, September, 2003",
         "title": "The DIG Description Logic Interface",
         "year": "2003"
@@ -70634,7 +70634,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jacek Kopeck\\'y and Matthew Moran and Dumitru Roman and Adrian Mocan",
+        "author": "Jacek Kopecký and Matthew Moran and Dumitru Roman and Adrian Mocan",
         "howpublished": "\\urlhttp://www.wsmo.org/TR/d24/v0.1/",
         "note": "WSMO Working Draft 16 September 2005",
         "title": "D24.2v0.1 WSMO Grounding",
@@ -70647,7 +70647,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Jacek Kopeck\\'y",
+        "author": "Jacek Kopecký",
         "howpublished": "\\urlhttp://www.wsmo.org/TR/d30/v0.1/",
         "note": "WSMO Working Draft 5 August 2005",
         "title": "D30v0.1 Aligning WSMO and WSDL-S",
@@ -70861,7 +70861,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "editor": "Asunción Gómez-Pérez and Jérôme Euzenat",
+        "editor": "Asunciόn Gόmez-Pérez and Jérôme Euzenat",
         "title": "The Semantic Web: Research and Applications, Second European Semantic Web Conference, ESWC 2005, Heraklion, Crete, Greece, May 29 - June 1, 2005, Proceedings",
         "booktitle": "ESWC",
         "publisher": "Springer",
@@ -71316,7 +71316,7 @@
       "Warnings": [],
       "Fields": {
         "annote": "Chapter ? has a comparison of DLs with other formalisms e.g. ER schemas shelfmark: \tBlue,Floor 2: 006.33/G2",
-        "author": "Asunción Gómez-Pérez and Mariano Fernández-López and Oscar Corcho",
+        "author": "Asunciόn Gόmez-Pérez and Mariano Fernández-Lόpez and Oscar Corcho",
         "booktitle": "Ontological engineering : with examples from the areas of knowledge management, e-commerce and the semantic Web",
         "editor": "editors",
         "note": "isbn:0521781760",
@@ -71834,7 +71834,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Volker Haarslev and Ralf Mӧller",
+        "author": "Volker Haarslev and Ralf Möller",
         "title": "Description of the RACER System and its Applications.",
         "booktitle": "Description Logics",
         "year": "2001",
@@ -71847,7 +71847,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "editor": "Carole A. Goble and Deborah L. McGuinness and Ralf Mӧller and Peter F. Patel-Schneider",
+        "editor": "Carole A. Goble and Deborah L. McGuinness and Ralf Möller and Peter F. Patel-Schneider",
         "title": "Working Notes of the 2001 International Description Logics Workshop (DL-2001), Stanford, CA, USA, August 1-3, 2001",
         "booktitle": "Description Logics",
         "publisher": "CEUR-WS.org",
@@ -73342,7 +73342,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "editor": "Asunción Gómez-Pérez and\r\n               Jérôme Euzenat",
+        "editor": "Asunciόn Gόmez-Pérez and\r\n               Jérôme Euzenat",
         "title": "The Semantic Web: Research and Applications, Second European Semantic Web Conference, ESWC 2005, Heraklion, Crete, Greece, May 29 - June 1, 2005, Proceedings",
         "booktitle": "ESWC",
         "publisher": "Springer",
@@ -74346,7 +74346,7 @@
       "Exceptions": [],
       "Warnings": [],
       "Fields": {
-        "author": "Merelli, E and Armano, G and Cannata, N and Corradini, F and d'Inverno, M and Doms, A and Lord, P and Martin, A and Milanesi, L and Mӧller, S and Schroeder, M and Luck, M",
+        "author": "Merelli, E and Armano, G and Cannata, N and Corradini, F and d'Inverno, M and Doms, A and Lord, P and Martin, A and Milanesi, L and Möller, S and Schroeder, M and Luck, M",
         "title": "Agents in bioinformatics, computational and systems biology",
         "journal": "Briefings in Bioinformatics",
         "year": "2007",
@@ -74884,7 +74884,7 @@
         "volume": "57",
         "year": "1992",
         "pages": "33--52",
-        "abstract": "We prove the following surprising property of\r\n                  Heyting's intuitionistic propositional calculus,\r\n                  $\\IpC$. Consider the collection of formulas, $\\phi$,\r\n                  built up from propositional variables\r\n                  ($p,q,r,\\ldots$) and falsity ($\\F$) using\r\n                  conjunction ($\\conj$), disjunction ($\\disj$) and\r\n                  implication ($\\imp$). Write $\\vdash\\phi$ to indicate\r\n                  that such a formula is intuitionistically valid. We\r\n                  show that for each variable $p$ and formula $\\phi$\r\n                  there exists a formula $\\All_p\\phi$ (effectively\r\n                  computable from $\\phi$), containing only variables\r\n                  not equal to $p$ which occur in $\\phi$, and such\r\n                  that for all formulas $\\psi$ not involving $p$,\r\n                  $\\vdash\\psi\\imp\\All_p\\phi$ if and only if\r\n                  $\\vdash\\psi\\imp\\phi$.  Consequently quantification\r\n                  over propositional variables can be modelled in\r\n                  $\\IpC$, and there is an interpretation of the second\r\n                  order propositional calculus, $\\IpC^2$, in $\\IpC$\r\n                  which restricts to the identity on first order\r\n                  propositions.\\par An immediate corollary is the\r\n                  strengthening of the usual Interpolation Theorem for\r\n                  $\\IpC$ to the statement that there are least and\r\n                  greatest interpolant formulas for any given pair of\r\n                  formulas. The result also has a number of\r\n                  interesting consequences for the algebraic\r\n                  counterpart of $\\IpC$, the theory of Heyting\r\n                  algebras. In particular we show that a model of\r\n                  $\\IpC^2$ can be constructed whose algebra of\r\n                  truth-values is equal to any given Heyting algebra."
+        "abstract": "We prove the following surprising property of\r\n                  Heyting's intuitionistic propositional calculus,\r\n                  $\\IpC$. Consider the collection of formulas, $\\phi$,\r\n                  built up from propositional variables\r\n                  ($p,q,r,łdots$) and falsity ($\\F$) using\r\n                  conjunction ($\\conj$), disjunction ($\\disj$) and\r\n                  implication ($\\imp$). Write $ďash\\phi$ to indicate\r\n                  that such a formula is intuitionistically valid. We\r\n                  show that for each variable $p$ and formula $\\phi$\r\n                  there exists a formula $\\All_p\\phi$ (effectively\r\n                  computable from $\\phi$), containing only variables\r\n                  not equal to $p$ which occur in $\\phi$, and such\r\n                  that for all formulas $\\psi$ not involving $p$,\r\n                  $ďash\\psi\\imp\\All_p\\phi$ if and only if\r\n                  $ďash\\psi\\imp\\phi$.  Consequently quantification\r\n                  over propositional variables can be modelled in\r\n                  $\\IpC$, and there is an interpretation of the second\r\n                  order propositional calculus, $\\IpC^2$, in $\\IpC$\r\n                  which restricts to the identity on first order\r\n                  propositions.\\par An immediate corollary is the\r\n                  strengthening of the usual Interpolation Theorem for\r\n                  $\\IpC$ to the statement that there are least and\r\n                  greatest interpolant formulas for any given pair of\r\n                  formulas. The result also has a number of\r\n                  interesting consequences for the algebraic\r\n                  counterpart of $\\IpC$, the theory of Heyting\r\n                  algebras. In particular we show that a model of\r\n                  $\\IpC^2$ can be constructed whose algebra of\r\n                  truth-values is equal to any given Heyting algebra."
       }
     },
     {
@@ -74954,7 +74954,7 @@
       "Fields": {
         "author": "A.~M.~Pitts and I.~D.~B.~Stark",
         "title": "Observable Properties of Higher Order Functions That\r\n                  Dynamically Create Local Names, or: What's new?",
-        "booktitle": "Mathematical Foundations of Computer Science, Proc.\\\r\n                  18th Int.\\ Symp., Gda\\'nsk, 1993",
+        "booktitle": "Mathematical Foundations of Computer Science, Proc.\\\r\n                  18th Int.\\ Symp., Gdańsk, 1993",
         "series": "Lecture Notes in Computer Science",
         "volume": "711",
         "publisher": "Springer-Verlag, Berlin",
@@ -75049,7 +75049,7 @@
       "Warnings": [],
       "Fields": {
         "author": "E.~Ritter and A.~M.~Pitts",
-        "title": "A Fully Abstract Translation between a\r\n                  $\\lambda$-Calculus with Reference Types and\r\n                  Standard ML",
+        "title": "A Fully Abstract Translation between a\r\n                  $łambda$-Calculus with Reference Types and\r\n                  Standard ML",
         "booktitle": "2nd Int. Conf. on Typed Lambda Calculus and\r\n                  Applications, Edinburgh, 1995",
         "series": "Lecture Notes in Computer Science",
         "volume": "902",
@@ -75476,7 +75476,7 @@
       "Fields": {
         "author": "C. Urban and A. M. Pitts and M. J. Gabbay",
         "title": "Nominal Unification",
-        "booktitle": "Computer Science Logic and 8th Kurt Gӧdel\r\n                  Colloquium (CSL'03 \\& KGC), Vienna,\r\n                  Austria. Proceedings",
+        "booktitle": "Computer Science Logic and 8th Kurt Gödel\r\n                  Colloquium (CSL'03 \\& KGC), Vienna,\r\n                  Austria. Proceedings",
         "pages": "513--527",
         "year": "2003",
         "editor": "M. Baaz",
@@ -77723,7 +77723,7 @@
         "author": "Larsen, P.O. and von Ins, M.",
         "journal": "Scientometrics",
         "pages": "1--29",
-        "publisher": "Akadémiai Kiadó, co-published with Springer Science+ Business Media BV, Formerly Kluwer Academic Publishers BV"
+        "publisher": "Akadémiai Kiadό, co-published with Springer Science+ Business Media BV, Formerly Kluwer Academic Publishers BV"
       }
     },
     {

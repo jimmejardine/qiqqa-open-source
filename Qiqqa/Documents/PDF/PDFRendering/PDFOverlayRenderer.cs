@@ -14,6 +14,10 @@ using Utilities.Misc;
 using Brush = System.Drawing.Brush;
 using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFRendering
 {
@@ -24,7 +28,7 @@ namespace Qiqqa.Documents.PDF.PDFRendering
             WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
             // Render onto a scratch image in solid
-            Bitmap bitmap = new Bitmap(width, height);     // <--- must b Dispose()d by caller
+            Bitmap bitmap = new Bitmap(width, height);     // <--- must be Dispose()d by caller
 
             using (Graphics graphics = Graphics.FromImage(bitmap))
             {
@@ -33,43 +37,43 @@ namespace Qiqqa.Documents.PDF.PDFRendering
                 double last_bottom = Double.NegativeInfinity;
                 PointF[] adjoinment_points = new PointF[4];
 
-                    // TODO: next call can be very costly; MUST run in background!
-                    var highlights = pdf_document.Highlights.GetHighlightsForPage(page);
+                // Next call can be very costly; MUST run in background!
+                var highlights = pdf_document.Highlights.GetHighlightsForPage(page);
 
-                        foreach (PDFHighlight highlight in highlights)
+                foreach (PDFHighlight highlight in highlights)
+                {
+                    using (Brush highlight_pen = new SolidBrush(StandardHighlightColours.GetColor_Drawing(highlight.Color)))
+                    {
+                        graphics.FillRectangle(highlight_pen, (float)(highlight.Left * width), (float)(highlight.Top * height), (float)(highlight.Width * width), (float)(highlight.Height * height));
+
+                        // Do some adjoining
+                        if (Math.Abs(last_right - highlight.Left) < highlight.Height * 0.75 && Math.Abs(last_top - highlight.Top) < highlight.Height * 0.75 && Math.Abs(last_bottom - highlight.Bottom) < highlight.Height * 0.75)
                         {
-                            using (Brush highlight_pen = new SolidBrush(StandardHighlightColours.GetColor_Drawing(highlight.Color)))
-                            {
-                                graphics.FillRectangle(highlight_pen, (float)(highlight.Left * width), (float)(highlight.Top * height), (float)(highlight.Width * width), (float)(highlight.Height * height));
+                            // 0 -- 1
+                            // |    |
+                            // 3 -- 2
 
-                                // Do some adjoining
-                                if (Math.Abs(last_right - highlight.Left) < highlight.Height * 0.75 && Math.Abs(last_top - highlight.Top) < highlight.Height * 0.75 && Math.Abs(last_bottom - highlight.Bottom) < highlight.Height * 0.75)
-                                {
-                                    // 0 -- 1
-                                    // |    |
-                                    // 3 -- 2
+                            adjoinment_points[0].X = (float)(last_right * width);
+                            adjoinment_points[0].Y = (float)(last_top * height);
 
-                                    adjoinment_points[0].X = (float)(last_right * width);
-                                    adjoinment_points[0].Y = (float)(last_top * height);
+                            adjoinment_points[1].X = (float)(highlight.Left * width);
+                            adjoinment_points[1].Y = (float)(highlight.Top * height);
 
-                                    adjoinment_points[1].X = (float)(highlight.Left * width);
-                                    adjoinment_points[1].Y = (float)(highlight.Top * height);
+                            adjoinment_points[2].X = (float)(highlight.Left * width);
+                            adjoinment_points[2].Y = (float)(highlight.Bottom * height);
 
-                                    adjoinment_points[2].X = (float)(highlight.Left * width);
-                                    adjoinment_points[2].Y = (float)(highlight.Bottom * height);
+                            adjoinment_points[3].X = (float)(last_right * width);
+                            adjoinment_points[3].Y = (float)(last_bottom * height);
 
-                                    adjoinment_points[3].X = (float)(last_right * width);
-                                    adjoinment_points[3].Y = (float)(last_bottom * height);
-
-                                    graphics.FillPolygon(highlight_pen, adjoinment_points);
-                                }
-
-                                // Remember the last position for future potential adjoining
-                                last_right = highlight.Right;
-                                last_top = highlight.Top;
-                                last_bottom = highlight.Bottom;
-                            }
+                            graphics.FillPolygon(highlight_pen, adjoinment_points);
                         }
+
+                        // Remember the last position for future potential adjoining
+                        last_right = highlight.Right;
+                        last_top = highlight.Top;
+                        last_bottom = highlight.Bottom;
+                    }
+                }
             }
 
             return bitmap;
@@ -107,6 +111,8 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public static void RenderAnnotations(Image image, PDFDocument pdf_document, int page, PDFAnnotation specific_pdf_annotation)
         {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
             int TRANSPARENCY = (int)Math.Round(ConfigurationManager.Instance.ConfigurationRecord.GUI_AnnotationPrintTransparency * 255);
 
             using (Graphics graphics = Graphics.FromImage(image))
@@ -141,39 +147,35 @@ namespace Qiqqa.Documents.PDF.PDFRendering
 
         public static void RenderInks(Image image, PDFDocument pdf_document, int page)
         {
-            SafeThreadPool.QueueUserWorkItem(o =>
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            var inks = pdf_document.Inks; // may take a bit of time as it's loaded from disk...
+
+            StrokeCollection stroke_collection = inks.GetInkStrokeCollection(page);
+            if (null != stroke_collection)
             {
-                var inks = pdf_document.Inks; // may take a bit of time as it's loaded from disk...
+                InkCanvas ic = new InkCanvas();
+                ic.Width = 1000;
+                ic.Height = 1000;
+                ic.Strokes = stroke_collection;
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                RenderTargetBitmap ink_image = new RenderTargetBitmap(1000, 1000, 96, 96, PixelFormats.Default);
+                ink_image.Render(ic);
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    StrokeCollection stroke_collection = inks.GetInkStrokeCollection(page);
-                    if (null != stroke_collection)
+                    BitmapEncoder encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(ink_image));
+                    encoder.Save(ms);
+
+                    using (Bitmap bitmap = new Bitmap(ms))
                     {
-                        InkCanvas ic = new InkCanvas();
-                        ic.Width = 1000;
-                        ic.Height = 1000;
-                        ic.Strokes = stroke_collection;
-
-                        RenderTargetBitmap ink_image = new RenderTargetBitmap(1000, 1000, 96, 96, PixelFormats.Default);
-                        ink_image.Render(ic);
-                        using (MemoryStream ms = new MemoryStream())
+                        using (Graphics graphics = Graphics.FromImage(image))
                         {
-                            BitmapEncoder encoder = new PngBitmapEncoder();
-                            encoder.Frames.Add(BitmapFrame.Create(ink_image));
-                            encoder.Save(ms);
-
-                            using (Bitmap bitmap = new Bitmap(ms))
-                            {
-                                using (Graphics graphics = Graphics.FromImage(image))
-                                {
-                                    graphics.DrawImage(bitmap, 0, 0, image.Width, image.Height);
-                                }
-                            }
+                            graphics.DrawImage(bitmap, 0, 0, image.Width, image.Height);
                         }
                     }
-                });
-            });
+                }
+            }
         }
     }
 }

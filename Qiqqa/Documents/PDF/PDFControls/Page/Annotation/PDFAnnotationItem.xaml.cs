@@ -20,7 +20,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
     /// </summary>
     public partial class PDFAnnotationItem : UserControl, IDisposable
     {
-        private PDFAnnotationLayer pdf_annotation_layer;
+        private WeakReference<PDFAnnotationLayer> pdf_annotation_layer;
         private PDFAnnotation pdf_annotation;
         private AugmentedToolWindow pdf_annotation_editor_control_popup;
         private double actual_page_width;
@@ -31,7 +31,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         public PDFAnnotationItem(PDFAnnotationLayer pdf_annotation_layer, PDFAnnotation pdf_annotation)
         {
-            this.pdf_annotation_layer = pdf_annotation_layer;
+            this.pdf_annotation_layer = new WeakReference<PDFAnnotationLayer>(pdf_annotation_layer);
             this.pdf_annotation = pdf_annotation;
 
             DataContext = pdf_annotation.Bindable;
@@ -48,7 +48,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
             ButtonAnnotationDetails.Source = Icons.GetAppIcon(Icons.Metadata);
             ButtonAnnotationDetails.Width = 32;
             ButtonAnnotationDetails.ToolTip = "Edit this annotation.";
-            RenderOptions.SetBitmapScalingMode(ButtonAnnotationDetails, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ButtonAnnotationDetails, BitmapScalingMode.HighQuality);
 
             TextAnnotationText.Background = Brushes.Transparent;
             TextAnnotationText.GotFocus += TextAnnotationText_GotFocus;
@@ -69,7 +69,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
             //Unloaded += PDFAnnotationItem_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
 
+        private PDFAnnotationLayer GetPDFAnnotationLayer()
+        {
+            if (pdf_annotation_layer != null && pdf_annotation_layer.TryGetTarget(out var control) && control != null)
+            {
+                return control;
+            }
+            return null;
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -193,27 +201,36 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Annotation
 
         private void TextAnnotationText_GotFocus(object sender, RoutedEventArgs e)
         {
-            ReColor();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReColor();
+            });
         }
 
         private void TextAnnotationText_LostFocus(object sender, RoutedEventArgs e)
         {
-            ReColor();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ReColor();
+            });
         }
 
         private void pdf_annotation_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            ReColor();
-
-            // If we are suddenly deleted, we need to cloe our pop-up and notify our parent so they can remove us from their viewing list
-            if (pdf_annotation.Deleted)
+            WPFDoEvents.SafeExec(() =>
             {
-                pdf_annotation_layer.DeletePDFAnnotationItem(this);
-                if (null != pdf_annotation_editor_control_popup)
+                ReColor();
+
+                // If we are suddenly deleted, we need to close our pop-up and notify our parent so they can remove us from their viewing list
+                if (pdf_annotation.Deleted)
                 {
-                    pdf_annotation_editor_control_popup.Close();
+                    GetPDFAnnotationLayer()?.DeletePDFAnnotationItem(this);
+                    if (null != pdf_annotation_editor_control_popup)
+                    {
+                        pdf_annotation_editor_control_popup.Close();
+                    }
                 }
-            }
+            });
         }
 
         private void ReColor()

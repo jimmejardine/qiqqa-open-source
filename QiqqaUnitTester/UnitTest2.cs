@@ -6,7 +6,7 @@ using QiqqaTestHelpers;
 
 // https://www.automatetheplanet.com/mstest-cheat-sheet/
 
-namespace QiqqaUnitTester.C
+namespace QiqqaUnitTester.Example
 {
     [TestClass]
     public class UnitTest2

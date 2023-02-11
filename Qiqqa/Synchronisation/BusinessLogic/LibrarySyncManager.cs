@@ -64,7 +64,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             WPFDoEvents.SetHourglassCursor();
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 //
                 // Explicitly instruct the sync info collector to perform a swift scan, which DOES NOT include
@@ -75,7 +75,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 // our numbers in a future call to this method.
                 //
                 GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
 
@@ -94,7 +94,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
 
             WPFDoEvents.SetHourglassCursor();
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 //
                 // Explicitly instruct the sync info collector to perform a swift scan, which DOES NOT include
@@ -105,7 +105,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                 // of our numbers in a future call to this method.
                 //
                 GlobalSyncDetail global_sync_detail = GenerateGlobalSyncDetail(tally_library_storage_size: false);
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.ResetHourglassCursor();
 
@@ -280,7 +280,7 @@ namespace Qiqqa.Synchronisation.BusinessLogic
                     if (sync_control_grid_item.SyncLibrary)
                     {
                         web_library_detail.Xlibrary.sync_in_progress = true;
-                        SafeThreadPool.QueueUserWorkItem(o => Sync_BACKGROUND(sync_control_grid_item));
+                        SafeThreadPool.QueueUserWorkItem(() => Sync_BACKGROUND(sync_control_grid_item));
                     }
                 }
             }

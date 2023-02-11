@@ -33,8 +33,11 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
         //private TypedWeakReference<WebLibraryDetail> web_library_detail;
         //public WebLibraryDetail LibraryRef => web_library_detail?.TypedTarget;
 
+#if !HAS_NO_LUCENE
         private LuceneIndex word_index_manager = null;
         private object word_index_manager_lock = new object();
+#endif
+        
         private Stopwatch time_of_last_library_scan = Stopwatch.StartNew();
         private Dictionary<string, PDFDocumentInLibrary> pdf_documents_in_library = null;
         private object pdf_documents_in_library_lock = new object();
@@ -85,6 +88,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 // l5_clk.LockPerfTimerStop();
 
+#if !HAS_NO_LUCENE
                 //Utilities.LockPerfTimer l4_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
                 {
@@ -98,6 +102,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         }
                     }
                 }
+#endif
 
                 Logging.Info("Try to load a historical progress file: {0}", web_library_detail.FILENAME_DOCUMENT_PROGRESS_LIST);
                 try
@@ -138,6 +143,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     }
                 }
 
+#if !HAS_NO_LUCENE
                 // Utilities.LockPerfTimer l6_clk = Utilities.LockPerfChecker.Start();
                 lock (word_index_manager_lock)
                 {
@@ -145,12 +151,13 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                     word_index_manager = new LuceneIndex(web_library_detail.LIBRARY_INDEX_BASE_PATH);
                     word_index_manager.WriteMasterList();
                 }
+#endif
 
                 LibraryIndexIsLoaded = true;
             }
         }
 
-        #region --- Disposal ----------------------------------------------------------------------------------------
+#region --- Disposal ----------------------------------------------------------------------------------------
 
         ~LibraryIndex()
         {
@@ -175,6 +182,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                 if (dispose_count == 0)
                 {
                     // Get rid of managed resources
+#if !HAS_NO_LUCENE
                     // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                     lock (word_index_manager_lock)
                     {
@@ -183,6 +191,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         word_index_manager?.Dispose();
                         word_index_manager = null;
                     }
+#endif
 
                     //this.library?.Dispose();
                 }
@@ -209,7 +218,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             ++dispose_count;
         }
 
-        #endregion
+#endregion
 
         public void IncrementalBuildIndex(WebLibraryDetail web_library_detail)
         {
@@ -244,6 +253,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                 Logging.Info("+Writing the index master list");
 
+#if !HAS_NO_LUCENE
                 // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
                 lock (word_index_manager_lock)
                 {
@@ -251,6 +261,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                     word_index_manager?.WriteMasterList();
                 }
+#endif
 
                 //Utilities.LockPerfTimer l2_clk = Utilities.LockPerfChecker.Start();
                 lock (pdf_documents_in_library_lock)
@@ -330,6 +341,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public List<IndexResult> GetFingerprintsForQuery(string query)
         {
+#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
@@ -337,10 +349,14 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                 return word_index_manager?.GetDocumentsWithQuery(query) ?? new List<IndexResult>();
             }
+#else
+            return null;
+#endif
         }
 
         public List<IndexPageResult> GetPagesForQuery(string query)
         {
+#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
@@ -348,11 +364,15 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                 return word_index_manager?.GetDocumentPagesWithQuery(query) ?? new List<IndexPageResult>();
             }
+#else
+            return null;
+#endif
         }
 
         [Obsolete("Do not use this attribute", true)]
         public HashSet<string> GetFingerprintsForKeyword(string keyword)
         {
+#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
@@ -360,10 +380,14 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                 return word_index_manager?.GetDocumentsWithWord(keyword) ?? new HashSet<string>();
             }
+#else
+            return null;
+#endif
         }
 
         public int GetDocumentCountForKeyword(string keyword)
         {
+#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
@@ -371,6 +395,9 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                 return word_index_manager?.GetDocumentCountForKeyword(keyword) ?? 0;
             }
+#else
+            return 0;
+#endif
         }
 
         private bool RescanLibrary(WebLibraryDetail web_library_detail)
@@ -425,7 +452,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                         if (pdf_document.DocumentExists)
                         {
-                            pdf_document_in_library.total_pages = pdf_document.PDFRenderer.PageCount;
+                            pdf_document_in_library.total_pages = Math.Max(0, pdf_document.PageCount);
                             pdf_document_in_library.finished_indexing = false;
                         }
                         else
@@ -463,6 +490,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
         public void InvalidateIndex()
         {
+#if !HAS_NO_LUCENE
             // Utilities.LockPerfTimer l1_clk = Utilities.LockPerfChecker.Start();
             lock (word_index_manager_lock)
             {
@@ -470,6 +498,8 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
 
                 word_index_manager?.InvalidateIndex();
             }
+#else
+#endif
         }
 
         // store to collect log/action data to help reduce logfile flooding (see the ORIGINAL_FLOODY_LOGLINE code chunk further below)
@@ -546,7 +576,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
             {
                 if (clk.ElapsedMilliseconds > MAX_MILLISECONDS_PER_ITERATION)
                 {
-                    Logging.Info("IncrementalBuildNextDocuments: Breaking out of processing loop due to MAX_SECONDS_PER_ITERATION: {0}ms consumed", clk.ElapsedMilliseconds);
+                    Logging.Info("IncrementalBuildNextDocuments: Breaking out of processing loop due to MAX_MILLISECONDS_PER_ITERATION: {0}ms consumed", clk.ElapsedMilliseconds);
                     break;
                 }
 
@@ -615,7 +645,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                         {
                             if (pdf_document.DocumentExists)
                             {
-                                for (int page = 1; page <= pdf_document.PDFRenderer.PageCount; ++page)
+                                for (int page = 1; page <= pdf_document.PageCount; ++page)
                                 {
                                     WordList word_list = null;
 
@@ -625,7 +655,7 @@ namespace Qiqqa.DocumentLibrary.DocumentLibraryIndex
                                         continue;
                                     }
 
-                                    word_list = pdf_document.PDFRenderer.GetOCRText(page);
+                                    word_list = pdf_document.GetOCRText(page);
 
                                     // Process each word of the document
                                     if (null == word_list)

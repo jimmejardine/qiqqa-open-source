@@ -13,6 +13,11 @@ using Utilities.GUI;
 using Utilities.Images;
 using Utilities.Misc;
 using Image = System.Drawing.Image;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+using Qiqqa.Common.Configuration;
+using icons;
 
 namespace Qiqqa.DocumentLibrary
 {
@@ -106,43 +111,55 @@ namespace Qiqqa.DocumentLibrary
                 return;
             }
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
+            //
+            bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForSidePanels");
+
+            if (!allow)
+            {
+                ImageThumbnail.Source = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
+            }
+
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 try
                 {
-                    if (pdf_document.DocumentExists)
+                    if (pdf_document?.DocumentExists ?? false)
                     {
                         const double IMAGE_PERCENTAGE = 0.5;
+                        BitmapSource image_page = null;
 
-                        using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
+                        using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByHeightAsImage(page, (int)Math.Round(ImageThumbnail.Height / IMAGE_PERCENTAGE), (int)Math.Round(ImageThumbnail.Width / IMAGE_PERCENTAGE))))
                         {
-                            Bitmap image = (Bitmap)Image.FromStream(ms);
-                            PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
-                            PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
-                            PDFOverlayRenderer.RenderInks(image, pdf_document, page);
-
-                            image = image.Clone(new RectangleF { Width = image.Width, Height = (int)Math.Round(image.Height * IMAGE_PERCENTAGE) }, image.PixelFormat);
-                            BitmapSource image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
-
-                            WPFDoEvents.InvokeAsyncInUIThread(() =>
+                            using (Image image = Image.FromStream(ms))
                             {
-                                ImageThumbnail.Source = image_page;
+                                PDFOverlayRenderer.RenderAnnotations(image, pdf_document, page, specific_pdf_annotation);
+                                PDFOverlayRenderer.RenderHighlights(image, pdf_document, page);
+                                PDFOverlayRenderer.RenderInks(image, pdf_document, page);
 
-                                if (null != ImageThumbnail.Source)
-                                {
-                                    ImageThumbnail.Visibility = Visibility.Visible;
-                                }
-                                else
-                                {
-                                    ImageThumbnail.Visibility = Visibility.Collapsed;
-                                }
-                            });
+                                image_page = BitmapImageTools.CreateBitmapSourceFromImage(image);
+                                ASSERT.Test(image_page.IsFrozen);
+                            }
                         }
+
+                        WPFDoEvents.InvokeAsyncInUIThread(() =>
+                        {
+                            ImageThumbnail.Source = image_page;
+
+                            if (null != ImageThumbnail.Source)
+                            {
+                                ImageThumbnail.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                ImageThumbnail.Visibility = Visibility.Collapsed;
+                            }
+                        });
                     }
                     else
                     {
-                        string abstract_text = pdf_document.Abstract;
-                        if (PDFAbstractExtraction.CANT_LOCATE != abstract_text)
+                        string abstract_text = pdf_document?.Abstract;
+                        if (null != abstract_text)
                         {
                             WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {

@@ -24,6 +24,8 @@ Qiqqa.Build/Packaging/ClickOnceUninstaller/ClickOnceUninstaller/obj/*
 
 # nodeJS stuff (npm)
 /node_modules
+/Technology Tests/TypeScript Console App/node_modules
+/Technology Tests/TypeScript VueJS App/node_modules
 
 # ignore directories where the installers are saved during Release+SETUP builds
 /Qiqqa.Build/Packages/v* - 20*/
@@ -44,5 +46,42 @@ desktop.ini
 Qiqqa.org.log
 Qiqqa.org.vcxprojAssemblyReference.cache
 
-/Technology Tests/forking cleans up memory leaks/Debug*/
-/Technology Tests/monitor our memory usage and die when passing threshold/Debug*/
+Debug*/
+Release*/
+
+*.log
+*.diagsession
+/Technology Tests/TypeScript VueJS App/dist
+
+# Zettlr
+.ztr-directory
+
+# audio-recorded review/comments/interchange of the manual development (writing)
+/docs-src/The Official Manual (v80-89 Open Source)/audio-review/
+
+/Technology Tests/WPF Template App1.Packaging/*.cache
+
+# Obsidian vault
+/docs-src/Notes/.obsidian/appearance.json
+/docs-src/Notes/.obsidian/core-plugins.json
+/docs-src/Notes/.obsidian/daily-notes.json
+/docs-src/Notes/.obsidian/graph.json
+/docs-src/Notes/.obsidian/hotkeys.json
+/docs-src/Notes/.obsidian/switcher.json
+/docs-src/Notes/.obsidian/templates.json
+/docs-src/Notes/.obsidian/workspace
+
+# Intel VTune Profiler
+/Qiqqa/VTune Profiler Results/
+/icons/Logo/research
+
+# misc.
+/docs-src/Dcoumentation/
+
+# temporarily ignore dev/trial directories, which we don't want to be bothered with right now during git-status and similar invocations:
+/QiqqaLaunchMonitor
+/QiqqaSystemSanityChecker
+/docs-intermediate
+
+/docs-src/Notes/.obsidian/core-plugins-migration.json
+/docs-src/Notes/.obsidian/workspace.json

@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using Microsoft.Win32;
 using Qiqqa.Common.Configuration;
+#if SYNCFUSION_ANTIQUE
+using Syncfusion.XlsIO.Implementation.PivotAnalysis;
+#endif
 using Utilities;
 using Utilities.Files;
 using Utilities.GUI;
@@ -53,7 +56,7 @@ namespace Qiqqa.Common
                 const int MAX_PROGRESS = 100;
                 StatusManager.Instance.UpdateStatus("LogBundler", "Bundling the logfile. Please wait...", progress, MAX_PROGRESS);
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     string environment_details_filename = null;
 

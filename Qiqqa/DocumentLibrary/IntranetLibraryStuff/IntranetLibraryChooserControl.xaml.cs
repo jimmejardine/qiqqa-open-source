@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Common.GUI;
 using Qiqqa.UtilisationTracking;
 using Utilities;
@@ -59,7 +59,7 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
             string db_title = TxtTitle.Text;
             string db_description = TxtDescription.Text;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 try
                 {
@@ -69,14 +69,14 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
                 {
                     Logging.Error(ex, "There was a problem while trying to connect to this Intranet Library.  Are you sure you have permission to access this folder?  Your Network or System Administrator can grant you this permission.\n\nThe detailed error message is:\n" + ex.Message);
 
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
                         MessageBoxes.Error("There was a problem while trying to connect to this Intranet Library.  Are you sure you have permission to access this folder?  Your Network or System Administrator can grant you this permission.\n\nThe detailed error message is:\n" + ex.Message);
                     });
                 }
                 finally
                 {
-                    WPFDoEvents.InvokeInUIThread(() =>
+                    WPFDoEvents.InvokeAsyncInUIThread(() =>
                     {
                         Close();
                     });
@@ -91,7 +91,10 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         private void TxtPath_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidateFolder();
+            WPFDoEvents.SafeExec(() =>
+            {
+                ValidateFolder();
+            });
         }
 
         private void ValidateFolder()
@@ -123,16 +126,25 @@ namespace Qiqqa.DocumentLibrary.IntranetLibraryStuff
 
         private void ObjButtonFolderChoose_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            var dialog = new VistaFolderBrowserDialog();
+
+            dialog.Description = "Please select the shared directory for your Intranet Library.";
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            string default_folder = TxtPath.Text;
+            if (default_folder != null)
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = "Please select the shared directory for your Intranet Library.";
-                dialog.DefaultDirectory = TxtPath.Text;
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result == CommonFileDialogResult.Ok)
-                {
-                    TxtPath.Text = dialog.FileName;
-                }
+                dialog.SelectedPath = default_folder;
+            }
+
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+            {
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
+
+            if ((bool)dialog.ShowDialog())
+            {
+                TxtPath.Text = dialog.SelectedPath;
             }
         }
 

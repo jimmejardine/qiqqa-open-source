@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Threading;
-#if TESSERACT_ANTIQUE
-using tessnet2;
-#endif
 using Utilities;
 using Utilities.Encryption;
 using Utilities.OCR;
-#if SORAX_ANTIQUE
+#if !HAS_MUPDF_PAGE_RENDERER
 using Utilities.PDF.Sorax;
+#else
+using Utilities.PDF.MuPDF;
 #endif
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;

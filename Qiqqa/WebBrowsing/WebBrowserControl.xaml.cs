@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Threading;
-#if XULRUNNER_GECKO_ANTIQUE
-using Gecko;
-using Gecko.Events;
-#endif
 using Qiqqa.Common;
 using Qiqqa.Common.Configuration;
 using Utilities;
@@ -27,49 +23,40 @@ namespace Qiqqa.WebBrowsing
             this.web_browser_host_control = web_browser_host_control;
 
             InitializeComponent();
-
-#if XULRUNNER_GECKO_ANTIQUE
-            ObjWebBrowser.CreateControl();
-            ObjWebBrowser.Navigating += ObjWebBrowser_Navigating;
-            ObjWebBrowser.DocumentCompleted += ObjWebBrowser_DocumentCompleted;
-            ObjWebBrowser.CreateWindow += ObjWebBrowser_CreateWindow;
-
-            // Seems to crash Qiqqa in Gecko v13 - perhaps the statuses are updating too quickly or in parallel?!
-            // Seems to work with gecko v21...
-            ObjWebBrowser.StatusTextChanged += ObjWebBrowser_StatusTextChanged;
-#else
-            // TODO: WebView2 ?
-#endif
         }
 
-#if XULRUNNER_GECKO_ANTIQUE
-            private void ObjWebBrowser_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
+        private void ObjWebBrowser_CreateWindow(object sender, EventArgs e)
         {
-            WebBrowserHostControl wbhc = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
-            WebBrowserControl wbc = wbhc.OpenNewWindow();
-            e.WebBrowser = wbc.ObjWebBrowser;
+            WPFDoEvents.SafeExec(() =>
+            {
+                WebBrowserHostControl wbhc = MainWindowServiceDispatcher.Instance.OpenWebBrowser();
+                WebBrowserControl wbc = wbhc.OpenNewWindow();
+                //e.WebBrowser = wbc.ObjWebBrowser;
+            });
         }
 
         private void ObjWebBrowser_StatusTextChanged(object sender, EventArgs e)
         {
-            GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
-            StatusManager.Instance.UpdateStatus("WebBrowser", web_control.StatusText);
-            Logging.Info("Browser:StatusTextChanged: {0}", web_control.StatusText);
+            WPFDoEvents.SafeExec(() =>
+            {
+            });
         }
 
-        private void ObjWebBrowser_Navigating(object sender, GeckoNavigatingEventArgs e)
+        private void ObjWebBrowser_Navigating(object sender, EventArgs e)
         {
-            web_browser_host_control.ObjWebBrowser_Navigating(this, e.Uri);
+            WPFDoEvents.SafeExec(() =>
+            {
+                Uri uri = new Uri("http://todo.example.com");
+                web_browser_host_control.ObjWebBrowser_Navigating(this, uri);
+            });
         }
-#endif
 
         private void ObjWebBrowser_DocumentCompleted(object sender, EventArgs e)
         {
-#if XULRUNNER_GECKO_ANTIQUE
-            GeckoWebBrowser web_control = (GeckoWebBrowser)sender;
-            Logging.Info("Browser page contents received at url {0}", web_control.Url.ToString());
-            web_browser_host_control.ObjWebBrowser_LoadCompleted(this);
-#endif
+            WPFDoEvents.SafeExec(() =>
+            {
+                web_browser_host_control.ObjWebBrowser_LoadCompleted(this);
+            });
         }
 
         internal void GoForward()
@@ -93,7 +80,7 @@ namespace Qiqqa.WebBrowsing
         {
             try
             {
-                ObjWebBrowser.Reload();
+                //ObjWebBrowser.Reload();
             }
             catch (Exception ex)
             {
@@ -140,23 +127,13 @@ namespace Qiqqa.WebBrowsing
             return uri;
         }
 
-#if XULRUNNER_GECKO_ANTIQUE
-        public string Title => ObjWebBrowser.DocumentTitle;
+        //public string Title => ObjWebBrowser.DocumentTitle;
 
-        internal Uri CurrentUri => ObjWebBrowser.Url;
+        //internal Uri CurrentUri => ObjWebBrowser.Url;
 
-        public string PageText => ObjWebBrowser.Document.Body.TextContent;
+        //public string PageText => ObjWebBrowser.Document.Body.TextContent;
 
-        public string PageHTML => ObjWebBrowser.Document.GetElementsByTagName("html")[0].OuterHtml;
-#else
-        public string Title => throw new NotImplementedException();
-
-        internal Uri CurrentUri => throw new NotImplementedException();
-
-        public string PageText => throw new NotImplementedException();
-
-        public string PageHTML => throw new NotImplementedException();
-#endif
+        //public string PageHTML => ObjWebBrowser.Document.GetElementsByTagName("html")[0].OuterHtml;
 
         #region --- IDisposable ------------------------------------------------------------------------
 

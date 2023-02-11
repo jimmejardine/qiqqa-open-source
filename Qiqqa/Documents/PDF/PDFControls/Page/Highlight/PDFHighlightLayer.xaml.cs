@@ -73,12 +73,15 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         private void PDFHighlightLayer_Loaded(object sender, RoutedEventArgs e)
         {
-            ASSERT.Test(pdf_document != null);
-
-            if (pdf_document != null)
+            WPFDoEvents.SafeExec(() =>
             {
-                ObjHighlightRenderer.RebuildVisual(pdf_document, page);
-            }
+                ASSERT.Test(pdf_document != null);
+
+                if (pdf_document != null)
+                {
+                    ObjHighlightRenderer.RebuildVisual(pdf_document, page);
+                }
+            });
         }
 
         public static bool IsLayerNeeded(PDFDocument pdf_document, int page)
@@ -96,35 +99,47 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
         {
             FeatureTrackingManager.Instance.UseFeature(Features.Document_AddHighlight);
 
-            WordList words = pdf_document.PDFRenderer.GetOCRText(page);
-            text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
+            double page_width = ActualWidth;
+            double page_height = ActualHeight;
 
             // Decide if we are adding or removing highlights
-            double mouse_down_left = mouse_down_point.X / ActualWidth;
-            double mouse_down_top = mouse_down_point.Y / ActualHeight;
+            double mouse_down_left = mouse_down_point.X / page_width;
+            double mouse_down_top = mouse_down_point.Y / page_height;
 
-            // See if this click point is inside any current existing highlight
-            toggled_deleting = false;
-            foreach (PDFHighlight highlight in pdf_document.Highlights.GetHighlightsForPage(page))
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
-                if (highlight.Contains(page, mouse_down_left, mouse_down_top))
+                WordList words = pdf_document.GetOCRText(page);
+                text_selection_manager.OnDragStarted(text_layer_selection_mode, words, page_width, page_height, button_left_pressed, button_right_pressed, mouse_down_point);
+
+                // See if this click point is inside any current existing highlight
+                toggled_deleting = false;
+                foreach (PDFHighlight highlight in pdf_document.Highlights.GetHighlightsForPage(page))
                 {
-                    toggled_deleting = true;
-                    break;
+                    if (highlight.Contains(page, mouse_down_left, mouse_down_top))
+                    {
+                        toggled_deleting = true;
+                        break;
+                    }
                 }
-            }
+            });
         }
 
         private void drag_area_tracker_OnDragInProgress(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_move_point)
         {
-            WordList selected_words = text_selection_manager.OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_move_point);
-            ProcessAndApplyHighlights(selected_words);
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+            {
+                WordList selected_words = text_selection_manager.OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_move_point);
+                ProcessAndApplyHighlights(selected_words);
+            });
         }
 
         private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
-            WordList selected_words = text_selection_manager.OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_up_point);
-            ProcessAndApplyHighlights(selected_words);
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
+            {
+                WordList selected_words = text_selection_manager.OnDragInProgress(button_left_pressed, button_right_pressed, mouse_down_point, mouse_up_point);
+                ProcessAndApplyHighlights(selected_words);
+            });
         }
 
         private void ProcessAndApplyHighlights(WordList selected_words)
@@ -168,9 +183,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             }
 
             // Redraw
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 ObjHighlightRenderer.RebuildVisual(pdf_document, page);
-            }
+            });
         }
 
         internal void RaiseHighlightChange(int colourNumber)

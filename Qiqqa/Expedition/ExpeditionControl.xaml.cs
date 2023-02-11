@@ -17,6 +17,10 @@ using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Mathematics.Topics.LDAStuff;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Expedition
 {
@@ -113,7 +117,7 @@ namespace Qiqqa.Expedition
         {
             if (null != web_library_detail)
             {
-                SafeThreadPool.QueueUserWorkItem(o => web_library_detail.Xlibrary.AITagManager.Regenerate());
+                SafeThreadPool.QueueUserWorkItem(() => web_library_detail.Xlibrary.AITagManager.Regenerate());
             }
             else
             {
@@ -207,12 +211,18 @@ namespace Qiqqa.Expedition
 
         private void toc_PDFDocumentSelected(PDFDocument pdf_document)
         {
-            ChooseNewPDFDocument(pdf_document);
+            WPFDoEvents.SafeExec(() =>
+            {
+                ChooseNewPDFDocument(pdf_document);
+            });
         }
 
         private void ObjDocumentOverviewControl_PDFDocumentSelected(PDFDocument pdf_document)
         {
-            ChooseNewPDFDocument(pdf_document);
+            WPFDoEvents.SafeExec(() =>
+            {
+                ChooseNewPDFDocument(pdf_document);
+            });
         }
 
         public void ChooseNewPDFDocument(PDFDocument pdf_document)
@@ -232,7 +242,7 @@ namespace Qiqqa.Expedition
             int num_topics = Convert.ToInt32(TextExpeditionNumThemes.Text);
             bool add_autotags = ObjAddAutoTags.IsChecked ?? true;
             bool add_tags = ObjAddTags.IsChecked ?? true;
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 web_library_detail.Xlibrary.ExpeditionManager.RebuildExpedition(num_topics, add_autotags, add_tags, OnRebuildExpeditionComplete);
             });

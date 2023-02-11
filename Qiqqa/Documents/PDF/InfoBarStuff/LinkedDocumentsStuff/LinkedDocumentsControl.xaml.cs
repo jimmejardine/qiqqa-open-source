@@ -78,7 +78,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
                 string query = ObjSearchBox.Text;
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     ReSearch(doc, query);
                     RepopulatePanels(doc);
@@ -89,7 +89,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
         private void RepopulatePanels(PDFDocument doc)
         {
             var links = doc.PDFDocumentCitationManager.GetLinkedDocuments();
-            WPFDoEvents.InvokeInUIThread(() =>
+            WPFDoEvents.InvokeAsyncInUIThread(() =>
             {
                 CitationsUserControl.PopulatePanelWithCitations(DocsPanel_Linked, doc, links, Features.LinkedDocument_InfoBar_OpenDoc);
             });
@@ -105,7 +105,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
             {
                 List<IndexResult> matches = doc.LibraryRef.Xlibrary.LibraryIndex.GetFingerprintsForQuery(query);
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     List<TextBlock> text_blocks = new List<TextBlock>();
                     bool alternator = false;
@@ -150,7 +150,7 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
             var doc = this.pdf_document;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 RepopulatePanels(doc);
             });
@@ -158,12 +158,15 @@ namespace Qiqqa.Documents.PDF.InfoBarStuff.LinkedDocumentsStuff
 
         private void ObjSearchBox_OnSoftSearch()
         {
-            var doc = this.pdf_document;
-            string query = ObjSearchBox.Text;
-
-            SafeThreadPool.QueueUserWorkItem(o =>
+            WPFDoEvents.SafeExec(() =>
             {
-                ReSearch(doc, query);
+                var doc = this.pdf_document;
+                string query = ObjSearchBox.Text;
+
+                SafeThreadPool.QueueUserWorkItem(() =>
+                {
+                    ReSearch(doc, query);
+                });
             });
         }
     }

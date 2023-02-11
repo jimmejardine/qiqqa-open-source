@@ -29,7 +29,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageIcon.Source = item.icon;
             ImageIcon.Visibility = (null != item.icon) ? Visibility.Visible : Visibility.Collapsed;
 
-            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             ImageClose.Width = 20;
             ImageClose.Source = Icons.GetAppIcon(Icons.DualTabbed_Close);
@@ -43,7 +43,7 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             MouseRightButtonUp += ItemHeader_MouseRightButtonUp;
 
             TextHeader.Text = item.header;
-            TextHeader.ToolTip = item.header; ;
+            TextHeader.ToolTip = item.header;
             TextHeader.TextTrimming = TextTrimming.WordEllipsis;
             TextHeader.MaxWidth = 250;
 
@@ -105,7 +105,6 @@ namespace Utilities.GUI.DualTabbedLayoutStuff
             ImageRight.CaptionDock = Dock.Right;
             ImageFloating.CaptionDock = Dock.Right;
             ImageClose.CaptionDock = Dock.Right;
-
 
             ImageLeft.Click += ImageLeft_MouseDown;
             ImageBottom.Click += ImageBottom_MouseDown;

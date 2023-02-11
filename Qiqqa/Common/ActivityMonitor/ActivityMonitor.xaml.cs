@@ -46,7 +46,7 @@ namespace Qiqqa.Common
             dispatcherTimer.Start();
         }
 
-        private long library_change_marker_tick = 0;
+        //private long library_change_marker_tick = 0;
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -261,8 +261,8 @@ namespace Qiqqa.Common
 
                     resp_housekeeping.clk2Test = Stopwatch.StartNew();
                 }
-                SafeThreadPool.QueueUserWorkItem(o => MeasureUIResponsivenessNormal());
-                SafeThreadPool.QueueUserWorkItem(o => MeasureUIResponsivenessBackground());
+                SafeThreadPool.QueueUserWorkItem(() => MeasureUIResponsivenessNormal());
+                SafeThreadPool.QueueUserWorkItem(() => MeasureUIResponsivenessBackground());
             }
         }
 

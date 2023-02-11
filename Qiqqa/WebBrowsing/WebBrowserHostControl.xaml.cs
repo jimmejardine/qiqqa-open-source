@@ -130,7 +130,7 @@ namespace Qiqqa.WebBrowsing
 
         private void ButtonEZProxy_Click(object sender, RoutedEventArgs e)
         {
-            string current_url = active_wbc.CurrentUri.ToString();
+            string current_url = "http://todo.example.com/";
 
             string ezproxy = ConfigurationManager.Instance.ConfigurationRecord.Proxy_EZProxy;
             if (!String.IsNullOrEmpty(ezproxy))
@@ -305,51 +305,54 @@ namespace Qiqqa.WebBrowsing
             string url = CurrentUri.ToString();
 
             // This was the code that does the magic locally on the client...
-            SafeThreadPool.QueueUserWorkItem(o => HTMLToPDFConversion.GrabWebPage(title, url));
+            SafeThreadPool.QueueUserWorkItem(() => HTMLToPDFConversion.GrabWebPage(title, url));
         }
 
         private void TabWebBrowserControls_OnActiveItemChanged(FrameworkElement newItemContent)
         {
-            WebBrowserControl wbc = newItemContent as WebBrowserControl;
-
-            if (null != wbc)
+            WPFDoEvents.SafeExec(() =>
             {
-                // find out which, if any, web searcher goes with this particular control
-                WebSearcherEntry wse = null;
+                WebBrowserControl wbc = newItemContent as WebBrowserControl;
 
-                foreach (var web_searcher_entry in web_searcher_entries)
+                if (null != wbc)
                 {
-                    if (web_searcher_entry.browser_control == wbc)
+                    // find out which, if any, web searcher goes with this particular control
+                    WebSearcherEntry wse = null;
+
+                    foreach (var web_searcher_entry in web_searcher_entries)
                     {
-                        wse = web_searcher_entry;
-                        break;
+                        if (web_searcher_entry.browser_control == wbc)
+                        {
+                            wse = web_searcher_entry;
+                            break;
+                        }
                     }
+
+                    Uri uri = wbc.NavigateOnceVisibleUri;
+
+                    if (uri == null || uri.ToString() == WebsiteAccess.Url_AboutBlank)
+                    {
+                        if (wse != null)
+                        {
+                            uri = wbc.NavigateOnceVisibleUri = new Uri(wse.web_searcher.StartUri);
+                        }
+                        else
+                        {
+                            uri = wbc.NavigateOnceVisibleUri = new Uri(WebsiteAccess.Url_BlankWebsite);
+                        }
+                    }
+                    uri = wbc.NavigateToPendingOnceVisibleUri();
+
+                    Logging.Debug特("Active browser control changed");
+                    active_wbc = wbc;
+
+                    uri = new Uri("http://todo.example.com/");
+                    ASSERT.Test(uri != null);
+                    TextBoxUrl.Text = uri.ToString();
                 }
 
-                Uri uri = wbc.NavigateOnceVisibleUri;
-
-                if (uri == null || uri.ToString() == WebsiteAccess.Url_AboutBlank)
-                {
-                    if (wse != null)
-                    {
-                        uri = wbc.NavigateOnceVisibleUri = new Uri(wse.web_searcher.StartUri);
-                    }
-                    else
-                    {
-                        uri = wbc.NavigateOnceVisibleUri = new Uri(WebsiteAccess.Url_BlankWebsite);
-                    }
-                }
-                uri = wbc.NavigateToPendingOnceVisibleUri();
-
-                Logging.Debug特("Active browser control changed");
-                active_wbc = wbc;
-
-                uri = wbc.CurrentUri;
-                ASSERT.Test(uri != null);
-                TextBoxUrl.Text = uri.ToString();
-            }
-
-            TabChanged?.Invoke();
+                TabChanged?.Invoke();
+            });
         }
 
         // TODO: make it work akin to the <embed> handling to prevent confusion:
@@ -376,7 +379,10 @@ namespace Qiqqa.WebBrowsing
 
         private void TextBoxUrl_OnHardSearch()
         {
-            DoBrowse();
+            WPFDoEvents.SafeExec(() =>
+            {
+                DoBrowse();
+            });
         }
 
         private void DoBrowse()
@@ -419,7 +425,10 @@ namespace Qiqqa.WebBrowsing
 
         private void TextBoxGoogleScholar_OnHardSearch()
         {
-            DoWebSearch();
+            WPFDoEvents.SafeExec(() =>
+            {
+                DoWebSearch();
+            });
         }
 
         internal void SelectSearchTab(string active_search_key)
@@ -526,14 +535,14 @@ namespace Qiqqa.WebBrowsing
             }
         }
 
-        public Uri CurrentUri => active_wbc.CurrentUri;
+        public Uri CurrentUri => new Uri("http://todo.example.com/");
 
 
-        public string CurrentTitle => active_wbc.Title;
+        public string CurrentTitle => "http://todo.example.com/";
 
-        public string CurrentPageText => active_wbc.PageText;
+        public string CurrentPageText => "http://todo.example.com/";
 
-        public string CurrentPageHTML => active_wbc.PageHTML;
+        public string CurrentPageHTML => "http://todo.example.com/";
 
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
@@ -547,8 +556,8 @@ namespace Qiqqa.WebBrowsing
 
         private void ButtonGrabPDFs_Click(object sender, RoutedEventArgs e)
         {
-            Uri current_uri = CurrentWebBrowserControl.CurrentUri;
-            string html = CurrentWebBrowserControl.PageHTML;
+            Uri current_uri = new Uri("http://todo.example.com/");
+            string html = "http://todo.example.com/";
 
             List<string> urls = DownloadableFileGrabber.Grab(current_uri, html, "pdf");
 

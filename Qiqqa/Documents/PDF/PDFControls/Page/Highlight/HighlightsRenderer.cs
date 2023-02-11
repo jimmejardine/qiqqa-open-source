@@ -26,7 +26,10 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
 
         private void HighlightsRenderer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            RebuildVisual();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RebuildVisual();
+            });
         }
 
         internal void RebuildVisual(PDFDocument pdf_document, int page)
@@ -60,13 +63,14 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Highlight
             double scaled_capped_width = Math.Min(Width, 300);
             double scaled_capped_height = Height * scaled_capped_width / Width;
 
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 BitmapSource bmp;
 
                 using (Bitmap raster_bitmap = PDFOverlayRenderer.RenderHighlights((int)scaled_capped_width, (int)scaled_capped_height, pdf_document, page))
                 {
                     bmp = BitmapImageTools.FromBitmap(raster_bitmap);
+                    ASSERT.Test(bmp.IsFrozen);
                 }
 
                 WPFDoEvents.InvokeAsyncInUIThread(() =>

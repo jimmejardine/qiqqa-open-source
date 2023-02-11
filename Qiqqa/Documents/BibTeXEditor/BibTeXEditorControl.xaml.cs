@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -122,48 +123,51 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void BibTeXEditorControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double table_height1 = ObjGridPanel.ActualHeight;
-            //double table_height2 = ObjHeaderGrid.ActualHeight;
-            //double table_height3 = ObjBibTeXGrid.ActualHeight;
-
-            //double rawtxt_height1 = ObjTextPanel.ActualHeight;
-            //double rawtxt_height2 = ObjBibTeXTextScrollViewer.ActualHeight;
-            //double rawtxt_height3 = ObjBibTeXText.ActualHeight;
-
-            //double errtxt_height1 = ObjErrorPanel.ActualHeight;
-            //double errtxt_height2 = ObjBibTeXErrorScrollViewer.ActualHeight;
-            //double errtxt_height3 = ObjBibTeXErrorText.ActualHeight;
-
-            const double THRESHOLD = 100;
-
-            if (table_height1 > THRESHOLD)
+            WPFDoEvents.SafeExec(() =>
             {
-                double maxh1 = ObjBibTeXTextScrollViewer.MaxHeight;
-                double maxh2 = ObjBibTeXErrorScrollViewer.MaxHeight;
+                double table_height1 = ObjGridPanel.ActualHeight;
+                //double table_height2 = ObjHeaderGrid.ActualHeight;
+                //double table_height3 = ObjBibTeXGrid.ActualHeight;
 
-                // tweak the control so the Parsed View gives us the master MaxHeight:
-                ObjBibTeXTextScrollViewer.MaxHeight = THRESHOLD;
-                ObjBibTeXErrorScrollViewer.MaxHeight = THRESHOLD;
-                UpdateLayout();
+                //double rawtxt_height1 = ObjTextPanel.ActualHeight;
+                //double rawtxt_height2 = ObjBibTeXTextScrollViewer.ActualHeight;
+                //double rawtxt_height3 = ObjBibTeXText.ActualHeight;
 
-                table_height1 = ObjGridPanel.ActualHeight;
+                //double errtxt_height1 = ObjErrorPanel.ActualHeight;
+                //double errtxt_height2 = ObjBibTeXErrorScrollViewer.ActualHeight;
+                //double errtxt_height3 = ObjBibTeXErrorText.ActualHeight;
+
+                const double THRESHOLD = 100;
 
                 if (table_height1 > THRESHOLD)
                 {
-                    ObjBibTeXTextScrollViewer.MaxHeight = table_height1;
-                    ObjBibTeXErrorScrollViewer.MaxHeight = table_height1;
-                }
-                else
-                {
-                    ObjBibTeXTextScrollViewer.MaxHeight = double.PositiveInfinity;
-                    ObjBibTeXErrorScrollViewer.MaxHeight = double.PositiveInfinity;
-                }
+                    double maxh1 = ObjBibTeXTextScrollViewer.MaxHeight;
+                    double maxh2 = ObjBibTeXErrorScrollViewer.MaxHeight;
 
-                if (Math.Abs(maxh1 - ObjBibTeXTextScrollViewer.MaxHeight) > 0.25)
-                {
+                    // tweak the control so the Parsed View gives us the master MaxHeight:
+                    ObjBibTeXTextScrollViewer.MaxHeight = THRESHOLD;
+                    ObjBibTeXErrorScrollViewer.MaxHeight = THRESHOLD;
                     UpdateLayout();
+
+                    table_height1 = ObjGridPanel.ActualHeight;
+
+                    if (table_height1 > THRESHOLD)
+                    {
+                        ObjBibTeXTextScrollViewer.MaxHeight = table_height1;
+                        ObjBibTeXErrorScrollViewer.MaxHeight = table_height1;
+                    }
+                    else
+                    {
+                        ObjBibTeXTextScrollViewer.MaxHeight = double.PositiveInfinity;
+                        ObjBibTeXErrorScrollViewer.MaxHeight = double.PositiveInfinity;
+                    }
+
+                    if (Math.Abs(maxh1 - ObjBibTeXTextScrollViewer.MaxHeight) > 0.25)
+                    {
+                        UpdateLayout();
+                    }
                 }
-            }
+            });
         }
 
         public void RegisterOverlayButtons(FrameworkElement BibTeXParseErrorButton, FrameworkElement BibTeXModeToggleButton, FrameworkElement BibTeXUndoEditButton, double IconHeight = double.NaN)
@@ -193,7 +197,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXParseErrorButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXParseError2);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
             }
 
@@ -215,7 +219,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXModeToggleButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.BibTeXEditToggleMode1);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
                 BibTeXModeToggleButton.Cursor = Cursors.Hand;
 #if false
@@ -243,7 +247,7 @@ namespace Qiqqa.Documents.BibTeXEditor
                 {
                     Image imgBtn = BibTeXUndoEditButton as Image;
                     imgBtn.Source = Icons.GetAppIcon(Icons.Previous2);
-                    RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
+                    //RenderOptions.SetBitmapScalingMode(imgBtn, BitmapScalingMode.HighQuality);
                 }
             }
         }
@@ -299,7 +303,10 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void OnBibTeXPropertyChanged(object sender, EventArgs e)
         {
-            RebuidTextAndGrid();
+            WPFDoEvents.SafeExec(() =>
+            {
+                RebuidTextAndGrid();
+            });
         }
 
         public bool ForceHideNoBibTeXInstructions { get; set; }
@@ -366,27 +373,39 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void ObjBibTeXText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateFromText();
+            WPFDoEvents.SafeExec(() =>
+            {
+                UpdateFromText();
+            });
         }
 
         private void ComboRecordType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (0 < e.AddedItems.Count)
+            WPFDoEvents.SafeExec(() =>
             {
-                ComboRecordType.Text = e.AddedItems[0].ToString();
-            }
+                if (0 < e.AddedItems.Count)
+                {
+                    ComboRecordType.Text = e.AddedItems[0].ToString();
+                }
 
-            UpdateFromGrid(true);
+                UpdateFromGrid(true);
+            });
         }
 
         private void ComboRecordType_KeyUp(object sender, KeyEventArgs e)
         {
-            UpdateFromGrid(true);
+            WPFDoEvents.SafeExec(() =>
+            {
+                UpdateFromGrid(true);
+            });
         }
 
         private void OnGridTextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateFromGrid(false);
+            WPFDoEvents.SafeExec(() =>
+            {
+                UpdateFromGrid(false);
+            });
         }
 
         // ------------------------------------------
@@ -395,16 +414,19 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void tb_key_TextChanged(object sender, RoutedEventArgs e)
         {
-            // Sigh - this crappy control seems to set a text change just once after initialisation - even if we don't change the text.
-            AutoCompleteBox sender_ac = (AutoCompleteBox)sender;
-            if (first_text_change_suppression_set.Contains(sender_ac))
+            WPFDoEvents.SafeExec(() =>
             {
-                first_text_change_suppression_set.Remove(sender_ac);
-            }
-            else
-            {
-                UpdateFromGrid(false);
-            }
+                // Sigh - this crappy control seems to set a text change just once after initialisation - even if we don't change the text.
+                AutoCompleteBox sender_ac = (AutoCompleteBox)sender;
+                if (first_text_change_suppression_set.Contains(sender_ac))
+                {
+                    first_text_change_suppression_set.Remove(sender_ac);
+                }
+                else
+                {
+                    UpdateFromGrid(false);
+                }
+            });
         }
 
         private void UpdateFromText()
@@ -470,7 +492,84 @@ namespace Qiqqa.Documents.BibTeXEditor
         {
             if (updating_from_text) return;
 
-            ObjBibTeXText.Text = bibtex;
+            // WARNING: we cannot protect TextBox from actual user input, but at least we can protect it against us feeding it stuff it doesn't cope with:
+            // anything Unicode in the high planes, etc.
+
+            // https://stackoverflow.com/questions/27049478/net-string-object-and-invalid-unicode-code-points
+            try
+            {
+                string s = bibtex ?? "";
+                StringBuilder d = new StringBuilder();
+                char ch;
+
+                for (int i = 0; i < s.Length; i++)
+                {
+                    ch = s[i];
+                    if (ch >= ' ' && ch < 0xD800) // char is up to first high surrogate
+                    {
+                    }
+                    else if (ch < ' ')
+                    {
+                        switch (ch)
+                        {
+                            case '\r':
+                                // strip
+                                continue;
+
+                            case '\n':
+                                // enforce CRLF:
+                                d.Append('\r');
+                                d.Append('\n');
+                                continue;
+
+                            case '\t':
+                                // keep
+                                ch = ' ';
+                                break;
+
+                            default:
+                                // unexpected control character: replace
+                                ch = '?';
+                                break;
+                        }
+                    }
+                    else if (ch >= 0xD800 && ch <= 0xDBFF)
+                    {
+                        // found high surrogate -> discard
+                        ch = '?';
+                    }
+                    else if (ch >= 0xDC00 && ch <= 0xDFFF)
+                    {
+                        // unexpected low surrogate
+                        ch = '?';
+                    }
+                    else if (ch >= 0xFDD0 && ch <= 0xFDEF)
+                    {
+                        // non-chars are considered invalid by System.Text.Encoding.GetBytes() and String.Normalize()
+                        ch = '?';
+                    }
+                    else if ((ch & 0xFFFE) == 0xFFFE)
+                    {
+                        // other non-char found
+                        ch = '?';
+                    }
+                    else
+                    {
+                        // just in case...
+                        ch = '?';
+                    }
+                    d.Append(ch);
+                }
+
+                s = d.ToString();
+                s = s.Normalize();
+
+                ObjBibTeXText.Text = s;
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex, "B0rk b0rk b0rk in TextBox::BuildTextFromBibTeX while processing input {0} (key: {1})", bibtex, bibtex_item.Key);
+            }
         }
 
         private void BuildGridFromBibTeX(string bibtex, BibTexItem bibtex_item)
@@ -645,15 +744,18 @@ namespace Qiqqa.Documents.BibTeXEditor
 
         private void tb_value_KeyDown(object sender, KeyEventArgs e)
         {
-            if (KeyboardTools.IsCTRLDown() && Key.OemSemicolon == e.Key)
+            WPFDoEvents.SafeExec(() =>
             {
-                TextBox tb = (TextBox)sender;
-                tb.Text = DateTime.Now.ToString("d MMM yyyy");
-                e.Handled = true;
-            }
+                if (KeyboardTools.IsCTRLDown() && Key.OemSemicolon == e.Key)
+                {
+                    TextBox tb = (TextBox)sender;
+                    tb.Text = DateTime.Now.ToString("d MMM yyyy");
+                    e.Handled = true;
+                }
+            });
         }
 
-        #region --- Test ------------------------------------------------------------------------
+#region --- Test ------------------------------------------------------------------------
 
 #if TEST
         public static void Test()
@@ -667,9 +769,9 @@ namespace Qiqqa.Documents.BibTeXEditor
         }
 #endif
 
-        #endregion
+#endregion
 
-        #region --- IDisposable ------------------------------------------------------------------------
+#region --- IDisposable ------------------------------------------------------------------------
 
         ~BibTeXEditorControl()
         {
@@ -752,7 +854,7 @@ namespace Qiqqa.Documents.BibTeXEditor
             });
         }
 
-        #endregion
+#endregion
 
     }
 }

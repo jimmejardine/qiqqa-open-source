@@ -89,7 +89,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 List<ExpeditionPaperSuggestions.Result> results = ExpeditionPaperSuggestions.GetRelevantOthers(doc, 10);
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -160,7 +160,7 @@ namespace Qiqqa.Brainstorm.Nodes
                             int doc_id = eds.docs_index[doc.Fingerprint];
                             TopicProbability[] topics = eds.LDAAnalysis.DensityOfTopicsInDocsSorted[doc_id];
 
-                            WPFDoEvents.InvokeInUIThread(() =>
+                            WPFDoEvents.InvokeAsyncInUIThread(() =>
                             {
                                 for (int t = 0; t < Math.Min(topics.Length, 5); ++t)
                                 {
@@ -196,7 +196,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 List<Citation> citations = doc.PDFDocumentCitationManager.GetInboundCitations();
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -221,7 +221,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 List<Citation> citations = doc.PDFDocumentCitationManager.GetOutboundCitations();
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -249,7 +249,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 var annotations = doc.GetAnnotations();
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -276,7 +276,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 HashSet<string> tags = doc.LibraryRef.Xlibrary.AITagManager.AITags.GetTagsWithDocument(doc.Fingerprint);
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -300,7 +300,7 @@ namespace Qiqqa.Brainstorm.Nodes
             {
                 var tags = TagTools.ConvertTagBundleToTags(doc.Tags);
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -329,7 +329,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     return;
                 }
 
-                WPFDoEvents.InvokeInUIThread(() =>
+                WPFDoEvents.InvokeAsyncInUIThread(() =>
                 {
                     WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
 
@@ -382,7 +382,7 @@ namespace Qiqqa.Brainstorm.Nodes
             switch (e.Key)
             {
                 case Key.I:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandCitationsInbound(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -390,7 +390,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.O:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandCitationsOutbound(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -398,7 +398,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.A:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandAuthors(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -406,7 +406,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.T:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandTags(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -414,7 +414,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.G:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandAutoTags(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -422,7 +422,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.N:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandAnnotations(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -430,7 +430,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.M:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandThemes(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -438,7 +438,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.S:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandSimilars(pdf_document_node_content.PDFDocument, node_control);
                     });
@@ -446,7 +446,7 @@ namespace Qiqqa.Brainstorm.Nodes
                     break;
 
                 case Key.R:
-                    SafeThreadPool.QueueUserWorkItem(o =>
+                    SafeThreadPool.QueueSafeExecUserWorkItem(() =>
                     {
                         ExpandRelevants(pdf_document_node_content.PDFDocument, node_control);
                     });

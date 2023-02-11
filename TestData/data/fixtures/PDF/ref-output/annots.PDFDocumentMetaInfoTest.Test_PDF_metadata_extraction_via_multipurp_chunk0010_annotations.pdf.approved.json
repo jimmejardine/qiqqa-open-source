@@ -1,0 +1,6229 @@
+﻿{
+  "info": {
+    "PageCount": 6,
+    "PDFVersion": "PDF-1.6",
+    "Chapters": 0,
+    "ChapterPages": null,
+    "Title": "Microsoft Word - Links.doc",
+    "Author": "August D. Coby",
+    "Format": "PDF 1.6",
+    "Encryption": null,
+    "PDFCreator": "ADOBEPS4.DRV Version 4.24",
+    "PDFProducer": "Acrobat Distiller 4.0 for Windows",
+    "Subject": null,
+    "Keywords": null,
+    "Creation_Date": "2000-04-20T23:11:30Z",
+    "Modification_Date": "2012-02-08T17:40:57Z",
+    "Permissions": "print, copy, edit, annotate",
+    "PDFStatus": "PDF linearized document with 1 update.",
+    "DocumentUpdateCount": 1,
+    "ChangeHistoryValidation": "Change history seems valid.",
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": "Document changes conform to permissions",
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": false,
+    "HasDocumentOutlines": false,
+    "AttachedFilesCount": 0,
+    "EmbeddedJavaScriptFilesCount": 0,
+    "DocumentIsCorrupted": false,
+    "errors": [],
+    "raw_metadump_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\annots.pdf",
+      "GlobalInfo": {
+        "Version": "PDF-1.6",
+        "Info": {
+          "Author": "August D. Coby",
+          "CreationDate": "D:20000420231130Z",
+          "Creator": "ADOBEPS4.DRV Version 4.24",
+          "ModDate": "D:20120208094057-08'00'",
+          "Producer": "Acrobat Distiller 4.0 for Windows",
+          "Title": "Microsoft Word - Links.doc"
+        },
+        "Metadata": {
+          "type": "stream",
+          "raw_data": "(error: data dump is restricted due to size)",
+          "__MuPDFRestrictedXMLDisplay__": true
+        },
+        "Pages": 6,
+        "Chapters": 1,
+        "AttachedFiles": {
+          "AP": {
+            "type": "R",
+            "num": 543,
+            "gen": 0
+          }
+        }
+      },
+      "FirstPage": 1,
+      "LastPage": 6,
+      "PageInfo": [
+        {
+          "PageNumber": 1,
+          "Mediaboxes": [
+            {
+              "Page": 1,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 1,
+          "Fonts": [
+            {
+              "Page": 1,
+              "FontType": "TrueType",
+              "FontName": "IBKJPF+ArialMT",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "AnnotationsCount": 1,
+          "Annotations": [
+            {
+              "AnnotNumber": 587,
+              "AnnotType": "FreeText",
+              "BoundsInDocument": [
+                85.3126,
+                480.938,
+                532.5,
+                684.401
+              ],
+              "Bounds": [
+                85.3126,
+                480.938,
+                532.5,
+                684.401
+              ],
+              "NeedsNewAP": false,
+              "Author": "August Coby",
+              "CreationDate": "D:2004-04-13 23:13:17 UTC",
+              "ModificationDate": "D:2004-04-13 23:14:02 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August Coby",
+              "FieldValue": "",
+              "Contents": "IMPORTANT NOTE ABOUT THIS PAGE: This page was created for the testing the display of link annotation parameters. The file was created using Adobe Acrobat 5.0 (and modified using Acrobat 6.0). The displaying of each annotation is specified in the annotation. By default, Acrobat sets link annotations so that they are normally displayed by 'viewer' applications. They are not normally displayed in printed output. That is the case with these annotations.\r\rGhostscript checks the display specifications for each annotation. By default, Ghostscript assumes that the output is 'printed' if the 'OutputFile' parameter is defined. Adding '-dPrinted=false' to the command line will force Ghostscript to display 'viewer' annotations in all output. Adding '-dPrinted=true' will disable the displaying of these annotations."
+            }
+          ],
+          "LinksInPage": [
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                85.2177,
+                99.13098,
+                179.131,
+                144.34803
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                86.0872,
+                162.60901,
+                173.914,
+                209.56598
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                82.6089,
+                233.044,
+                178.261,
+                280.87
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                81.7394,
+                300.87,
+                169.566,
+                347.827
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                79.1307,
+                367.827,
+                159.131,
+                410.436
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                197.392,
+                96.52197,
+                274.783,
+                142.60901
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                305.218,
+                96.52197,
+                393.045,
+                140.87
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                417.393,
+                99.13098,
+                484.349,
+                146.08698
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                199.131,
+                164.34803,
+                277.392,
+                212.17499
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                307.827,
+                162.60901,
+                384.349,
+                217.39203
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                418.262,
+                164.34803,
+                493.915,
+                215.65302
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                408.697,
+                238.26203,
+                496.523,
+                286.957
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                298.262,
+                237.39203,
+                371.305,
+                283.479
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                188.696,
+                237.39203,
+                264.349,
+                284.349
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                196.522,
+                303.479,
+                255.653,
+                356.523
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                307.827,
+                301.74,
+                366.088,
+                352.175
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                405.219,
+                304.349,
+                494.784,
+                351.305
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                410.436,
+                372.175,
+                472.175,
+                419.132
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                300.001,
+                375.653,
+                372.175,
+                418.262
+              ]
+            },
+            {
+              "LinkType": "Internal",
+              "Url": "#1,0,-4",
+              "TargetPageNumber": 1,
+              "TargetChapter": 1,
+              "TargetChapterPage": 1,
+              "TargetCoordinates": {
+                "X": 0,
+                "Y": -4
+              },
+              "LinkBounds": [
+                184.348,
+                375.653,
+                255.653,
+                423.48
+              ]
+            }
+          ],
+          "LinksInPageCount": 20,
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 2,
+          "Mediaboxes": [
+            {
+              "Page": 2,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 1,
+          "Fonts": [
+            {
+              "Page": 2,
+              "FontType": "TrueType",
+              "FontName": "ArialMT",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "AnnotationsCount": 36,
+          "Annotations": [
+            {
+              "AnnotNumber": 207,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                322.48,
+                117.054019,
+                393.798,
+                143.41101
+              ],
+              "Bounds": [
+                322.48,
+                117.054019,
+                393.798,
+                143.41101
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:39:55 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                322.48,
+                117.054019,
+                522.479,
+                317.053
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 207,
+                  "gen": 0
+                },
+                "Rect": [
+                  322.48,
+                  474.947,
+                  522.479,
+                  674.946
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 209,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                318.604,
+                182.945,
+                406.976,
+                214.72803
+              ],
+              "Bounds": [
+                318.604,
+                182.945,
+                406.976,
+                214.72803
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:40:15 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                318.604,
+                182.945,
+                518.603,
+                382.944
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 209,
+                  "gen": 0
+                },
+                "Rect": [
+                  318.604,
+                  409.056,
+                  518.603,
+                  609.055
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 211,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                340.309,
+                245.73603,
+                383.72,
+                288.371
+              ],
+              "Bounds": [
+                340.309,
+                245.73603,
+                383.72,
+                288.371
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:40:41 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                336.433,
+                258.13899,
+                536.432,
+                458.138
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 211,
+                  "gen": 0
+                },
+                "Rect": [
+                  336.433,
+                  333.862,
+                  536.432,
+                  533.861
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 213,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                364.34,
+                308.526,
+                403.875,
+                357.364
+              ],
+              "Bounds": [
+                364.34,
+                308.526,
+                403.875,
+                357.364
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:41:05 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                364.34,
+                308.526,
+                564.339,
+                508.525
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 213,
+                  "gen": 0
+                },
+                "Rect": [
+                  364.34,
+                  283.475,
+                  564.339,
+                  483.474
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 215,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                323.255,
+                401.55,
+                406.976,
+                422.48
+              ],
+              "Bounds": [
+                323.255,
+                401.55,
+                406.976,
+                422.48
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:41:33 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                323.255,
+                401.55,
+                523.254,
+                601.548
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 215,
+                  "gen": 0
+                },
+                "Rect": [
+                  323.255,
+                  190.452,
+                  523.254,
+                  390.45
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 217,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                358.139,
+                445.736,
+                410.077,
+                495.348
+              ],
+              "Bounds": [
+                358.139,
+                445.736,
+                410.077,
+                495.348
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:42:06 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                358.139,
+                445.736,
+                558.137,
+                645.734
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 217,
+                  "gen": 0
+                },
+                "Rect": [
+                  358.139,
+                  146.266,
+                  558.137,
+                  346.264
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 219,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                319.379,
+                534.883,
+                400.774,
+                565.89
+              ],
+              "Bounds": [
+                319.379,
+                534.883,
+                400.774,
+                565.89
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:42:49 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                319.379,
+                534.883,
+                519.378,
+                734.8812
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 219,
+                  "gen": 0
+                },
+                "Rect": [
+                  319.379,
+                  57.1188,
+                  519.378,
+                  257.117
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 221,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                352.712,
+                588.371,
+                412.402,
+                633.33206
+              ],
+              "Bounds": [
+                352.712,
+                588.371,
+                412.402,
+                633.33206
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:43:11 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                352.712,
+                588.371,
+                552.711,
+                788.36947
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 221,
+                  "gen": 0
+                },
+                "Rect": [
+                  352.712,
+                  3.63055,
+                  552.711,
+                  203.629
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 223,
+              "AnnotType": "Circle",
+              "BoundsInDocument": [
+                343.41,
+                664.33999,
+                372.867,
+                704.6497
+              ],
+              "Bounds": [
+                343.41,
+                664.33999,
+                372.867,
+                704.6497
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:43:37 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                343.41,
+                664.33999,
+                543.409,
+                864.3383
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 223,
+                  "gen": 0
+                },
+                "Rect": [
+                  343.41,
+                  -72.3383,
+                  543.409,
+                  127.66
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 225,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                426.356,
+                673.64199,
+                517.828,
+                692.2466
+              ],
+              "Bounds": [
+                426.356,
+                673.64199,
+                517.828,
+                692.2466
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:45:48 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                434.108,
+                681.394,
+                634.106,
+                881.3925
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 225,
+                  "gen": 0
+                },
+                "Rect": [
+                  434.108,
+                  -89.3925,
+                  634.106,
+                  110.606
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 227,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                434.108,
+                579.844,
+                516.278,
+                634.882
+              ],
+              "Bounds": [
+                434.108,
+                579.844,
+                516.278,
+                634.882
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:46:15 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                441.86,
+                587.596,
+                641.858,
+                787.59426
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 227,
+                  "gen": 0
+                },
+                "Rect": [
+                  441.86,
+                  4.40575,
+                  641.858,
+                  204.404
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 229,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                424.805,
+                527.906,
+                516.278,
+                565.89
+              ],
+              "Bounds": [
+                424.805,
+                527.906,
+                516.278,
+                565.89
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:46:34 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                432.557,
+                535.65798,
+                632.556,
+                735.6564
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 229,
+                  "gen": 0
+                },
+                "Rect": [
+                  432.557,
+                  56.3436,
+                  632.556,
+                  256.342
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 231,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                421.705,
+                441.084,
+                514.728,
+                500.774
+              ],
+              "Bounds": [
+                421.705,
+                441.084,
+                514.728,
+                500.774
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:47:01 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                429.456,
+                448.836,
+                629.455,
+                648.835
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 231,
+                  "gen": 0
+                },
+                "Rect": [
+                  429.456,
+                  143.165,
+                  629.455,
+                  343.164
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 233,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                481.394,
+                367.441,
+                499.999,
+                432.557
+              ],
+              "Bounds": [
+                481.394,
+                367.441,
+                499.999,
+                432.557
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:48:33 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                489.146,
+                375.193,
+                689.145,
+                575.192
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 233,
+                  "gen": 0
+                },
+                "Rect": [
+                  489.146,
+                  216.808,
+                  689.145,
+                  416.807
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 235,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                456.588,
+                299.999,
+                521.704,
+                358.139
+              ],
+              "Bounds": [
+                456.588,
+                299.999,
+                521.704,
+                358.139
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:48:58 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                464.34,
+                307.751,
+                664.339,
+                507.75
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 235,
+                  "gen": 0
+                },
+                "Rect": [
+                  464.34,
+                  284.25,
+                  664.339,
+                  484.249
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 237,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                427.131,
+                251.16199,
+                519.379,
+                288.371
+              ],
+              "Bounds": [
+                427.131,
+                251.16199,
+                519.379,
+                288.371
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:49:23 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                434.883,
+                258.914,
+                634.881,
+                458.913
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 237,
+                  "gen": 0
+                },
+                "Rect": [
+                  434.883,
+                  333.087,
+                  634.881,
+                  533.086
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 239,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                423.255,
+                189.922,
+                515.503,
+                206.20099
+              ],
+              "Bounds": [
+                423.255,
+                189.922,
+                515.503,
+                206.20099
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:51:13 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                431.007,
+                197.67401,
+                631.005,
+                397.673
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 239,
+                  "gen": 0
+                },
+                "Rect": [
+                  431.007,
+                  394.327,
+                  631.005,
+                  594.326
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 241,
+              "AnnotType": "Line",
+              "BoundsInDocument": [
+                425.581,
+                102.32501,
+                521.704,
+                147.28601
+              ],
+              "Bounds": [
+                425.581,
+                102.32501,
+                521.704,
+                147.28601
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:51:33 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                433.332,
+                110.07703,
+                633.331,
+                310.076
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": true,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": true,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 241,
+                  "gen": 0
+                },
+                "Rect": [
+                  433.332,
+                  481.924,
+                  633.331,
+                  681.923
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 243,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                207.752,
+                119.380008,
+                289.147,
+                145.73603
+              ],
+              "Bounds": [
+                207.752,
+                119.380008,
+                289.147,
+                145.73603
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:52:44 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                207.752,
+                119.380008,
+                407.75,
+                319.378
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 243,
+                  "gen": 0
+                },
+                "Rect": [
+                  207.752,
+                  472.622,
+                  407.75,
+                  672.62
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 245,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                217.829,
+                189.14698,
+                268.992,
+                218.604
+              ],
+              "Bounds": [
+                217.829,
+                189.14698,
+                268.992,
+                218.604
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:53:04 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                217.829,
+                189.14698,
+                417.828,
+                389.145
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 245,
+                  "gen": 0
+                },
+                "Rect": [
+                  217.829,
+                  402.855,
+                  417.828,
+                  602.853
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 247,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                209.302,
+                262.78999,
+                289.922,
+                276.74403
+              ],
+              "Bounds": [
+                209.302,
+                262.78999,
+                289.922,
+                276.74403
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:53:35 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                209.302,
+                262.78999,
+                409.3,
+                462.789
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 247,
+                  "gen": 0
+                },
+                "Rect": [
+                  209.302,
+                  329.211,
+                  409.3,
+                  529.21
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 249,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                242.635,
+                317.054,
+                288.372,
+                355.813
+              ],
+              "Bounds": [
+                242.635,
+                317.054,
+                288.372,
+                355.813
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:53:53 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                242.635,
+                317.054,
+                442.634,
+                517.052
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 249,
+                  "gen": 0
+                },
+                "Rect": [
+                  242.635,
+                  274.948,
+                  442.634,
+                  474.946
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 251,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                207.752,
+                675.968,
+                296.123,
+                706.2001
+              ],
+              "Bounds": [
+                207.752,
+                675.968,
+                296.123,
+                706.2001
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:54:45 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                207.752,
+                675.968,
+                407.75,
+                875.9662
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 251,
+                  "gen": 0
+                },
+                "Rect": [
+                  207.752,
+                  -83.9662,
+                  407.75,
+                  116.032
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 253,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                237.209,
+                594.572,
+                294.573,
+                634.107
+              ],
+              "Bounds": [
+                237.209,
+                594.572,
+                294.573,
+                634.107
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:56:08 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                237.209,
+                594.572,
+                437.207,
+                794.571
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 253,
+                  "gen": 0
+                },
+                "Rect": [
+                  237.209,
+                  -2.57098,
+                  437.207,
+                  197.428
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 255,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                211.627,
+                533.33206,
+                288.372,
+                565.115
+              ],
+              "Bounds": [
+                211.627,
+                533.33206,
+                288.372,
+                565.115
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:56:30 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                211.627,
+                533.33206,
+                411.626,
+                733.3308
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 255,
+                  "gen": 0
+                },
+                "Rect": [
+                  211.627,
+                  58.6692,
+                  411.626,
+                  258.668
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 257,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                253.488,
+                454.263,
+                290.697,
+                496.123
+              ],
+              "Bounds": [
+                253.488,
+                454.263,
+                290.697,
+                496.123
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:57:34 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                253.488,
+                454.263,
+                453.486,
+                654.261
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 257,
+                  "gen": 0
+                },
+                "Rect": [
+                  253.488,
+                  137.739,
+                  453.486,
+                  337.737
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 259,
+              "AnnotType": "Square",
+              "BoundsInDocument": [
+                263.565,
+                375.193,
+                287.596,
+                426.356
+              ],
+              "Bounds": [
+                263.565,
+                375.193,
+                287.596,
+                426.356
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:57:58 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                263.565,
+                375.193,
+                463.564,
+                575.192
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": true,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 259,
+                  "gen": 0
+                },
+                "Rect": [
+                  263.565,
+                  216.808,
+                  463.564,
+                  416.807
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 261,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                96.899,
+                117.82898,
+                173.643,
+                146.51099
+              ],
+              "Bounds": [
+                96.899,
+                117.82898,
+                173.643,
+                146.51099
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:59:03 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                96.899,
+                117.82898,
+                296.898,
+                317.828
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 261,
+                  "gen": 0
+                },
+                "Rect": [
+                  96.899,
+                  474.172,
+                  296.898,
+                  674.171
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 263,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                108.527,
+                167.44098,
+                170.542,
+                217.05402
+              ],
+              "Bounds": [
+                108.527,
+                167.44098,
+                170.542,
+                217.05402
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:59:26 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                108.527,
+                167.44098,
+                308.525,
+                367.44
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 263,
+                  "gen": 0
+                },
+                "Rect": [
+                  108.527,
+                  424.56,
+                  308.525,
+                  624.559
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 265,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                112.403,
+                234.883,
+                184.496,
+                289.922
+              ],
+              "Bounds": [
+                112.403,
+                234.883,
+                184.496,
+                289.922
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 07:59:50 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                112.403,
+                234.883,
+                312.401,
+                434.882
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 265,
+                  "gen": 0
+                },
+                "Rect": [
+                  112.403,
+                  357.118,
+                  312.401,
+                  557.117
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 267,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                96.899,
+                302.325,
+                173.643,
+                349.612
+              ],
+              "Bounds": [
+                96.899,
+                302.325,
+                173.643,
+                349.612
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 08:00:30 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                96.899,
+                302.325,
+                296.898,
+                502.323
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 267,
+                  "gen": 0
+                },
+                "Rect": [
+                  96.899,
+                  289.677,
+                  296.898,
+                  489.675
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 269,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                130.232,
+                377.519,
+                174.418,
+                425.581
+              ],
+              "Bounds": [
+                130.232,
+                377.519,
+                174.418,
+                425.581
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 08:00:53 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                130.232,
+                377.519,
+                330.231,
+                577.51699
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 269,
+                  "gen": 0
+                },
+                "Rect": [
+                  130.232,
+                  214.483,
+                  330.231,
+                  414.481
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 271,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                93.0231,
+                441.86,
+                179.845,
+                493.022
+              ],
+              "Bounds": [
+                93.0231,
+                441.86,
+                179.845,
+                493.022
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 08:01:23 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                93.0231,
+                441.86,
+                293.022,
+                641.85806
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 271,
+                  "gen": 0
+                },
+                "Rect": [
+                  93.0231,
+                  150.142,
+                  293.022,
+                  350.14
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 273,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                99.9998,
+                539.534,
+                160.465,
+                564.33999
+              ],
+              "Bounds": [
+                99.9998,
+                539.534,
+                160.465,
+                564.33999
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 08:01:43 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                99.9998,
+                539.534,
+                299.998,
+                739.5323
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 273,
+                  "gen": 0
+                },
+                "Rect": [
+                  99.9998,
+                  52.4677,
+                  299.998,
+                  252.466
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 275,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                93.0231,
+                665.115,
+                179.845,
+                705.4249
+              ],
+              "Bounds": [
+                93.0231,
+                665.115,
+                179.845,
+                705.4249
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 08:03:04 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                93.0231,
+                665.115,
+                293.022,
+                865.1135
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 275,
+                  "gen": 0
+                },
+                "Rect": [
+                  93.0231,
+                  -73.1135,
+                  293.022,
+                  126.885
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 277,
+              "AnnotType": "Ink",
+              "BoundsInDocument": [
+                95.3486,
+                588.371,
+                165.116,
+                631.782
+              ],
+              "Bounds": [
+                95.3486,
+                588.371,
+                165.116,
+                631.782
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-23 08:07:01 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                95.3486,
+                588.371,
+                295.347,
+                788.36947
+              ],
+              "HasInkList": true,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 277,
+                  "gen": 0
+                },
+                "Rect": [
+                  95.3486,
+                  3.63055,
+                  295.347,
+                  203.629
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 3,
+          "Mediaboxes": [
+            {
+              "Page": 3,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 1,
+          "Fonts": [
+            {
+              "Page": 3,
+              "FontType": "TrueType",
+              "FontName": "JBAHHI+ArialMT",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "AnnotationsCount": 14,
+          "Annotations": [
+            {
+              "AnnotNumber": 283,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                91,
+                124,
+                224,
+                159
+              ],
+              "Bounds": [
+                91,
+                124,
+                224,
+                159
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:29:59 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                91.4297,
+                124.28699,
+                291.431,
+                324.289
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "Approved",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 283,
+                  "gen": 0
+                },
+                "Rect": [
+                  91.4297,
+                  467.711,
+                  291.431,
+                  667.713
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 285,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                241,
+                124,
+                374,
+                159
+              ],
+              "Bounds": [
+                241,
+                124,
+                374,
+                159
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:30:13 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                241.431,
+                123.573,
+                521.434,
+                403.575
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "AsIs",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 285,
+                  "gen": 0
+                },
+                "Rect": [
+                  241.431,
+                  388.425,
+                  521.434,
+                  668.427
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 287,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                391,
+                126,
+                519,
+                160
+              ],
+              "Bounds": [
+                391,
+                126,
+                519,
+                160
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:30:25 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                390.719,
+                125.716,
+                590.721,
+                325.717
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "Confidential",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 287,
+                  "gen": 0
+                },
+                "Rect": [
+                  390.719,
+                  466.283,
+                  590.721,
+                  666.284
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 289,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                238,
+                209,
+                372,
+                244
+              ],
+              "Bounds": [
+                238,
+                209,
+                372,
+                244
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:31:18 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                275.003,
+                229.289,
+                555.006,
+                509.291
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "Draft",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 289,
+                  "gen": 0
+                },
+                "Rect": [
+                  275.003,
+                  282.709,
+                  555.006,
+                  562.711
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 291,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                92,
+                207,
+                224,
+                242
+              ],
+              "Bounds": [
+                92,
+                207,
+                224,
+                242
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:31:51 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                92.144,
+                207.14502,
+                292.146,
+                407.147
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "Departmental",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 291,
+                  "gen": 0
+                },
+                "Rect": [
+                  92.144,
+                  384.853,
+                  292.146,
+                  584.855
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 293,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                389,
+                209,
+                519,
+                243
+              ],
+              "Bounds": [
+                389,
+                209,
+                519,
+                243
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:32:08 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                389.29,
+                208.57398,
+                589.292,
+                408.576
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "Experimental",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 293,
+                  "gen": 0
+                },
+                "Rect": [
+                  389.29,
+                  383.424,
+                  589.292,
+                  583.426
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 295,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                91,
+                292,
+                223,
+                327
+              ],
+              "Bounds": [
+                91,
+                292,
+                223,
+                327
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:32:26 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                91.4297,
+                292.146,
+                291.431,
+                492.148
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "Expired",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 295,
+                  "gen": 0
+                },
+                "Rect": [
+                  91.4297,
+                  299.852,
+                  291.431,
+                  499.854
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 297,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                240,
+                291,
+                371,
+                325
+              ],
+              "Bounds": [
+                240,
+                291,
+                371,
+                325
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:33:59 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                240.003,
+                290.718,
+                440.004,
+                490.719
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "Final",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 297,
+                  "gen": 0
+                },
+                "Rect": [
+                  240.003,
+                  301.281,
+                  440.004,
+                  501.282
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 299,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                389,
+                290,
+                516,
+                324
+              ],
+              "Bounds": [
+                389,
+                290,
+                516,
+                324
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:34:07 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                388.576,
+                290.004,
+                588.578,
+                490.005
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "ForComment",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 299,
+                  "gen": 0
+                },
+                "Rect": [
+                  388.576,
+                  301.995,
+                  588.578,
+                  501.996
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 301,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                92,
+                372,
+                224,
+                407
+              ],
+              "Bounds": [
+                92,
+                372,
+                224,
+                407
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:34:19 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                92.144,
+                372.147,
+                292.146,
+                572.149
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "ForPublicRelease",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 301,
+                  "gen": 0
+                },
+                "Rect": [
+                  92.144,
+                  219.851,
+                  292.146,
+                  419.853
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 303,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                241,
+                369,
+                369,
+                403
+              ],
+              "Bounds": [
+                241,
+                369,
+                369,
+                403
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:34:31 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                241.431,
+                369.29,
+                441.433,
+                569.292
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "NotApproved",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 303,
+                  "gen": 0
+                },
+                "Rect": [
+                  241.431,
+                  222.708,
+                  441.433,
+                  422.71
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 305,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                385,
+                375,
+                521,
+                411
+              ],
+              "Bounds": [
+                385,
+                375,
+                521,
+                411
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:34:44 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                385.005,
+                375.005,
+                585.006,
+                575.006
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "NotForPublicRelease",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 305,
+                  "gen": 0
+                },
+                "Rect": [
+                  385.005,
+                  216.994,
+                  585.006,
+                  416.995
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 307,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                92,
+                461,
+                224,
+                496
+              ],
+              "Bounds": [
+                92,
+                461,
+                224,
+                496
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:35:00 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                92.144,
+                461.434,
+                292.146,
+                661.43606
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "Sold",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 307,
+                  "gen": 0
+                },
+                "Rect": [
+                  92.144,
+                  130.564,
+                  292.146,
+                  330.566
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 309,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                244,
+                459,
+                367,
+                492
+              ],
+              "Bounds": [
+                244,
+                459,
+                367,
+                492
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:35:11 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                243.574,
+                459.291,
+                443.576,
+                659.29299
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "TopSecret",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 309,
+                  "gen": 0
+                },
+                "Rect": [
+                  243.574,
+                  132.707,
+                  443.576,
+                  332.709
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 4,
+          "Mediaboxes": [
+            {
+              "Page": 4,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 1,
+          "Fonts": [
+            {
+              "Page": 4,
+              "FontType": "TrueType",
+              "FontName": "JBAHHI+ArialMT",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "AnnotationsCount": 11,
+          "Annotations": [
+            {
+              "AnnotNumber": 313,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                100.716,
+                115.716,
+                215.003,
+                219.28803
+              ],
+              "Bounds": [
+                100.716,
+                115.716,
+                215.003,
+                219.28803
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:51:57 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                91.4297,
+                122.14398,
+                291.431,
+                322.146
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesEcstatic",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 313,
+                  "gen": 0
+                },
+                "Rect": [
+                  91.4297,
+                  469.854,
+                  291.431,
+                  669.856
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 315,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                254.289,
+                115.716,
+                360.719,
+                217.41498
+              ],
+              "Bounds": [
+                254.289,
+                115.716,
+                360.719,
+                217.41498
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:52:20 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                254.289,
+                115.716,
+                454.29,
+                315.717
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesElectric",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 315,
+                  "gen": 0
+                },
+                "Rect": [
+                  254.289,
+                  476.283,
+                  454.29,
+                  676.284
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 317,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                396.433,
+                127.85901,
+                518.578,
+                205.71698
+              ],
+              "Bounds": [
+                396.433,
+                127.85901,
+                518.578,
+                205.71698
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:52:33 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                396.433,
+                118.573,
+                596.435,
+                318.574
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesGrumpy",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 317,
+                  "gen": 0
+                },
+                "Rect": [
+                  396.433,
+                  473.426,
+                  596.435,
+                  673.427
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 319,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                107.144,
+                239.289,
+                214.288,
+                345.719
+              ],
+              "Bounds": [
+                107.144,
+                239.289,
+                214.288,
+                345.719
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:53:07 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                95.7154,
+                242.85999,
+                295.717,
+                442.862
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesHappy",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 319,
+                  "gen": 0
+                },
+                "Rect": [
+                  95.7154,
+                  349.138,
+                  295.717,
+                  549.14
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 321,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                255.717,
+                236.43103,
+                362.862,
+                341.433
+              ],
+              "Bounds": [
+                255.717,
+                236.43103,
+                362.862,
+                341.433
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:53:26 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                250.003,
+                240.00299,
+                450.005,
+                440.005
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesHurt",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 321,
+                  "gen": 0
+                },
+                "Rect": [
+                  250.003,
+                  351.995,
+                  450.005,
+                  551.997
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 323,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                399,
+                244,
+                494,
+                336
+              ],
+              "Bounds": [
+                399,
+                244,
+                494,
+                336
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:53:45 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                399.291,
+                244.289,
+                599.292,
+                444.29
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesNeutral",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 323,
+                  "gen": 0
+                },
+                "Rect": [
+                  399.291,
+                  347.71,
+                  599.292,
+                  547.711
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 325,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                108.573,
+                360.004,
+                212.145,
+                468.577
+              ],
+              "Bounds": [
+                108.573,
+                360.004,
+                212.145,
+                468.577
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:53:56 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                102.858,
+                364.29,
+                302.86,
+                564.292
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesSmirk",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 325,
+                  "gen": 0
+                },
+                "Rect": [
+                  102.858,
+                  227.708,
+                  302.86,
+                  427.71
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 327,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                251,
+                364,
+                359,
+                470
+              ],
+              "Bounds": [
+                251,
+                364,
+                359,
+                470
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:54:13 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                250.717,
+                364.29,
+                450.719,
+                564.292
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesSurprised",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 327,
+                  "gen": 0
+                },
+                "Rect": [
+                  250.717,
+                  227.708,
+                  450.719,
+                  427.71
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 329,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                391.433,
+                365.004,
+                519.292,
+                465.862
+              ],
+              "Bounds": [
+                391.433,
+                365.004,
+                519.292,
+                465.862
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:54:22 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                403.576,
+                365.004,
+                603.578,
+                565.006
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesWorried",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 329,
+                  "gen": 0
+                },
+                "Rect": [
+                  403.576,
+                  226.994,
+                  603.578,
+                  426.996
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 331,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                118.573,
+                482.863,
+                209.288,
+                592.15
+              ],
+              "Bounds": [
+                118.573,
+                482.863,
+                209.288,
+                592.15
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:54:42 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                98.5726,
+                494.292,
+                298.574,
+                694.2933
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesWow",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 331,
+                  "gen": 0
+                },
+                "Rect": [
+                  98.5726,
+                  97.7067,
+                  298.574,
+                  297.708
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 333,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                247,
+                489,
+                364,
+                595
+              ],
+              "Bounds": [
+                247,
+                489,
+                364,
+                595
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 07:55:06 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                247.146,
+                488.577,
+                447.147,
+                688.579
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "FacesZippy",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 333,
+                  "gen": 0
+                },
+                "Rect": [
+                  247.146,
+                  103.421,
+                  447.147,
+                  303.423
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 5,
+          "Mediaboxes": [
+            {
+              "Page": 5,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "FontsCount": 1,
+          "Fonts": [
+            {
+              "Page": 5,
+              "FontType": "TrueType",
+              "FontName": "JBAHHI+ArialMT",
+              "FontEncoding": "WinAnsiEncoding"
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "AnnotationsCount": 19,
+          "Annotations": [
+            {
+              "AnnotNumber": 337,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                128.573,
+                437.862,
+                174.288,
+                510.721
+              ],
+              "Bounds": [
+                128.573,
+                437.862,
+                174.288,
+                510.721
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:14:47 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                108.573,
+                439.291,
+                308.574,
+                639.29299
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "WordsGenuineFind",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 337,
+                  "gen": 0
+                },
+                "Rect": [
+                  108.573,
+                  152.707,
+                  308.574,
+                  352.709
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 339,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                243.574,
+                450.72,
+                365.004,
+                502.149
+              ],
+              "Bounds": [
+                243.574,
+                450.72,
+                365.004,
+                502.149
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:15:10 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                259.289,
+                440.005,
+                459.29,
+                640.007
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "WordsBigSavings",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 339,
+                  "gen": 0
+                },
+                "Rect": [
+                  259.289,
+                  151.993,
+                  459.29,
+                  351.995
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 341,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                392.862,
+                452.148,
+                511.435,
+                497.863
+              ],
+              "Bounds": [
+                392.862,
+                452.148,
+                511.435,
+                497.863
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:15:27 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                397.148,
+                445.005,
+                597.149,
+                645.007
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "WordsDeals",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 341,
+                  "gen": 0
+                },
+                "Rect": [
+                  397.148,
+                  146.993,
+                  597.149,
+                  346.995
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 343,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                94,
+                541,
+                219,
+                604
+              ],
+              "Bounds": [
+                94,
+                541,
+                219,
+                604
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:15:40 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                94.2868,
+                540.721,
+                294.288,
+                740.7225
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "WordsHappyBirthday",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 343,
+                  "gen": 0
+                },
+                "Rect": [
+                  94.2868,
+                  51.2775,
+                  294.288,
+                  251.279
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 345,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                265.718,
+                537.864,
+                357.862,
+                605.007
+              ],
+              "Bounds": [
+                265.718,
+                537.864,
+                357.862,
+                605.007
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:15:48 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                243.574,
+                539.292,
+                443.576,
+                739.2939
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "WordsHot",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 345,
+                  "gen": 0
+                },
+                "Rect": [
+                  243.574,
+                  52.7061,
+                  443.576,
+                  252.708
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 347,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                399.291,
+                531.435,
+                514.292,
+                607.15
+              ],
+              "Bounds": [
+                399.291,
+                531.435,
+                514.292,
+                607.15
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:16:05 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                394.29,
+                540.007,
+                594.292,
+                740.0082
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "WordsLookWhatsNew",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 347,
+                  "gen": 0
+                },
+                "Rect": [
+                  394.29,
+                  51.9918,
+                  594.292,
+                  251.993
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 349,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                98,
+                636,
+                221,
+                696
+              ],
+              "Bounds": [
+                98,
+                636,
+                221,
+                696
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:16:21 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                97.8583,
+                635.722,
+                297.86,
+                835.7236
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "WordsNeato",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 349,
+                  "gen": 0
+                },
+                "Rect": [
+                  97.8583,
+                  -43.7236,
+                  297.86,
+                  156.278
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 351,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                266.432,
+                631.43606,
+                345.719,
+                709.29446
+              ],
+              "Bounds": [
+                266.432,
+                631.43606,
+                345.719,
+                709.29446
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:16:29 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                247.86,
+                638.579,
+                447.862,
+                838.5808
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "WordsTheBest",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 351,
+                  "gen": 0
+                },
+                "Rect": [
+                  247.86,
+                  -46.5808,
+                  447.862,
+                  153.421
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 353,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                97,
+                122,
+                215,
+                148
+              ],
+              "Bounds": [
+                97,
+                122,
+                215,
+                148
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:18:32 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                96.5925,
+                121.59302,
+                296.594,
+                321.594
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersBogus",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 353,
+                  "gen": 0
+                },
+                "Rect": [
+                  96.5925,
+                  470.406,
+                  296.594,
+                  670.407
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 355,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                240,
+                121,
+                374,
+                148
+              ],
+              "Bounds": [
+                240,
+                121,
+                374,
+                148
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:18:58 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                240.21,
+                120.62097,
+                440.211,
+                320.621
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersBug",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 355,
+                  "gen": 0
+                },
+                "Rect": [
+                  240.21,
+                  471.379,
+                  440.211,
+                  671.379
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 357,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                386,
+                119,
+                521,
+                146
+              ],
+              "Bounds": [
+                386,
+                119,
+                521,
+                146
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:19:10 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                385.573,
+                118.55902,
+                585.574,
+                318.559
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersDOA",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 357,
+                  "gen": 0
+                },
+                "Rect": [
+                  385.573,
+                  473.441,
+                  585.574,
+                  673.441
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 359,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                92,
+                190,
+                228,
+                220
+              ],
+              "Bounds": [
+                92,
+                190,
+                228,
+                220
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:19:18 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                91.7541,
+                189.69397,
+                291.754,
+                389.694
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersFix",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 359,
+                  "gen": 0
+                },
+                "Rect": [
+                  91.7541,
+                  402.306,
+                  291.754,
+                  602.306
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 361,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                239,
+                189,
+                374,
+                214
+              ],
+              "Bounds": [
+                239,
+                189,
+                374,
+                214
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:19:29 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                239.179,
+                188.66303,
+                439.18,
+                388.663
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersFYEO",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 361,
+                  "gen": 0
+                },
+                "Rect": [
+                  239.179,
+                  403.337,
+                  439.18,
+                  603.337
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 363,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                386,
+                190,
+                523,
+                217
+              ],
+              "Bounds": [
+                386,
+                190,
+                523,
+                217
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:19:36 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                385.573,
+                189.69397,
+                585.574,
+                389.694
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersNuke",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 363,
+                  "gen": 0
+                },
+                "Rect": [
+                  385.573,
+                  402.306,
+                  585.574,
+                  602.306
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 365,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                89.3259,
+                265.169,
+                227.528,
+                291.011
+              ],
+              "Bounds": [
+                89.3259,
+                265.169,
+                227.528,
+                291.011
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:19:48 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                89.8877,
+                255.05603,
+                289.888,
+                455.056
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersOptimize",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 365,
+                  "gen": 0
+                },
+                "Rect": [
+                  89.8877,
+                  336.944,
+                  289.888,
+                  536.944
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 367,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                237,
+                259,
+                375,
+                290
+              ],
+              "Bounds": [
+                237,
+                259,
+                375,
+                290
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:20:03 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                236.517,
+                258.989,
+                436.517,
+                458.989
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersRedFlag",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 367,
+                  "gen": 0
+                },
+                "Rect": [
+                  236.517,
+                  333.011,
+                  436.517,
+                  533.011
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 369,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                384,
+                258,
+                524,
+                285
+              ],
+              "Bounds": [
+                384,
+                258,
+                524,
+                285
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:20:12 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                384.27,
+                258.427,
+                584.27,
+                458.427
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersValidate",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 369,
+                  "gen": 0
+                },
+                "Rect": [
+                  384.27,
+                  333.573,
+                  584.27,
+                  533.573
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 371,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                88.7641,
+                332.023,
+                226.966,
+                364.045
+              ],
+              "Bounds": [
+                88.7641,
+                332.023,
+                226.966,
+                364.045
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:20:23 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                88.7641,
+                325.843,
+                288.764,
+                525.843
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersWarning",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 371,
+                  "gen": 0
+                },
+                "Rect": [
+                  88.7641,
+                  266.157,
+                  288.764,
+                  466.157
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            },
+            {
+              "AnnotNumber": 373,
+              "AnnotType": "Stamp",
+              "BoundsInDocument": [
+                239,
+                330,
+                374,
+                361
+              ],
+              "Bounds": [
+                239,
+                330,
+                374,
+                361
+              ],
+              "NeedsNewAP": false,
+              "Author": "August D Coby",
+              "CreationDate": "(invalid)",
+              "ModificationDate": "D:2000-04-21 08:20:38 UTC",
+              "Flags": "print",
+              "PopupBounds": [
+                238.764,
+                329.776,
+                438.764,
+                529.776
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": true,
+              "HasOpenAction": true,
+              "HasAuthorData": true,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "Icon": "PointersWhen",
+              "FieldFlags": "<none>",
+              "FieldKey": "August D Coby",
+              "FieldValue": "",
+              "Popup": {
+                "F": 27,
+                "Open": false,
+                "Parent": {
+                  "type": "R",
+                  "num": 373,
+                  "gen": 0
+                },
+                "Rect": [
+                  238.764,
+                  262.224,
+                  438.764,
+                  462.224
+                ],
+                "Subtype": "Popup",
+                "Type": "Annot"
+              },
+              "Contents": ""
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 6,
+          "Mediaboxes": [
+            {
+              "Page": 6,
+              "Bounds": [
+                0,
+                0,
+                612,
+                792
+              ]
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            612,
+            792
+          ],
+          "PageWidgetsCount": 16,
+          "PageWidgets": [
+            {
+              "WidgetNumber": 530,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                81.4446,
+                89.69202,
+                125.775,
+                135.05402
+              ],
+              "Bounds": [
+                81.4446,
+                89.69202,
+                125.775,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb1",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 529,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                144.332,
+                89.69202,
+                188.663,
+                135.05402
+              ],
+              "Bounds": [
+                144.332,
+                89.69202,
+                188.663,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb1",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 528,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                234.024,
+                89.69202,
+                278.355,
+                135.05402
+              ],
+              "Bounds": [
+                234.024,
+                89.69202,
+                278.355,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb2",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 526,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                297.943,
+                89.69202,
+                342.274,
+                135.05402
+              ],
+              "Bounds": [
+                297.943,
+                89.69202,
+                342.274,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb2",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 525,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                386.604,
+                89.69202,
+                431.966,
+                135.05402
+              ],
+              "Bounds": [
+                386.604,
+                89.69202,
+                431.966,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb3",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 524,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                449.492,
+                89.69202,
+                494.854,
+                135.05402
+              ],
+              "Bounds": [
+                449.492,
+                89.69202,
+                494.854,
+                135.05402
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb3",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 523,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                81.4446,
+                180.41498,
+                125.775,
+                224.74597
+              ],
+              "Bounds": [
+                81.4446,
+                180.41498,
+                125.775,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb4",
+              "FieldValue": "no",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 522,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                144.332,
+                180.41498,
+                188.663,
+                224.74597
+              ],
+              "Bounds": [
+                144.332,
+                180.41498,
+                188.663,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb4",
+              "FieldValue": "no",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 521,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                234.024,
+                180.41498,
+                279.386,
+                224.74597
+              ],
+              "Bounds": [
+                234.024,
+                180.41498,
+                279.386,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb5",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 520,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                296.912,
+                180.41498,
+                342.274,
+                224.74597
+              ],
+              "Bounds": [
+                296.912,
+                180.41498,
+                342.274,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb4",
+              "FieldValue": "no",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 519,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                386.604,
+                180.41498,
+                431.966,
+                224.74597
+              ],
+              "Bounds": [
+                386.604,
+                180.41498,
+                431.966,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb6",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 518,
+              "WidgetType": "Radiobutton",
+              "BoundsInDocument": [
+                449.492,
+                180.41498,
+                494.854,
+                224.74597
+              ],
+              "Bounds": [
+                449.492,
+                180.41498,
+                494.854,
+                224.74597
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "no_toggle_to_off | radio",
+              "FieldKey": "rb6",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 517,
+              "WidgetType": "Button",
+              "BoundsInDocument": [
+                81.4446,
+                279.386,
+                125.775,
+                323.717
+              ],
+              "Bounds": [
+                81.4446,
+                279.386,
+                125.775,
+                323.717
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "pushbutton",
+              "FieldKey": "b1",
+              "FieldValue": "",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 516,
+              "WidgetType": "Button",
+              "BoundsInDocument": [
+                144.332,
+                279.386,
+                188.663,
+                323.717
+              ],
+              "Bounds": [
+                144.332,
+                279.386,
+                188.663,
+                323.717
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "pushbutton",
+              "FieldKey": "b2",
+              "FieldValue": "",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 513,
+              "WidgetType": "Checkbox",
+              "BoundsInDocument": [
+                234.024,
+                279.386,
+                279.386,
+                324.748
+              ],
+              "Bounds": [
+                234.024,
+                279.386,
+                279.386,
+                324.748
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "<none>",
+              "FieldKey": "cb1",
+              "FieldValue": "Yes",
+              "Contents": ""
+            },
+            {
+              "WidgetNumber": 512,
+              "WidgetType": "Combobox",
+              "BoundsInDocument": [
+                81.4446,
+                395.883,
+                251.551,
+                422.687
+              ],
+              "Bounds": [
+                81.4446,
+                395.883,
+                251.551,
+                422.687
+              ],
+              "NeedsNewAP": false,
+              "Flags": "print",
+              "PopupBounds": [
+                2147483500,
+                2147483500,
+                -2147483700,
+                -2147483700
+              ],
+              "HasInkList": false,
+              "HasQuadPoints": false,
+              "HasVertexData": false,
+              "HasLineData": false,
+              "HasInteriorColor": false,
+              "HasLineEndingStyles": false,
+              "HasIconName": false,
+              "HasOpenAction": false,
+              "HasAuthorData": false,
+              "IsActive": false,
+              "IsHot": false,
+              "Language": "",
+              "FieldFlags": "combo",
+              "FieldKey": "cx1",
+              "FieldValue": "3Jan-81",
+              "Contents": ""
+            }
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": [],
+          "GatheredErrors": {
+            "Log": "Widget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\nWidget annotations have no T property\n",
+            "LogOverflow": false
+          }
+        }
+      ],
+      "DocumentGeneralInfo": {
+        "Title": "Microsoft Word - Links.doc",
+        "Author": "August D. Coby",
+        "Format": "PDF 1.6",
+        "Encryption": "None",
+        "PDF_Creator": "ADOBEPS4.DRV Version 4.24",
+        "PDF_Producer": "Acrobat Distiller 4.0 for Windows",
+        "Creation_Date": "D:20000420231130Z",
+        "Modification_Date": "D:20120208094057-08'00'",
+        "MetaInfoDictionary": {
+          "Author": "August D. Coby",
+          "CreationDate": "D:20000420231130Z",
+          "Creator": "ADOBEPS4.DRV Version 4.24",
+          "ModDate": "D:20120208094057-08'00'",
+          "Producer": "Acrobat Distiller 4.0 for Windows",
+          "Title": "Microsoft Word - Links.doc"
+        },
+        "Permissions": "print, copy, edit, annotate",
+        "Status": "PDF linearized document with 1 update.",
+        "DocWasLinearized": true,
+        "DocumentUpdateCount": 1,
+        "ChangeHistoryValidation": "Change history seems valid.",
+        "UpdatesStatus": "Document changes conform to permissions",
+        "WasRepaired": false,
+        "NeedsPassword": false,
+        "WasCryptedWithEmptyPassword": false
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 1035,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "0",
+        "OverprintingModes": "1",
+        "BlendModes": "0",
+        "ContentBoundsSmallest": "(empty)",
+        "ContentBoundsLargest": [
+          0,
+          0,
+          592.56106,
+          783.6011
+        ],
+        "LayerNamesCount": 4,
+        "LayerNames": [
+          "DocumentSetup",
+          "Layer",
+          "Attribute",
+          "Tx"
+        ],
+        "FillPathCount": 900,
+        "StrokePathCount": 95,
+        "ClipPathCount": 239,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 40,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 0,
+        "FillShadeCount": 0,
+        "FillImageCount": 0,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 0,
+        "ClipCount": 239,
+        "ClipDepth": 4,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 0,
+        "GroupDepth": 0,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 0,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 103,
+        "LayerCount": 4,
+        "LayerDepth": 2,
+        "StackDepth": 4,
+        "GreyColorspaceCount": 432,
+        "RgbColorspaceCount": 179,
+        "CmykColorspaceCount": 519,
+        "IndexedColorspaceCount": 317,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 317
+      }
+    }
+  ]
+}

@@ -57,6 +57,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
             //Unloaded += PDFTextSentenceLayer_Unloaded;
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
+
         private PDFRendererControl GetPDFRendererControl()
         {
             if (pdf_renderer_control != null && pdf_renderer_control.TryGetTarget(out var control) && control != null)
@@ -122,12 +123,12 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
         private void drag_area_tracker_OnDragStarted(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point)
         {
             PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-                PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
+            PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
             ASSERT.Test(pdf_document != null);
 
             if (pdf_document != null)
             {
-                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList words = pdf_document.GetOCRText(page);
                 text_selection_manager.OnDragStarted(text_layer_selection_mode, words, ActualWidth, ActualHeight, button_left_pressed, button_right_pressed, mouse_down_point);
             }
         }
@@ -143,31 +144,34 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
         private void drag_area_tracker_OnDragComplete(bool button_left_pressed, bool button_right_pressed, Point mouse_down_point, Point mouse_up_point)
         {
-            if (button_left_pressed)
+            WPFDoEvents.SafeExec(() =>
             {
-                WordList selected_words = text_selection_manager.OnDragComplete(button_left_pressed, button_right_pressed, mouse_down_point, mouse_up_point);
-                ReflectWordList(selected_words);
-            }
-
-            string selected_text = text_selection_manager.GetLastSelectedWordsString();
-            if (selected_text.Length > 0)
-            {
-                PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
-
-                if (pdf_renderer_control != null)
+                if (button_left_pressed)
                 {
-                    if (button_right_pressed)
-                    {
-                        PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
-                        ASSERT.Test(pdf_document != null);
-
-                        PDFTextSelectPopup popup = new PDFTextSelectPopup(selected_text, pdf_document);
-                        popup.Open();
-                    }
-
-                    pdf_renderer_control.OnTextSelected(selected_text);
+                    WordList selected_words = text_selection_manager.OnDragComplete(button_left_pressed, button_right_pressed, mouse_down_point, mouse_up_point);
+                    ReflectWordList(selected_words);
                 }
-            }
+
+                string selected_text = text_selection_manager.GetLastSelectedWordsString();
+                if (selected_text.Length > 0)
+                {
+                    PDFRendererControl pdf_renderer_control = GetPDFRendererControl();
+
+                    if (pdf_renderer_control != null)
+                    {
+                        if (button_right_pressed)
+                        {
+                            PDFDocument pdf_document = pdf_renderer_control?.GetPDFDocument();
+                            ASSERT.Test(pdf_document != null);
+
+                            PDFTextSelectPopup popup = new PDFTextSelectPopup(selected_text, pdf_document);
+                            popup.Open();
+                        }
+
+                        pdf_renderer_control.OnTextSelected(selected_text);
+                    }
+                }
+            });
         }
 
         private void ReflectWordList(WordList words)
@@ -184,10 +188,13 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
         private void PDFTextSentenceLayer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            foreach (PDFTextItem pdf_text_item in Children.OfType<PDFTextItem>())
+            WPFDoEvents.SafeExec(() =>
             {
-                ResizeTextItem(pdf_text_item);
-            }
+                foreach (PDFTextItem pdf_text_item in Children.OfType<PDFTextItem>())
+                {
+                    ResizeTextItem(pdf_text_item);
+                }
+            });
         }
 
         internal override void DeselectPage()
@@ -215,7 +222,7 @@ namespace Qiqqa.Documents.PDF.PDFControls.Page.Text
 
             if (pdf_document != null)
             {
-                WordList words = pdf_document.PDFRenderer.GetOCRText(page);
+                WordList words = pdf_document.GetOCRText(page);
                 if (null == words)
                 {
                     Children.Add(new OCRNotAvailableControl());

@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Backups;
 using Qiqqa.Common.Configuration;
 using Qiqqa.Common.GUI;
@@ -18,6 +18,9 @@ using Qiqqa.WebBrowsing.GeckoStuff;
 using Utilities;
 using Utilities.GUI;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.Main.LoginStuff
 {
@@ -87,18 +90,29 @@ namespace Qiqqa.Main.LoginStuff
 
         private void ButtonChangeBasePath_Click(object sender, RoutedEventArgs e)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
-            {
-                dialog.InitialDirectory = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
-                dialog.IsFolderPicker = true;
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                {
-                    ConfigurationManager.Instance.BaseDirectoryForQiqqa = dialog.FileName;
-                    ObjQiqqaDatabaseLocation.Text = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
-                    ObjQiqqaDatabaseLocation.ToolTip = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+            var dialog = new VistaFolderBrowserDialog();
 
-                    Logging.Info("The user changed the Qiqqa Base directory to folder: {0}", dialog.FileName);
-                }
+            dialog.Description = "Change Qiqqa data Base Path";
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            string default_folder = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+            if (default_folder != null)
+            {
+                dialog.SelectedPath = default_folder;
+            }
+
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+            {
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
+
+            if ((bool)dialog.ShowDialog())
+            {
+                ConfigurationManager.Instance.BaseDirectoryForQiqqa = dialog.SelectedPath;
+                ObjQiqqaDatabaseLocation.Text = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+                ObjQiqqaDatabaseLocation.ToolTip = ConfigurationManager.Instance.BaseDirectoryForQiqqa;
+
+                Logging.Info("The user changed the Qiqqa Base directory to folder: {0}", dialog.SelectedPath);
             }
         }
 
@@ -107,14 +121,14 @@ namespace Qiqqa.Main.LoginStuff
             ProgressInfoWrapper.Visibility = String.IsNullOrEmpty(message) ? Visibility.Collapsed : Visibility.Visible;
             ProgressInfo.Text = message;
 
-            Utilities.GUI.WPFDoEvents.RepaintUIElement(ProgressInfoWrapper);
+            WPFDoEvents.RepaintUIElement(ProgressInfoWrapper);
         }
 
         private void StatusManager_OnStatusEntryUpdate(StatusManager.StatusEntry status_entry)
         {
             string msg = status_entry.LastStatusMessageWithProgressPercentage;
 
-            WPFDoEvents.InvokeInUIThread(() => UpdateStatusMessage(msg));
+            WPFDoEvents.InvokeAsyncInUIThread(() => UpdateStatusMessage(msg));
         }
 
         private void LoginWindow_Closed(object sender, EventArgs e)
@@ -160,13 +174,17 @@ namespace Qiqqa.Main.LoginStuff
             IsEnabled = false;
 
             ConfigurationManager.Instance.BaseDirectoryForQiqqaIsFixedFromNowOn = true;
-            ConfigurationManager.Instance.ResetConfigurationRecordToGuest();
+            ConfigurationManager.Instance.ResetConfigurationRecord();
+
+            // Create the base directory in case it doesn't exist
+            Directory.CreateDirectory(ConfigurationManager.Instance.BaseDirectoryForUser);
+
             CloseToContinue();
         }
 
         private void LoginWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Key.Escape == e.Key)
+            if (Key.Escape == e.Key || Key.Enter == e.Key || Key.Return == e.Key)
             {
                 DoGuest();
                 e.Handled = true;
@@ -175,14 +193,15 @@ namespace Qiqqa.Main.LoginStuff
 
         private void LoginWindow_Closing(object sender, CancelEventArgs e)
         {
-            is_closing = true;
-
-            if (!have_done_config)
+            WPFDoEvents.SafeExec(() =>
             {
-                DoGuest();
-            }
+                is_closing = true;
 
-            StartMainApplication();
+                if (have_done_config)
+                {
+                    StartMainApplication();
+                }
+            });
         }
 
         private void StartMainApplication()
@@ -206,8 +225,8 @@ namespace Qiqqa.Main.LoginStuff
                 StatusManager.Instance.UpdateStatus("AppStart", "Installing browser components");
                 GeckoInstaller.CheckForInstall();
                 StatusManager.Instance.UpdateStatus("AppStart", "Initialising browser components");
-                GeckoManager.Initialise();
-                GeckoManager.RegisterPDFInterceptor();
+                //GeckoManager.Initialise();
+                //GeckoManager.RegisterPDFInterceptor();
             }
             catch (Exception ex)
             {
@@ -219,7 +238,7 @@ namespace Qiqqa.Main.LoginStuff
             ComputerStatistics.LogCommonStatistics(ConfigurationManager.GetCurrentConfigInfos());
 
             // Fire up Qiqqa!
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 try
                 {

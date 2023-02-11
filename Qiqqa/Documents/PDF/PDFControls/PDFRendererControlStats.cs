@@ -5,11 +5,17 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Media.Imaging;
+using icons;
+using Qiqqa.Common.Configuration;
 using Qiqqa.Documents.PDF.PDFControls.Page;
 using Utilities;
 using Utilities.BibTex.Parsing;
 using Utilities.GUI;
 using Utilities.Misc;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Documents.PDF.PDFControls
 {
@@ -133,18 +139,26 @@ namespace Qiqqa.Documents.PDF.PDFControls
                     continue;
                 }
 
-                SafeThreadPool.QueueUserWorkItem(o =>
+
+                // fake it while we test other parts of the UI and can dearly do without the shenanigans of the PDF page rendering system:
+                //
+                bool allow = ConfigurationManager.IsEnabled("RenderPDFPagesForReading");
+
+                if (!allow)
+                {
+                    var img = Backgrounds.GetBackground(Backgrounds.PageRenderingPending_1);
+                    resized_page_image_item_request.callback(img, resized_page_image_item_request.height, resized_page_image_item_request.width);
+                }
+
+
+                SafeThreadPool.QueueUserWorkItem(() =>
                 {
                     WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
 
                     try
                     {
-                        //PngBitmapDecoder decoder = new PngBitmapDecoder(new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height)), BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-                        //BitmapSource bitmap = decoder.Frames[0];
-                        //bitmap.Freeze();
-
                         BitmapImage bitmap = new BitmapImage();
-                        using (MemoryStream ms = new MemoryStream(pdf_document.PDFRenderer.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height, resized_page_image_item_request.width)))
+                        using (MemoryStream ms = new MemoryStream(pdf_document.GetPageByHeightAsImage(resized_page_image_item_request.page, resized_page_image_item_request.height, resized_page_image_item_request.width)))
                         {
                             bitmap.BeginInit();
                             bitmap.StreamSource = ms;

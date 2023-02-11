@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Utilities.GUI;
 using Utilities.Misc;
@@ -10,52 +11,65 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
     /// </summary>
     public partial class JumpToSectionPopup : StackPanel
     {
-        internal PDFReadingControl pdf_reading_control;
         internal AugmentedPopup popup;
 
-        public JumpToSectionPopup(PDFReadingControl pdf_reading_control)
+        public JumpToSectionPopup()
         {
+            WPFDoEvents.AssertThisCodeIsRunningInTheUIThread();
+
             InitializeComponent();
 
-            this.pdf_reading_control = pdf_reading_control;
             popup = new AugmentedPopup(this);
 
-            // Add the bit explaining how to use bookmarks
-            {
-                TextBlock tb = new TextBlock();
-                tb.FontWeight = FontWeights.Bold;
-                tb.Text = "Bookmarks:";
-                Children.Add(tb);
-            }
+            //Unloaded += JumpToSectionPopup_Unloaded;
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+        }
 
+        public void BuildSectionList(PDFReadingControl pdf_reading_control)
+        {
+            WPFDoEvents.AssertThisCodeIs_NOT_RunningInTheUIThread();
+
+            WPFDoEvents.InvokeInUIThread(() =>
             {
+                Children.Clear();
+
+                // Add the bit explaining how to use bookmarks
                 {
-                    MenuItem mi = new MenuItem();
-                    mi.Header =
-                        ""
-                        + "You can create up to 9 bookmarks while reading a PDF by\n"
-                        + "holding down CTRL+SHIFT and pressing a number from 1 to 9.";
-                    Children.Add(mi);
+                    TextBlock tb = new TextBlock();
+                    tb.FontWeight = FontWeights.Bold;
+                    tb.Text = "Bookmarks:";
+                    Children.Add(tb);
                 }
+
                 {
-                    MenuItem mi = new MenuItem();
-                    mi.Header =
-                        ""
-                    + "You can later jump to a remembered bookmark by\n"
-                    + "holding down CTRL and pressing a number from 1 to 9.";
-                    Children.Add(mi);
+                    {
+                        MenuItem mi = new MenuItem();
+                        mi.Header =
+                            ""
+                            + "You can create up to 9 bookmarks while reading a PDF by\n"
+                            + "holding down CTRL+SHIFT and pressing a number from 1 to 9.";
+                        Children.Add(mi);
+                    }
+                    {
+                        MenuItem mi = new MenuItem();
+                        mi.Header =
+                            ""
+                        + "You can later jump to a remembered bookmark by\n"
+                        + "holding down CTRL and pressing a number from 1 to 9.";
+                        Children.Add(mi);
+                    }
                 }
-            }
 
-            Children.Add(new AugmentedSpacer());
+                Children.Add(new AugmentedSpacer());
 
-            // Then add the sections
-            {
-                TextBlock tb = new TextBlock();
-                tb.FontWeight = FontWeights.Bold;
-                tb.Text = "Sections:";
-                Children.Add(tb);
-            }
+                // Then add the sections
+                {
+                    TextBlock tb = new TextBlock();
+                    tb.FontWeight = FontWeights.Bold;
+                    tb.Text = "Sections:";
+                    Children.Add(tb);
+                }
+            });
 
             // If there are not enough bookmarks, go the OCR route
             PDFDocument pdf_document = pdf_reading_control.GetPDFDocument();
@@ -64,37 +78,43 @@ namespace Qiqqa.Documents.PDF.PDFControls.JumpToSectionStuff
             // First try from the PDF
             if (pdf_document != null)
             {
-#if SYNCFUSION_ANTIQUE
-                BuildPopupFromPDF build_popup_from_pdf = new BuildPopupFromPDF(this, pdf_document);
-                build_popup_from_pdf.BuildMenu();
-#endif
+                BuildPopupFromPDF.BuildMenu(this, pdf_reading_control);
             }
 
-            if (pdf_document != null && pdf_document.PDFRenderer.PageCount < 100)
+            int menu_item_count = 0;
+            WPFDoEvents.InvokeInUIThread(() =>
             {
-                BuildPopupFromOCR build_popup_from_ocr = new BuildPopupFromOCR(this, pdf_document);
-                build_popup_from_ocr.BuildMenu();
-            }
+                menu_item_count = Children.Count;
+            });
 
-            //Unloaded += JumpToSectionPopup_Unloaded;
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+                // Then go and infer a set of chapters from the OCR results.
+            if (pdf_document != null /* && pdf_document.PDFRenderer.PageCount < 100  -- plenty thesis papers out there with more than 100 pages... removed this arbitrary heuristic */
+                && menu_item_count <= 1)
+            {
+                BuildPopupFromOCR.BuildMenu(this, pdf_reading_control);
+            }
         }
 
         private void Dispatcher_ShutdownStarted(object sender, System.EventArgs e)
         {
-            CleanUp();
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
         }
 
         private void JumpToSectionPopup_Unloaded(object sender, RoutedEventArgs e)
         {
-            CleanUp();
+            WPFDoEvents.SafeExec(() =>
+            {
+                CleanUp();
+            });
         }
 
         private void CleanUp()
         {
             Dispatcher.ShutdownStarted -= Dispatcher_ShutdownStarted;
 
-            pdf_reading_control = null;
             popup = null;
         }
 

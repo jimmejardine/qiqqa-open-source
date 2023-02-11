@@ -152,7 +152,7 @@ namespace Qiqqa.ClientVersioning
         /// <summary>
         /// This is invoked when the user clicks on the notification bar "Download" button.
         /// </summary>
-        public void DownloadNewClientVersion(object obj)
+        public void DownloadNewClientVersion()
         {
             try
             {
@@ -191,7 +191,7 @@ namespace Qiqqa.ClientVersioning
         /// <summary>
         /// Shows a simple modal list of release notes.
         /// </summary>
-        public void ViewChanges(object dummy = null)
+        public void ViewChanges()
         {
             try
             {

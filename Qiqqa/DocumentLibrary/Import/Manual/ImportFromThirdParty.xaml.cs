@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using icons;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.Wpf;
 using Qiqqa.Common.GUI;
 using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.UtilisationTracking;
@@ -15,6 +15,9 @@ using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Reflection;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Qiqqa.DocumentLibrary.Import.Manual
 {
@@ -458,18 +461,27 @@ namespace Qiqqa.DocumentLibrary.Import.Manual
 
         private static string GetFolderNameFromDialog(string title, string defaultFolder)
         {
-            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+            var dialog = new VistaFolderBrowserDialog();
+
+            dialog.Description = title;
+            dialog.UseDescriptionForTitle = true; // This applies to the Vista style dialog only, not the old dialog.
+
+            string default_folder = defaultFolder;
+            if (default_folder != null)
             {
-                dialog.IsFolderPicker = true;
-                dialog.Title = title;
-                dialog.DefaultDirectory = defaultFolder;
-                CommonFileDialogResult result = dialog.ShowDialog();
-                if (result != CommonFileDialogResult.Ok)
-                {
-                    return null;
-                }
-                return dialog.FileName;
+                dialog.SelectedPath = default_folder;
             }
+
+            if (!VistaFolderBrowserDialog.IsVistaFolderDialogSupported)
+            {
+                MessageBoxes.Warn("Because you are not using Windows Vista or later, the regular folder browser dialog will be used. Please use Windows Vista to see the new dialog.", "Sample folder browser dialog");
+            }
+
+            if ((bool)dialog.ShowDialog())
+            {
+                return dialog.SelectedPath;
+            }
+            return null;
         }
 
 

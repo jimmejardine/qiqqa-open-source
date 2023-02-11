@@ -82,14 +82,17 @@ namespace Qiqqa.DocumentLibrary.WebLibraryStuff
 
         private void ObjWebLibraryListControl_OnWebLibrarySelected(WebLibraryDetail web_library_detail)
         {
-            Logging.Info("User clicked on a library entry in Library picker: {0}", web_library_detail);
-
-            Picked.Invoke(this, new PickedEventArgs()
+            WPFDoEvents.SafeExec(() =>
             {
-                pickedLibrary = web_library_detail
-            });
+                Logging.Info("User clicked on a library entry in Library picker: {0}", web_library_detail);
 
-            Close();
+                Picked.Invoke(this, new PickedEventArgs()
+                {
+                    pickedLibrary = web_library_detail
+                });
+
+                Close();
+            });
         }
 
         // ----------------------------------------------------------------------------------------------------------------------------------

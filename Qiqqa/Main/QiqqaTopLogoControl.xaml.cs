@@ -22,7 +22,7 @@ namespace Qiqqa.Main
             ImageQiqqaLogo.Stretch = Stretch.Uniform;
             ImageQiqqaLogo.ToolTip = "Go to Qiqqa.com";
 
-            RenderOptions.SetBitmapScalingMode(ImageQiqqaLogo, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageQiqqaLogo, BitmapScalingMode.HighQuality);
 
             ImageQiqqaLogo.MouseEnter += ImageQiqqaLogo_MouseEnter;
             ImageQiqqaLogo.MouseLeave += ImageQiqqaLogo_MouseLeave;

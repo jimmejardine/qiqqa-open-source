@@ -188,11 +188,14 @@ namespace Qiqqa.StartPage
 
         private void ObjSearch_OnHardSearch()
         {
-            string query = ObjSearch.Text;
-            if (!String.IsNullOrEmpty(query))
+            WPFDoEvents.SafeExec(() =>
             {
-                MainWindowServiceDispatcher.Instance.OpenCrossLibrarySearch(query);
-            }
+                string query = ObjSearch.Text;
+                if (!String.IsNullOrEmpty(query))
+                {
+                    MainWindowServiceDispatcher.Instance.OpenCrossLibrarySearch(query);
+                }
+            });
         }
 
         private void ButtonCreateIntranetLibrary_Click(object sender, RoutedEventArgs e)
@@ -231,7 +234,6 @@ namespace Qiqqa.StartPage
 
         private void ButtonNewBrainstorm_Click(object sender, RoutedEventArgs e)
         {
-            //ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenNewBrainstorm();
         }
 
@@ -261,13 +263,11 @@ namespace Qiqqa.StartPage
 
         private void ButtonInCite_Click(object sender, RoutedEventArgs e)
         {
-            //ButtonToolsPopup.Close();
             MainWindowServiceDispatcher.Instance.OpenInCite();
         }
 
         private void ButtonExpedition_Click(object sender, RoutedEventArgs e)
         {
-            //ButtonToolsPopup.Close();
             FeatureTrackingManager.Instance.UseFeature(Features.Expedition_Open_StartPage);
             MainWindowServiceDispatcher.Instance.OpenExpedition(null, null);
         }

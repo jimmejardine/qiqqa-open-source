@@ -5,6 +5,8 @@
 [Setup]
 AppName=My Program
 AppVersion=1.5
+WizardStyle=modern
+DisableWelcomePage=no
 CreateAppDir=no
 DisableProgramGroupPage=yes
 DefaultGroupName=My Program
@@ -160,7 +162,7 @@ end;
 {--- MSXML ---}
 
 const
-  XMLURL = 'http://cvs.jrsoftware.org/view/*checkout*/ishelp/isxfunc.xml';
+  XMLURL = 'http://jrsoftware.github.io/issrc/ISHelp/isxfunc.xml';
   XMLFileName = 'isxfunc.xml';
   XMLFileName2 = 'isxfuncmodified.xml';
 
@@ -277,7 +279,7 @@ end;
 
 procedure CreateButton(ALeft, ATop: Integer; ACaption: String; ANotifyEvent: TNotifyEvent);
 begin
-  with TButton.Create(WizardForm) do begin
+  with TNewButton.Create(WizardForm) do begin
     Left := ALeft;
     Top := ATop;
     Width := WizardForm.CancelButton.Width;
@@ -298,6 +300,7 @@ begin
   Top := WizardForm.WelcomeLabel2.Top + WizardForm.WelcomeLabel2.Height - 4*TopInc;
 
   CreateButton(Left, Top, '&SQLDMO...', @SQLDMOButtonOnClick);
+  Top := Top + TopInc;
   CreateButton(Left + LeftInc, Top, '&Firewall...', @FirewallButtonOnClick);
   Top := Top + TopInc;
   CreateButton(Left, Top, '&IIS...', @IISButtonOnClick);
@@ -306,5 +309,3 @@ begin
   Top := Top + TopInc;
   CreateButton(Left, Top, '&Word...', @WordButtonOnClick);
 end;
-
-

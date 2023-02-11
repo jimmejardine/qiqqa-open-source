@@ -34,7 +34,7 @@ namespace Utilities.GUI
             TextCaption.HorizontalAlignment = HorizontalAlignment.Stretch;
             TextCaption.VerticalAlignment = VerticalAlignment.Stretch;
 
-            RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
+            //RenderOptions.SetBitmapScalingMode(ImageIcon, BitmapScalingMode.HighQuality);
 
             IsEnabledChanged += AugmentedButton_IsEnabledChanged;
 
@@ -262,26 +262,29 @@ namespace Utilities.GUI
 
         private void Button_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            const double THRESHOLD = 48;
-
-            if (AutoScaleText)
+            WPFDoEvents.SafeExec(() =>
             {
-                if (ActualWidth > 0)
+                const double THRESHOLD = 48;
+
+                if (AutoScaleText)
                 {
-                    if (ActualWidth < THRESHOLD)
+                    if (ActualWidth > 0)
                     {
-                        FontSize = Math.Max(2, (cachedDefaultFontSize * ActualWidth) / THRESHOLD);
+                        if (ActualWidth < THRESHOLD)
+                        {
+                            FontSize = Math.Max(2, (cachedDefaultFontSize * ActualWidth) / THRESHOLD);
+                        }
+                        else
+                        {
+                            FontSize = cachedDefaultFontSize;
+                        }
                     }
                     else
                     {
                         FontSize = cachedDefaultFontSize;
                     }
                 }
-                else
-                {
-                    FontSize = cachedDefaultFontSize;
-                }
-            }
+            });
         }
     }
 }

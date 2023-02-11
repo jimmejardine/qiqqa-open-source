@@ -55,7 +55,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void AddNewPDFDocumentsToLibrary_ASYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, params string[] filenames)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibrary_SYNCHRONOUS(web_library_detail, suppress_notifications, filenames));
+            SafeThreadPool.QueueUserWorkItem(() => AddNewPDFDocumentsToLibrary_SYNCHRONOUS(web_library_detail, suppress_notifications, filenames));
         }
 
         public static PDFDocument AddNewPDFDocumentsToLibrary_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, params string[] filenames)
@@ -74,7 +74,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void AddNewPDFDocumentsToLibraryWithMetadata_ASYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, FilenameWithMetadataImport[] filename_with_metadata_imports)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, filename_with_metadata_imports));
+            SafeThreadPool.QueueUserWorkItem(() => AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(web_library_detail, suppress_notifications, filename_with_metadata_imports));
         }
 
         public static PDFDocument AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS(WebLibraryDetail web_library_detail, bool suppress_notifications, FilenameWithMetadataImport[] filename_with_metadata_imports)
@@ -105,7 +105,6 @@ namespace Qiqqa.DocumentLibrary
                     Logging.Warn("User chose to stop bulk adding documents to the library");
                     break;
                 }
-                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Adding document {0} of {1} to your library", i + 1, filename_with_metadata_imports.Length), i, filename_with_metadata_imports.Length, true);
 
                 FilenameWithMetadataImport filename_with_metadata_import = filename_with_metadata_imports[i];
 
@@ -113,6 +112,11 @@ namespace Qiqqa.DocumentLibrary
                 {
                     string filename = filename_with_metadata_import.filename;
                     string bibtex = filename_with_metadata_import.bibtex;
+
+                    StatusManager.Instance.UpdateStatus("BulkLibraryDocument", (filename_with_metadata_imports.Length > 1 ?
+    String.Format("Adding document {0} of {1} to your library", i + 1, filename_with_metadata_imports.Length) :
+    String.Format("Adding document {0} to your library", Path.GetFileName(filename))),
+    i, filename_with_metadata_imports.Length, true);
 
                     PDFDocument pdf_document = web_library_detail.Xlibrary.AddNewDocumentToLibrary_SYNCHRONOUS(filename, web_library_detail, filename, filename, bibtex, filename_with_metadata_import.tags, filename_with_metadata_import.notes, suppress_notifications);
                     if (null != pdf_document)
@@ -159,11 +163,11 @@ namespace Qiqqa.DocumentLibrary
                     }
                 }
 
-                if (breathing_time.ElapsedMilliseconds >= FolderWatcher.MAX_SECONDS_PER_ITERATION)
+                if (breathing_time.ElapsedMilliseconds >= FolderWatcher.MAX_MILLISECONDS_PER_ITERATION)
                 {
-                    Logging.Info("AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS: Taking a nap due to MAX_SECONDS_PER_ITERATION: {0} seconds consumed", breathing_time.ElapsedMilliseconds / 1E3);
+                    Logging.Info("AddNewPDFDocumentsToLibraryWithMetadata_SYNCHRONOUS: Taking a nap due to MAX_MILLISECONDS_PER_ITERATION: {0} seconds consumed", breathing_time.ElapsedMilliseconds / 1E3);
 
-                    ShutdownableManager.Sleep(FolderWatcher.SECONDS_TO_RELAX_PER_ITERATION);
+                    ShutdownableManager.Sleep(FolderWatcher.MILLISECONDS_TO_RELAX_PER_ITERATION);
 
                     breathing_time.Restart();
                 }
@@ -171,7 +175,9 @@ namespace Qiqqa.DocumentLibrary
 
             if (filename_with_metadata_imports.Length > 0)
             {
-                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", String.Format("Added {0} of {1} document(s) to your library", successful_additions, filename_with_metadata_imports.Length));
+                StatusManager.Instance.UpdateStatus("BulkLibraryDocument", (filename_with_metadata_imports.Length > 1 ?
+                    String.Format("Added {0} of {1} document(s) to your library", successful_additions, filename_with_metadata_imports.Length) :
+                    String.Format("Added {0} to your library", Path.GetFileName(filename_with_metadata_imports[0].filename))));
             }
             else
             {
@@ -193,7 +199,7 @@ namespace Qiqqa.DocumentLibrary
                     {
                         // once the user has ack'ed or nack'ed the message, that handler
                         // will RESET the 'showing' counter and the party can start all over again!
-                        SafeThreadPool.QueueUserWorkItem(o => AlertUserAboutProblematicImports());
+                        SafeThreadPool.QueueUserWorkItem(() => AlertUserAboutProblematicImports());
                     }
                 }
             }
@@ -259,7 +265,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void AddNewPDFDocumentsToLibraryFromFolder_ASYNCHRONOUS(WebLibraryDetail web_library_detail, string root_folder, bool recurse_subfolders, bool import_tags_from_subfolder_names, bool suppress_notifications)
         {
-            SafeThreadPool.QueueUserWorkItem(o => AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(web_library_detail, root_folder, recurse_subfolders, import_tags_from_subfolder_names, suppress_notifications));
+            SafeThreadPool.QueueUserWorkItem(() => AddNewPDFDocumentsToLibraryFromFolder_SYNCHRONOUS(web_library_detail, root_folder, recurse_subfolders, import_tags_from_subfolder_names, suppress_notifications));
         }
 
         /// <summary>
@@ -324,7 +330,7 @@ namespace Qiqqa.DocumentLibrary
             // (Ignore the search engine 'base' URLs, which may be fed into here)
             if (!urls_which_are_guaranteed_to_be_NOT_a_download.Contains(download_url))
             {
-                SafeThreadPool.QueueUserWorkItem(o => AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(web_library_detail, download_url));
+                SafeThreadPool.QueueUserWorkItem(() => AddNewDocumentToLibraryFromInternet_SYNCHRONOUS(web_library_detail, download_url));
             }
         }
 
@@ -506,7 +512,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(PDFDocument existing_pdf_document, WebLibraryDetail web_library_detail)
         {
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueUserWorkItem(() =>
             {
                 ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail);
             });
@@ -514,7 +520,7 @@ namespace Qiqqa.DocumentLibrary
 
         public static void ClonePDFDocumentsFromOtherLibrary_ASYNCHRONOUS(List<PDFDocument> existing_pdf_document, WebLibraryDetail web_library_detail, ActionPerClonedDocument doneActionPerDocument = null)
         {
-            SafeThreadPool.QueueUserWorkItem(o => ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail, doneActionPerDocument));
+            SafeThreadPool.QueueUserWorkItem(() => ClonePDFDocumentsFromOtherLibrary_SYNCHRONOUS(existing_pdf_document, web_library_detail, doneActionPerDocument));
         }
 
         public delegate void ActionPerClonedDocument(PDFDocument target, PDFDocument source);

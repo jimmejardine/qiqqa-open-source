@@ -7,6 +7,7 @@ using Qiqqa.DocumentLibrary.WebLibraryStuff;
 using Qiqqa.Documents.PDF;
 using Qiqqa.Documents.PDF.PDFControls;
 using Utilities;
+using Utilities.Files;
 using Utilities.GUI;
 using Utilities.Misc;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -52,7 +53,7 @@ namespace Qiqqa.Common
             }
 
             // Store the remembrances
-            File.WriteAllLines(Filename, restore_settings);
+            SerializeFile.TextSaveAllLines(Filename, restore_settings);
         }
 
         public static void RestoreDesktop()
@@ -62,9 +63,9 @@ namespace Qiqqa.Common
             try
             {
                 // Get the remembrances
-                if (File.Exists(Filename))
+                if (SerializeFile.Exists(Filename))
                 {
-                    string[] restore_settings = File.ReadAllLines(Filename);
+                    string[] restore_settings = SerializeFile.TextLoadAllLines(Filename);
                     foreach (string restore_setting in restore_settings)
                     {
                         try
@@ -81,7 +82,7 @@ namespace Qiqqa.Common
                                 }
                                 else
                                 {
-                                    WPFDoEvents.InvokeInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail));
+                                    WPFDoEvents.InvokeAsyncInUIThread(() => MainWindowServiceDispatcher.Instance.OpenLibrary(web_library_detail));
                                 }
                             }
                             else if (restore_setting.StartsWith("PDF_DOCUMENT"))

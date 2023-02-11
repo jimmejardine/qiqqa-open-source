@@ -1,4 +1,4 @@
-<commongui:StandardWindow
+<commongui:StandardWindow x:Name="StartDialog"
     x:Class="Qiqqa.Main.LoginStuff.LoginWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,7 +13,7 @@
     ShowInTaskbar="True"
     SizeToContent="Height"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d" >
     <local_gui:AugmentedBorder Margin="10">
         <StackPanel>
             <Image

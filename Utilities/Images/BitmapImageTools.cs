@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Media.Imaging;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Utilities.Images
 {
@@ -23,8 +28,10 @@ namespace Utilities.Images
 
         public static Bitmap CropImageRegion(Image image, double left, double top, double width, double height)
         {
-            Bitmap bitmap = new Bitmap(image);
-            return CropBitmapRegion(bitmap, left, top, width, height);
+            using (Bitmap bitmap = new Bitmap(image))
+            {
+                return CropBitmapRegion(bitmap, left, top, width, height);
+            }
         }
 
         public static Bitmap CropBitmapRegion(Bitmap bitmap, double left, double top, double width, double height)
@@ -45,28 +52,30 @@ namespace Utilities.Images
 
         public static Bitmap LoadImageRegion(string filename, double left, double top, double width, double height)
         {
-            Bitmap bitmap = (Bitmap)Image.FromFile(filename);
-            Rectangle rectangle = new Rectangle((int)(bitmap.Width * left), (int)(bitmap.Height * top), (int)(bitmap.Width * width), (int)(bitmap.Height * height));
-            return bitmap.Clone(rectangle, bitmap.PixelFormat);
+            using (Bitmap bitmap = (Bitmap)Image.FromFile(filename))
+            {
+                Rectangle rectangle = new Rectangle((int)(bitmap.Width * left), (int)(bitmap.Height * top), (int)(bitmap.Width * width), (int)(bitmap.Height * height));
+                return bitmap.Clone(rectangle, bitmap.PixelFormat);
+            }
         }
 
         [Obsolete("Use the byte[] version directly", true)]
         public static BitmapSource LoadBitmapImageRegion(string filename, double left, double top, double width, double height)
         {
-            Image image = LoadImageRegion(filename, left, top, width, height);
-            return FromImage(image);
+            using (Image image = LoadImageRegion(filename, left, top, width, height))
+            {
+                return FromImage(image);
+            }
         }
 
         public static BitmapSource LoadFromFile(string filename)
         {
-            double maximum_height;
-            return LoadFromBytes(File.ReadAllBytes(filename), null, out maximum_height);
+            return LoadFromBytes(File.ReadAllBytes(filename), null, out double _);
         }
 
         public static BitmapSource LoadFromBytes(byte[] image_data)
         {
-            double maximum_height;
-            return LoadFromBytes(image_data, null, out maximum_height);
+            return LoadFromBytes(image_data, null, out double _);
         }
 
         private static bool VOID_CALLBACK_METHOD() { return false; }
@@ -120,6 +129,11 @@ namespace Utilities.Images
                     image.StreamSource.Close();
                     image.StreamSource = null;
                     // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
+                    //
+                    // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
+                    //
+                    // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
+                    // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
                     image.Freeze();
                     return image;
                 }
@@ -157,6 +171,11 @@ namespace Utilities.Images
                 image.StreamSource.Close();
                 image.StreamSource = null;
                 // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
+                //
+                // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
+                //
+                // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
+                // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
                 image.Freeze();
                 return image;
             }
@@ -198,6 +217,11 @@ namespace Utilities.Images
             bitmap_image.StreamSource.Close();
             bitmap_image.StreamSource = null;
             // This is a bid to remove the memory leaks exhibited by this object as it retains pointers to the underlying byte array...
+            //
+            // .Freeze() also makes sure we don't get access violations when passing this bitmap from a background thread to the UI thread.
+            //
+            // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/freezable-objects-overview?view=netframeworkdesktop-4.8#what-is-a-freezable:
+            // > "A frozen Freezable can also be shared across threads, while an unfrozen Freezable cannot."
             bitmap_image.Freeze();
             return bitmap_image;
         }
@@ -219,6 +243,39 @@ namespace Utilities.Images
         {
             return FromImage(image);
         }
+
+        /// <summary>
+        /// Resize the image to the specified width and height.
+        /// </summary>
+        /// <param name="image">The image to resize.</param>
+        /// <param name="width">The width to resize to.</param>
+        /// <param name="height">The height to resize to.</param>
+        /// <returns>The resized image.</returns>
+        public static Bitmap ResizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+
 
         private static class NativeMethods
         {

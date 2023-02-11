@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -14,6 +15,10 @@ using Utilities.DateTimeTools;
 using Utilities.GUI;
 using Utilities.Misc;
 using Utilities.Shutdownable;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+
 
 namespace Qiqqa.Common.MessageBoxControls
 {
@@ -48,10 +53,11 @@ namespace Qiqqa.Common.MessageBoxControls
             }
 
             // the garbage collection is not crucial for the functioning of the dialog itself, hence dump it into a worker thread.
-            SafeThreadPool.QueueUserWorkItem(o =>
+            SafeThreadPool.QueueSafeExecUserWorkItem(() =>
             {
                 // Collect all generations of memory.
                 GC.WaitForPendingFinalizers();
+                GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
             });
 

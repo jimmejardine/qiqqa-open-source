@@ -1,0 +1,1477 @@
+﻿{
+  "info": {
+    "PageCount": 26,
+    "PDFVersion": "PDF-1.6",
+    "Chapters": 0,
+    "ChapterPages": null,
+    "Title": "",
+    "Author": null,
+    "Format": "PDF 1.6",
+    "Encryption": null,
+    "PDFCreator": "Adobe Acrobat 10.1.16",
+    "PDFProducer": "Adobe Acrobat 10.1.16 Image Conversion Plug-in",
+    "Subject": null,
+    "Keywords": null,
+    "Creation_Date": "2020-04-05T18:23:54Z",
+    "Modification_Date": "2020-04-05T18:23:54Z",
+    "Permissions": "print, copy, edit, annotate",
+    "PDFStatus": "PDF linearized document with 1 update.",
+    "DocumentUpdateCount": 1,
+    "ChangeHistoryValidation": "Change history seems valid.",
+    "FormFieldSignaturesCount": 0,
+    "UpdatesStatus": "Document changes conform to permissions",
+    "WasRepaired": false,
+    "NeedsPassword": false,
+    "WasCryptedWithEmptyPassword": false,
+    "HasDocumentOutlines": true,
+    "AttachedFilesCount": 0,
+    "EmbeddedJavaScriptFilesCount": 0,
+    "DocumentIsCorrupted": true,
+    "errors": [
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[0].Images[0].ImageFilter', line 221, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[1].Images[0].ImageFilter', line 250, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[2].Images[0].ImageFilter', line 279, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[3].Images[0].ImageFilter', line 308, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[4].Images[0].ImageFilter', line 337, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[5].Images[0].ImageFilter', line 366, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[6].Images[0].ImageFilter', line 395, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[7].Images[0].ImageFilter', line 424, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[8].Images[0].ImageFilter', line 453, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[9].Images[0].ImageFilter', line 482, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[10].Images[0].ImageFilter', line 511, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[11].Images[0].ImageFilter', line 540, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[12].Images[0].ImageFilter', line 569, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[13].Images[0].ImageFilter', line 598, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[14].Images[0].ImageFilter', line 627, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[15].Images[0].ImageFilter', line 656, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[16].Images[0].ImageFilter', line 685, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[17].Images[0].ImageFilter', line 714, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[18].Images[0].ImageFilter', line 743, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[19].Images[0].ImageFilter', line 772, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[20].Images[0].ImageFilter', line 801, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[21].Images[0].ImageFilter', line 830, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[22].Images[0].ImageFilter', line 859, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[23].Images[0].ImageFilter', line 888, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[24].Images[0].ImageFilter', line 917, position 22.",
+      "Error converting value \"DCT\" to type 'Utilities.PDF.MuPDF.MultiPurpImageFilter'. Path '[0].PageInfo[25].Images[0].ImageFilter', line 946, position 22."
+    ],
+    "raw_metadump_text": null,
+    "raw_decoded_json": null
+  },
+  "complete_json_doc": [
+    {
+      "DocumentFilePath": "Z:\\lib\\tooling\\qiqqa\\TestData\\data\\fixtures\\PDF\\asbach uralt - dual column scanned old.pdf",
+      "GlobalInfo": {
+        "Version": "PDF-1.6",
+        "Info": {
+          "CreationDate": "D:20200405202354+02'00'",
+          "Creator": "Adobe Acrobat 10.1.16",
+          "ModDate": "D:20200405202354+02'00'",
+          "Producer": "Adobe Acrobat 10.1.16 Image Conversion Plug-in",
+          "Title": ""
+        },
+        "Metadata": {
+          "type": "stream",
+          "raw_data": "(error: data dump is restricted due to size)",
+          "__MuPDFRestrictedXMLDisplay__": true
+        },
+        "Pages": 26,
+        "Chapters": 1,
+        "DocumentOutlinesMaxHierarchyDepth": 1,
+        "DocumentOutlinesItemCount": 26,
+        "DocumentOutlines": [
+          {
+            "InternalLink": "#1,0,-4",
+            "TargetPageNumber": 1,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 001",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#2,0,-4",
+            "TargetPageNumber": 2,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 002",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#3,0,-4",
+            "TargetPageNumber": 3,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 003",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#4,0,-4",
+            "TargetPageNumber": 4,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 004",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#5,0,-4",
+            "TargetPageNumber": 5,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 005",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#6,0,-4",
+            "TargetPageNumber": 6,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 006",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#7,0,-4",
+            "TargetPageNumber": 7,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 007",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#8,0,-4",
+            "TargetPageNumber": 8,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 008",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#9,0,-4",
+            "TargetPageNumber": 9,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 009",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#10,0,-4",
+            "TargetPageNumber": 10,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 010",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#11,0,-4",
+            "TargetPageNumber": 11,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 011",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#12,0,-4",
+            "TargetPageNumber": 12,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 012",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#13,0,-4",
+            "TargetPageNumber": 13,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 013",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#14,0,-4",
+            "TargetPageNumber": 14,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 014",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#15,0,-4",
+            "TargetPageNumber": 15,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 015",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#16,0,-4",
+            "TargetPageNumber": 16,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 016",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#17,0,-4",
+            "TargetPageNumber": 17,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 017",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#18,0,-4",
+            "TargetPageNumber": 18,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 018",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#19,0,-4",
+            "TargetPageNumber": 19,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 019",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#20,0,-4",
+            "TargetPageNumber": 20,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 020",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#21,0,-4",
+            "TargetPageNumber": 21,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 021",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#22,0,-4",
+            "TargetPageNumber": 22,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 022",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#23,0,-4",
+            "TargetPageNumber": 23,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 023",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#24,0,-4",
+            "TargetPageNumber": 24,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 024",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#25,0,-4",
+            "TargetPageNumber": 25,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 025",
+            "IsOpen": false
+          },
+          {
+            "InternalLink": "#26,0,-4",
+            "TargetPageNumber": 26,
+            "TargetCoordinates": {
+              "X": 0,
+              "Y": -4
+            },
+            "Title": "asbach uralt - 026",
+            "IsOpen": false
+          }
+        ]
+      },
+      "FirstPage": 1,
+      "LastPage": 26,
+      "PageInfo": [
+        {
+          "PageNumber": 1,
+          "Mediaboxes": [
+            {
+              "Page": 1,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 1,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 2,
+          "Mediaboxes": [
+            {
+              "Page": 2,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 2,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 3,
+          "Mediaboxes": [
+            {
+              "Page": 3,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 3,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 4,
+          "Mediaboxes": [
+            {
+              "Page": 4,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 4,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 5,
+          "Mediaboxes": [
+            {
+              "Page": 5,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 5,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 6,
+          "Mediaboxes": [
+            {
+              "Page": 6,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 6,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 7,
+          "Mediaboxes": [
+            {
+              "Page": 7,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 7,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 8,
+          "Mediaboxes": [
+            {
+              "Page": 8,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 8,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 9,
+          "Mediaboxes": [
+            {
+              "Page": 9,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 9,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 10,
+          "Mediaboxes": [
+            {
+              "Page": 10,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 10,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 11,
+          "Mediaboxes": [
+            {
+              "Page": 11,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 11,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 12,
+          "Mediaboxes": [
+            {
+              "Page": 12,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 12,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 13,
+          "Mediaboxes": [
+            {
+              "Page": 13,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 13,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 14,
+          "Mediaboxes": [
+            {
+              "Page": 14,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 14,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 15,
+          "Mediaboxes": [
+            {
+              "Page": 15,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 15,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 16,
+          "Mediaboxes": [
+            {
+              "Page": 16,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 16,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 17,
+          "Mediaboxes": [
+            {
+              "Page": 17,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 17,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 18,
+          "Mediaboxes": [
+            {
+              "Page": 18,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 18,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 19,
+          "Mediaboxes": [
+            {
+              "Page": 19,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 19,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 20,
+          "Mediaboxes": [
+            {
+              "Page": 20,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 20,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 21,
+          "Mediaboxes": [
+            {
+              "Page": 21,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 21,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 22,
+          "Mediaboxes": [
+            {
+              "Page": 22,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 22,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 23,
+          "Mediaboxes": [
+            {
+              "Page": 23,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 23,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 24,
+          "Mediaboxes": [
+            {
+              "Page": 24,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 24,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 25,
+          "Mediaboxes": [
+            {
+              "Page": 25,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 25,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        },
+        {
+          "PageNumber": 26,
+          "Mediaboxes": [
+            {
+              "Page": 26,
+              "Bounds": [
+                0,
+                0,
+                565.92,
+                591.12
+              ]
+            }
+          ],
+          "ImagesCount": 1,
+          "Images": [
+            {
+              "Page": 26,
+              "ImageFilter": "DCT",
+              "ImageWidth": 1572,
+              "ImageHeight": 1642,
+              "ImageDimensions": {
+                "W": 1572,
+                "H": 1642
+              },
+              "ImageBPC": 8,
+              "ImageCS": "ICC",
+              "ImageColorSpace": "ICCBased",
+              "ImageColorMode": ""
+            }
+          ],
+          "PageBounds": [
+            0,
+            0,
+            565.92,
+            591.12
+          ],
+          "PageSeparationsCount": 0,
+          "PageActiveSeparationsCount": 0,
+          "PageSeparations": []
+        }
+      ],
+      "DocumentGeneralInfo": {
+        "Title": "",
+        "Format": "PDF 1.6",
+        "Encryption": "None",
+        "PDF_Creator": "Adobe Acrobat 10.1.16",
+        "PDF_Producer": "Adobe Acrobat 10.1.16 Image Conversion Plug-in",
+        "Creation_Date": "D:20200405202354+02'00'",
+        "Modification_Date": "D:20200405202354+02'00'",
+        "MetaInfoDictionary": {
+          "CreationDate": "D:20200405202354+02'00'",
+          "Creator": "Adobe Acrobat 10.1.16",
+          "ModDate": "D:20200405202354+02'00'",
+          "Producer": "Adobe Acrobat 10.1.16 Image Conversion Plug-in",
+          "Title": ""
+        },
+        "Permissions": "print, copy, edit, annotate",
+        "Status": "PDF linearized document with 1 update.",
+        "DocWasLinearized": true,
+        "DocumentUpdateCount": 1,
+        "ChangeHistoryValidation": "Change history seems valid.",
+        "UpdatesStatus": "Document changes conform to permissions",
+        "WasRepaired": false,
+        "NeedsPassword": false,
+        "WasCryptedWithEmptyPassword": false
+      },
+      "DocumentPrimitivesStatistics": {
+        "RegularAlphaCount": 26,
+        "TransparentAlphaCount": 0,
+        "OutOfBoundsAlphaCount": 0,
+        "NonOpaqueAlphaCount": 0,
+        "LuminosityCount": 0,
+        "RenderingIntent": "1",
+        "BlackPointCompensation": "1",
+        "Overprinting": "0",
+        "OverprintingModes": "0",
+        "BlendModes": "0",
+        "ContentBoundsSmallest": [
+          0,
+          0,
+          565.92,
+          591.12
+        ],
+        "ContentBoundsLargest": [
+          0,
+          0,
+          565.92,
+          591.12
+        ],
+        "LayerNamesCount": 1,
+        "LayerNames": [
+          "Part"
+        ],
+        "FillPathCount": 0,
+        "StrokePathCount": 0,
+        "ClipPathCount": 0,
+        "ClipStrokePathCount": 0,
+        "FillTextCount": 0,
+        "StrokeTextCount": 0,
+        "ClipTextCount": 0,
+        "ClipStrokeTextCount": 0,
+        "IgnoreTextCount": 0,
+        "FillShadeCount": 0,
+        "FillImageCount": 26,
+        "FillImageMaskCount": 0,
+        "ClipImageMaskCount": 0,
+        "ClipCount": 0,
+        "ClipDepth": 0,
+        "MaskCount": 0,
+        "MaskDepth": 0,
+        "GroupCount": 0,
+        "GroupDepth": 0,
+        "GroupKnockoutCount": 0,
+        "GroupIsolatedCount": 0,
+        "TileCount": 0,
+        "TileDepth": 0,
+        "DefaultColorspacesCount": 26,
+        "LayerCount": 26,
+        "LayerDepth": 1,
+        "StackDepth": 0,
+        "GreyColorspaceCount": 26,
+        "RgbColorspaceCount": 26,
+        "CmykColorspaceCount": 26,
+        "IndexedColorspaceCount": 26,
+        "IndexedColorspaceSmallestColorCount": 1,
+        "IndexedColorspaceLargestColorCount": 26
+      }
+    }
+  ]
+}

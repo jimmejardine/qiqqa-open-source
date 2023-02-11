@@ -1,6 +1,7 @@
 [submodule "MuPDF"]
 	path = MuPDF
 	url = git@github.com:GerHobbelt/mupdf.git
+	ignore = dirty
 [submodule "Qiqqa.Build/Packaging/InnoDependencyInstaller"]
 	path = Qiqqa.Build/Packaging/InnoDependencyInstaller
 	url = git@github.com:GerHobbelt/InnoDependencyInstaller.git
@@ -10,3 +11,49 @@
 [submodule "thirdparty/WpfScreenHelper"]
 	path = thirdparty/WpfScreenHelper
 	url = git@github.com:GerHobbelt/WpfScreenHelper.git
+[submodule "docs-src/_meta/fonts"]
+	path = docs-src/_meta/fonts
+	url = git@github.com:GerHobbelt/qiqqa-site-selected-web-fonts.git
+	ignore = dirty
+[submodule "thirdparty/High-Speed-Priority-Queue-for-C-Sharp"]
+	path = thirdparty/High-Speed-Priority-Queue-for-C-Sharp
+	url = git@github.com:GerHobbelt/High-Speed-Priority-Queue-for-C-Sharp.git
+[submodule "thirdparty/netmq"]
+	path = thirdparty/netmq
+	url = git@github.com:GerHobbelt/netmq.git
+[submodule "thirdparty/clrzmq4"]
+	path = thirdparty/clrzmq4
+	url = git@github.com:GerHobbelt/clrzmq4.git
+[submodule "thirdparty/Solr.Net"]
+	path = thirdparty/Solr.Net
+	url = git@github.com:GerHobbelt/SolrNet.git
+[submodule "QiqqaDocuBase"]
+	path = QiqqaDocuBase
+	url = git@github.com:GerHobbelt/qiqqa-docu-base.git
+[submodule "QiqqaSearcher"]
+	path = QiqqaSearcher
+	url = git@github.com:GerHobbelt/qiqqa-searcher.git
+[submodule "QiqqaSniffer"]
+	path = QiqqaSniffer
+	url = git@github.com:GerHobbelt/qiqqa-sniffer.git
+[submodule "thirdparty/docopt"]
+	path = thirdparty/docopt
+	url = git@github.com:GerHobbelt/docopt.net.git
+[submodule "thirdparty/SmartThreadPool"]
+	path = thirdparty/SmartThreadPool
+	url = git@github.com:GerHobbelt/SmartThreadPool.git
+[submodule "Technology.Tests"]
+	path = Technology.Tests
+	url = git@github.com:GerHobbelt/qiqqa-technology-tests.git
+[submodule "thirdparty/DirScanner"]
+	path = thirdparty/DirScanner
+	url = git@github.com:GerHobbelt/DirScanner.git
+[submodule "thirdparty/ookii-dialogs-wpf"]
+	path = thirdparty/ookii-dialogs-wpf
+	url = git@github.com:GerHobbelt/ookii-dialogs-wpf.git
+[submodule "thirdparty/YamlDotNet"]
+	path = thirdparty/YamlDotNet
+	url = git@github.com:GerHobbelt/YamlDotNet.git
+[submodule "thirdparty/CacheTower"]
+	path = thirdparty/CacheTower
+	url = git@github.com:GerHobbelt/CacheTower.git
