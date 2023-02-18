@@ -22,6 +22,12 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
 
 
+## Extracts from the `bulktest` run logs: errors and curiosities
+
+
+
+
+
 
 
 
