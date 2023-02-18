@@ -24,11 +24,11 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
 
 
+##### Item ♯00001
 
 
 
-
-
+```
 $ find 'W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc' -maxdepth 1 -type f -iname '*.pdf' -exec ./QiqqaOCR.exe GROUP "{}"  1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22 "{}.tmp.tmp" "" "" \;
 
 
@@ -44,12 +44,25 @@ $ find 'W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc' -maxdepth 1 -t
 20210913.140606 [OCR] INFO  [ThreadTextExtract] [9.437M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/0807.1213.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
 
 
 
+
+
+
+
+
+##### Item ♯00002
+
+
+
+
+
+```
 20210913.140612 [OCR] ERROR [ThreadTextExtract] [21.575M] Problem while doing text extract for file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/089
 164a0.pdf
 
@@ -82,6 +95,7 @@ System.Exception: We have no wordlist to write!
 20210913.140613 [OCR] INFO  [ThreadTextExtract] [4.378M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/0902.1884 (2).pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -92,6 +106,14 @@ System.Exception: We have no wordlist to write!
 
 
 
+
+##### Item ♯00003
+
+
+
+
+
+```
 20210913.140633 [OCR] INFO  [Main] [24.289M] Both text extract and OCR have exited, so exiting
 20210913.140633 [OCR] ERROR [Main] [24.314M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -107,6 +129,7 @@ System.Exception: We have no wordlist to write!
 20210913.140633 [OCR] INFO  [ThreadTextExtract] [9.419M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/10.1.1.46.7161.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -116,6 +139,15 @@ System.Exception: We have no wordlist to write!
 
 
 
+
+
+##### Item ♯00004
+
+
+
+
+
+```
 20210913.140642 [OCR] WARN  [ThreadTextExtract] [10.029M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[0 -
 1 0 1]">.
 20210913.140642 [OCR] WARN  [ThreadTextExtract] [8.332M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="?" bbox="[0 -1 0 1]">
@@ -129,6 +161,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/10.1007-3-540-44654-0.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,2
 2
 --EXIT:0--
+```
 
 
 
@@ -139,6 +172,14 @@ System.Exception: We have no wordlist to write!
 
 
 
+
+##### Item ♯00005
+
+
+
+
+
+```
 20210913.140654 [OCR] INFO  [Main] [13.510M] We have a text extract word list of length 20
 20210913.140654 [OCR] INFO  [Main] [13.510M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/10.1007-b100357.pdf.tmp.tmp
 20210913.140654 [OCR] INFO  [Main] [16.638M] -Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/10.1007-b100357.pdf.tmp.tmp
@@ -157,6 +198,7 @@ warning: freetype could not find any cmaps
 warning: freetype could not find any cmaps
 warning: freetype could not find any cmaps
 --EXIT:0--
+```
 
 
 
@@ -164,6 +206,17 @@ warning: freetype could not find any cmaps
 
 
 
+
+
+
+
+##### Item ♯00006
+
+
+
+
+
+```
 20210913.140700 [OCR] ERROR [ThreadTextExtract] [20.394M] Problem while doing text extract for file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/10.
 1016_j.ijpe.2019.03.021.pdf
 
@@ -196,6 +249,7 @@ System.Exception: We have no wordlist to write!
 20210913.140703 [OCR] INFO  [ThreadTextExtract] [20.622M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1005.0416.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -203,6 +257,17 @@ System.Exception: We have no wordlist to write!
 
 
 
+
+
+
+
+##### Item ♯00007
+
+
+
+
+
+```
 20210913.140754 [OCR] INFO  [Main] [10.774M] We have a text extract word list of length 21
 20210913.140754 [OCR] INFO  [Main] [10.774M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1271359.pdf.tmp.tmp
 20210913.140754 [OCR] INFO  [Main] [2.259M] -Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1271359.pdf.tmp.tmp
@@ -212,6 +277,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1271360.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 warning: freetype could not find any cmaps
 --EXIT:0--
+```
 
 
 
@@ -223,8 +289,13 @@ warning: freetype could not find any cmaps
 
 
 
+##### Item ♯00008
 
 
+
+
+
+```
 20210913.140809 [OCR] WARN  [ThreadTextExtract] [15.673M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="     " bbox="
 [102 561 102 570]">.
 20210913.140809 [OCR] WARN  [ThreadTextExtract] [15.682M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=" " bbox="[103
@@ -3283,6 +3354,7 @@ warning: freetype could not find any cmaps
 20210913.140811 [OCR] INFO  [ThreadTextExtract] [2.973M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/13437A.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -3290,6 +3362,17 @@ warning: freetype could not find any cmaps
 
 
 
+
+
+
+
+##### Item ♯00009
+
+
+
+
+
+```
 20210913.140812 [OCR] INFO  [Main] [0.452M] Both text extract and OCR have exited, so exiting
 20210913.140812 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -3305,6 +3388,7 @@ System.Exception: We have no wordlist to write!
 20210913.140812 [OCR] INFO  [ThreadTextExtract] [4.149M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1357533.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -3312,6 +3396,17 @@ System.Exception: We have no wordlist to write!
 
 
 
+
+
+
+
+##### Item ♯00010
+
+
+
+
+
+```
 20210913.140813 [OCR] INFO  [Main] [13.330M] We have a text extract word list of length 18
 20210913.140813 [OCR] INFO  [Main] [13.330M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1357533.pdf.tmp.tmp
 20210913.140813 [OCR] INFO  [Main] [13.253M] -Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1357533.pdf.tmp.tmp
@@ -3325,6 +3420,7 @@ System.Exception: We have no wordlist to write!
 | ..\..\apps\pdfdraw.c:331: main(): cannot load page tree: W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1357550.pdf
 \ ..\..\apps\pdfdraw.c:35: die(): aborting
 --EXIT:1--
+```
 
 
 
@@ -3335,6 +3431,14 @@ System.Exception: We have no wordlist to write!
 
 
 
+
+##### Item ♯00011
+
+
+
+
+
+```
 20210913.140813 [OCR] ERROR [ThreadTextExtract] [3.030M] Problem while doing text extract for file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/1357
 550.pdf
 
@@ -3367,6 +3471,7 @@ System.Exception: We have no wordlist to write!
 20210913.140814 [OCR] INFO  [ThreadTextExtract] [4.318M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/13693-pdf.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -3378,37 +3483,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00012
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 20210913.141243 [OCR] INFO  [Main] [18.569M] We have a text extract word list of length 18
 20210913.141243 [OCR] INFO  [Main] [18.569M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/2015.5584.The-Economics-Of-Control_te
 xt.pdf.tmp.tmp
@@ -3422,6 +3503,7 @@ xt.pdf.tmp.tmp
 + ..\..\mupdf\pdf_xref.c:548: pdf_loadxref(): object offset out of range: 0
 \ ..\..\mupdf\pdf_xref.c:577: pdf_openxrefwithstream(): trying to repair
 --EXIT:0--
+```
 
 
 
@@ -3433,7 +3515,13 @@ xt.pdf.tmp.tmp
 
 
 
+##### Item ♯00013
 
+
+
+
+
+```
 20210913.141244 [OCR] WARN  [ThreadTextExtract] [4.649M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="     " bbox="[72 741
 72 756]">.
 20210913.141244 [OCR] WARN  [ThreadTextExtract] [4.658M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="     " bbox="[72 35 7
@@ -7768,6 +7856,7 @@ kanalysis28Aug15GEORISKSpotlightpaper.pdf.tmp.tmp
 20210913.141246 [OCR] INFO  [ThreadTextExtract] [3.917M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/2016kumaranphd.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -7779,19 +7868,13 @@ kanalysis28Aug15GEORISKSpotlightpaper.pdf.tmp.tmp
 
 
 
+##### Item ♯00014
 
 
 
 
 
-
-
-
-
-
-
-
-
+```
 20210913.141418 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.141418 [OCR] ERROR [Main] [0.486M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -7807,6 +7890,7 @@ System.Exception: We have no wordlist to write!
 20210913.141418 [OCR] INFO  [ThreadTextExtract] [9.418M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/54 20872 2020.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -7818,15 +7902,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00015
 
 
 
 
 
-
-
-
-
+```
 20210913.141438 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.141438 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -7843,6 +7925,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/6109-Theory Of Sets_text.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,2
 1,22
 --EXIT:0--
+```
 
 
 
@@ -7854,17 +7937,16 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00016
 
 
 
 
 
-
-
-
-
+```
 141815: slow!
 141908: ditto
+```
 
 
 
@@ -7876,20 +7958,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00017
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+```
 20210913.141523 [OCR] INFO  [Main] [14.142M] We have a text extract word list of length 16
 20210913.141523 [OCR] INFO  [Main] [14.142M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/A7_RGiarelli.pdf.tmp.tmp
 20210913.141523 [OCR] INFO  [Main] [18.347M] -Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/A7_RGiarelli.pdf.tmp.tmp
@@ -7975,6 +8050,7 @@ warning: broken xref section, proceeding anyway.
 warning: broken xref section, proceeding anyway.
 warning: broken xref section, proceeding anyway.
 --EXIT:0--
+```
 
 
 
@@ -7986,12 +8062,13 @@ warning: broken xref section, proceeding anyway.
 
 
 
+##### Item ♯00018
 
 
 
 
 
-
+```
 20210913.141524 [OCR] INFO  [Main] [15.546M] We have a text extract word list of length 9
 20210913.141524 [OCR] INFO  [Main] [15.562M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/ACO_LS_Algorithm_for_Solving_No_wait_
 Flo.pdf.tmp.tmp
@@ -8004,6 +8081,7 @@ Flo.pdf.tmp.tmp
 + ..\..\mupdf\pdf_xref.c:548: pdf_loadxref(): object offset out of range: 0
 \ ..\..\mupdf\pdf_xref.c:577: pdf_openxrefwithstream(): trying to repair
 --EXIT:0--
+```
 
 
 
@@ -8015,11 +8093,13 @@ Flo.pdf.tmp.tmp
 
 
 
+##### Item ♯00019
 
 
 
 
 
+```
 20210913.141554 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.141554 [OCR] ERROR [Main] [0.486M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -8037,6 +8117,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/An-Introductory-in-Elementary-Number-Theory.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,
 14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8048,10 +8129,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00020
 
 
 
 
+
+```
 20210913.141620 [OCR] INFO  [Main] [29.741M] We have a text extract word list of length 9
 20210913.141620 [OCR] INFO  [Main] [29.741M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/An_ant_colony_algorithm_for_schedulin
 g_i.pdf.tmp.tmp
@@ -8179,6 +8263,7 @@ warning: broken xref section, proceeding anyway.
 warning: broken xref section, proceeding anyway.
 warning: broken xref section, proceeding anyway.
 --EXIT:0--
+```
 
 
 
@@ -8190,12 +8275,13 @@ warning: broken xref section, proceeding anyway.
 
 
 
+##### Item ♯00021
 
 
 
 
 
-
+```
 20210913.141622 [OCR] INFO  [Main] [26.121M] We have a text extract word list of length 9
 20210913.141622 [OCR] INFO  [Main] [26.146M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/An_Estimation_of_Distribution_Algorit
 hm (1).pdf.tmp.tmp
@@ -8323,6 +8409,7 @@ warning: broken xref section, proceeding anyway.
 warning: broken xref section, proceeding anyway.
 warning: broken xref section, proceeding anyway.
 --EXIT:0--
+```
 
 
 
@@ -8334,11 +8421,13 @@ warning: broken xref section, proceeding anyway.
 
 
 
+##### Item ♯00022
 
 
 
 
 
+```
 20210913.141836 [OCR] INFO  [Main] [0.452M] Both text extract and OCR have exited, so exiting
 20210913.141836 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -8355,6 +8444,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/boundsonscheduli632liuj.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21
 ,22
 --EXIT:0--
+```
 
 
 
@@ -8366,17 +8456,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00023
 
 
 
 
 
-
-
-
-
-
-
+```
 20210913.141859 [OCR] INFO  [Main] [28.216M] We have a text extract word list of length 8
 20210913.141859 [OCR] INFO  [Main] [28.216M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/bridges2018-211.pdf.tmp.tmp
 20210913.141859 [OCR] INFO  [Main] [28.513M] -Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/bridges2018-211.pdf.tmp.tmp
@@ -8387,6 +8473,7 @@ System.Exception: We have no wordlist to write!
 + ..\..\mupdf\pdf_xref.c:542: pdf_loadxref(): first object in xref is not free
 \ ..\..\mupdf\pdf_xref.c:577: pdf_openxrefwithstream(): trying to repair
 --EXIT:0--
+```
 
 
 
@@ -8398,8 +8485,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00024
 
 
+
+
+
+```
 20210913.141859 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.141859 [OCR] ERROR [Main] [0.485M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -8416,6 +8508,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/BruckerSchedulingAlgorithms_Full.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
 ,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8427,15 +8520,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00025
 
 
 
 
 
-
-
-
-
+```
 20210913.141901 [OCR] INFO  [Main] [0.452M] Both text extract and OCR have exited, so exiting
 20210913.141901 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -8451,6 +8542,7 @@ System.Exception: We have no wordlist to write!
 20210913.141903 [OCR] INFO  [ThreadTextExtract] [4.402M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/bstj48-9-2963_text.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8462,15 +8554,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00026
 
 
 
 
 
-
-
-
-
+```
 20210913.141907 [OCR] WARN  [ThreadTextExtract] [10.515M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[406
  712 406 713]">.
 20210913.141907 [OCR] WARN  [ThreadTextExtract] [12.905M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[219
@@ -8552,6 +8642,7 @@ System.Exception: We have no wordlist to write!
 20210913.141937 [OCR] INFO  [ThreadTextExtract] [4.238M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/CAT10504262.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8563,15 +8654,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00027
 
 
 
 
 
-
-
-
-
+```
 20210913.142006 [OCR] INFO  [Main] [7.342M] We have a text extract word list of length 21
 20210913.142006 [OCR] INFO  [Main] [7.342M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/Chap5-RoadMap-Methods_howie.pdf.tmp.tm
 p
@@ -8584,6 +8673,7 @@ p
 + ..\..\mupdf\pdf_xref.c:548: pdf_loadxref(): object offset out of range: 0
 \ ..\..\mupdf\pdf_xref.c:577: pdf_openxrefwithstream(): trying to repair
 --EXIT:0--
+```
 
 
 
@@ -8595,22 +8685,13 @@ p
 
 
 
+##### Item ♯00028
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+```
 20210913.142132 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.142132 [OCR] ERROR [Main] [0.485M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -8627,6 +8708,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/Concurrency_and_Trie_Hashing.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,
 19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8638,8 +8720,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00029
 
 
+
+
+
+```
 20210913.142133 [OCR] INFO  [Main] [0.452M] Both text extract and OCR have exited, so exiting
 20210913.142133 [OCR] ERROR [Main] [0.485M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -8655,6 +8742,7 @@ System.Exception: We have no wordlist to write!
 20210913.142133 [OCR] INFO  [ThreadTextExtract] [4.313M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/cond-mat0410490.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8666,12 +8754,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00030
 
 
 
 
 
-
+```
 20210913.142317 [OCR] INFO  [Main] [20.709M] We have a text extract word list of length 21
 20210913.142317 [OCR] INFO  [Main] [20.709M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DAM65.pdf.tmp.tmp
 20210913.142317 [OCR] INFO  [Main] [19.142M] -Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DAM65.pdf.tmp.tmp
@@ -8682,6 +8771,7 @@ System.Exception: We have no wordlist to write!
 
 warning: unknown cid collection: Adobe-Identity
 --EXIT:0--
+```
 
 
 
@@ -8693,19 +8783,13 @@ warning: unknown cid collection: Adobe-Identity
 
 
 
+##### Item ♯00031
 
 
 
 
 
-
-
-
-
-
-
-
-
+```
 20210913.142319 [OCR] ERROR [ThreadTextExtract] [63.794M] Problem while doing text extract for file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/ddd
 _010246166_mpeg21.pdf
 
@@ -8740,6 +8824,7 @@ System.Exception: We have no wordlist to write!
 
 warning: unknown cid collection: Adobe-Identity
 --EXIT:0--
+```
 
 
 
@@ -8751,15 +8836,13 @@ warning: unknown cid collection: Adobe-Identity
 
 
 
+##### Item ♯00032
 
 
 
 
 
-
-
-
-
+```
 20210913.142322 [OCR] ERROR [ThreadTextExtract] [66.471M] Problem while doing text extract for file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/ddd
 _010246169_mpeg21.pdf
 
@@ -8793,6 +8876,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/designndimplemen1094528104.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
 ,21,22
 --EXIT:0--
+```
 
 
 
@@ -8804,24 +8888,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00033
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 142940: slow!
 
 
@@ -8852,6 +8925,7 @@ System.Exception: We have no wordlist to write!
 20210913.143312 [OCR] INFO  [ThreadTextExtract] [9.203M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA363846_text.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8863,21 +8937,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00034
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+```
 20210913.142345 [OCR] ERROR [ThreadTextExtract] [23.312M] Problem while doing text extract for file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/Dis
 crete_Firefly_Algorithm_for_the_Multi.pdf
 
@@ -8910,6 +8976,7 @@ System.Exception: We have no wordlist to write!
 20210913.142346 [OCR] INFO  [ThreadTextExtract] [4.573M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/document.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8921,9 +8988,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00035
 
 
 
+
+
+```
 20210913.142616 [OCR] INFO  [Main] [14.349M] We have a text extract word list of length 21
 20210913.142616 [OCR] INFO  [Main] [14.349M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA094815.pdf.tmp.tmp
 20210913.142616 [OCR] INFO  [Main] [4.147M] -Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA094815.pdf.tmp.tmp
@@ -8934,6 +9005,7 @@ System.Exception: We have no wordlist to write!
 
 
 ??? no exit code ???
+```
 
 
 
@@ -8945,17 +9017,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00036
 
 
 
 
 
-
-
-
-
-
-
+```
 20210913.142816 [OCR] INFO  [Main] [0.452M] Both text extract and OCR have exited, so exiting
 20210913.142816 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -8971,6 +9039,7 @@ System.Exception: We have no wordlist to write!
 20210913.142824 [OCR] INFO  [ThreadTextExtract] [9.172M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA289188_text.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -8982,15 +9051,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00037
 
 
 
 
 
-
-
-
-
+```
 20210913.142827 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.142827 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -9007,6 +9074,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA293583_text (2).pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21
 ,22
 --EXIT:0--
+```
 
 
 
@@ -9018,14 +9086,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00038
 
 
 
 
 
-
-
-
+```
 20210913.142930 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.142930 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -9041,6 +9108,7 @@ System.Exception: We have no wordlist to write!
 20210913.142936 [OCR] INFO  [ThreadTextExtract] [9.168M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA293602_text.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -9052,10 +9120,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00039
 
 
 
 
+
+```
 20210913.143014 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.143014 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -9071,6 +9142,7 @@ System.Exception: We have no wordlist to write!
 20210913.143045 [OCR] INFO  [ThreadTextExtract] [9.430M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA303592_text.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -9082,15 +9154,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00040
 
 
 
 
 
-
-
-
-
+```
 20210913.143047 [OCR] INFO  [Main] [0.452M] Both text extract and OCR have exited, so exiting
 20210913.143047 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -9106,6 +9176,7 @@ System.Exception: We have no wordlist to write!
 20210913.143115 [OCR] INFO  [ThreadTextExtract] [4.332M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA325528_text.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -9117,20 +9188,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00041
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+```
 20210913.143117 [OCR] INFO  [Main] [0.452M] Both text extract and OCR have exited, so exiting
 20210913.143117 [OCR] ERROR [Main] [0.477M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -9171,6 +9235,7 @@ System.Exception: We have no wordlist to write!
 20210913.143214 [OCR] INFO  [ThreadTextExtract] [9.714M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA341379_text.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -9182,19 +9247,18 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00042
 
 
 
 
 
-
-
-
+```
 20210913.143721 [OCR] WARN  [ThreadTextExtract] [16.614M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="y" bbox="[129
  395 129 396]">.
 20210913.143721 [OCR] WARN  [ThreadTextExtract] [17.319M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[195
  335 195 336]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [12.999M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[555
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [12.999M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â…" bbox="[555
  287 555 288]">.
 20210913.143721 [OCR] WARN  [ThreadTextExtract] [13.686M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[459
  239 459 241]">.
@@ -9204,31 +9268,31 @@ System.Exception: We have no wordlist to write!
  180 276 181]">.
 20210913.143721 [OCR] WARN  [ThreadTextExtract] [14.610M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[297
  178 297 179]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.387M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="±" bbox="[342
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.387M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â±" bbox="[342
  125 342 126]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.461M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[468
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.461M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[468
  125 468 126]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [14.065M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ó" bbox="[51
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [14.065M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã“" bbox="[51
 494 51 495]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [14.433M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ñ" bbox="[87
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [14.433M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã±" bbox="[87
 650 87 651]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.071M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ª" bbox="[321
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.071M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âª" bbox="[321
  586 321 587]">.
 20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.115M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="$" bbox="[231
  597 231 598]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.963M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="­" bbox="[267
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.963M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â­" bbox="[267
  262 267 263]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.996M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¦" bbox="[357
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [15.996M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¦" bbox="[357
  262 357 263]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [16.004M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="«" bbox="[369
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [16.004M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â«" bbox="[369
  262 369 263]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [16.233M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="­" bbox="[333
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [16.233M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â­" bbox="[333
  250 333 251]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [16.920M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="©" bbox="[246
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [16.920M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â©" bbox="[246
  214 246 215]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [17.215M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¯" bbox="[351
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [17.215M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¯" bbox="[351
  203 351 204]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [17.223M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¢" bbox="[357
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [17.223M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¢" bbox="[357
  203 357 204]">.
 20210913.143721 [OCR] WARN  [ThreadTextExtract] [17.468M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[69
 782 69 783]">.
@@ -9236,45 +9300,45 @@ System.Exception: We have no wordlist to write!
  599 285 601]">.
 20210913.143721 [OCR] WARN  [ThreadTextExtract] [21.310M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[291
  588 291 589]">.
-20210913.143721 [OCR] WARN  [ThreadTextExtract] [10.052M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[483
+20210913.143721 [OCR] WARN  [ThreadTextExtract] [10.052M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[483
  515 483 517]">.
 20210913.143722 [OCR] WARN  [ThreadTextExtract] [11.958M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="box="[519
  421 519 422]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [12.727M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¼" bbox="[531
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [12.727M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¼" bbox="[531
  348 531 350]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [12.727M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¶" bbox="[543
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [12.727M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¶" bbox="[543
  348 543 350]">.
 20210913.143722 [OCR] WARN  [ThreadTextExtract] [11.347M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=">" bbox="[558
  125 558 127]">.
 20210913.143722 [OCR] WARN  [ThreadTextExtract] [11.601M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="w" bbox="[426
  108 426 109]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.418M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.418M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.061M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.061M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.202M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.202M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.150M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.150M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.104M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.104M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.042M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [16.042M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [15.996M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [15.996M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [15.958M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [15.958M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.927M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.927M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.884M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.884M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [20.938M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [20.938M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.507M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.507M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.484M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.484M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
-20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.430M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.143722 [OCR] WARN  [ThreadTextExtract] [21.430M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[144
  288 144 289]">.
 20210913.143723 [OCR] INFO  [Main] [31.860M] We have a text extract word list of length 8
 20210913.143723 [OCR] INFO  [Main] [31.860M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA519839.pdf.tmp.tmp
@@ -9284,6 +9348,7 @@ System.Exception: We have no wordlist to write!
 20210913.143723 [OCR] INFO  [ThreadTextExtract] [3.859M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/DTIC_ADA529246.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -9295,18 +9360,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00043
 
 
 
 
 
-
-
-
-
-
-
-
+```
 20210913.143756 [OCR] WARN  [ThreadTextExtract] [6.855M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="]" bbox="[0 -1 0 1]">
 .
 20210913.143756 [OCR] WARN  [ThreadTextExtract] [6.904M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="]" bbox="[0 -1 0 1]">
@@ -9332,6 +9392,7 @@ Dudley (2008).pdf.tmp.tmp
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/Elementary Number Theory, Cryptography and Codes.pdf" 1,2,3,4,5,6,7,8,9,10,11,1
 2,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -9343,15 +9404,13 @@ Dudley (2008).pdf.tmp.tmp
 
 
 
+##### Item ♯00044
 
 
 
 
 
-
-
-
-
+```
 20210913.143757 [OCR] ERROR [ThreadTextExtract] [7.009M] Problem while doing text extract for file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/Elem
 entary Number Theory, Cryptography and Codes.pdf
 
@@ -9402,6 +9461,7 @@ System.Exception: We have no wordlist to write!
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/Elements of Number Theory - Vinogradov, I. M._4459.pdf" 1,2,3,4,5,6,7,8,9,10,11
 ,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -9413,14 +9473,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00045
 
 
 
 
 
-
-
-
+```
 20210913.143758 [OCR] INFO  [Main] [0.453M] Both text extract and OCR have exited, so exiting
 20210913.143758 [OCR] ERROR [Main] [0.486M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -9436,6 +9495,7 @@ System.Exception: We have no wordlist to write!
 20210913.143759 [OCR] INFO  [ThreadTextExtract] [4.360M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/elliott.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -9447,25 +9507,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00046
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 20210913.144238 [OCR] INFO  [Main] [3.666M] We have a text extract word list of length 18
 20210913.144238 [OCR] INFO  [Main] [3.666M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/gs.pdf.tmp.tmp
 20210913.144238 [OCR] INFO  [Main] [4.493M] -Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/gs.pdf.tmp.tmp
@@ -9476,6 +9524,7 @@ System.Exception: We have no wordlist to write!
 + ..\..\mupdf\pdf_xref.c:548: pdf_loadxref(): object offset out of range: 0
 \ ..\..\mupdf\pdf_xref.c:577: pdf_openxrefwithstream(): trying to repair
 --EXIT:0--
+```
 
 
 
@@ -9487,15 +9536,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00047
 
 
 
 
 
-
-
-
-
+```
 20210913.144241 [OCR] INFO  [Main] [13.106M] We have a text extract word list of length 18
 20210913.144241 [OCR] INFO  [Main] [13.106M] +Writing OCR to file W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/H. Davenport-The Higher Arithmetic_ A
 n Introduction to the Theory of Numbers, 8th Edition (2008).pdf.tmp.tmp
@@ -9509,6 +9556,7 @@ n Introduction to the Theory of Numbers, 8th Edition (2008).pdf.tmp.tmp
 + ..\..\mupdf\pdf_xref.c:548: pdf_loadxref(): object offset out of range: 0
 \ ..\..\mupdf\pdf_xref.c:577: pdf_openxrefwithstream(): trying to repair
 --EXIT:0--
+```
 
 
 
@@ -9520,13 +9568,13 @@ n Introduction to the Theory of Numbers, 8th Edition (2008).pdf.tmp.tmp
 
 
 
+##### Item ♯00048
 
 
 
 
 
-
-
+```
 20210913.144247 [OCR] WARN  [ThreadTextExtract] [10.662M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[291
  617 291 618]">.
 20210913.144247 [OCR] WARN  [ThreadTextExtract] [14.929M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[119
@@ -11058,6 +11106,7 @@ paper.pdf.tmp.tmp
 20210913.144408 [OCR] INFO  [ThreadTextExtract] [4.013M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/isvd07_FINAL02.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -11069,12 +11118,13 @@ paper.pdf.tmp.tmp
 
 
 
+##### Item ♯00049
 
 
 
 
 
-
+```
 20210913.144410 [OCR] WARN  [ThreadTextExtract] [5.487M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="l" bbox="[198 276 198
  301]">.
 20210913.144410 [OCR] WARN  [ThreadTextExtract] [5.487M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="o" bbox="[199 276 199
@@ -11089,6 +11139,7 @@ l-_montgoman-introduction-to-the-theory-of-numbers.pdf.tmp.tmp
 20210913.144411 [OCR] INFO  [ThreadTextExtract] [4.047M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/James'thesis.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -11100,6 +11151,13 @@ l-_montgoman-introduction-to-the-theory-of-numbers.pdf.tmp.tmp
 
 
 
+##### Item ♯00050
+
+
+
+
+
+```
 20210913.144445 [OCR] INFO  [Main] [0.454M] Both text extract and OCR have exited, so exiting
 20210913.144445 [OCR] ERROR [Main] [0.486M] There was an error in QiqqaOCR:
 --- Parameters ---
@@ -11116,6 +11174,7 @@ System.Exception: We have no wordlist to write!
 20210913.144446 [OCR] INFO  [ThreadTextExtract] [20.124M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/KuwataTCST09.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -11127,17 +11186,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00051
 
 
 
 
 
-
-
-
-
-
-
+```
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.333M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[169
  737 169 738]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.341M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[177
@@ -11158,33 +11213,33 @@ System.Exception: We have no wordlist to write!
  664 355 665]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.652M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[270
  649 270 650]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.889M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="²" bbox="[198
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.889M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â²" bbox="[198
  581 198 582]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.971M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[138
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.971M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‘" bbox="[138
  569 138 570]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.988M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="£" bbox="[165
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.988M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â£" bbox="[165
  569 165 570]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.053M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="£" bbox="[278
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.053M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â£" bbox="[278
  569 278 570]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.176M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="§" bbox="[297
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.176M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â§" bbox="[297
  557 297 558]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.401M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[273
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.401M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[273
  533 273 534]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.671M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[110
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.671M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[110
  497 110 498]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.704M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[165
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.704M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â’" bbox="[165
  497 165 498]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.712M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[193
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.712M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‘" bbox="[193
  497 193 498]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.720M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¡" bbox="[197
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.720M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¡" bbox="[197
  497 197 498]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.875M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[251
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.875M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[251
  485 251 486]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.884M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[274
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.884M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[274
  485 274 486]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.088M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[212
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.088M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[212
  461 212 462]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.342M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[276
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.342M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[276
  437 276 438]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.513M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[131
  385 131 386]">.
@@ -11192,21 +11247,21 @@ System.Exception: We have no wordlist to write!
  361 155 362]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.764M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[171
  361 171 362]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.901M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[244
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.901M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[244
  349 244 350]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.909M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ö" bbox="[257
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.909M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã–" bbox="[257
  349 257 350]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.909M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[268
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.909M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[268
  349 268 350]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.917M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[272
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.917M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[272
  349 272 350]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.705M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[259
  301 259 302]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.877M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Õ" bbox="[161
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [22.877M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã•" bbox="[161
  277 161 278]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.236M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[243
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.236M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[243
  241 243 242]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.245M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[248
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.245M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[248
  241 248 242]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.302M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[141
  229 141 230]">.
@@ -11216,63 +11271,63 @@ System.Exception: We have no wordlist to write!
  181 296 182]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.940M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="l" bbox="[272
  169 272 171]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.948M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ý" bbox="[278
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [23.948M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã" bbox="[278
  169 278 171]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.046M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[272
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.046M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[272
  157 272 159]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.046M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[276
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.046M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[276
  157 276 159]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.054M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[281
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.054M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[281
  157 281 159]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.128M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[203
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.128M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[203
  145 203 147]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.185M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[284
  145 284 147]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.668M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ö" bbox="[392
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.668M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã–" bbox="[392
  355 392 356]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.717M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ý" bbox="[503
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [24.717M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã" bbox="[503
  355 503 356]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.167M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="l" bbox="[339
  289 339 290]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.232M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[483
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.232M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[483
  289 483 290]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.296M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[370
  277 370 278]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.419M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[404
  265 404 266]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.427M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[408
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.427M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[408
  265 408 266]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.435M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="l" bbox="[417
  265 417 266]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.444M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ö" bbox="[438
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.444M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã–" bbox="[438
  265 438 266]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.534M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[374
  253 374 254]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.779M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[417
  229 417 230]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.976M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[325
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.976M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[325
  205 325 206]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [25.992M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[355
  205 355 206]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.082M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[533
  205 533 206]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.082M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="å" bbox="[542
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.082M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã¥" bbox="[542
  205 542 206]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.140M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[407
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.140M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[407
  193 407 194]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.410M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ß" bbox="[463
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.410M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÃŸ" bbox="[463
  158 463 159]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.631M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[447
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.631M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[447
  134 447 135]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.828M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[375
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.828M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[375
  110 375 111]">.
 20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.836M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[379
  110 379 111]">.
-20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.836M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[384
+20210913.144449 [OCR] WARN  [ThreadTextExtract] [26.836M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[384
  110 384 111]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.992M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[483
  98 483 99]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.090M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.090M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[141
  730 141 731]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.172M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[77
 718 77 719]">.
@@ -11282,7 +11337,7 @@ System.Exception: We have no wordlist to write!
  718 128 719]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.262M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[245
  718 245 719]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.270M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[253
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.270M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[253
  718 253 719]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.311M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[102
  706 102 707]">.
@@ -11294,15 +11349,15 @@ System.Exception: We have no wordlist to write!
 694 77 695]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.418M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[81
 694 81 695]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.442M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[133
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.442M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[133
  694 133 695]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.459M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[171
  694 171 695]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.614M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="î" bbox="[267
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.614M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã®" bbox="[267
  682 267 683]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.623M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[275
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.623M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[275
  682 275 683]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.688M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ß" bbox="[196
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.688M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÃŸ" bbox="[196
  670 196 671]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.762M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[79
 658 79 659]">.
@@ -11310,35 +11365,35 @@ System.Exception: We have no wordlist to write!
  658 100 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.786M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[145
  658 145 659]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.795M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[163
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.795M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[163
  658 163 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.803M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[167
  658 167 659]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.819M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[210
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.819M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[210
  658 210 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.827M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[220
  658 220 659]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.836M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[231
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.836M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[231
  658 231 659]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.836M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.836M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  658 236 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.286M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[201
  610 201 611]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.303M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[237
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.303M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[237
  610 237 611]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.311M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[264
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.311M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[264
  610 264 611]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.319M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[269
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.319M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[269
  610 269 611]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.360M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[128
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.360M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[128
  598 128 599]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.450M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[257
  573 257 574]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.597M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ö" bbox="[102
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.597M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã–" bbox="[102
  540 102 541]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.606M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[117
  540 117 541]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.614M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="×" bbox="[122
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.614M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã—" bbox="[122
  540 122 541]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.745M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[137
  528 137 529]">.
@@ -11350,15 +11405,15 @@ System.Exception: We have no wordlist to write!
  516 137 517]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.244M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[141
  516 141 517]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.260M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[189
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.260M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[189
  516 189 517]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.382M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Þ" bbox="[164
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.382M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãž" bbox="[164
  504 164 505]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.168M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[172
  420 172 422]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.184M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[200
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.184M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[200
  420 200 421]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.192M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="£" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.192M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â£" bbox="[213
  420 213 421]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.356M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=">" bbox="[69
 397 69 398]">.
@@ -11370,7 +11425,7 @@ System.Exception: We have no wordlist to write!
  385 145 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.618M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[106
  373 106 374]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.626M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="×" bbox="[116
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.626M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã—" bbox="[116
  373 116 374]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.708M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="l" bbox="[294
  373 294 374]">.
@@ -11378,9 +11433,9 @@ System.Exception: We have no wordlist to write!
  361 143 362]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.215M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="H" bbox="[237
  325 237 326]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.280M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[134
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.280M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[134
  313 134 314]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.763M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="×" bbox="[207
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.763M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã—" bbox="[207
  265 207 266]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.532M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="W" bbox="[71
 181 71 182]">.
@@ -11390,19 +11445,19 @@ System.Exception: We have no wordlist to write!
  181 212 182]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.614M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="l" bbox="[232
  181 232 182]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.622M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[251
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.622M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[251
  181 251 182]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.622M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[255
  181 255 182]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.646M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[291
  181 291 182]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.818M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="þ" bbox="[148
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.818M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã¾" bbox="[148
  158 148 159]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.990M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[154
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.990M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[154
  134 154 135]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.006M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[208
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.006M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[208
  134 208 135]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.366M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[270
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.366M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[270
  98 270 99]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.726M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[338
  694 338 695]">.
@@ -11416,7 +11471,7 @@ System.Exception: We have no wordlist to write!
  694 409 695]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.775M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="w" bbox="[430
  694 430 695]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.800M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ì" bbox="[318
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.800M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã¬" bbox="[318
  670 318 671]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.808M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="]" bbox="[340
  670 340 671]">.
@@ -11434,75 +11489,75 @@ System.Exception: We have no wordlist to write!
  545 451 546]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.528M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[522
  545 522 546]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.552M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Õ" bbox="[325
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.552M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã•" bbox="[325
  533 325 534]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.618M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="H" bbox="[475
  533 475 534]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.683M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[326
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.683M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[326
  521 326 522]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[335
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[335
  521 335 522]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[346
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[346
  521 346 522]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.708M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[379
  521 379 522]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.889M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[531
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.889M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[531
  509 531 510]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [29.494M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[514
  449 514 450]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.373M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Õ" bbox="[475
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.373M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã•" bbox="[475
  413 475 414]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.479M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[436
  402 436 403]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.520M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="box="[538
  402 538 403]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.894M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ä" bbox="[536
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.894M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã¤" bbox="[536
  229 536 230]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.009M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[539
  217 539 218]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.170M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[66
 730 66 731]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.293M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[84
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.293M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[84
 718 84 719]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.301M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Õ" bbox="[103
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.301M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã•" bbox="[103
  718 103 719]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.325M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[161
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.325M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[161
  718 161 719]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.334M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="S" bbox="[177
  718 177 719]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.497M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[275
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.497M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[275
  706 275 707]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.694M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="å" bbox="[224
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.694M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã¥" bbox="[224
  682 224 683]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.759M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[112
  587 112 588]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.759M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="î" bbox="[119
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.759M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã®" bbox="[119
  587 119 588]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.767M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Þ" bbox="[127
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.767M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãž" bbox="[127
  587 127 588]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.906M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[202
  575 202 576]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.915M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[207
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.915M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[207
  575 207 576]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.923M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[216
  575 216 576]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.980M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[74
 563 74 564]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.405M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ö" bbox="[285
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.405M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã–" bbox="[285
  527 285 528]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.528M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[295
  515 295 516]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.132M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[461
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.132M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[461
  730 461 731]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.165M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[539
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.165M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[539
  730 539 731]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.173M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[543
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.173M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[543
  730 543 731]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.222M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="û" bbox="[414
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.222M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã»" bbox="[414
  718 414 719]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.238M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[436
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.238M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[436
  718 436 719]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.238M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.238M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[446
  718 446 719]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.246M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="l" bbox="[455
  718 455 719]">.
@@ -11524,11 +11579,11 @@ System.Exception: We have no wordlist to write!
  443 543 444]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [29.962M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[559
  443 559 444]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [29.970M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Õ" bbox="[325
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [29.970M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã•" bbox="[325
  431 325 432]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.068M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="×" bbox="[559
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.068M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã—" bbox="[559
  431 559 432]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.142M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.142M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[446
  419 446 420]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.166M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[500
  419 500 420]">.
@@ -11538,7 +11593,7 @@ System.Exception: We have no wordlist to write!
  407 337 408]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.232M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[434
  407 434 408]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.314M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Õ" bbox="[387
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.314M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã•" bbox="[387
  395 387 396]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.523M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[334
  371 334 372]">.
@@ -11550,13 +11605,13 @@ System.Exception: We have no wordlist to write!
  359 413 360]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.760M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[338
  347 338 348]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.883M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[346
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.883M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[346
  335 346 336]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.908M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ß" bbox="[412
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.908M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÃŸ" bbox="[412
  335 412 336]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.932M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[458
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.932M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[458
  335 458 336]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.932M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[468
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.932M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[468
  335 468 336]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [30.940M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[472
  335 472 336]">.
@@ -11564,13 +11619,13 @@ System.Exception: We have no wordlist to write!
  323 343 324]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [31.055M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[521
  323 521 324]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [31.071M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ß" bbox="[549
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [31.071M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÃŸ" bbox="[549
  323 549 324]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [31.071M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="l" bbox="[554
  323 554 324]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [31.178M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[491
  311 491 312]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [31.194M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[523
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [31.194M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[523
  311 523 312]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [31.284M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[470
  299 470 300]">.
@@ -11584,21 +11639,21 @@ System.Exception: We have no wordlist to write!
  239 521 240]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.409M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="l" bbox="[529
  110 529 111]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.810M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.810M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.826M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.826M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.867M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.867M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.104M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.104M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.104M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.104M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.505M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.505M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.841M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.857M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.857M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [29.446M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11608,7 +11663,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [13.964M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.144M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.144M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.446M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11620,27 +11675,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.158M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.166M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.166M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.272M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.501M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.870M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.870M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.886M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.886M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.943M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.943M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.180M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.180M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.180M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.180M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.573M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.573M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.916M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.932M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.932M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [12.373M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11650,7 +11705,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.154M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.335M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.335M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.629M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11662,27 +11717,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [13.541M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [13.549M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [13.549M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [13.639M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [13.868M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.253M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.253M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.269M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.269M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.310M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.310M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.547M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.547M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.547M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.547M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.956M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [14.956M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.283M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.300M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.300M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.888M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11692,7 +11747,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.113M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.284M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.284M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.587M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11704,27 +11759,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.307M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.307M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.307M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.421M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.642M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.019M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.019M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.051M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.051M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.084M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.084M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.321M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.321M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.329M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.329M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.714M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.714M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.065M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.082M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.082M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.651M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11734,7 +11789,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.871M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.871M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.174M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11746,27 +11801,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.888M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.888M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.888M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.986M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [15.741M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.125M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.125M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.141M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.141M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.182M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.182M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.420M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.420M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.420M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.420M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.820M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [16.820M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.156M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.172M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.172M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.761M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11776,7 +11831,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.798M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.969M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [17.969M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.288M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11788,27 +11843,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.008M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.008M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.008M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.106M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.327M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.719M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.719M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.736M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.736M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.769M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.769M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.006M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.006M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.014M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.014M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.399M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.399M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.750M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.767M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.767M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.339M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11818,7 +11873,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.890M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.070M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.070M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.373M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11830,27 +11885,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.085M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.093M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.093M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.199M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.411M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.796M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.796M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.812M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.812M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.853M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.853M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.091M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.091M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.091M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.091M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.489M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.489M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.825M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.849M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [18.849M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [19.431M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11860,7 +11915,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.000M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.164M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.164M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [20.483M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11872,27 +11927,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.194M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.202M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.202M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.301M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.521M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.906M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.906M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.922M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.922M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.963M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.963M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.200M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.200M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.209M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.209M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.609M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.609M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.945M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.961M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.961M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.550M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11902,7 +11957,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.582M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.762M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.762M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.064M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11914,27 +11969,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.776M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.776M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.776M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.890M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.119M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.488M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.488M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.504M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.504M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.545M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.545M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.780M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.780M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.780M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.780M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.181M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.181M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.533M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.550M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.550M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [21.634M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11944,7 +11999,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.155M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.311M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.311M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.157M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11956,27 +12011,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.877M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.877M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.877M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [22.975M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.196M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.588M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.588M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.605M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.605M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.637M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.637M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.875M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.875M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.883M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [23.883M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.284M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.284M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.619M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.635M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.635M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.224M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -11986,7 +12041,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.241M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.421M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.421M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.724M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -11998,27 +12053,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.435M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.444M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.444M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.558M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.779M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.155M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.155M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.163M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.163M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.204M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.204M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.442M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.442M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.450M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.450M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.850M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [27.850M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.202M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.217M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.217M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.790M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -12028,7 +12083,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [28.837M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [29.003M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [29.003M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [29.314M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -12040,27 +12095,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.536M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.536M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.536M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.634M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [24.855M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.248M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.248M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.264M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.264M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.297M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.297M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.534M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.534M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.542M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.542M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.943M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [25.943M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.278M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.295M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.295M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144450 [OCR] WARN  [ThreadTextExtract] [26.884M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -12070,7 +12125,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [26.919M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.098M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.098M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.401M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -12082,27 +12137,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.113M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.121M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.121M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.235M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.456M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.824M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.824M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.841M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.841M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.898M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.898M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.135M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.135M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.135M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.135M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.528M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.528M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.879M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.888M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.888M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.469M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -12112,7 +12167,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.498M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.678M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.678M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.981M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -12124,27 +12179,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [31.690M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [31.699M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [31.699M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [31.789M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.018M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [26.939M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [26.939M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [26.955M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [26.955M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [26.988M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [26.988M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.225M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.225M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.233M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.233M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.634M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.634M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.970M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.986M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.986M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.575M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -12154,7 +12209,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [35.599M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.835M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [27.835M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.138M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -12166,27 +12221,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.849M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.858M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.858M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [28.964M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.193M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.561M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.561M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.578M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.578M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.634M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.634M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.872M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.872M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.872M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.872M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.256M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.256M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.608M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.624M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.624M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [31.197M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -12196,7 +12251,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [31.909M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.081M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.081M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.384M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -12208,27 +12263,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.103M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.103M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.103M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.202M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.423M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.815M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.815M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.831M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.831M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.864M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.864M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.101M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.101M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.110M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.110M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.030M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.030M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.365M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.381M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.381M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.970M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -12238,7 +12293,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [29.972M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.152M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.152M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [30.454M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -12250,27 +12305,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.223M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.223M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.223M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.337M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.558M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.934M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.934M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.967M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.967M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.000M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.000M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.237M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.237M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.245M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.245M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.630M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.630M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.981M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.998M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.998M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.570M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -12280,7 +12335,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.610M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.790M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.790M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [35.093M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -12292,27 +12347,27 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [35.804M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [35.813M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [35.813M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [35.911M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.132M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Q" bbox="[451
  119 451 120]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.516M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ú" bbox="[107
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.516M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãš" bbox="[107
  456 107 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.532M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[141
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.532M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[141
  456 141 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.573M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ü" bbox="[229
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.573M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãœ" bbox="[229
  456 229 457]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.810M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ù" bbox="[291
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.810M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã™" bbox="[291
  432 291 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.819M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[296
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [36.819M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[296
  432 296 433]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [37.215M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ô" bbox="[213
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [37.215M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã”" bbox="[213
  385 213 386]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [37.551M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[206
  349 206 350]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [37.567M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ø" bbox="[236
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [37.567M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã˜" bbox="[236
  349 236 350]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [32.686M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="s" bbox="[271
  289 271 290]">.
@@ -12322,7 +12377,7 @@ System.Exception: We have no wordlist to write!
  658 528 659]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [38.181M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs=""" bbox="[507
  273 507 274]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [38.362M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[446
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [38.362M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[446
  250 446 251]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [38.665M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[549
  220 549 221]">.
@@ -12334,7 +12389,7 @@ System.Exception: We have no wordlist to write!
  158 555 159]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.922M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="T" bbox="[462
  149 462 150]">.
-20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.922M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[469
+20210913.144451 [OCR] WARN  [ThreadTextExtract] [33.922M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[469
  149 469 150]">.
 20210913.144451 [OCR] WARN  [ThreadTextExtract] [34.020M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="K" bbox="[439
  141 439 142]">.
@@ -12348,6 +12403,7 @@ System.Exception: We have no wordlist to write!
 20210913.144452 [OCR] INFO  [ThreadTextExtract] [10.691M] MuPDF did SUCCEED with exit code 0 for commandline:
     pdfdraw.exe  -tt   "W:\Sopkonijn\!QIQQA-pdf-watch-dir\2021-09-11-control-etc/LavKuf01b.pdf" 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22
 --EXIT:0--
+```
 
 
 
@@ -12359,17 +12415,13 @@ System.Exception: We have no wordlist to write!
 
 
 
+##### Item ♯00052
 
 
 
 
 
-
-
-
-
-
-
+```
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.739M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[179
  731 179 732]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.747M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[191
@@ -12380,121 +12432,121 @@ System.Exception: We have no wordlist to write!
  644 148 645]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.214M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="n" bbox="[153
  644 153 645]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.443M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¤" bbox="[271
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.443M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¤" bbox="[271
  529 271 530]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.451M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[294
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.451M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[294
  529 294 530]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.639M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[221
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.639M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[221
  509 221 510]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.660M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[254
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.660M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[254
  509 254 510]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.660M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="£" bbox="[267
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.660M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â£" bbox="[267
  509 267 510]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.669M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[280
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.669M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[280
  509 280 510]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.996M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[480
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.996M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[480
  489 480 490]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.004M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[493
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.004M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â—" bbox="[493
  489 493 490]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.168M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[371
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.168M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[371
  469 371 470]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.233M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[471
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.233M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â˜" bbox="[471
  469 471 470]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.372M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¤" bbox="[319
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.372M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¤" bbox="[319
  449 319 450]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.527M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[159
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.527M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[159
  429 159 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.544M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[197
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.544M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[197
  429 197 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.544M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[206
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.544M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã‚" bbox="[206
  429 206 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.552M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[213
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.552M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[213
  429 213 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.576M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[272
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.576M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[272
  429 272 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.585M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="£" bbox="[280
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.585M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â£" bbox="[280
  429 280 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.674M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¡" bbox="[443
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.674M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¡" bbox="[443
  429 443 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[470
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[470
  429 470 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[479
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.691M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[479
  429 479 431]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.724M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="§" bbox="[73
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.724M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â§" bbox="[73
 410 73 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.740M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[95
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.740M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[95
 410 95 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.773M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="§" bbox="[167
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.773M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â§" bbox="[167
  410 167 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.781M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[174
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.781M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[174
  410 174 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.789M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[191
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.789M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â˜" bbox="[191
  410 191 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.797M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="¯" bbox="[212
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.797M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â¯" bbox="[212
  410 212 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.830M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[267
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.830M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[267
  410 267 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.855M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[324
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.855M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[324
  410 324 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.863M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[348
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.863M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âš" bbox="[348
  410 348 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.879M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[376
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.879M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[376
  410 376 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.896M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[411
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.896M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[411
  410 411 411]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.067M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="£" bbox="[303
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.067M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â£" bbox="[303
  390 303 391]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.067M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[316
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.067M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[316
  390 316 391]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.092M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[352
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.092M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[352
  390 352 391]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.100M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[370
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.100M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[370
  390 370 391]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.108M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[400
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.108M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âž" bbox="[400
  390 400 391]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.195M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[73
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.195M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[73
 370 73 371]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.195M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[77
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.195M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âš" bbox="[77
 370 77 371]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.359M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[448
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.359M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[448
  370 448 371]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.408M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[524
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.408M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[524
  370 524 371]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.659M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[73
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.659M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[73
 330 73 331]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.667M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[77
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.667M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âš" bbox="[77
 330 77 331]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.790M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ó" bbox="[368
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.790M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã“" bbox="[368
  330 368 331]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.954M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[230
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.954M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[230
  310 230 311]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.979M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="£" bbox="[274
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.979M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â£" bbox="[274
  310 274 311]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.979M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[283
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.979M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â–" bbox="[283
  310 283 311]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.995M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="§" bbox="[323
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.995M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â§" bbox="[323
  310 323 311]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.003M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[331
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.003M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âš" bbox="[331
  310 331 311]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.012M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[350
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.012M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âž" bbox="[350
  310 350 311]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.085M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[522
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.085M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â›" bbox="[522
  310 522 311]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.093M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="§" bbox="[73
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.093M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â§" bbox="[73
 290 73 291]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.126M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã" bbox="[101
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.126M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ãƒ" bbox="[101
  290 101 291]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.126M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[114
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.126M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[114
  290 114 291]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.142M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[130
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.142M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[130
  290 130 291]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.298M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[475
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.298M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[475
  290 475 291]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.298M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[479
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.298M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[479
  290 479 291]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.306M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[492
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.306M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âž" bbox="[492
  290 492 291]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.323M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[522
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.323M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[522
  290 522 291]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.683M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[111
  769 111 770]">.
@@ -12504,17 +12556,17 @@ System.Exception: We have no wordlist to write!
  737 104 738]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.823M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[272
  737 272 738]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.855M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[309
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.855M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[309
  737 309 738]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.888M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[368
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.888M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[368
  737 368 738]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.970M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[524
  737 524 738]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.117M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[323
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.117M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[323
  717 323 718]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.158M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[402
  717 402 718]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.191M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[471
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.191M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[471
  717 471 718]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.191M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[480
  717 480 718]">.
@@ -12529,11 +12581,11 @@ System.Exception: We have no wordlist to write!
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.576M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="
                                                                                                                                                    " bbox="[191
  677 191 678]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.576M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[196
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.576M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[196
  677 196 678]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.625M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[276
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.625M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[276
  677 276 678]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.642M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[308
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.642M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â†" bbox="[308
  677 308 678]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.683M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[389
  677 389 678]">.
@@ -12555,13 +12607,13 @@ System.Exception: We have no wordlist to write!
  497 530 498]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.491M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[484
  418 484 419]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.168M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[351
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.168M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[351
  278 351 279]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.184M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[368
  278 368 279]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.192M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="n" bbox="[378
  278 378 279]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.217M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[435
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.217M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŸ" bbox="[435
  278 435 279]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.364M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[221
  258 221 259]">.
@@ -12571,7 +12623,7 @@ System.Exception: We have no wordlist to write!
  163 411 164]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.869M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[518
  163 518 164]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.159M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[439
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.159M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[439
  153 439 154]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.167M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="r" bbox="[446
  153 446 154]">.
@@ -12579,11 +12631,11 @@ System.Exception: We have no wordlist to write!
  153 453 154]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.249M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="m" bbox="[131
  144 131 145]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.478M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[92
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.478M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[92
 531 92 532]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.486M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[96
 531 96 532]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.462M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[358
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.462M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[358
  245 358 246]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.740M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[429
  225 429 226]">.
@@ -12591,19 +12643,19 @@ System.Exception: We have no wordlist to write!
  205 516 206]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.042M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[535
  205 535 206]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.820M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[75
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.820M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[75
 766 75 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.828M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[90
 766 90 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.852M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[130
  766 130 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.852M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[135
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.852M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[135
  766 135 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.877M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[146
  766 146 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.926M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[226
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.926M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[226
  766 226 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.120M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[537
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.120M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‰" bbox="[537
  524 537 525]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.617M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[184
  766 184 767]">.
@@ -12611,11 +12663,11 @@ System.Exception: We have no wordlist to write!
  766 229 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.715M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="y" bbox="[362
  766 362 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.732M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[389
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.732M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[389
  766 389 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.756M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[431
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.756M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[431
  766 431 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.813M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[496
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.813M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[496
  766 496 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.821M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="n" bbox="[505
  766 505 767]">.
@@ -12632,53 +12684,53 @@ System.Exception: We have no wordlist to write!
  727 219 728]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.843M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[296
  727 296 728]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.554M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[310
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.554M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[310
  653 310 654]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.792M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[279
  633 279 634]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.800M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[295
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.800M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[295
  633 295 634]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.816M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[322
  633 322 634]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.873M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[407
  633 407 634]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.931M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[510
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.931M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[510
  633 510 634]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.947M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[529
  633 529 634]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.955M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="y" bbox="[538
  633 538 634]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.972M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[107
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.972M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[107
  613 107 614]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.980M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[118
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.980M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[118
  613 118 614]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.980M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[122
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.980M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[122
  613 122 614]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.274M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[200
  593 200 594]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.282M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[210
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.282M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[210
  593 210 594]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.315M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[269
  593 269 594]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.339M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[281
  593 281 594]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.642M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[425
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.642M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âž" bbox="[425
  559 425 560]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.830M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[298
  539 298 540]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.838M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[303
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.838M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[303
  539 303 540]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.838M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[307
  539 307 540]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.879M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[394
  539 394 540]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.945M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[507
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.945M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[507
  539 507 540]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.953M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[512
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.953M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[512
  539 512 540]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.337M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[278
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.337M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[278
  499 278 500]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.698M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[468
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.698M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[468
  479 468 480]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.706M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[473
  479 473 480]">.
@@ -12686,7 +12738,7 @@ System.Exception: We have no wordlist to write!
  479 493 480]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.730M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[519
  479 519 480]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.739M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[535
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.739M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[535
  479 535 480]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.008M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="y" bbox="[538
  459 538 461]">.
@@ -12694,7 +12746,7 @@ System.Exception: We have no wordlist to write!
  386 463 387]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.540M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[493
  386 493 387]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.548M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[498
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.548M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[498
  386 498 387]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.596M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="box="[157
  766 157 767]">.
@@ -12710,27 +12762,27 @@ System.Exception: We have no wordlist to write!
  766 415 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.768M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[441
  766 441 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.784M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[491
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.784M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[491
  766 491 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.793M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[502
  766 502 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.054M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[487
  746 487 747]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.202M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[289
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.202M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[289
  726 289 728]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.210M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[323
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.210M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[323
  726 323 728]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.218M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[327
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.218M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[327
  726 327 728]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.218M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[332
  726 332 728]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.529M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[373
  707 373 708]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.529M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[378
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.529M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[378
  707 378 708]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.537M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[389
  707 389 708]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.611M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[76
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.611M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[76
 687 76 688]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.668M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[172
  687 172 688]">.
@@ -12742,11 +12794,11 @@ System.Exception: We have no wordlist to write!
  687 472 688]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.873M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="n" bbox="[533
  687 533 688]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.905M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[117
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.905M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[117
  667 117 668]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.036M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[340
  667 340 668]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.061M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[372
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.061M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[372
  667 372 668]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.085M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[421
  667 421 668]">.
@@ -12755,17 +12807,17 @@ System.Exception: We have no wordlist to write!
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.200M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="
                                                                                                                                                    " bbox="[178
  647 178 648]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.224M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[226
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.224M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[226
  647 226 648]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.249M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[240
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.249M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[240
  647 240 648]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.257M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[245
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.257M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[245
  647 245 648]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.347M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="n" bbox="[418
  647 418 648]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.396M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[512
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.396M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[512
  647 512 648]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.412M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[537
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.412M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‰" bbox="[537
  647 537 648]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.445M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[119
  627 119 628]">.
@@ -12773,13 +12825,13 @@ System.Exception: We have no wordlist to write!
  627 172 628]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.642M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[490
  627 490 628]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.658M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[507
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.658M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[507
  627 507 628]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.658M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[511
  627 511 628]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.666M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[516
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.666M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[516
  627 516 628]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.666M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[527
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.666M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[527
  627 527 628]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.674M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[532
  627 532 628]">.
@@ -12787,7 +12839,7 @@ System.Exception: We have no wordlist to write!
  607 383 608]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.879M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[434
  607 434 608]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.887M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[445
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.887M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[445
  607 445 608]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.157M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[474
  587 474 588]">.
@@ -12797,7 +12849,7 @@ System.Exception: We have no wordlist to write!
  567 429 568]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.234M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[423
  408 423 409]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.886M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[76
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.886M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[76
 766 76 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.016M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[286
  766 286 767]">.
@@ -12811,9 +12863,9 @@ System.Exception: We have no wordlist to write!
  746 184 747]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.270M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[228
  746 228 747]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.270M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[235
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.270M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[235
  746 235 747]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.303M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[288
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.303M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‰" bbox="[288
  746 288 747]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.360M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[388
  746 388 747]">.
@@ -12823,7 +12875,7 @@ System.Exception: We have no wordlist to write!
  746 513 747]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.434M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[517
  746 517 747]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.467M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ö" bbox="[93
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.467M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã–" bbox="[93
 726 93 727]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.532M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[199
  727 199 728]">.
@@ -12831,15 +12883,15 @@ System.Exception: We have no wordlist to write!
  727 221 728]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.605M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="n" bbox="[333
  727 333 728]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.802M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[225
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.802M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[225
  707 225 708]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.834M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[285
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.834M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[285
  707 285 708]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.851M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[301
  707 301 708]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.900M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[416
  707 416 708]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.170M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[420
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.170M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[420
  687 420 688]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.333M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="
                                                                                                                                                    " bbox="[226
@@ -12856,7 +12908,7 @@ System.Exception: We have no wordlist to write!
  584 405 585]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.873M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[442
  584 442 585]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.882M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[452
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.882M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[452
  584 452 585]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.882M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[456
  584 456 585]">.
@@ -12874,22 +12926,22 @@ System.Exception: We have no wordlist to write!
  431 274 432]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.444M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[281
  431 281 432]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.452M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[298
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.452M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[298
  431 298 432]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.452M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[302
  431 302 432]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [21.035M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[381
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [21.035M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[381
  391 381 392]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [21.207M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[197
  371 197 372]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [21.257M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="
                                                                                                                                                    " bbox="[274
  371 274 372]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.994M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[332
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.994M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[332
  351 332 352]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.002M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[337
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.002M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[337
  351 337 352]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.010M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ö" bbox="[364
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.010M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã–" bbox="[364
  351 364 352]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.019M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="=" bbox="[378
  351 378 352]">.
@@ -12911,7 +12963,7 @@ System.Exception: We have no wordlist to write!
  226 384 227]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.510M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="6" bbox="[395
  226 395 227]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.542M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[454
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.542M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[454
  226 454 227]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.542M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[458
  226 458 227]">.
@@ -12948,7 +13000,7 @@ System.Exception: We have no wordlist to write!
  431 232 432]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.428M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[247
  431 247 432]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.469M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[318
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.469M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[318
  431 318 432]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.567M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[507
  431 507 432]">.
@@ -12964,13 +13016,13 @@ System.Exception: We have no wordlist to write!
  411 255 412]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.714M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[272
  411 272 412]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.955M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[221
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.955M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[221
  391 221 392]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.020M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[333
  391 333 392]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.331M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[419
  371 419 372]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.372M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[501
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.372M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[501
  371 501 372]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.381M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[506
  371 506 372]">.
@@ -12984,9 +13036,9 @@ System.Exception: We have no wordlist to write!
  331 301 332]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.391M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[356
  331 356 332]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.415M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[392
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.415M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[392
  331 392 332]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.415M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[397
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.415M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[397
  331 397 332]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [10.661M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[434
  311 434 312]">.
@@ -13002,9 +13054,9 @@ System.Exception: We have no wordlist to write!
  271 325 272]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [11.168M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[408
  271 408 272]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.077M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[112
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.077M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[112
  211 112 212]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.077M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[116
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.077M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[116
  211 116 212]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.101M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[121
  211 121 212]">.
@@ -13012,21 +13064,21 @@ System.Exception: We have no wordlist to write!
  211 334 212]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.314M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[533
  211 533 212]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.246M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[92
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.246M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[92
 470 92 471]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.246M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[96
 470 96 471]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.279M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[152
  470 152 471]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.475M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[523
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.475M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[523
  470 523 471]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.475M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[527
  470 527 471]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.318M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[350
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.318M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[350
  375 350 376]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.326M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[355
  375 355 376]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.350M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[409
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.350M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[409
  375 409 376]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.412M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[439
  202 439 203]">.
@@ -13042,33 +13094,33 @@ System.Exception: We have no wordlist to write!
  766 439 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.142M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[369
  746 369 747]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.150M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[394
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.150M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[394
  746 394 747]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.216M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[518
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.216M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[518
  746 518 747]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.854M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[292
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [12.854M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[292
  687 292 688]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.171M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[389
  587 389 588]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.196M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[426
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.196M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[426
  587 426 588]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.204M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[436
  587 436 588]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.204M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[441
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.204M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[441
  587 441 588]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.384M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[292
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.384M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[292
  567 292 568]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.392M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[312
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.392M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[312
  567 312 568]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.425M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[364
  567 364 568]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.433M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[377
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.433M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[377
  567 377 568]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.457M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="n" bbox="[420
  567 420 568]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.466M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[433
  567 433 568]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.466M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[442
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.466M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[442
  567 442 568]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.482M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[473
  567 473 568]">.
@@ -13076,25 +13128,25 @@ System.Exception: We have no wordlist to write!
  567 513 568]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.670M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[311
  547 311 548]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.079M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[511
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.079M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[511
  507 511 508]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.079M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[515
  507 515 508]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.095M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[535
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.095M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[535
  507 535 508]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.194M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[248
  487 248 488]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.218M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[304
  487 304 488]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.243M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[339
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.243M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[339
  487 339 488]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.259M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[344
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.259M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[344
  487 344 488]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.267M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[355
  487 355 488]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.398M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[142
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.398M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[142
  467 142 468]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.406M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[152
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.406M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[152
  467 152 468]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.488M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[294
  467 294 468]">.
@@ -13106,19 +13158,19 @@ System.Exception: We have no wordlist to write!
  467 508 468]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.758M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[259
  447 259 449]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.028M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[268
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.028M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[268
  428 268 429]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.044M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[289
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.044M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[289
  428 289 429]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.170M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[107
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.170M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[107
  489 107 490]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.178M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[111
  489 111 490]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.195M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[154
  489 154 490]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.268M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[269
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.268M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[269
  489 269 490]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.326M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[384
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.326M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[384
  489 384 490]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.342M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[416
  489 416 490]">.
@@ -13128,7 +13180,7 @@ System.Exception: We have no wordlist to write!
  489 503 490]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.399M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[507
  489 507 490]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.505M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[303
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.505M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[303
  188 303 189]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.505M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[308
  188 308 189]">.
@@ -13146,7 +13198,7 @@ System.Exception: We have no wordlist to write!
 675 79 676]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.004M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[245
  663 245 664]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.144M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[153
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.144M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[153
  639 153 640]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.193M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[148
  627 148 628]">.
@@ -13164,7 +13216,7 @@ System.Exception: We have no wordlist to write!
  508 197 509]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.732M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[346
  508 346 509]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.798M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[484
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.798M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[484
  508 484 509]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.583M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[515
  448 515 450]">.
@@ -13172,7 +13224,7 @@ System.Exception: We have no wordlist to write!
  409 479 410]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.006M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[305
  170 305 171]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.055M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[418
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.055M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[418
  170 418 171]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.415M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="d" bbox="[293
  634 293 635]">.
@@ -13214,15 +13266,15 @@ System.Exception: We have no wordlist to write!
  323 538 324]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.436M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[287
  303 287 305]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.452M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[310
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.452M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[310
  303 310 305]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.468M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[358
  303 358 305]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.477M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[371
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.477M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â" bbox="[371
  303 371 304]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.485M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[379
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.485M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âš" bbox="[379
  303 379 304]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.485M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[384
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.485M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âš" bbox="[384
  303 384 304]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.542M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[510
  303 510 304]">.
@@ -13238,9 +13290,9 @@ System.Exception: We have no wordlist to write!
  250 203 251]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.739M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[229
  249 229 250]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.755M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[275
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.755M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[275
  250 275 251]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.237M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[358
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.237M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[358
  250 358 251]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.392M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[144
  230 144 231]">.
@@ -13253,7 +13305,7 @@ System.Exception: We have no wordlist to write!
  230 419 231]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.564M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Y" bbox="[422
  230 422 231]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.621M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[535
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.621M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[535
  230 535 231]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [13.752M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[288
  210 288 211]">.
@@ -13261,11 +13313,11 @@ System.Exception: We have no wordlist to write!
  190 439 191]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.137M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[514
  190 514 191]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.161M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[90
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.161M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[90
 170 90 171]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.227M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[200
  170 200 171]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.292M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[282
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.292M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[282
  170 282 171]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.308M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[301
  170 301 171]">.
@@ -13273,7 +13325,7 @@ System.Exception: We have no wordlist to write!
  150 285 151]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.554M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[292
  150 292 151]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.562M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[297
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.562M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[297
  150 297 151]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.562M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[308
  150 308 151]">.
@@ -13285,9 +13337,9 @@ System.Exception: We have no wordlist to write!
  764 204 765]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [14.955M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[167
  728 167 729]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.184M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="§" bbox="[258
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.184M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â§" bbox="[258
  704 258 705]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.372M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[224
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.372M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[224
  641 224 642]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.372M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[228
  641 228 642]">.
@@ -13299,7 +13351,7 @@ System.Exception: We have no wordlist to write!
  641 355 642]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.544M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="/" bbox="[176
  609 176 610]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.675M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[421
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.675M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[421
  609 421 610]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.945M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[435
  589 435 590]">.
@@ -13322,19 +13374,19 @@ System.Exception: We have no wordlist to write!
  509 386 510]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.090M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[528
  509 528 510]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.294M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[406
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.294M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[406
  489 406 490]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.310M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="q" bbox="[432
  489 432 490]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.310M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[437
  489 437 490]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.433M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[201
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.433M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[201
  469 201 470]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.539M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[362
  469 362 470]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.539M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[374
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.539M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[374
  469 374 470]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.605M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[496
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.605M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[496
  469 496 470]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.744M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[262
  449 262 450]">.
@@ -13348,13 +13400,13 @@ System.Exception: We have no wordlist to write!
  415 305 417]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.358M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[500
  395 500 397]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.399M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[106
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.399M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[106
  376 106 377]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.456M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[166
  376 166 377]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.521M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[298
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.521M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[298
  376 298 377]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.537M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[312
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.537M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[312
  376 312 377]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.595M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[438
  376 438 377]">.
@@ -13364,9 +13416,9 @@ System.Exception: We have no wordlist to write!
  356 155 357]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.717M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[169
  356 169 357]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.783M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[293
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.783M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[293
  356 293 357]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.853M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[413
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.853M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[413
  356 413 357]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.853M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[418
  356 418 357]">.
@@ -13406,7 +13458,7 @@ System.Exception: We have no wordlist to write!
  196 179 197]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.195M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="x" bbox="[277
  196 277 197]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.400M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[166
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.400M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[166
  176 166 177]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.424M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[221
  176 221 177]">.
@@ -13416,29 +13468,29 @@ System.Exception: We have no wordlist to write!
  176 269 177]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.490M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[350
  176 350 177]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.498M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[354
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.498M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[354
  176 354 177]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.005M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[342
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.005M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[342
  137 342 138]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.030M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[375
  137 375 138]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.259M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[331
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.259M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[331
  766 331 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.316M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[392
  766 392 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.913M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[468
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.913M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[468
  707 468 708]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.921M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[473
  707 473 708]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.938M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[508
  707 508 708]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.938M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[513
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.938M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â€" bbox="[513
  707 513 708]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.938M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[518
  707 518 708]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.085M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[290
  687 290 688]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.101M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[311
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.101M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[311
  687 311 688]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.126M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="~" bbox="[359
  687 359 688]">.
@@ -13455,13 +13507,13 @@ System.Exception: We have no wordlist to write!
  627 478 628]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.632M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[405
  487 405 488]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.074M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[249
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.074M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[249
  405 249 406]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.115M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[339
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.115M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[339
  405 339 406]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.115M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[344
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [20.115M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[344
  405 344 406]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.333M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[166
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.333M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[166
  766 166 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.374M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[247
  766 247 767]">.
@@ -13477,19 +13529,19 @@ System.Exception: We have no wordlist to write!
  540 412 541]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.307M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[426
  540 426 541]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.447M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[239
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.447M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[239
  520 239 521]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.447M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[244
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.447M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[244
  520 244 521]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.455M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[248
  520 248 521]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.513M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[352
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.513M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[352
  520 352 521]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.513M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[356
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.513M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[356
  520 356 521]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.521M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="n" bbox="[361
  520 361 521]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.578M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[447
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.578M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[447
  520 447 521]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.578M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[451
  520 451 521]">.
@@ -13527,13 +13579,13 @@ System.Exception: We have no wordlist to write!
  253 188 254]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.852M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[318
  768 318 769]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.917M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[451
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.917M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[451
  768 451 769]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.917M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="{" bbox="[462
  768 462 769]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.925M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[466
  768 466 769]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.983M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[271
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.983M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[271
  756 271 757]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [15.991M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="y" bbox="[290
  756 290 757]">.
@@ -13576,7 +13628,7 @@ System.Exception: We have no wordlist to write!
  692 443 693]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.874M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[237
  670 237 671]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.022M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[147
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.022M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[147
  638 147 639]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.038M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[174
  638 174 639]">.
@@ -13584,17 +13636,17 @@ System.Exception: We have no wordlist to write!
  638 312 639]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.226M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[516
  638 516 639]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.529M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[155
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.529M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‹" bbox="[155
  598 155 599]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.668M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[378
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [17.668M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[378
  598 378 599]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [18.821M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[520
  485 520 486]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.042M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[450
  465 450 466]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.631M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[98
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.631M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[98
 405 98 406]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.631M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[103
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.631M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[103
  405 103 406]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.655M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[151
  405 151 406]">.
@@ -13602,23 +13654,23 @@ System.Exception: We have no wordlist to write!
  405 248 406]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [19.925M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[382
  371 382 372]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.457M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[92
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.457M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[92
 766 92 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.457M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[96
 766 96 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.482M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[144
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.482M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[144
  766 144 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.555M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[280
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.555M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[280
  766 280 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.564M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[285
  766 285 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.588M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[326
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.588M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[326
  766 326 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.596M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[341
  766 341 767]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.654M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[442
  766 442 767]">.
-20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.891M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[404
+20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.891M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[404
  746 404 747]">.
 20210913.144452 [OCR] WARN  [ThreadTextExtract] [16.899M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[419
  746 419 747]">.
@@ -13636,7 +13688,7 @@ System.Exception: We have no wordlist to write!
  506 202 507]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [19.344M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[344
  506 344 507]">.
-20210913.144453 [OCR] WARN  [ThreadTextExtract] [17.781M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[92
+20210913.144453 [OCR] WARN  [ThreadTextExtract] [17.781M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[92
 259 92 260]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [17.781M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[96
 259 96 260]">.
@@ -13644,7 +13696,7 @@ System.Exception: We have no wordlist to write!
  259 110 260]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [17.797M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[118
  259 118 260]">.
-20210913.144453 [OCR] WARN  [ThreadTextExtract] [17.985M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[457
+20210913.144453 [OCR] WARN  [ThreadTextExtract] [17.985M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[457
  259 457 260]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.010M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="c" bbox="[491
  259 491 260]">.
@@ -13658,7 +13710,7 @@ System.Exception: We have no wordlist to write!
  247 506 248]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.288M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="z" bbox="[527
  247 527 248]">.
-20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.378M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[92
+20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.378M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[92
 440 92 441]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.386M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[96
 440 96 441]">.
@@ -13677,13 +13729,13 @@ System.Exception: We have no wordlist to write!
  440 312 441]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.533M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[319
  440 319 441]">.
-20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.583M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[409
+20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.583M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŒ" bbox="[409
  440 409 441]">.
-20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.607M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[451
+20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.607M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[451
  440 451 441]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.722M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[147
  388 147 389]">.
-20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.844M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[369
+20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.844M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â‚" bbox="[369
  388 369 389]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [18.844M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[380
  388 380 389]">.
@@ -13693,7 +13745,7 @@ System.Exception: We have no wordlist to write!
  242 513 243]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [19.998M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="o" bbox="[517
  242 517 243]">.
-20210913.144453 [OCR] WARN  [ThreadTextExtract] [21.094M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[92
+20210913.144453 [OCR] WARN  [ThreadTextExtract] [21.094M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â„" bbox="[92
 442 92 443]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [21.094M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[96
 442 96 443]">.
@@ -13708,7 +13760,7 @@ System.Exception: We have no wordlist to write!
  442 255 443]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [21.257M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="v" bbox="[347
  442 347 443]">.
-20210913.144453 [OCR] WARN  [ThreadTextExtract] [21.445M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[213
+20210913.144453 [OCR] WARN  [ThreadTextExtract] [21.445M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="ÂŠ" bbox="[213
  430 213 431]">.
 20210913.144453 [OCR] WARN  [ThreadTextExtract] [21.454M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="t" bbox="[239
  430 239 431]">.
@@ -16359,7 +16411,7 @@ sys.pdf.tmp.tmp
  273]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [8.798M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="?" bbox="[439 104 439
  105]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [9.076M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="" bbox="[91 721 91 7
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [9.076M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="ÂŠ" bbox="[91 721 91 7
 22]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [9.084M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="*" bbox="[120 729 120
  730]">.
@@ -16383,11 +16435,11 @@ sys.pdf.tmp.tmp
  122 333 123]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [13.043M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="|" bbox="[355
  122 355 123]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [9.042M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="" bbox="[102 576 102
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [9.042M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="Â™" bbox="[102 576 102
  577]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [9.991M] Zero-width/height bounding box for text chunk: ignoring this 'word' @  <char ucs="!" bbox="[330 367 330
  368]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [10.049M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[301
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [10.049M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âœ" bbox="[301
  346 301 347]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [10.065M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="$" bbox="[335
  344 335 345]">.
@@ -16403,13 +16455,13 @@ sys.pdf.tmp.tmp
  189 234 190]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.038M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="7" bbox="[127
  160 127 161]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.169M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="«" bbox="[171
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.169M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â«" bbox="[171
  130 171 131]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.243M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[297
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.243M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â™" bbox="[297
  105 297 106]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.371M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="µ" bbox="[226
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.371M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âµ" bbox="[226
  470 226 471]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.437M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="·" bbox="[112
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.437M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â·" bbox="[112
  433 112 434]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.985M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[330
  348 330 349]">.
@@ -16417,7 +16469,7 @@ sys.pdf.tmp.tmp
  721 446 722]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.747M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[464
  706 464 707]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.902M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="µ" bbox="[167
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.902M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Âµ" bbox="[167
  644 167 645]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [11.919M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[202
  644 202 645]">.
@@ -16425,9 +16477,9 @@ sys.pdf.tmp.tmp
  635 124 636]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.050M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[163
  630 163 631]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.172M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="À" bbox="[249
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.172M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã€" bbox="[249
  614 249 615]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.181M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="À" bbox="[250
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.181M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Ã€" bbox="[250
  598 250 599]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.213M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="" bbox="[324
  606 324 607]">.
@@ -16435,7 +16487,7 @@ sys.pdf.tmp.tmp
  559 100 560]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [12.614M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[435
  545 435 546]">.
-20210913.145125 [OCR] WARN  [ThreadTextExtract] [13.023M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="½" bbox="[119
+20210913.145125 [OCR] WARN  [ThreadTextExtract] [13.023M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="Â½" bbox="[119
  466 119 467]">.
 20210913.145125 [OCR] WARN  [ThreadTextExtract] [13.023M] Zero-width/height bounding box for text chunk: ignoring this 'word' @         <char ucs="?" bbox="[130
  466 130 467]">.
@@ -16920,6 +16972,7 @@ pdf.tmp.tmp
 
 Ger@DESKTOP-IRCRBHC MINGW64 /z/lib/tooling/qiqqa/QiqqaOCR/bin/Debug (master)
 $
+```
 
 
 
