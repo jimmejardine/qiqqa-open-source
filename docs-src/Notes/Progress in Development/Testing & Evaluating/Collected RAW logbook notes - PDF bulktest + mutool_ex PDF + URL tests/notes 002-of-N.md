@@ -28,13 +28,28 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
 
 
+
+##### Item ♯00001
+
+
+
+
+
 ```
 MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/003/003071/FULL-DOC.extract.dump -r digitalcorpora.org/govdocs1/003/003071.pdf
 ```
 
+
+
 --> dumps over 6000 images.
 
 
+
+
+
+
+
+##### Item ♯00002
 
 
 
@@ -53,10 +68,20 @@ processing page 66
 error: substitute font creation is not implemented yet
 warning: dropping unclosed document writer
 error: cannot load document: substitute font creation is not implemented yet
-error: ERR: error executing MUTOOL command: MUTOOL convert -o 
+error: ERR: error executing MUTOOL command: MUTOOL convert -o
 ```
 
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00003
 
 
 
@@ -70,6 +95,17 @@ Retrieving info from pages 1-20...
 OK: MUTOOL command: MUTOOL metadump -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/043/043311/FULL-DOC.extract.meta.json -m 2 -i p digitalcorpora.org/govdocs1/043/043311.pdf
 ```
 
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00004
 
 
 
@@ -112,6 +148,16 @@ OK: MUTOOL command: MUTOOL show -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 ```
 
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00005
 
 
 
@@ -209,6 +255,15 @@ OK: MUTOOL command: MUTOOL convert -o //?/J:/__bulktest/DATA/__bulktest/TextExtr
 
 
 
+
+
+
+##### Item ♯00006
+
+
+
+
+
 ```
 OK: MUTOOL command: MUTOOL metadump -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/004/004908/FULL-DOC.extract.meta.json -m 2 -i p digitalcorpora.org/govdocs1/004/004908.pdf
 error: LEAK? #3427881 (size: 6) (origin: Z:\lib\tooling\qiqqa\MuPDF\source\fitz\statistics-device.c(696))
@@ -222,6 +277,15 @@ error: LEAK? #3427876 (size: 9) (origin: Z:\lib\tooling\qiqqa\MuPDF\source\fitz\
 
 
 
+
+
+
+
+
+
+
+
+##### Item ♯00007
 
 
 
@@ -247,6 +311,15 @@ error: ERR: error executing MUTOOL command: MUTOOL show -o //?/J:/__bulktest/DAT
 
 
 
+
+
+
+##### Item ♯00008
+
+
+
+
+
 ```
 :L#00170: MUTOOL convert -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/006/006289/FULL-DOC.convert.pdf -W 1200 -H 1800 -O decompress,garbage,sanitize,pretty digitalcorpora.org/govdocs1/006/006289.pdf
 processing page 1
@@ -263,6 +336,14 @@ error: ERR: error executing MUTOOL command: MUTOOL convert -o //?/J:/__bulktest/
 
 
 
+
+
+
+
+
+
+
+##### Item ♯00009
 
 
 
@@ -306,6 +387,9 @@ error: ERR: error executing MUTOOL command: MUTOOL info -o //?/J:/__bulktest/DAT
 
 
 
+##### Item ♯00010
+
+
 
 
 
@@ -329,8 +413,15 @@ error: ERR: error executing MUTOOL command: MUTOOL show -o //?/J:/__bulktest/DAT
 
 
 
+
+
+
+##### Item ♯00011
+
+
 A metric ton of warnings about icc and the (faulty) lock analyzer going all out:
 (plus negative total times reports!)
+
 
 ```
 :L#00160: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/025/025119/FULL-DOC-x300.webp -s mtf -r 300 -y l -P -B 50 digitalcorpora.org/govdocs1/025/025119.pdf
@@ -386,6 +477,16 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
+
+
+
+
+##### Item ♯00012
+
+
+
+
+
 ```
 :L#00187: MUTOOL metadump -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/005/005848/FULL-DOC.extract.meta.json -m 2 -i p digitalcorpora.org/govdocs1/005/005848.pdf
 Retrieving info from pages 1-29...
@@ -410,6 +511,16 @@ error: LEAK? #15301887 (size: 7) (origin: Z:\lib\tooling\qiqqa\MuPDF\source\fitz
 
 
 
+
+
+
+
+##### Item ♯00013
+
+
+
+
+
 ```
 :L#00170: MUTOOL convert -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/034/034862/FULL-DOC.convert.pdf -W 1200 -H 1800 -O decompress,garbage,sanitize,pretty digitalcorpora.org/govdocs1/034/034862.pdf
 processing page 1
@@ -427,6 +538,15 @@ error: ERR: error executing MUTOOL command: MUTOOL convert -o //?/J:/__bulktest/
 
 
 
+
+
+
+##### Item ♯00014
+
+
+
+
+
 ```
 :L#00170: MUTOOL convert -o "//?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/testset PDF Test Julia/encrypt/dt-all-aes-128/FULL-DOC.convert.pdf" -W 1200 -H 1800 -O decompress,garbage,sanitize,pretty "Sample-PDFs-for-format-testing/testset PDF Test Julia/encrypt/dt-all-aes-128.pdf"
 error: unknown encryption handler: 'Adobe.PubSec'
@@ -437,6 +557,16 @@ error: ERR: error executing MUTOOL command: MUTOOL convert -o "//?/J:/__bulktest
 ```
 
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00015
 
 
 
@@ -529,6 +659,14 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
+
+
+##### Item ♯00016
+
+
+
+
+
 ```
 :L#00189: MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/024/024080/FULL-DOC.extract.dump -r digitalcorpora.org/govdocs1/024/024080.pdf
 extracting //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/024/024080/FULL-DOC.extract.dumpfont-0011-0001.pfa
@@ -556,6 +694,13 @@ OK: MUTOOL command: MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtr
 
 
 
+
+##### Item ♯00017
+
+
+
+
+
 ```
 :L#00195: MUTOOL show -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/013/013482/FULL-DOC.show.txt -b digitalcorpora.org/govdocs1/013/013482.pdf trailer xref pages grep outline js form trailer/* Root/* Root/Metadata 0/* 1/* 2/* 3/* 4/* 5/* 6/* 7/* 8/* 9/* 10/* 11/* 12/* 13/* trailer/Info trailer/Info/Author
 warning: non-page object in page tree ({NULL}) -- ignoring the (probably corrupt) fast page tree
@@ -571,6 +716,15 @@ error: ERR: error executing MUTOOL command: MUTOOL show -o //?/J:/__bulktest/DAT
 
 
 
+
+
+
+
+
+
+
+
+##### Item ♯00018
 
 
 
@@ -614,6 +768,15 @@ OK: MUTOOL command: MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtr
 
 
 
+
+
+
+##### Item ♯00019
+
+
+
+
+
 ```
 :L#00170: MUTOOL convert -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/1/17D1DE87663E953AAE4AAD11CC8C368CA7DE649/FULL-DOC.convert.pdf -W 1200 -H 1800 -O decompress,garbage,sanitize,pretty INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/1/17D1DE87663E953AAE4AAD11CC8C368CA7DE649.pdf
 processing page 1
@@ -625,6 +788,16 @@ error: ERR: error executing MUTOOL command: MUTOOL convert -o //?/J:/__bulktest/
 ```
 
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00020
 
 
 
@@ -669,6 +842,14 @@ OK: MUTOOL command: MUTOOL metadump -o "//?/J:/__bulktest/DATA/__bulktest/TextEx
 
 
 
+
+
+##### Item ♯00021
+
+
+
+
+
 ```
 :L#00170: MUTOOL convert -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/014/014227/FULL-DOC.convert.pdf -W 1200 -H 1800 -O decompress,garbage,sanitize,pretty digitalcorpora.org/govdocs1/014/014227.pdf
 processing page 1
@@ -682,6 +863,14 @@ error: ERR: error executing MUTOOL command: MUTOOL convert -o //?/J:/__bulktest/
 
 
 
+
+
+
+
+
+
+
+##### Item ♯00022
 
 
 
@@ -722,6 +911,9 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
+##### Item ♯00023
+
+
 
 
 
@@ -747,6 +939,9 @@ OK: MUTOOL command: MUTOOL metadump -o //?/J:/__bulktest/DATA/__bulktest/TextExt
 
 
 
+
+
+##### Item ♯00024
 
 
 
@@ -784,9 +979,7 @@ OK: MUTOOL command: MUTOOL show -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
-
-
-
+##### Item ♯00025
 
 
 
@@ -821,8 +1014,7 @@ error: ERR: error executing MUTOOL command: MUTOOL raster -F png -o //?/J:/__bul
 
 
 
-
-
+##### Item ♯00026
 
 
 
@@ -845,6 +1037,8 @@ error: ERR: error executing MUTOOL command: MUTOOL clean -gggg -D -c -s -AA "Sam
 
 
 
+
+##### Item ♯00027
 
 
 
@@ -979,6 +1173,11 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
+##### Item ♯00028
+
+
+
+
 
 ```
 :L#00195: MUTOOL show -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/007/007813/FULL-DOC.show.txt -b digitalcorpora.org/govdocs1/007/007813.pdf trailer xref pages grep outline js form trailer/* Root/* Root/Metadata 0/* 1/* 2/* 3/* 4/* 5/* 6/* 7/* 8/* 9/* 10/* 11/* 12/* 13/* trailer/Info trailer/Info/Author
@@ -1003,7 +1202,7 @@ error: ERR: error executing MUTOOL command: MUTOOL show -o //?/J:/__bulktest/DAT
 
 
 
-
+##### Item ♯00029
 
 
 
@@ -1025,6 +1224,9 @@ error: ERR: error executing MUTOOL command: MUTOOL clean -gggg -D -c -s -AA "Sam
 
 
 
+
+
+##### Item ♯00030
 
 
 
@@ -1051,10 +1253,7 @@ error: LEAK? #48601767 (size: 2) (origin: Z:\lib\tooling\qiqqa\MuPDF\source\fitz
 
 
 
-
-
-
-
+##### Item ♯00031
 
 
 
@@ -1483,6 +1682,7 @@ OK: MUTOOL command: MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtr
 
 
 
+##### Item ♯00032
 
 
 
@@ -1520,6 +1720,7 @@ OK: MUTOOL command: MUTOOL show -o "//?/J:/__bulktest/DATA/__bulktest/TextExtrac
 
 
 
+##### Item ♯00033
 
 
 
@@ -3779,12 +3980,7 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
-
-
-
-
-
-
+##### Item ♯00034
 
 
 
@@ -3816,9 +4012,7 @@ OK: MUTOOL command: MUTOOL show -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
-
-
-
+##### Item ♯00035
 
 
 
@@ -3909,6 +4103,7 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
+##### Item ♯00036
 
 
 
@@ -3930,6 +4125,14 @@ error: ERR: error executing MUTOOL command: MUTOOL convert -o //?/J:/__bulktest/
 
 
 
+
+
+
+
+
+
+
+##### Item ♯00037
 
 
 
@@ -3973,6 +4176,11 @@ error: ERR: error executing MUTOOL command: MUTOOL info -o //?/J:/__bulktest/DAT
 
 
 
+##### Item ♯00038
+
+
+
+
 
 ```
 :L#00170: MUTOOL convert -o "//?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/testset PDF Test Julia/encrypt/dt-all-aes-128/FULL-DOC.convert.pdf" -W 1200 -H 1800 -O decompress,garbage,sanitize,pretty "Sample-PDFs-for-format-testing/testset PDF Test Julia/encrypt/dt-all-aes-128.pdf"
@@ -3991,6 +4199,9 @@ error: ERR: error executing MUTOOL command: MUTOOL convert -o "//?/J:/__bulktest
 
 
 
+
+
+##### Item ♯00039
 
 
 
@@ -4085,13 +4296,7 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 
 
 
-
-
-
-
-
-
-
+##### Item ♯00040
 
 
 
@@ -4138,6 +4343,12 @@ OK: MUTOOL command: MUTOOL metadump -o "//?/J:/__bulktest/DATA/__bulktest/TextEx
 
 
 
+##### Item ♯00041
+
+
+
+
+
 ```
 :L#00170: MUTOOL convert -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/006/006289/FULL-DOC.convert.pdf -W 1200 -H 1800 -O decompress,garbage,sanitize,pretty digitalcorpora.org/govdocs1/006/006289.pdf
 processing page 1
@@ -4161,6 +4372,7 @@ error: ERR: error executing MUTOOL command: MUTOOL convert -o //?/J:/__bulktest/
 
 
 
+##### Item ♯00042
 
 
 
@@ -4204,12 +4416,7 @@ error: ERR: error executing MUTOOL command: MUTOOL info -o //?/J:/__bulktest/DAT
 
 
 
-
-
-
-
-
-
+##### Item ♯00043
 
 
 
@@ -6701,6 +6908,7 @@ OK: MUTOOL command: MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtr
 
 
 
+##### Item ♯00044
 
 
 
@@ -7129,10 +7337,7 @@ OK: MUTOOL command: MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtr
 
 
 
-
-
-
-
+##### Item ♯00045
 
 
 
@@ -9381,15 +9586,6 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 >L#00160> T:78875ms USED:34.79Mb **NOTICABLY SLOW COMMAND**:: OK MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/027/027613/FULL-DOC-x300.webp -s mtf -r 300 -y l -P -B 50 digitalcorpora.org/govdocs1/027/027613.pdf
 >L#00160> T:78875ms USED:34.79Mb **LETHARGICALLY SLOW COMMAND**:: OK MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/027/027613/FULL-DOC-x300.webp -s mtf -r 300 -y l -P -B 50 digitalcorpora.org/govdocs1/027/027613.pdf
 ```
-
-
-
-
-
-
-
-
-
 
 
 

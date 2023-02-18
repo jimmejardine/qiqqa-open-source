@@ -1,6 +1,14 @@
 # PDF bulktest + mutool_ex PDF + URL tests: logbook notes
 
 
+
+
+
+
+
+##### Item ♯00001
+
+
 # Test run notes at the bleeding edge
 
 This is about the multiple test runs covering the `evil-base` PDF corpus: I've been collecting these notes over the years. **Big Caveat: these notes were valid at the time of writing, but MAY be obsolete or even counterdicting current behaviour at any later moment, sometimes even *seconds* away from the original event.**
@@ -21,11 +29,25 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
 `mupdf` memory issue:
 
+
 ```
 muconvert INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4/458B1F6296CFA32442F7CC47752231F74B89E54D.pdf
 ```
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00002
+
+
 stdout / stderr:
+
 
 ```
 '% PDF: INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4/458B1F6296CFA32442F7CC47752231F74B89E54D.pdf'
@@ -57,7 +79,17 @@ Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4/458B1F6296CFA32442F7CC47752231F74B89E54D.pdf 3
 ```
 
+
+
 **CRASH**
+
+
+
+
+
+
+
+##### Item ♯00003
 
 
 
@@ -83,7 +115,19 @@ Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/71120B277417F57C6496F63EE705197262F7AA.pdf 6
 ```
+
+
+
 **CRASH**
+
+
+
+
+
+
+
+##### Item ♯00004
+
 
 
 
@@ -96,7 +140,19 @@ Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7C40AD1A6353764F741E9F8C56ECDDA68061BAF0.pdf 2
 ```
+
+
+
 **CRASH**
+
+
+
+
+
+
+
+##### Item ♯00005
+
 
 
 
@@ -123,8 +179,18 @@ Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7E70426EE6C56414553F313EE285F64734EBBF.pdf 7
 ```
+
+
+
 **CRASH**
 
+
+
+
+
+
+
+##### Item ♯00006
 
 
 
@@ -142,7 +208,19 @@ slowest page 403: 7727ms
 warning: ... repeated 2 times...
 Memory use total=5508642498 peak=42052316 current=0
 ```
+
+
+
 ---NO CRASH, just huge memory usage and slow rendering!---
+
+
+
+
+
+
+
+##### Item ♯00007
+
 
 
 
@@ -154,7 +232,19 @@ T:1964ms D:94.662s OK MUTOOL trace -o "__mujstest/Sample-PDFs-for-format-testing
 'MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/PDF.js-issue-PDFs/pdfmark_reference.pdf" "__mujstest/Sample-PDFs-for-format-testing/PDF.js-issue-PDFs/%04d-pdfmark_reference.clean.pdf"'
 warning: deduplication cost pathological at O(75104768)?
 ```
+
+
+
 --slow clean without the timeout patch--
+
+
+
+
+
+
+
+##### Item ♯00008
+
 
 
 
@@ -162,7 +252,18 @@ warning: deduplication cost pathological at O(75104768)?
 ```
 'MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/PDFIO-format-corpus/govdocs1-error-pdfs/error_set_1/499039.pdf" "__mujstest/Sample-PDFs-for-format-testing/PDFIO-format-corpus/govdocs1-error-pdfs/error_set_1/%04d-499039.clean.pdf"'
 ```
+
+
+
 warning: deduplication cost pathological at O(588485124)?
+
+
+
+
+
+
+
+##### Item ♯00009
 
 
 
@@ -183,8 +284,18 @@ page Sample-PDFs-for-format-testing/PDFIO-format-corpus/govdocs1-error-pdfs/erro
 warning: read error; treating as end of file
 error: zlib error: invalid distance too far back
 ```
+
+
+
 -- no crash, but LOTS of failures --
 
+
+
+
+
+
+
+##### Item ♯00010
 
 
 
@@ -193,7 +304,18 @@ error: zlib error: invalid distance too far back
 ```
 'MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/PDFIO-format-corpus/govdocs1-error-pdfs/error_set_2/219789.pdf" "__mujstest/Sample-PDFs-for-format-testing/PDFIO-format-corpus/govdocs1-error-pdfs/error_set_2/%04d-219789.clean.pdf"'
 ```
+
+
+
 -- causes infinite loop in the code: hits the 'else if (rune == 32)' branch inside 'static void walk_string(fz_context *ctx, int uni, int remove, editable_str *str)' and loops indefinitely at the same spot as str->pos is not updated.
+
+
+
+
+
+
+
+##### Item ♯00011
 
 
 
@@ -202,7 +324,19 @@ error: zlib error: invalid distance too far back
 ```
 'MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/PEP20-01-01-006-508.pdf" "__mujstest/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/%04d-PEP20-01-01-006-508.clean.pdf"'
 ```
+
+
+
 -- and another one for that infinite loop --
+
+
+
+
+
+
+
+##### Item ♯00012
+
 
 
 
@@ -211,7 +345,19 @@ error: zlib error: invalid distance too far back
 OK: MUTOOL command: muconvert -o "__mujstest/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/%04d-TE2000_TC3_HMI_EN.convert.pdf" -W 1200 -H 1800 "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/TE2000_TC3_HMI_EN.pdf"
 T:122284ms D:4911.867s OK MUTOOL muconvert -o "__mujstest/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/%04d-TE2000_TC3_HMI_EN.convert.pdf" -W 1200 -H 1800 "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/TE2000_TC3_HMI_EN.pdf"
 ```
+
+
+
 -- no errors but takes 120 seconds to complete --
+
+
+
+
+
+
+
+##### Item ♯00013
+
 
 
 
@@ -227,10 +373,18 @@ warning: ... repeated 9 times...
 Memory use total=17710823054 peak=395591797 current=0
 OK: MUTOOL command: muraster -o "__mujstest/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/%04d-TE2000_TC3_HMI_EN.raster.ppm" -s mt -r 150 -P "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/TE2000_TC3_HMI_EN.pdf"
 ```
+
+
+
 -- 395MB: that's some HUGE memory consumption! --
 
 
 
+
+
+
+
+##### Item ♯00014
 
 
 
@@ -249,6 +403,9 @@ slowest page 239: 30350ms
 Memory use total=1709316691 peak=94789515 current=0
 OK: MUTOOL command: muraster -o "__mujstest/Sample-PDFs-for-format-testing/testset European Unicode extract & OCR/%04d-AH_26-2018-2.raster.ppm" -s mt -r 150 -P "Sample-PDFs-for-format-testing/testset European Unicode extract & OCR/AH_26-2018-2.pdf"
 ```
+
+
+
 -- page 239 takes about half the total render time of the entire PDF --
 
 
@@ -266,6 +423,11 @@ OK: MUTOOL command: muraster -o "__mujstest/Sample-PDFs-for-format-testing/tests
 
 
 
+##### Item ♯00015
+
+
+
+
 
 ```
 'MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/9780735626690 (links in TOC seem b0rked in Acrobat DC at least).pdf" "__mujstest/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/%04d-9780735626690 (links in TOC seem b0rked in Acrobat DC at least).clean.pdf"'
@@ -275,7 +437,18 @@ warning: object out of range (0 0 R); xref size 21798
 warning: undefined link destination
 warning: deduplication cost pathological at O(237620000)?
 ```
+
+
+
 -- another slow cleaner --
+
+
+
+
+
+
+
+##### Item ♯00016
 
 
 
@@ -289,10 +462,18 @@ warning: deduplication cost pathological at O(85844304)?
 OK: MUTOOL command: clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/Engineering-Data-Release_LandingGear.pdf" "__mujstest/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/%04d-Engineering-Data-Release_LandingGear.clean.pdf"
 T:21172ms D:1469.051s OK MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/Engineering-Data-Release_LandingGear.pdf" "__mujstest/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/%04d-Engineering-Data-Release_LandingGear.clean.pdf"
 ```
+
+
+
 -- another slow cleaner, which is restricted by the new 15s time duration hack in the de-dup code --
 
 
 
+
+
+
+
+##### Item ♯00017
 
 
 
@@ -316,9 +497,18 @@ T:128212ms D:3228.570s OK MUTOOL trace -o "__mujstest/Sample-PDFs-for-format-tes
 'MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/TE2000_TC3_HMI_EN.pdf" "__mujstest/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/%04d-TE2000_TC3_HMI_EN.clean.pdf"'
 warning: deduplication cost pathological at O(4069102472)?
 ```
+
+
+
 -- slow going --
 
 
+
+
+
+
+
+##### Item ♯00018
 
 
 
@@ -330,7 +520,18 @@ T:13695ms D:28397.400s OK MUTOOL trace -o "__mujstest/Sample-PDFs-for-format-tes
 'MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/testset misc 2/global/1f5dd128c3757420a881a155f2f8ace3.pdf" "__mujstest/Sample-PDFs-for-format-testing/testset misc 2/global/%04d-1f5dd128c3757420a881a155f2f8ace3.clean.pdf"'
 warning: undefined link destination
 ```
+
+
+
 warning: deduplication cost pathological at O(204606220)?
+
+
+
+
+
+
+
+##### Item ♯00019
 
 
 
@@ -341,9 +542,18 @@ T:29060ms D:30885.487s OK MUTOOL trace -o "__mujstest/Sample-PDFs-for-format-tes
 'MUTOOL clean -gggg -D -c -s -AA "Sample-PDFs-for-format-testing/testset misc 2/global/ec00d5825f47b9d0faa953b1709163c3.pdf" "__mujstest/Sample-PDFs-for-format-testing/testset misc 2/global/%04d-ec00d5825f47b9d0faa953b1709163c3.clean.pdf"'
 warning: PDF stream Length incorrect
 ```
+
+
+
 warning: deduplication cost pathological at O(200100012)?
 
 
+
+
+
+
+
+##### Item ♯00020
 
 
 
@@ -364,6 +574,9 @@ warning: trying to repair broken xref after encountering error: cannot find star
 warning: repairing PDF document
 warning: object missing 'endobj' token
 ```
+
+
+
 -- another 'pathological' ... --
 
 
@@ -372,17 +585,7 @@ warning: object missing 'endobj' token
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+##### Item ♯00021
 
 
 
@@ -398,11 +601,18 @@ page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/1/16568483517080AD2
 Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 ```
+
+
+
 -- zero glyphs??? (no errors, just wondering what's going on in there...) ---
 
 
 
 
+
+
+
+##### Item ♯00022
 
 
 
@@ -421,7 +631,20 @@ Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4/458B1F6296CFA32442F7CC47752231F74B89E54D.pdf 4
 ```
+
+
+
 **CRASH** (double free???)
+
+
+
+
+
+
+
+##### Item ♯00023
+
+
 
 
 
@@ -436,8 +659,20 @@ Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/6/6581B97C8F4A6CF712F84D81D0BA3155FFB5491.pdf 3
 ```
+
+
+
 **CRASH** (double free???)
 -- Hmmmmm. Apparently only happens when other files have been processed previously as running this file as the first in the `mujstest` script does NOT trigger the 'double free' check! --
+
+
+
+
+
+
+
+##### Item ♯00024
+
 
 
 
@@ -473,10 +708,26 @@ Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/71120B277417F57C6496F63EE705197262F7AA.pdf 10
 ```
+
+
+
 **CRASH**
 -- attempt to use freed memory; pointer is `0xdddddddc` (`dddddddd - 1` as `early=1` in the `jbig2_decode_text_region()` function where this happens --
 
 -- And that one happens at a **different page** in the process when run as the first file in the script, though the crash is at the same spot in the code! Here it that second run: --
+
+
+
+
+
+
+
+##### Item ♯00025
+
+
+
+
+
 ```
 'MUTOOL muraster -o "__mujstest/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/%04d-71120B277417F57C6496F63EE705197262F7AA.raster.ppm" -s mt -r 150 -P "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/71120B277417F57C6496F63EE705197262F7AA.pdf"'
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/71120B277417F57C6496F63EE705197262F7AA.pdf 1 18ms (interpretation) 277ms (rendering) 295ms (total)
@@ -495,11 +746,38 @@ page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/71120B277417F57C6
 
 
 
+
+
+
+
+
+
+##### Item ♯00026
+
+
+
+
+
 ```
 'MUTOOL muraster -o "__mujstest/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/%04d-7C40AD1A6353764F741E9F8C56ECDDA68061BAF0.raster.ppm" -s mt -r 150 -P "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7C40AD1A6353764F741E9F8C56ECDDA68061BAF0.pdf"'
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7C40AD1A6353764F741E9F8C56ECDDA68061BAF0.pdf 1
 ```
+
+
+
 **CRASH** same error location as above, different file though.
+
+
+
+
+
+
+
+##### Item ♯00027
+
+
+
+
 
 ```
 'MUTOOL muraster -o "__mujstest/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/%04d-7E70426EE6C56414553F313EE285F64734EBBF.raster.ppm" -s mt -r 150 -P "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7E70426EE6C56414553F313EE285F64734EBBF.pdf"'
@@ -508,8 +786,18 @@ Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7E70426EE6C56414553F313EE285F64734EBBF.pdf 2
 ```
+
+
+
 **CRASH** one more of the same...
 
+
+
+
+
+
+
+##### Item ♯00028
 
 
 
@@ -535,6 +823,9 @@ Glyph Cache Size: 0
 Glyph Cache Evictions: 0 (0 bytes)
 page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/8/808CA451AE74835B9BA0DA1DCA9DB4C2A057.pdf 5
 ```
+
+
+
 **CRASH** (double free check triggered)
 
 
@@ -543,15 +834,11 @@ page INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/8/808CA451AE74835B9
 
 
 
-
-
-
-
-
-
+##### Item ♯00029
 
 
 Ah, never checked before now:
+
 
 ```
 'MUTOOL mudraw -o "__mujstest/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/8/%04d-808CA451AE74835B9BA0DA1DCA9DB4C2A057.ocr.html" -s mtf5 -r 150 -x preserve-ligatures,preserve-whitespace,dehyphenate -y l "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/8/808CA451AE74835B9BA0DA1DCA9DB4C2A057.pdf"'
@@ -565,12 +852,18 @@ warning: dropping unclosed device
 error: cannot draw 'INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/8/808CA451AE74835B9BA0DA1DCA9DB4C2A057.pdf': Tesseract initialisation failed
 Allocations total=4570
 ```
+
+
+
 -- Looks like `mudraw` doesn't get a chance to crash as it's `tesseract` throwing a tantrum causing it to fail early???
 
 
 
 
 
+
+
+##### Item ♯00030
 
 
 
@@ -761,8 +1054,18 @@ total 2382ms / 15 pages for an average of 158ms
 fastest page 6: 56ms
 slowest page 1: 494ms
 ```
+
+
+
 **CRASH** looks like another double free error, now discovered via `fz_drop_pixmap()`
 
+
+
+
+
+
+
+##### Item ♯00031
 
 
 
@@ -771,14 +1074,25 @@ slowest page 1: 494ms
 ```
 L#78062: MUTOOL muraster -o "__mujstest/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/8/%04d-844418D91B7D26A2EB20F0D19CE6F625F9E89BD.raster.ppm" -s mt -r 150 -P "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/8/844418D91B7D26A2EB20F0D19CE6F625F9E89BD.pdf"
 ```
+
+
+
 **CRASH** with the newer code at `num_workers == 1` !!! It's the workers `[idx]->pix` entry which appears to have been nuked prematurely...
 
+
+
+
+
+
+
+##### Item ♯00032
 
 
 ---
 -- added commit SHA-1: 0ae30f8b6a058c18acf8be3a793a48ebb2ed2953
 
 * fix: *finally* got the crash mofo: turns out it always happens when shutting down `muraster` as the illegal freed memory accesses always happen past these DEBUG_THREAD lines:
+
 
 ```
 Asking workers to shutdown, then destroy their resources
@@ -793,11 +1107,22 @@ Worker 2 completed band_start -1 (status=0)
 Worker 2 shutting down
 ```
 
+
+
 while the call stack at time of failure points to code executing in the `bgprint` thread, which was cleaned up AFTER the workers all got nuked. Thus the obvious fix is to FIRST stop the `bgprint` thread and only then shut down all workers.
 
 **A short bulk test run (~ minutes, then aborting the `mujstest` test) DOES NOT pop up any more 'random' crashes/heap corruptions after this fix.**
 
 ---
+
+
+
+
+
+
+
+##### Item ♯00033
+
 
 
 
@@ -825,8 +1150,18 @@ corrupted refcount -572662305?
 corrupted refcount -572662304?
 ...
 ```
+
+
+
 **CRASH** after `muraster` threads fix was done. Looks like the jbig2 corruption is still there...
 
+
+
+
+
+
+
+##### Item ♯00034
 
 
 
@@ -906,14 +1241,20 @@ corrupted refcount -572662304?
 
 
 
+##### Item ♯00035
+
 
 --------------------------------------------------------------------------------------------------------------
 
 ## New `mujstest`. New tests. (`mutool metadump`)
 
+
 ```
 6288  "digitalcorpora.org/govdocs1/025/025454.pdf"  "digitalcorpora.org/govdocs1/025"    "025454.pdf"      "025454"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ has to recover json depth for almost(?) every page. That's unusual in `write_level_guarantee_level()``.
 --> turns out this PDF has type:'UNKNOWN' annotations!
 
@@ -921,11 +1262,32 @@ corrupted refcount -572662304?
 
 
 
+
+
+
+
+##### Item ♯00036
+
+
+
+
+
 ```
 13715  "digitalcorpora.org/govdocs1/999/999686.pdf"  "digitalcorpora.org/govdocs1/999"    "999686.pdf"      "999686"      "G:/Qiqqa/evil-base"
 ```
 
+
+
 ^ has to recover json depth for almost(?) every page. That's unusual in `write_level_guarantee_level()`.
+
+
+
+
+
+
+
+##### Item ♯00037
+
 
 
 
@@ -933,7 +1295,21 @@ corrupted refcount -572662304?
 ```
 14835  "openpreserve-format-corpus/pdfCabinetOfHorrors/embedded_video_avi.pdf"  "openpreserve-format-corpus/pdfCabinetOfHorrors"    "embedded_video_avi.pdf"      "embedded_video_avi"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ ditto
+
+
+
+
+
+
+
+##### Item ♯00038
+
+
+
 
 
 ```
@@ -943,22 +1319,65 @@ corrupted refcount -572662304?
 
 
 
+
+
+
+
+
+
+
+##### Item ♯00039
+
+
+
+
+
 ```
 15819  "Sample-PDFs-for-format-testing/doc - html to pdf - text runs off the right edge of the pages.pdf"  "Sample-PDFs-for-format-testing"    "doc - html to pdf - text runs off the right edge of the pages.pdf"      "doc - html to pdf - text runs off the right edge of the pages"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ superslow
+
+
+
+
+
+
+
+##### Item ♯00040
+
+
 
 
 
 ```
 16586  "Sample-PDFs-for-format-testing/isartor-pdfa-2008-08-13/Isartor testsuite/PDFA-1b/6.1 File structure/6.1.12 Implementation Limits/isartor-6-1-12-t01-fail-a.pdf"  "Sample-PDFs-for-format-testing/isartor-pdfa-2008-08-13/Isartor testsuite/PDFA-1b/6.1 File structure/6.1.12 Implementation Limits"    "isartor-6-1-12-t01-fail-a.pdf"      "isartor-6-1-12-t01-fail-a"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ superslow
+
+
+
+
+
+
+
+##### Item ♯00041
+
+
+
 
 
 ```
 18260  "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/insane-authors-list/Guidelines for the use and interpretation of assays for monitoring autophagy 3rd edition.pdf"  "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/insane-authors-list"    "Guidelines for the use and interpretation of assays for monitoring autophagy 3rd edition.pdf"      "Guidelines for the use and interpretation of assays for monitoring autophagy 3rd edition"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ memory corruption? json @ 500MBytes?! (ah, happened in x86/Win32 build. `realloc` of 1GB happened just before that in `fz_putc` handler)
 
 
@@ -967,6 +1386,7 @@ corrupted refcount -572662304?
 
 
 
+##### Item ♯00042
 
 
 
@@ -976,7 +1396,19 @@ corrupted refcount -572662304?
 952  "W:/Sopkonijn/!OmniPage-input-dir/__store/F571F789DCFBE5FCDEE03A6695F0285719708479.pdf"  "W/Sopkonijn/!OmniPage-input-dir/_store"    "F571F789DCFBE5FCDEE03A6695F0285719708479.pdf"      "F571F789DCFBE5FCDEE03A6695F0285719708479"      "G:/Qiqqa/evil-base"
 ```
 
+
+
 ^ insane output size; seems like the Attachedfiles item is going completely overboard. Weirdly enough with lots of Links?!?!
+
+
+
+
+
+
+
+##### Item ♯00043
+
+
 
 
 
@@ -984,7 +1416,18 @@ corrupted refcount -572662304?
 1897  "W:/Sopkonijn/!PaperPort-base-dir/B/B01BB061FFBF8A7873E55134575AB44C633042C.pdf"  "W/Sopkonijn/!PaperPort-base-dir/B"    "B01BB061FFBF8A7873E55134575AB44C633042C.pdf"      "B01BB061FFBF8A7873E55134575AB44C633042C"      "G:/Qiqqa/evil-base"
 ```
 
+
+
 ^ did not output anything for the Attachedfiles object while debugging?
+
+
+
+
+
+
+
+##### Item ♯00044
+
 
 
 
@@ -993,7 +1436,19 @@ corrupted refcount -572662304?
 1473  "W:/Sopkonijn/!PaperPort-base-dir/1/10822C58B7CE8328698EEB29F438183AB224482.pdf"  "W/Sopkonijn/!PaperPort-base-dir/1"    "10822C58B7CE8328698EEB29F438183AB224482.pdf"      "10822C58B7CE8328698EEB29F438183AB224482"      "G:/Qiqqa/evil-base"
 ```
 
+
+
 ^ a bit of nastiness around an empty stream, which results in the ludicrous "cannot parse as XML" error. Well, DUH!
+
+
+
+
+
+
+
+##### Item ♯00045
+
+
 
 
 
@@ -1001,7 +1456,18 @@ corrupted refcount -572662304?
 1526  "W:/Sopkonijn/!PaperPort-base-dir/2/288765F82241BB31D94F35E58F41C0BCE4A44B0.pdf"  "W/Sopkonijn/!PaperPort-base-dir/2"    "288765F82241BB31D94F35E58F41C0BCE4A44B0.pdf"      "288765F82241BB31D94F35E58F41C0BCE4A44B0"      "G:/Qiqqa/evil-base"
 ```
 
+
+
 ^ another run-away that's kept in check by the "restricted mode"
+
+
+
+
+
+
+
+##### Item ♯00046
+
 
 
 
@@ -1010,7 +1476,19 @@ corrupted refcount -572662304?
 3890  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__nontext/67A9624514511BF3C88DACAA32618EDFFC6F1.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__nontext"    "67A9624514511BF3C88DACAA32618EDFFC6F1.pdf"      "67A9624514511BF3C88DACAA32618EDFFC6F1"      "G:/Qiqqa/evil-base"
 ```
 
+
+
 ^ has UNKNOWN annotations.
+
+
+
+
+
+
+
+##### Item ♯00047
+
+
 
 
 
@@ -1018,7 +1496,21 @@ corrupted refcount -572662304?
 7103  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous/EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous"    "EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175.pdf"      "EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175"      "G:/Qiqqa/evil-base"
 ```
 
+
+
 ^ *extremely* long running metadump. (Long stream of dots on the console too.)
+
+
+
+
+
+
+
+##### Item ♯00048
+
+
+
+
 
 ```
 warning: cannot load object (1267 0 R) into cache
@@ -1030,7 +1522,18 @@ warning: non-page object in page tree ({NULL})
 error: object out of range (1270 0 R); xref size 1249
 ```
 
+
+
 etc.etc.etc.
+
+
+
+
+
+
+
+##### Item ♯00049
+
 
 
 
@@ -1039,7 +1542,17 @@ etc.etc.etc.
 5855  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__nontext/DE242ACFFB486163801EDBACCB74244D287B8EF8.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__nontext"    "DE242ACFFB486163801EDBACCB74244D287B8EF8.pdf"      "DE242ACFFB486163801EDBACCB74244D287B8EF8"      "G:/Qiqqa/evil-base"
 ```
 
+
+
 ^ long running.
+
+
+
+
+
+
+
+##### Item ♯00050
 
 
 
@@ -1049,7 +1562,18 @@ etc.etc.etc.
 metadump -o "__bulktest/W/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous/EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175.info.json" "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous/EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175.pdf"
 ```
 
+
+
 ^ ### longest running b****d evar! ###
+
+
+
+
+
+
+
+##### Item ♯00051
+
 
 
 
@@ -1103,7 +1627,21 @@ T:6521h1.[E]..
 T:6525h1.[E]..
 ```
 
+
+
 ==>
+
+
+
+
+
+
+
+##### Item ♯00052
+
+
+
+
 
 ```
 6356  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous/1019621951CA235A4035E9D61F56AF774174978E.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous"    "1019621951CA235A4035E9D61F56AF774174978E.pdf"      "1019621951CA235A4035E9D61F56AF774174978E"      "G:/Qiqqa/evil-base"
@@ -1158,21 +1696,74 @@ T:6525h1.[E]..
 
 
 
+
+
+
+
+
+
+##### Item ♯00053
+
+
+
+
+
 ```
 T:6467h1...........................................................................................................................6528
 ```
 
+
+
 ==>
+
+
+
+
+
+
+
+##### Item ♯00054
+
+
+
+
 
 ```
 6467  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous/2C5E75BAEDF9155B4F86A1AAE4E014444D3B73C6.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous"    "2C5E75BAEDF9155B4F86A1AAE4E014444D3B73C6.pdf"      "2C5E75BAEDF9155B4F86A1AAE4E014444D3B73C6"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ another one with b0rked page index list.
+
+
+
+
+
+
+
+##### Item ♯00055
+
+
+
+
 
 ```
 6528  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous/3D8E405C60709DA3BCCCCA75B203FA37C441BEB.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous"    "3D8E405C60709DA3BCCCCA75B203FA37C441BEB.pdf"      "3D8E405C60709DA3BCCCCA75B203FA37C441BEB"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ another one with b0rked page index list. But also has other issues beefore that: still long running after the O(N^2) fix.
+
+
+
+
+
+
+
+##### Item ♯00056
+
 
 
 
@@ -1180,7 +1771,19 @@ T:6467h1........................................................................
 ```
 6792  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous/824EFA4775A1EC0C518DCD5EA89274ABBF594.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous"    "824EFA4775A1EC0C518DCD5EA89274ABBF594.pdf"      "824EFA4775A1EC0C518DCD5EA89274ABBF594"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ long running, many dots. To be analyzed.
+
+
+
+
+
+
+
+##### Item ♯00057
+
 
 
 
@@ -1188,14 +1791,39 @@ T:6467h1........................................................................
 ```
 7103  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous/EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__possibly_erroneous"    "EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175.pdf"      "EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ one more for the b0rked page index list.
+
+
+
+
+
+
+
+##### Item ♯00058
+
+
 
 
 
 ```
 7164  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__prot/095DFE3BB8DD7FEB83BBAADE6F06DE059A1AC26.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__prot"    "095DFE3BB8DD7FEB83BBAADE6F06DE059A1AC26.pdf"      "095DFE3BB8DD7FEB83BBAADE6F06DE059A1AC26"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ long running
+
+
+
+
+
+
+
+##### Item ♯00059
+
 
 
 
@@ -1203,7 +1831,19 @@ T:6467h1........................................................................
 ```
 7631  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__prot/468CC099AC8AF0C781E0FBFA7F909913BBAA576C.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__prot"    "468CC099AC8AF0C781E0FBFA7F909913BBAA576C.pdf"      "468CC099AC8AF0C781E0FBFA7F909913BBAA576C"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ long running, many dots
+
+
+
+
+
+
+
+##### Item ♯00060
+
 
 
 
@@ -1211,11 +1851,23 @@ T:6467h1........................................................................
 ```
 8143  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__prot/832EA3DF23EF67A5E589E65A46BC7380DEFB84E.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__prot"    "832EA3DF23EF67A5E589E65A46BC7380DEFB84E.pdf"      "832EA3DF23EF67A5E589E65A46BC7380DEFB84E"      "G:/Qiqqa/evil-base"
 ```
+
+
+
 ^ much to report: many dots?
 
 
 
+
+
+
+
+##### Item ♯00061
+
+
 All with many dots:
+
+
 ```
 8666
 8822
@@ -1239,7 +1891,17 @@ All with many dots:
 
 
 
+
+
+
+
+
+##### Item ♯00062
+
+
 Then: slow but quiet:
+
+
 ```
 9740
 10686
@@ -1254,7 +1916,21 @@ Then: slow but quiet:
 20106   <-- takes an extremely long time! (and quiet)
 ```
 
+
+
 -->
+
+
+
+
+
+
+
+##### Item ♯00063
+
+
+
+
 
 ```
 8666  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__prot/BFD232C63E13E740D28CB1B31843FA3EE6967A.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__prot"    "BFD232C63E13E740D28CB1B31843FA3EE6967A.pdf"      "BFD232C63E13E740D28CB1B31843FA3EE6967A"      "G:/Qiqqa/evil-base"
@@ -1294,6 +1970,11 @@ Then: slow but quiet:
 
 
 
+##### Item ♯00064
+
+
+
+
 
 ```
 22638 -> another b0rked page list
@@ -1302,7 +1983,21 @@ Then: slow but quiet:
 24629
 ```
 
+
+
 -->
+
+
+
+
+
+
+
+##### Item ♯00065
+
+
+
+
 
 ```
 22638  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store"    "EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175.pdf"      "EBA9C2BAC1E301AEFA99296E0BF43CEBDA4D175"      "G:/Qiqqa/evil-base"
@@ -1310,6 +2005,19 @@ Then: slow but quiet:
 24649  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/DE242ACFFB486163801EDBACCB74244D287B8EF8.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store"    "DE242ACFFB486163801EDBACCB74244D287B8EF8.pdf"      "DE242ACFFB486163801EDBACCB74244D287B8EF8"      "G:/Qiqqa/evil-base"
 24629  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/D477415B6C5A46639F1CA89CA128B8886AABBBC.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store"    "D477415B6C5A46639F1CA89CA128B8886AABBBC.pdf"      "D477415B6C5A46639F1CA89CA128B8886AABBBC"      "G:/Qiqqa/evil-base"
 ```
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00066
+
 
 
 
@@ -1326,9 +2034,23 @@ Then: slow but quiet:
 43354
 ```
 
+
+
 `78842` --> long running, some *weird* I/O `MessageBox` (it's a commandline tool we're running here!?!?!) -- hmmm, whole system is deteriorated now. Rebooting Win10. Running the `bulktest` in MSVC debugger overnight is not a good idea?!
 
 --> and then THIS happened too: https://github.com/GerHobbelt/qiqqa-open-source/blob/master/docs-src/Technology/Odds%20'n'%20Ends/git%20-%20recovering%20from%20b0rked%20repos%20and%20systems.md
+
+
+
+
+
+
+
+##### Item ♯00067
+
+
+
+
 
 ```
 35976  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/F0875819EB7BFC459CCF4F80912D9EC66E8B092.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store"    "F0875819EB7BFC459CCF4F80912D9EC66E8B092.pdf"      "F0875819EB7BFC459CCF4F80912D9EC66E8B092"      "G:/Qiqqa/evil-base"
@@ -1343,6 +2065,24 @@ Then: slow but quiet:
 78842  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/__decrypted/C99DBCFC1B7CFC2DCE3094D9887E790C4BA4293.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/__decrypted"    "C99DBCFC1B7CFC2DCE3094D9887E790C4BA4293.pdf"      "C99DBCFC1B7CFC2DCE3094D9887E790C4BA4293"      "G:/Qiqqa/evil-base"
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00068
+
+
+
+
+
 ```
 78841 --> long running
 78909
@@ -1356,7 +2096,21 @@ Then: slow but quiet:
 80050
 ```
 
+
+
 -->
+
+
+
+
+
+
+
+##### Item ♯00069
+
+
+
+
 
 ```
 78841  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/__decrypted/C98FF828C3A8ECCF8942C41EE00F9DE7EC5663B.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/__decrypted"    "C98FF828C3A8ECCF8942C41EE00F9DE7EC5663B.pdf"      "C98FF828C3A8ECCF8942C41EE00F9DE7EC5663B"      "G:/Qiqqa/evil-base"
@@ -1373,19 +2127,60 @@ Then: slow but quiet:
 
 
 
+
+
+
+
+
+
+
+
+##### Item ♯00070
+
+
 Now let's see what last night delivered in terms of totally ludicrous JSON file sizes: we now 'restrict' single subtree dumps to ~10K, so shouldn't expect to see 10M+ filesizes unless we missed a few spots (I bet we did!):
+
 
 ```
 78841  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/__decrypted/C98FF828C3A8ECCF8942C41EE00F9DE7EC5663B.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/__decrypted"    "C98FF828C3A8ECCF8942C41EE00F9DE7EC5663B.pdf"
 ```
 
+
+
 --> turns out to produce >600MB JSON
 
 `85187` --> hits the doc repair 0x02 mode (while we were scanning the dump directories, so "off topic")
 
+
+
+
+
+
+
+##### Item ♯00071
+
+
+
+
+
 ```
 85187  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/3D8E405C60709DA3BCCCCA75B203FA37C441BEB.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store"    "3D8E405C60709DA3BCCCCA75B203FA37C441BEB.pdf"      "3D8E405C60709DA3BCCCCA75B203FA37C441BEB"      "G:/Qiqqa/evil-base"
 ```
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00072
+
+
+
 
 
 ```
@@ -1408,14 +2203,26 @@ EA757B9EA4D9A54BEDF26FCA33DB195EE4A864F
 4F81216F1ED595FEE3F4666D75F5B010A73F68
 ```
 
+
+
 ^ this selection ranges from >900MB JSON output down to a "measly" 12MByte (while `mutool metadump` already restricts many subtree dumps to 10K only, so these need to be investigated to see where we're leaking more of that crazy)
+
+
+
+
+
+
+
+##### Item ♯00073
 
 
 `90249` --> long running
 
+
 ```
 90249  "W:/Sopkonijn/!QIQQA-pdf-buffer-dir/__store/56831E9293475B87B10CB53E84AAD11B8455397.pdf"  "W/Sopkonijn/!QIQQA-pdf-buffer-dir/__store"    "56831E9293475B87B10CB53E84AAD11B8455397.pdf"      "56831E9293475B87B10CB53E84AAD11B8455397"      "G:/Qiqqa/evil-base"
 ```
+
 
 
 `92999` --> long running
@@ -1425,9 +2232,14 @@ EA757B9EA4D9A54BEDF26FCA33DB195EE4A864F
 
 
 
+
+##### Item ♯00074
+
+
 ---------------------------
 
 For working on the hash functions, I need a couple of PDFs which exhibit the b0rked Qiqqa hash, i.e. shortened SHA1:
+
 
 ```
 ./Guest1/documents/6/643ED1D1967E8A83F6B17A28BB5D2A150.pdf
@@ -1438,6 +2250,8 @@ For working on the hash functions, I need a couple of PDFs which exhibit the b0r
 ./INTRANET_EF52564A-831D-42F2-B956-815CF0418C08/documents/8/89DC1ADAB9C58F791BECBE22F878AC0E9.pdf
 ./INTRANET_EF52564A-831D-42F2-B956-815CF0418C08/documents/D/DCF05C195EC32224343B4A425B35AB8AD.pdf
 ```
+
+
 
 ----------------------------------
 
@@ -1452,9 +2266,7 @@ For working on the hash functions, I need a couple of PDFs which exhibit the b0r
 
 
 
-
-
-
+##### Item ♯00075
 
 
 -------------------------
@@ -1464,13 +2276,27 @@ For working on the hash functions, I need a couple of PDFs which exhibit the b0r
 43EA89C8D11BC2821EE1CEE0BD48F51F956E6
 ```
 
+
+
 --> weird double text extracts: for SOME lines: same line produces two overlapping hOCR outputs which are slightly different too
+
+
+
+
+
+
+
+##### Item ♯00076
+
 
 Also note that SOME images are still in the hOCR output, despite this setting:
 
+
 ```
-     -x preserve-ligatures,preserve-whitespace,preserve-spans
+-x preserve-ligatures,preserve-whitespace,preserve-spans
 ```
+
+
 
 so not request to `FZ_STEXT_PRESERVE_IMAGES` !
 
@@ -1483,6 +2309,7 @@ PLUS images are 1px high: these SHOULD ideally be consolidated into single (larg
 
 
 
+##### Item ♯00077
 
 
 --------------------------------
@@ -1494,19 +2321,63 @@ Qiqqa fails/notes:
 metadump -m 1 -o -  "G:\Qiqqa\evil\Guest\documents\2\2B5BAEDB61348943BE6A18621F3B9FBF299FB42A.pdf"
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00078
+
+
+
+
+
 ```
 "Z:\lib\tooling\qiqqa\Qiqqa\bin\Debug\MuPDF\mutool.exe" metadump -m 1 -o -  "G:\Qiqqa\evil\Guest\documents\3\348417B141E4A3AEEDF8845E703A62BEFCB7B2DC.pdf"
 ```
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00079
+
+
 DoS attack by logging a lot to stderr:
+
 
 ```
 metadump -m 1 -o -  "G:\Qiqqa\evil\Guest\documents\3\3D8E405C60709DA3BCCCCA75B203FA37C441BEB.pdf"
 ```
 
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00080
+
+
 Turns out metadump hangs when Qiqqa exists: the stdout feed does not signal the termination of the parent (Qiqqa) application and thus blocks forever on writing to stdout?
 Or does it do something special? Since these took 1 CPU each:
+
 
 ```
 "Z:\lib\tooling\qiqqa\Qiqqa\bin\Debug\MuPDF\mutool.exe" metadump -m 1 -o -  "G:\Qiqqa\evil\Guest\documents\6\6733C042A613BA992BA66A85AECB967A8CB1B9F0.pdf"
@@ -1518,7 +2389,19 @@ Or does it do something special? Since these took 1 CPU each:
 
 
 
+
+
+
+
+
+
+
+
+##### Item ♯00081
+
+
 error 1 without further report ?!?!
+
 
 ```
 metadump -m 1 -o -  "G:\Qiqqa\evil\Guest\documents\1\127447489B6D6EF9FFD58702657DA6456A42.pdf"
@@ -1526,6 +2409,15 @@ metadump -m 1 -o -  "G:\Qiqqa\evil\Guest\documents\1\127447489B6D6EF9FFD58702657
 
 
 
+
+
+
+
+
+
+
+
+##### Item ♯00082
 
 
 
@@ -1540,13 +2432,60 @@ mudraw -o "G:/__bulktest/test.####.html" -r 100 -f -w 2400 -h 3600  -O preserve-
 
 
 
+
+
+
+
+
+##### Item ♯00083
+
+
+
+
+
 ```
 draw -T0 -stmf -w 0 -h 0 -r 80 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\4\4D14D229A3F84C891584332FF786BEBA8E25F1C.pdf" 7
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00084
+
+
+
+
+
 ```
 --> C:\Users\Ger\AppData\Local\Temp/G%%Qiqqa%evil%INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C%documents%4%4D14D229A3F84C891584332FF786BEBA8E25F1C.pdf.accel
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00085
+
+
+
+
 
 ```
 draw -T0 -stmf -w 0 -h 0 -r 80 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\6\60835FB1D237D8F3ED73653CC9F935FDD7FA16B1.pdf" 1
@@ -1564,9 +2503,38 @@ draw -T0 -stmf -w 0 -h 0 -r 80 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-
 
 
 
+
+
+
+
+
+
+
+
+##### Item ♯00086
+
+
+
+
+
 ```
 mutool.exe draw -T0 -stmf -w 1432 -h 1853 -r 0 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\6\6FA7489225ACDB9F802B3F1CD9FBB8FB9D1A76E3.pdf" 4
 ```
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00087
+
+
+
 
 
 ```
@@ -1576,11 +2544,37 @@ metadump -m 1 -o -  "G:\Qiqqa\evil\Guest\documents\1\121725C8CBB97A9F7C7B43336BA
 
 
 
+
+
+
+
+
+
+
+##### Item ♯00088
+
+
+
+
+
 ```
 metadump -m 1 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\E\EE10447C1B31E2BDFFCD36F2B3B7C2A5963C257.pdf"
 ```
+
+
+
 -->
 ZERO pages, but still exit code 0 instead of error report and exit 1+
+
+
+
+
+
+
+
+##### Item ♯00089
+
+
 
 
 
@@ -1589,10 +2583,41 @@ metadump -m 1 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C
 ```
 
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00090
+
+
+
+
+
 ```
 metadump -m 1 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\F\FEE4F241F6FA6397B723489A2B4B98C35B21B27.pdf"
 ```
+
+
+
 -->
+
+
+
+
+
+
+
+##### Item ♯00091
+
+
+
+
+
 ```
 error: cannot recognize version marker: expected '%PDF-n.n', but reading '%PDF'
 warning: trying to repair broken xref after encountering error: cannot recognize version marker: expected '%PDF-n.n', but reading '%PDF'
@@ -1606,10 +2631,39 @@ error: array not closed before end of file
 
 
 
+
+
+
+
+
+
+
+##### Item ♯00092
+
+
+
+
+
 ```
 metadump -m 1 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\6\6CED40AF808A4198B01D4A2959564EED92FD223C.pdf"
 ```
+
+
+
 -->
+
+
+
+
+
+
+
+##### Item ♯00093
+
+
+
+
+
 ```
 warning: aes padding out of range
 error: cannot authenticate password: G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\6\6CED40AF808A4198B01D4A2959564EED92FD223C.pdf
@@ -1621,10 +2675,33 @@ error: cannot authenticate password: G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-9
 
 
 
+
+
+
+
+
+##### Item ♯00094
+
+
+
+
+
 ```
 G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\C\C7C55FA6CE5C263D46BB2D1C51476245BACE6BE7.pdf
 ```
+
+
+
 --> no pagecount / corrupted doc
+
+
+
+
+
+
+
+##### Item ♯00095
+
 
 
 
@@ -1632,7 +2709,23 @@ G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\C\C7C55FA6
 ```
 metadump -m 1 -o -  "G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-93E8-C3177957E09C\documents\B\BD23D4D2FC4C13CFAC627171C742BB384D71E9FE.pdf"
 ```
+
+
+
 -->
+
+
+
+
+
+
+
+##### Item ♯00096
+
+
+
+
+
 ```
 error: object number out of range
 warning: trying to repair broken xref after encountering error: object number out of range
@@ -1665,9 +2758,20 @@ error: cannot authenticate password: G:\Qiqqa\evil\INTRANET_2B8E19DE-A7C5-4867-9
 
 
 
+
+
+
+##### Item ♯00097
+
+
+
+
+
 ```
 MUTOOL draw -o "J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/testset misc 3 OCR/Theory of Thermionic Vacuum Tubes E. Chaffee (1933)/FULL-DOC-x300.png" -s mtf -r 300 -y l -T 3 -P -B 50 "Sample-PDFs-for-format-testing/testset misc 3 OCR/Theory of Thermionic Vacuum Tubes E. Chaffee (1933).pdf"
 ```
+
+
 
 another crash thanks to heap corruption in JBig2Dec :-((
 
@@ -1676,17 +2780,51 @@ another crash thanks to heap corruption in JBig2Dec :-((
 
 
 
+
+
+
+##### Item ♯00098
+
+
+
+
+
 ```
 MUTOOL draw -o J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/999/999891/FULL-DOC-x300.png -s mtf -r 300 -y l -T 3 -P -B 50 digitalcorpora.org/govdocs1/999/999891.pdf
 ```
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00099
+
+
 CRASH: invalid heap access in LCMS2; have not observed JBIG2, so this looks, at first glance, to be an issue in conjuction with these warnings -- though DO NOTE that those warnings also showed up for other PDFs in the test before and those DID NOT cause a crash. Another conundrum, therefore:
+
 
 ```
 warning: found duplicate fz_icc_link in the store
 warning: found duplicate fz_icc_link in the store
 warning: found duplicate fz_icc_link in the store
 ```
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00100
 
 
 
@@ -1696,9 +2834,21 @@ warning: found duplicate fz_icc_link in the store
 MUTOOL draw -o J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/050/050600/FULL-DOC-x300.png -s mtf -r 300 -y l -T 3 -P -B 50 digitalcorpora.org/govdocs1/050/050600.pdf
 ```
 
+
+
 - first file in the bulktest which uses JPX format. Nothing weird to report otherwise.
 
+
+
+
+
+
+
+##### Item ♯00101
+
+
 - second file found:
+
 
 ```
 MUTOOL raster -F png -o J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/039/039354/%04d.raster.png -s mt -r 150 -P digitalcorpora.org/govdocs1/039/039354.pdf
@@ -1708,12 +2858,35 @@ MUTOOL raster -F png -o J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-bas
 
 
 
+
+
+
+
+
+
+##### Item ♯00102
+
+
+
+
+
 ```
 MUTOOL raster -F png -o J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/artifex-mupdf-test-corpus/pdf/Jbig2_042_18/%04d.raster.png -s mt -r 150 -P artifex-mupdf-test-corpus/pdf/Jbig2_042_18.pdf
 ```
 
+
+
 another JBIG2 using command, which triggers different debugger breakpoints in there. No crash yet, but DOES exercise different code paths inside JBIG2.
 DID trigger a crash due to a bug in the tracking code I added to the refcounted allocations in there. (IBO pointer NULL access attempt)
+
+
+
+
+
+
+
+##### Item ♯00103
+
 
 
 
@@ -1722,10 +2895,21 @@ DID trigger a crash due to a bug in the tracking code I added to the refcounted 
 MUTOOL draw -o J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/031/031172/FULL-DOC-x300.png -s mtf -r 300 -y l -T 3 -P -B 50 digitalcorpora.org/govdocs1/031/031172.pdf
 ```
 
+
+
 fails with a crash in fitz/colorspace after fz_find_icc_link() delivered an illegal pointer value.
 
 
+
+
+
+
+
+##### Item ♯00104
+
+
 Maybe relevant warnings? ::
+
 
 ```
 page 1 file digitalcorpora.org/govdocs1/031/031172.pdf features:  color
@@ -1740,7 +2924,20 @@ warning: found duplicate fz_icc_link in the store
 ```
 
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00105
+
+
 Another crasher like that:
+
 
 ```
 MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/003/003737/FULL-DOC-x300.webp -s mtf -r 300 -y l -T 3 -P -B 50 digitalcorpora.org/govdocs1/003/003737.pdf
@@ -1749,11 +2946,35 @@ MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorp
 
 
 
+
+
+
+
+
+
+
+##### Item ♯00106
+
+
+
+
+
 ```
 MUTOOL raster -F png -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/artifex-mupdf-test-corpus/pdf/Jbig2_042_24/%04d.raster.png -s mt -r 150 -P artifex-mupdf-test-corpus/pdf/Jbig2_042_24.pdf
 ```
 
+
+
 --> JBIG2 memleak; at least assertion failures at cleanup time.
+
+
+
+
+
+
+
+##### Item ♯00107
+
 
 
 
@@ -1762,7 +2983,18 @@ MUTOOL raster -F png -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/ar
 MUTOOL extract -o "//?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/testset misc 4/E3C5755DB55A9F878E6429C59F8E40D574429E3C/FULL-DOC.extract.dump" -r "Sample-PDFs-for-format-testing/testset misc 4/E3C5755DB55A9F878E6429C59F8E40D574429E3C.pdf"
 ```
 
+
+
 --> corrupted refcount in JBIG2 reported, while accessing already-freed memory @ dict->glyphs[i=50]
+
+
+
+
+
+
+
+##### Item ♯00108
+
 
 
 
@@ -1771,7 +3003,18 @@ MUTOOL extract -o "//?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-
 MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/pdfium/testing/resources/goto_action/FULL-DOC-x300.png -s mtf -r 300 -y l -T 3 -P -B 50 Sample-PDFs-for-format-testing/pdfium/testing/resources/goto_action.pdf
 ```
 
+
+
 --> hard crash in pdf_load_link thanks to uninitialized `uri` pointer.
+
+
+
+
+
+
+
+##### Item ♯00109
+
 
 
 
@@ -1779,6 +3022,8 @@ MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-PDFs
 ```
 MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/999/999053/FULL-DOC-x300.png -s mtf -r 300 -y l -T 3 -P -B 50 digitalcorpora.org/govdocs1/999/999053.pdf
 ```
+
+
 
 --> hard crash / assertion failure on Usee-After-Free assertion check in ICC code.
 
@@ -1790,17 +3035,7 @@ MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorp
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+##### Item ♯00110
 
 
 
@@ -1810,9 +3045,20 @@ MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorp
 "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/1/13D1943F462ACBAA5B1C9B883B4FD2742B996F1.pdf"  "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/1"    "13D1943F462ACBAA5B1C9B883B4FD2742B996F1.pdf"      "13D1943F462ACBAA5B1C9B883B4FD2742B996F1"      "./"
 ```
 
+
+
 --> dumps 3 TTF files and a metric ton of images, which look like they're all small text chunks that make up the page in this PDF. No errors per see, but a weird way of doing this and certainly something to look into once we get to optimizing our PDF render output for HTML/etc. with a minimum number of (MERGED) images.
 
 This is different from the single-pixel image stripes I've seen many times before and would therefor serve as a good testcase for any image bbox merging code that we may introduce to optimize mixed text+image outputs!
+
+
+
+
+
+
+
+##### Item ♯00111
+
 
 
 
@@ -1821,9 +3067,21 @@ This is different from the single-pixel image stripes I've seen many times befor
 "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/1/17B556D9C5585C798D5C29922FCF03899E5221E.pdf"  "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/1"    "17B556D9C5585C798D5C29922FCF03899E5221E.pdf"      "17B556D9C5585C798D5C29922FCF03899E5221E"      "./"
 ```
 
+
+
 --> No errors per se, but another good test sample for our purposes: this one has SCANNED IMAGES (one per page?) where you can see the scan/copier artifacts too. I expect this one doesn't come with a text overlay (TO BE CHECKED) and thus would serve well for testing our 'has proper text embedded' check code!
 
+
+
+
+
+
+
+##### Item ♯00112
+
+
 Another candidate like that (this is an otherwise clean electronics datasheet, no copier artifacts):
+
 
 ```
 "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/3/396E7C1B38A2268EA1082453FFAC5D6778DEB6.pdf"  "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/3"    "396E7C1B38A2268EA1082453FFAC5D6778DEB6.pdf"      "396E7C1B38A2268EA1082453FFAC5D6778DEB6"      "./"
@@ -1831,7 +3089,19 @@ Another candidate like that (this is an otherwise clean electronics datasheet, n
 
 
 
+
+
+
+
+
+
+
+
+##### Item ♯00113
+
+
 Another good one for testing: the old 405 "current dumping amplifier" instruction booklet:
+
 
 ```
 "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4/4CFF7BE82F8A4A6AC84DA26FD7DDBF815777DD4.pdf"  "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4"    "4CFF7BE82F8A4A6AC84DA26FD7DDBF815777DD4.pdf"      "4CFF7BE82F8A4A6AC84DA26FD7DDBF815777DD4"      "./"
@@ -1839,7 +3109,19 @@ Another good one for testing: the old 405 "current dumping amplifier" instructio
 
 
 
+
+
+
+
+
+
+
+
+##### Item ♯00114
+
+
 For detecting and processing extensive MATH blocks in the extract:
+
 
 ```
 "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4/47B017728D26B8D23891D2DC2184D1122C4369E.pdf"  "INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4"    "47B017728D26B8D23891D2DC2184D1122C4369E.pdf"      "47B017728D26B8D23891D2DC2184D1122C4369E"      "./"
@@ -1850,11 +3132,22 @@ For detecting and processing extensive MATH blocks in the extract:
 
 
 
+
+
+
+
+
+##### Item ♯00115
+
+
 Ueber-slow and memleaking? (Or is it due to bulktest collecting memleaks by running all the shoddy PDFs through the system all at once? ...):
+
 
 ```
 MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/ICJ-CIJ/57-9421/FULL-DOC-x300.webp -s mtf -r 300 -y l -T 3 -P -B 50 Sample-PDFs-for-format-testing/ICJ-CIJ/57-9421.pdf
 ```
+
+
 
 --> at least page render takes a solid 10 seconds per page, so that needs cleaning up.
 
@@ -1863,6 +3156,10 @@ Oh, and this bugger is eating GIGABYTES (8 by now, halfway through) as seen in t
 
 
 
+
+
+
+##### Item ♯00116
 
 
 ---
@@ -1882,17 +3179,47 @@ Ideas:
 MUTOOL clean -gggg -D -c -s -AA digitalcorpora.org/govdocs1/999/999576.pdf //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/999/999576/FULL-DOC.clean.pdf
 ```
 
+
+
 sounded like one of the candidates for this (slow exec + ICC failure stuff), but I'm not sure.
+
+
+
+
+
+
+
+##### Item ♯00117
+
+
+
+
 
 ```
 MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/ICJ-CIJ/150-17490/FULL-DOC-x300.png -s mtf -r 300 -y l -T 3 -P -B 50 Sample-PDFs-for-format-testing/ICJ-CIJ/150-17490.pdf
 ```
 
+
+
 at least is a slow renderer, taking ~6s or worse per page.
+
+
+
+
+
+
+
+##### Item ♯00118
+
+
+
+
 
 ```
 MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/ICJ-CIJ/133-18550/FULL-DOC-x300.webp -s mtf -r 300 -y l -T 3 -P -B 50 Sample-PDFs-for-format-testing/ICJ-CIJ/133-18550.pdf
 ```
+
+
 
 another odd lock-up (long-running page render, probably page 43 (remeber that we *buffer* our diagnostics logging, so another message may be still pending in the internal buffer! Might then be page 44 or upwards!)
 
@@ -1919,13 +3246,27 @@ Make PDF writes (and probably other formats too) SANITY-SAFE a la WinRAR: only p
 
 
 
+##### Item ♯00119
+
+
+
+
 
 ```
 Sample-PDFs-for-format-testing/testset misc 4/A377F2BEFE9575BD1622375433BF34FF7A518.pdf
 ```
 
+
+
 --> no problems, but does force resize of the fz_store hash table at least twice, so this one will help exercising different code paths and execution timing mixes while we hunt for the elusive fz_store_item() -> existing != NULL path' crash due to invalidated (FREED) memory referenced by existing->val shortly after the lock is released.  :-S
 
+
+
+
+
+
+
+##### Item ♯00120
 
 
 
@@ -1935,11 +3276,23 @@ Sample-PDFs-for-format-testing/testset misc 4/A377F2BEFE9575BD1622375433BF34FF7A
 MUTOOL metadump -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/pdfium_tests/fx/FRC_8.2.2_part1/FRC_8_8.2.2_Parent_edit/FULL-DOC.extract.meta.json -m 2 -i p pdfium_tests/fx/FRC_8.2.2_part1/FRC_8_8.2.2_Parent_edit.pdf
 ```
 
+
+
 error: syntax error in attributes
+
+
+
+
+
+
+
+##### Item ♯00121
+
 
 --> throws an exception in the XML parse. Should this be recoverable?
 
 B0rks on this:
+
 
 ```
 <?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?>
@@ -1980,23 +3333,62 @@ B0rks on this:
 <?xpacket end="w"?>
 ```
 
+
+
 note the booger at the end of the `<rdf:Description` tag: no terminating '>'!  This type of error should be easily fixable...
 
 
 
 
 
+
+
+##### Item ♯00122
+
+
 ... and another one:
+
 
 ```
 MUTOOL metadump -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/051/051192/FULL-DOC.extract.meta.json -m 2 -i p digitalcorpora.org/govdocs1/051/051192.pdf
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00123
+
+
+
+
+
 ```
 error: syntax error after attribute name
 ```
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00124
+
+
 B0rk b0rk b0rk (yes, lots of whitespace at the end there!):
+
 
 ```
 <?xpacket begin='Ã¯Â»Â¿' id='W5M0MpCehiHzreSzNTczkc9d'?>
@@ -2035,12 +3427,17 @@ B0rk b0rk b0rk (yes, lots of whitespace at the end there!):
 <?xpacket end='w'?>
 ```
 
+
+
 ... which sounds like this one could use some `iconv` love at least, before we clean up those attribute names!
 
 
 
 
 
+
+
+##### Item ♯00125
 
 
 ## THOUGHT:
@@ -2089,14 +3486,27 @@ Wow! Never expected this to happen this late in the game! But we've got another 
 
 - `INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7AD86BF80591DAD1DDE8E81EB6C55B41E5E4.pdf`
 
+
 ```
 :L#00191: MUTOOL info -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7AD86BF80591DAD1DDE8E81EB6C5Exception thrown at 0x00007FFCF4528388 (MuPDFLib.dll) in bulktest.exe: 0xC00000FD: Stack overflow (parameters: 0x0000000000000001, 0x000000968CA03FE8).
 Unhandled exception at 0x00007FFCF4528388 (MuPDFLib.dll) in bulktest.exe: 0xC00000FD: Stack overflow (parameters: 0x0000000000000001, 0x000000968CA03FE8).
 ```
+
+
+
 **CRASH**
 
 
+
+
+
+
+
+##### Item ♯00126
+
+
 BTW, this is what came just before that, just in case...:
+
 
 ```
 OK: MUTOOL command: MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7AD86BF80591DAD1DDE8E81EB6C55B41E5E4/FULL-DOC.extract.dump -r INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7AD86BF80591DAD1DDE8E81EB6C55B41E5E4.pdf
@@ -2104,10 +3514,23 @@ OK: MUTOOL command: MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtr
 ```
 
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00127
+
+
 Stackdump in the debugger at the moment of crash:
 
+
 ```
- 	MuPDFLib.dll!pdf_cache_object(fz_context * ctx, pdf_document * doc, int num) Line 2306	C
+MuPDFLib.dll!pdf_cache_object(fz_context * ctx, pdf_document * doc, int num) Line 2306	C
  	MuPDFLib.dll!pdf_resolve_indirect(fz_context * ctx, pdf_obj * ref) Line 2437	C
  	MuPDFLib.dll!pdf_resolve_indirect_chain(fz_context * ctx, pdf_obj * ref) Line 2464	C
  	MuPDFLib.dll!pdf_dict_get(fz_context * ctx, pdf_obj * obj, pdf_obj * key) Line 2048	C
@@ -2132,7 +3555,20 @@ Stackdump in the debugger at the moment of crash:
  	The maximum number of stack frames supported by Visual Studio has been exceeded.
 ```
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00128
+
+
 and it occurs in this bit of code:
+
 
 ```
 if (show & (IMAGES|XOBJS) && xobj)
@@ -2157,11 +3593,21 @@ if (show & (IMAGES|XOBJS) && xobj)
 	}
 ```
 
+
+
 where loop counter `i` is reported as being `1` in `pdfinfo.c` ~ line 778 (at the time of writing: Sep 2022).
 
 
 
+
+
+
+
+##### Item ♯00129
+
+
 ... Well, at least *this bug* is reproducible (after we've reduced the test set data file):
+
 
 ```
 :L#00191: MUTOOL info -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/7/7AD86BF80591DAD1DDE8E81EB6C5Exception thrown at 0x00007FFCF44AC724 (MuPDFLib.dll) in bulktest.exe: 0xC00000FD: Stack overflow (parameters: 0x0000000000000001, 0x000000A247A03FF0).
@@ -2179,17 +3625,51 @@ The program '[26524] bulktest.exe' has exited with code 0 (0x0).
 
 
 
+
+##### Item ♯00130
+
+
+
+
+
 ```
 "digitalcorpora.org/govdocs1/011/011591.pdf"  "digitalcorpora.org/govdocs1/011"    "011591.pdf"      "011591"      "./"
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+##### Item ♯00131
+
+
+
+
 
 ```
 MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/011/011591/FULL-DOC-x300.png -s mtf -r 300 -y l -P -B 50 digitalcorpora.org/govdocs1/011/011591.pdf
 Output format: png (DeviceRGB)
 ```
 
+
+
 --> superslow render?!  Is already stuck for a while and no progress visible on screen   :-S
 
+
+
+
+
+
+
+##### Item ♯00132
 
 
 
@@ -2242,6 +3722,8 @@ warning: padding truncated imagSoft Assertion failed: i < ctx->current_page --> 
 Soft Assertion failed: i < ctx->current_page --> Z:\lib\tooling\qiqqa\MuPDF\thirdparty\jbig2dec\jbig2.c::519
 ```
 
+
+
 --> nothing major, but here we hit an assertion that checks the OLD assumption of that loop, which we now have coded to span the entire allocated array, so no harm done anymore!
 
 
@@ -2249,7 +3731,12 @@ Soft Assertion failed: i < ctx->current_page --> Z:\lib\tooling\qiqqa\MuPDF\thir
 
 
 
+
+##### Item ♯00133
+
+
 Crap! Another serious stack overflow!
+
 
 ```
 :L#00160: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/pdfium_tests/fx/layer/4_36/FULL-DOC-x300.webp -s mtf -r 300 -y l -P -B 50 pdfium_tests/fx/layer/4_36.pdf
@@ -2259,7 +3746,20 @@ Exception thrown at 0x00007FFCF45287C6 (MuPDFLib.dll) in bulktest.exe: 0xC00000F
 Unhandled exception at 0x00007FFCF45287C6 (MuPDFLib.dll) in bulktest.exe: 0xC00000FD: Stack overflow (parameters: 0x0000000000000001, 0x0000003373503FA0).
 ```
 
+
+
+
+
+
+
+
+
+
+##### Item ♯00134
+
+
 --> stacktrace at the moment of B0RK:
+
 
 ```
 MuPDFLib.dll!pdf_cache_object(fz_context * ctx, pdf_document * doc, int num) Line 2302
@@ -2310,9 +3810,17 @@ The maximum number of stack frames supported by Visual Studio has been exceeded.
 
 
 
+
+
+
+
+##### Item ♯00135
+
+
 Yay! `bulktest` finished! (OK, done in chunks at sampling rates varying between 11% and 31%, most of the time <= 15%)
 
 Last chunk did not trigger the debugger any more:
+
 
 ```
 total 3665160ms / 1658 commands for an average of 2210ms in 1658 commands
