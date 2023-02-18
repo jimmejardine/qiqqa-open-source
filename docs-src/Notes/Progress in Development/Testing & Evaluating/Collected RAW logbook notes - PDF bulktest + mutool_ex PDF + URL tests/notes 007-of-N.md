@@ -30,8 +30,13 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
 
 
+##### Item ♯00001
 
 
+
+
+
+```
 mutool test/debug command lines:
 
 bulktest -v -smt -T G:\Qiqqa\evil-base\text_extract_pdf_files.bulktest    G:\Qiqqa\evil-base\text_extract_pdf_files.info-test.tsv
@@ -57,6 +62,7 @@ mediabox-clip=no,preserve-spans=yes,reuse-images=yes,preserve-images=yes,preserv
 
 fz_new_output_with_path()
 fz_new_output()
+```
 
 
 
@@ -67,6 +73,14 @@ fz_new_output()
 
 
 
+
+##### Item ♯00002
+
+
+
+
+
+```
 ---------------------------------------------------------------------------------------
 
 curl:
@@ -77,6 +91,7 @@ curl::
 
 
 ../../platform/win32/bin/Debug-Unicode-64bit-x64/curl.exe --sanitize-with-extreme-prejudice --location --create-dirs --ftp-create-dirs --verbose --no-progress-bar  --insecure --no-clobber --remote-name-all --remote-header-name --output-dir ~/Downloads/pdfs_test2     https://dl.acm.org/doi/abs/10.1145/3532342.3532351
+```
 
 
 
@@ -84,8 +99,20 @@ curl::
 
 
 
+
+
+
+
+##### Item ♯00003
+
+
+
+
+
+```
 curl: archive.org page which should produce a PDF:
 - https://web.archive.org/web/20060918190436/http://www.stern.nyu.edu/fin/workpapers/papers2002/pdf/wpa02041.pdf
+```
 
 
 
@@ -93,12 +120,24 @@ curl: archive.org page which should produce a PDF:
 
 
 
+
+
+
+
+##### Item ♯00004
+
+
+
+
+
+```
 JavaScript URL from google search engine:
 https://www.google.be/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwisjvfXv9_8AhUrgv0HHSCFD7k4HhAWegQIARAB&url=https%3A%2F%2Fresearch-repository.griffith.edu.au%2Fbitstream%2Fhandle%2F10072%2F368179%2FMandal_2017_01Thesis.pdf%3FisAllowed%3Dy%26sequence%3D1&usg=AOvVaw0Rf6ulPFX8BueVLbgtNrVm
 -->
 'https://research-repository.griffith.edu.au/bitstream/handle/10072/368179/Mandal_2017_01Thesis.pdf?isAllowed=y&sequence=1'
 
 but cURL doesn't yet extract that kind of info...
+```
 
 
 
@@ -106,8 +145,20 @@ but cURL doesn't yet extract that kind of info...
 
 
 
+
+
+
+
+##### Item ♯00005
+
+
+
+
+
+```
 https://www.ahajournals.org/doi/epdf/10.1161/CIRCULATIONAHA.105.594929
 --> epub+pdf viewer in HTML
+```
 
 
 
@@ -115,6 +166,17 @@ https://www.ahajournals.org/doi/epdf/10.1161/CIRCULATIONAHA.105.594929
 
 
 
+
+
+
+
+##### Item ♯00006
+
+
+
+
+
+```
 not handled:
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6640864/
 --> when you click on the grey pdf icon in top/left, you get a PDF url, but gUrl cannot resolve that URL to a PDF. Probably some JS indirection again in there, but we'll have to check...
@@ -122,6 +184,7 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6640864/
 
 ditto:
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8719728/
+```
 
 
 
@@ -130,8 +193,19 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8719728/
 
 
 
+
+
+
+##### Item ♯00007
+
+
+
+
+
+```
 403 Forbidden for cURL???
 https://www.irjet.net/archives/V7/i3/IRJET-V7I31065.pdf
+```
 
 
 
@@ -141,8 +215,18 @@ https://www.irjet.net/archives/V7/i3/IRJET-V7I31065.pdf
 
 
 
+
+
+##### Item ♯00008
+
+
+
+
+
+```
 URL which delivers an empty filename, but COULD be used to produce a decent filename if we pick the query part:
 https://di.ku.dk/Ansatte/?pure=files/38552211/00761342.pdf
+```
 
 
 
@@ -152,11 +236,21 @@ https://di.ku.dk/Ansatte/?pure=files/38552211/00761342.pdf
 
 
 
+
+
+##### Item ♯00009
+
+
+
+
+
+```
 troublesome for cURL:
 https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4310076
 
 https://web.archive.org/web/20200901065104/https://arxiv.org/ftp/arxiv/papers/1512/1512.03706.pdf
 (^^^^ correcte URL! werkt in Chrome, niet in cURL! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^)
+```
 
 
 
@@ -166,7 +260,17 @@ https://web.archive.org/web/20200901065104/https://arxiv.org/ftp/arxiv/papers/15
 
 
 
+
+
+##### Item ♯00010
+
+
+
+
+
+```
 https://apps.dtic.mil/sti/pdfs/ADA464347.pdf
+```
 
 
 
@@ -176,7 +280,17 @@ https://apps.dtic.mil/sti/pdfs/ADA464347.pdf
 
 
 
+
+
+##### Item ♯00011
+
+
+
+
+
+```
 curl --sanitize-with-extreme-prejudice --location --create-dirs --ftp-create-dirs --verbose --verbose --no-progress-bar  --insecure --no-clobber --remote-name-all --remote-header-name --output-dir ~/Downloads/pdfs_test2   --url  "http://www.eea-journal.ro/files/0/art%2005_3-2022-p047.pdf"
+```
 
 
 
@@ -187,8 +301,17 @@ curl --sanitize-with-extreme-prejudice --location --create-dirs --ftp-create-dir
 
 
 
+
+##### Item ♯00012
+
+
+
+
+
+```
 https://uom.lk/sites/default/files/elect/files/HV_Chap5.pdf
 ^^^ browser chokes on this one; curl does fine?
+```
 
 
 
@@ -198,8 +321,18 @@ https://uom.lk/sites/default/files/elect/files/HV_Chap5.pdf
 
 
 
+
+
+##### Item ♯00013
+
+
+
+
+
+```
 https://www.bu.edu.eg/portal/uploads/Engineering,%20Shoubra/Electrical%20Engineering/3103/crs-8705/Files/BREAKDOWN%20in%20SOLID%20DIELECTRICS1.pdf
 ^^^ sloooow site?
+```
 
 
 
@@ -209,6 +342,15 @@ https://www.bu.edu.eg/portal/uploads/Engineering,%20Shoubra/Electrical%20Enginee
 
 
 
+
+
+##### Item ♯00014
+
+
+
+
+
+```
 -------------------------------
 
 mudraw SLOW:
@@ -219,17 +361,28 @@ mudraw SLOW:
  
  + if we can find a way to threadpool *page renders* across multi-core, i.e. parallellizing the individual pages 'render' action, NOT banding as currently offered by mudraw, 
    then we might get to the end that much faster as that kind of parallellizing would also work for internally-single-threaded image formats, such as WEBP.
-   
-   
- 
+```
 
 
 
 
 
- 
+
+
+
+
+
+
+##### Item ♯00015
+
+
+
+
+
+```
 page which provides PDF but on Ctrl+S save in browser spits out an HTML:
 https://link.springer.com/epdf/10.1134/S1995080219050056?author_access_token=OoI6fs-VkXzk3NdCb2kiOkckSORA_DxfnEvY7GoQybalGXB5wga1vJjm8SZxhVhKdewKNQwizToP1i_OHXgaymY9AkWBd4N53vskP6rqKrdUTALWJR3VaeFW4nLRgfUQk908r05gJNmJrdzpoN6gRQ%3D%3D
+```
 
 
 
@@ -239,8 +392,18 @@ https://link.springer.com/epdf/10.1134/S1995080219050056?author_access_token=OoI
 
 
 
+
+
+##### Item ♯00016
+
+
+
+
+
+```
 another page (archive.org) which should deliver a PDF:
 https://web.archive.org/web/20190226172352/http://pdfs.semanticscholar.org/708f/8e0a95ba5977072651c0681f3c7b8f09eca3.pdf
+```
 
 
 
@@ -250,9 +413,19 @@ https://web.archive.org/web/20190226172352/http://pdfs.semanticscholar.org/708f/
 
 
 
+
+
+##### Item ♯00017
+
+
+
+
+
+```
 -----------------------------------------------------------------------------------------------------------------
 
 dubbele punt in path: Unicode:  ：
+```
 
 
 
@@ -261,7 +434,18 @@ dubbele punt in path: Unicode:  ：
 
 
 
+
+
+
+##### Item ♯00018
+
+
+
+
+
+```
 RFC4122
+```
 
 
 
@@ -270,6 +454,16 @@ RFC4122
 
 
 
+
+
+
+##### Item ♯00019
+
+
+
+
+
+```
 https://github.com/clovaai/deep-text-recognition-benchmark/issues/13 ::
 
 @klarajanouskova Hello,
@@ -287,6 +481,7 @@ but for the strict evaluation, I wanted the character which is not in opt.charac
 ('몲' is Korean, I shortened the '모르겠음' = 'don't know' as '몲')
 
 Best
+```
 
 
 
@@ -298,11 +493,19 @@ Best
 
 
 
+##### Item ♯00020
+
+
+
+
+
+```
 MUTOOL info -o "J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/56831E9293475B87B10CB53E84AAD11B8455397/FULL-DOC.info.txt" -F -I -M -P -S -X "Sample-PDFs-for-format-testing/Qiqqa Tools - test collection/56831E9293475B87B10CB53E84AAD11B8455397.pdf"
 MUTOOL draw -o J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/004/004121/FULL-DOC-x300-lwdclip.html -s mtf -r 300 -x preserve-ligatures,preserve-spans,preserve-whitespace,preserve-images,reference-images,reuse-images,mediabox-clip=yes -j everything digitalcorpora.org/govdocs1/004/004121.pdf
 MUTOOL draw -o J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/027/027344/FULL-DOC-x300.ps -s mtf -r 300 -y l digitalcorpora.org/govdocs1/027/027344.pdf
 MUTOOL draw -o "J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/testset misc 4/BA9D5F2A69C7DE1A2A1E3C8EB5B4325EDC5DE3/FULL-DOC-x300-lwdclip.xhtml" -s mtf -r 300 -x preserve-ligatures,preserve-spans,preserve-whitespace,preserve-images,reference-images,reuse-images,mediabox-clip=yes -j everything "Sample-PDFs-for-format-testing/testset misc 4/BA9D5F2A69C7DE1A2A1E3C8EB5B4325EDC5DE3.pdf"
 MUTOOL draw -o "J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulktest/TextExtractFiles-T1/Sample-PDFs-for-format-testing/testset misc 4/BA9D5F2A69C7DE1A2A1E3C8EB5B4325EDC5DE3/FULL-DOC-x300.png" -s mtf -r 300 -y l -T 3 -P -B 50 "Sample-PDFs-for-format-testing/testset misc 4/BA9D5F2A69C7DE1A2A1E3C8EB5B4325EDC5DE3.pdf"
+```
 
 
 
@@ -313,7 +516,15 @@ MUTOOL draw -o "J:/__bulktest/______/_/Y_/Qiqqa/Qiqqa-Test-DrvE/evil-base/__bulk
 
 
 
- gitlab-rjotwani
+
+##### Item ♯00021
+
+
+
+
+
+```
+gitlab-rjotwani
 Fetching gitlab-robinwatts
 Fetching gitlab-skal65535
 Fetching gitlab_angelmixu
@@ -330,6 +541,7 @@ Fetching gitlab_datalogics
 Fetching gitlab_datalogics_robb
 Fetching gitlab_derdakon
 Fetching gitlab_er_akon
+```
 
 
 
@@ -341,9 +553,13 @@ Fetching gitlab_er_akon
 
 
 
+##### Item ♯00022
 
 
 
+
+
+```
 →
 U+2192
 Black Right-Pointing Triangle
@@ -1423,6 +1639,7 @@ U+1F8AD
 Fedex Logo Arrow
 🡆
 U+1F846
+```
 
 
 
@@ -1434,6 +1651,13 @@ U+1F846
 
 
 
+##### Item ♯00023
+
+
+
+
+
+```
 ----------------------------------------------------------------------------------------------------
 
 Triggered via pull request 2 minutes ago
@@ -1460,12 +1684,25 @@ Node.js 12 actions are deprecated. For more information see: https://github.blog
 
 build
 The `set-output` command is deprecated and will be disabled soon. Please upgrade to using Environment Files. For more information see: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+```
 
 
 
 
 
 
+
+
+
+
+
+##### Item ♯00024
+
+
+
+
+
+```
 ------------------------------------------------------------------------------------------------------------
 
 b0rk:
@@ -1475,12 +1712,25 @@ mutool:
 metadump -m 1 -o -  "Y:\Qiqqa\ZZZ (new)\base\INTRANET_42CD1F03-5AAA-4A28-9B03-768D6FE15EFA\documents\B\B7F56D71C2AA8980553236FA236CAB17EF537B.pdf"
 
 --> b0rked JSON that results in a parse error about CCITTwhatever.
+```
 
 
 
 
 
 
+
+
+
+
+
+##### Item ♯00025
+
+
+
+
+
+```
 mutool:
 metadump -m 1 -o -  "Y:\Qiqqa\ZZZ (new)\base\INTRANET_42CD1F03-5AAA-4A28-9B03-768D6FE15EFA\documents\1\181B47B0831E9935C678BB2F37CBF43DB4F5A570.pdf"
 
@@ -1503,17 +1753,6 @@ Newtonsoft.Json.JsonSerializationException
 
 Inner Exception 1:
 ArgumentException: Could not cast or convert from System.String to Utilities.PDF.MuPDF.MultiPurpImageFilter.
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
