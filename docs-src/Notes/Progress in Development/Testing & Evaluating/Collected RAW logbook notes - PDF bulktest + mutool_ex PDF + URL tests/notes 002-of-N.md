@@ -32,13 +32,9 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 ##### Item ♯00001
 
 
-
-
-
 ```
 MUTOOL extract -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/003/003071/FULL-DOC.extract.dump -r digitalcorpora.org/govdocs1/003/003071.pdf
 ```
-
 
 
 --> dumps over 6000 images.
@@ -9586,6 +9582,5 @@ OK: MUTOOL command: MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtract
 >L#00160> T:78875ms USED:34.79Mb **NOTICABLY SLOW COMMAND**:: OK MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/027/027613/FULL-DOC-x300.webp -s mtf -r 300 -y l -P -B 50 digitalcorpora.org/govdocs1/027/027613.pdf
 >L#00160> T:78875ms USED:34.79Mb **LETHARGICALLY SLOW COMMAND**:: OK MUTOOL draw -o //?/J:/__bulktest/DATA/__bulktest/TextExtractFiles-T1/digitalcorpora.org/govdocs1/027/027613/FULL-DOC-x300.webp -s mtf -r 300 -y l -P -B 50 digitalcorpora.org/govdocs1/027/027613.pdf
 ```
-
 
 

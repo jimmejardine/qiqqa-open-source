@@ -37,6 +37,7 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 Stack overflow failure:
 
 > Using previous log line for source info (as the actual logline below was broken due to buffered log I/O vs. hard crash:
+> 
 > `::SKIP-DUE-TO-RANDOM-SAMPLING: MUTOOL command: MUTOOL extract -o //?/J:/__bulktest-all/DATA/__bulktest/TextExtractFiles-T1/Y:\Qiqqa\Qiqqa-Alt3-old.D.drv\base\101B96DE-F964-44E7-ACD4-3EC8939BB83C\documents\2/2B43E0F081A99E8B15C7DA1783224E9BDCC5849/FULL-DOC.extract.dump -r Y:\Qiqqa\Qiqqa-Alt3-old.D.drv\base\101B96DE-F964-44E7-ACD4-3EC8939BB83C\documents\2\2B43E0F081A99E8B15C7DA1783224E9BDCC5849.pdf`
 
 
@@ -122,10 +123,13 @@ T:01028:: Y:\Qiqqa\Qiqqa.Alt-2\evil-base\Meuk\ebooks.cleaned2\Cisco.Press.Cisco.
 
 
 
-> Also note that MSVC Debugger a heap memory consumption at ~10GByte (!) after running through 1000 PDFs -- check the logfiles to find the memory consumers/leakers...
+> Also note that MSVC Debugger discovers a heap memory consumption at ~10GByte (!) after running through 1000 PDFs -- check the logfiles to find the memory consumers/leakers...
 
 
+> > (**Postscript anno 2023**: this is possibly one of the occasions where I ran into those race conditions around JBIG2 image processing inside mupdf. Of course, the exact grounds for this event *are lost in the mysts of time*.)
 
+
+(continued below, in the next item...)
 
 
 
@@ -134,7 +138,6 @@ T:01028:: Y:\Qiqqa\Qiqqa.Alt-2\evil-base\Meuk\ebooks.cleaned2\Cisco.Press.Cisco.
 
 
 Whoops, broke into the debugger after some time. Turns out the buffer is stuck on a lock (critical section): stacktrace:
-
 
 ```
 ntdll.dll!00007ffd8f4bf9a4()
@@ -171,6 +174,8 @@ kernel32.dll!00007ffd8ded7bd4()
 ntdll.dll!00007ffd8f48ce51()
 ```
 
+
+> > (**Postscript anno 2023**: this is possibly one of the occasions where I ran into those race conditions around JBIG2 image processing inside mupdf. Of course, the exact grounds for this event *are lost in the mysts of time*.)
 
 
 
@@ -284,7 +289,9 @@ error: cannot draw 'Y:\Qiqqa\Qiqqa.Alt-2\evil-base\Meuk\ebooks.cleaned2\Cisco.Pr
 ^^^^^^^ a later revision of `bulktest` and further analysis of this pesky 'no space left' error revealed a couple of things (one of which I had completely forgotten, but -- as a test -- is a nice touch in hindsight:
 
 - the output target HDD is an old 'burner', i.e. it was picked for this job as I won't cry a rainbow if the HDD fails due to excessive writing or related mishap. For the `bulktest` it is deemed sufficiently large (~500GB free space) and fast enough to be 'representable' of average user equipment, adding a bit of a sense of cost to the numbers.
-- that target HDD is NOT NTFS formatted but instead is still **FAT32** format -- which makes it impossible to write any file larger than 4GByte. While that is fine for a document / logging / image test disk, it so happens that
+- that target HDD is NOT NTFS formatted but instead is still **FAT32** format -- which makes it impossible to write any file larger than 4GByte. While that is fine for a document / logging / image test disk, it so happens that....
+
+(continued below)
 
 
 
@@ -296,17 +303,14 @@ error: cannot draw 'Y:\Qiqqa\Qiqqa.Alt-2\evil-base\Meuk\ebooks.cleaned2\Cisco.Pr
 
 
 
-
-
 ```
 MUTOOL raster -F ppm -o //?/J:/__bulktest-all/DATA/__bulktest/TextExtractFiles-T1/Y:\Qiqqa\Qiqqa.Alt-2\evil-base\Meuk\ebooks.cleaned2/Cisco.Press.Cisco.OSPF.Command.and.Configuration.Handbook.CCIE.Professional.Development/%04d.raster-x150.ppm -s mt -r 150 -P Y:\Qiqqa\Qiqqa.Alt-2\evil-base\Meuk\ebooks.cleaned2\Cisco.Press.Cisco.OSPF.Command.and.Configuration.Handbook.CCIE.Professional.Development.pdf
 ```
 
 
-
 DOES surpass the 4GB mark for the PPM file once the renderer is very close to the last of the last page in this large document!
 
-(last bit of log that made it to disk before we killed the bastard  in the debugger)
+(last bit of log that made it to disk before we killed the bastard in the debugger)
 
 
 
@@ -315,9 +319,6 @@ DOES surpass the 4GB mark for the PPM file once the renderer is very close to th
 
 
 ##### Item ♯00009
-
-
-
 
 
 ```
@@ -333,7 +334,6 @@ page Y:\Qiqqa\Qiqqa.Alt-2\evil-base\Meuk\ebooks.cleaned2\Cisco.Press.
 ```
 
 
-
 Meanwhile the system error message was obscuring this issue, so some analysis and error message augmentation code has been added to the core (`analyze_and_improve_fwrite_error()`) as this error may be rare, but it's buggers like these, combined with low quality error reporting, that eat your time like mad, so for maintenance I consider it cost-effective to add some hints to the error report, in case this happens again. Debugging this instance took (thanks in part to the time needed to write near 4BG PPM formatted data via `fz_output`: a few minutes for each run) several hours already so I'd rather see a very helpful reminder/hint at the root cause next time I run this test suite -- and chances are it'll be running many times from now on!
 
 
@@ -345,13 +345,11 @@ Meanwhile the system error message was obscuring this issue, so some analysis an
 ##### Item ♯00010
 
 
-
-
-
 ```
 Y:\Qiqqa\Qiqqa.Alt-2\evil-base\Meuk\ebooks.technical\Journal of Pharmaceutical and Biomedical Analysis [1983 - 2012]\2012 (Vol 62)\140-148.pdf
 ```
 
 
-
 --> `muraster` renders these pages incompletely?
+
+
