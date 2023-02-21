@@ -2,13 +2,6 @@
 
 
 
-
-
-
-
-##### Item ♯00001
-
-
 # Test run notes at the bleeding edge
 
 This is about the multiple test runs covering the `evil-base` PDF corpus: I've been collecting these notes over the years. **Big Caveat: these notes were valid at the time of writing, but MAY be obsolete or even counterdicting current behaviour at any later moment, sometimes even *seconds* away from the original event.**
