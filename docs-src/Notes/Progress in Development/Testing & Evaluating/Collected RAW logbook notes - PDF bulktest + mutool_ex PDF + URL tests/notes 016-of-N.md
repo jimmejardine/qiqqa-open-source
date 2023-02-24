@@ -23,6 +23,16 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
 - `-r 13% -n 0-N -O J:\__bulktest-all\ -v -smt   -T S:\_Y\Qiqqa\evil-base-new\text_extract_pdf_files.bulktest    S:\_Y\Qiqqa\evil-base-new\all_pdf_files_on_test_drive.lst`
 
+`mutool_ex` test command lines:
+
+- `show -o "FULL-DOC.show.txt" -b "S:/_Y/SopKonijn/!QIQQA-pdf-watch-dir/2017-03-15/components/tl431 (2).pdf" trailer xref pages grep outline js form trailer/* Root/* Root/Metadata 0/* 1/* 2/* 3/* 4/* 5/* 6/* 7/* 8/* 9/* 10/* 11/* 12/* 13/* trailer/Info trailer/Info/Author`
+
+
+
+classify_debug_level
+paragraph_text_based
+
+
 
 -----------------------------------------------------
 

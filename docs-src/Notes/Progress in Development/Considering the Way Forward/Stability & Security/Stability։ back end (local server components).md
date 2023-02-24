@@ -98,13 +98,51 @@ Or to quote the brothers from Ice Age:
 
 -----------------
 
-@#$%^&*()^(%*@&$^#@!
+@#\$%^&*()^(%*@&$^#@!
 
 
 
 
 
 That means rolling all / most sub-processes into a single process, possibly using *multi-threading* to use the advantage of modern multi-core CPU hardware, while we try to keep the amount of (memory **and** disk) I/O to a minimum. And that last bit prevents us from using separate executables (processes) per step! (While we MIGHT have used "memory mapped" communication mechanisms to keep the memory & disk comms costs to a minimum even then...)
+
+
+----------------------------------
+
+Latest design:
+
+- use a multi-processing approach *anyway* to deal with the risk of heap memory leaks due to code complexity: allow large chunks of the work be done in *temporary servers*: servers which have a *limited lifetime by design*. I'll keep my options open, but here's a few criteria & comms notes:
+
+  **process termination criteria**
+
+  - when not having had a command to process for some time: *timeout on idle*. This ensures the server process will kill itself even under adverse conditions, e.g. when the controlling process/application has crashed.  That's why I'm thinking about a timeout of 5 -- 30 seconds only!
+  - when having reached a certain level of memory consumption. While this MUST NOT be hard terminating condition (any work under way SHOULD be allowed to complete, ideally, for some works WILL trigger huge memory consumption and we don't want to create a scenario where such work would forever halt/block the system by starting up, meeting the memory limit criteria, hard-failing as a consequence, then being *re-issued* due to outside *retry-on-failure* mechanisms that can trigger due to the hard-failure and too little context info: was this (or was it not) a hard-fail due to surprise circumstances, which would validate a retry, before declaring the job 'non-executable' perhaps?
+  - when a certain number of jobs have been done: wipe the slate clean after a while so we are assured any pollution gathered during the process lifetime DOES NOT propagate into the result of many jobs which follow. **Note** that this is not a *hard criterion*: see the note about *sessions** below.
+
+  **Implementation Notes**
+
+  - work processes should be able track 'sessions' so that the process(es) issuing the jobs can set up *relation/dependency chains*, which are easy and simple as they'll execute on a single node in their entirety: giving us the minimum of administration fuss.
+   
+  - job issuers SHOULD be able to 'manage' the resulting sessions by (a) helping the job process by declaring a session *completed*, which would be a nice moment to terminate the job process for system cleanup reasons. 
+    Given that a job process should be independent and be able to decide when to quit on its own, that 'end of session' message can only serve as a *hint*. Another approach to get the same result is to send a 'stay a while longer, please, for I have more work for you to do' request message from the issuer. Which adds a risk when thee issuer crashes next or is otherwise prematurely terminated itself: the *idle timeout* is there to save us from that, after all, but we need to reconsider how to set this up *precisely* and look if we can devise a system where we remove or at least severely limit the need for that *timeout on idle* capability: it SHOULD always be present, but the comms protocol (job issuer commands, etc.) SHOULD be such that it itself DOEES NOT depend on this particular bit of job process behaviour: it's a stop-gap, last ditch counter-measure any way.
+    
+  - database I/O and closely related work should be done in a single job process, while the others are reserved for heavy CPU load actions, e.g. PDF text extraction, analysis, etc., where we then have a bunch of data to fetch from / store into the database: here we agree with the additional data transfer costs at the interface layer due to our choice for multi-process. 
+    SQLite behaves best when accessed from a single process, so that has our preference (no need for system-wide multi-process semaphores, etc., for coordinates database access). The consequence is that we then need to communicate (send/receive) the data we need across process boundaries. The risk to the database I/O process should be kept minimal, i.e. only particularly curated components will be allowed to run in the same process space as the database, as that process is not, by design, a mission critical component with a required *long life*.
+    
+    > Either that, or we come up with a system where it's somehow tolerable & *obvious* to the user that the database server will be unavailable for a short time as it's busy restarting right now...
+    
+ - The multi process design with limited lifetimes is viable as a *outwardly stable system* when we set up our comms using HTTP 301/302 redirects, for example. The idea is this:
+
+   - set up a simple routing/monitor/manager server, which accepts incoming queries and, instead of answering them directly or through proxy, responds with a 301/302 temporary redirect: cUrl and other tools can deal with such a response most easily and invisible to the user, while the result is every request of ours being automatically redirected to the active *server du jour*: thee router/monitor/manager keeps track of which job processes are currently alive, can start fresh instances where needed (including delaying the 302 response until the new server is up & running, when none was before, when the user query came in)
+
+   - the job processes then get the request (as it's one of them that is pointed to by the 302/302 redirect) and execute it. Iff they need other work done, which they can't handle themself, e.g. database I/O, then they go through the same 'protocol': all questions are to be sent to the router/monitor, which will either deliver a direct response or a redirect to one of the other job proceesses.
+   
+
+
+
+
+
+
 
 
 
