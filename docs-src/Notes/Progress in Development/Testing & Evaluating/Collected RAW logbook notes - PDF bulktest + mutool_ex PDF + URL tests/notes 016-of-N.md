@@ -33,6 +33,74 @@ classify_debug_level
 paragraph_text_based
 
 
+pixAddBorder()
+pixGetBlackOrWhiteVal()
+pixBlendInRect
+ pixSetComponentArbitrary(pix, L_ALPHA_CHANNEL, 255)
+ pixCreate(w, h, 32) 
+ pixSetSpp(pix, 4) 
+ ok
+pixClearAll(PIX  *pix)
+
+pixRasterop(P
+
+```
+PIX *
+pixBlendBoxaRandom(PIX       *pixs,
+                   BOXA      *boxa,
+                   l_float32  fract)
+{
+l_int32   i, n, rval, gval, bval, index;
+l_uint32  val;
+BOX      *box;
+PIX      *pixd;
+PIXCMAP  *cmap;
+
+    if (!pixs)
+        return (PIX *)ERROR_PTR("pixs not defined", __func__, NULL);
+    if (!boxa)
+        return (PIX *)ERROR_PTR("boxa not defined", __func__, NULL);
+    if (fract < 0.0 || fract > 1.0) {
+        L_WARNING("fract must be in [0.0, 1.0]; setting to 0.5\n", __func__);
+        fract = 0.5;
+    }
+
+    if ((n = boxaGetCount(boxa)) == 0) {
+        L_WARNING("no boxes to paint; returning a copy\n", __func__);
+        return pixCopy(NULL, pixs);
+    }
+
+    if ((pixd = pixConvertTo32(pixs)) == NULL)
+        return (PIX *)ERROR_PTR("pixd not defined", __func__, NULL);
+
+    cmap = pixcmapCreateRandom(8, 1, 1);
+    for (i = 0; i < n; i++) {
+        box = boxaGetBox(boxa, i, L_CLONE);
+        index = 1 + (i % 254);
+        pixcmapGetColor(cmap, index, &rval, &gval, &bval);
+        composeRGBPixel(rval, gval, bval, &val);
+        pixBlendInRect(pixd, box, val, fract);
+        boxDestroy(&box);
+    }
+
+    pixcmapDestroy(&cmap);
+    return pixd;
+}
+
+```
+
+
+tessedit_minimal_rej_pass1=Y
+tessedit_parallelize=1...N
+tessedit_resegment_from_line_boxes=Y
+  tessedit_resegment_from_boxes=Y
+tessedit_make_boxes_from_boxes=Y
+
+
+
+
+
+
 
 -----------------------------------------------------
 
