@@ -60,7 +60,7 @@ Notes:
 There is registry approach which can be used at least for Windows 10:  
 Value of the parameter `HKLM\SYSTEM\CurrentControlSet\Control\FileSystem LongPathsEnabled (Type: REG_DWORD)` should be set to 1. 
 
-[![gpedit screenshot](../../assets/gpedit-path260.png)](https://i.stack.imgur.com/MwEfU.png)
+![gpedit screenshot](../../assets/gpedit-path260.png)
 
 You don't even need to restart anything (IDE or PC).
 
