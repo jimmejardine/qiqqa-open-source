@@ -23,12 +23,12 @@
 
    The UI (cross-platform) will be mostly web-technologies-based, so:
 	1. we don't have to worry about porting the intricacies of an **advanced, complex, UI** to multiple major platforms (Windows, Linux, Apple)
-	2. **we can use different, and more *available*, skillsets for important sections of the Qiqqa application development process: you don't need to be a C#/C/C++/WPF/etc. *unicorn* to do important UI/UX work: this is now quite similar to web development.** 
+	2. **we can use different, and more *available*, skill sets for important sections of the Qiqqa application development process: you don't need to be a C#/C/C++/WPF/etc. *unicorn* to do important UI/UX work: this is now quite similar to web development.** 
 	3. giving the application a fresh layer of paint, or doing stuff like ergonomic "dark mode", is now almost entirely relegated to the web technology layer, making it less costly in the long run to do UI 'cosmetic' changes. (CSS *theme*, anyone?)
 
    > And *that* is why it's important that the embedded browser fully supports F12 Developer Mode debugging, as do the major brand browsers themselves: Qiqqa sniffer is a complex animal today, thanks to Google search engine engineers being very counter-productive.
 
-   The new frontend is envisioned as a C++-based wrapper, because that one has the tightest, most elaborate interface to the embedded browser instances, adds a *minimal* bit of UI itself and delegates the main job to the web browser instances.
+   The new front-end is envisioned as a C++-based wrapper, because that one has the tightest, most elaborate interface to the embedded browser instances, adds a *minimal* bit of UI itself and delegates the main job to the web browser instances.
    
    It uses:
    
