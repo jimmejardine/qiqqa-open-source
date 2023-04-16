@@ -1,6 +1,9 @@
 # Contributing to Qiqqa :: What Can You Do To Help?
 
-[[toc]]
+
+
+{{toc}}
+
 
 
 ## Preface
@@ -53,4 +56,3 @@ Let me know what you think and what might interest you, then we can work somethi
 
 
 
-## 
