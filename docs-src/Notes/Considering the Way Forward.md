@@ -1,4 +1,5 @@
 ## Considering the Way Forward
+
 + [[Essential yet hard(er) to port UI features]] 
 + [[Full-Text Search Engines]]
 + [[Qiqqa library storage, database, DropBox (and frenemies), backups and backwards compatibility|Qiqqa library storage, database, DropBox (and *frenemies*), backups and backwards compatibility]]
