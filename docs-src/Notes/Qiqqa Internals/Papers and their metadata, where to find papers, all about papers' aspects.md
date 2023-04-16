@@ -10,7 +10,7 @@
   + some of these may be 'dead' by the time the reader of the reference (in your own paper/document, which references it), so it is paramount to have:
     - ability to store and ADD source URLs at any time
     - check the validity / availability of a URL at any time
-      + Note here that some URLs behave *oddly* and a simple `curl`-style download test might not give the correct answer: see [[Testing: nasty URLs for PDFs]]
+      + Note here that some URLs behave *oddly* and a simple `curl`-style download test might not give the correct answer: see [[Testing - Nasty URLs for PDFs|Testing: nasty URLs for PDFs]].
 - metadata may be sourced from various locations, including
   + BibTeX sources (Scholar for example)
   + RIS/... sources
