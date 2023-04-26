@@ -1,15 +1,15 @@
 # Why I consider OpenMP the *spawn of evil* and disable it in `tesseract`
 
-This already showed up on my radar in 2022 when bulk-testing our `mupdf` + `tesseract` monolith Windows build: it didn't matter which subcommand of `bulktest` I was running, the fans would start spinning and CPU temperatures would rise fast as they could until a new *burn motherfucker burn* versus cooling solution equilibrium was reached. Which was, frankly, *insane*, for 'twas simple *single threaded* tasks on an *8/16 core* Ryzen mammoth.
+This already showed up on my radar in 2022 when bulk-testing our `mupdf` + `tesseract` monolith Windows build: it didn't matter which subcommand of `bulktest` I was running, the fans would start spinning and CPU temperatures would rise quick as they could until a new *burn motherfucker burn* versus cooling solution equilibrium was reached at almost 80 degrees Celcius *core*. Which was, frankly, *insane*, for 'twas simple *single threaded* tasks on an *8/16 core* Ryzen mammoth.
 
 Profiling in Visual Studio plus some debugging showed me some obscure OpenMP internals decided to run like mad, without having been told to do so by yours truly.
 
-That analysis led to `tesseract` where some OpenMP attributes are sprinkled around some hot paths when you run OCR. I didn't know how to look into it deeper, pulling apart OpenMP itself. (I knew about ETW *existing* but never had used it myself before, so it was, ah, "*not top of mind*" while I was facing this crap, which only overjoyed the energy companies.)
+That analysis led to `tesseract` [where some OpenMP attributes are sprinkled around some hot paths when you run OCR](https://github.com/search?q=repo%3AGerHobbelt%2Ftesseract++pragma+omp&type=code). I didn't know how to look into it deeper, pulling apart OpenMP itself. (I knew about ETW *existing* but never had used it myself before, so it was, ah, "*not top of mind*" while I was facing this crap, which only overjoyed the energy companies.)
 
-The preliminary conclusion then was that OpenMP somehow, stupidly, decided to start all the threads required for *when* and *if* all that parallel exec power was demanded inside the belly of `tesseract`, and, then, once started, **never stopped running, i.e. waiting for stuff to do and spinning like mad while doing the wait thing**. (*All* the cores were maxing out once this started.)
+The preliminary conclusion then was that OpenMP *somehow*, stupidly, decided to start all the threads required for *when* and *if* all that parallel exec power was demanded inside the belly of `tesseract`, and, then, once started, **never stopped running, i.e. waiting for stuff to do and spinning like mad while doing the wait thing**. (*All* the cores were maxing out once this started.)
 
-Key to the problem was it always occurred *after* some (minimal) `tesseract` activity, which was part of the randomized bulk test, which is set up to stress test several main components, feeding it a slew of PDFs to chew through. Several of those tasks are single-threaded per PDF and to help built-in diagnostics I don't parallelize multiple PDFs for simultaneous testing: while that *will* be a good idea at some point, it's *not exactly helping yourself* when you go and make a multi-threaded parallel execution test rig while you're still hunting obnoxious bugs that occur in single-thread runs, so having OpenMP in there was only because of `tesseract` having it by default and me considering this as a potential *nice to have & use* system for when I would be ready to migrate my codebase to use it elsewhere in the codebase as well. 
-However, once OpenMP would have run through one such an `openmp`-enhanced code section, it was apparently "*Bijenkorf Dwaze Dagen*"[^1] at the CPU forever after.
+Key to the problem was it always occurred *after* some (minimal) `tesseract` activity, which was part of the randomized bulk test, which is set up to stress test several main components, feeding it a slew of PDFs to chew through. Several of those tasks are single-threaded per PDF and to help built-in diagnostics I don't parallelize multiple PDFs for simultaneous testing: while that *will* be a good idea at some point, it's *not exactly helping yourself* when you go and make a multi-threaded parallel execution test rig while you're still hunting obnoxious bugs that occur in single-thread runs, so having OpenMP in there was only there because of `tesseract` having it by default and me considering this as a potential *nice to have & use* system for when I would be ready to migrate my codebase to use it elsewhere in the codebase as well. 
+However, once OpenMP would have run through one such an [`openmp`-enhanced code section](https://github.com/search?q=repo%3AGerHobbelt%2Ftesseract++pragma+omp&type=code), it was apparently "*Bijenkorf Dwaze Dagen*"[^1] at the CPU forever after.
 
 The solution, I found, was getting rid of OpenMP entirely. Meanwhile I wondered why everyone is using this one while it clearly is coded like *utter shite*, at least from where I'm standing... And nobody complaining about this?[^2]
 
@@ -51,9 +51,9 @@ To quote the relevant part (at least it was very relevant to me; marked emphasis
 >
 
 Crazy indeed. 200 **milliseconds** for *spinlocks*... the only causes I can think of there are:
-1. ~~you don't know what you're doing.~~ (This is a library allegedly engineered by knowledgeable folks at Intel, who shed more multithreading/multiprocessing acumen in their toenail clippings than I'll expect to ever collect into my *brain*, so we scratch this one *with extreme prejudice*.)
+1. ~~you don't know what you're doing.~~ (This is a library allegedly engineered by knowledgeable folks at Intel, who shed more multithreading/multiprocessing acumen in their toenail clippings than I expect to ever collect into my *brain*, so we scratch this one *with extreme prejudice*.)
 2. you are totally bonkers. (Always an option, that one... 😊 )
-3. you do vengeance like a Queen and don't give a hoot about "*alleged collateral*". *[[Apres nous le deluge - attribution|Après nous le déluge]].* (Makes we wonder who the intended target of your rectal massage with that cactus stub is. 🤔)
+3. you do vengeance like a Queen and don't give a hoot about "*alleged collateral*". *[[Apres nous le deluge - attribution|Après nous le déluge]].* (Makes me wonder who the intended target of your rectal massage with that cactus stub is. 🤔)
 4. you are zealously ambitious and just *have to have* that number one spot in the benchmarks, *coûte que coûte*. Regular usage be damned!
 5. ... 🤷 all out of viable alternative explanations here 🤷 ...
 
@@ -61,9 +61,13 @@ I'm willing to bet 5 dimes on horse number 4, until further background intel is 
 
 ----
 
-Anyway, thanks to Mr. Kraus, I now have a reasonable hint of what might have gone on in there: apparently OpenMP is way too happy to use spinlocks and kept the instantiated threads running (for shutting down and restarting new ones is relatively costly, if you think that spinlock-style way) while they waited for another `[openmp]`-attributed code section to come their way, thus resulting in continuous 100% CPU loads as those threads' spinlocks spin, and spin, and spin, ... and then very probably loop the still empty work queue, so it's back to spinning, ... spinning..., and more spinning. *Ad nauseam.*
+Anyway, thanks to Mr. Kraus, I now have a reasonable hint of what might have gone on in there: apparently OpenMP is way too happy to use spinlocks and kept the instantiated threads running (for shutting down and restarting new ones is relatively costly, if you think that spinlock-style way) while they waited for another [`[openmp]`-attributed code section](https://github.com/search?q=repo%3AGerHobbelt%2Ftesseract++pragma+omp&type=code) to come their way, thus resulting in continuous 100% CPU loads as those threads' spinlocks spin, and spin, and spin, ... and then very probably loop the still empty work queue, so it's back to spinning, ... spinning..., and more spinning. *Ad nauseam.*
 
-*Caveat emptor:* I DIT NOT verify the above reasoning by digging into the OpenMP codebase. Mr. Kraus' work is worthwhile enough for me as it is and as a reminder for when I run into OpenMP again in an generic application.
+*Caveat emptor:* 
+I DIT NOT verify the above reasoning by digging into the OpenMP codebase. Mr. Kraus' work is worthwhile enough for me as it is and as a reminder for when I run into OpenMP again in a generic application.
+
+> Given where I intend to take this baby (Qiqqa backend), using OpenMP like that is expected to be detrimental (er, "sub-optimal") anyhow, as we plan to run PDF *batches* through those CPU-heavy code chunks. Given that several important parts of the codebase are NOT threadsafe, such batches are best done in a multi-processing style (rather than using a multithreaded approach within a single application *instance*) and those will occupy those CPU cores just fine while the paralllel processes chew through those PDF batches. Of course, there's also the scenario where'd want to process a single PDF *ASAP*, but that's supposed to be a *page render* or similar task, not `tesseract` OCR activity. So those `#pragma omp` in there will be pretty useless for us anyhow.
+> 
 
 
 
