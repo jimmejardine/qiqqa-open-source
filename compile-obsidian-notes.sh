@@ -1,7 +1,6 @@
 #! /bin/bash
 
-pushd $( dirname $0 )  2&> /dev/null
-
+pushd $( dirname $0 )  
 
 echo "Cleaning docs-gen/Notes/ output directory tree..."
 rm -rf ./docs-gen/Notes/

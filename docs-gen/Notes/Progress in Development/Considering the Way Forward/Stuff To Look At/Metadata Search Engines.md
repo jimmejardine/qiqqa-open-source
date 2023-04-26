@@ -2892,12 +2892,28 @@ https://github.com/NANCYVALDEBENITO/articles_scopus_wos
 
 ## NationalLimerickProductions/seq2cite: seq2cite is a citation recommendation engine that improves upon the word of Ebisu & Fang (2017) (https://dl.acm.org/doi/abs/10.1145/3077136.3080730) to recommend citations from small pieces of scientific text. We demonstrate our system with the CORD-19 dataset of articles related to COVID-19.
 
-https://github.com/NationalLimerickProductions/seq2cite
+* https://github.com/NationalLimerickProductions/seq2cite
+
+## Side Notes
+
+When papers are *retracted*, they are removed from the sites that publish them. Checking out the bullshit is made much harder that way, regrettably. I strongly disagree with the *removal* of the publication; it should merely be marked / watermarked as RETRACTED instead, similar to old Internet RFCs that have been superseded by newer RFCs: DO NOT HIDE what made it through your channel in the first place.  
+Just one example: https://pubmed.ncbi.nlm.nih.gov/32668870/ 
 
 # Other/Specialized Search Engines
 
 * https://researchr.org/ :: Researchr is a platform for finding, collecting, sharing, and reviewing scientific publications, for researchers by researchers.
 * https://www.scinapse.io/ :: Academic Search Engine. We’re better than Google Scholar. We mean it.
+* https://library.oapen.org/
+* https://www.theverge.com/2018/2/8/16985666/alexandra-elbakyan-sci-hub-open-access-science-papers-lawsuit
+* --> https://sci-hub.se/ + https://sci-hub.ru/
+* https://oapen.org/
+* https://retractionwatch.com/
+* https://executablebooks.org/en/latest/gallery/ + https://executablebooks.org/en/latest/
+* https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html
+* https://www.bibsonomy.org/ - The blue social bookmark and publication sharing system: BibSonomy helps you to manage your publications and bookmarks, to collaborate with your colleagues and to find new interesting material for your research.
+* https://typeset.io/
+* https://synapse.koreamed.org/advanced/
+* 
 
 ---
 
