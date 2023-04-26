@@ -29,17 +29,17 @@ To quote the relevant part (at least it was very relevant to me; marked emphasis
 >
 > There is a specific workload which occurs only on many core servers: Spinlocks are locks which try to burn some CPU on all cores before all spinning (= trading CPU for decreased latency) threads enter the expensive OS lock. The usual implementation of a Spinlock uses several stages:
 >
-> 1.  Check if lock can be acquired
-> 2.  If not
- >   
- >     -   For(i..n)
->          -   Burn some CPU cycles by calling [`pause`](https://aloiskraus.wordpress.com/2018/06/16/why-skylakex-cpus-are-sometimes-50-slower-how-intel-has-broken-existing-code/) instruction in a second loop
->          -   Check if lock can be acquired and exit loop
->          -   Call `Sleep(0)` to give another thread to do some useful work
->          -   Check if lock can be acquired and exit loop
+> 1. Check if lock can be acquired
+> 2. If not
+>   
+>    - For(i..n)
+>      - Burn some CPU cycles by calling [`pause`](https://aloiskraus.wordpress.com/2018/06/16/why-skylakex-cpus-are-sometimes-50-slower-how-intel-has-broken-existing-code/) instruction in a second loop
+>      - Check if lock can be acquired and exit loop
+>      - Call `Sleep(0)` to give another thread to do some useful work
+>      - Check if lock can be acquired and exit loop
 >    
->      -   Enter OS lock
->  3.  Lock is acquired
+>    - Enter OS lock
+> 3. Lock is acquired
 >
 > **Some high performance threading libraries like the Intel OpenMP library use excessive amounts of CPU spinning for up to 200 ms to almost never take a lock to get, at insane power consumption costs, a few microseconds of faster algorithm execution.** This means if you let one empty task run every 200 ms you will get this CPU graph when using the Intel OpenMP library:
 >
