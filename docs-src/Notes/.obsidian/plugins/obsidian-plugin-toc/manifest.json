@@ -1,0 +1,10 @@
+{
+  "id": "obsidian-plugin-toc",
+  "name": "Table of Contents",
+  "author": "Andrew Lisowski",
+  "authorUrl": "https://twitter.com/hipstersmoothie",
+  "description": "Create a table of contents for a note.",
+  "isDesktopOnly": false,
+  "minAppVersion": "0.10.12",
+  "version": "0.1.4"
+}
