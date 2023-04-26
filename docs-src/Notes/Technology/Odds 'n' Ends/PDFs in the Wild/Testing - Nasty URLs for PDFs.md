@@ -154,10 +154,22 @@
 ```
 
 - https://www.dizinot.com/upload/files/2016/12/AOS-AO4606.pdf : this one at least dumps the raw PDF binary content to screen in any browser due to incorrect(?) mimetype setup server-side. Only produces the PDF when done via "save as" popup menu entry in your web browser. Hence we can expect trouble when downloading this one using other tools, such as `curl`.
+- https://www.pnas.org/doi/epdf/10.1073/pnas.1708279115 : linux firefox requires popups to be enabled for the PDF to be downloaded.
+- https://opengrey.eu/
 - 
 
 
 ## HTML pages with problems
 
 * [Irreducible and Aperiodic Markov Chains (uni-ulm.de)](https://www.mathematik.uni-ulm.de/stochastik/lehre/ss06/markov/skript_engl/node12.html) -- expired certificate gets you blocked
-* 
+
+
+## Download / fetch weirdnesses & miscellaneous oddities
+
+- https://epubs.siam.org/doi/epdf/10.1137/1.9781611976472.5
+
+  Linux/firefox b0rks on this one with 'popup blocked' warning. However, the 'popup' is what will allow you to get the PDF, so you'll have allow popups for the given siam.org website.
+- Academia.com of course is a nuisance as it always wants you to log in with either google or facebook: one big tracking hazard.
+- 
+
+
