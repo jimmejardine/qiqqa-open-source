@@ -2,19 +2,19 @@
 
 Presently (and in the future) Qiqqa identifies any document using a hash-based UUID. Up to now this is a SHA1B content-based hash; a new BLAKE3 content-based hash has been selected to replace this flawed UUID everywhere. 
 
-Where needed/applicable, the 256bit BLAKE3 hash will be encoded to *string* using a custom BASE58X-based encoding scheme, producing a *string* key length of 44 ASCII characters, all in the regular alphanumeric range, hence easy to parse and process in any system, including SQL databases.
+Where needed/applicable, the 256 bit BLAKE3 hash will be encoded to *string* using a custom BASE58X-based encoding scheme, producing a *string* key length of 44 ASCII characters, all in the regular alphanumeric range, hence easy to parse and process in any system, including SQL databases.
 
 We use SQLite, which can handle binary numeric data up to 64 bits, but, like almost all other SQL databases out there, it cannot process larger binary numeric values *directly* for *primary key* columns, hence the *string* variant should be used instead. This is what is currently done in Qiqqa, which stores all document-related records in a single table, keyed by the string-typed SHA1B UID.
 
 ## How important is key *size*, really?
 
-Currently, all records use the SHA1B *string*-typed UID, which is variable length, but basically a hexdumped SHA1 at 160bits, thus $160/8 \times 2 = 40 \text{ characters}$ wide, thanks to its hex encoding. 
+Currently, all records use the SHA1B *string*-typed UID, which is variable length, but basically a hexdumped SHA1 at 160 bits, thus $160/8 \times 2 = 40 \text{ characters}$ wide, thanks to its hex encoding. 
 
 > See also [[Fingerprinting - moving forward and away from b0rked SHA1]].
 
 With the new BLAKE3+BASE58X-based scheme, that *string*-typed key would be a *fixed-sized* 44 characters wide. A 10% size increase.
 
-> Using the BLAKE3 hash directly is not possible in an SQL database, as it's a 256bit binary number. This takes up $256/8 = 32 \text{ bytes}$ in the machine, but SQL cannot 'talk' 32byte binary for key / indexing columns as those cannot be BLOBs.
+> Using the BLAKE3 hash directly is not possible in an SQL database, as it's a 256 bit binary number. This takes up $256/8 = 32 \text{ bytes}$ in the machine, but SQL cannot 'talk' 32 byte binary for key / indexing columns as those cannot be BLOBs.
 > 
 > *However, SQLite **can** use BLOBs as primary keys!* See these references:
 > - [Will I run into performance issues if I use a BLOB field as primary key in SQLite?](https://stackoverflow.com/questions/1562731/will-i-run-into-performance-issues-if-i-use-a-blob-field-as-primary-key-in-sqlit)

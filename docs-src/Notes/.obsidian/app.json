@@ -7,7 +7,7 @@
   "alwaysUpdateLinks": true,
   "newFileLocation": "current",
   "showUnsupportedFiles": true,
-  "attachmentFolderPath": "/assets/",
+  "attachmentFolderPath": "./",
   "promptDelete": false,
   "spellcheckDictionary": [
     "renderer",
@@ -130,5 +130,6 @@
     "dosbox"
   ],
   "legacyEditor": false,
-  "livePreview": true
+  "livePreview": true,
+  "newLinkFormat": "relative"
 }
