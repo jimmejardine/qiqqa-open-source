@@ -165,7 +165,7 @@ Both schemes are perfectly *sortable*, while only the latter *microseconds since
 
 All in all, it looks like a tie: when time differences are important and many in your application, then the *since epoch* scheme will be the preferred one, as a difference value will be two bit masking operations and a subtraction away, while Option A will take 7 subtractions and assorted multiplications and additions before you have your time distance value.
 
-Meanwhile, when fast conversion to and from dates and times in various text formats is your prime business, then the bitfields' based Option A will certainly be your preferred choice.
+Meanwhile, when fast conversion to and from dates and times in various text formats is your prime business, then the bit-fields' based Option A will certainly be your preferred choice.
 
 
 ## Conclusion: Option A is the preferred design for Qiqqa

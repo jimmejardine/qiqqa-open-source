@@ -1,4 +1,4 @@
-# Syncing, zsync style
+# Syncing, `zsync` style
 
 I've looked at a lot of stuff, including `rsync` & `unison`. All the *smart stuff* requires dedicated software running at both sides of the fence. I don't want that: the cheapest 'cloud storage' solutions are plain file and/or static web page access only:
 

@@ -1,4 +1,4 @@
-# curl :: commandline and notes
+# curl :: command-line and notes
 
 ## Fetch a PDF from a website
 
@@ -43,7 +43,7 @@ See [Does curl have a timeout? - Unix & Linux Stack Exchange](https://unix.stack
 
 > **Note**: Also check these for more PDF download/fetching woes:
 >
-> - [[PDF cannot be Saved.As in browser (Microsoft Edge)]]
+> - [[PDF cannot be Saved.As in browser (Microsoft Edge)|PDF cannot be 'Saved As' in browser (Microsoft Edge)]]
 > - [[Testing - Nasty URLs for PDFs]]
 > - [[Testing - PDF URLs with problems]]
 > 
@@ -158,6 +158,6 @@ It would also help a lot if the URL that produced the PDF is kept *with the PDF*
 
 [^1]: trouble with Windows ADS is two-fold:
    1. it's non-portable. It may serve as a metadata *source* where we can extract the download URL for a given document file when there's Zone 3 metadata stored in its ADS, but that's about the size of it when it comes to *usefulness*.
-   2. Many tools don't copy the ADS info with the file when it's moved, e.g. when using `robocopy` or other Windows commandline tools. It also looks like third-party file managers (e.g. the nice XYplorer) generally don't care much about ADS either, so the metadata attached that way is easily lost. Same goes for files which are bundled into a ZIP or other archive file and then extracted: the ADS info will be lost.
+   2. Many tools don't copy the ADS info with the file when it's moved, e.g. when using `robocopy` or other Windows command-line tools. It also looks like third-party file managers (e.g. the nice XYplorer) generally don't care much about ADS either, so the metadata attached that way is easily lost. Same goes for files which are bundled into a ZIP or other archive file and then extracted: the ADS info will be lost.
 
 

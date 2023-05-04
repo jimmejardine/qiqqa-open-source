@@ -14,9 +14,9 @@ Qiqqa also used an old patched[^patched] version of `pdfdraw` (v1.1.4) in the Qi
 
 ## The goal / what'ld be ideal
 
-- Use a single PDF renderer / text extractor, so that *when* a PDF is accepted, both will "interpret" the PDF the same way: the renderer producing page images while the text extractor part will produce hOCR or similar text+coordinates data from those pages: when both outputs are produced by a single toolchain then my **assumption / expectation** is that the hOCR words SHOULD be at the same spot as the image rendered pixels for them, even when we're processing a somewhat *odd* PDF.
+- Use a single PDF renderer / text extractor, so that *when* a PDF is accepted, both will "interpret" the PDF the same way: the renderer producing page images while the text extractor part will produce hOCR or similar text+coordinates data from those pages: when both outputs are produced by a single tool-chain then my **assumption / expectation** is that the hOCR words SHOULD be at the same spot as the image rendered pixels for them, even when we're processing a somewhat *odd* PDF.
 - No closed source libraries anywhere: if bugs aren't fixed quickly by a support team, they should at least be allowed to be analyzed in depth and for that you need **source code**. Too many very bad experiences with closed source for this fellow. 🤕
-- available in 32bit *and* 64bit with a C# interface so we can move Qiqqa into the 64-bit realm once we've got rid of the 32bit requirement thanks to antiquated XULrunner -- this should make life easier on modern boxes and when perusing (very) large libraries.
+- available in 32-bit *and* 64-bit with a C# interface so we can move Qiqqa into the 64-bit realm once we've got rid of the 32-bit requirement thanks to antiquated XULrunner -- this should make life easier on modern boxes and when perusing (very) large libraries.
 - very near or at Acrobat performance and PDF compatibility, i.e. SHOULD NOT b0rk on many PDFs, even evil ones.[^evilPDF]
 
 [^evilPDF]: In the end, the PDF renderer WILL be Internet facing -- even while only *indirectly*, but as PDFs are downloaded and then viewed=rendered and processed by Qiqqa, those PDFs are essentially straight off the Internet and consequently security / stability of the PDF processing code should be up for that level of (unintentional) abuse.

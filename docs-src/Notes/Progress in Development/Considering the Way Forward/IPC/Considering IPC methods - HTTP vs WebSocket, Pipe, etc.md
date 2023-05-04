@@ -6,17 +6,17 @@ But before we go there, let's backpedal a bit and look at the bigger picture of 
 
 ## Old Qiqqa
 
-'*Old Qiqqa*' is a near-monolithic application that way: it has a UI (which in WPF/.NET is served by a single thread by (Microsoft) design), *business logic*, a database (SQLite) and a FTS Engine (Full Text Search Engine) through Lucene.NET, all as *libraries* (Windows DLLs). Then there's a couple of commercial libraries used as well: Intragistics for parts of the UI and some PDF metadata (*page count* extraction) and (*now defunct*) SORAX for PDF page image rendering. All *communications* among these is via library function calls as usual so call overhead is cheap (the biggest costs there are data marshalling in various places and some thread context switching).
+'*Old Qiqqa*' is a near-monolithic application that way: it has a UI (which in WPF/.NET is served by a single thread by (Microsoft) design), *business logic*, a database (SQLite) and a FTS Engine (Full Text Search Engine) through Lucene.NET, all as *libraries* (Windows DLLs). Then there's a couple of commercial libraries used as well: Infragistics for parts of the UI and some PDF metadata (*page count* extraction) and (*now defunct*) SORAX for PDF page image rendering. All *communications* among these is via library function calls as usual so call overhead is cheap (the biggest costs there are data marshalling in various places and some thread context switching).
 
 '*Old Qiqqa*' also has a few external applications it uses for specific tasks: `QiqqaOCR.exe` is a C#/.NET application using SORAX and `tesseract.net` (a .NET wrapper for `tesseract` v3, the Open Source OCR engine) to help with PDF text extraction and PDF OCR, when the text layer is not present in the PDF. `QiqqaOCR.exe` also uses an old, patched, `pdfdraw` application from Artifex (MuPDF v1.11 or there-about) for the text extraction work itself, when no OCR is required. Qiqqa does this through this external application to improve overall user-facing application stability as these tools are/were quite finicky and brittle.
 
-v83 Qiqqa is still '*Old Qiqqa*' that way, but has been slowly moving all costly business logic out of the UI thread to improve UI responsiveness. A *synchronous* to *asynchronous* event handling transition in the application, which is generally cause for reams of bugs to surface -- as has happened to the various v83 experimental releases. It's never a nice story, but it had to happen as a prelude to transitioning Qiqqa to a '*New Qiqqa*': this phase showed various issues in the Qiqqa codebase that will also cause difficulties when we pull the monolith apart into several processing chunks.
+v83 Qiqqa is still '*Old Qiqqa*' that way, but has been slowly moving all costly business logic out of the UI thread to improve UI responsiveness. A *synchronous* to *asynchronous* event handling transition in the application, which is generally cause for reams of bugs to surface -- as has happened to the various v83 experimental releases. It's never a nice story, but it had to happen as a prelude to transitioning Qiqqa to a '*New Qiqqa*': this phase showed various issues in the Qiqqa code-base that will also cause difficulties when we pull the monolith apart into several processing chunks.
 
 ### Important Note
 
 While generally it is easy to invoke external applications on Windows via `execve()` et al (Windows **does not provide a `fork()` API of any kind!**), redirecting stdin/stdout/stderr is a little more involved and pretty important in our case:
 
-- `QiqqaOCR` spits out all kinds of logging info via stdout/stderr, which has to be filed in the logfiles using qiqqa's own log4net logging library. No problem so far.
+- `QiqqaOCR` spits out all kinds of logging info via stdout/stderr, which has to be filed in the log-files using qiqqa's own log4net logging library. No problem so far.
 - `QiqqaOCR` -- or another external application, e.g. bleeding edge MuPDF `mudraw` -- was initially designated as the tool to replace the SORAX render library: *external tool* instead of *library* so we don't have to hassle with marshalling *image data* across the native-to-.NET DLL boundary, *plus* we hoped it would allow us to run 64-bit modern applications as part of the Qiqqa 'back-end'. 
 
    This was considered a good first step as part of the *transitional phase* of Qiqqa from Old to New.
@@ -308,7 +308,8 @@ Flatbuffers/Protocolbuffers/Msgpack have been considered as well and deemed *too
    > -  **WebSockets** 
    >    The WebSocket protocol allows for constant, bi-directional communication between the server and client.
    >  
-   > \[...] 
+   > \[...\]
+   >  
    > ### Conclusion
    > 
    > In the current state of the web, short and long-polling have a much higher bandwidth cost than other options, but may be considered if supporting legacy browsers. Short-polling requires estimating an interval that suits an application’s requirements. Regardless of the estimation’s accuracy, there will be a higher cost due to continuously opening new requests. If using HTTP/1.1, this results in passing headers unnecessarily and potentially opening multiple TCP connections if parallel polls are open. Long-polling reduces these costs significantly by receiving one update per request.

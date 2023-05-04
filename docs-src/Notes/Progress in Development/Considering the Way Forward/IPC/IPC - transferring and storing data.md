@@ -21,9 +21,9 @@ What does that mean?
   
   Then there's yet another tool called `pdfdraw.exe` which is an *old* (v1.11 or there-abouts) mupdf tool which has been patched for Qiqqa's purposes to spit out *extracted text content* for a given PDF.
   
-  > Incidentally, "text extraction" is more like modern hCR output production: the eextracted text is a mix of both *text* and *in-page coordinates for each character/word* as Qiqqa needs the latter to properly *position* the text as a hidden overlay over the rendered PDF when the user is viewing/annotating/reviewing a PDF in Qiqqa: the coordinates are needed so Qiqqa can discover which bit of text you wish to work on when clicking and dragging your mouse over the page image, produced by the SORAX render library -- which simply spits out an image, no text coordinates or whatsoever: that stuff is not always present in a PDF and is the reason why we need to OCR many PDFs: to get at the actual *text* **and** the text *positions* throughout each page.
+  > Incidentally, "text extraction" is more like modern hOCR output production: the extracted text is a mix of both *text* and *in-page coordinates for each character/word* as Qiqqa needs the latter to properly *position* the text as a hidden overlay over the rendered PDF when the user is viewing/annotating/reviewing a PDF in Qiqqa: the coordinates are needed so Qiqqa can discover which bit of text you wish to work on when clicking and dragging your mouse over the page image, produced by the SORAX render library -- which simply spits out an image, no text coordinates or whatsoever: that stuff is not always present in a PDF and is the reason why we need to OCR many PDFs: to get at the actual *text* **and** the text *positions* throughout each page.
   > 
-  > Anyhoo... back to the subject matter:
+  > *Anyhoo*... back to the subject matter:
   
   The current `pdfdraw.exe -tt` text extraction run and/or QiqqaOCR will produce a set of *cache* files in the Qiqqa `/ocr/` directory tree, indexed by the PDF document Qiqqa fingerprint. (In SHA1B format: the "b0rked" SHA1 checksum. See elsewhere (link:XXXXXXXXXX) for info about this baby.)
   
@@ -244,6 +244,6 @@ The added cost is in the need to produce two *converter tools*: one for reading 
 
 
   
-    
+ 
 
 http://swig.org/Doc4.0/SWIGDocumentation.html#Introduction

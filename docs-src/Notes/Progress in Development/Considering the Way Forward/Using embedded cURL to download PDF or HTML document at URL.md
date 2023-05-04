@@ -6,4 +6,4 @@
 
 ## Caveats
 
-See also [[curl - commandline and notes]] for issues discovered when following this approach.
+See also [[../../Technology/Odds 'n' Ends/curl - command-line and notes]] for issues discovered when following this approach.

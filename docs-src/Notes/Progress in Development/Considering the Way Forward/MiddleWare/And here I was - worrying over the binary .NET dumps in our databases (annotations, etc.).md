@@ -18,7 +18,7 @@ Here ya go, Sunny Jim! No C/C++, but protocol documentation (and the hint somebo
 - **kaboom! 🎉**
 - https://docs.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide a.k.a. "Deserialization risks in use of `BinaryFormatter` and related types"
 - https://github.com/pwntester/ysoserial.net (heh!)
-- [# [MS-NRBF]: .NET Remoting: Binary Format Data Structure](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nrbf/75b9fe09-be15-475f-85b8-ae7b7558cfe5?redirectedfrom=MSDN) -- *paydirt!* This page carries all the format documentation as PDFs.
+- [# [MS-NRBF]: .NET Remoting: Binary Format Data Structure](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nrbf/75b9fe09-be15-475f-85b8-ae7b7558cfe5?redirectedfrom=MSDN) -- *pay-dirt!* This page carries all the format documentation as PDFs.
 - https://stackoverflow.com/questions/3052202/how-to-analyse-contents-of-binary-serialization-stream/30176566#30176566
 
 

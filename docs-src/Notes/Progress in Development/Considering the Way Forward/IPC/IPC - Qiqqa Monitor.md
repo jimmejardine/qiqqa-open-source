@@ -11,7 +11,7 @@ While we *could* choose to use a *server push* mechanism, we opt, instead, to us
 Initially, I had some qualms about this, as this implies we would add *requesting overhead* that way, but a **pull**-based approach is more flexible:
 
 - *server push* would either need a good timer server-side and a fast pace to ensure the client receives ample updates under all circumstances. Of course, this can be made *smarter*, but that would add development cost. (See also the next item: multiple clients)
-- *multiple clients* for the performance data is a consideration: why would we *not* open up this part of the Qiqqa data, when we intend to open up everything else to user-scripted and other kinds of direct external access to our components? **pull**-based performance data feeds would then automatically pace to each client's 'clock' without the need to complicate the server-side codebase.
+- *multiple clients* for the performance data is a consideration: why would we *not* open up this part of the Qiqqa data, when we intend to open up everything else to user-scripted and other kinds of direct external access to our components? **pull**-based performance data feeds would then automatically pace to each client's 'clock' without the need to complicate the server-side code-base.
 - *pace* must be *configured* for *server push* systems if you don't like the current data stream, while we don't have to do *anything* server-side when we go for **pull**-based data feeds: if the client desires a faster (or slower) pace, it can simply and *immediately* attain this by sending more (or fewer) *data requests*.
 
 ## Which data to track server-side

@@ -38,7 +38,7 @@ Before we dive in, there's one important question to ask:
 
 - The incoming **original PDF** is copied to the Qiqqa Library **document store**, which is located in the `<LibraryID>/documents/` directory tree.
 
-  The PDF **content** is hashed (using a [SHA1 derivative](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Utilities/Files/StreamFingerprint.cs#L14)) to produce a unique identifier for this particular PDF **content**. That hash is used throughout Qiqqa for indexing *and* is to *name* the cached version of the incoming PDF, using a simple yet effective distribution scheme to help NTFS/filesystem performance for large libraries: the first character of the hash is also used as a *subdirectory* name. 
+  The PDF **content** is hashed (using a [SHA1 derivative](https://github.com/jimmejardine/qiqqa-open-source/blob/0b015c923e965ba61e3f6b51218ca509fcd6cabb/Utilities/Files/StreamFingerprint.cs#L14)) to produce a unique identifier for this particular PDF **content**. That hash is used throughout Qiqqa for indexing *and* is to *name* the cached version of the incoming PDF, using a simple yet effective distribution scheme to help NTFS/file-system performance for large libraries: the first character of the hash is also used as a *subdirectory* name. 
   
   Example path for a PDF file stored in the `Guest` Qiqqa Library:
 
@@ -46,7 +46,7 @@ Before we dive in, there's one important question to ask:
     base/Guest/documents/D/DA7B8FDA82E6D7465ADC7590EEC0C914E955C5B8.pdf
   ```
 
-- The **extracted text** is saved in a Qiqqa-global store at `base/ocr/` using a similar filesystem performance scheme as for the PDF  file itself.
+- The **extracted text** is saved in a Qiqqa-global store at `base/ocr/` using a similar file-system performance scheme as for the PDF  file itself.
 
   
   Example paths for the OCR output cached for the same PDF file as shown above:

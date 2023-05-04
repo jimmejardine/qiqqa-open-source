@@ -8,7 +8,7 @@ TBD
 See also:
 - [[Using embedded cURL to obtain Metadata for a document]]
 - [[Using embedded cURL to download PDF or HTML document at URL]]
-- [[curl - commandline and notes]]
+- [[../../Technology/Odds 'n' Ends/curl - command-line and notes]]
 - [[Testing - PDF URLs with problems]]
 - [[Testing - Nasty URLs for PDFs]]
 - [[wxWidgets + CEF for UI - or should we go electron anyway⁈ ⇒ WebView2 et al]]

@@ -22,7 +22,7 @@ https://i.imgur.com/On83uvH.mp4
 ---
 
 
-(Hm, image drag&drop from website behaves wierd: file selector for local storage comes up, then MM seems to fail or lock up?!)
+(Hm, image drag&drop from website behaves weird: file selector for local storage comes up, then MM seems to fail or lock up?!)
 
 ---
 

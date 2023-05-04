@@ -1,8 +1,8 @@
-# Using *ngrams* ։։ folding N-grams and attributes into *trigrams* (for N ≧ 4)
+# Using *n-grams* ։։ folding N-grams and attributes into *trigrams* (for N ≧ 4)
 
 This idea was triggered after reading [The technology behind GitHub’s new code search | The GitHub Blog](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/). Quoting some relevant parts from there:
 
-> The ngram indices we use are especially interesting. While trigrams are a known sweet spot in the design space (as [Russ Cox and others](https://swtch.com/~rsc/regexp/regexp4.html) have noted: bigrams aren’t selective enough and quadgrams take up too much space), they cause some problems at our scale.
+> The n-gram indices we use are especially interesting. While trigrams are a known sweet spot in the design space (as [Russ Cox and others](https://swtch.com/~rsc/regexp/regexp4.html) have noted: bigrams aren’t selective enough and quadgrams take up too much space), they cause some problems at our scale.
 >
 > For common grams like `for` trigrams aren’t selective enough. We get way too many false positives and that means slow queries. An example of a false positive is something like finding a document that has each individual trigram, but not next to each other. You can’t tell until you fetch the content for that document and double check at which point you’ve done a lot of work that has to be discarded. We tried a number of strategies to fix this like adding follow masks, which use bitmasks for the character following the trigram (basically halfway to quad grams), but they saturate too quickly to be useful.
 >
@@ -27,7 +27,7 @@ This idea was triggered after reading [The technology behind GitHub’s new code
 >  [0,7] = "er "
 >  ```
 > 
-> Using those weights, we tokenize by selecting intervals where the inner weights are strictly smaller than the weights at the borders. The inclusive characters of that interval make up the ngram and we apply this algorithm recursively until its natural end at trigrams. At query time, we use the exact same algorithm, but keep only the covering ngrams, as the others are redundant.
+> Using those weights, we tokenize by selecting intervals where the inner weights are strictly smaller than the weights at the borders. The inclusive characters of that interval make up the n-gram and we apply this algorithm recursively until its natural end at trigrams. At query time, we use the exact same algorithm, but keep only the covering n-grams, as the others are redundant.
 
 While the weights shown in the quoted article's diagram don't make sense (at least the 0-weight I'ld have expected to be something like 4 or 5, or the sequence start with 9,3,6 instead of 9,6,3) the trigger for me was "*like adding follow masks, which use bitmasks for the character following the trigram (basically halfway to quad grams), but they saturate too quickly to be useful*": how about we *encode attributes* in a trigram, eh?
 
@@ -46,7 +46,7 @@ What would make more sense, at least to me, is using a weighting algo where you 
 Hence `"chester "`  (*note their inclusion of the trailing whitespace, but not a leading one -- we'll stick with that for now*) would then have 'midpoint' `"st"`  (thanks to that trailing whitespace being accounted for) and weights 2,1. 
 *Radiating out* this would give the weight sequence:  6,4,2,1,3,5,7.
 
-Okay, now redo this with word delimiters like I've seen described for regular human languages' word tokenizers: `"<chester>"`, where "<>" are arbitrarily chosen SOW (Start Of Word) and EOW (End Of Word) markers. Of course, when you intend to parse, index and search *program source code*, those "<>" would be a *particularly* bad choice as for *programming languages* those 'punctuation characters' are rather actual keywords themselves (*operators*), so you might want to pick something way off in the Unicode range where you are sure nobody will be bothering you by feeding you content that carries those actual delimiter codepoints you just picked as part of their incoming token stream.
+Okay, now redo this with word delimiters like I've seen described for regular human languages' word tokenizers: `"<chester>"`, where "<>" are arbitrarily chosen SOW (Start Of Word) and EOW (End Of Word) markers. Of course, when you intend to parse, index and search *program source code*, those "<>" would be a *particularly* bad choice as for *programming languages* those 'punctuation characters' are rather actual keywords themselves (*operators*), so you might want to pick something way off in the Unicode range where you are sure nobody will be bothering you by feeding you content that carries those actual delimiter code-points you just picked as part of their incoming token stream.
 
 So let's pick something cute for our example:   🙞  🙜 
 

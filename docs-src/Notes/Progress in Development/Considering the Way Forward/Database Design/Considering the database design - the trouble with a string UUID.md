@@ -24,10 +24,10 @@ With the new BLAKE3+BASE58X-based scheme, that *string*-typed key would be a *fi
 > - [Datatypes In SQLite](https://www.sqlite.org/datatype3.html)
 > 
 > Ergo: now that we have discovered that SQLite differs from our usual SQL databases in that it fully supports BLOBs as primary key field type, the question then gets raised: "**What's the use of BASE58X, after all? Won't `SELECT hex(blake3) FROM document_table` do very nicely for all involved, including future external use?**"
-> x
+> 
 > Erm... Good point. Further checks into the SQLite API show that I can feed those BLAKE3 hashes verbatim using query parameters and the appropriate APIs:
 > - [Binding Values To Prepared Statements](http://www.sqlite.org/c3ref/bind_blob.html) -> `sqlite3_bind_blob()` and `sqlite3_bind_blob64()` 
-> x
+> 
 > This would mean the only reason to employ BASE58X is to keep transmission costs low (storage being covered by this ability of SQLite to store BLOBs as primary keys), but does this weigh against using the default `hex()` encode already offered by SQLite? (`select hex(blake3) from ...` vs. custom function registration requiring `select base58x(blake3) from ...`)
 
 Given the note above, *not using any string encoding at all* is a viable option while we're using SQLite. This would mean our BLAKE3 hash can be used as a key of length $256/8 = 32$ bytes. Which is *even shorter* than the original (*string*-typed) SHA1B hash (at 40 characters long).

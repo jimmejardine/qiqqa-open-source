@@ -30,7 +30,7 @@ https://ui.adsabs.harvard.edu/ - an advanced example of SOLR in actual use. (The
 
 https://tantivy-search.github.io/bench/ - benchmark of pisa, tantivy and lucene. Interesting stuff and it teases me to have a look at those. Goes with this: [quickwit-oss/search-benchmark-game: Search engine benchmark (Tantivy, Lucene, PISA, ...) (github.com)](https://github.com/quickwit-oss/search-benchmark-game)
 
-[pisa-engine/pisa: PISA: Performant Indexes and Search for Academia (github.com)](https://github.com/pisa-engine/pisa) - C++ stuff.
+[pisa-engine/pisa: PISA: Performant Indexes and Search for Academia (github.com)](https://github.com/pisa-engine/pisa) - C++ stuff. (**Not an option, as the entire search index is supposed to fit in memory, according to their documentation.** *Pity.*)
 
 
 
