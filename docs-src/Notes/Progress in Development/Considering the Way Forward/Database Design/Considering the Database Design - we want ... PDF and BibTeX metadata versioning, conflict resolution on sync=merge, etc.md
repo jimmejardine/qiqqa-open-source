@@ -12,20 +12,20 @@ Here's a non-exhaustive list of Qiqqa deficiencies that I intend to tackle in du
   + removing obnoxious print protection, text copying ("clipboard") protection, etc.
   + removing useless banner pages (I'm looking at you, OnSemi! 😵)
   + OCR-ing the content and producing a PDF with text overlay for library use[^1]
-  + revising original content (either by yourself or by having an external source effectively doing so: thing ArXiv v1,v2,v3,... published PDF revisions for one way; you correcting OCR or render/typing errors in a PDF is another.[^2])
+  + revising original content (either by yourself or by having an external source effectively doing so: think ArXiv v1,v2,v3,... published PDF revisions for one way; you correcting OCR or render/typing errors in a PDF is another.[^2])
 
-[^1]: Qiqqa handled this by OCR-ing the original PDF and storing the OCR text output in separate cache directory. However, this only "works" if you do not intend to export or (post-)process that extracted text. When we also consider the wish to have the ability to export PDFs including user annotations for a user to edit at will in an *independent external package* and then possibly re-submit the augmented (thus *altered*) PDF, then this is highly inadequate. Hence the PDF-to-PDF process mentioned here: OCR results SHOULD be fed back into the PDF so it can be revised/corrected/cleaned-up/whatnot in subsequent passes by whatever means necessary.
+[^1]: Qiqqa handled this by OCR-ing the original PDF and storing the OCR text output in a separate cache directory. However, this only "works" if you do not intend to export or (post-)process that extracted text. When we also consider the wish to have the ability to export PDFs including user annotations for a user to edit at will in an *independent external package* and then possibly re-submit the augmented (thus *altered*) PDF, then this is highly inadequate. Hence the PDF-to-PDF process mentioned here: OCR results SHOULD be fed back into the PDF so it can be revised/corrected/cleaned-up/whatnot in subsequent passes by whatever means necessary.
 
 [^2]: Did I hear "*revision control system*" from the back row? Indeed, it looks like we're on the way to requiring yet another RCS, alas. As we intend to keep using SQLite, it'll probably [smell like `fossil`](https://www2.fossil-scm.org/home/doc/trunk/www/index.wiki) and now I wonder why we don't just take that one instead of spending the future effort to create our (limited & slightly different) own. 🤔
 
 * while Qiqqa has some functionality to discover *duplicates*, it does so solely by comparing *metadata*. Updating their metadata as a group (batch), picking a preferred copy, etc. are user actions which require some work-around activity, e.g. judicious use of *tags* to keep those discovered PDFs related to each other as a "group", making Qiqqa less than ideal for working with an unfiltered/raw PDF feed.
   What I am after is a rather more mixed bag of (*semi-*)duplication:
-  + multiple origins: I have downloaded PDFs multiple times in the past without noticing immediately; sometimes / often these PDFs have been minimally (or significantly! header pages!) altered by the different download sites, resulting in Qiqqa seeing binary-different content and thus marking those as independent PDF document in its library. Wouldn't it be great if we could make Qiqqa discover these "*almost, i.e. **highly probable** duplicates*" and help us by permanently marking them (following our explicit approval or tentative general go-ahead[^3])
+  + multiple origins: I have downloaded PDFs multiple times in the past without noticing immediately; sometimes / often these PDFs have been minimally (or significantly! header pages!) altered by the different download sites, resulting in Qiqqa seeing binary-different content and thus marking those as independent PDF documents in its library. Wouldn't it be great if we could make Qiqqa discover these "*almost, i.e. **highly probable** duplicates*" and help us by permanently marking them (following our explicit approval or tentative general go-ahead[^3])
   + processed copies. From the PDF processing list above: all of those will produce yet another binary-different PDF file, which SHOULD be related to the original PDF to ensure we'll be able to auto-propagate any metadata, etc., that hasn't yet been set up for the *derived copy*: that will save us a bundle in metadata maintenance as *derivatives* would thus be able to automatically pick up metadata from their parents. (🤔 Or should we percolate/inherit in the *other direction*: latest metadata inherits *downwards*, while only a total lack of metadata in the HEAD would suggest we assume any parent's data as a starting point.)
-  + annotated copies, ...: processed copies by another name. Would result from exporting a PDF+annotations, to be edited by external means and subsequently resubmitted into the library. Would be *great* if Qiqqa could detect such *near-duplicate* and add it accordingly.
+  + annotated copies, ...: processed copies by another name. Would result from exporting a PDF+annotations, to be edited by external means and subsequently resubmitted into the library. Would be *great* if Qiqqa could detect such a *near-duplicate* and add it accordingly.
 
   
-[^3]: when you are processing large libraries, you don't want to be bothered every second by yet another bunch of *probable-dupes*: you want that process to run and take as long as it takes while you do other work, **then** go in a review the result **afterwards**. Qiqqa already has this (though admittedly *hacky*) for BibTeX discovery through the Sniffer: `@comment{auto}`, but now we need this to be feature *throughout*. Plus that review-after-the-fact bit, necessitating a separate query, markers, and the report+edit UI for the user to tweak & okay the results.
+[^3]: when you are processing large libraries, you don't want to be bothered every second by yet another bunch of *probable-dupes*: you want that process to run and take as long as it takes while you do other work, **then** go in and review the result **afterwards**. Qiqqa already has this (though admittedly *hacky*) for BibTeX discovery through the Sniffer: `@comment{auto}`, but now we need this to be feature *throughout*. Plus that review-after-the-fact bit, necessitating a separate query, markers, and the report+edit UI for the user to tweak & okay the results.
 
 ---
 
@@ -59,7 +59,7 @@ For PDFs, there's several actions we wish to record:
 - selection (*deduplication*, i.e. user or automaton picking a "chosen one" from any arbitrary set of PDFs)
 - annotate (adding or editing PDF-embedded annotations)
 - revise (editing the PDF content)
-- *retract* (see also below; marking a paper a *retracted*, either in part or in whole, is a significant event. Retractions are a special kind of *revision*, where the publication might even be removed from the source site entirely.)
+- *retract* (see also below; marking a paper as *retracted*, either in part or in whole, is a significant event. Retractions are a special kind of *revision*, where the publication might even be removed from the source site entirely.)
 - ...
 
 Example *commit graph* for a single PDF:
@@ -92,7 +92,7 @@ strict digraph {
 As shown above, the **selection** commit signifies *deduplication* of some kind. We recognize these kinds *at least*:
 - reprint
 - alt. source (i.e. a second site where this content was made available for download, but MAY OR MAY NOT have been formatted slightly differently; at least enough for the PDFs to be binary different.)
-- bannered \[alt. source] (this particular duplicate has a banner and/or tail page added to it, without any worthwhile *new content*)
+- bannered \[alt. source\] (this particular duplicate has a banner and/or tail page added to it, without any worthwhile *new content*)
 - revision (think ArXiv v1,v2,v3,...)
 - *retraction* (though I think that should be a separate attribute / metadata commit as well, so you can query on retracted documents)
 
@@ -100,13 +100,14 @@ As shown above, the **selection** commit signifies *deduplication* of some kind.
 ### Metadata / BibTeX
 
 Here we expect to see the same sort of commit graph as for the PDFs. We feel, however, that metadata/BibTeX MAY benefit from being managed separately:
+
 - you may import multiple BibTeX/metadata sources for the same PDF. Cleaning and *selecting* them would be rather independent of PDF file change: shouldn't we use a different kind of commit record for such activity? (as the related PDF doesn't change a bit itself)
-- when you "*select*" metadata/BibTeX, chances are you're rather more *remixing*/**merging** the metadata than pure *selection* as we've seen for the PDF files -- where merging like that would be pretty hard to do.
+- when you "*select*" metadata/BibTeX, chances are you're rather more *remixing*/**merging** the metadata than doing pure *selection* as we've seen for the PDF files -- where merging like that would be pretty hard to do.
 
 When you import, mix & merge BibTeX/metadata like that, this activity is rather independent of the actual PDF file as the latter won't change a bit while all this happens.
 Either we then have two commit trees (one for the PDF sequence, one for the metadata work), or we have them combined into one, where a "*commit*" then would NOT imply there's changes made to the PDF any more[^5].
 
-[^5]: on retrospect it so happens that the "*selection/choice*" commit as shown in the PDF commit tree already is a *non-modifying commit* like that: it only picks one of the already existing PDF files. Thus it is arguably sensible/sane to include any *metadata edits* as additional commits in the PDF commit tree.
+[^5]: on retrospect it so happens that the "*selection/choice*" commit, as shown in the PDF commit tree already, is a *non-modifying commit* like that: it only picks one of the already existing PDF files. Thus it is arguably sensible/sane to include any *metadata edits* as additional commits in the PDF commit tree. (And every commit now does not come with its own PDF copy any more; a commit-file_instance relation that was already questionable given the PDF *selection* (*deduplication*) commit type as that one would simply mean we picked one of the incoming PDF variants, nothing more.)
 
 
 
@@ -133,7 +134,7 @@ A regular LINK table has two fields:
 1. parent / source
 2. child / destination
 
-We'll use the parent/child nomenclature, while we **do realize a DAG (directed a-cyclic graph) is not hierarchical** and it would thus bee more fitting to use source/destination. Sorry, my brain does parent/child for that as well, so parent/child it is.
+We'll use the parent/child nomenclature, while we **do realize a DAG (directed a-cyclic graph) is not hierarchical** and it would thus be more fitting to use source/destination. Sorry, my brain does parent/child for that as well, so parent/child it is.
 
 Now, for *performance*, we ask ourselves: can we write that arbitrary-depth/nested query as a single query, without crazy joins and whatnot?!
 
@@ -143,7 +144,7 @@ Yes, we can.
 
 ## Weak bonds vs. strong bonds
 
-Here's where we introduce the concept of *strong bonds* vs. *weak bonds*: *strong bonds* are those where we concern ourselves with action which is *particular to this PDF*, rather than *universal*/*group-oriented*. Examples of strong bonds from the commit types listed further above:
+Here's where we introduce the concept of *strong bonds* vs. *weak bonds*: *strong bonds* are those where we concern ourselves with any action which is *particular to this PDF*, rather than *universal*/*group-oriented*. Examples of strong bonds from the commit types listed further above:
 
 - PDF file import
 - deprotect PDF (security change)
@@ -154,7 +155,7 @@ Here's where we introduce the concept of *strong bonds* vs. *weak bonds*: *stron
 meanwhile various metadata edits are also *strong bonds* for the PDF concerned:
 - mark as: primary source / reprint / alt. source / bannered / revision / *retraction*
 - edit BibTeX / metadata
-* add source URL (i.e. specify more spots on the web or elsewhere where this PDF was / can be obtained; as links go "*stale*" pretty quickly on the net, we have another argument right there to NOT make difference between links that *were* a source and links that *are*. 
+* add source URL (i.e. specify more spots on the web or elsewhere where this (*exact same*) PDF was / can be obtained; as links go "*stale*" pretty quickly on the net, we have another argument right there to NOT make a difference between links that *were* a source and links that *are*. 
   Users MAY however desire to have a function to mark a given source as a *currently verified source* for a given PDF a la Wikipedia, where they mention something along the tune of "*last verified/downloaded at 2022/03/27 from URI*". This implies an extra source metadata attribute: `last_verified_on`.
 
 You get the drift: anything that's unique to a given PDF or transforms that PDF 1:1 to another *unique PDF* is a commit with a *strong bond*.
@@ -173,7 +174,7 @@ when we group/bundle PDFs to form a group of any kind:
 A corollary of this *weak bonds* idea is that:
 
 - Qiqqa libraries are now simply a **subset** of the main PDF repository: your libraries *pick* the PDF/commits they want and leave out the rest.
-  + Incidentally, this implies we need to mark such picked commit records as "*will auto-track HEAD, i.e. auto-update*" vs. "*MUST NOT update as we mean to reference this precise commit and do not desire to move forward*". This flagging should be done on a per-PDF/commit, per library basis. Default setting: auto-track. It would bee a specific library purpose requiring *not moving forward at any time*, e.g. a library representing the exact set of referenced publications (version an' all) for a publication/paper of your own: one library per paper for you.
+  + Incidentally, this implies we need to mark such picked commit records as "*will auto-track HEAD, i.e. auto-update*" vs. "*MUST NOT update as we mean to reference this precise commit and do not desire to move forward*". This flagging should be done on a per-PDF/commit, per library basis. Default setting: auto-track. It would be a specific library purpose requiring *not moving forward at any time*, e.g. a library representing the exact set of referenced publications (version an' all) for a publication/paper of your own: one library per paper for you.
 
 ### How does that pan out re Sync and *security*?
 
