@@ -69,11 +69,77 @@ and when we veer a little off from true duplicates that way, there's also:
 
 Now I hope some day we'll be able to identify most, if not all, of those "duplicates" and "other relations" automatically...
 
-Meanwhile, let's keep our fingerprint nicely unique and bemoan, yet accept/live with, the ways researchgate et al are thwarting our efforts (mostly *unintentionally*).
+Meanwhile, let's keep our fingerprint nicely unique and bemoan, yet accept/live with, the ways [researchgate](https://www.researchgate.net/) et al are thwarting our efforts (mostly *unintentionally*).
+
+
+> Please also note the remarks and considerations mentioned in [[../Full Text Search - Exit Lucene.NET, Enter SOLR/Detecting near-duplicate articles|Detecting near-duplicate articles]].
+
+
+----
+
+**\[Edit May 2023\]: 
+
+### Re SHA1B collisions:
+
+Anyway, SHA1 is known-broken (See https://shattered.io/), and real-world collision examples exist (for example two different PDFs which hash the same: https://shattered.io/)
+
+There's also https://github.com/corkami/collisions to consider, so I'ld say MD5 is definitely *out*. (See also: https://github.com/pauldreik/rdfind/issues/126)
 
 
 
+### Re "*nearly duplicates*" due to cover pages, reformatting, etc.
 
+We've seen various styles of *cover pages* come through our pipeline over the years:
+- OnSemi datasheets with fixed additional cover page preceding the datasheet pages or possibly an older cover page from a previous manufacturer company,
+- some Taiwanese universities plonking a kind of sign-off + title + author cover sheet in front of published material,
+- [ResearchGate](https://www.researchgate.net/) has their own title + author style cover page, with lots of white space,
+- some datasheet aggregation and electronic component (re)seller sites prefixing every document they deliver with an odd-format banner advertising their own services,
+- more or less fancy cover sheets for *PhD theses*, which are mandatory part of the original document (often including sign-off by the supporting faculty member, etc.)
+- ...
+
+
+
+#### Do not just use page *image* similarity but also consider *text similarity*:
+
+My original idea was to collect a few samples of these, print these un-helpful pages at low resolution (or scale them down) before feeding them into a visual recognition AI training program so we can detect such cover pages with *hopefully* reasonably high accuracy and act accordingly -- some of these contain useful metadata, so it isn't always only a clip-and-ditch effort we need.
+While this is still a workable idea IMO, I hadn't thought about a second/alternative approach: most of these cover pages carry text (readable with or without OCR effort) that's identical for all instances of a given cover sheet, so we also CAN check for *text similarities*, i.e. trawl our content database and check for recurring phrases and/or paragraphs of text in the initial pages to help detect cover pages with *possibly* high accuracy.
+
+
+
+#### Idea: FTS text search with additional custom n-grams?
+
+To assist with this endeavour, it MAY be handy to not only chop text into words and syllables for trigram/n-gram based FTS (Full Text Search), ut it MAY also be useful to produce additional n-grams representing entire *reams of text*, e.g. *lines* (as displayed) and/or *paragraphs*, i.e. one gram token per line and one gram token per detected paragraph of text. These are not supposed to load/complicate the FTS index very much as we're facing an incoming stream of word-level n-grams in the thousands per document: 
+- assuming, say, a paper of 12 pages, 60 lines per page and 10 words per line,
+- we're then looking at an in-flow of $12 \times 60 \times 10 = 7200$ words, so that's *at least* 7200 n-grams to feed into the index per document for regular FTS.
+- meanwhile, the same document will have $12 \times 60 = 720$ lines, so we'll be injecting an additional 10% of n-grams hashes for this,
+- while, assuming the average paragraph spanning 2.5 lines, we'll also be producing an additional $\frac {12 \times 60} {2.5} = 288$ paragraph n-grams with that: another 4% additional n-gram inflow into the FTS index.
+Hence a first rough estimate would grow the FTS index by ~15%, which would seem acceptable, right?
+
+Then, when we're hunting for phrases & paragraphs that might indicate being part of a cover page/sheet, we would run a query to find which line- and/or paragraph-level n-grams have a high occurrence rate... 🤔 pondering this hypothetical query, in order to prevent overwhelming noise output produced by high occurrence rates reported for  other n-gram types, e.g. n-grams that happen to represent stopwords or similar oft-used vocabulary, it becomes obvious that we either:
+- encode extra attributes with these n-grams to be able to *identify* them as line-level or paragraph-level, rather than regular word/syllable-level, or
+- store these n-grams in a separate FTS inverted index, so that we aren't bothered by other n-gram types polluting our "*who's occurring in a lot of documents?*" query results.
+
+I haven't tested this yet, but *gut feeling* says to set up a separate inverted index as these n-grams serve a particular purpose and I don't see them being useful or reused in conjunction with those regular FTS word-level n-grams...
+
+Now a cover sheet can be detected by having quite a few lines/paragraphs of text in common with several other documents; of course, sponsoring statements, etc. are common occurrences in the footer of first pages of many papers, so we'll have to research this and find a decent lower limit to discern between such phenomena vs. actual cover sheets, but it's a plan.
+
+When we also encode *position on the page* into those n-grams, or otherwise add this intel as attributes or some such, we can then add positional analysis & filtering to the reported set and thus add another dimension to cover sheet discovery. It doesn't have to be *very precise* -- in fact, we might benefit from a somewhat rough approach as not all cover page instances are positioned exactly alike -- so we might already benefit when we divide the page into $R \times C$ *sectors* and then encode the *start* and possibly also the *end* coordinate of a given line or paragraph-level n-gram in sectors: that way we will only get *very probable* candidates in the top-N query output.
+
+> Extra thought: it might be opportune to use the same approach for document similarity and/or *plagiaat* detection: a large set of shared n-gram hashes indicates some portion of the content is at least *potentially* identical...
+
+Which leaves the question: do we have a *fast* way to find the number of documents any n-gram shows up in? Does the FTS index also store a table/index such that we can:
+
+```
+SELECT *
+FROM FTS-ngram-counts
+WHERE document-count > 1
+ORDER BY document-count
+```
+
+or something along such lines?
+
+
+---------------
 
 
 ## References
@@ -84,6 +150,8 @@ Meanwhile, let's keep our fingerprint nicely unique and bemoan, yet accept/live 
 - https://en.wikipedia.org/wiki/Birthday_problem#Probability_table
 - https://stackoverflow.com/questions/62664761/probability-of-hash-collision
 - https://en.wikipedia.org/wiki/BLAKE_(hash_function)
+- https://shattered.io/
+- https://github.com/corkami/collisions
 
  
 
@@ -106,6 +174,8 @@ added two `mutool` utilities for Qiqqa:
 Base58 has the advantage of remaining a "selectable word" with nothing to get any interface medium's nickers in a twist either.
 
 Besides, consider the relative gains (we're looking at *stringified* hashes as we'll be storing these in databases as *unique record keys* and other non-BLOB-allowing fields and thus do string-comparison based lookups and duplicate checks via $\textit{fingerprint} \stackrel{?}{=} \textit{record.hash}$ string compare operations):
+
+
 
 #### String Encoding of a BLAKE3 full size hash: output size
 
