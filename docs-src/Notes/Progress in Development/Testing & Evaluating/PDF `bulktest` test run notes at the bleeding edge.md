@@ -44,4 +44,5 @@ This is a copy of the lump sum notes (logbook) of these test runs' *odd observat
 - [[notes 014-of-N]]
 - [[notes 015-of-N]]
 - [[notes 016-of-N]]
+- [[notes 017-of-N]] (vcopy, sqlite, sync, rclone, rsync, ...)
 - ...

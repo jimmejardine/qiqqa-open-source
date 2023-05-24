@@ -5,6 +5,8 @@
 > - [[../curl - command-line and notes|curl - command-line and notes]] (sections about *nasty PDFs*)
 > - [[PDF cannot be Saved.As in browser (Microsoft Edge)|PDF cannot be 'Saved As' in browser (Microsoft Edge)]]
 > - [[Testing - PDF URLs with problems]]
+> - [[MuPDF testing notes - particular PDFs]]
+> - [[../../../Progress in Development/Testing & Evaluating/PDF `bulktest` test run notes at the bleeding edge|PDF `bulktest` test run notes at the bleeding edge]]
 > 
  
 - http://dspace.bracu.ac.bd/xmlui/bitstream/handle/10361/7620/12201001%20&%2013101230_CSE.pdf?sequence=1
@@ -167,8 +169,6 @@
    - https://www.proceedings.aaai.org/Papers/ICML/2003/ICML03-011.pdf
    - https://www.proceedings.aaai.org/Papers/ICML/2003/ICML03-102.pdf
 
-* 
-
 
 
 
@@ -182,7 +182,10 @@
 - https://epubs.siam.org/doi/epdf/10.1137/1.9781611976472.5
 
   Linux/firefox b0rks on this one with 'popup blocked' warning. However, the 'popup' is what will allow you to get the PDF, so you'll have allow popups for the given siam.org website.
+
 - Academia.com of course is a nuisance as it always wants you to log in with either google or facebook: one big tracking hazard.
-- 
+
+* https://ietresearch.onlinelibrary.wiley.com/doi/epdf/10.1049/iet-epa.2016.0190 : Linux/Firefox report that it blocked popup(s) when you click on the download button in this page to get an actual copy of the PDF: you need to enable popups for the Wiley subdomain for the PDF file to be actually downloaded. See if we can circumvent this with cURL?
+
 
 

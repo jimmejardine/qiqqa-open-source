@@ -4,7 +4,7 @@
 
 ### Prerequisites: selected technologies
 
-- the core backend work (PDF rendering, text extraction, OCR, SQL metadata base processing) is done in C/C++. This uses:
+- the core back-end work (PDF rendering, text extraction, OCR, SQL metadata base processing) is done in C/C++. This uses:
 	- Artifex' mupdf (forked & augmented)
 	- Tesseract
 	- cURL
@@ -19,7 +19,7 @@
 	- libzlib
 	- crow (for the local webserver core)
 	- QuickJS, once we introduce [[scripting the OCR + text extraction process]] (faster and supporting modern JS idiom (ES2017), contrary to `mujs` which is ES5. CPython has been considered, but turned out to be a very rough animal to compile on Windows at least.)
-- the new UI frontend will be quite similar to a web browser, really. Due to special needs (Qiqqa Sniffer, mostly) and security reasons (*probably safe* library content vs. *probably un-safe* on-line browsing while you look for additional info, such as related publications and document metadata to import/scrape) we still will need a bit of a wrapper as we'll be housing **two** web viewer instances at least: one for *outside world accesses*, one for **local access**.
+- the new UI front-end will be quite similar to a web browser, really. Due to special needs (Qiqqa Sniffer, mostly) and security reasons (*probably safe* library content vs. *probably un-safe* on-line browsing while you look for additional info, such as related publications and document metadata to import/scrape) we still will need a bit of a wrapper as we'll be housing **two** web viewer instances at least: one for *outside world accesses*, one for **local access**.
 
    The UI (cross-platform) will be mostly web-technologies-based, so:
 	1. we don't have to worry about porting the intricacies of an **advanced, complex, UI** to multiple major platforms (Windows, Linux, Apple)
