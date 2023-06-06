@@ -108,7 +108,7 @@ While this is still a workable idea IMO, I hadn't thought about a second/alterna
 
 #### Idea: FTS text search with additional custom n-grams?
 
-To assist with this endeavour, it MAY be handy to not only chop text into words and syllables for trigram/n-gram based FTS (Full Text Search), ut it MAY also be useful to produce additional n-grams representing entire *reams of text*, e.g. *lines* (as displayed) and/or *paragraphs*, i.e. one gram token per line and one gram token per detected paragraph of text. These are not supposed to load/complicate the FTS index very much as we're facing an incoming stream of word-level n-grams in the thousands per document: 
+To assist with this endeavour, it MAY be handy to not only chop text into words and syllables for trigram/n-gram based FTS (Full Text Search), but it MAY also be useful to produce additional n-grams representing entire *reams of text*, e.g. *lines* (as displayed) and/or *paragraphs*, i.e. one gram token per line and one gram token per detected paragraph of text. These are not supposed to load/complicate the FTS index very much as we're facing an incoming stream of word-level n-grams in the thousands per document: 
 - assuming, say, a paper of 12 pages, 60 lines per page and 10 words per line,
 - we're then looking at an in-flow of $12 \times 60 \times 10 = 7200$ words, so that's *at least* 7200 n-grams to feed into the index per document for regular FTS.
 - meanwhile, the same document will have $12 \times 60 = 720$ lines, so we'll be injecting an additional 10% of n-grams hashes for this,

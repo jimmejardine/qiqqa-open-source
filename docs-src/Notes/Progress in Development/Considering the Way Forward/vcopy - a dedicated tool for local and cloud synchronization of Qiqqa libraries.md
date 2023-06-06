@@ -1,4 +1,4 @@
-# `vcopy`: a dedicated tool for local and cloud synchronization of Qiqqa libraries
+	# `vcopy`: a dedicated tool for local and cloud synchronization of Qiqqa libraries
 
 Multiple issues have been identified around the problems of failing Qiqqa Sync actions onto the lowest common denominator of Cloud storage: DropBox, GoogleDrive, OneDrive, et al.
 
@@ -56,7 +56,7 @@ We already had that same consideration a while back when it came to PDF processi
 
 We're still a little unclear about the better path to take: either a big monolith that does it all, as fast and best as possible, with the increased risk of some *über-nasty* PDF or other document file type being processed causing the entire monolith to barf a hairball and *terminate*, OR accept that we'll be transferring a lot of data to & from the a rather lithe database server, that's much more stable as it communicates with other *processes* through named pipes or similar high efficiency, large transfer rate, message-based intra-machine communication means, while a *monitor* keeps tabs on everybody and restarts (previously terminated or *crashed* processes **on demand**) -- I still leaning towards the latter from the perspective of *durability* of the components, but it *will* degrade the *lump sum* performance, particularly on lesser hardware...
 
-In the latter design approach, `vcopy` would be one such a separate *process* with the in-built ability to talk to the Qiqqa database server and/or other relevant Qiqqa *processes*. In that case the question is: do we use ZeroMQ or do we ride another horse to victory?
+In the latter design approach, `vcopy` would be one such a separate *process* with the in-built ability to talk to the Qiqqa database server and/or other relevant Qiqqa *processes*. In that case the question is: do we use [ZeroMQ](https://zeromq.org/) or do we ride another horse to victory?
 
 See also https://news.ycombinator.com/item?id=23259476:
 
@@ -66,7 +66,7 @@ See also https://news.ycombinator.com/item?id=23259476:
 
 You might find it interesting to note, that Peter Hintjens, was one of the core authors of the AMQP 0-9-1 Specification [1], that RabbitMQ is implementing.
 
-ZeroMQ was born out of a frustration with complex routing patterns and the need for a broker-less architecture for maximal performance message delivery.
+[ZeroMQ](https://zeromq.org/) was born out of a frustration with complex routing patterns and the need for a broker-less architecture for maximal performance message delivery.
 
 [1] [https://www.rabbitmq.com/resources/specs/amqp0-9-1.pdf](https://www.rabbitmq.com/resources/specs/amqp0-9-1.pdf)
 
@@ -74,31 +74,31 @@ ZeroMQ was born out of a frustration with complex routing patterns and the need 
 
 [+](https://news.ycombinator.com/vote?id=23268703&how=up&goto=item%3Fid%3D23259476) [jonathanoliver](https://news.ycombinator.com/user?id=jonathanoliver) [on May 22, 2020](https://news.ycombinator.com/item?id=23268703) 
 
-He and Martin Sustrik both created ZeroMQ. Then after that, they saw some of the limits of ZMQ and created nanomsg. It's excited to see what cool stuff they were working on. It's a little hard to see ZeroMQ become abandonware from them. That said, the community is solid and supportive around ZeroMQ which actually I would say is the best part. In other words, you can tell if a project has staying power when the original creator no longer has to be there to maintain it.
+He and Martin Sustrik both created [ZeroMQ](https://zeromq.org/). Then after that, they saw some of the limits of [ZeroMQ](https://zeromq.org/) and created [nanomsg](https://github.com/nanomsg/nanomsg). It's excited to see what cool stuff they were working on. It's a little hard to see [ZeroMQ](https://zeromq.org/) become abandonware from them. That said, the community is solid and supportive around [ZeroMQ](https://zeromq.org/) which actually I would say is the best part. In other words, you can tell if a project has staying power when the original creator no longer has to be there to maintain it.
 
 ---
 
 [+](https://news.ycombinator.com/vote?id=23259955&how=up&goto=item%3Fid%3D23259476) [jkarneges](https://news.ycombinator.com/user?id=jkarneges) [on May 21, 2020](https://news.ycombinator.com/item?id=23259955)
 
-If the ZeroMQ community seems quieter lately it's because things work well and there's not much left to do within the project's intentionally limited scope. [libzmq](https://github.com/zeromq/libzmq) is certainly maintained.
+If the [ZeroMQ](https://zeromq.org/) community seems quieter lately it's because things work well and there's not much left to do within the project's intentionally limited scope. [libzmq](https://github.com/zeromq/libzmq) is certainly maintained.
 
-Our company has been using ZeroMQ for over 8 years. We'll be putting out another ZeroMQ-based open source project soon too.
+Our company has been using [ZeroMQ](https://zeromq.org/) for over 8 years. We'll be putting out another ZeroMQ-based open source project soon too.
 
 ---
 
 [+](https://news.ycombinator.com/vote?id=23259765&how=up&goto=item%3Fid%3D23259476) [trevyn](https://news.ycombinator.com/user?id=trevyn) [on May 21, 2020](https://news.ycombinator.com/item?id=23259765)
 
-I think they’re slightly different solutions — ZeroMQ works without a broker, RabbitMQ requires a server process.
+I think they’re slightly different solutions — [ZeroMQ](https://zeromq.org/) works without a broker, RabbitMQ requires a server process.
 
-If you use the brokerless model, there was a bit of drama over ZeroMQ — the original technical developer (Martin Sustrik) left and created a successor, [nanomsg](https://github.com/nanomsg/nanomsg), with what he learned. At some point, Martin lost interest, and Garrett D’Amore took over maintenance and did a rewrite called [nng](https://github.com/nanomsg/nng). Both the old nanomsg and [nng](https://github.com/nanomsg/nng) are maintained, with nng being somewhat actively developed, but also fairly “complete”, so there’s not a lot of excitement like you see with some projects. ;) nanomsg and nng are essentially wire-compatible, so you can mix and match depending on bindings availability for your language.
+If you use the brokerless model, there was a bit of drama over [ZeroMQ](https://zeromq.org/) — the original technical developer (Martin Sustrik) left and created a successor, [nanomsg](https://github.com/nanomsg/nanomsg), with what he learned. At some point, Martin lost interest, and Garrett D’Amore took over maintenance and did a rewrite called [nng](https://github.com/nanomsg/nng). Both the old [nanomsg](https://github.com/nanomsg/nanomsg) and [nng](https://github.com/nanomsg/nng) are maintained, with [nng](https://github.com/nanomsg/nng) being somewhat actively developed, but also fairly “complete”, so there’s not a lot of excitement like you see with some projects. ;) [nanomsg](https://github.com/nanomsg/nanomsg) and [nng](https://github.com/nanomsg/nng) are essentially wire-compatible, so you can mix and match depending on bindings availability for your language.
 
 ---
 
 [+](https://news.ycombinator.com/vote?id=23261945&how=up&goto=item%3Fid%3D23259476) [dirtydroog](https://news.ycombinator.com/user?id=dirtydroog) [on May 21, 2020](https://news.ycombinator.com/item?id=23261945)
 
-Yes, my handwavy reading of the situation was that he left due to issues with zeromq that he couldn't/wasn't allowed to 'fix'. Then Peter Hintjens unfortunately died a few years back. I haven't heard about nng, so thanks for that, I'll check it out.
+Yes, my handwavy reading of the situation was that he left due to issues with [ZeroMQ](https://zeromq.org/) that he couldn't/wasn't allowed to 'fix'. Then Peter Hintjens unfortunately died a few years back. I haven't heard about [nng](https://github.com/nanomsg/nng), so thanks for that, I'll check it out.
 
-ZeroMQ certainly isn't perfect, for example there's no way to tell if a message was successfully written to a PUB socket, or if it was dropped (just one minor issue)
+[ZeroMQ](https://zeromq.org/) certainly isn't perfect, for example there's no way to tell if a message was successfully written to a PUB socket, or if it was dropped (just one minor issue)
 
 [https://stackoverflow.com/questions/13891682/detect-dropped-...](https://stackoverflow.com/questions/13891682/detect-dropped-messages-in-zeromq-queues)
 
