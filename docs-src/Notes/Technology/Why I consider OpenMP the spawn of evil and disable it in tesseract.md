@@ -25,7 +25,7 @@ To quote the relevant part (at least it was very relevant to me; marked emphasis
 
 > Below is a picture of total CPU consumption over a period of two minutes. Green is Idle (means CPU is free) and red is the CPU consumed by the Windows Sleep API call which needs ca. 60% for all cores for more than one minute. Why is sleeping consuming so much CPU?
 >
-> ![](./assets/kraus1.webp)
+> ![](../assets/kraus1.webp)
 >
 > There is a specific workload which occurs only on many core servers: Spinlocks are locks which try to burn some CPU on all cores before all spinning (= trading CPU for decreased latency) threads enter the expensive OS lock. The usual implementation of a Spinlock uses several stages:
 >
@@ -43,7 +43,7 @@ To quote the relevant part (at least it was very relevant to me; marked emphasis
 >
 > **Some high performance threading libraries like the Intel OpenMP library use excessive amounts of CPU spinning for up to 200 ms to almost never take a lock to get, at insane power consumption costs, a few microseconds of faster algorithm execution.** This means if you let one empty task run every 200 ms you will get this CPU graph when using the Intel OpenMP library:
 >
-> ![](./assets/kraus-cpu.webp)
+> ![](../assets/kraus-cpu.webp)
 >
 > Sure, your CPU looks super busy, but did you perform much useful work? Not at all. The Intel OpenMP library makes it look like you are doing heavy number crunching and you need a bigger processor to take that load.
 >

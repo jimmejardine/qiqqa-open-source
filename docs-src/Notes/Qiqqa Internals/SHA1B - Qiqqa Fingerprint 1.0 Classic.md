@@ -3,4 +3,4 @@
 See also:
 - [[Fingerprinting, Linking and Libraries]]
 - [[Fingerprinting - moving forward and away from b0rked SHA1]]
-- [[BLAKE3+BASE58X - Qiqqa Fingerprint 2.0]]
+- [[Progress in Development/Considering the Way Forward/BLAKE3+BASE58X - Qiqqa Fingerprint 2.0]]

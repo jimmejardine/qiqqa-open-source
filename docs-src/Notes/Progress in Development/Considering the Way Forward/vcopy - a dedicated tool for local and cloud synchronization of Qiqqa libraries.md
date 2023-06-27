@@ -44,7 +44,7 @@ We already had that same consideration a while back when it came to PDF processi
 - [[../../Technology/Odds 'n' Ends/Network Troubles, NAS and SQLite|Network Troubles, NAS and SQLite]]
 - [[Document OCR & Text Extraction/OCR text extract engine - thoughts on the new design|OCR text extract engine - thoughts on the new design]]
   - [[Document OCR & Text Extraction/OpenMP & tesseract - NSFQ (Not Suitable For Qiqqa)|OpenMP & tesseract - NSFQ (Not Suitable For Qiqqa)]]
-  - [[../../Why I consider OpenMP the spawn of evil and disable it in tesseract|Why I consider OpenMP the spawn of evil and disable it in tesseract]]
+  - [[../../Technology/Why I consider OpenMP the spawn of evil and disable it in tesseract|Why I consider OpenMP the spawn of evil and disable it in tesseract]]
 - [[Qiqqa library storage, database, DropBox (and frenemies), backups and backwards compatibility]]
 - [[General Design Choices/Simple - One process per programming language or should we divide it up further into subsystems|Simple - One process per programming language or should we divide it up further into subsystems]]
 - [[Stability & Security/Stability։ back end (local server components)|Stability։ back end (local server components)]]

@@ -68,7 +68,7 @@ If you want to build Qiqqa from scratch yourself and/or wish to participate in i
 - From the Build menu, pick "Rebuild all".
    + This will take *quite a while* as this will instruct Visual Studio to go and build all referenced projects (libraries, etc. used by Qiqqa) from scratch.
 - Select the `Qiqqa` project in the right-hand panel of Visual Studio, right-click and choose "Set as Active Project".
-- When you hit key \[F5] you should now be able to execute, debug and otherwise work with your own Qiqqa build.
+- When you hit key <key>F5</key> you should now be able to execute, debug and otherwise work with your own Qiqqa build.
 
 
 Read the [[Misc notes for developers]] and browse the repository for more information on the internals and operation of Qiqqa and the related tools.

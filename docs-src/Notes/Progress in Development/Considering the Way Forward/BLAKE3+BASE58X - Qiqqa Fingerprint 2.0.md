@@ -4,5 +4,5 @@
 
 See also:
 - [[Fingerprinting - moving forward and away from b0rked SHA1]]
-- [[SHA1B - Qiqqa Fingerprint 1.0 Classic]]
+- [[../../Qiqqa Internals/SHA1B - Qiqqa Fingerprint 1.0 Classic]]
 - [[Fingerprinting, Linking and Libraries]]

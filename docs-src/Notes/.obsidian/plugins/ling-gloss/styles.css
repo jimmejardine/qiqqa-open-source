@@ -1,0 +1,58 @@
+/* Error message appearance */
+
+.ling-gloss-error {
+    margin: 0.5em;
+    color: #FF4040;
+    font-style: italic;
+}
+
+.ling-gloss-error::before {
+    content: "❌ ";
+    font-style: normal;
+}
+
+/* Gloss element layout */
+
+.ling-gloss {
+    margin-left: 2em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
+.ling-gloss > div:not(:last-child) {
+    margin-bottom: 0.5em;
+}
+
+.ling-gloss-elements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em 1em;
+}
+
+/* Gloss element appearance */
+
+.ling-gloss-preamble {
+    font-weight: bold;
+}
+
+.ling-gloss-translation {
+    font-style: italic;
+}
+
+.ling-gloss-translation::before {
+    content: "“";
+}
+
+.ling-gloss-translation::after {
+    content: "”";
+}
+
+.ling-gloss-level-a {
+    font-style: italic;
+}
+
+/* Language-specific style overrides */
+
+.ling-gloss-level-a.ling-style-cjk {
+    font-style: unset;
+}
