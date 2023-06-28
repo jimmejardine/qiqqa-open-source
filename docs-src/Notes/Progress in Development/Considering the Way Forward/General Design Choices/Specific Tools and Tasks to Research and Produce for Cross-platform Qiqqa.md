@@ -60,8 +60,8 @@
 - Qiqqa Core Local Server
 	- [[General Design Choices/Anything PDF and SQLite happens on a local server|Anything PDF and SQL(SQLite) happens on a local server]]
 	- Qiqqa GUI Assist: PDF rendering
-		- [[Document perusal - viewing, reading, annotating, editing, bundling/PDF page image rendering for web frontend|PDF page image rendering for (web) frontend]]
-		- [[Document perusal - viewing, reading, annotating, editing, bundling/PDF rendering performance - caching at the local server|PDF page rendering performance: *smart caching* of documents and their rendered page bitmaps to save work during the session]]
+		- [[../Document perusal - viewing, reading, annotating, editing, bundling, UI/PDF page image rendering for web frontend|PDF page image rendering for (web) frontend]]
+		- [[../Document perusal - viewing, reading, annotating, editing, bundling, UI/PDF rendering performance - caching at the local server|PDF page rendering performance: *smart caching* of documents and their rendered page bitmaps to save work during the session]]
 	- PDF Automated (Bulk) Processing
 		- [[Document and Metadata Import-Export/Importing PDFs]]
 		- [[../Qiqqa Watch Folders/now done by the core backend|Qiqqa Watch Folders: now done by the core backend]]
