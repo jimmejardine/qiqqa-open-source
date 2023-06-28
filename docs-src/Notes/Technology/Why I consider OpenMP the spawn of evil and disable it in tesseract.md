@@ -53,7 +53,7 @@ To quote the relevant part (at least it was very relevant to me; marked emphasis
 Crazy indeed. 200 **milliseconds** for *spinlocks*... the only causes I can think of there are:
 1. ~~you don't know what you're doing.~~ (This is a library allegedly engineered by knowledgeable folks at Intel, who shed more multithreading/multiprocessing acumen in their toenail clippings than I expect to ever collect into my *brain*, so we scratch this one *with extreme prejudice*.)
 2. you are totally bonkers. (Always an option, that one... 😊 )
-3. you do vengeance like a Queen and don't give a hoot about "*alleged collateral*". *[[Apres nous le deluge - attribution|Après nous le déluge]].* (Makes me wonder who the intended target of your rectal massage with that cactus stub is. 🤔)
+3. you do vengeance like a Queen and don't give a hoot about "*alleged collateral*". *[[../Aside/Apres nous le deluge - attribution|Après nous le déluge]].* (Makes me wonder who the intended target of your rectal massage with that cactus stub is. 🤔)
 4. you are zealously ambitious and just *have to have* that number one spot in the benchmarks, *coûte que coûte*. Regular usage be damned!
 5. ... 🤷 all out of viable alternative explanations here 🤷 ...
 

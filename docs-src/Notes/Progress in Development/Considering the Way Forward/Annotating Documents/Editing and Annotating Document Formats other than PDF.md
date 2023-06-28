@@ -1,6 +1,6 @@
 # Editing and Annotating Document Formats other than PDF
 
-For PDF we have FoxIt, SumatraPDF, etc. See also [[Using an external PDF viewer, annotator & editor]].
+For PDF we have FoxIt, SumatraPDF, etc. See also [[../General Design Choices/Using an external PDF viewer, annotator & editor]].
 
 However, we've noted elsewhere that we want/need to support a few more base formats at least:
 

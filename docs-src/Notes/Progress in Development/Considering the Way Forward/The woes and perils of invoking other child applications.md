@@ -114,7 +114,7 @@ Turns out 32-bit vs. 64-bit is also relevant: https://stackoverflow.com/question
 Ran into this while testing the subprocess C++ library and trying to find out what was going wrong with the search PATH. :-(((   Turns out the `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\...` registry keys are largely hidden ("*sandboxed*") for 32bit API callers when the applications listed there are 64bit themselves. *Dang!* :bomb:
 
 This is probably related to the fact that you can't invoke/start a 64bit application from a 32bit one: 
-see also [[The Transitional Period#Tackling the transition from 32bit to 64bit]].
+see also [[General Design Choices/The Transitional Period#Tackling the transition from 32bit to 64bit]].
 
 
 

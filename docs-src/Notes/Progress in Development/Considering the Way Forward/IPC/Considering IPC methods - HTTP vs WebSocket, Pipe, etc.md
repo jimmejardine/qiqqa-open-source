@@ -223,7 +223,7 @@ Hm... which makes this the 5th component.
 
 1=UI, 2=C/C++ core (DB, PDF, OCR, tough work), 3=SOLR, 4=remaining C#/.NET middleware.
 
-See also [[The Transitional Period#Tackling the transition from 32bit to 64bit]].
+See also [[../General Design Choices/The Transitional Period#Tackling the transition from 32bit to 64bit]].
 
 
 

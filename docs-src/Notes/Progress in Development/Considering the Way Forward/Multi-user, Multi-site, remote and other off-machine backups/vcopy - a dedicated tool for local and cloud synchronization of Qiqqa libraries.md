@@ -12,7 +12,7 @@ And then there's a potential third group, which likes to use PDFs as the carrier
 
 `vcopy` is primary geared towards ensuring we can copy a local file set safely onto one of the mentioned Cloud Storage service providers, without breaking/damaging the file content and/or confusing the Cloud Storage synchronization applications.
 
-For that reason, `vcopy` will *sanitize* outgoing filenames & paths, as there are plenty pitfalls when it comes to producing cross-platform safe filenames: see also [[../../Technology/Odds 'n' Ends/Filesystems - caveat emptor - and then I thought NTFS was a little nasty|Filesystems - caveat emptor - and then I thought NTFS was a little nasty]].
+For that reason, `vcopy` will *sanitize* outgoing filenames & paths, as there are plenty pitfalls when it comes to producing cross-platform safe filenames: see also [[../../../Technology/Odds 'n' Ends/Filesystems - caveat emptor - and then I thought NTFS was a little nasty|Filesystems - caveat emptor - and then I thought NTFS was a little nasty]].
 As such, `vopy` thus also will have at least one of the mandatory functionalities to help produce sane & usable local *library exports* as those also need *sanitized filenames*.
 
 
@@ -29,7 +29,7 @@ At least we know we'll have to restrict the Document Title To FileName mapping t
 
 As we wish to keep SQLite access restricted to a single process, we either will be duplicating a lot of DB communications inter-process, or we *integrate* this tool into our *core server*, which accesses and manages that SQLite database for us, thus *bloating* the *core server application*.
 We already had that same consideration a while back when it came to PDF processing (including complex OCR work and/or potentially dangerous PDF I/O due to security 0-days be attached by the *arbitrary* PDF documents we'll be loading into our libraries); see:
-- [[../../The Qiqqa Sniffer UI/Design Goals (Intent) & UX - The Good, The Bad and|Design Goals (Intent) & UX - The Good, The Bad and]]
+- [[../The Qiqqa Sniffer UI/Design Goals (Intent) & UX - The Good, The Bad and|Design Goals (Intent) & UX - The Good, The Bad and]]
 - [[IPC/Considering IPC methods - HTTP vs WebSocket, Pipe, etc|Considering IPC methods - HTTP vs WebSocket, Pipe, etc]]
 - [[Database Design/Considering the Database Design - we want ... PDF and BibTeX metadata versioning, conflict resolution on sync=merge, etc|Considering the Database Design - we want ... PDF and BibTeX metadata versioning, conflict resolution on sync=merge, etc]]
 - [[IPC/IPC - Qiqqa Monitor|IPC - Qiqqa Monitor]]
@@ -38,13 +38,13 @@ We already had that same consideration a while back when it came to PDF processi
 - [[IPC/IPC - why do we use ZeroMQ|IPC - why do we use ZeroMQ]]
 - [[IPC/Multiprocessing and IPC|Multiprocessing and IPC]]
 - [[Multi-user, Multi-node, Sync-Across and Remote-Backup Considerations]]
-- [[../../Qiqqa Internals/Extracting the text from PDF documents|Extracting the text from PDF documents]]
+- [[../../../Qiqqa Internals/Extracting the text from PDF documents|Extracting the text from PDF documents]]
 - [[Annotating Documents/Extracting Annotations as Metadata|Extracting Annotations as Metadata]]
 - [[Stuff To Look At/Keyword Extraction, Topic Extraction|Keyword Extraction, Topic Extraction]]
-- [[../../Technology/Odds 'n' Ends/Network Troubles, NAS and SQLite|Network Troubles, NAS and SQLite]]
+- [[../../../Technology/Odds 'n' Ends/Network Troubles, NAS and SQLite|Network Troubles, NAS and SQLite]]
 - [[Document OCR & Text Extraction/OCR text extract engine - thoughts on the new design|OCR text extract engine - thoughts on the new design]]
   - [[Document OCR & Text Extraction/OpenMP & tesseract - NSFQ (Not Suitable For Qiqqa)|OpenMP & tesseract - NSFQ (Not Suitable For Qiqqa)]]
-  - [[../../Technology/Why I consider OpenMP the spawn of evil and disable it in tesseract|Why I consider OpenMP the spawn of evil and disable it in tesseract]]
+  - [[../../../Technology/Why I consider OpenMP the spawn of evil and disable it in tesseract|Why I consider OpenMP the spawn of evil and disable it in tesseract]]
 - [[Qiqqa library storage, database, DropBox (and frenemies), backups and backwards compatibility]]
 - [[General Design Choices/Simple - One process per programming language or should we divide it up further into subsystems|Simple - One process per programming language or should we divide it up further into subsystems]]
 - [[Stability & Security/Stability։ back end (local server components)|Stability։ back end (local server components)]]
