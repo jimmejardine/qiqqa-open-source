@@ -72,9 +72,9 @@
 		- [[Document and Metadata Import-Export/Importing PDF Revisions|Importing PDF Revisions (Externally Edited and Resubmitted into Qiqqa)]]
 		- [[../Processing other document types/HTML|Processing other document types: HTML]]
 	- Text Extraction
-		- [[../../Text Extraction/Processing regular PDFs|Text Extraction: processing regular PDFs]]
-		- [[../../Text Extraction/Processing obnoxious PDFs (forced) OCR|Text Extraction: processing obnoxious PDFs, i.e. (forced) OCR via tesseract]]
-		- [[../../Text Extraction/Cleaning Up the Extracted Content|Text Extraction: Cleaning Up the Extracted Content]]
+		- [[../Document OCR & Text Extraction/Processing regular PDFs|Text Extraction: processing regular PDFs]]
+		- [[../Document OCR & Text Extraction/Processing obnoxious PDFs (forced) OCR|Text Extraction: processing obnoxious PDFs, i.e. (forced) OCR via tesseract]]
+		- [[../Document OCR & Text Extraction/Cleaning Up the Extracted Content|Text Extraction: Cleaning Up the Extracted Content]]
 	- Metadata Extraction
 		- [[../Metadata Extraction/Obtaining Author, Title, DOI, etc|Metadata Extraction: Obtaining Author, Title, DOI, etc. from the PDF XMP Data]]
 		- [[../Metadata Extraction/Inferring Author, Title, DOI, etc from Content|Metadata Extraction: *Infering* Author, Title, DOI, etc. from the PDF Text Content]]
