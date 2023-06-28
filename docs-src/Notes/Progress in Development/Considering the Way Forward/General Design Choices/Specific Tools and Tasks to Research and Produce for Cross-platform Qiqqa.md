@@ -76,8 +76,8 @@
 		- [[../../Text Extraction/Processing obnoxious PDFs (forced) OCR|Text Extraction: processing obnoxious PDFs, i.e. (forced) OCR via tesseract]]
 		- [[../../Text Extraction/Cleaning Up the Extracted Content|Text Extraction: Cleaning Up the Extracted Content]]
 	- Metadata Extraction
-		- [[Metadata Extraction/Obtaining Author, Title, DOI, etc|Metadata Extraction: Obtaining Author, Title, DOI, etc. from the PDF XMP Data]]
-		- [[Inferring Author, Title, DOI, etc from Content|Metadata Extraction: *Infering* Author, Title, DOI, etc. from the PDF Text Content]]
+		- [[../Metadata Extraction/Obtaining Author, Title, DOI, etc|Metadata Extraction: Obtaining Author, Title, DOI, etc. from the PDF XMP Data]]
+		- [[../Metadata Extraction/Inferring Author, Title, DOI, etc from Content|Metadata Extraction: *Infering* Author, Title, DOI, etc. from the PDF Text Content]]
 	- Sniffer Assist: Downloading (PDF & HTML) Documents
 		- [[../Document Sniffing, Collecting from the Web/Using embedded cURL to download PDF or HTML document at URL]]
 		- [[../Document Sniffing, Collecting from the Web/Using embedded cURL to obtain Metadata for a document]]
