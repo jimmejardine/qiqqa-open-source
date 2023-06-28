@@ -122,4 +122,4 @@ Thus I get the feeling that we *might* be able to produce a very rough pre-filte
 
 ## Postscript 3
 
-Also note [[../Fingerprinting Documents/Fingerprinting - moving forward and away from b0rked SHA1|Fingerprinting - moving forward and away from b0rked SHA1]], section "*Re SHA1B collisions*" and onwards.
+Also note [[../../Fingerprinting Documents/Fingerprinting - moving forward and away from b0rked SHA1|Fingerprinting - moving forward and away from b0rked SHA1]], section "*Re SHA1B collisions*" and onwards.

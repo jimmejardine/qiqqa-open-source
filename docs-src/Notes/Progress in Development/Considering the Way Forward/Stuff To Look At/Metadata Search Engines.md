@@ -1,4 +1,4 @@
-# [[Links to Stuff To Look At|Stuff To Look At]]: Metadata Search Engines
+# [[../Links to Stuff To Look At|Stuff To Look At]]: Metadata Search Engines
 
 - [[#Google Scholar]]
 - [[#Microsoft Academic Search]]

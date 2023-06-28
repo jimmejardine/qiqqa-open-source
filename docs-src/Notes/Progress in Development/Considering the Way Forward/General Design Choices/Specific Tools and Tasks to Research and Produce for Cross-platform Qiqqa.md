@@ -90,9 +90,9 @@
 		- [[Document and Metadata Import-Export/Core - Exporting Metadata to XYZ|Exporting Metadata to {Fill In Application Name / File format}]]
 		- [[Document and Metadata Import-Export/Core - Importing Metadata from XYZ|Importing Metadata from {Fill in Application Name / File Format}]]
 - Qiqqa FTS (Full Text Search) Engine (~ Lucene/SOLR)
-	- [[Automatic Setup and Running of a local SOLR instance]]
-	- [[Feeding data and metadata to SOLR]]
-	- [[Making SOLR highlighting work for us|Making SOLR highlighting work for us :: feeding the results to the Qiqqa user]]
+	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Exit Lucene.NET, Enter SOLR/Automatic Setup and Running of a local SOLR instance]]
+	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Exit Lucene.NET, Enter SOLR/Feeding data and metadata to SOLR]]
+	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Exit Lucene.NET, Enter SOLR/Making SOLR highlighting work for us|Making SOLR highlighting work for us :: feeding the results to the Qiqqa user]]
 	- [[For Users/Example How To Use The SOLR Intance Without Qiqqa UI FrontEnd|For Users :: Example How To Use The SOLR Instance Without Qiqqa UI FrontEnd = scripting and using for your own custom purposes]]
 - Qiqqa Middleware (Sync, Import, Export?)
  

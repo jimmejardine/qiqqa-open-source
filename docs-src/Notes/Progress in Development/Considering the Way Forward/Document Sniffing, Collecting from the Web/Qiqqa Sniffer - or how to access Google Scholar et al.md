@@ -30,7 +30,7 @@ Then we *might* consider using a *absolutely minimal native UI* base application
 - one part for our own stuff, however rendered (using a CEF view if we want to do it in HTML/CSS rather than WPF)
 - a *second* part / half where the *independent* embedded browser resides, which mimics Chrome sufficiently for Scholar not to barf a hairball.
 
-**Or** there's the 'browser extension' idea a la Zotero et al, which popped up yesterday while I was working on [[Links to Stuff To Look At]] and the Google Scholar access frolics that abound on the 'Net: better to *steal* a nice set of rims than flintstone your own set of tires *sans road suspension*, right? ;-)
+**Or** there's the 'browser extension' idea a la Zotero et al, which popped up yesterday while I was working on [[../Links to Stuff To Look At]] and the Google Scholar access frolics that abound on the 'Net: better to *steal* a nice set of rims than flintstone your own set of tires *sans road suspension*, right? ;-)
 
 Such a browser extension would be suboptimal in another way: you wouldn't be able to look at the PDF / bibTeX part of your Sniffer UI unless we'd rebuild that in HTML/CSS *inside* the extension, so talking about having your work cut for you... Sounds like the HTML/CSS UI way isn't so dumb / over the top as I sometimes think it is when the hours are dark. :-/
 

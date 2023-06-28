@@ -50,7 +50,7 @@ We already had that same consideration a while back when it came to PDF processi
 - [[Stability & Security/Stability։ back end (local server components)|Stability։ back end (local server components)]]
 - [[Document OCR & Text Extraction/Tesseract aspects to keep in mind|Tesseract aspects to keep in mind]]
 - [[General Design Choices/Storing large (OCR) data in a database vs. in a directory tree - and which db storage lib to use then|Storing large (OCR) data in a database vs. in a directory tree - and which db storage lib to use then]]
-- [[The woes and perils of invoking other child applications]]
+- [[../../The woes and perils of invoking other child applications]]
 
 
 
