@@ -75,7 +75,7 @@ How about we do this: we keep those markers as *characters*/*graphemes*, i.e. `<
 > analyze which side needs extra work, *if any*, to ensure we can search for edge-of-word trigrams **and** these trigram positions in the original streams will cause a hit when/*if* suitable when the user-specified search query DOES NOT give us a solid edge-of-word marker, i.e.: *can these special trigram positions be a match (or part of a larger match) when we're looking for wildcarded stuff, where edge-of-word is **not** a requisite for a match?*
 > 
 > Analysis: example: database has "`color theory`", "`odour and vapour`", "`colouring monochrome images`", ... and the user, aware she's looking for both US English and International English matches, fires off a search for words with "or/our" syllables, e.g. "`*o[u]?r*`. Which could also/better(?) be written as "`*(or|our)*`" query regex.
-> x
+> 
 > As I write the above example I realize it adds another problem: *matching `or` via the search index **at all** as the search query element is a **bigram**.* Let's file this second question for later, so we concentrate on "`our`" today:
 > - "`our`" is a valid *grapheme trigram*; the "`*`" wildcard before and after indicates it MAY appear anywhere in a word, so we go two ways with this:
 >   + we go for a minimal search set, thus a increased index size, as we now need to *index* every start/end-of-word trigram also as a regular one. Bad idea. That would obsolete the *attributed trigrams*, as they would uselessly grow the index -- at least when we consider an *advanced* search query like this one.
