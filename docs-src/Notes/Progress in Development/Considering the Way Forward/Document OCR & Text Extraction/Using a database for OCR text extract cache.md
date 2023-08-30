@@ -1,9 +1,9 @@
 # Using a database for OCR / *text extracts* cache
 
-Qiqqa classically uses a filesystem directory tree (2 levels, segmented by the first byte of the document content hash (a.k.a. *Document ID*), where each (PDF) *document* results in two or more files:
+Qiqqa classically uses a file-system directory tree (2 levels, segmented by the first byte of the document content hash (a.k.a. *Document ID*), where each (PDF) *document* results in two or more files:
 
 - 1 tiny text file caching the *document page count*.
-- 1 or more text extract files (text format, but proprietary: each '*word*' in the text is encoded as a serialized tuple: `(bbox coordate x0, y0, w, h, word_text)`, resulting in a rather high overhead for the ASCII-text serialized *bbox* (bounding box) coordinates, using 5-significant-digits per coordinate, taking up 8 (text) bytes per coordinate for a positioning accuracy that's a little less that 32bit IEEE *float* -- plus it costs additional CPU serialization and deserialization overhead on write/read.
+- 1 or more text extract files (text format, but proprietary: each '*word*' in the text is encoded as a serialized tuple: `(bbox coordate x0, y0, w, h, word_text)`, resulting in a rather high overhead for the ASCII-text serialized *bbox* (bounding box) coordinates, using 5-significant-digits per coordinate, taking up 8 (text) bytes per coordinate for a positioning accuracy that's a little less that 32-bit IEEE *float* -- plus it costs additional CPU serialization and deserialization overhead on write/read.
 
   An example record for an `ocr` file:
   
@@ -28,7 +28,7 @@ When storage cost is considered*an added challenge*, then we might be better off
 
 As this is an item that is expected to need to be highly performant, *and* is very easy and basic re expected content queries, we are considering using a NoSQL database system instead.
 
-These *content queries* are currently used in the Qiqqa codebase:
+These *content queries* are currently used in the Qiqqa code-base:
 
 - get page count for document `D`
 - get all text content for document `D` (to feed to the FTS engine, keyword analysis and auto-suggestion, topic analysis, FTS search query highlighting, ...)

@@ -2,19 +2,19 @@
 
 Presently (and in the future) Qiqqa identifies any document using a hash-based UUID. Up to now this is a SHA1B content-based hash; a new BLAKE3 content-based hash has been selected to replace this flawed UUID everywhere. 
 
-Where needed/applicable, the 256bit BLAKE3 hash will be encoded to *string* using a custom BASE58X-based encoding scheme, producing a *string* key length of 44 ASCII characters, all in the regular alphanumeric range, hence easy to parse and process in any system, including SQL databases.
+Where needed/applicable, the 256 bit BLAKE3 hash will be encoded to *string* using a custom BASE58X-based encoding scheme, producing a *string* key length of 44 ASCII characters, all in the regular alphanumeric range, hence easy to parse and process in any system, including SQL databases.
 
 We use SQLite, which can handle binary numeric data up to 64 bits, but, like almost all other SQL databases out there, it cannot process larger binary numeric values *directly* for *primary key* columns, hence the *string* variant should be used instead. This is what is currently done in Qiqqa, which stores all document-related records in a single table, keyed by the string-typed SHA1B UID.
 
 ## How important is key *size*, really?
 
-Currently, all records use the SHA1B *string*-typed UID, which is variable length, but basically a hexdumped SHA1 at 160bits, thus $160/8 \times 2 = 40 \text{ characters}$ wide, thanks to its hex encoding. 
+Currently, all records use the SHA1B *string*-typed UID, which is variable length, but basically a hexdumped SHA1 at 160 bits, thus $160/8 \times 2 = 40 \text{ characters}$ wide, thanks to its hex encoding. 
 
 > See also [[Fingerprinting - moving forward and away from b0rked SHA1]].
 
 With the new BLAKE3+BASE58X-based scheme, that *string*-typed key would be a *fixed-sized* 44 characters wide. A 10% size increase.
 
-> Using the BLAKE3 hash directly is not possible in an SQL database, as it's a 256bit binary number. This takes up $256/8 = 32 \text{ bytes}$ in the machine, but SQL cannot 'talk' 32byte binary for key / indexing columns as those cannot be BLOBs.
+> Using the BLAKE3 hash directly is not possible in an SQL database, as it's a 256 bit binary number. This takes up $256/8 = 32 \text{ bytes}$ in the machine, but SQL cannot 'talk' 32 byte binary for key / indexing columns as those cannot be BLOBs.
 > 
 > *However, SQLite **can** use BLOBs as primary keys!* See these references:
 > - [Will I run into performance issues if I use a BLOB field as primary key in SQLite?](https://stackoverflow.com/questions/1562731/will-i-run-into-performance-issues-if-i-use-a-blob-field-as-primary-key-in-sqlit)
@@ -24,10 +24,10 @@ With the new BLAKE3+BASE58X-based scheme, that *string*-typed key would be a *fi
 > - [Datatypes In SQLite](https://www.sqlite.org/datatype3.html)
 > 
 > Ergo: now that we have discovered that SQLite differs from our usual SQL databases in that it fully supports BLOBs as primary key field type, the question then gets raised: "**What's the use of BASE58X, after all? Won't `SELECT hex(blake3) FROM document_table` do very nicely for all involved, including future external use?**"
-> x
+> 
 > Erm... Good point. Further checks into the SQLite API show that I can feed those BLAKE3 hashes verbatim using query parameters and the appropriate APIs:
 > - [Binding Values To Prepared Statements](http://www.sqlite.org/c3ref/bind_blob.html) -> `sqlite3_bind_blob()` and `sqlite3_bind_blob64()` 
-> x
+> 
 > This would mean the only reason to employ BASE58X is to keep transmission costs low (storage being covered by this ability of SQLite to store BLOBs as primary keys), but does this weigh against using the default `hex()` encode already offered by SQLite? (`select hex(blake3) from ...` vs. custom function registration requiring `select base58x(blake3) from ...`)
 
 Given the note above, *not using any string encoding at all* is a viable option while we're using SQLite. This would mean our BLAKE3 hash can be used as a key of length $256/8 = 32$ bytes. Which is *even shorter* than the original (*string*-typed) SHA1B hash (at 40 characters long).

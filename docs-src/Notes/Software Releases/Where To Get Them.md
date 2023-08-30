@@ -29,7 +29,7 @@ New Qiqqa releases are published at two different URLs:
 
 # Installing a Qiqqa release
 
-   When you  doubleclick the installer after downloading, it will run and *overwrite* the existing Qiqqa version (after a dialog has reported a different version is being installed).
+   When you  double-click the installer after downloading, it will run and *overwrite* the existing Qiqqa version (after a dialog has reported a different version is being installed).
 
    This is harmless, as your libraries reside elsewhere on your disk and those **are not touched** during the install, only the Qiqqa executable and underlying binaries are replaced by an install action.
 

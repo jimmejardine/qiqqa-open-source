@@ -44,9 +44,9 @@ Then, of course, I decided to just let those other HDDs rip a backup copy, while
 - nothing helps, another WTF+ and Process Hacker (yay! great tool!) is called in to do thee dead: kill 'em.
 - done.
 - Meanwhile, stuff starts to act weird, then weirder, until the Windows decides to quit to listen to *any* user input and it's total screen freeze time.
-- after a bit (I was *slow* today) no bluescreen, but straight to black and reboot it is.
-- this doesn't pan out as next thing what happens is the laptop throwing a tantrum, h0rking up a fatal bluescreen every time during boot.
-- go ape. disconnect everything. Rip the power cord and accupack, make the bastard **cool boot** like it was on *ice*.
+- after a bit (I was *slow* today) no blue-screen, but straight to black and reboot it is.
+- this doesn't pan out as next thing what happens is the laptop throwing a tantrum, h0rking up a fatal blue-screen every time during boot.
+- go ape. disconnect everything. Rip the power cord and accu-pack, make the bastard **cool boot** like it was on *ice*.
 - Windows Repair yada yada yada, lots of crap and an *oddly lethargic* boot sequence taking ages and maybe a few crashes along the way (screen going standby mode every once in a while there), but finally The Windows is back from the dead. Registry is filled with disk failures so it's prayer time.
 - reconnect the USB3 hub and drives.
 - check the running backup copy: all seems fine, as far as it got. (after all, it got aborted *hard* halfway through)

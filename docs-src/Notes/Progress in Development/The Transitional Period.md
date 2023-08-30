@@ -13,7 +13,7 @@ This is about getting from current Qiqqa to future Qiqqa.
 - flaky text extraction by way of QiqqaOCR
 - *.NET specific serialization* of important structures (configuration, PDF annotations) to disk & database.
 - SQLite metadata database via SQLite.NET; has sync to cloud storage/NAS/network fatal issues.
-- 32-bit application only (restricted to 32bit by the libraries used)
+- 32-bit application only (restricted to 32-bit by the libraries used)
 - Trouble with libraries in the 10K's
 
 "*Future Qiqqa*" is: 
@@ -25,13 +25,13 @@ This is about getting from current Qiqqa to future Qiqqa.
 - bleeding edge MuPDF + *patches* + Tesseract for all PDF work, including reading/viewing.
 - SQLite metadata database (opened up to enable user-written scripts to work the data for *advanced usage*)
 - Revamped NAS/network/cloud Sync for cooperative & backup work on a single library.
-- *64bit first* (maybe a 'older boxes' 32bit build alongside?)
+- *64-bit first* (maybe a 'older boxes' 32-bit build alongside?)
 - Copes well with 100K+ libraries on medium hardware.
 
 
-## Tackling the transition from 32bit to 64bit
+## Tackling the transition from 32-bit to 64-bit
 
-Experiments have shown that I have no stable way on Windows to start 64bit executables from a 32bit binary. This restricts all backend changes (including QiqqaOCR *full* or *partial* replacements) to having to be 32bit builds.
+Experiments have shown that I have no stable way on Windows to start 64-bit executables from a 32-bit binary. This restricts all back-end changes (including QiqqaOCR *full* or *partial* replacements) to having to be 32-bit builds.
 
 Further tests have shown repeatedly (and very recently *again*) that I have *unsolved problems* invoking external applications from the .NET application, where I need very tight control over those external application's stdin+stdout+stderr streams, including *binary data* transmissions.
 

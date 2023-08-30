@@ -15,7 +15,7 @@ The grounds for this being that we know we have some *huge* PDFs, which will exp
 While we do realize this would increase the inter-process data transfer costs significantly as we'll be pumping large quantities of PDF page data (image and text) across to other subsystems (SOLR or FT5/manticore), separating this subsystem into its own process would mean we can expect a higher overall system reliability from scratch: the databases and other processes can remain operational while aborted/crashed/terminated PDF/
 OCR processes are restarted under the hood (by the Qiqqa Monitor application).
 
-Meanwhile, critical path user facing data comms will have the same or comparable costs: one of the CPU-heaviest, data-intensive tasks is rendering PDF pages: the UX is, of course, immediately impacted by the performance of that subtask. It does not matter for total system latency and costs whether subsystem A (the previously envisioned database+ monolith) or subsystem B (PDF page renderer + cache) delivers the image data to show on screen. Ditto for the equally important text+position PDF page info stream: in the new design it will be still 1(one) localhost TCP transfer away.
+Meanwhile, critical path user facing data comms will have the same or comparable costs: one of the CPU-heaviest, data-intensive tasks is rendering PDF pages: the UX is, of course, immediately impacted by the performance of that sub-task. It does not matter for total system latency and costs whether subsystem A (the previously envisioned database+ monolith) or subsystem B (PDF page renderer + cache) delivers the image data to show on screen. Ditto for the equally important text+position PDF page info stream: in the new design it will be still 1(one) localhost TCP transfer away.
 
 Added costs are to be found in the background batch processes (PDF page text copied over to the cache and FTS systems) as those now will need to communicate through localhost sockets or memory-mapped I/O instead of a simple pointer reference to internal heap memory.
 
@@ -29,7 +29,7 @@ Nevertheless, I think it would be good to think of "*one process per architectur
 
 ## Post Scriptum
 
-Each of the subsystems can be its own webserver then for when we code the UI as a web browser:
+Each of the subsystems can be its own web-server then for when we code the UI as a web browser:
 
 - main Qiqqa metadata database -> static web content templates + metadata filled in the views = web pages. 
 - PDF renderer / processor -> cached document content, serves as a CDN when it comes to displaying rendered PDF document pages and text(ified) content. 

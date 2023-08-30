@@ -1,6 +1,6 @@
 # Fingerprinting :: moving forward and away from b0rked SHA1
 
-Okay, it's a known fact that the SHA1-based fingerprinting used in qiqqa to identify PDF documents is flawed: that's a bug that exists since the inception of the software. The SHA1 binary hash was encoded as HEX, but any byte value with a zero(0) for the most significant nibble would have that nibble silently discarded.
+Okay, it's a known fact that the SHA1-based fingerprinting used in Qiqqa to identify PDF documents is flawed: that's a bug that exists since the inception of the software. The SHA1 binary hash was encoded as HEX, but any byte value with a zero(0) for the most significant nibble would have that nibble silently discarded.
 
 This results in a couple of things, none of them major, but enough for me to consider moving:
 
@@ -135,7 +135,7 @@ Notes on these datums:
   But my concern are the growth factors. Let's have a look:
 
   | encoding     | calculus & growth factor                   | 
-  |--------------|----------------------------|
+  |--------------|----------------------------|-----------------------|
   | HEX:         | $log(256) / log(16) = 2$, which is expected |
   | Base64:      | $log(256) / log(64) = 1.3333333$, as expected. |
   | Base85:      | $log(256) / log(85) = 1.24816852$ vs. Wikipedia's $(1/0.80) = 1.25$|

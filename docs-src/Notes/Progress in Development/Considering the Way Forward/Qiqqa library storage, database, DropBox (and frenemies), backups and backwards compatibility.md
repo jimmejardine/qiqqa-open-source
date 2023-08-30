@@ -20,12 +20,16 @@ that the entire database and PDF store must be *processed* to relate the old MD5
 
 New documents would not get a MD5 hash, or it would not be considered unique anymore, anyway), but everyone would be named using SHA256 and the database table in SQlite would need to be changed to use that SHA256 as a unique key.
 
-Hence the thought is, here and now, to keep the old SQLite database table as-is, in case you want to migrate *back* to an older version perhaps, but to copy/transform it into a new table, where everything is using the new SHA256 key. **Plus** you'ld need a lookup table where MD5 is mapped to SHA256 and vice versa. ^[Hm, maybe we could combine that the 'document grouping' feature I want to add to Qiqqa so I can 'bundle' PDFs for chapters into books and such-like. MD5 hash collisions would just be another grouping/mapping type. There's also ^[to be, not implemented yet!] the decrypting and cleaning up and PDF/A text embedding of existing PDFs, resulting in more PDFs with basically the same content, but a different internal *shape* and thus different hash key.  All these should not land in a single table as they clearly have slightly different structure and widely different semantics, but it all means the same thing: there's some database rework to be done!
+Hence the thought is, here and now, to keep the old SQLite database table as-is, in case you want to migrate *back* to an older version perhaps, but to copy/transform it into a new table, where everything is using the new SHA256 key. **Plus** you'ld need a lookup table where MD5 is mapped to SHA256 and vice versa. [^1]
+
+[^1]: Hm, maybe we could combine that the 'document grouping' feature I want to add to Qiqqa so I can 'bundle' PDFs for chapters into books and such-like. MD5 hash collisions would just be another grouping/mapping type. There's also [^to be, not implemented yet!] the decrypting and cleaning up and PDF/A text embedding of existing PDFs, resulting in more PDFs with basically the same content, but a different internal *shape* and thus different hash key.  All these should not land in a single table as they clearly have slightly different structure and widely different semantics, but it all means the same thing: there's some database rework to be done!
 
 
 ## Backups to cloud storage
 
-Currently Qiqqa copies the Sqlite DB to cloud using SQlite, which is not very smart as this can break the database due to potential collisions with other accessors^[you or other user accessing the same cloud storage spot and thus shared DB over network, if only for a short moment]: the idea there is to always **binary file copy** the database to cloud storage and only ever let Sqlite access the DB that sits in local *private* storage.
+Currently Qiqqa copies the Sqlite DB to cloud using SQlite, which is not very smart as this can break the database due to potential collisions with other accessors[^2]
+
+[^2]: you or other user accessing the same cloud storage spot and thus shared DB over network, if only for a short moment]: the idea there is to always **binary file copy** the database to cloud storage and only ever let Sqlite access the DB that sits in local *private* storage.
 
 Multi-user access over cloud storage is a persistent problem as there's no solid file locking solution for such systems: not for basic networking and certainly not for cloud storage systems (such as Google Drive or DropBox, which have their own proprietary ways of 'syncing' files and none of them will be happy with *shared use* of such files while they 'sync').
 

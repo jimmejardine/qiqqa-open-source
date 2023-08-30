@@ -27,7 +27,7 @@
   
 * Of course, trouble never travels alone: I also had some very obnoxious issues re getting hold of the child process' **exit code** and/or precise moment when the child process has indeed fully terminated: I know I still have bugs lurking deep down in the current C#/.NET code handling child process invocations.
 
-  I've spent quite some time on those and the conclusion there is that things are too opaque to perform the very detailed problem analysis that these issues require: *that* is one of the reasons why I intend to migrate the whole caboodle to local-loopback IPC (sockets): that approach may be a tad slower, though from what I've gathered from the few banchmarks old and new floating around on the *IntrNetz* the performance is probably *on par*. Heck, as long as the trouble is **not** "on par", I'll be a happy camper!
+  I've spent quite some time on those and the conclusion there is that things are too opaque to perform the very detailed problem analysis that these issues require: *that* is one of the reasons why I intend to migrate the whole caboodle to local-loopback IPC (sockets): that approach may be a tad slower, though from what I've gathered from the few benchmarks old and new floating around on the *IntrNetz* the performance is probably *on par*. Heck, as long as the trouble is **not** "on par", I'll be a happy camper!
   
 * As far as I'm concerned, any stdio + child process invocating will, from now on, only be done in a precisely controlled environment that's -- at least in principle -- cross-platform: a C/C++ based library. And no P/Invoke, either. I've had it with those! 
 

@@ -8,7 +8,7 @@ Pros and cons:
 * Pro Local: no working *localhost* socket connect and *listening server* required for the log lines to land on disk and persist beyond crash / termination.
 	* This implies that the individual parts (applications / binaries / processes) can easily be (re-)used in an environment where the *listening log server* is not (yet) present, aiding testing and hackish custom activities involving only a few members of the entire crew.
 	* No worries about potential intermittent errors where the *listening log server* is dropped/killed, even if only temporarily: as we DO NOT use a *log server*, we don't have the added (minimal) risk of a *permanently live* local socket and working log server code.
-	* Ditto for risks about laggard or severely bottlenecked or throttled (*log server*) processes, while our application process code is running full tilt and swamping the CPU cores. Or other ways you can get at a severely overburdened system where important processes start to cause significant waits due to CPU core unavailability.
+	* Ditto for risks about laggard or severely bottle-necked or throttled (*log server*) processes, while our application process code is running full tilt and swamping the CPU cores. Or other ways you can get at a severely overburdened system where important processes start to cause significant waits due to CPU core unavailability.
 	
 	We can manage thread priority *locally* (within our current process) and chances are that no matter the scheduler overload, wee'll get a decent *logging thread performance in step with our main, log-generating process(es)*.
 	

@@ -2,7 +2,7 @@
 
 Had a fatal systems failure while running MuPDF (Qiqqa-related) bulk tests overnight.
 
-End result: cold hard boot was required (which gave a dreaded win10 BSOD ("Page Fault") during intial bootup, so that was a sure sign things had gone the way of the Dodo...)
+End result: cold hard boot was required (which gave a dreaded win10 BSOD ("Page Fault") during initial bootup, so that was a sure sign things had gone the way of the Dodo...)
 
 End result: Qiqqa + MuPDF git repos are b0rked; bad ref reports, tortoisegit crashes on startup, etc.
 

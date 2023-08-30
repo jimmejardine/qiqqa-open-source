@@ -1,6 +1,9 @@
 # The World of Data Extraction and Re-use :: PDF Reading, Annotating and Content Extraction
 
-If you want to do more with PDFs than merely *read* them on screen^[for which there's Adobe Acrobat and if you don't like it, there's a plethora of PDF *Viewers* out there, e.g. [SumatraPDF](https://www.sumatrapdfreader.org/free-pdf-reader) and [FoxIt](https://www.foxit.com/).], there's trouble ahead.
+If you want to do more with PDFs than merely *read* them on screen[^adobe], there's trouble ahead.
+
+[^adobe]: for which there's Adobe Acrobat and if you don't like it, there's a plethora of PDF *Viewers* out there, e.g. [SumatraPDF](https://www.sumatrapdfreader.org/free-pdf-reader) and [FoxIt](https://www.foxit.com/).
+
 
 ## Searchable text, anyone?
 

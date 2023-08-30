@@ -39,11 +39,11 @@
 	1. we don't have to bother with coding any Java to make it happen
 	2. users can invent their own smart ideas accessing and using the collected metadata: we are opening up Qiqqa!
 
-- What's left for the old C# codebase then, you ask?
+- What's left for the old C# code-base then, you ask?
 
-   WPF/.NET is **very** *non*-portable so most of it will have to go. What we untangle and isn't replaced by Core Technologies (see above: LuceneNET is out and so will be a couple of other libs and tools) will stay on a "useful middleware" which will be commandline / socket-interface based so **not facing users directly, i.e. no need for any GUI work any more**: all that should be handled by the new web-based GUI above.
+   WPF/.NET is **very** *non*-portable so most of it will have to go. What we untangle and isn't replaced by Core Technologies (see above: LuceneNET is out and so will be a couple of other libs and tools) will stay on a "useful middle-ware" which will be command-line / socket-interface based so **not facing users directly, i.e. no need for any GUI work any more**: all that should be handled by the new web-based GUI above.
    
-   This part will then become cross-platform portable as the remains would fit the bill of C#/.NET.Core which is touted as cross-platform able *today*. We'll see what remains as "middleware" as we work on the other components and discover its relative usefulness along the way. I expect all sorts of import/export jobs will stay in C#/.NET.Core as there's little benefit to re-coding those processes in a otherwise-critical Core Server component, which already does the PDF and Library Database handling then.
+   This part will then become cross-platform portable as the remains would fit the bill of C#/.NET.Core which is touted as cross-platform able *today*. We'll see what remains as "middle-ware" as we work on the other components and discover its relative usefulness along the way. I expect all sorts of import/export jobs will stay in C#/.NET.Core as there's little benefit to re-coding those processes in a otherwise-critical Core Server component, which already does the PDF and Library Database handling then.
 
 ### Demarcated Projects = producing a Tool or a Procedure To Use A Tool:
 

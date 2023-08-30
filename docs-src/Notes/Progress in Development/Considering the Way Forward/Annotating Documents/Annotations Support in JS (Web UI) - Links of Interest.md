@@ -29,12 +29,12 @@ This is a semi-random amalgam of several subjects, extracted straight from the w
 
    human (Mechanical Turk) and or "assisted" marking of image areas and tag those.
 
-   While this is used for autodrive tests, facial/human recognition, and comparable goals, *I* want to use this tek for helping the OCR engine recognize cover pages, multi-column layouts, etc. and improve the layout a.k.a. "**segmentation**" process that is an important part of **text extraction** -- others often use the term **segementation** in the context of **character segmentation** or **line segmentation**, which is to help the OCR engine identify the lines (reams) of text and the individual characters in there whih need to be OCRed. 
-   *This* is the usual context you will encounter when you look into tesseract et al (OCR engines). 
+   While this is used for autodrive tests, facial/human recognition, and comparable goals, *I* want to use this tek for helping the OCR engine recognize cover pages, multi-column layouts, etc. and improve the layout a.k.a. "**segmentation**" process that is an important part of **text extraction** -- others often use the term **segmentation** in the context of **character segmentation** or **line segmentation**, which is to help the OCR engine identify the lines (reams) of text and the individual characters in there which need to be OCRed. 
+   *This* is the usual context you will encounter when you look into `tesseract` et al (OCR engines). 
    
    Personally, I'm much more bothered with the extremely *mediocre* quality of the text extraction at a higher abstraction level: the recognition of content text paragraphs and general text (+ images !!!) flow across the page and *document*. 
    What is a page header, footer and how are those columns of content organized? 
-   (Abstracts spanning multiple columns as they often are full width, while the text which follows the abstract is often dual or even triple column. Then there's the subject of **footnotes** and the **colofon** which often appears on the first page in lower-left corner **as part of the first column of regular text, but in cursive or different font)**: affiliation of the authors and/or sponsoring of the paper and research is often mentioned there.
+   (Abstracts spanning multiple columns as they often are full width, while the text which follows the abstract is often dual or even triple column. Then there's the subject of **footnotes** and the **colophon** which often appears on the first page in lower-left corner **as part of the first column of regular text, but in cursive or different font)**: affiliation of the authors and/or sponsoring of the paper and research is often mentioned there.
    
    Properly recognizing such areas will greatly improve the general flow of the extracted text. 
   
@@ -1326,5 +1326,5 @@ https://stackoverflow.com/questions/23205202/user-annotation-overlay-in-html5-ja
 Installing h in a development environment — h 0.0.2 documentation   
 https://h.readthedocs.io/en/latest/developing/install/
 
-     
-                                         
+  
+   

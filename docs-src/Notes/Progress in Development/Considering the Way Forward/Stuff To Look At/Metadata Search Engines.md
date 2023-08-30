@@ -43,7 +43,7 @@ Found via the README of the project [`edsu/etudier`: "Extract a citation network
 >
 > I’ve read or heard someone say that Google Scholar is given privileged access to crawl Publisher,aggregator (often enhanced with subject heading and controlled vocab) and none-free abstract and indexing sites like Elsevier and Thomson Reuters’s Scopus and Web of Science respectively.
 >
-> Obviously the latter two wouldn’t be so wild about Google Scholar offering a API that would expose all their content to anyone since they sell access to such metadata.
+> Obviously the latter two wouldn’t be so wild about Google Scholar offering an API that would expose all their content to anyone since they sell access to such metadata.
 >
 > Currently you only get such content (relatively rare) from GS if you are in the specific institution IP range that has subscriptions. (Also If your institution is already a subscriber to such services such as Web of Science or Scopus, you library could usually with some work allow you access directly via the specific resource API!.)
 >
@@ -55,7 +55,7 @@ Found via the README of the project [`edsu/etudier`: "Extract a citation network
 >
 > Also Web Scale discovery services that libraries pay for such as Summon, Ebsco discovery service, Primo etc do have APIs and they come closest to duplicating a (less comprehensive version) Google Scholar API
 >
-> Another poor substitute to a Google Scholar API, is the Crossref Metadata Search. It’s not as comprehensive as Google Scholar but most major publishers do deposit their metadata.
+> Another poor substitute to a Google Scholar API is the Crossref Metadata Search. It’s not as comprehensive as Google Scholar but most major publishers do deposit their metadata.
 > 
 > ---
 > 
@@ -3027,6 +3027,8 @@ Just one example: https://pubmed.ncbi.nlm.nih.gov/32668870/
 - https://www.bibsonomy.org/ - The blue social bookmark and publication sharing system: BibSonomy helps you to manage your publications and bookmarks, to collaborate with your colleagues and to find new interesting material for your research.
 - https://typeset.io/
 - https://synapse.koreamed.org/advanced/
+- https://bazaar.abuse.ch/browse/tag/pdf/
+- https://epdf.tips/
 - 
 
 ---

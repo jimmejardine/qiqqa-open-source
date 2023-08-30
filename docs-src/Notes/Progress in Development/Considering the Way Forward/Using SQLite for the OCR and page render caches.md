@@ -10,7 +10,7 @@ As we would like to have a flexible, adaptive priority queue for the task queue,
 
 When we task the PDF page render process to produce one or more pages for viewing (or OCR processing!), it can benefit us to cache these page images. (Less so with the OCR process requesting a page: after all, we expect that process to complete and never ask for that same page again as it would be *done*!)
 
-Given that the page images are expected to be relatively large (several 100's of kilobytes a piece), even when WebP encoded, it might be smart to store these directly in the filesystem and only store the cache info + file reference in the SQL table itself.
+Given that the page images are expected to be relatively large (several 100's of kilobytes a piece), even when WebP encoded, it might be smart to store these directly in the file-system and only store the cache info + file reference in the SQL table itself.
 
 As these page images will be valid *beyond a single application run* it MAY be useful to make this a persistent cache, which can be re-used the next time the application is run.
 
@@ -24,7 +24,7 @@ Having a persistent cache for this data also enables us to add another feature o
 
 > Any such updates should also be forwarded to the FTS engine: when the document text is altered (for whatever reason, be it error corrections, augmentation or otherwise) this should be reflected in the FTS index so that future search activity by the user will produce matches against the latest texts.
 
-Currently, OCR / text extracts are stored in single page and 20page files and are several kilobytes large, also thanks to the relatively expensive ASCII text representation of the word bboxes used in the current format. When we store these numbers as either integers or IEEE 754 *floats* (32-bit floating point values), we will have both plenty precision and a much lower storage cost per word in our store. 
+Currently, OCR / text extracts are stored in single page and 20-page files and are several kilobytes large, also thanks to the relatively expensive ASCII text representation of the word bboxes used in the current format. When we store these numbers as either integers or IEEE 754 *floats* (32-bit floating point values), we will have both plenty precision and a much lower storage cost per word in our store. 
 
 Still it would be a pending question whether to store this data as a BLOB inside the SQLite table or merely store a reference to the cache file in the database instead.
 
@@ -50,7 +50,7 @@ While those systems have been tested heavily and are pretty reliable, the argume
   > This would be particularly important for the OCR/text-extract "cache" as recreating that one is a very heavy burden on the entire system. 
   > 
   > Once the "manual update of extracted text / hOCR layer" feature is available, the cost of re-creating this table and content will include (a lot of) human labor as well, so ruggedness of the data store should trump raw performance in the scoring for selection for use in the code. SQLite is the only one of the options which has clear public documentation listing these claims and under what conditions those guarantees are available to us -- f.e. it's good for performance to switch the WAL to be in-memory and thus non-persistent across an application hard abort or system disruption; while using such a *tweak* (pragma) might be nice for the work priority queue and rendered page image caches, it *certainly* would be very wrong to apply that same performance tweak to the OCR/text extract cache table!
-  > x
+  > 
   > While I like upscaledb/hamsterdb a lot (and find the lmdb variants very intriguing, while I haven't used them yet for stuff like this with lots of writes happening over time), the arguments for reachability and ruggedness are winning. The additional concern here is that, even when SQLite would be a decade *slower* than LMDB or hamsterdb, this "mediocre" performance would probably go unnoticed against the costs of the tasks themselves: regular usage and various experiments with Qiqqa to date have shown that the task prioritizer/scheduler is a very critical component for the UX (including "freezing the machine due to all threads being loaded with work") while the data storage part went unnoticed in terms of cost, so I expect not having to go to extremes there to make it "fast": there's more to be gained in optimizing the work tasks themselves and the scheduler thereof: that is another reason why I prefer to use SQLite for No.1 now: it gives me options to easily adjust the scheduler mechanism when I want to/have to when performance is at a premium when we process/import large Qiqqa libraries, for example.
   
 

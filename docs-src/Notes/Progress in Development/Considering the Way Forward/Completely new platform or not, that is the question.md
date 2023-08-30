@@ -13,7 +13,7 @@ When I say I am looking into "moving to an electron-like system, e.g. Chromely o
   
   Anywhere WPF or XAML gets mentioned in relation to Qiqqa (that's the UI tech currently used for it and it's Microsoft/windows only), the "moving to electron/CEF" means that part is going to be redone as "HTML web pages" one way or another.
 
-   electron/Chromely/CEF/... are all basically concepts of a stripped down Chrome browser glued to some "business layer backend": 
+   electron/Chromely/CEF/... are all basically concepts of a stripped down Chrome browser glued to some "business layer back-end": 
 
    - electron is Chrome+NodeJS, so JavaScript all the way (not my first choice therefor), 
    - Chromely is Chrome+C#/.NET, which would make my *hope* to keep most of the business logic in C# at least *possible* (regrettably Chromely isn't very active, nor is it *finished* for what I need from it 😓 ) and 
@@ -25,11 +25,11 @@ When I say I am looking into "moving to an electron-like system, e.g. Chromely o
 
    Though I am approaching this like the classical solution to the Gordian Knot though: wielding an axe and observing which parts survive. (Alexander wielded a *sword*; I'm not qualified for that 😄 ) 
 
-- First *minor* counterpoint to that last one (keeping as much of the original C# code as possible) is my current activity around PDF processing, which is to replace SORAX + QiqqaOCR + very old tesseract.Net (document OCR + text extraction + metadata extraction) with something new, based on Artifex' MuPDF and "master branch" = leading edge `tesseract` v5.0 codebases, which are C/C++. Ultimately that should take care of #35, #86, #165, #193 and (in part) #289. 
+- First *minor* counterpoint to that last one (keeping as much of the original C# code as possible) is my current activity around PDF processing, which is to replace SORAX + QiqqaOCR + very old tesseract.Net (document OCR + text extraction + metadata extraction) with something new, based on Artifex' MuPDF and "master branch" = leading edge `tesseract` v5.0 code-bases, which are C/C++. Ultimately that should take care of #35, #86, #165, #193 and (in part) #289. 
 
-   QiqqaOCR (a tool used by Qiqqa under the hood) is currently C# glueing those old libraries together and is being replaced that way with an entirely different codebase in C/C++. Linux-ready? Yes. That part will then be ready for Linux et al, requiring some CMake work (or similar) to compile that collective chunk of software on Linuxes, but the codebase itself won't be in the way and the parts used are already in use on Linux platforms, individually.
+   QiqqaOCR (a tool used by Qiqqa under the hood) is currently C# glueing those old libraries together and is being replaced that way with an entirely different code-base in C/C++. Linux-ready? Yes. That part will then be ready for Linux et al, requiring some CMake work (or similar) to compile that collective chunk of software on Linuxes, but the code-base itself won't be in the way and the parts used are already in use on Linux platforms, individually.
 
-- Second *larger* counterpoint is the current C# Qiqqa codebase, which has its "business logic/glue" quite tightly intertwined with the UI code: that's a bit of a bother to untangle.  The v83 experimental Qiqqa releases and the UI issues reported by several users during the last year or so is me fiddling (and screwing up) with that Gordian knot while spending too many hours in travel + house construction work.
+- Second *larger* counterpoint is the current C# Qiqqa code-base, which has its "business logic/glue" quite tightly intertwined with the UI code: that's a bit of a bother to untangle.  The v83 experimental Qiqqa releases and the UI issues reported by several users during the last year or so is me fiddling (and screwing up) with that Gordian knot while spending too many hours in travel + house construction work.
 
 - Another planned mandatory migration is getting rid of the antique Lucene.NET, which is the core facilitating the *document / text search* features in Qiqqa. Lucene.NET still exists out there, but is rather slow in upgrading and much less actively supported than the *true original*: Lucene, which is done in Java. Java+C# is a mix for the sufferers in the (unmentioned) 9th level of Dante's Hell, so best to avoid it, which is why I'm opting for using SOLR, which is bluntly speaking Lucene wrapped in a (local) web server. C# has no trouble talking to web sites like that, so we're staying clear of Java+C# tight mixes. 
 

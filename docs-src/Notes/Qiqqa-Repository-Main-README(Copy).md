@@ -10,8 +10,7 @@ Now open source award-winning Qiqqa research management tool for Windows.
 
 This version includes **every** feature available in [Commercial Qiqqa](qiqqa.com), including Premium and Premium+.
 
-> Unfortunately we have had to **remove the web cloud sync** ability as that involves storage costs. Users are encouraged to migrate their Web Libraries into Intranet libraries, and **use Google Drive or Dropbox**
- as the 'sync point' for those libraries.
+> Unfortunately we have had to **remove the web cloud sync** ability as that involves storage costs. Users are encouraged to migrate their Web Libraries into Intranet libraries, and **use Google Drive or Dropbox** as the 'sync point' for those libraries.
 
 
 ## Download & Install Qiqqa
@@ -42,7 +41,7 @@ To be notified of new releases [subscribe](https://groups.google.com/d/forum/qiq
 
 ### Just in case
 
-On the unhappy chance where you want to revert to a previous Qiqqa version, these are all available for download at [https://github.com/GerHobbelt/qiqqa-open-source/releases](https://github.com/GerHobbelt/qiqqa-open-source/releases) (v82 and v81 prereleases) and [https://github.com/jimmejardine/qiqqa-open-source/releases](https://github.com/jimmejardine/qiqqa-open-source/releases) (v80 release).
+On the unhappy chance where you want to revert to a previous Qiqqa version, these are all available for download at [https://github.com/GerHobbelt/qiqqa-open-source/releases](https://github.com/GerHobbelt/qiqqa-open-source/releases) (v82 and v81 pre-releases) and [https://github.com/jimmejardine/qiqqa-open-source/releases](https://github.com/jimmejardine/qiqqa-open-source/releases) (v80 release).
 
 All v82*, v81*, v80 and (commercial) v79  Qiqqa releases are binary compatible: they use the same database and directory structures, so you can install any of them over the existing Qiqqa install without damaging your Qiqqa libraries.  
 
@@ -51,7 +50,7 @@ Enjoy Qiqqa and take care!
 
 ### Miscellaneous Notes
 
-* > **DO NOTE** that the v82 releases are prereleases, *some* of which are only lightly tested and may include bugs. Backup your library before testing these, even if you like living on the edge...
+* > **DO NOTE** that the v82 releases are pre-releases, *some* of which are only lightly tested and may include bugs. Backup your library before testing these, even if you like living on the edge...
   >
   > *@GerHobbelt has joined the team and keeps the bleeding edge rolling. For recent changes see  [closed bugs list](https://github.com/jimmejardine/qiqqa-open-source/issues?q=is%3Aissue+is%3Aclosed).*
 

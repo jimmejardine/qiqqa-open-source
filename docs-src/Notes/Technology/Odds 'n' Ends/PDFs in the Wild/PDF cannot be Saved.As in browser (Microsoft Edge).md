@@ -3,7 +3,7 @@
 
 > **Note**: Also check these for more PDF download/fetching woes:
 >
-> - [[curl - commandline and notes]] (sections about *nasty PDFs*)
+> - [[../curl - command-line and notes]] (sections about *nasty PDFs*)
 > - [[Testing - Nasty URLs for PDFs]]
 > - [[Testing - PDF URLs with problems]]
 > 

@@ -20,9 +20,9 @@ A few questions need to be asked and evaluated:
 
 - **performance penalties**: is there any performance penalty for using these 44-character wide BLAKE3+BASE58X globally unique document ids?
 
-  > SQLite benefits from having 64bit integer primary keys for its tables. *That* then is a *locally unique document id* as it will benefit the performance of that particular subsystem. 
+  > SQLite benefits from having 64-bit integer primary keys for its tables. *That* then is a *locally unique document id* as it will benefit the performance of that particular subsystem. 
   > 
-  > If we want to (be able to) present globally unique identifiers to the outside world, a 64bit `rowid` to BLAKE3 document hash mapping table will have to be provided, making all queries more complex as that's an added `JOIN tables` for every query which has to adhere to these "*globally unique document ids only*" demands.
+  > If we want to (be able to) present globally unique identifiers to the outside world, a 64-bit `rowid` to BLAKE3 document hash mapping table will have to be provided, making all queries more complex as that's an added `JOIN tables` for every query which has to adhere to these "*globally unique document ids only*" demands.
   > 
   > > The BASE58X part is only important when you wish to reduce the published ASCII string hash id in a short form: BASE58X delivers the BLAKE3 hash in 44 characters while a simple `hex(hash)` function will produce a 64 characters wide string for the same.
   > 
@@ -30,7 +30,7 @@ A few questions need to be asked and evaluated:
   > 
   > > \[Edit:] looks like there's no impact... but what about their storage cost? That remains unmentioned so we'll have to find out ourselves.
 
-- **acceptable to all subsystems**: is the BLAKE3 256bit hash acceptable as identifying *unique document id* for all our subsystems (much of which we won't have written ourselves) or do we need to jump through a couple of hoops to get them accepted?
+- **acceptable to all subsystems**: is the BLAKE3 256-bit hash acceptable as identifying *unique document id* for all our subsystems (much of which we won't have written ourselves) or do we need to jump through a couple of hoops to get them accepted?
 
   > My *initial guess* is that everybody will be able to cope, more or less easily, but actual practice can open a few cans of worms, if you are onto Murphy's Law.
   > 

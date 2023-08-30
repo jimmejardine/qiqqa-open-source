@@ -28,7 +28,7 @@ The **primary** method is **direct text extraction**:  using the `mupdf` tool, Q
 
 ### Text *Recognition*
 
-When the primary method fails to deliver a text for a given page, that page is then *re-queued* to have it OCR-ed using a Tesseract-based subprocess. This is the **secondary** method for obtaining the text of a document (page).
+When the primary method fails to deliver a text for a given page, that page is then *re-queued* to have it OCR-ed using a Tesseract-based sub-process. This is the **secondary** method for obtaining the text of a document (page).
 
 
 # How does this impact UX?

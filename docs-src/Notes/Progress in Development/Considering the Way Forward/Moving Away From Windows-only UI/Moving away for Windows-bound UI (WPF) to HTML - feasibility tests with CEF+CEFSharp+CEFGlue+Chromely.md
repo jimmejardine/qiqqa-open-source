@@ -18,9 +18,9 @@ While this surely will smell like "[Second System Syndrome](https://en.wikipedia
   - ASP.NET to drive a HTML/CSS UI then? (Electron.NET) not my cup of tea.
   - Xamarin / Blazor / ...: mobile-focused: not geared towards desktop-level complexity and the longevity concern: they come and they go.
   - [MAUI](https://devblogs.microsoft.com/dotnet/introducing-net-multi-platform-app-ui/)? WPF regurgitated. Might have the longevity, finally, but no fun.
-  - electron: not a UI per se, but a target when doing X-plat work. Drawback for Qiqqa: comes with NodeJS backend, which we do not need unless I ditch the C# codebase utterly.
+  - electron: not a UI *per se*, but a target when doing X-plat work. Drawback for Qiqqa: comes with NodeJS back-end, which we do not need unless I ditch the C# code-base utterly.
   - electron.NET: that's electron + ASP.NET: no fun as I would be moving from WPF to ASP.NET. Motivation.
-  - Chromely: viable as it's CEF plus C# backend. We'll have a look at this one (see below)
+  - Chromely: viable as it's CEF plus C# back-end. We'll have a look at this one (see below)
 
 ## Having a look at Chromely :: feasibility for Qiqqa (and a few words about [electron](https://www.electronjs.org/) et al)
 
@@ -32,7 +32,7 @@ This is \[one of the reasons] why I always want source code level access to my l
 
 ### Chromely and the others: [electron](https://www.electronjs.org/), [NW.js](https://nwjs.io/), ...
 
-While I was considering Chromely, I also looked at electron et al. Only later did I reconsider [NW.js](https://nwjs.io/) as possibly more viable, when I found out that [electron](https://www.electronjs.org/) basically is a webbrowser with a ([NodeJS](https://nodejs.org/en/)) webserver jammed together in a single package, when I started looking at the answers they provide for this question:
+While I was considering Chromely, I also looked at electron et al. Only later did I reconsider [NW.js](https://nwjs.io/) as possibly more viable, when I found out that [electron](https://www.electronjs.org/) basically is a web-browser with a ([NodeJS](https://nodejs.org/en/)) web-server jammed together in a single package, when I started looking at the answers they provide for this question:
 
 **How does the "backend layer" communicate with the "frontend layer" (i.e. CEF i.e. Chromium browser core)?**
 

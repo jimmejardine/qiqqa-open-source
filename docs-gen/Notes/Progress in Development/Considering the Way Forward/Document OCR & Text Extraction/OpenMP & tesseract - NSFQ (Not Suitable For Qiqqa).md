@@ -1,6 +1,6 @@
 # OpenMP & tesseract :: *NSFQ* (Not Suitable For Qiqqa)
 
-It's pretty useless to pursue OpenMP support for our purposes: OpenMP, simply put, adds multithreading support in your code "under the hood". As can also be gleaned from tesseract issue [\#263](https://github.com/tesseract-ocr/tesseract/issues/263) comments, OpenMP is only of *potential* benefit when your use case matches **all** of these criteria:
+It's pretty useless to pursue OpenMP support for our purposes: OpenMP, simply put, adds multi-threading support in your code "under the hood". As can also be gleaned from tesseract issue [\#263](https://github.com/tesseract-ocr/tesseract/issues/263) comments, OpenMP is only of *potential* benefit when your use case matches **all** of these criteria:
 
 * your CPU cores have no other work pending, thus distributing a single task across multiple threads is not delaying other important jobs.
 

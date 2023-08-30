@@ -6,4 +6,4 @@ Regrettably, this almost never happens -- including research/university circles,
 
 So we generally succumb to the reality of *scraping content*, whether it's merely to obtain the obvious metadata elements (title, authors, publishing venue, publishing date, *abstract*, ...) or data/charts. Many of us probably won't even realize we are scraping like that -- and what the consequences are for our extracted data quality for our collection at large -- because it's so pervasive, despite bibliographic sites and metadata-offering websites, e.g. Google Scholar.
 
-Once you have \[scraping] tools, you're not set for life either! Then it turns into a statistics game: how good are your tools, how much effort are you willing to spend (cleaning and/or cajoling your tools to do your bidding) and what is the target accuracy/veracity of your extracted data?
+Once you have \[scraping\] tools, you're not set for life either! Then it turns into a statistics game: how good are your tools, how much effort are you willing to spend (cleaning and/or cajoling your tools to do your bidding) and what is the target accuracy/veracity of your extracted data?
