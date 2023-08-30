@@ -85,3 +85,5 @@ Release*/
 
 /docs-src/Notes/.obsidian/core-plugins-migration.json
 /docs-src/Notes/.obsidian/workspace.json
+
+/__cmake_build/

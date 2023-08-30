@@ -1,4 +1,4 @@
-# Considering the relevant atomic search unit
+# trigrams, n-grams, words, syllables, stopwords :: considering the relevant atomic search unit
 
 - as one essay put it: "*3-grams are the sweet spot*" (*for practical implementations* of (inverse) search indexes): 2-grams (bigrams) are not *specific* enough, i.e. result in huge scan lists per index hit, while quadgrams (4-grams) explode your index size, taking up too much hard-disk space for too little gain.
 - 1-gram equals 1 *syllable* or 1-gram equals 1 *word*? Indo-European languages (such as English) come with their words nicely pre-separated (most of the time) and *selectivity* improves for gram=word: you are hashing more *context* (or a longer Markov Chain) into a single n-gram hash, then when using gram=syllable. However, if that's a success, you're in some deep (word separation task) trouble for most Asian languages as they don't know about *whitespace characters*: Chinese is *hard* to chop into actual *words*.
@@ -108,4 +108,9 @@ Research samples / References:
 
 -  Urdu in Devanagari: Shifting orthographic practices and Muslim identity in Delhi
 - 
-  
+
+
+Also note other considerations regarding the employ of *n-grams*:
+- [[Using n-grams ։։ folding N-grams and attributes into trigrams (for N ≧ 4)]]
+- [[../Fingerprinting Documents/Fingerprinting - moving forward and away from b0rked SHA1|Fingerprinting - moving forward and away from b0rked SHA1]], section "*Re SHA1B collisions*" and onwards.
+- [[Detecting near-duplicate articles]]

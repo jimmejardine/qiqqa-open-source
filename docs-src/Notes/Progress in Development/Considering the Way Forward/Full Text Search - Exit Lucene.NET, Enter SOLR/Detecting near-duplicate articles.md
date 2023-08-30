@@ -118,3 +118,8 @@ There's a lot of research about detecting 'plagiarism' which might serve us ther
 
 Thus I get the feeling that we *might* be able to produce a very rough pre-filter using some sort of *document similarity hash* (think: Bloomfilters) based on the extracted and *segmented/tokenized content* first. Low storage costs, should be fast and is, I hope, a reasonably good pre-filter to help us reduce the number of documents we need to subject to additional processes (such as LDA/SDA) to find out whether those 'candidates' are indeed revisions. (Incidentally, such processes would also spit out keywords/keyphrases, so maybe we should *cache* or *hash* those auto-keyword extraction activities to help speed up future document similarity searches? E.g. hash all n-gram/segment tokens into a limited width table with overlaps, thus producing a Bloom hash. We will need to also do this per *detected significant text chunk* (**not** per page!) as we otherwise would have a very hard time detecting near-duplicates of the *is-part-of-book-or-bigger-publication* and *is-formatted-very-differently-in-this-other-magazine* kinds: there the document will match only part of bigger pub or only most of the 'text chunks' -- assuming our title, chapter, figure and content paragraph detection logic is up to par for this. "*That is another active area of research* however," as the saying goes...)
 
+
+
+## Postscript 3
+
+Also note [[../Fingerprinting Documents/Fingerprinting - moving forward and away from b0rked SHA1|Fingerprinting - moving forward and away from b0rked SHA1]], section "*Re SHA1B collisions*" and onwards.
