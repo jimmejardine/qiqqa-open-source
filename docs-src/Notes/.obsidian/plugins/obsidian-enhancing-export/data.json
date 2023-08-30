@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "name": "Markdown"
+    },
+    {
+      "name": "Markdown (Hugo)"
+    },
+    {
+      "name": "Html"
+    },
+    {
+      "name": "TextBundle"
+    },
+    {
+      "name": "Typst"
+    },
+    {
+      "name": "PDF",
+      "optionsMeta": {
+        "textemplate": {
+          "title": "Latex Template",
+          "type": "dropdown",
+          "options": [
+            {
+              "name": "None",
+              "value": null
+            },
+            {
+              "name": "Dissertation",
+              "value": "dissertation.tex"
+            },
+            {
+              "name": "Academic Paper",
+              "value": "neurips.tex"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Word (.docx)"
+    },
+    {
+      "name": "OpenOffice"
+    },
+    {
+      "name": "RTF"
+    },
+    {
+      "name": "Epub"
+    },
+    {
+      "name": "Latex",
+      "optionsMeta": {
+        "textemplate": {
+          "title": "Latex Template",
+          "type": "dropdown",
+          "options": [
+            {
+              "name": "None",
+              "value": null
+            },
+            {
+              "name": "Dissertation",
+              "value": "dissertation.tex"
+            },
+            {
+              "name": "Academic Paper",
+              "value": "neurips.tex"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Media Wiki"
+    },
+    {
+      "name": "reStructuredText"
+    },
+    {
+      "name": "Textile"
+    },
+    {
+      "name": "OPML"
+    },
+    {
+      "name": "Bibliography"
+    }
+  ],
+  "defaultExportDirectoryMode": "Auto",
+  "openExportedFile": true,
+  "env": {
+    "*": {
+      "HOME": "${HOME}"
+    },
+    "darwin": {
+      "PATH": "/usr/local/bin:/Library/TeX/texbin:${PATH}",
+      "TEXINPUTS": "${pluginDir}/textemplate/:"
+    }
+  },
+  "openExportedFileLocation": true
+}

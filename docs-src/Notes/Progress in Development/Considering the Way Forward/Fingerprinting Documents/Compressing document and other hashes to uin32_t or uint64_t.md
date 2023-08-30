@@ -6,7 +6,7 @@ Yes, we can. IFF...
 
 First, let's identify the several sources we would like to index/identify that way:
 
-- **documents** = **document hashes**. Preferably not per-library but *across-all-my-libraries-please*. Which would make the `uint64_t` *shorthand index* a very personal, nay, *machine*-specific shorthand, as we won't be able to know about the documents we haven't seen yet -- while we may be synchronizing and working in a multi-node or multi-user environment. See also [[Multi-user, Multi-node, Sync-Across and Remote-Backup Considerations]].
+- **documents** = **document hashes**. Preferably not per-library but *across-all-my-libraries-please*. Which would make the `uint64_t` *shorthand index* a very personal, nay, *machine*-specific shorthand, as we won't be able to know about the documents we haven't seen yet -- while we may be synchronizing and working in a multi-node or multi-user environment. See also [[../Multi-user, Multi-site, remote and other off-machine backups/Multi-user, Multi-node, Sync-Across and Remote-Backup Considerations]].
   That means we might have a different shorthand index value for document XYZ at machine A than at machine B. Definitely not something you would want to pollute your SQLite database with, for it would otherwise complicate Sync-Across across activity *quite a bit* as the thus-shorthand-linked data *would require transposing to the target machine*. **Ugh! *Hörk*!**
 - **document+page**. Text extracts, etc. are kept per document, per page.
  
@@ -63,5 +63,5 @@ When we map these to internal, *system-native* `uint64_t` numbers, that would co
 ## TL;DR
   
 *Don't.* Too much fuss for very little gain. Does not mix well with
-[[Multi-user, Multi-node, Sync-Across and Remote-Backup Considerations|Sync-Across]] either. 
+[[../Multi-user, Multi-site, remote and other off-machine backups/Multi-user, Multi-node, Sync-Across and Remote-Backup Considerations|Sync-Across]] either. 
   

@@ -72,7 +72,7 @@ Now I hope some day we'll be able to identify most, if not all, of those "duplic
 Meanwhile, let's keep our fingerprint nicely unique and bemoan, yet accept/live with, the ways [researchgate](https://www.researchgate.net/) et al are thwarting our efforts (mostly *unintentionally*).
 
 
-> Please also note the remarks and considerations mentioned in [[../Full Text Search - Exit Lucene.NET, Enter SOLR/Detecting near-duplicate articles|Detecting near-duplicate articles]].
+> Please also note the remarks and considerations mentioned in [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Exit Lucene.NET, Enter SOLR/Detecting near-duplicate articles|Detecting near-duplicate articles]].
 
 
 ----

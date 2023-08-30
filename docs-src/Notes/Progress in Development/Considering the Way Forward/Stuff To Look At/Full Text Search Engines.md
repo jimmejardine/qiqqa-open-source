@@ -1,4 +1,4 @@
-# [[Links to Stuff To Look At|Stuff To Look At]]: FTS / Full Text Search Engines
+# [[../Links to Stuff To Look At|Stuff To Look At]]: FTS / Full Text Search Engines
 
 index.rst
 https://xapian.org/docs/

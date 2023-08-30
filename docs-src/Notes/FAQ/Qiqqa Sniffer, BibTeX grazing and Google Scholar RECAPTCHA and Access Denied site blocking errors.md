@@ -10,7 +10,7 @@ Read on if you want to know more.
 
 ## Why do I get a RECAPTCHA and/or Access Denied blocking response from Google Scholar?
 
-The true reasons probably are manyfold and complex but some may be gleaned at [[Links to Stuff To Look At#Google Scholar]] 
+The true reasons probably are manyfold and complex but some may be gleaned at [[../Progress in Development/Considering the Way Forward/Links to Stuff To Look At#Google Scholar]] 
 which are my quick notes while looking into what everybody else has been doing and how far they've got in *solving* this issue.
 
 **TL;DR / Bottom Line**: Google does not want you to access Google Scholar:

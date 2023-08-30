@@ -1,0 +1,10 @@
+{
+	"id": "spoiler-block-obsidian",
+	"name": "Spoiler Block",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Create Spoiler Blocks to hide information until you want to see it",
+	"author": "AllJavi",
+	"authorUrl": "https://github.com/AllJavi",
+	"isDesktopOnly": false
+}
