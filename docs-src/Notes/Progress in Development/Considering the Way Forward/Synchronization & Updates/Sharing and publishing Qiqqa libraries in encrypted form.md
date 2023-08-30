@@ -124,8 +124,6 @@ In other words: in security the LD<sub>50</sub> of "*if*" is 1: you're a certifi
 
 ## The technology behind it
 
-
-
 - Uses `gpg` (GnuPG) to encrypt and decrypt your library data.
 - By using `gpg` we can set up sync systems which can be made publicly available, i.e. placed **in encrypted form** on public-access or low security cloud storage
 * see SO: `gpg` can "address" multiple recipients at once by encoding the random secret encryption key multiple times in the single message: each encoding is encrypted with one recipient's public key, so's every *legal recipient* will be able to grab the actual decrypt key by decrypting their particular little leader chunk.
