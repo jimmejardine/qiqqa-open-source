@@ -77,7 +77,7 @@
 		- [[Text Extraction/Cleaning Up the Extracted Content|Text Extraction: Cleaning Up the Extracted Content]]
 	- Metadata Extraction
 		- [[Metadata Extraction/Obtaining Author, Title, DOI, etc|Metadata Extraction: Obtaining Author, Title, DOI, etc. from the PDF XMP Data]]
-		- [[Metadata Extraction/Infering Author, Title, DOI, etc from Content|Metadata Extraction: *Infering* Author, Title, DOI, etc. from the PDF Text Content]]
+		- [[Inferring Author, Title, DOI, etc from Content|Metadata Extraction: *Infering* Author, Title, DOI, etc. from the PDF Text Content]]
 	- Sniffer Assist: Downloading (PDF & HTML) Documents
 		- [[Using embedded cURL to download PDF or HTML document at URL]]
 		- [[Using embedded cURL to obtain Metadata for a document]]

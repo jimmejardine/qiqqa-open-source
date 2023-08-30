@@ -768,18 +768,3 @@ Note the `\u100083` unicode codepoints in there... A very modern CodePoint for a
 
 
 
-Ha.
-
-```
-{
-  "/Title": { HEX: "FE FF",
-  RAW: "þÿ"
-},
-```
- 
-
-just another way of saying: empty string!
-
-
-
-
