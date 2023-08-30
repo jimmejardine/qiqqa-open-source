@@ -1,0 +1,1 @@
+# For Users :: Example How To Use The SOLR Instance Without Qiqqa UI FrontEnd = scripting and using for your own custom purposes
