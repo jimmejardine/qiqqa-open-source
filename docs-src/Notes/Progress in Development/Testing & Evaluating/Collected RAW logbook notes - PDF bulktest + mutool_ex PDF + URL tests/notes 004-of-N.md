@@ -27,6 +27,10 @@ This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
 
 
+
+##### Item ♯00001
+
+
 `mupdf` memory issue:
 
 ```
@@ -44,6 +48,10 @@ muconvert INTRANET_E57B9774-4712-430E-93E0-E67433F7DF07/documents/4/458B1F6296CF
 
 
 
+
+
+
+##### Item ♯00001
 
 
 ```
@@ -77,6 +85,9 @@ hrmmmm :-(((
 
 
 
+
+##### Item ♯00001
+
 ???
 
 ```
@@ -99,6 +110,9 @@ warning: deduplication cost pathological at O(146444498)?
 
 
 
+
+
+##### Item ♯00001
 
 Another what-the-heck?!...
 
