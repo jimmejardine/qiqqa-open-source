@@ -1,6 +1,7 @@
 # Contributing to Qiqqa :: What Can You Do To Help?
 
-{{toc}}
+* [Preface](Contributing%20--%20What%20Can%20You%20Do%20To%20Help.md#preface)
+* [TBD](Contributing%20--%20What%20Can%20You%20Do%20To%20Help.md#tbd)
 
 ## Preface
 

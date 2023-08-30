@@ -7,3 +7,5 @@
 + [[Network Troubles, NAS and SQLite]]
 + [[Papers and their metadata, where to find papers, all about papers' aspects]]
 + [[Testing - Nasty URLs for PDFs]]
++ [[Why I consider OpenMP the spawn of evil and disable it in tesseract|Why I consider OpenMP the *spawn of evil* and disable it in `tesseract`]]
++ 
