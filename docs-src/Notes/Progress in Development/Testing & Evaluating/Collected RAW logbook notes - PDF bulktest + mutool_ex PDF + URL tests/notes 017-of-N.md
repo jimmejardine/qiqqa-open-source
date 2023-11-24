@@ -53,39 +53,17 @@ No idea how we're going to resolve this in our sync tool (named `vcopy`).
 
 
 
-#### Tooling to create:
-
-* [[../../Considering the Way Forward/Tools To Be Developed/vcopy - copy, move, synchronize files safely|vcopy :: copy, move, synchronize files safely]]
-* [[../../Considering the Way Forward/Tools To Be Developed/ingest - import other databases|ingest :: import other databases]]
-* [[../../Considering the Way Forward/Tools To Be Developed/chop-shop - eschew documents and produce content in usable forms|chop-shop :: eschew documents and produce content in usable forms]]
-* [[../../Considering the Way Forward/Tools To Be Developed/hog aka hound - fetch the document you seek using maximum effort|hog a.k.a. hound :: fetch the document you seek using maximum effort]]
-* [[../../Considering the Way Forward/Tools To Be Developed/snarfl - snarfling all the metadata you need off The Net|snarfl :: snarfling all the metadata you need off The Net]]
-* [[../../Considering the Way Forward/Tools To Be Developed/pappy - hola, pappi! - let's play doctor with your database|pappy :: hola, pappi! ... Let's play doctor with your database]]
-* [[../../Considering the Way Forward/Tools To Be Developed/bezoar - OCR and related document page prep|bezoar :: OCR and related document page prep]]
-* [[../../Considering the Way Forward/Tools To Be Developed/libelle - compare PDF page renders and images|libelle :: compare PDF page renders / images]]
--      
-- 
-
-
-----
-
-
-Cool names for tools:
-
-- `bezoar`  (Wikipedia: Bezoarsteine (DE))
-- `auerhuhn` (Wikipedia: bird (DE))
-- `jackdaw` (NL: "kauwtje" (family of blackbird))  (inspired by music: Blackbird & Crow)
-- `troglodytes` (birds living in caves, e.g. Dutch "winterkoninkje") -- for extra fun compare `troglodytae` ("[cave dwellers](https://en.wikipedia.org/wiki/Troglodytae)") to `trogodytae` ([people living in Ethiopia and environs](https://oxfordre.com/classics/display/10.1093/acrefore/9780199381135.001.0001/acrefore-9780199381135-e-6581;jsessionid=1D13817E2D77A1285548CDFE2476E972)) --> `spelunking` --> `speleologica`
-- `mela` ([Pomponius Mela](https://en.wikipedia.org/wiki/Pomponius_Mela) was the earliest *cartographer* whose name and output has persisted through history; many have preceded him, e.g. [Strabo](https://en.wikipedia.org/wiki/Strabo), and Roman legions, when traveling, measured their routes, thus producing the actual "graphing" of the world as they knew it, but none of those predecessors are referred as *cartographers*, rather *geographers*, *historians*, etc.)
-* `statio`, `stationarii` (originally army barracks and their inhabitants, later the transportation management stations spread throughout the Roman Empire. See also [Stationarius (Roman military)](https://en.wikipedia.org/wiki/Stationarius_(Roman_military)), "[The Milites Stationarii considered in relation to the Hundred and Tithing of England](https://sci-hub.ru/10.1017/S0261340900006767)", ...)
-* 
-
 
 
 
 
 
 ### Item ♯00003
+
+While I was lookin into other stuff, I ran into a Microsoft note mentioning -- rather, someone referring to Microsoft while noting -- that it's **safer/more stable** to use UNC path specs, rather than drive-mapped path specs, as the latter can cause *infrequent, random* access errors, **also on local (in-machine) drives**. *WTF?*
+
+🥵... and now I can't find the page where this was mentioned. *Of course.* 🤬
+
 
 
 
@@ -97,6 +75,105 @@ Cool names for tools:
 
 
 ### Item ♯00004
+
+#### MCMC? (Monte-Carlo simulations for optimum parameter config selection)
+
+- ***forget*** Gibbs sampling as that one requires a predefined distribution and we don't have that -- or it would be a fat lie / low confidence guestimate anyhow.
+- check QMCMC: *Quasi* Markov Chain Monte Carlo.
+- also: GA (generic annealing): this is another term I forgot, but matches the idea I'm walking around with...
+- **Sobol Sequences**: the name for what I keep in mind by recalling Cebas' render engine and the way it samples 3D space. In our case, the Sobol sequences are exactly what I need to keep the sampling "evenly distributed" while we dive towards local+global optima coordinates.
+- On that same subject, related: QMC: Quantum Monte Carlo. And **(quantum) tunneling**, where the next estimates are chosen so we prevent sticking around a sub-par local optimum *virtually forever*.
+* *differential evolution*
+* [Low-discrepancy sequence](https://en.wikipedia.org/wiki/Low-discrepancy_sequence)
+* 
+
+
+
+
+#### Detect Text orientation on page; rotation; skew
+
+- **Radon transform** -- very similar to the Hough transform but more closely matches hat I'm imagining might work for most images / page renders.
+- [**auto-correlation**](https://en.wikipedia.org/wiki/Autocorrelation) of the scanline histograms -- because I see this stuff being quite similar to *pitch detection* in audio processing.
+- (**degree of coherence**) -- as an aid to the measure evaluation while looking for the most probable rotation angle.
+- 
+
+
+
+
+
+
+
+
+### Item ♯00005
+
+
+#### tesseract charts (debugging/diagnostics feature)
+
+Generate using D3 and overlay them in HTML over the images they regard, where the image serve as background image of the chart: two HTML elements overlaid over one another. No need for a sophisticated C++ chart library then!
+
+
+
+Re FTS and typos, etc.: we had a look at levenshtein distance measurements, etc. --> pick up some tricks seen elsewhere and expand on those:
+
+- reduce the characters to a MOD 4 alphabet, so that multiple characters map onto a single alphabet char, which is then included in a 3gram. That's what the others did. Not very effective when the typo jumps in the MOD4 alphabet, i.e. 25% chance you get the typo that way, and only for replacements. Instead, how about...
+
+Also there was the github paper which mentioned the variable length n-gram construction they did for their source code search engine. How about...
+
+We want to be able to recognize words like:
+
+- TL;DR  --> semicolon is not always a word sep!
+- 2,830  --> find values including thousands separators, etc.
+- 100
+- 100ml	 --> numbers with postfixes
+- 1945AD --> 1945 AD
+- 200BCE --> 200 BCE
+- 3-gram --> '-' dash isn't a separator or hyphenation-dash, at least not all the time.
+- Covid19  --> values with prefixes
+- Quote500 
+
+Stop-words... how about we scan a document and determine its word frequency and character frequency and let the, say, top N of those determine the stop-words and the low-ranked characters, which would drive the tokenizer to produce an N-gram for higher N.
+
+Say we keep a local and global (summary of the entire database, updated for every inserted document) character alphabet histogram, which determines how we tokenize and produce n-grams to be injected into the search index.
+
+However, that would also mean we store a limited and *unpredictable* set of n-grams of varying length N per document as we seek to reduce the number of indexed n-grams that way and will be sure to store / filter-reject different n-grams for different documents when we use a local histogram for alphabet (and ditto for words), ...
+
+... so the question becomes: can we produce those varying n-grams all as a larger search set when we query the database? The point here is: if we can, then we increase query cost re number of n-grams to search, against a tighter and thus faster index/database, compared to the classic approach where all n-grams, including the very frequent ones, are stored, resulting in a rather heavy bloated and slow search index, while the number of search n-grams remains smaller.
+
+I lean towards the former approach, while we haven't tested both yet.
+
+Additional thought re the latter: we can "optimize" a little by storing a limited set of POSitions per document, thus reducing the costliness of frequent n-grams in the index: say we store 30 positions, and position 31 stores a bloom filter of the pages where the n-gram occurs further down the document. Stop-words / stop-ngrams may be stored as a single entry per document, foregoing those 30 POS slots and immediately storing that bloomfilter-like which-pages-have-this-one bit-set so further cut down on index production cost.
+
+The the search can be optimized for the generated set of n-grams-to-check by keeping a separate n-gram histogram index and sorting the search set against these frequencies: the rarest n-grams are sought first as those will filter the document set the fastest.
+
+When we keep an n-gram histogram in the database, we can produce selectivity statements for our FTS searcher to use: only those n-grams that are reasonably selective will be used in the search, unless we cannt help ouselves, in which case we'll be processing a LOT of documents and should warn the user up-front. 
+
+When you have a frequncy-of-occurrence histogram for your alphabet, you can construct variable n-grams akin to the github approach by constructing n-grams from characters while adding their "selectivity" (1-occurrencefrequency/totalDocumentCount) until we surpass a threshold for that value: that would be the end of our n-gram then. Repeat for the next one, etc. StartOfWord and EndOfword markers are important and start/terminate n-gram construction.
+
+All of which does not address the levensthein distance and typo handling in search: for that we need to produce a typo map somehow of possible errors; then generate all possible character combos and heir ngrams and search those. Which is ... horrible. So we'ld better try another idea: at indexing time, the words are pulled through a speelchecker and the top-ranked word is picked up as a lower-ranked alias for the current word and fed to the n-gram pipeline alongside, so its n-grams will enter the search index as well. Then at search time we do the same for the search words: pull them through the same spell checker and use those top-1 or top-2 (? trying extra hard to account for typos, are we ?) as lower-prio aliases, which are n-grammed alongside and thus should deliver results as they'll match the lower-ranked aliases stored in the database, when the main words themselves don't deliver sufficient results. That way we should be able to cope with plenty typos / writing errors in the text with relatively little overhead: double size of index plus double number of n-grams to search, all of which are put through the sort + rank-according-to-global-histogram rule, so we could argue the seach set might be twice the size but still only cost the SAME as this would just mean more search set n-grams don't make the cut (threshold) to participate in the selective document search.
+
+Which leaves me wondering whether we should store POS info in the search index at all: when we have found matching documents, we need to check against the other "non-selective" n-grams as well so we need some sort of (accellerated?) scan of the loated docuemnt anyway. As the cost of storing all n-grams + position (4 bytes per char as each char will produce at least one n-gram (32bits hash) will be prohibitive, we must do this on-line, i.e. at the end of the search. OR... we postpone this until the user specifically asks for such a detailed search/match inside the given document: only then do we rerieve the document and compare its regenerated ngram stream against our entire search set. Which will be costly, but hey, somewhere you'll have to pay to be this precies in your reporting...
+
+
+
+
+
+
+
+
+
+
+
+
+### Item ♯00006
+
+
+
+
+
+
+
+
+### Item ♯00007
 
 
 

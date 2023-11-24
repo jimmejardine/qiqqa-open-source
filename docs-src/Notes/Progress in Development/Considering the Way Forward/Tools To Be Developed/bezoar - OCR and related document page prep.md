@@ -19,3 +19,7 @@
       > **Our Reason To Want This**: we've observed some very strange LSTM outputs when feeding that engine *unmasked* greyscale image data, which carried JPEG-artifacts!
   
 
+
+
+
+

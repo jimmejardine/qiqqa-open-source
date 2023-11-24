@@ -2,7 +2,7 @@
 
 See if we can get [civetweb](https://github.com/civetweb/civetweb) or other embedded webserver mixed with [mupdf](https://github.com/GerHobbelt/mupdf).
 
-First thought I had was if [mujs](https://github.com/ArtifexSoftware/mujs) (javascript engine by Artifex, part of mupdf) is an interruptable/continueable system, but best to assume it isn't as very few systems are.
+First thought I had was if [mujs](https://github.com/ArtifexSoftware/mujs) (javascript engine by Artifex, part of mupdf) is an interruptible/continuable system, but best to assume it isn't as very few systems are.
 
 Point is: we need some way to observe and steer the image extraction to OCR process inside mupdf, so we can improve images before feeding them to the [tesseract](https://github.com/tesseract-ocr/tesseract) engine.
 
@@ -12,21 +12,21 @@ That also involves image sectioning: multi-column and other non-super-simple lay
 
 > Forgot, but there's another process around PDFs where we want to ditch, or at least clean up, "cover pages" and such: that would involve feeding page images to some sort of AI/statistical engine to recognize cover pages and then have only the relevant bits extracted, or at least marked clearly in the text layer, so that text extraction by mupdf will deliver these in optimum quality.
 >
-> Another approach there would be a post-mortem filter where *everything* is extracted and we deal will cover pages by recognizing and filtering them at the hOCR/extracted-text level, i.e. not by looking at the original layout/image, but by looking at the text/layout output. While this is a viable approach IMO, I'd rather also wish to end up with *cleaned up PDFs*, derived from the originals. For print and other viewing purposes where I don't want to be bothered with the cover-page clutter.
+> Another approach there would be a post-mortem filter where *everything* is extracted and we deal with cover pages by recognizing and filtering them at the hOCR/extracted-text level, i.e. not by looking at the original layout/image, but by looking at the text/layout output. While this is a viable approach IMO, I'd rather also wish to end up with *cleaned up PDFs*, derived from the originals, for print and other viewing purposes where I don't want to be bothered with the cover-page clutter.
 
-Having the entire OCR+textExtract process configurable/modifyable through a little scripting is all nice, but it would lengthen and already long running process, which is, without additional means, very *unsuitable* for any UI responsive approach, be it based on chatting with a web-server or otherwise.
+Having the entire OCR+textExtract process configurable/modifiable through a little scripting is all nice, but it would lengthen an already long running process, which is, without additional means, very *unsuitable* for any UI responsive approach, be it based on chatting with a web-server or otherwise.
 
 I've consider "push technology" or "chat lines" (SocketIO et al) for the mupdf system to talk to the top layer, i.e. the UI. However, while these technologies exist, it is still a "unconventional"/irregular to have a (web) interface like that. It's easier to code (also by others) to have a system which is basically "web page" with possibly a polling system underneath to provide UI updates.
 
-I think polling here would be easier, as that would make for some very simple JavaScript actions to update the UI. Reactive is all nice & dandy, but that would then have travel through the entire system, down into the bowels of mupdf and other systems we're using. So at some point a polling mechanism would be in order to ensure the UI gets periodic updates.
+I think polling here would be easier, as that would make for some very simple JavaScript actions to update the UI. Reactive is all nice & dandy, but that would then have to travel through the entire system, down into the bowels of mupdf and other systems we're using. So at some point a polling mechanism would be in order to ensure the UI gets periodic updates.
 
-Another though in *support* of polling (vs fully reactive / event driven) is the notion that:
+Another thought in *support* of polling (vs. fully reactive / event driven) is the notion that:
 - UI updates for a batch processing system don't need to show *all of it*: the batch system should hopefully be faster than the human eye could perceive UI updates, so you want to see work happening, either through snapshots or less strict means where your UI shows updates of the work done in the back-end "as it happens". With events and reactive you then would need to code filters, which collect or discard events percolating up, for otherwise you'ld be swamped in updates that are unnecessary and only loading the UI system tremendously: imagine a system which does process about, say, 50 pages per second through the pipeline. That would mean your entire stack should be real-time video-capable if all those pages (and their intermediate filter stages when you're watching the pipeline progress page I imagine) are to be drawn in the UI. Let alone the cost in computing, it's too fast to be useful for folks anyway. That power could better be used to speed up the PDF processing itself.
-- polling as a mechanism to talk to the mupdf+extras backend means we can use basic HTTP request-response interface approaches, which are well known and supported by many. A lot of knowledge about such data flows is available, when we're stuck. Restartable/Continuable systems are *hard* to engineer and rare besides. Any push tek (or event propagation from back-end to UI front, which would be the same, conceptually) is harder to mix with an otherwise request-response based system. Better to keep the reactive part to the UI only and do the mupdf augmentations in a classic fashion.
+- polling as a mechanism to talk to the mupdf+extras backend means we can use basic HTTP request-response interface approaches, which are well known and supported by many. A lot of knowledge about such data flows is available, when we're stuck. Restartable/Continuable systems are *hard* to engineer and rare besides. Any *push tek* (or event propagation from back-end to UI front, which would be the same, conceptually) is harder to mix with an otherwise pull-oriented request-response based system. Better to keep the reactive part to the UI only and do the mupdf augmentations in a classic fashion.
 
-That drives the question how we can ensure the caller (UI) is able to find out about the progress of our backend work? Do we define a set of states in the process to monitor and list those as part of the initial response? Hmmmm.
+This drives the question how we can ensure the caller (UI) is able to find out about the progress of our backend work? Do we define a set of states in the process to monitor and list those as part of the initial response? Hmmmm.
 
-The whole shebang would start with a PDF (or a bunch of them) and at least the scripts that are going to guide the processing of said PDFs. Of course, we could define a number of "checkpoints" in the code, where we can store images and other data for the UI client to request / poll at any time, but that sounds rather restricted to: it would require script analysis, guaranteed unique numbering of states up front, etc. 
+The whole shebang would start with a PDF (or a bunch of them) and at least the scripts that are going to guide the processing of said PDFs. Of course, we could define a number of "checkpoints" in the code, where we can store images and other data for the UI client to request / poll at any time, but that sounds rather restricted too: it would require script analysis, guaranteed unique numbering of states up front, etc. 
 
 Can we come up with a system where we can "debug" such a script as it happens, without a lot of up-front analysis and so forth?
 
@@ -42,9 +42,9 @@ How about we allow the user to code `debugger` statements in there (JavaScript a
 
 > I say **pause** because I want the process to be continuable after that: put in a `debugger` statement to see the state of affairs at that point in time, then hit a key to allow the process to continue if you like.
 >
-> **Breakpoints** is the term I'm looking for here, I guess.
+> **Conditional Breakpoints** is the term I'm looking for here, I guess.
 
-So how can we cope, in a batch process, with such *breakpoints*? And with their cousins, the 'print'-like debug statements, where the script coder coded a point where you get to look at the state of affairs while the process barges on?
+So how can we cope, in a batch process, with such *breakpoints*? And with their cousins, the 'print'-like debug statements, where the script coder codes a point where you get to look at the state of affairs while the process barges on?
 
 What about caching those images, etc.?
 

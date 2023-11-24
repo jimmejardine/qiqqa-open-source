@@ -19,14 +19,14 @@ Some do it to “protect” against copy/pasting their texts. (Those are rather 
 
 Quote: “[Never attribute to malice that which is adequately explained by stupidity or indolence.](https://quoteinvestigator.com/2016/12/30/not-malice/#return-note-15115-9)”
 
-Some, it seems, do it out of sheer laziness (I think the word “indolence” fits this one to a tee): when the design department likes their pixel-perfect magazine or brochure output enough to ignore some SEO benefits that come from PDFs with their *copy* (i.e. *text*) embedded. I’ve seen this done to brochures, magazines and above all: *books*: while one might want a brochure or magazine PDF to serve some SEO purpose by itself (“we want this to be easy to find by google and friends”?), *books* often come with “cover web pages” where they are introduced, together with their publisher, author and maybe some other (meta-)data, thus making the book copy itself much less relevant re any “making sure people can find this” goal.
+Some, it seems, do it out of sheer laziness (I think the word “indolence” fits this one to a tee): when the design department likes their pixel-perfect magazine or brochure output enough to ignore some SEO benefits that come from PDFs with their *copy* (i.e. *text*) embedded. I’ve seen this done to brochures, magazines and above all: *books*: while one might want a brochure or magazine PDF to serve some SEO purpose by itself (“we want this to be easy to find by google and friends”!), *books* often come with “cover web pages” where they are introduced, together with their publisher, author and maybe some other (meta-)data, thus making the book copy itself much less relevant re any “making sure people can find this” goal.
 
 > I’m **not** talking about the, *äh*, *repropriated* copies we may discover in the murkier crevices of on-line search databases, but publisher/author-provided authorized instances *only* here: from downloadable magazine issues and commercial product brochures to art house ebooks – in one instance amounting to a whopping 600MB+ *übersized* PDF which apparently was the very same file they fed their printer. *Gorgeous* hardcopy, that one, by the way. And a PDF including overprint high rez TIFFs (for edge-to-edge image printing) and a few other tidbits that only a high-end quality printer can truly appreciate.
 >
 > And then there were those instances where I suspect their InDesign or Quark jockeys had had some debilitating headaches getting the pages laid out as demanded and left it at that once it got approved, resulting in pages which were strangely **partly** or *entirely* rendered as *character shapes*, which is just another way to nuke your text extraction for the sake of render/view/print output quality. 
 > Been there myself in days gone by. (Lost the T-shirt though. #sadface.) 
 
-While the original authors don’t have to resort to crutches such as OCR to have their PDF/document be present in text form, I’ve seen quite a few math books (or books which contained quite a bit of *math* while discussing some technology area) go this route of rendering all pages as high-rez pixel images. Just to make sure the math looks perfect anywhere, I guess.
+My goals and the book authors' may diverge where I put a *very high emphasis* on the document being *searchable text*: that is why I sometimes may have to resort to crutches such as OCR to have their PDF/document be presented in *searchable text* form, as, f.e., I’ve seen quite a few math books go this route of rendering all pages as high-rez pixel images. Just to make sure the math looks perfect anywhere, I guess. Ditto for books which contained quite a bit of *math* while discussing some technology area, by the way. 
 
 
 ## Constable Horroratio Obnoxious: PDFs which carry *characters as shapes*
@@ -37,13 +37,13 @@ Similar to the [Captain Obvious Abound](#CaptainObviousAbound) image-based pages
 
 Much rarer are these ones which hurt text extraction as bad – or even worse: I’ll get to that!
 
-Those which have their text (and possibly everything else that’s not *pixels* already when imported in their DTP package of choice) converted to **shapes**: while a printer won’t mind nor would a screen viewer (a.k.a. PDF renderer) balk, any *semblance* of text is permanently eradicated from the PDF, so we’ld have to reach to reach for that OCR toolkit once more.
+Those which have their text (and possibly everything else that’s not *pixels* already when imported in their DTP package of choice) converted to **shapes**: while a printer won’t mind nor would a screen viewer (a.k.a. PDF renderer) balk, any *semblance* of text is permanently eradicated from the PDF, so we’ld have to reach for that OCR toolkit once more.
 
 “Same thing as images!” you say?
 
 Pardon me, my dear chap. These are, in a sense, *worse*. Allow me to mansplain this bother.
 
-While *images* can be easily detected as such in the PDF data streams – where I smoothly ignore **image strips** until a later entry – you’ll need quite a bit more sophistication to address **characters as shapes** PDF output: it is not the *shapes* per sé, but the fact that *charts* and other *data graphs* also may appear as a bunch of *shapes* instead of a mere pixeled image. And that in the same document as the *character shapes*!
+While *images* can be easily detected as such in the PDF data streams – this is where I smoothly ignore **image strips** until a later entry – you’ll need quite a bit more sophistication to address **characters as shapes** PDF output: it is not the *shapes* per sé, but the fact that *charts* and other *data graphs* also may appear as a bunch of *shapes* instead of a mere pixeled image. And that in the same document as the *character shapes*!
 
 So you are down to applying some (smart?) heuristics to help your automaton decide what this particular blob of shapes represents: another data graph or a chunk of text with maybe a few odd characters, but plain reams of type otherwise? **We are talking applying _computer vision_ technology now, which is all jolly well but another major obstacle _apart_ from OCR when you’re concerned with optimal (“near original”) text extraction quality!** 
 
@@ -58,7 +58,7 @@ I still wonder if this is a setting in `dvips` or other PDF-excreting tools some
 
 *Duh*!
 
-*Uh Unh!* No sir! Not the easy-peasy embedded TIFF, PNG or JPEG ones! I’m talking about those (scientific papers all, BTW) where, when you tool up and extract the images, you’re looking at **100% black fill** center stage! Turns out these PDFs had *additional* images serving as **image masks** and the text (and graphics; and formula’s) were rendered in the *masks*, rather than the content images themselves.
+*Uh Unh!* No sir! Not the easy-peasy embedded TIFF, PNG or JPEG ones! I’m talking about those (scientific papers all, BTW) where, when you tool up and extract the images, you’re looking at **100% black fill** center stage! Turns out these PDFs had *additional* images serving as **image masks** and the text (and graphics; and formulas) were rendered in the *masks*, rather than the content images themselves.
 
 Funny really: you take a black sheet and define a mask where the black is allowed to “shine through”, so to say, and you end up with a page which looks perfectly fine in a screen reader or in print.
 
@@ -66,7 +66,8 @@ Funny really: you take a black sheet and define a mask where the black is allowe
 
 Of course, the basic answer for this, as with mostly all else on this page, is forego the “page layout extraction” techniques based on original PDF data and shoulder your trusty ol’ *elephant gun*, take aim and pull the trigger: rendering each page as a single page (as one would do for a PDF screen viewer) and then hope the OCR engine internals will sort it out, paragraph text reams, charts, schematics an’ all.
 
-> When that’s your standard answer to everything, you’ll be surprised to learn that these pages are often very hard to *grok* for the page layout heuristics embedded in OCR engines (such as `tesseract`) and your text extraction quality rates will plummet… I don’t have an answer to that one yet, apart from “[bugger it, millennium hand & shrimp!](http://www.nblogn.com/2015/03/bugrit-bugrit-millenium-hand-and-shrimp/)”
+> When that’s your standard answer to everything, you’ll be surprised to learn that these pages are often very hard to *grok* for the page layout heuristics embedded in OCR engines (such as `tesseract`) and your text extraction quality rates will plummet… 
+> I don’t have an answer to that one yet, apart from “[bugger it, millennium hand & shrimp!](http://www.nblogn.com/2015/03/bugrit-bugrit-millenium-hand-and-shrimp/)”
 
 
 
@@ -184,6 +185,9 @@ To give you a bit of an idea about that: while I was testing the *robustness* of
 1 : 90000 you say? 
 Why bother? 
 Because I care. 
+
+### ... and it's \<rant mode\> in full swing
+
 I’ve been around too many places where people were exhibiting that *exact same* indolence, calling it “*efficiency*” to cover for it in their minds, resulting in very rare *way*-out-of-bounds results in their financial calculations. Regrettably these triggered payouts that went unmonitored. Only minimal loss of revenue, that one.
 Others with that same *efficient* mindset at an insurance company had their own Meet&Greet with the Lord Murphy when they had a fatal server park failure, resulting in two entire weeks of financial records completely *wiped*, including *all* backups – that includes *remotely stored* backups! (The backup system had an undiscovered flaw because their *efficiency* did not allow them to plan and run a “failure mode exercise” any time during the year so the defective hardware was not discovered until it was too late. The “failure mode exercise” had been deemed “too expensive” by the board, which were focused on *conversion ratios* and other KPIs to boost their stock options. The manual recovery took an all-hands-on-deck 2 *months* effort, recall *everyone*, no holidays, no weekends, *crunch*, including some serious Mechanical Turk efforts as the paper records had to be re-entered and manually updated in a race with the restored servers, while the math wizards had a *no R&R* clamp-down as these efforts had to be monitored and *verified* to prevent showing up on the Failure Radar of both institutional and consumer organizations.
 While a major new shipping yard was introduced, the architects had neglected a totally worthless piece of *solid engineering* – this included all lead engineers and the entire software team, BTW. Is indolence contagious? I believe it is – this little datum turned out to be a complete showstopper at the kick-off party as it would cause a traffic jam that would make national headlines, guaranteed. Simple. Electronic access keys *can* fail. In the hands, and particularly when in our modern wallets and tucked in the “ass pockets” of your jeans, they *do* fail, *massively*. Now *that* particular flavour of *massively* is not precisely know but empirical data collected so far says it’s 1:100000 or *worse*. Combine that “almost *zero*” number with a *great* looking site design where nobody had accounted for a *single* access token failure (nor, unsurprisingly enough, had asked a what-if question about it), add a bit of human-in-rush-hour mentality when you just got yourself a “this cannot happen” failure event and you got yourself a friggin’ warzone in no time flat. So the bubbles went back into the bottles, the nibbles forgotten and some “unexpected delay” in the opening of the new site from a spokes-person.
@@ -195,8 +199,9 @@ While I may be known to some folks as the “It compiles, hence it ships!” guy
 The Known Unknowns and Unknown Unknowns. And the old lifetime test charts from IBM: how far the exponential effort ladder am I willing to go? It depends, but in this case: pretty high.
 
 
-This is just me writing down these items lest I forget. And who knows, maybe someone else will benefit as well. Or even better yet: will feel tempted to try their hand at mechanising these processes for the benefit of all of us!  
+This is just me writing down these items lest I forget. And who knows, maybe someone else will benefit as well. Or even better yet: will feel tempted to try their hand at mechanizing these processes for the benefit of all of us!  
 
 Don’t mind me: while I like this sort of challenge myself, I’m still busy getting the general basics in order for the Long March™ of Qiqqa so I will be pretty busy nearby.  Wink wink, nudge nudge. 
+
 
 
