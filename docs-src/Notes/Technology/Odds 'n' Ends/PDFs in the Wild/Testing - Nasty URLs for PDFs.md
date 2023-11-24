@@ -39,6 +39,8 @@
 - https://onlinelibrary.wiley.com/doi/pdf/10.1002/humu.22848
 
   Renders as PDF in browser, but 'Save As' produces the HTML. Only clicking on the content and then hitting right-click menu -> Save As will produce the PDF.
+
+  https://asistdl.onlinelibrary.wiley.com/doi/full/10.1002/asi.24082 : ditto
   
   https://onlinelibrary.wiley.com/doi/pdf/10.1002/acp.2995 : ditto
   
@@ -170,11 +172,41 @@
    - https://www.proceedings.aaai.org/Papers/ICML/2003/ICML03-102.pdf
 
 
+- https://www.semanticscholar.org/reader/7dfac524a55f599786d64b9b2725d63e2679f2bf : need to click download in online PDF viewer
+- https://www.semanticscholar.org/reader/33eeab272c06c30c6e550e312d0817c2681b5dd8
+
+
+- https://www.macrothink.org/journal/index.php/ber/article/view/13666 : opens PDF in online viewer, plus separate download link next to the viewer
+
+- https://www.cicling.org/2006/Proceedings/RCS-18-Page151.pdf : b0rks in browser due to certificate issues.
+
+- https://www.tandfonline.com/doi/full/10.1080/17538947.2017.1371253
+
+- https://www.mdpi.com/1099-4300/23/1/31 : Download PDF, etc. are available via dropdown.
+
+- https://www.sciencedirect.com/science/article/pii/S1875389212001435?ref=pdf_download&fr=RR-2&rr=8241e1a149400be4 : the resulting PDF file link apparently has a time-out (discovered when binging on PDFs in a web browser download session) > https://www.sciencedirect.com/science/article/pii/S1875389212001435/pdf?md5=625bed8107bcf34e6adc0f3371811772&pid=1-s2.0-S1875389212001435-main.pdf
+- https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8746164 : Ctrl-S -> HTML file but view is PDF?
+- https://www.cns.nyu.edu/pub/lcv/portilla03-preprint.pdf- : note the dash at the end: file extension is `.pdf-` instead of `.pdf`, probably a data entry / fat finger mistake server-side.
+- https://www.tandfonline.com/doi/epdf/10.1080/09540091.2023.2202363?needAccess=true : Ctrl-S --> HTML, click download button to get PDF
+- https://citeseerx.ist.psu.edu/doc/10.1.1.329.6283 : a HTML based PDF viewer wraps the PDF.
+- 
+
+- https://link.springer.com/chapter/10.1007/978-3-642-15696-0_46 : **WARNING**: this is one example where this site provides a *preview* PDF for download, at the same location in the page where the regular PDF would be available otherwise. So when automating this stuff, we SHOULD add heuristics to identify potential previews and jump to sci-hub instead, after extracting the DOI from the same page!
+- https://link.springer.com/chapter/10.1007/978-3-642-37456-2_14 : ditto!
+- 
+
+
+
 
 
 ## HTML pages with problems
 
 * [Irreducible and Aperiodic Markov Chains (uni-ulm.de)](https://www.mathematik.uni-ulm.de/stochastik/lehre/ss06/markov/skript_engl/node12.html) -- expired certificate gets you blocked
+* https://136.199.55.186/rec/conf/icassp/SouideneBA06.html
+* https://iuks.informatik.tu-muenchen.de/_media/members/steger/publications/2002/isprs-comm-iii-ulrich-steger.pdf : another one that has serious trouble today in Chrome: `curl -o ~/Downloads/isprs-comm-iii-ulrich-steger.pdf https://iuks.informatik.tu-muenchen.de/_media/members/steger/publications/2002/isprs-comm-iii-ulrich-steger.pdf --ssl-no-revoke --insecure` -- didn't work without the `--insecure` there.
+* 
+
+
 
 
 ## Download / fetch weirdnesses & miscellaneous oddities
@@ -186,6 +218,791 @@
 - Academia.com of course is a nuisance as it always wants you to log in with either google or facebook: one big tracking hazard.
 
 * https://ietresearch.onlinelibrary.wiley.com/doi/epdf/10.1049/iet-epa.2016.0190 : Linux/Firefox report that it blocked popup(s) when you click on the download button in this page to get an actual copy of the PDF: you need to enable popups for the Wiley subdomain for the PDF file to be actually downloaded. See if we can circumvent this with cURL?
+
+- https://link.springer.com/chapter/10.1007/3-540-44888-8_9 : Springer puts a 2-page sample PDF online inside this page so our automaton may stumble over that one and consequently *forget* to o to sci-hub.ru with the DOI listed elsewhere on this page --> we need additional heuristics to detect such 'sample pages' throwing a spanner in the works.
+- https://link.springer.com/chapter/10.1007/3-540-12689-9_129?error=cookies_not_supported&code=eb5bf9b4-1766-41db-b982-2b1c591c26bd
+
+- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7939936/ : some pages are only published as HTML, not PDF. This is one. "Printer Friendly" link gives the cleaned-up HTML paper.
+
+- https://www.nature.com/articles/s41551-018-0304-0.epdf?author_access_token=vSPt7ryUfdSCv4qcyeEuCdRgN0jAjWel9jnR3ZoTv0PdqacSN9qNY_fC0jWkIQUd0L2zaj3bbIQEdrTqCczGWv2brU5rTJPxyss1N4yTIHpnSv5_nBVJoUbvejyvvjrGTb2odwWKT2Bfvl0ExQKhZw%3D%3D : this one has a link to the publisher, where we need to grab the DOI in order to obtain the actual PDF via sci-hub.ru. *sigh*. 
+  (publisher's page, by the way, is: https://www.nature.com/articles/s41551-018-0304-0)
+  
+  💕🔥So this is a **two levels deep** reachability issue right here! We haven't seen that very much, not since I've started sporadically noting the "odd ones" in these Obsidian notes...
+
+
+
+
+## DOI's on the page --> [sci-hub.ru](https://sci-hub.ru/)
+
+- https://www.computer.org/csdl/proceedings-article/csse/2008/3336a718/12OmNyuy9XT : "DOI Bookmark:", not just "DOI:" like most of the others do...
+- https://epubs.siam.org/doi/10.1137/S0097539794264810
+- https://onlinelibrary.wiley.com/doi/10.1002/asi.21063
+- 
+
+- https://doi.org/10.1007/978-1-4471-1597-7_33 : this one is a little extra nasty because the doi can be fed to sci-hub.ru but it won't be available directly; instead you'll get a https://library.lol/ URL (https://library.lol/main/438C9D590BAE8FB922F4C968425D3DC4) where you can grab the PDF through Cloudflare or otherwise.
+
+
+
+
+
+
+
+
+## A-a-a-and another bunch, just for testing
+
+These are not nasty *per sé*, but came about thanks to Google Scholar: these are the ones from a binge where all the others did download without a hitch and most of these links ended up as HTML pages. Do note that I filtered the set only very roughly, so there will be some "sane" Google Scholar overview/list pages among these...
+
+
+ResInNet: A Novel Deep Neural Network With Feature Reuse for Internet of Things | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/8405574
+
+Feature Reuse Residual Networks for Insect Pest Recognition | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/8819933?denied=
+
+Applied Sciences | Free Full-Text | Enhanced Reinforcement Learning Method Combining One-Hot Encoding-Based Vectors for CNN-Based Alternative High-Level Decisions
+https://www.mdpi.com/2076-3417/11/3/1291/htm
+
+Rodríguez: Beyond one-hot encoding: Lower dimensional... - Google Scholar
+https://scholar.google.com/scholar?q=related:AdWMSqokBi8J:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Rodríguez: Beyond one-hot encoding: Lower dimensional... - Google Scholar
+https://scholar.google.com/scholar?cites=3388436083456660737&as_sdt=2005&sciodt=0,5&hl=nl
+
+Seger: An investigation of categorical variable encoding... - Google Scholar
+https://scholar.google.com/scholar?q=related:FTDm1et6al0J:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Seger: An investigation of categorical variable encoding... - Google Scholar
+https://scholar.google.com/scholar?cites=6731327746383163413&as_sdt=2005&sciodt=0,5&hl=nl
+
+Performance of Domain-Wall Encoding for Quantum Annealing | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9485068?denied=
+
+Cerda: Encoding high-cardinality string categorical... - Google Scholar
+https://scholar.google.com/scholar?cites=17592796031510814290&as_sdt=2005&sciodt=0,5&hl=nl
+
+Cerda: Encoding high-cardinality string categorical... - Google Scholar
+https://scholar.google.com/scholar?q=related:Up4asMcqJvQJ:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Ranković: Bayesian optimisation for additive screening... - Google Scholar
+https://scholar.google.com/scholar?q=related:XikXeS9g_8YJ:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Impact of Encoding of High Cardinality Categorical Data to Solve ...: Ingenta Connect
+https://www.ingentaconnect.com/contentone/asp/jctn/2020/00000017/f0020009/art00068
+
+Li: Effective multi-hot encoding and classifier for... - Google Scholar
+https://scholar.google.com/scholar?q=related:QuzVQeVK4p4J:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Chen: Learning k-way d-dimensional discrete codes... - Google Scholar
+https://scholar.google.com/scholar?q=related:uxv_nHJDr1EJ:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Chen: Learning k-way d-dimensional discrete codes... - Google Scholar
+https://scholar.google.com/scholar?cites=5885997397535824827&as_sdt=2005&sciodt=0,5&hl=nl
+
+Regularized target encoding outperforms traditional methods in supervised machine learning with high cardinality features | Computational Statistics
+https://link.springer.com/article/10.1007/s00180-022-01207-6
+
+Andrew Wheeler | Crime Analysis and Crime Mapping | Page 12
+https://andrewpwheeler.com/page/12/
+
+Lenz: Representing missing values through polar encoding - Google Scholar
+https://scholar.google.com/scholar?q=related:wdylaxwn17wJ:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Response to Comment on “Predicting reaction performance in C–N cross-coupling using machine learning” | Science
+https://www.science.org/doi/full/10.1126/science.aat8763
+
+Serrà: Getting deep recommenders fit: Bloom embeddings... - Google Scholar
+https://scholar.google.com/scholar?q=related:o1pRA-6rRGUJ:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Serrà: Getting deep recommenders fit: Bloom embeddings... - Google Scholar
+https://scholar.google.com/scholar?cites=7297146334993275555&as_sdt=2005&sciodt=0,5&hl=nl
+
+Hadamard’s Defense Against Adversarial Examples | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9520401?denied=
+
+Hoyos: Hadamard’s defense against adversarial examples - Google Scholar
+https://scholar.google.com/scholar?cites=3277040636672608408&as_sdt=2005&sciodt=0,5&hl=nl
+
+Electronics | Free Full-Text | Fault Diagnosis Method of Smart Meters Based on DBN-CapsNet
+https://www.mdpi.com/2079-9292/11/10/1603
+
+Garrido-Merchán: Dealing with categorical and integer-va... - Google Scholar
+https://scholar.google.com/scholar?cites=16557151492841928343&as_sdt=2005&sciodt=0,5&hl=nl
+
+Garrido-Merchán: Dealing with categorical and integer-va... - Google Scholar
+https://scholar.google.com/scholar?q=related:l_YrJ4_RxuUJ:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Encoding Web-based Data for Efficient Storage in Machine Learning Applications | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/9092264
+
+Aich: Encoding web-based data for efficient storage... - Google Scholar
+https://scholar.google.com/scholar?cites=12080723765964382809&as_sdt=2005&sciodt=0,5&hl=nl
+
+Wasserstein_Loss_With_Alternative_Reinforcement_Learning_for_Severity-Aware_Semantic_Segmentation.pdf - Google Drive
+https://drive.google.com/file/d/1oJGGQgp7Rknk_Trt0AhgPmBg2r9u2h4H/view
+
+An alternative approach to dimension reduction for pareto distributed data: a case study | Journal of Big Data | Full Text
+https://journalofbigdata.springeropen.com/articles/10.1186/s40537-021-00428-8
+
+Approximate Bayesian neural networks in genomic prediction | Genetics Selection Evolution
+https://link.springer.com/article/10.1186/s12711-018-0439-1
+
+Bayesian Nonparametric Dimensionality Reduction of Categorical Data for Predicting Severity of COVID-19 in Pregnant Women - PMC
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8920026/
+
+Sensors | Free Full-Text | An Imbalanced Generative Adversarial Network-Based Approach for Network Intrusion Detection in an Imbalanced Dataset
+https://www.mdpi.com/1424-8220/23/1/550
+
+direct.mit.edu/isal/proceedings-pdf/alife2018/30/234/1904922/isal_a_00049.pdf
+https://direct.mit.edu/isal/proceedings-pdf/alife2018/30/234/1904922/isal_a_00049.pdf
+
+Improving Low-Resource Speech Recognition Based on Improved NN-HMM Structures | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9069188?denied=
+
+Combining discrete choice models and neural networks through embeddings: Formulation, interpretability and performance - ScienceDirect
+https://www.sciencedirect.com/science/article/pii/S019126152300108X
+
+The Categorical Data Conundrum: Heuristics for Classification Problems—A Case Study on Domestic Fire Injuries | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9810246?denied=
+
+ScienceDirect.com | Science, health and medical journals, full text articles and books.
+https://www.sciencedirect.com/science/article/pii/S1877050920310619/pdf?crasolve=1&r=8247cc9f0f3d5c48&ts=1699718963084&rtype=https&vrr=UKN&redir=UKN&redir_fr=UKN&redir_arc=UKN&vhash=UKN&host=d3d3LnNjaWVuY2VkaXJlY3QuY29t&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&rh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&re=X2JsYW5rXw%3D%3D&ns_h=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ns_e=X2JsYW5rXw%3D%3D&rh_fd=rrr)n%5Ed%60i%5E%60_dm%60%5Eo)%5Ejh&tsoh_fd=rrr)n%5Ed%60i%5E%60_dm%60%5Eo)%5Ejh&iv=41dc97a9fe8b49f6d91209672263fa6f&token=34663139623564386462333363663237353065396535353863373535646433333866313534626163623861623531303835393166316232623363383163303664393761373737376438323963303862653963663363313237383064653a386336333066366365643266613862383232633430373663&text=fca706c0c39771b402398c2d4cddc5f09dd341bcbc577707ae282dc9e11ce0af4be8fe838b9ba170516e4762b63b3ab30c2a22be805da749ee9bcb51990747c4ba987699657c7e147432fcc420fc9592b585edabea8ee5defa571c0ab5a05df15f082e3654c1d1d8d4ca1405de576afad7142ff7eaf9d93abb2217f1f6be187378d3d30de59cbdb10a24e23f5e9f503dff7708572d9f27d9984461ecf5c2c1a515fb52f0cde07854ed9a64a353a559ced9de1f167f926a83eafeaddc72c692137f5b80d74a5492863430572824b2492de9e53ada0416d7faf80f8f9c4a5184f22ce556847d32fcb2d62855f6d04d81edcb326244d61a39952cd5f5a48b060aa42147ca89afd4484ec04d7771af250fc6ae03629f57f1a1facd2739404ffe93632a395c118b0406187d8254410accebe7&original=3f6d64353d3033326665376334343730643961313364646563303636323439653033346464267069643d312d73322e302d53313837373035303932303331303631392d6d61696e2e706466
+
+Nonlife Insurance Risk Classification Using Categorical Embedding | Published in CAS E-Forum
+https://eforum.casact.org/article/74931
+
+Document Forgery Detection in the Context of Double JPEG Compression | SpringerLink
+https://link.springer.com/chapter/10.1007/978-3-031-37745-7_5
+
+Menon: Why distillation helps: a statistical perspective - Google Scholar
+https://scholar.google.com/scholar?cites=4817636428241334634&as_sdt=2005&sciodt=0,5&hl=nl
+
+Hierarchy-based semantic embeddings for single-valued & multi-valued categorical variables | Journal of Intelligent Information Systems
+https://link.springer.com/article/10.1007/s10844-021-00693-2
+
+ScienceDirect.com | Science, health and medical journals, full text articles and books.
+https://www.sciencedirect.com/science/article/pii/S1877050922012431/pdf?crasolve=1&r=8247d7361ad20b6c&ts=1699719396826&rtype=https&vrr=UKN&redir=UKN&redir_fr=UKN&redir_arc=UKN&vhash=UKN&host=d3d3LnNjaWVuY2VkaXJlY3QuY29t&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&rh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&re=X2JsYW5rXw%3D%3D&ns_h=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ns_e=X2JsYW5rXw%3D%3D&rh_fd=rrr)n%5Ed%60i%5E%60_dm%60%5Eo)%5Ejh&tsoh_fd=rrr)n%5Ed%60i%5E%60_dm%60%5Eo)%5Ejh&iv=e0cface17bb7aa313ba0da476be7d739&token=646230346332343764636461623135353039396530303665353237643066346362313333326666316262343263666165663136613637313966646333366231393931323230656361393834303335613930333831343937353a343762616564333736623437633361623138626565326333&text=06d058212b40edb10e962b22c648e1b1d52c9cef1cfae171ef61817e7f2bb525c59eac6dd724f017a550dd02226580a5169ff133d29e576a02d8093d5645598b23e04892c30352e984ae9e84bfb4156cc30d029c49c6b61563fad674395a48f13d341e66c6eae1b75906d45f26e6b5950a803cdefbbd5fabd77abaabbf2572108473bb4b0a2113380ba6a6102900fda9a3414bdba1f9703fbc7ab04e8bdfd496e7573a72555041010f24d6be69c333ff10416877130397327749099477a0edf7f668d621d17a8deb0cb4098dd59e12f97e3ed17a0a67c666a560ead3bc1e660d9266f96519513451cc659b3f7e022df1cd05cbf2bccb08ef7a04ebe099ed34541b4bab81d1936e38c8989662397842454e6f57d4da496a0c0b171f666bbd22f3ca4ad4200715c0a794ee18649af149f4&original=3f6d64353d3265373466623961343765613533393563316236323232313462646535613762267069643d312d73322e302d53313837373035303932323031323433312d6d61696e2e706466
+
+Predicting Default Risk on Peer-to-Peer Lending Imbalanced Datasets | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9429248?denied=
+
+Gene2vec: gene subsequence embedding for prediction of mammalian N6-methyladenosine sites from mRNA
+https://rnajournal.cshlp.org/content/25/2/205.full.html
+
+Text Representation using Convolutional Networks - ProQuest
+https://www.proquest.com/openview/ecbd779b15e0d56412e65ae274e0f905/1?pq-origsite=gscholar&cbl=18750&diss=y
+
+Efficient Error-correcting Output Codes for Adversarial Learning Robustness | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/9839178
+
+Wan: Efficient error-correcting output codes for... - Google Scholar
+https://scholar.google.com/scholar?cites=12858932987065476252&as_sdt=2005&sciodt=0,5&hl=nl
+
+Latent Personality Traits Assessment From Social Network Activity Using Contextual Language Embedding | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9531972?denied=
+
+Manifold Modeling in Embedded Space: An Interpretable Alternative to Deep Image Prior | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9281370?denied=
+
+Optimization of Tree-Based Machine Learning Models to Predict the Length of Hospital Stay Using Genetic Algorithm
+https://www.hindawi.com/journals/jhe/2023/9673395/
+
+IEEE Xplore Full-Text PDF:
+https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10107490
+
+Web2Vec: Phishing Webpage Detection Method Based on Multidimensional Features Driven by Deep Learning | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9288677?denied=
+
+A Hybrid Document Feature Extraction Method Using Latent Dirichlet Allocation and Word2Vec | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/7866114
+
+Wang: A hybrid document feature extraction method... - Google Scholar
+https://scholar.google.com/scholar?cites=13652393100533729878&as_sdt=2005&sciodt=0,5&hl=nl
+
+Wang: A hybrid document feature extraction method... - Google Scholar
+https://scholar.google.com/scholar?cluster=13652393100533729878&hl=nl&as_sdt=0,5
+
+Wang: A hybrid document feature extraction method... - Google Scholar
+https://scholar.google.com/scholar?q=related:VopOAzELd70J:scholar.google.com/&scioq=one-hot+encoding+alternative&hl=nl&as_sdt=0,5
+
+Buy & Sell Trends Analysis Using Decision Trees | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/9247907
+
+[1611.01462] Tying Word Vectors and Word Classifiers: A Loss Framework for Language Modeling
+https://arxiv.org/abs/1611.01462
+
+Symmetry | Free Full-Text | Clickbait Convolutional Neural Network
+https://www.mdpi.com/2073-8994/10/5/138
+
+Convolutional neural networks are not invariant to translation, but they can learn to be | The Journal of Machine Learning Research
+https://dl.acm.org/doi/abs/10.5555/3546258.3546487
+
+Durall: Watch your up-convolution: Cnn based generative... - Google Scholar
+https://scholar.google.com/scholar?cites=18044048085015580055&as_sdt=2005&sciodt=0,5&hl=nl
+
+Durall: Watch your up-convolution: Cnn based generative... - Google Scholar
+https://scholar.google.com/scholar?q=related:l81rwSFWafoJ:scholar.google.com/&scioq=convolutional+neural+network+fail&hl=nl&as_sdt=0,5
+
+Self-Distillation: Towards Efficient and Compact Neural Networks | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9381661?denied=
+
+Head Network Distillation: Splitting Distilled Deep Neural Networks for Resource-Constrained Edge Computing Systems | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9265295?denied=
+
+Effective training of convolutional neural networks for age estimation based on knowledge distillation | Neural Computing and Applications
+https://link.springer.com/article/10.1007/s00521-021-05981-0
+
+IEEE Xplore Full-Text PDF:
+https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10220213
+
+Subspace distillation for continual learning - ScienceDirect
+https://www.sciencedirect.com/science/article/pii/S0893608023004057
+
+Moghaddam: AdOtsu: An adaptive and parameterless... - Google Scholar
+https://scholar.google.com/scholar?cites=7150396333454933302&as_sdt=2005&sciodt=0,5&hl=nl
+
+Shafait: Efficient implementation of local adaptive... - Google Scholar
+https://scholar.google.com/scholar?cites=2289746146619769012&as_sdt=2005&sciodt=0,5&hl=nl
+
+Liu: Scene text detection and recognition with advances... - Google Scholar
+https://scholar.google.com/scholar?cites=7859756468599902414&as_sdt=2005&sciodt=0,5&hl=nl
+
+Tian: Using latent dirichlet allocation for automatic... - Google Scholar
+https://scholar.google.com/scholar?cites=13597617382243920940&as_sdt=2005&sciodt=0,5&hl=nl
+
+Xiong: An enhanced binarization framework for degraded... - Google Scholar
+https://scholar.google.com/scholar?cluster=10788474601520992553&hl=nl&as_sdt=2005&sciodt=0,5
+
+Xiong: An enhanced binarization framework for degraded... - Google Scholar
+https://scholar.google.com/scholar?cites=10788474601520992553&as_sdt=2005&sciodt=0,5&hl=nl
+
+Chaki: A comprehensive survey on image binarization... - Google Scholar
+https://scholar.google.com/scholar?cluster=11338959589554478736&hl=nl&as_sdt=2005&sciodt=0,5
+
+Chaki: A comprehensive survey on image binarization... - Google Scholar
+https://scholar.google.com/scholar?cites=11338959589554478736&as_sdt=2005&sciodt=0,5&hl=nl
+
+New trends on digitisation of complex engineering drawings | Neural Computing and Applications
+https://link.springer.com/article/10.1007/s00521-018-3583-1
+
+Moreno-García: New trends on digitisation of complex... - Google Scholar
+https://scholar.google.com/scholar?cluster=13549619672030963393&hl=nl&as_sdt=2005&sciodt=0,5
+
+Moreno-García: New trends on digitisation of complex... - Google Scholar
+https://scholar.google.com/scholar?cites=13549619672030963393&as_sdt=2005&sciodt=0,5&hl=nl
+
+Artificial intelligence based writer identification generates new evidence for the unknown scribes of the Dead Sea Scrolls exemplified by the Great Isaiah Scroll (1QIsaa) | PLOS ONE
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0249769&fbclid=IwAR2xP7G7yG-mHYH9yrokgATSPHlfmbJkdh3llN-UZEZoVsjn4w0tqoObd1Q
+
+Popović: Artificial intelligence based writer identifica... - Google Scholar
+https://scholar.google.com/scholar?cluster=10337017256701884065&hl=nl&as_sdt=2005&sciodt=0,5
+
+Popović: Artificial intelligence based writer identifica... - Google Scholar
+https://scholar.google.com/scholar?cites=10337017256701884065&as_sdt=2005&sciodt=0,5&hl=nl
+
+Chen: A double-threshold image binarization method... - Google Scholar
+https://scholar.google.com/scholar?cites=2057388095066247466&as_sdt=2005&sciodt=0,5&hl=nl
+
+Chen: A double-threshold image binarization method... - Google Scholar
+https://scholar.google.com/scholar?cluster=2057388095066247466&hl=nl&as_sdt=2005&sciodt=0,5
+
+Huang: An improved image segmentation algorithm based... - Google Scholar
+https://scholar.google.com/scholar?cluster=4105831725031549600&hl=nl&as_sdt=2005&sciodt=0,5
+
+Huang: An improved image segmentation algorithm based... - Google Scholar
+https://scholar.google.com/scholar?cites=4105831725031549600&as_sdt=2005&sciodt=0,5&hl=nl
+
+Stathis: An Evaluation Technique for Binarization... - Google Scholar
+https://scholar.google.com/scholar?cites=452124334981249785&as_sdt=2005&sciodt=0,5&hl=nl
+
+Bardozzo: Sugeno integral generalization applied... - Google Scholar
+https://scholar.google.com/scholar?cites=12601339676908616344&as_sdt=2005&sciodt=0,5&hl=nl
+
+Bardozzo: Sugeno integral generalization applied... - Google Scholar
+https://scholar.google.com/scholar?cluster=12601339676908616344&hl=nl&as_sdt=2005&sciodt=0,5
+
+Zhu: A fast 2d otsu thresholding algorithm based... - Google Scholar
+https://scholar.google.com/scholar?cluster=7455085599189691427&hl=nl&as_sdt=2005&sciodt=0,5
+
+Zhu: A fast 2d otsu thresholding algorithm based... - Google Scholar
+https://scholar.google.com/scholar?cites=7455085599189691427&as_sdt=2005&sciodt=0,5&hl=nl
+
+Feature-extraction methods for historical manuscript dating based on writing style development - ScienceDirect
+https://www.sciencedirect.com/science/article/pii/S0167865520300386
+
+Dhali: Feature-extraction methods for historical... - Google Scholar
+https://scholar.google.com/scholar?cluster=3840792240169960406&hl=nl&as_sdt=2005&sciodt=0,5
+
+Dhali: Feature-extraction methods for historical... - Google Scholar
+https://scholar.google.com/scholar?cites=3840792240169960406&as_sdt=2005&sciodt=0,5&hl=nl
+
+Xiong: Degraded historical document image binarization... - Google Scholar
+https://scholar.google.com/scholar?cluster=8344646218602678048&hl=nl&as_sdt=2005&sciodt=0,5
+
+Xiong: Degraded historical document image binarization... - Google Scholar
+https://scholar.google.com/scholar?cites=8344646218602678048&as_sdt=2005&sciodt=0,5&hl=nl
+
+Bera: A non-parametric binarization method based... - Google Scholar
+https://scholar.google.com/scholar?cites=3153868689449380835&as_sdt=2005&sciodt=0,5&hl=nl
+
+Bera: A non-parametric binarization method based... - Google Scholar
+https://scholar.google.com/scholar?cluster=3153868689449380835&hl=nl&as_sdt=2005&sciodt=0,5
+
+Castellanos: Unsupervised neural domain adaptation... - Google Scholar
+https://scholar.google.com/scholar?cluster=12572079185611235588&hl=nl&as_sdt=2005&sciodt=0,5
+
+Castellanos: Unsupervised neural domain adaptation... - Google Scholar
+https://scholar.google.com/scholar?cites=12572079185611235588&as_sdt=2005&sciodt=0,5&hl=nl
+
+U-Net-bin: hacking the document image binarization contest – тема научной статьи по компьютерным и информационным наукам читайте бесплатно текст научно-исследовательской работы в электронной библиотеке КиберЛенинка
+https://cyberleninka.ru/article/n/u-net-bin-hacking-the-document-image-binarization-contest
+
+Bezmaternykh: U-Net-bin: hacking the document image... - Google Scholar
+https://scholar.google.com/scholar?cluster=1201007585086316565&hl=nl&as_sdt=2005&sciodt=0,5
+
+Bezmaternykh: U-Net-bin: hacking the document image... - Google Scholar
+https://scholar.google.com/scholar?cites=1201007585086316565&as_sdt=2005&sciodt=0,5&hl=nl
+
+A Survey on Breaking Technique of Text-Based CAPTCHA
+https://www.hindawi.com/journals/scn/2017/6898617/
+
+Simistira: Icdar2017 competition on layout analysis... - Google Scholar
+https://scholar.google.com/scholar?cites=15952945818097872095&as_sdt=2005&sciodt=0,5&hl=nl
+
+Khan: Automatic ink mismatch detection for forensic... - Google Scholar
+https://scholar.google.com/scholar?cites=8060544934622872632&as_sdt=2005&sciodt=0,5&hl=nl
+
+Tran: Table detection from document image using vertical... - Google Scholar
+https://scholar.google.com/scholar?cites=3787761044487141930&as_sdt=2005&sciodt=0,5&hl=nl
+
+Saxena: Niblack’s binarization method and its modificat... - Google Scholar
+https://scholar.google.com/scholar?cites=10763796780487772861&as_sdt=2005&sciodt=0,5&hl=nl
+
+Saxena: Niblack’s binarization method and its modificat... - Google Scholar
+https://scholar.google.com/scholar?cluster=10763796780487772861&hl=nl&as_sdt=2005&sciodt=0,5
+
+Feng: Contrast adaptive binarization of low quality... - Google Scholar
+https://scholar.google.com/scholar?cites=8676153132691851427&as_sdt=2005&sciodt=0,5&hl=nl
+
+Sensors | Free Full-Text | Combining the YOLOv4 Deep Learning Model with UAV Imagery Processing Technology in the Extraction and Quantization of Cracks in Bridges
+https://www.mdpi.com/1424-8220/23/5/2572
+
+Kao: Combining the YOLOv4 deep learning model with... - Google Scholar
+https://scholar.google.com/scholar?cluster=14704569747460100613&hl=nl&as_sdt=2005&sciodt=0,5
+
+Efficient and effective OCR engine training | International Journal on Document Analysis and Recognition (IJDAR)
+https://link.springer.com/article/10.1007/s10032-019-00347-8
+
+Barron: A generalization of Otsu’s method and minimum... - Google Scholar
+https://scholar.google.com/scholar?cites=17503498248549422833&as_sdt=2005&sciodt=0,5&hl=nl
+
+Nina: A recursive Otsu thresholding method for scanned... - Google Scholar
+https://scholar.google.com/scholar?cluster=13686907608080975307&hl=nl&as_sdt=2005&sciodt=0,5
+
+Nina: A recursive Otsu thresholding method for scanned... - Google Scholar
+https://scholar.google.com/scholar?cites=13686907608080975307&as_sdt=2005&sciodt=0,5&hl=nl
+
+Bolelli: Toward reliable experiments on the performance... - Google Scholar
+https://scholar.google.com/scholar?cites=12315627088603150782&as_sdt=2005&sciodt=0,5&hl=nl
+
+Afzal: Document image binarization using lstm: A... - Google Scholar
+https://scholar.google.com/scholar?cites=8098448744792634736&as_sdt=2005&sciodt=0,5&hl=nl
+
+Bako: Removing shadows from images of documents - Google Scholar
+https://scholar.google.com/scholar?cites=5136840677231035445&as_sdt=2005&sciodt=0,5&hl=nl
+
+Hedjam: A spatially adaptive statistical method for... - Google Scholar
+https://scholar.google.com/scholar?cluster=501149854233444050&hl=nl&as_sdt=2005&sciodt=0,5
+
+Hedjam: A spatially adaptive statistical method for... - Google Scholar
+https://scholar.google.com/scholar?cites=501149854233444050&as_sdt=2005&sciodt=0,5&hl=nl
+
+Kasar: Font and background color independent text... - Google Scholar
+https://scholar.google.com/scholar?cites=9376484994271790146&as_sdt=2005&sciodt=0,5&hl=nl
+
+Tribelhorn: Photo-document segmentation method and system - Google Scholar
+https://scholar.google.com/scholar?cites=6192029047716595856&as_sdt=2005&sciodt=0,5&hl=nl
+
+Mathematics | Free Full-Text | Lung X-ray Segmentation using Deep Convolutional Neural Networks on Contrast-Enhanced Binarized Images
+https://www.mdpi.com/2227-7390/8/4/545/htm
+
+J. Imaging | Free Full-Text | Adaptive Digital Hologram Binarization Method Based on Local Thresholding, Block Division and Error Diffusion
+https://www.mdpi.com/2313-433X/8/2/15
+
+Cheremkhin: Adaptive Digital Hologram Binarization... - Google Scholar
+https://scholar.google.com/scholar?cluster=12642731123662336898&hl=nl&as_sdt=2005&sciodt=0,5
+
+Wen: A new binarization method for non-uniform illuminate... - Google Scholar
+https://scholar.google.com/scholar?cluster=12900974706966451519&hl=nl&as_sdt=2005&sciodt=0,5
+
+Wen: A new binarization method for non-uniform illuminate... - Google Scholar
+https://scholar.google.com/scholar?cites=12900974706966451519&as_sdt=2005&sciodt=0,5&hl=nl
+
+Binarization of Degraded Document Images Using Convolutional Neural Networks and Wavelet-Based Multichannel Images | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9171243?denied=
+
+Mustafa: Binarization of document image using optimum... - Google Scholar
+https://scholar.google.com/scholar?cites=1256397357623439010&as_sdt=2005&sciodt=0,5&hl=nl
+
+ScienceDirect.com | Science, health and medical journals, full text articles and books.
+https://www.sciencedirect.com/science/article/am/pii/S0031320318301389
+
+Vo: Robust regression for image binarization under... - Google Scholar
+https://scholar.google.com/scholar?cites=13884842102900689454&as_sdt=2005&sciodt=0,5&hl=nl
+
+Lu: Binarization of degraded document images based... - Google Scholar
+https://scholar.google.com/scholar?cites=6275176260480022185&as_sdt=2005&sciodt=0,5&hl=nl
+
+Lu: Binarization of degraded document images based... - Google Scholar
+https://scholar.google.com/scholar?cluster=6275176260480022185&hl=nl&as_sdt=2005&sciodt=0,5
+
+Kavallieratou: Improving the quality of degraded... - Google Scholar
+https://scholar.google.com/scholar?cites=2644572286198015048&as_sdt=2005&sciodt=0,5&hl=nl
+
+Binarization techniques for degraded document images — A review | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/document/7784945?denied=
+
+Chauhan: Binarization techniques for degraded document... - Google Scholar
+https://scholar.google.com/scholar?cites=843970595977049850&as_sdt=2005&sciodt=0,5&hl=nl
+
+Kaur: Modified Sauvola binarization for degraded... - Google Scholar
+https://scholar.google.com/scholar?cluster=7328006225358559633&hl=nl&as_sdt=2005&sciodt=0,5
+
+Kaur: Modified Sauvola binarization for degraded... - Google Scholar
+https://scholar.google.com/scholar?cites=7328006225358559633&as_sdt=2005&sciodt=0,5&hl=nl
+
+Lund: Combining multiple thresholding binarization... - Google Scholar
+https://scholar.google.com/scholar?cites=9453788323613275605&as_sdt=2005&sciodt=0,5&hl=nl
+
+Lund: Combining multiple thresholding binarization... - Google Scholar
+https://scholar.google.com/scholar?cluster=9453788323613275605&hl=nl&as_sdt=2005&sciodt=0,5
+
+IEEE Xplore Full-Text PDF:
+https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8584426
+
+ScienceDirect.com | Science, health and medical journals, full text articles and books.
+https://www.sciencedirect.com/science/article/am/pii/S0031320319304455
+
+ScienceDirect.com | Science, health and medical journals, full text articles and books.
+https://www.sciencedirect.com/science/article/am/pii/S0001457518301751
+
+Bhowmik: BINYAS: a complex document layout analysis system - Google Scholar
+https://scholar.google.com/scholar?cluster=13208950577705010261&hl=nl&as_sdt=2005&sciodt=0,5
+
+Bhowmik: BINYAS: a complex document layout analysis system - Google Scholar
+https://scholar.google.com/scholar?cites=13208950577705010261&as_sdt=2005&sciodt=0,5&hl=nl
+
+Yimit: 2-D direction histogram based entropic thresholding - Google Scholar
+https://scholar.google.com/scholar?cluster=8692609532732300494&hl=nl&as_sdt=2005&sciodt=0,5
+
+Yimit: 2-D direction histogram based entropic thresholding - Google Scholar
+https://scholar.google.com/scholar?cites=8692609532732300494&as_sdt=2005&sciodt=0,5&hl=nl
+
+DSpace
+https://helda.helsinki.fi/bitstream/handle/10138/310105/ecp17131038.pdf?sequence=1
+
+Koistinen: Improving optical character recognition... - Google Scholar
+https://scholar.google.com/scholar?cites=12422171117038534124&as_sdt=2005&sciodt=0,5&hl=nl
+
+Peng: Document binarization via multi-resolutional... - Google Scholar
+https://scholar.google.com/scholar?cluster=18117382236184731442&hl=nl&as_sdt=2005&sciodt=0,5
+
+Peng: Document binarization via multi-resolutional... - Google Scholar
+https://scholar.google.com/scholar?cites=18117382236184731442&as_sdt=2005&sciodt=0,5&hl=nl
+
+Chest X-ray segmentation using Sauvola thresholding and Gaussian derivatives responses | SpringerLink
+https://link.springer.com/article/10.1007/s12652-019-01281-7
+
+Kiran: Chest X-ray segmentation using Sauvola thresholdin... - Google Scholar
+https://scholar.google.com/scholar?cites=1254217958761314765&as_sdt=2005&sciodt=0,5&hl=nl
+
+ProQuest - ProQuest
+https://www.proquest.com/info/openurldocerror;jsessionid=E19220673BDF9E33F86A1661628C319B.i-0edd47c499984ce68
+
+Kaur: A review on various methods of image thresholding - Google Scholar
+https://scholar.google.com/scholar?cites=9157504981372036802&as_sdt=2005&sciodt=0,5&hl=nl
+
+Parallel Nonparametric Binarization for Degraded Document Images.pdf - Google Drive
+https://drive.google.com/file/d/13D3_d8i75ZSz6rY3ouU_Yh8VSilXIgqX/view
+
+Document Image Binarization With Stroke Boundary Feature Guided Network | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9366499?denied=
+
+Lelore: Super-resolved binarization of text based... - Google Scholar
+https://scholar.google.com/scholar?cites=10840415963942003910&as_sdt=2005&sciodt=0,5&hl=nl
+
+A non-stationary density model to separate overlapped texts in degraded documents | Signal, Image and Video Processing
+https://link.springer.com/article/10.1007/s11760-014-0735-3
+
+Tonazzini: A non-stationary density model to separate... - Google Scholar
+https://scholar.google.com/scholar?cluster=13364098428799968499&hl=nl&as_sdt=2005&sciodt=0,5
+
+Tonazzini: A non-stationary density model to separate... - Google Scholar
+https://scholar.google.com/scholar?cites=13364098428799968499&as_sdt=2005&sciodt=0,5&hl=nl
+
+Multilevel Thresholding for Image Segmentation Using Mean Gradient
+https://www.hindawi.com/journals/jece/2022/1254852/
+
+Ashir: Multilevel thresholding for image segmentation... - Google Scholar
+https://scholar.google.com/scholar?cluster=6269192388629488491&hl=nl&as_sdt=2005&sciodt=0,5
+
+Villegas: On the modification of binarization algorithms... - Google Scholar
+https://scholar.google.com/scholar?cites=11347019352762881665&as_sdt=2005&sciodt=0,5&hl=nl
+
+Villegas: On the modification of binarization algorithms... - Google Scholar
+https://scholar.google.com/scholar?q=related:gRbqdPu1eJ0J:scholar.google.com/&scioq=&hl=nl&as_sdt=2005&sciodt=0,5
+
+Paixao: Fast (er) reconstruction of shredded text... - Google Scholar
+https://scholar.google.com/scholar?cites=3473786441252369837&as_sdt=2005&sciodt=0,5&hl=nl
+
+Fung: A review of evaluation of optimal binarization... - Google Scholar
+https://scholar.google.com/scholar?cites=6070490695828019041&as_sdt=2005&sciodt=0,5&hl=nl
+
+Jacobs: A novel approach to text binarization via... - Google Scholar
+https://scholar.google.com/scholar?cluster=10744526816284385798&hl=nl&as_sdt=2005&sciodt=0,5
+
+Jacobs: A novel approach to text binarization via... - Google Scholar
+https://scholar.google.com/scholar?cites=10744526816284385798&as_sdt=2005&sciodt=0,5&hl=nl
+
+Lamiroy: Computing precision and recall with missing... - Google Scholar
+https://scholar.google.com/scholar?cites=7754703995047718958&as_sdt=2005&sciodt=0,5&hl=nl
+
+Lamiroy: Computing precision and recall with missing... - Google Scholar
+https://scholar.google.com/scholar?cluster=7754703995047718958&hl=nl&as_sdt=2005&sciodt=0,5
+
+Milyaev: Fast and accurate scene text understanding... - Google Scholar
+https://scholar.google.com/scholar?cluster=8409937517920519434&hl=nl&as_sdt=2005&sciodt=0,5
+
+AGORA: the interactive document image analysis tool of the BVH project | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/1612957
+
+Image binarization method for markers tracking in extreme light conditions - IOS Press
+https://content.iospress.com/articles/integrated-computer-aided-engineering/ica210674
+
+Bai: A seed-based segmentation method for scene text... - Google Scholar
+https://scholar.google.com/scholar?cluster=12614374815433395014&hl=nl&as_sdt=2005&sciodt=0,5
+
+Dynamic Downscaling Segmentation for Noisy, Low-Contrast in Situ Underwater Plankton Images | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9115007?denied=
+
+J. Imaging | Free Full-Text | Comparative Study of Data Matrix Codes Localization and Recognition Methods
+https://www.mdpi.com/2313-433X/7/9/163/htm
+
+Text Extraction in Complex Color Document Images for Enhanced Readability
+https://www.scirp.org/html/1409.html
+
+Nagabhushan: Text extraction in complex color document... - Google Scholar
+https://scholar.google.com/scholar?cluster=16387403616812039983&hl=nl&as_sdt=2005&sciodt=0,5
+
+Best Combination of Binarization Methods for License Plate Character Segmentation - Yoon - 2013 - ETRI Journal - Wiley Online Library
+https://onlinelibrary.wiley.com/doi/pdf/10.4218/etrij.13.0112.0545
+
+Image thresholding techniques for localization of sub‐resolution fluorescent biomarkers - Ghaye - 2013 - Cytometry Part A - Wiley Online Library
+https://onlinelibrary.wiley.com/doi/full/10.1002/cyto.a.22345
+
+Image thresholding techniques for localization of sub‐resolution fluorescent biomarkers - Ghaye - 2013 - Cytometry Part A - Wiley Online Library
+https://onlinelibrary.wiley.com/doi/pdf/10.1002/cyto.a.22345
+
+A survey on camera-captured scene text detection and extraction: towards Gurmukhi script | SpringerLink
+https://link.springer.com/article/10.1007/s13735-016-0116-5
+
+ICDAR2017.pdf - Google Drive
+https://drive.google.com/file/d/1ZCd2UxhHJRkBE1nDb9fLIjNfo8HATm73/view
+
+Binarization of images with variable lighting using adaptive windows | SpringerLink
+https://link.springer.com/article/10.1007/s11760-022-02150-1
+
+Calderon: Binarization of images with variable lighting... - Google Scholar
+https://scholar.google.com/scholar?cites=17234027976438129434&as_sdt=2005&sciodt=0,5&hl=nl
+
+Chiu: Parameter-free based two-stage method for binarizin... - Google Scholar
+https://scholar.google.com/scholar?cites=2089767194149450511&as_sdt=2005&sciodt=0,5&hl=nl
+
+Transition thresholds and transition operators for binarization and edge detection - ScienceDirect
+https://www.sciencedirect.com/science/article/abs/pii/S0031320310002542
+
+Fast and efficient document image clean up and binarization based on retinex theory | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/6530014
+
+Wagdy: Fast and efficient document image clean up... - Google Scholar
+https://scholar.google.com/scholar?cites=5447894088095252032&as_sdt=2005&sciodt=0,5&hl=nl
+
+A Review of Arabic Document Analysis Methods | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/document/9946919?denied=
+
+Toward a Binarization Framework resolving the Maghrebian Font Database challenges | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/9364086
+
+International Journal of Pattern Recognition and Artificial Intelligence
+https://www.worldscientific.com/doi/abs/10.1142/S0218001421540136
+
+ScienceDirect.com | Science, health and medical journals, full text articles and books.
+https://www.sciencedirect.com/science/article/pii/S1877050915003877/pdf?crasolve=1&r=8246b11c9a73b94e&ts=1699707350509&rtype=https&vrr=UKN&redir=UKN&redir_fr=UKN&redir_arc=UKN&vhash=UKN&host=d3d3LnNjaWVuY2VkaXJlY3QuY29t&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&rh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&re=X2JsYW5rXw%3D%3D&ns_h=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ns_e=X2JsYW5rXw%3D%3D&rh_fd=rrr)n%5Ed%60i%5E%60_dm%60%5Eo)%5Ejh&tsoh_fd=rrr)n%5Ed%60i%5E%60_dm%60%5Eo)%5Ejh&iv=6440070c7a040952f966fd2c0700815a&token=623232666439303862373064663964643662386234323632306438383535623465373839663330363336306166396261376262396566396165663464346236613763623764396565306166396563653061373438636566323a306638623466393066616436333237623331346531383230&text=30633da6ebb6fc2bf395c30fdbf9e00c19d55a0d84db0f0f8d3068fde5d6019e7536b0046f5c670e4557ab89713238333223675548bc66f85c8a81e215a304fcccb8a61546da47fe69694b4703dbc5002418090cc56d4f12ea2525c4e09523f7a4ca78688a560d18815fc30c554398cab6190277488cda625e383294f1af47df7fecc1b8c8af1d06f08baf4eba6a38ecb5a952a9732957a56896561cfd1896ad12b546fef6164fffd989b0cb5c28a5f2cd17427295e4ac3391ea0db1778f3d5f254c8232ed82d474a41c6495ff19eca5e54128858a8c295dab68cf03b841b2cfcfa0590a7430490b058b1d72cac846dcf4d833c9f46e337014dcc37b06085ca0a4af72d448d74c41dcc1eef7e2c2fda7898e8d43d3ed044553ae14f5c29f88bc1afa2e84efd2d901dfbce1583071343a&original=3f6d64353d6265333733353531346461376536393631306661396535623935616364303736267069643d312d73322e302d53313837373035303931353030333837372d6d61696e2e706466265f76616c636b3d31
+
+Classification of incunable glyphs and out-of-distribution detection with joint energy-based models | International Journal on Document Analysis and Recognition (IJDAR)
+https://link.springer.com/article/10.1007/s10032-023-00442-x
+
+Electronics | Free Full-Text | Analysis of Image Preprocessing and Binarization Methods for OCR-Based Detection and Classification of Electronic Integrated Circuit Labeling
+https://www.mdpi.com/2079-9292/12/11/2449
+
+Morphological preprocessing method to thresholding degraded word images - ScienceDirect
+https://www.sciencedirect.com/science/article/abs/pii/S016786550900049X
+
+A Fuzzy C-Means Based Approach Towards Efficient Document Image Binarization | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/8592936
+
+Binarization of music score with complex background by deep convolutional neural networks | Multimedia Tools and Applications
+https://link.springer.com/article/10.1007/s11042-020-10272-2
+
+Applied Sciences | Free Full-Text | A Review of Document Image Enhancement Based on Document Degradation Problem
+https://www.mdpi.com/2076-3417/13/13/7855
+
+Text Extraction from Historical Document Images by the Combination of Several Thresholding Techniques
+https://www.hindawi.com/journals/am/2014/934656/
+
+Boiangiu: Methods of bitonal image conversion for... - Google Scholar
+https://scholar.google.com/scholar?cites=4054754854685501570&as_sdt=2005&sciodt=0,5&hl=nl
+
+Textline detection in degraded historical document images | EURASIP Journal on Image and Video Processing
+https://link.springer.com/article/10.1186/s13640-017-0229-7
+
+Image binarization using iterative partitioning: A global thresholding approach | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/6146882
+
+Full article: Image Thresholding Improved by Global Optimization Methods
+https://www.tandfonline.com/doi/full/10.1080/08839514.2017.1300050
+
+Oztan: Removal of artifacts from JPEG compressed... - Google Scholar
+https://scholar.google.com/scholar?cites=10964784569913302753&as_sdt=2005&sciodt=0,5&hl=nl
+
+Oztan: Removal of artifacts from JPEG compressed... - Google Scholar
+https://scholar.google.com/scholar?cluster=10964784569913302753&hl=nl&as_sdt=2005&sciodt=0,5
+
+Oja: Kohonen maps - Google Scholar
+https://scholar.google.com/scholar?cites=6515284431613113944&as_sdt=2005&sciodt=0,5&hl=nl
+
+Performance evaluation of the self‐organizing map for feature extraction - Liu - 2006 - Journal of Geophysical Research: Oceans - Wiley Online Library
+https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2005JC003117
+
+Sensors | Free Full-Text | Neural Network-Based Self-Tuning PID Control for Underwater Vehicles
+https://www.mdpi.com/1424-8220/16/9/1429/htm
+
+Omatu: Self-tuning neuro-PID control and applications - Google Scholar
+https://scholar.google.com/scholar?q=related:b5YQENwoqsAJ:scholar.google.com/&scioq=neural+pid+controller+tuning&hl=nl&as_sdt=0,5
+
+Self-Tuning Neural Network PID With Dynamic Response Control | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9415738?denied=
+
+Rivas-Echeverria: Neural network-based auto-tuning... - Google Scholar
+https://scholar.google.com/scholar?q=related:-lqxGJ9_QcMJ:scholar.google.com/&scioq=neural+pid+controller+tuning&hl=nl&as_sdt=0,5
+
+Sensors | Free Full-Text | Neural Network-Based Self-Tuning PID Control for Underwater Vehicles
+https://www.mdpi.com/1424-8220/16/9/1429/htm
+
+Self-Tuning Neural Network PID With Dynamic Response Control | IEEE Journals & Magazine | IEEE Xplore
+https://ieeexplore.ieee.org/document/9415738?denied=
+
+Rodríguez-Abreo: Self-tuning neural network PID... - Google Scholar
+https://scholar.google.com/scholar?cites=3074129662556345400&as_sdt=2005&sciodt=0,5&hl=nl
+
+PID controller tuning by using extremum seeking algorithm based on annealing recurrent neural network | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/5646302
+
+Auto-tuning of PID controller according to fractional-order reference model approximation for DC rotor control - ScienceDirect
+https://www.sciencedirect.com/science/article/abs/pii/S0957415813000901
+
+Research on self-tuning PID control strategy based on BP neural network | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/6013163
+
+Nonlinear neural controller with neural Smith predictor | SpringerLink
+https://link.springer.com/article/10.1007/BF02310939
+
+Artificial neural network and PID based control system for DC motor drives | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/4602474
+
+PID Parameters Auto-Tuning Method for Industrial Temperature Adjustment | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/9486652
+
+ScienceDirect.com | Science, health and medical journals, full text articles and books.
+https://www.sciencedirect.com/science/article/pii/S1877050915013472/pdf?crasolve=1&r=8247374d5ab10a69&ts=1699712846955&rtype=https&vrr=UKN&redir=UKN&redir_fr=UKN&redir_arc=UKN&vhash=UKN&host=d3d3LnNjaWVuY2VkaXJlY3QuY29t&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&rh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&re=X2JsYW5rXw%3D%3D&ns_h=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ns_e=X2JsYW5rXw%3D%3D&rh_fd=rrr)n%5Ed%60i%5E%60_dm%60%5Eo)%5Ejh&tsoh_fd=rrr)n%5Ed%60i%5E%60_dm%60%5Eo)%5Ejh&iv=f9150612d23b5b76be6a854e4829f73d&token=363662383365356563346465623263646335656136303838643831646136376639653836363739373234386132353039616234363931336631363131623531626564323661336432656638386634306662626437343065383a616663633231613261653963383739623938666237653962&text=7699ea4afede1512df25006e25150c86a04a9cb3637403794e62210caf38a2fcca817fcb26afdce04130c3952a4359a02663730d9a3257e4f61dd1b2b58fb671ad5792e3d9e7e7a48158d0efdb7baf63e3035615229b52352ff1cd78a4d5cf6f8b338a374bd31d2df1dc022672c3659ac21d814c1d03527540d6a6dcccbac20f0d99672ba9d70f66ff7d29ecb6d27ece92be5a2cc2b9883f9cfb56aae76ed209c4f6215f8972022d74c6adbb989e214683c894725bfa350ec3642a6b3c0b861eef4aef8de2e08fdd1e0d1ff54d8018f6996ddf7334f95912843dd99ee4070aaf1fe985c16cd2091bb8639d40e82870286c7e1c6e86d697647d3e28e4f4352b0451f6e5763a9ca7746a115977b41900a64f01c207592d23b1f7cf3cbc25d23a173c7616f2a47fb36154063baa9568a8c5&original=3f6d64353d3033386163653365393839613963646133646631323432323537383563646334267069643d312d73322e302d53313837373035303931353031333437322d6d61696e2e706466
+
+Comparative Analysis of Neural-Network and Fuzzy Auto-Tuning Sliding Mode Controls for Overhead Cranes under Payload and Cable Variations
+https://www.hindawi.com/journals/jcse/2019/1480732/
+
+Frontiers | Online Tuning of PID Controller Using a Multilayer Fuzzy Neural Network Design for Quadcopter Attitude Tracking Control
+https://www.frontiersin.org/articles/10.3389/fnbot.2020.619350/full
+
+www.matlabi.ir
+https://www.matlabi.ir/wp-content/uploads/bank_papers/g_paper/g186_Matlabi.ir_Development%20of%20Self-Tuning%20Intelligent%20PID%20Controller%20Based%20on%20BPNN%20for%20Indoor%20Air%20Quality%20Control.pdf
+
+The application of the self-tuning neural network PID controller on the ship roll reduction in random waves - ScienceDirect
+https://www.sciencedirect.com/science/article/abs/pii/S0029801810000582
+
+Ortiz: Low-precision floating-point schemes for neural... - Google Scholar
+https://scholar.google.com/scholar?cites=557672679283717467&as_sdt=2005&sciodt=0,5&hl=nl
+
+Ortiz: Low-precision floating-point schemes for neural... - Google Scholar
+https://scholar.google.com/scholar?q=related:W3Wl3VhAvQcJ:scholar.google.com/&scioq=neural+net+without+floating+point&hl=nl&as_sdt=0,5
+
+Wang: Training deep neural networks with 8-bit floating... - Google Scholar
+https://scholar.google.com/scholar?q=related:-fJTnZiot-8J:scholar.google.com/&scioq=neural+net+without+floating+point&hl=nl&as_sdt=0,5
+
+Wang: Training deep neural networks with 8-bit floating... - Google Scholar
+https://scholar.google.com/scholar?cites=17273460269230846713&as_sdt=2005&sciodt=0,5&hl=nl
+
+Kim: Bitwise neural networks - Google Scholar
+https://scholar.google.com/scholar?cites=10418356286723963315&as_sdt=2005&sciodt=0,5&hl=nl
+
+Kim: Bitwise neural networks - Google Scholar
+https://scholar.google.com/scholar?q=related:s7mjDdhvlZAJ:scholar.google.com/&scioq=neural+net+without+floating+point&hl=nl&as_sdt=0,5
+
+Nissen: Implementation of a fast artificial neural... - Google Scholar
+https://scholar.google.com/scholar?cites=14619671890808380989&as_sdt=2005&sciodt=0,5&hl=nl
+
+LogNet: Energy-efficient neural networks using logarithmic computation | IEEE Conference Publication | IEEE Xplore
+https://ieeexplore.ieee.org/abstract/document/7953288
+
+Lee: Lognet: Energy-efficient neural networks using... - Google Scholar
+https://scholar.google.com/scholar?cites=11669823869029147025&as_sdt=2005&sciodt=0,5&hl=nl
+
+Privacy error
+https://mpedram.com/~massoud/Papers/research_projects_papers/Mahdi/NullaNet.pdf
+
+Logarithm-approximate floating-point multiplier is applicable to power-efficient neural network training - ScienceDirect
+https://www.sciencedirect.com/science/article/abs/pii/S0167926019305826
+
+Helfrich: Local Phansalkar threshold implementation... - Google Scholar
+https://scholar.google.com/scholar_lookup?journal=GitHub+repository&title=Local+Phansalkar+threshold+implementation+in+ImageJ&author=S+Helfrich&author=C+Rueden&author=C+Dietz&author=L+Yang&publication_year=2016&
+
+imagej-ops/src/main/java/net/imagej/ops/threshold/localPhansalkar/LocalPhansalkarThreshold.java at master · imagej/imagej-ops
+https://github.com/imagej/imagej-ops/blob/master/src/main/java/net/imagej/ops/threshold/localPhansalkar/LocalPhansalkarThreshold.java
+
+[PDF] Adaptive document image binarization | Semantic Scholar
+https://www.semanticscholar.org/paper/Adaptive-document-image-binarization-Sauvola-Pietik%C3%A4inen/be97923dbcdaf8b1496b637ed156656d8874f552
+
+Sensors | Free Full-Text | Robust Combined Binarization Method of Non-Uniformly Illuminated Document Images for Alphanumerical Character Recognition
+https://www.mdpi.com/1424-8220/20/10/2914
+
+Binarization Algorithm Based on Side Window Multidimensional Convolution Classification - PMC
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9371195/
+
+
+
+
+
+## Dokumen.pub, of course, has its own challenges
+
+Though, granted, this one is more about *captcha breaking* and should simply be delegated, i.e. *turked*. As in: *no can do automaticallo!*
+
+
+Numerical Methods of Scientific Computing [2&nbsp;ed.] 9065623639 - DOKUMEN.PUB
+https://dokumen.pub/numerical-methods-of-scientific-computing-2nbsped-9065623639.html
+
+Queue | Concise Guide to Numerical Algorithmics. The Foundations and Spirit of Scientific Computing 9783031217616, 9783031217623 - DOKUMEN.PUB
+https://dokumen.pub/qdownload/concise-guide-to-numerical-algorithmics-the-foundations-and-spirit-of-scientific-computing-9783031217616-9783031217623.html
+
+Queue | Isogeometric methods for numerical simulation 9783709118429, 9783709118436 - DOKUMEN.PUB
+https://dokumen.pub/qdownload/isogeometric-methods-for-numerical-simulation-9783709118429-9783709118436.html
+
 
 
 
