@@ -113,7 +113,7 @@ When you find an issue which addresses your problem, see if the discussion there
 
 ## 🆘 ❓ After several years I returned to research; I have an older Qiqqa library which I would like restored. Can you help?
 
-(Very) probably we can. 
+Maybe we can. 
 
 While folks have emailed me ([GerHobbelt](https://github.com/GerHobbelt)) directly, the more prudent approach would be to [*file an issue* as mentioned in the 'Need help?' section further above](https://github.com/jimmejardine/qiqqa-open-source/issues) as email may easily inadvertedly get lost or regrettably go unread and 'disappear' in the torrent of email I receive daily. GitHub issues are here and will *stay* here, enabling me (*and others*) to respond when we have time. Issues *do not disappear* in an overflowing bucket.
 
