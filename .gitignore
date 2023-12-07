@@ -76,7 +76,7 @@ Release*/
 /icons/Logo/research
 
 # misc.
-/docs-src/Dcoumentation/
+/docs-src/Documentation/
 
 # temporarily ignore dev/trial directories, which we don't want to be bothered with right now during git-status and similar invocations:
 /QiqqaLaunchMonitor
