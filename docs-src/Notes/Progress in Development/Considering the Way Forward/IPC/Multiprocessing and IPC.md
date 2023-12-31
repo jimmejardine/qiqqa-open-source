@@ -26,7 +26,7 @@ These are all *user* processes (or “actions”), which are enabled and empower
       
       > While one can mark/select text extracted from a document and copy it anywhere using the Windows clipboard with current Qiqqa software releases, the ability to mark and copy both text and *images* in the document text and transport these to other applications is still *future music*.
       >
-      > See [[Unexpected Hurdles Producing Decent Text And Images From PDF Documents]] when you are interested in the nitty gritty surrounding this particular subject.
+      > See [[../Document OCR & Text Extraction/Unexpected Hurdles Producing Decent Text And Images From PDF Documents]] when you are interested in the nitty gritty surrounding this particular subject.
       
 - content and metadata searching (including “meta-research”)
 

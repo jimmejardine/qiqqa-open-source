@@ -36,7 +36,7 @@ We're working on it to improve this state of affairs...
   - [[Progress in Development/Considering the Way Forward/Document Sniffing, Collecting from the Web/Qiqqa Sniffer - or how to access Google Scholar et al]]
   - [[Qiqqa Sniffer, BibTeX grazing and Google Scholar RECAPTCHA and Access Denied site blocking errors]]
   - [[How to extract your Commercial Qiqqa Cloud account info from your own Qiqqa configuration]]
-  - [[What IS Qiqqa - Where or How is it useful to you|What *IS* Qiqqa -- Where or How is it useful to you?]]
+  - [[Progress in Development/Considering the Way Forward/What IS Qiqqa - Where or How is it useful to you|What *IS* Qiqqa -- Where or How is it useful to you?]]
   - [[Problems with running the installer on your Microsoft Windows machine]]
 - [[Roadmap]]
 - Training
@@ -47,6 +47,6 @@ We're working on it to improve this state of affairs...
   + [[How to build Qiqqa from source]]
   + [[Progress in Development/Considering the Way Forward/General Design Choices/Qiqqa Functionalities & Technology Areas]]
 - [[Qiqqa Internals & Progress in Development]]
-- [[!dummy|*irreverent test for the deGaulle site generator*]]
+- [[Progress in Development/Considering the Way Forward/!dummy|*irreverent test for the deGaulle site generator*]]
 - [[Notes for self (@Gerhobbelt)]]
 

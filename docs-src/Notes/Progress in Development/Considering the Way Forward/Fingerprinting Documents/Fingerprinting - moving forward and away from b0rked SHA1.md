@@ -72,7 +72,7 @@ Now I hope some day we'll be able to identify most, if not all, of those "duplic
 Meanwhile, let's keep our fingerprint nicely unique and bemoan, yet accept/live with, the ways [researchgate](https://www.researchgate.net/) et al are thwarting our efforts (mostly *unintentionally*).
 
 
-> Please also note the remarks and considerations mentioned in [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Exit Lucene.NET, Enter SOLR/Detecting near-duplicate articles|Detecting near-duplicate articles]].
+> Please also note the remarks and considerations mentioned in [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Enter SOLR/Detecting near-duplicate articles|Detecting near-duplicate articles]].
 
 
 ----
@@ -277,6 +277,6 @@ In that comment section, Base64 is the only potential contender, for it can be c
 
 ### Use in an SQL database
 
-We *are* considering using shortened/folded 64-bit binary-numeric hash values as identifying primary keys in the new database layout, based on the consideration that the BASE58X Unique Identifier is a 44-long string and we will have quite a bit of data rows referencing that UID, e.g. annotation records, bibliography line records, etc.etc. all will be referencing the document they belong to via its UID and we can expect to run many MERGE queries: for that reason alone it might be beneficial to keep the linked index **numeric** for faster table merge and other query processing. Further thoughts on this can be read at [[Considering the database design - the trouble with a string UUID]].
+We *are* considering using shortened/folded 64-bit binary-numeric hash values as identifying primary keys in the new database layout, based on the consideration that the BASE58X Unique Identifier is a 44-long string and we will have quite a bit of data rows referencing that UID, e.g. annotation records, bibliography line records, etc.etc. all will be referencing the document they belong to via its UID and we can expect to run many MERGE queries: for that reason alone it might be beneficial to keep the linked index **numeric** for faster table merge and other query processing. Further thoughts on this can be read at [[../Database Design/Considering the database design - the trouble with a string UUID]].
 
 

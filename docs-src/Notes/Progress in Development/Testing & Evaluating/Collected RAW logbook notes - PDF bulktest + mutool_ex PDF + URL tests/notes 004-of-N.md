@@ -9,7 +9,7 @@ This is about the things we observe when applying our tools at the bleeding edge
 
 This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
-**The Table Of Contents / Overview Index is at [[PDF `bulktest` test run notes at the bleeding edge]].**
+**The Table Of Contents / Overview Index is at [[../PDF bulktest test run notes at the bleeding edge]].**
 
 -------------------------------
 

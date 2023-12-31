@@ -61,6 +61,15 @@ Release*/
 
 /Technology Tests/WPF Template App1.Packaging/*.cache
 
+# Intel VTune Profiler
+/Qiqqa/VTune Profiler Results/
+/icons/Logo/research
+
+# temporarily ignore dev/trial directories, which we don't want to be bothered with right now during git-status and similar invocations:
+/QiqqaLaunchMonitor
+/QiqqaSystemSanityChecker
+/docs-intermediate
+
 # Obsidian vault
 /docs-src/Notes/.obsidian/appearance.json
 /docs-src/Notes/.obsidian/core-plugins.json
@@ -70,21 +79,6 @@ Release*/
 /docs-src/Notes/.obsidian/switcher.json
 /docs-src/Notes/.obsidian/templates.json
 /docs-src/Notes/.obsidian/workspace
-
-# Intel VTune Profiler
-/Qiqqa/VTune Profiler Results/
-/icons/Logo/research
-
-# misc.
-/docs-src/Documentation/
-
-# temporarily ignore dev/trial directories, which we don't want to be bothered with right now during git-status and similar invocations:
-/QiqqaLaunchMonitor
-/QiqqaSystemSanityChecker
-/docs-intermediate
-
 /docs-src/Notes/.obsidian/core-plugins-migration.json
 /docs-src/Notes/.obsidian/workspace.json
-
-/__cmake_build/
 /docs-src/Notes/.trash

@@ -1,1 +1,0 @@
-# Extracting Annotations as Metadata

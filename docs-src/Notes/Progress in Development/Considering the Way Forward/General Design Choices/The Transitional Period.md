@@ -66,7 +66,7 @@ This has led to a few conclusions and *partial solutions* that will be developed
 
 ## See Also
 
-- [[Qiqqa and inter-process communications (IPC) - old and new]]
-	- [[Who should be able to access what directly]]
-	- [[Considering IPC methods - HTTP vs WebSocket, Pipe, etc]]
+- [[../IPC/Qiqqa and inter-process communications (IPC) - old and new]]
+	- [[../IPC/Who should be able to access what directly]]
+	- [[../IPC/Considering IPC methods - HTTP vs WebSocket, Pipe, etc]]
 - [[The Transitional Period - Extra Notes]]

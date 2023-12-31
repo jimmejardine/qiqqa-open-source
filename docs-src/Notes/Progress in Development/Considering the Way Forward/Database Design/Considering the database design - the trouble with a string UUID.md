@@ -10,7 +10,7 @@ We use SQLite, which can handle binary numeric data up to 64 bits, but, like alm
 
 Currently, all records use the SHA1B *string*-typed UID, which is variable length, but basically a hexdumped SHA1 at 160 bits, thus $160/8 \times 2 = 40 \text{ characters}$ wide, thanks to its hex encoding. 
 
-> See also [[Fingerprinting - moving forward and away from b0rked SHA1]].
+> See also [[../Fingerprinting Documents/Fingerprinting - moving forward and away from b0rked SHA1]].
 
 With the new BLAKE3+BASE58X-based scheme, that *string*-typed key would be a *fixed-sized* 44 characters wide. A 10% size increase.
 

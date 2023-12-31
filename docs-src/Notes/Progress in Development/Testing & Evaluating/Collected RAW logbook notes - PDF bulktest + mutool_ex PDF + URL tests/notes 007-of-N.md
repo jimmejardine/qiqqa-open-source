@@ -9,7 +9,7 @@ This is about the things we observe when applying our tools at the bleeding edge
 
 This is the lump sum notes (logbook) of these test runs' *odd observations*.
 
-**The Table Of Contents / Overview Index is at [[PDF `bulktest` test run notes at the bleeding edge]].**
+**The Table Of Contents / Overview Index is at [[../PDF bulktest test run notes at the bleeding edge]].**
 
 -------------------------------
 
@@ -84,13 +84,15 @@ fz_new_output()
 ---------------------------------------------------------------------------------------
 
 curl:
---sanitize-with-extreme-prejudice --create-dirs --ftp-create-dirs --verbose --no-progress-bar  --insecure --no-clobber --remote-name-all --remote-header-name --output-dir ~/Downloads/pdfs_test2     https://www.ijsr.net/archive/v2i5/IJSRON2013934.pdf
+--output-path-mimics-url --sanitize-with-extreme-prejudice --create-dirs --ftp-create-dirs --verbose --no-progress-bar  --insecure --no-clobber --remote-name-all --remote-header-name --output-dir ~/Downloads/pdfs_test2     https://www.ijsr.net/archive/v2i5/IJSRON2013934.pdf
 
 curl::
 --create-dirs --ftp-create-dirs --verbose --no-progress-bar  --insecure --no-clobber --remote-name-all --remote-header-name --output-dir ~/Downloads/pdfs_test                       https://www.bankofengland.co.uk/-/media/boe/files/inflation-report/2019/may/inflation-report-may-2019.pdf  https://www.bankofengland.co.uk/-/media/boe/files/inflation-report/2019/may/inflation-report-may-2019.pdf "https://webcms.pima.gov/UserFiles/Servers/Server_6/File/Community/CDNC/Outside%20Agency/How%20to%20Use%20Excel%20to%20Analyze%20Survey%20Data%20-%2011-1-18.pdf" "https://www.mckinsey.com/~/media/mckinsey/featured%20insights/diversity%20and%20inclusion/diversity%20wins%20how%20inclusion%20matters/diversity-wins-how-inclusion-matters-vf.pdf" "https://pubs.usgs.gov/tm/04/a11/tm4a11.pdf https://files.nc.gov/ncosc/documents/files/filteringdatainwebintelligencereports.pdf https://www.rwu.edu/sites/default/files/downloads/fcas/mns/calculating_and_displaying_regression_statistics_in_excel.pdf https://supervision.bamentorship.net/wp-content/uploads/sites/2/2019/06/Reversal-Design-Comprehensive-Tutorial-1.pdf" "https://upcommons.upc.edu/bitstream/handle/2117/79915/Design+and+development+of+an+app+for+statistical+data+analysis+learning.pdf?sequence=1" "https://training.cochrane.org/sites/training.cochrane.org/files/public/uploads/resources/downloadable_resources/English/RevMan_5.3_User_Guide.pdf"
 
 
 ../../platform/win32/bin/Debug-Unicode-64bit-x64/curl.exe --sanitize-with-extreme-prejudice --location --create-dirs --ftp-create-dirs --verbose --no-progress-bar  --insecure --no-clobber --remote-name-all --remote-header-name --output-dir ~/Downloads/pdfs_test2     https://dl.acm.org/doi/abs/10.1145/3532342.3532351
+
+../../platform/win32/bin/Debug-Unicode-64bit-x64/curl.exe --verbose --output-dir ~/Downloads/pdfs_test2 --create-dirs --output-path-mimics-url --sanitize-with-extreme-prejudice -L --remote-name --remote-header-name  --url  "https://groups.google.com/g/tesseract-dev/c/oEHTjhpdRmo"
 ```
 
 

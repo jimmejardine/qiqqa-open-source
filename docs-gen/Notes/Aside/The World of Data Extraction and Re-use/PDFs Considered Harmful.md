@@ -1,1 +1,0 @@
-# PDFs Considered Harmful

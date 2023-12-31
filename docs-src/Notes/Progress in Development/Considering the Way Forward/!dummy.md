@@ -45,7 +45,7 @@ Drag&drop from file explorer (local drive):
 
 and Ctrl+C from my image tools (ACDSee):
 
-![](sf-scenery.jpg)
+![](assets/sf-scenery.jpg)
 
 ---
 

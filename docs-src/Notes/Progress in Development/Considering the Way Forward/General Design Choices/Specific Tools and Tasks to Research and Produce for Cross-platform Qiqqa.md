@@ -12,13 +12,13 @@
 	- leptonica
 	- libxml2 (or libexpat if libxml2 doesn't mesh well with the other bits around XMP, etc.)
 	- Adobe XMP SDK?
-	- OpenCV (once we introduce [[scripting the OCR + text extraction process]])
+	- OpenCV (once we introduce [[../Document OCR & Text Extraction/scripting the OCR + text extraction process]])
 	- libWebP -- to be decided based on caching sizes and render bitmap transfer performance, which impacts **PDF reader performance**. Would be great for the caches, though.
 	- libjpeg / libjpeg-turbo / libjpeg-xl (lossless JPEG & other 21st century updates to the JPEG standard)
 	- libpng
 	- libzlib
 	- crow (for the local webserver core)
-	- QuickJS, once we introduce [[scripting the OCR + text extraction process]] (faster and supporting modern JS idiom (ES2017), contrary to `mujs` which is ES5. CPython has been considered, but turned out to be a very rough animal to compile on Windows at least.)
+	- QuickJS, once we introduce [[../Document OCR & Text Extraction/scripting the OCR + text extraction process]] (faster and supporting modern JS idiom (ES2017), contrary to `mujs` which is ES5. CPython has been considered, but turned out to be a very rough animal to compile on Windows at least.)
 - the new UI front-end will be quite similar to a web browser, really. Due to special needs (Qiqqa Sniffer, mostly) and security reasons (*probably safe* library content vs. *probably un-safe* on-line browsing while you look for additional info, such as related publications and document metadata to import/scrape) we still will need a bit of a wrapper as we'll be housing **two** web viewer instances at least: one for *outside world accesses*, one for **local access**.
 
    The UI (cross-platform) will be mostly web-technologies-based, so:
@@ -48,8 +48,8 @@
 ### Demarcated Projects = producing a Tool or a Procedure To Use A Tool:
 
 - Qiqqa GUI
-	- [[wxWidgets + CEF for UI - or should we go electron anyway⁈ ⇒ WebView2 et al|wxwindows + CEF for UI - or should we go `electron` anyway?]]
-	- [[../Document Sniffing, Collecting from the Web/The Qiqqa Sniffer UI-UX - PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine|The Qiqqa Sniffer UI / UX: PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine]]
+	- [[../Moving Away From Windows-only UI/wxWidgets + CEF for UI - or should we go electron anyway⁈ ⇒ WebView2 et al|wxwindows + CEF for UI - or should we go `electron` anyway?]]
+	- [[../Document Sniffing, Collecting from the Web/The Qiqqa Sniffer UI-UX - PDF Viewer, Metadata Editor, WWW Search Engine|The Qiqqa Sniffer UI / UX: PDF Viewer, Metadata Editor + Web Browser As WWW Search Engine]]
 	- [[../Web UI/visual BibTex Editor|Web UI: visual BibTex Editor]]
 	- [[../Web UI/visual Metadata Editor|Web UI: visual Metadata Editor (for abstract, title, DOI, **tags**, etc.)]]
 	- [[../Web UI/visual Tags, Ratings, Categories Editor|Web UI: visual Tags, Ratings, Categories, ... Editor]]
@@ -58,18 +58,18 @@
 	- [[../Web UI/Filtering as Search Aid|Web UI: Filtering as Search Aid: filter on title, tag(s), you-name-it...]]
 	- [[../Web UI/Qiqqa Expedition, now done in web tech|Web UI: Qiqqa Expedition, now done in web tech: D3, ...]]
 - Qiqqa Core Local Server
-	- [[General Design Choices/Anything PDF and SQLite happens on a local server|Anything PDF and SQL(SQLite) happens on a local server]]
+	- [[Anything PDF and SQLite happens on a local server|Anything PDF and SQL(SQLite) happens on a local server]]
 	- Qiqqa GUI Assist: PDF rendering
 		- [[../Document perusal - viewing, reading, annotating, editing, bundling, UI/PDF page image rendering for web frontend|PDF page image rendering for (web) frontend]]
 		- [[../Document perusal - viewing, reading, annotating, editing, bundling, UI/PDF rendering performance - caching at the local server|PDF page rendering performance: *smart caching* of documents and their rendered page bitmaps to save work during the session]]
 	- PDF Automated (Bulk) Processing
-		- [[Document and Metadata Import-Export/Importing PDFs]]
+		- [[../Document and Metadata Import-Export/Importing PDFs]]
 		- [[../Qiqqa Watch Folders/now done by the core backend|Qiqqa Watch Folders: now done by the core backend]]
-		- [[Document and Metadata Import-Export/Cleaning PDFs|Cleaning PDFs: removing obnoxious banner pages, readying for OCR when deemed necessary]]
-		- [[Document and Metadata Import-Export/Importing PDFs with annotations]]
-		- [[Extracting Annotations as Metadata]]
-		- [[Document and Metadata Import-Export/Exporting PDFs for External Readers|Exporting PDFs for External Viewers / Readers / Editors]]
-		- [[Document and Metadata Import-Export/Importing PDF Revisions|Importing PDF Revisions (Externally Edited and Resubmitted into Qiqqa)]]
+		- [[../Document and Metadata Import-Export/Cleaning PDFs|Cleaning PDFs: removing obnoxious banner pages, readying for OCR when deemed necessary]]
+		- [[../Document and Metadata Import-Export/Importing PDFs with annotations]]
+		- [[../Annotating Documents/Extracting Annotations as Metadata]]
+		- [[../Document and Metadata Import-Export/Exporting PDFs for External Readers|Exporting PDFs for External Viewers / Readers / Editors]]
+		- [[../Document and Metadata Import-Export/Importing PDF Revisions|Importing PDF Revisions (Externally Edited and Resubmitted into Qiqqa)]]
 		- [[../Processing other document types/HTML|Processing other document types: HTML]]
 	- Text Extraction
 		- [[../Document OCR & Text Extraction/Processing regular PDFs|Text Extraction: processing regular PDFs]]
@@ -85,18 +85,18 @@
 	- Sniffer Assist: Scraping Metadata?
 	- Sniffer Assist: Google Scholar bulk processing (under user guidance and assistance)
 	- Core Data Backup / Sync / Import / Export
-		- [[Document and Metadata Import-Export/Exporting PDFs with metadata embedded (XMP)]]
-		- [[Document and Metadata Import-Export/Exporting PDFs with metadata + annotations embedded]]
-		- [[Document and Metadata Import-Export/Core - Exporting Metadata to XYZ|Exporting Metadata to {Fill In Application Name / File format}]]
-		- [[Document and Metadata Import-Export/Core - Importing Metadata from XYZ|Importing Metadata from {Fill in Application Name / File Format}]]
+		- [[../Document and Metadata Import-Export/Exporting PDFs with metadata embedded (XMP)]]
+		- [[../Document and Metadata Import-Export/Exporting PDFs with metadata + annotations embedded]]
+		- [[../Document and Metadata Import-Export/Core - Exporting Metadata to XYZ|Exporting Metadata to {Fill In Application Name / File format}]]
+		- [[../Document and Metadata Import-Export/Core - Importing Metadata from XYZ|Importing Metadata from {Fill in Application Name / File Format}]]
 - Qiqqa FTS (Full Text Search) Engine (~ Lucene/SOLR)
-	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Exit Lucene.NET, Enter SOLR/Automatic Setup and Running of a local SOLR instance]]
-	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Exit Lucene.NET, Enter SOLR/Feeding data and metadata to SOLR]]
-	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Exit Lucene.NET, Enter SOLR/Making SOLR highlighting work for us|Making SOLR highlighting work for us :: feeding the results to the Qiqqa user]]
+	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Enter SOLR/Automatic Setup and Running of a local SOLR instance]]
+	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Enter SOLR/Feeding data and metadata to SOLR]]
+	- [[../Text Processing - Full Text Search, Categorization-Clustering, etc/Full Text Search - Enter SOLR/Making SOLR highlighting work for us|Making SOLR highlighting work for us :: feeding the results to the Qiqqa user]]
 	- [[For Users/Example How To Use The SOLR Intance Without Qiqqa UI FrontEnd|For Users :: Example How To Use The SOLR Instance Without Qiqqa UI FrontEnd = scripting and using for your own custom purposes]]
 - Qiqqa Middleware (Sync, Import, Export?)
  
    "Middleware": where we keep the old C#/.NET code. Handy tooling on top of the Core. Aiding and abetting with the new *web-technologies*-based UI.
-	- [[MiddleWare - Exporting Metadata to XYZ|Exporting Metadata to {Fill In Application Name / File format}]]
-	- [[MiddleWare - Importing Metadata from XYZ|Importing Metadata from {Fill in Application Name / File Format}]]
+	- [[../MiddleWare/MiddleWare - Exporting Metadata to XYZ|Exporting Metadata to {Fill In Application Name / File format}]]
+	- [[../MiddleWare/MiddleWare - Importing Metadata from XYZ|Importing Metadata from {Fill in Application Name / File Format}]]
 - 

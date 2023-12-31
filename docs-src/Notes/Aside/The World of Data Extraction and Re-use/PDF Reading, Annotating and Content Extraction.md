@@ -27,5 +27,5 @@ Here are a few articles which discuss the banana peels on your pedestrian path w
 - [Bulletproofing Your Data](https://github.com/propublica/guides/blob/master/data-bulletproofing.md)
 
 - [[../../Progress in Development/Considering the Way Forward/Document perusal - viewing, reading, annotating, editing, bundling, UI/Bundling testdata, metadata, etc. with document file - How to attach raw data to a PDF]]
-- [[Unexpected Hurdles Producing Decent Text And Images From PDF Documents]]
+- [[../../Progress in Development/Considering the Way Forward/Document OCR & Text Extraction/Unexpected Hurdles Producing Decent Text And Images From PDF Documents]]
 - [[Extracting the text from PDF documents]]

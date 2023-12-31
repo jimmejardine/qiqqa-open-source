@@ -16,7 +16,7 @@ Alas, you can't have them all, they say...
 
 `qpdf -qdr` does a fine job, but sometimes that job is just **way too fine**: as I was considering *iff* `qpdf` and/or `mutool repair` and/or other tools could be used to produce PDFs (from source PDFs) which would be more palatable and easier to process by Qiqqa et al, I discovered that, on a few occasions, `qpdf -qdr` was able to produce PDFs of over 1 GIGAbyte(!) from humble beginnings such as a ~10MByte source PDF. Thus 'linearize for web' and similar 'restructuring cleanup' actions SHOULD NOT be performed to help displaying / processing these buggers in Qiqqa et al.
 
-**Note**: this, of course, does not mean that `qpdf` is an unuseful tool: on the contrary! `qpdf decrypt` and a few other tools (`mutool repair`) help greatly in getting some obnoxious PDFs displayed on screen, just like Acrobat would show them (see also https://github.com/jimmejardine/qiqqa-open-source/issues/9 and https://github.com/jimmejardine/qiqqa-open-source/issues/136).
+**Note**: this, of course, does not mean that `qpdf` is an un-useful tool: on the contrary! `qpdf decrypt` and a few other tools (`mutool repair`) help greatly in getting some obnoxious PDFs displayed on screen, just like Acrobat would show them (see also https://github.com/jimmejardine/qiqqa-open-source/issues/9 and https://github.com/jimmejardine/qiqqa-open-source/issues/136).
 
 
 

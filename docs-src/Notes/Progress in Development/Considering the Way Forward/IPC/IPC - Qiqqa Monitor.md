@@ -58,4 +58,4 @@ Some times we even dream of being able to drill down to the *document* and possi
    
 Which makes one wonder: use SQLite for this (with its query construction and parsing overhead), or go the NoSQL LMDB route? 
 - https://www.pdq.com/blog/improving-bulk-insert-speed-in-sqlite-a-comparison-of-transactions/
-- what about our document hashes? A *task hash* would be a document hash, task type code *plus* page number (up to at least 2500 as that's about the largest page count in a book I've ever seen). [[Compressing document and other hashes to uin32_t or uint64_t|Can't we compress our document and task hashes to a regular integer number so it's swifter and taking up less memory?]]
+- what about our document hashes? A *task hash* would be a document hash, task type code *plus* page number (up to at least 2500 as that's about the largest page count in a book I've ever seen). [[../Fingerprinting Documents/Compressing document and other hashes to uin32_t or uint64_t|Can't we compress our document and task hashes to a regular integer number so it's swifter and taking up less memory?]]
