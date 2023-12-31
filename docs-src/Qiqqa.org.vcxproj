@@ -95,7 +95,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="..\package.json" />
-    <None Include=".eleventy.js" />
     <None Include="Aside\The World of Data Extraction and Re-use - PDF Reading, Annotating and Content Extraction.md" />
     <None Include="Contributing -- What Can You Do To Help.md" />
     <None Include="dummy.md.include" />
@@ -126,7 +125,6 @@
     <None Include="Software Releases\Where To Get Them.md" />
     <None Include="The Official Manual\The Qiqqa Manual.md" />
     <None Include="views\other\guide.md" />
-    <None Include="_meta\layouts\confer\readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
