@@ -64,7 +64,7 @@
 		- [[../Document perusal - viewing, reading, annotating, editing, bundling, UI/PDF rendering performance - caching at the local server|PDF page rendering performance: *smart caching* of documents and their rendered page bitmaps to save work during the session]]
 	- PDF Automated (Bulk) Processing
 		- [[../Document and Metadata Import-Export/Importing PDFs]]
-		- [[../Qiqqa Watch Folders/now done by the core backend|Qiqqa Watch Folders: now done by the core backend]]
+		- [[../Qiqqa Watch Folders/Now done by the core backend|Qiqqa Watch Folders: now done by the core backend]]
 		- [[../Document and Metadata Import-Export/Cleaning PDFs|Cleaning PDFs: removing obnoxious banner pages, readying for OCR when deemed necessary]]
 		- [[../Document and Metadata Import-Export/Importing PDFs with annotations]]
 		- [[../Annotating Documents/Extracting Annotations as Metadata]]

@@ -48,7 +48,7 @@ We already had that same consideration a while back when it came to PDF processi
   - [[../../../Technology/Why I consider OpenMP the spawn of evil and disable it in tesseract|Why I consider OpenMP the spawn of evil and disable it in tesseract]]
 - [[Qiqqa library storage, database, DropBox (and frenemies), backups and backwards compatibility]]
 - [[General Design Choices/Simple - One process per programming language or should we divide it up further into subsystems|Simple - One process per programming language or should we divide it up further into subsystems]]
-- [[Stability & Security/Stability։ back end (local server components)|Stability։ back end (local server components)]]
+- [[../Stability & Security/Stability - back end (local server components)|Stability - back end (local server components)]]
 - [[../Document OCR & Text Extraction/Tesseract aspects to keep in mind|Tesseract aspects to keep in mind]]
 - [[General Design Choices/Storing large (OCR) data in a database vs. in a directory tree - and which db storage lib to use then|Storing large (OCR) data in a database vs. in a directory tree - and which db storage lib to use then]]
 - [[../../Woes and perils/The woes and perils of invoking other child applications]]
