@@ -469,3 +469,76 @@ Notice how we now, *again*, have way more precision available as we can specify 
 ## Software
 
 [libeternaltimestamp](https://github.com/GerHobbelt/libeternaltimestamp) is a small library based on these ideas.
+
+
+---
+
+# Post Scriptum: design decision = change of plans re the format!
+
+Design decision while writing and testing `libeternaltimestamp`: we use those timestamps mostly for **display** purposes, so it's handier to *not* encode the timestamp as an offset against an epoch of 3000 A.D. as this requires many back & forth transformations (calculus)to convert these deltas to ready-to-print layouts. 
+Meanwhile, when we want to sort or similarly apply some calculus on the timestamps *relatively to others*, we can get away with quite simple 64-bit arithmetic as we only need to check the subformat bit (modern vs. prehistoric) and do a bit of conversion work when two such disparate subformats are compared against one another. Still, *even then* it's only a few comparisons and subtractions before we get our answer when we keep the timestamp in 'ready-for-display' format otherwise.
+
+Hence we keep the bit layouts, but the **epoch** and **progressive number** concepts are discarded: timestamp comparisons are (minimally) more expensive that way, but we're fine with that.
+
+Incidentally, thanks to this design decision/change, we can now store dates *beyond 3000 A.D.* so we can use the format to store far-future SF dates if we would like to, as now, implicitly, the *epoch* for the "modern" subformat has changed to be 0 A.D.
+
+The corollary of this being that we won't be able to store timestamp precision at better-than-single-minute precision, alas.
+
+Further Notes:
+- we keep the 'mode' it value as-is as we will need to apply some processing anyway when we compare timestamps from disparate modes.
+- since we do not want to be bothered by a lot of prehistoric vs. modern subformat comparisons' work we apply a simple change: we redefine the epoch for the *modern* subformat as starting at 10000 B.C. moving *forward*: this is a very fast operation when displaying such dates and we cover the most important historic period of human writing this way anyway, while opening up a bit of future dates beyond 3000 A.D. at zero cost.
+- the *prehistoric* subformat's epoch may start at 0 A.D. backwards into the past: we'll still be able to push through the big Bang and come out the other end that way anyway, so we're good.
+
+
+
+P.S.: here's the adjusted "prehistoric dates" format, epoch at 0 A.D.:
+
+
+```wavedrom
+{reg: [
+  {bits: 4, name: 'precision', attr: "years", type: 5},
+
+  {bits: 6, name: 'MM', type: 2},
+  {bits: 5, name: 'HH', type: 2},
+  
+  {bits: 5, name: 'DD', type: 6},
+  {bits: 4, name: 'MM', type: 6},
+  
+  {bits: 8, name: "Years Before Epoch", type: 3},
+  {bits: 30, name: "Years Before Epoch (0 A.D.) all the way back to The Big Bang (and way beyond: 250+ billion years)", type: 3},
+  {bits: 1, name: "1", attr: "mode", type: 1},
+  {bits: 1, name: "0"},
+
+], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
+```
+
+![layout](../assets/wavedrom15.png)
+
+---
+
+Here's the adjusted layout for regular date/timestamps, still using only *63* bits:
+
+```wavedrom 
+{reg: [
+  {bits: 10, name: "µsecs", type: 5},
+  {bits: 10, name: "msecs", type: 5},
+
+  {bits: 6, name: 'SS', type: 2},
+  {bits: 6, name: 'MM', type: 2},
+  {bits: 5, name: 'HH', type: 2},
+  
+  {bits: 5, name: 'DD', type: 6},
+  {bits: 4, name: 'MM', type: 6},
+  {bits: 7, name: 'YY', type: 3},
+
+  {bits: 9, name: "Century (10000 BC - 41200 AD)", type: 3},
+  {bits: 1, name: "0", attr: "mode", type: 1},
+  {bits: 1, name: "0"},
+
+], config: {hspace: "width", lanes: 2, bits: 64, vflip: false, hflip: false}}
+```
+
+![layout](../assets/wavedrom16.png)
+
+---------
+
