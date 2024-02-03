@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="pikchr" viewBox="0 0 617.22 1874.16" height="100%" width="100%" style="width: 100%; height: 100%;">
+<path d="M7,32L58,32L58,2L7,2Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="32" y="17" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">idea</text>
+<path d="M7,32L7,68" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<circle cx="7" cy="68" r="5.4" style="fill:rgb(0,0,0);stroke-width:2.16;stroke:rgb(0,0,0);"></circle>
+<polygon points="50,68 39,72 39,64" style="fill:rgb(0,0,0)"></polygon>
+<path d="M7,68L45,68" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M610,1872L613,1872L613,1854L610,1854Z" style="fill:rgb(0,0,0);stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="610,1863 599,1867 599,1858" style="fill:rgb(0,0,0)"></polygon>
+<path d="M567,1863L604,1863" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M109,83L235,83A15 15 0 0 0 250 68A15 15 0 0 0 235 53L109,53A15 15 0 0 0 93 68A15 15 0 0 0 109 83Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="172" y="68" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">FOR&nbsp;EACH&nbsp;PAGE</text>
+<polygon points="93,68 82,72 82,64" style="fill:rgb(0,0,0)"></polygon>
+<path d="M50,68L88,68" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M310,83L420,83A15 15 0 0 0 435 68A15 15 0 0 0 420 53L310,53A15 15 0 0 0 295 68A15 15 0 0 0 310 83Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="365" y="68" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">RENDER&nbsp;PAGE</text>
+<path d="M477,185L545,185L545,133L523,111L477,111Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M523,111L523,133L545,133" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="511" y="148" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">image</text>
+<path d="M477,118L468,119" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M468,119L468,192" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M468,192L536,192" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M536,192L536,185" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="295,68 284,72 284,64" style="fill:rgb(0,0,0)"></polygon>
+<path d="M250,68L289,68" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="365,97 377,92 377,101" style="fill:rgb(0,0,0)"></polygon>
+<path d="M435,68 L 450,68 Q 464,68 464,82 Q 464,97 442,97 L 392,97 L 371,97" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="295,68 284,72 284,64" style="fill:rgb(0,0,0)"></polygon>
+<path d="M365,97 L 288,97 Q 266,97 266,82 Q 266,68 278,68 L 289,68" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="511,111 507,100 515,100" style="fill:rgb(0,0,0)"></polygon>
+<path d="M435,68 L 489,68 Q 511,68 511,87 L 511,105" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="281,39 269,43 269,35" style="fill:rgb(0,0,0)"></polygon>
+<path d="M50,68 L 57,68 Q 65,68 65,54 Q 65,39 86,39 L 253,39 L 275,39" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="511,78 507,68 515,68" style="fill:rgb(0,0,0)"></polygon>
+<path d="M281,39 L 489,39 Q 511,39 511,54 Q 511,68 511,70 L 511,73" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="36,336 24,340 24,331" style="fill:rgb(0,0,0)"></polygon>
+<path d="M511,192 L 511,213 Q 511,235 489,235 L 29,235 Q 7,235 7,257 L 7,314 Q 7,336 19,336 L 30,336" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M54,354L450,354A18 18 0 0 0 468 336A18 18 0 0 0 450 318L54,318A18 18 0 0 0 36 336A18 18 0 0 0 54 354Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="252" y="336" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" font-size="125%" dominant-baseline="central">[1]&nbsp;&nbsp;Image&nbsp;preprocessing</text>
+<path d="M36,702L468,702L468,357L36,357Z" style="fill:none;stroke-width:1.4472;stroke:rgb(128,128,128);"></path>
+<text x="252" y="529" text-anchor="middle" fill="rgb(128,128,128)" dominant-baseline="central">&nbsp;</text>
+<text x="252" y="371" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;remove&nbsp;scanner&nbsp;borders</text>
+<text x="252" y="390" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;remove&nbsp;illustrations&nbsp;(non-text)</text>
+<text x="252" y="410" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;remove&nbsp;pixel&nbsp;noise&nbsp;&amp;&nbsp;speckles</text>
+<text x="252" y="429" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;straighten&nbsp;the&nbsp;text&nbsp;lines&nbsp;(deskew)</text>
+<text x="252" y="449" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;remove&nbsp;scanner&nbsp;borders&nbsp;(plate)</text>
+<text x="252" y="468" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;remove&nbsp;illustrations&nbsp;(non-text)</text>
+<text x="252" y="488" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;remove&nbsp;pixel&nbsp;noise&nbsp;&amp;&nbsp;speckles</text>
+<text x="252" y="507" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;adjust&nbsp;contrast&nbsp;(de-milkify&nbsp;LQ&nbsp;scans)</text>
+<text x="252" y="527" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;straighten&nbsp;the&nbsp;text&nbsp;lines&nbsp;(deskew)</text>
+<text x="252" y="546" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;remove&nbsp;alpha&nbsp;channel&nbsp;(transparency)</text>
+<text x="252" y="565" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;convert&nbsp;colors&nbsp;to&nbsp;grayscale&nbsp;(B&amp;W,YUV,CIE,LAB?)</text>
+<text x="252" y="585" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;adjust&nbsp;brightness&nbsp;/&nbsp;contrast-curves</text>
+<text x="252" y="604" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">-&nbsp;invert&nbsp;B&amp;W&nbsp;when&nbsp;text&nbsp;is&nbsp;not&nbsp;black</text>
+<text x="252" y="624" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">&nbsp;</text>
+<text x="252" y="643" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">This&nbsp;is&nbsp;definitely&nbsp;not&nbsp;all&nbsp;you&nbsp;can&nbsp;do&nbsp;and&nbsp;...</text>
+<text x="252" y="663" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">...&nbsp;not&nbsp;necessarily&nbsp;in&nbsp;the&nbsp;order&nbsp;...</text>
+<text x="252" y="682" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">...&nbsp;that&nbsp;may&nbsp;work&nbsp;best&nbsp;for&nbsp;you.</text>
+<polygon points="497,739 492,727 501,727" style="fill:rgb(0,0,0)"></polygon>
+<path d="M468,336 L 482,336 Q 497,336 497,357 L 497,712 L 497,733" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M447,853L547,853L547,761L525,739L447,739Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M525,739L525,761L547,761" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="497" y="776" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">cleaned</text>
+<text x="497" y="796" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">greyscale</text>
+<text x="497" y="816" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">image</text>
+<path d="M447,746L439,745" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M439,745L439,859" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M439,859L539,859" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M539,859L539,852" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="295,305 284,309 284,300" style="fill:rgb(0,0,0)"></polygon>
+<path d="M7,290 L 7,298 Q 7,305 29,305 L 268,305 L 289,305" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="497,344 492,332 501,332" style="fill:rgb(0,0,0)"></polygon>
+<path d="M295,305 L 475,305 Q 497,305 497,321 L 497,338" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="36,1004 24,1008 24,1000" style="fill:rgb(0,0,0)"></polygon>
+<path d="M497,860 L 497,881 Q 497,903 475,903 L 29,903 Q 7,903 7,925 L 7,982 Q 7,1004 19,1004 L 30,1004" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M54,1022L450,1022A18 18 0 0 0 468 1004A18 18 0 0 0 450 986L54,986A18 18 0 0 0 36 1004A18 18 0 0 0 54 1022Z" style="fill:none;stroke-width:3.24;stroke:rgb(255,0,0);"></path>
+<text x="252" y="1004" text-anchor="middle" font-weight="bold" fill="rgb(255,0,0)" font-size="125%" dominant-baseline="central">[2]&nbsp;Tesseract&nbsp;OCR</text>
+<path d="M36,1140L468,1140L468,1025L36,1025Z" style="fill:none;stroke-width:1.4472;stroke:rgb(128,128,128);"></path>
+<text x="252" y="1082" text-anchor="middle" fill="rgb(128,128,128)" dominant-baseline="central">&nbsp;</text>
+<text x="252" y="1039" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">OCR:&nbsp;LSTM+CTC&nbsp;or&nbsp;classic&nbsp;v3&nbsp;shape&nbsp;analysis</text>
+<text x="252" y="1059" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">For&nbsp;non-streaming&nbsp;text&nbsp;the&nbsp;classic&nbsp;v3&nbsp;engine</text>
+<text x="252" y="1078" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">might&nbsp;be&nbsp;a&nbsp;better&nbsp;option&nbsp;as&nbsp;that&nbsp;one&nbsp;does&nbsp;not</text>
+<text x="252" y="1098" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">enforce/assume&nbsp;a&nbsp;hidden&nbsp;Markov&nbsp;model</text>
+<text x="252" y="1117" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">over&nbsp;your&nbsp;content&nbsp;(i.e.&nbsp;expect&nbsp;flowing&nbsp;text)</text>
+<polygon points="497,1177 492,1165 501,1165" style="fill:rgb(0,0,0)"></polygon>
+<path d="M468,1004 L 482,1004 Q 497,1004 497,1026 L 497,1149 L 497,1171" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M442,1311L551,1311L551,1198L529,1177L442,1177Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M529,1177L529,1198L551,1198" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="497" y="1213" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">OCR</text>
+<text x="497" y="1234" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">text</text>
+<text x="497" y="1254" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">results</text>
+<text x="497" y="1274" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">(HOCR&nbsp;/&nbsp;...)</text>
+<path d="M442,1184L435,1185" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M435,1185L435,1319" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M435,1319L543,1319" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M543,1319L543,1311" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="36,1462 24,1466 24,1458" style="fill:rgb(0,0,0)"></polygon>
+<path d="M497,1318 L 497,1339 Q 497,1361 475,1361 L 29,1361 Q 7,1361 7,1383 L 7,1440 Q 7,1462 19,1462 L 30,1462" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M54,1480L450,1480A18 18 0 0 0 468 1462A18 18 0 0 0 450 1444L54,1444A18 18 0 0 0 36 1462A18 18 0 0 0 54 1480Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="252" y="1462" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" font-size="125%" dominant-baseline="central">[3]&nbsp;&nbsp;Text&nbsp;Post-preprocessing</text>
+<path d="M36,1612L468,1612L468,1483L36,1483Z" style="fill:none;stroke-width:1.4472;stroke:rgb(128,128,128);"></path>
+<text x="252" y="1548" text-anchor="middle" fill="rgb(128,128,128)" dominant-baseline="central">&nbsp;</text>
+<text x="252" y="1497" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Anything&nbsp;that&nbsp;would&nbsp;further&nbsp;improve&nbsp;results.</text>
+<text x="252" y="1517" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">However,&nbsp;tesseract&nbsp;does&nbsp;not&nbsp;output&nbsp;alternatives</text>
+<text x="252" y="1536" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">so&nbsp;you&nbsp;are&nbsp;rather&nbsp;limited&nbsp;in&nbsp;your&nbsp;options&nbsp;here</text>
+<text x="252" y="1555" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">re&nbsp;text&nbsp;improvement.&nbsp;Nevertheless,&nbsp;you&nbsp;will</text>
+<text x="252" y="1575" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">need&nbsp;some&nbsp;postproc&nbsp;to&nbsp;produce&nbsp;your&nbsp;desired</text>
+<text x="252" y="1594" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">output&nbsp;file&nbsp;format&nbsp;(e.g.&nbsp;PDF,&nbsp;EPUB&nbsp;or&nbsp;HTML)</text>
+<polygon points="497,1649 492,1638 501,1638" style="fill:rgb(0,0,0)"></polygon>
+<path d="M468,1462 L 482,1462 Q 497,1462 497,1483 L 497,1622 L 497,1643" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M438,1803L555,1803L555,1671L533,1649L438,1649Z" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<path d="M533,1649L533,1671L555,1671" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<text x="497" y="1686" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">desired</text>
+<text x="497" y="1706" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">output</text>
+<text x="497" y="1726" text-anchor="middle" font-weight="bold" fill="rgb(0,0,0)" dominant-baseline="central">format</text>
+<text x="497" y="1746" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">PDF&nbsp;/&nbsp;HTML</text>
+<text x="497" y="1766" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">EPUB&nbsp;/&nbsp;...?</text>
+<polygon points="295,1432 284,1436 284,1427" style="fill:rgb(0,0,0)"></polygon>
+<path d="M7,1417 L 7,1424 Q 7,1432 29,1432 L 268,1432 L 289,1432" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="497,1470 492,1459 501,1459" style="fill:rgb(0,0,0)"></polygon>
+<path d="M295,1432 L 475,1432 Q 497,1432 497,1448 L 497,1465" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+<polygon points="567,1863 556,1867 556,1858" style="fill:rgb(0,0,0)"></polygon>
+<path d="M497,1803 L 497,1818 Q 497,1832 475,1832 L 374,1832 Q 353,1832 353,1847 Q 353,1863 374,1863 L 540,1863 L 561,1863" style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);"></path>
+</svg>

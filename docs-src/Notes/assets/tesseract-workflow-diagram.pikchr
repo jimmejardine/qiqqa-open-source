@@ -1,0 +1,157 @@
+
+// tesseract workflow diagram with pre- and postprocessing.
+//
+// https://kroki.io/pikchr/svg/eNrFWGtT20YU_a5fccchGRNsYUs4PDptxiG4ZIYklJCWTiYfhLzYG8srz66M8b_vubuSLYPBotOHExJrtTr37H2ce8WWpp-p5QdSeYlUQkd9e73feb2l7cpMupWg420NZb8vlL1stYl2d6lF0pBb_ommRrg7WUpmmM4oGwqaRfNJKlVG_TQznveCvmSRzihSfRL4uU7SeGS8F951ekc12RdRja7TpE83MrP28dxMUaf1km50OqYkMhk23Plm5nmAJGYc8O04TVINvCgeeVetI7vTF7RD9ZYfNlrbXqQ1OC1R-GkwvWp53ji9FaTlYJhR6B_CF3bBWm4H_p4lx44IXxK2BB2QkUlSGDvMjc2ouc7Y1SGbWRCf5easaXaRyi3jSa_bPqL0Nkqo1vt8QSfd41M67_56UmN30ApoiwG6bcCVyLfBtRsUEBcnn96fXJQBPITsKuCYcWgAJ3mji88NvMeriJzO4mmGA2sB2pnQlOYeWZhesg79wF1OJ4SUuYJ1dqxUt7DCwcmzpuRS3hZu3sb-6MEfcLVAaoyjgVjmBrmNibjJqAcvyH42pF1acsHiUFiGTU7Kjksm-KzXLsLURFZvUynLFs-4NXfAAt2tAdmi5bFo_uJ8gkBY8G6AgNy7FfCtpcO2tLvKXeEu7Dn44cU5dthNC6T196nkefe1oPAoB866cPEVZ1M2KcxITkijIBFsrMvx4Nv3exj3k7VDrxdmSwyKROwsH2ebwQPzeYxb-8t6AB1jg9NgH28vEYp8KDkrBIEyzv6qjz376YZFLXxrfyf6wDlEEy0mOo2FMVIN8oy6lgMi59yQ8ryxmtfdO-KqzdVloMWcnS4V1fDn3gNQCooQphCnYNlpNNt-wBm2zGkvE3cZ1ZrwtV00caSgujCh4XpTIwZo-W26FgmOvhANdf9ByM_UZDrKZKoM1VWqmrxjGwj2Y2FaYRmH7_vmPtBE3omEVCoh3q_ITEQ8SoQpYKoAMQ0-P4cX-mGXuVZAqy_MSMy2n4O23jFUn7ASlZCqQ21y1X_qrKj_A2SQTgqM8AUuao5lMpI3czr7zR7bFMz-J9dHyWQYUTzkACRUhwllJhHEIZ4v4Taj4Yi3QmeucgyX90BHcxwQal5_9-qPxp9ff28cfzhpnHXfvX0OcO7Ca1vqOKuBHhb-bMZTfVuKyGY06ViCEM2sQvE6epJCd7L9vTIWlZKz0mcT4OUQPPC3L26kkplI5pZVhMljnk4JqQJRsZOU7_swbpWsIjaesGBKsBBGWgJcuiyyFfc3IbMhdo2jOc1SPcJO4-YK0K2OVh5zoKWPN8_AP_C8XlBMCHEiIiX6uaLXWKttthULT00QwboJInhsggjcBLHHE0TYWR0hgnUjRLB2hFg0XvmwLzly2Ip5dKXrvTnseIvJ6UGHLDdlZztY7lnMiKsDyE7ehZkOxx-9cCDFkf3--fgCY_oAtL1Smw6e06b3nm7T3U7eotFV41HeZ7VAntS-Bd_pEu7AW0mcMZUNzZq87pvq3brlH9hu3Vl0a0R0bbeG5SM6-3L5cef48hjlQTHS1ciYbkNMy9EEkqmiZG7k5v7dw9PcgCDcIhojzk5v2NUlUOfxqq18bI9zDRb4J7Pj-oR7HUXG1WNqk1NYTaveD4RC5cZiF6ymYwbP3_4-RnqU3tI47YukOhp8amVAW6kWeN-oS1_4JO7QRCESeKrwRqWetSISnSdEAiMYRCIsRGKZRTVGKr5rYaZJZorL-ikn_i6L4HbtgViE68QifEwswlws7PvGXntVLcJ1ahGuVwuuTxb7G3lHkgUAL24mayCfh_xTLtDwnyzQ_cUMHWKGvuRwnsNw83lz9MFzKvPQVuZ-uTL311VmV80ZZODyfJZOWdqnGifQEFWw4zdjF1p_Y22epjOBLG0gxQrNKaqG0mk2mXLrRXkpTJKlGWNT5pvUdmsMUHjPtcwSOUY373MEbUW4cjU4vhbVK0rn815-zjFqyqdPfAIYwVRqGtbuDONvdVAlwMukqHfOLQ4v5xP-709j4dhisJSa22zl0ne-s_UHSRljf134A5_O3_cadHL-9R1r6unlx7PnV_7-k5UfovL3ispf8HYl7lgVV45XcQViKG5mBEI1y9Bqwdvi1yjVWnfgvzlYrbR_q3OXXNLbQ9U8_N1Cu_TkVGUyIWSKQnag8K4Oly_nh95fe94pWA==
+
+
+$r = 0.2in
+linerad = 0.75*$r
+linewid = 0.25
+$hidden = 0.01  // 0 is hidden; use 0.01 to show the waypoint dots
+
+# Start and end blocks
+#
+box "idea" bold fit
+line down 50% from last box.sw
+
+dot rad 250% color black
+X0: last.e + (0.3,0)
+arrow from last dot to X0
+
+move right 3.9in
+move down 12.4
+box wid 3% ht 25% fill black
+X9: last.w - (0.3,0)
+arrow from X9 to last box.w
+
+move to X0 then right 0.3
+A1: oval "FOR EACH PAGE" fit 
+arrow from X0 to A1.w
+move right 1.4
+A2: oval "RENDER PAGE" fit 
+
+// X2 is the arrival point for the shortcut wire later on
+move from X0 then right 3.2 then up $r
+X2: dot invis rad $hidden
+move down $r
+X3: dot invis rad $hidden
+move down 0.3
+F1: file "image" bold fit 
+move left F1.width / 2 then up F1.height - 0.05
+line to F1 - (0.3,-0.2) 
+line down F1.height
+line right F1.width
+line up 0.05
+
+arrow -> from A1.e to A2.w
+arrow -> from A2.e then right $r then down $r then left A2.width / 2 + $r
+arrow -> left A2.width / 2 + $r  then up $r then to A2.w
+
+arrow -> from A2.e then to X3 then to F1.n
+
+// skip render to img[]
+arrow -> from X0 then right 0.5 * $r then up $r then right 1.5
+arrow -> to X2 then to X3 then down 0.07
+
+move to F1.s - (0,0.05)
+arrow -> down 0.3 then left 3.5 then down 0.7 then right $r
+
+
+
+
+
+A3: oval "[1]  Image preprocessing" bold big  width 3 height 0.25
+A4: box color grey  thin " " width 3 height 2.4 at A3.s + (0,-1.22) 
+move down 
+text "- remove scanner borders"  at 0.1 below last box.n
+text "- remove illustrations (non-text)"       at 0.03 below last text.s
+text "- remove pixel noise & speckles"         at 0.03 below last text.s
+text "- straighten the text lines (deskew)"         at 0.03 below last text.s
+text "- remove scanner borders (plate)"          at 0.03 below last text.s
+text "- remove illustrations (non-text)"         at 0.03 below last text.s
+text "- remove pixel noise & speckles"         at 0.03 below last text.s
+text "- adjust contrast (de-milkify LQ scans)"      at 0.03 below last text.s
+text "- straighten the text lines (deskew)"         at 0.03 below last text.s
+text "- remove alpha channel (transparency)"        at 0.03 below last text.s
+text "- convert colors to grayscale (B&W,YUV,CIE,LAB?)"        at 0.03 below last text.s
+text "- adjust brightness / contrast-curves"        at 0.03 below last text.s
+text "- invert B&W when text is not black"        at 0.03 below last text.s
+text " "                                               at 0.03 below last text.s
+text "This is definitely not all you can do and ..."  bold        at 0.03 below last text.s
+text "... not necessarily in the order ..."  bold        at 0.03 below last text.s
+text "... that may work best for you."  bold        at 0.03 below last text.s
+
+arrow from A3.e then right $r then down 2.8
+
+F2: file "cleaned" bold "greyscale" bold "image" bold fit 
+move left F2.width / 2 then up F2.height - 0.05
+line to F2 - (0.4,-0.35) 
+line down F2.height
+line right F2.width
+line up 0.05
+
+
+// skip image preprocessing
+move up 3.9 then left 3.695
+dot invis
+arrow -> down 0.5 * $r then right 2
+arrow -> right 1.4 then down $r + 0.07
+
+
+// the biggie: the OCR engine
+
+
+move to F2.s - (0,0.05)
+arrow -> down 0.3 then left 3.4 then down 0.7 then right $r
+
+A5: oval thick color red  "[2] Tesseract OCR" bold big  width 3 height 0.25 
+A6: box color grey  thin " " width 3 height 0.8 at A5.s + (0,-0.42) 
+move down 
+text "OCR: LSTM+CTC or classic v3 shape analysis"  at 0.1 below last box.n
+text "For non-streaming text the classic v3 engine"       at 0.03 below last text.s
+text "might be a better option as that one does not"         at 0.03 below last text.s
+text "enforce/assume a hidden Markov model"         at 0.03 below last text.s
+text "over your content (i.e. expect flowing text)"         at 0.03 below last text.s
+
+arrow from A5.e then right $r then down 1.2
+
+F3: file "OCR" bold "text" bold "results" bold "(HOCR / ...)" fit 
+move left F3.width / 2 then up F3.height - 0.05
+line to F3 - (0.43,-0.41) 
+line down F3.height
+line right F3.width
+line up 0.05
+
+
+
+// and fix it in post, heh heh
+
+
+move to F3.s - (0,0.05)
+arrow -> down 0.3 then left 3.4 then down 0.7 then right $r
+
+A7: oval "[3]  Text Post-preprocessing" bold big  width 3 height 0.25
+A8: box color grey  thin " " width 3 height 0.9 at A7.s + (0,-0.47) 
+move down 
+text "Anything that would further improve results."  at 0.1 below last box.n
+text "However, tesseract does not output alternatives"       at 0.03 below last text.s
+text "so you are rather limited in your options here"         at 0.03 below last text.s
+text "re text improvement. Nevertheless, you will"         at 0.03 below last text.s
+text "need some postproc to produce your desired"         at 0.03 below last text.s
+text "output file format (e.g. PDF, EPUB or HTML)"         at 0.03 below last text.s
+
+arrow from A7.e then right $r then down 1.3
+
+F4: file "desired" bold "output" bold "format" bold "PDF / HTML"  "EPUB / ...?" fit 
+
+
+
+// skip postprocessing
+move up 2.68 then left 3.4
+dot invis
+arrow -> down 0.5 * $r then right 2
+arrow -> right 1.4 then down $r + 0.07
+
+
+arrow from F4.s down $r then left 1 then down until even with X9 then to X9
+
