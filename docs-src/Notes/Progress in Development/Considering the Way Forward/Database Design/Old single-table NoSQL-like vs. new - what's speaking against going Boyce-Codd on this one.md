@@ -80,7 +80,7 @@ Meanwhile, having a non-unique field index on the metadata fields table, would *
 
 Another idea is to store the metadata *twice*. Heck, it's already *encoded once more* in the FTS/SOLR system to facilitate "google style" searching there, and at an estimated cost of ${ 10K } / D = 10 / 400 = 1 / 40 \approx { 3{ \% } }$ of $D$, *doubling* that cost isn't high impact!
 
-What about we store those metadata fields in one table all separate, thus producing a huge search table with a compound index on `(document, fieldname)`, while the "*I want it all*" folks among us can query the second table where this data is stored in a single record, just like before, only now cleaned up and easier to parse: all the stuff together in a single field, JSON-formatted [MODS](https://www.loc.gov/standards/mods/userguide/index.html), ready for quick and easy use? I think that might be good and is relatively easy to do.
+What about we store those metadata fields in one table, all fields a separate records, thus producing a huge search table with a compound index on `(document, fieldname)`, while the "*I want it all*" folks among us can query the second table where this data is stored in a single record, just like before, only now cleaned up and easier to parse: all the stuff together in a single field, JSON-formatted [MODS](https://www.loc.gov/standards/mods/userguide/index.html), ready for quick and easy use? I think that might be good and is relatively easy to do.
 
 > #### Two questions remain
 > 

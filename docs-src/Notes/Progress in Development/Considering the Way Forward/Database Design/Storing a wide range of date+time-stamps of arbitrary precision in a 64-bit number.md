@@ -475,19 +475,20 @@ Notice how we now, *again*, have way more precision available as we can specify 
 
 # Post Scriptum: design decision = change of plans re the format!
 
-Design decision while writing and testing `libeternaltimestamp`: we use those timestamps mostly for **display** purposes, so it's handier to *not* encode the timestamp as an offset against an epoch of 3000 A.D. as this requires many back & forth transformations (calculus)to convert these deltas to ready-to-print layouts. 
-Meanwhile, when we want to sort or similarly apply some calculus on the timestamps *relatively to others*, we can get away with quite simple 64-bit arithmetic as we only need to check the subformat bit (modern vs. prehistoric) and do a bit of conversion work when two such disparate subformats are compared against one another. Still, *even then* it's only a few comparisons and subtractions before we get our answer when we keep the timestamp in 'ready-for-display' format otherwise.
+Design decision while writing and testing `libeternaltimestamp`: we use those timestamps mostly for **display** purposes, so it's handier to *not* encode the timestamp as an offset against an epoch of 3000 A.D. as this requires many back & forth transformations (calculus) to convert these deltas to ready-to-print layouts. 
+Meanwhile, when we want to sort or similarly apply some calculus on the timestamps *relatively to others*, we can get away with quite simple 64-bit arithmetic as we only need to check the `mode` subformat bit (modern vs. prehistoric) and do a bit of conversion work when two disparate subformats are compared against one another. Still, *even then* it's only a few comparisons and subtractions worst-case before we get our answer when we keep the timestamp in 'ready-for-display' format otherwise.
 
-Hence we keep the bit layouts, but the **epoch** and **progressive number** concepts are discarded: timestamp comparisons are (minimally) more expensive that way, but we're fine with that.
+Hence we keep the bit layouts, but the **epoch** and **progressive number across the entire date range** concepts are changed/discarded: timestamp comparisons are (minimally) more expensive that way, but we're fine with that.
 
-Incidentally, thanks to this design decision/change, we can now store dates *beyond 3000 A.D.* so we can use the format to store far-future SF dates if we would like to, as now, implicitly, the *epoch* for the "modern" subformat has changed to be 0 A.D.
+Incidentally, thanks to this design decision/change, we can now store dates *beyond 3000 A.D.* so we can use the format to store far-future SF dates, as the *epoch* for the "modern" subformat has changed to an easy 10000 BC. (We have selected 10000 BC as the new "modern" epoch as this is offset that's easily detectible in any decimal debugger view and print output, while it goes far enough back into history that we can store *most* written record related dates in the "modern" format anyway, so we are not loosing any *practical* precision in our date records this way, while, at the same time, we can now address dates far into the future, as far as 41200 A.D.)
 
-The corollary of this being that we won't be able to store timestamp precision at better-than-single-minute precision, alas.
+The corollary of this being that we won't be able to store timestamp precision at better-than-single-minute precision for any date before 10000 BC, alas. I suppose that's only really relevant if the date/timestamp format were to be used for astronomical events, e.g. sun-moon occlusions and such, as those might be calculated to possibly higher precision - while circumnavigating our proleptic Gregorian calendar.
 
 Further Notes:
-- we keep the 'mode' it value as-is as we will need to apply some processing anyway when we compare timestamps from disparate modes.
+- we keep the `mode` bit value as-is as we will need to apply some processing anyway when we compare timestamps from disparate modes.
 - since we do not want to be bothered by a lot of prehistoric vs. modern subformat comparisons' work we apply a simple change: we redefine the epoch for the *modern* subformat as starting at 10000 B.C. moving *forward*: this is a very fast operation when displaying such dates and we cover the most important historic period of human writing this way anyway, while opening up a bit of future dates beyond 3000 A.D. at zero cost.
-- the *prehistoric* subformat's epoch may start at 0 A.D. backwards into the past: we'll still be able to push through the big Bang and come out the other end that way anyway, so we're good.
+- the *prehistoric* subformat's epoch may start at 0 A.D. backwards into the past: we'll still be able to push through the Big Bang and come out the other end that way anyway, so we're good. This implies that any *prehistoric format* date younger than 10000BC *should* be *normalized* as a *modern format* timestamp.
+- we don't bother with [*leap seconds*](https://en.wikipedia.org/wiki/Leap_second). Hence it could be argued we don't support UTC but rather TAI timestamps. To be settled later.
 
 
 
