@@ -67,5 +67,3 @@ Same goes for the metadata, i.e. the database itself: classic Qiqqa includes a c
 When we decide to also sync the OCR text content (see elsewhere for that train of thought), that stuff should be checksum-validated as well for the same reason.
 
 
-
-

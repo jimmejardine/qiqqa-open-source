@@ -51,7 +51,7 @@ On Windows this is set to [260 == `MAX_PATH`](https://learn.microsoft.com/en-us/
 
 Quoting the (Microsoft) source here[^1]:
 
-[^1]: We quote the entire thing as Microsoft is one of those who enthusiastically embrace *the notion that any publication on the Internet has a (very) limited lifetime*: their technology info pages have been moved quite often, resulting in a slew of dead/zombie links over the links and I'm loath to loose this intel.
+[^1]: We quote the entire thing as Microsoft is one of those who enthusiastically embrace *the notion that any publication on the Internet has a (very) limited lifetime*: their technology info pages have been moved quite often, resulting in a slew of dead/zombie links over the years and I'm loath to loose this intel.
 
 ---
 
@@ -147,7 +147,7 @@ MSWindows and its major filesystem (NTFS) are case-insensitive: you CANNOT have 
 
 I haven't explicitly checked for xFAT, vFAT, et al, but back in the day of MSDOS & Win95, it was already like this.
 
-Linux filesystems et al are (almost always) case-sensitive, but when you mount an NTFS drive on Linux, it, of course, is still case-INsensitive as that's part of that filesystem's definition. DO however reckon with slightly different behaviour when use such "foreign" filesystems, as the filename sensitivity/INsensitivity kicks in at a different level, so you MAY observe slightly altered behaviour when addressing files. E.g. `find` and other UNIX tools are still very much case-*sensitive* in their filename matching, irrespective of the filesystem they happen to access. In the case of `find`, you might want to use `-iname '*.pdf'` rather than the usual `-name '*.pdf'`, for example, when looking for PDF files on a given mounted filesystem!
+Linux filesystems et al are (almost always) case-sensitive, but when you mount an NTFS drive on Linux, it, of course, is still case-INsensitive as that's part of that filesystem's definition. DO however reckon with slightly different behaviour when using such "foreign" filesystems, as the filename sensitivity/INsensitivity kicks in at a different level, so you MAY observe slightly altered behaviour when addressing files. E.g. `find` and other UNIX tools are still very much case-*sensitive* in their filename matching, irrespective of the filesystem they happen to access. In the case of `find`, you might want to use `-iname '*.pdf'` rather than the usual `-name '*.pdf'`, for example, when looking for PDF files on a given mounted filesystem!
 
 
 
@@ -250,7 +250,7 @@ Do not use any of these common illegal characters or symbols in your filenames o
 
 } right curly bracket
 
-\ back slash
+\\ back slash
 
 < left angle bracket
 
