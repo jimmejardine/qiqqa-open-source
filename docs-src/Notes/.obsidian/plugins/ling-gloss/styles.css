@@ -14,12 +14,21 @@
 /* Gloss element layout */
 
 .ling-gloss {
-    margin-left: 2em;
+    width: 100%;
+    display: flex;
     margin-block-start: 1em;
     margin-block-end: 1em;
 }
 
-.ling-gloss > div:not(:last-child) {
+.ling-gloss-number {
+    padding-inline-end: 1em;
+}
+
+.ling-gloss-body {
+    flex-grow: 1;
+}
+
+.ling-gloss-body > div:not(:last-child) {
     margin-bottom: 0.5em;
 }
 
@@ -29,7 +38,25 @@
     gap: 1em 1em;
 }
 
+.ling-gloss-postamble {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5em;
+}
+
 /* Gloss element appearance */
+
+.ling-gloss-number::before {
+    content: "(";
+}
+
+.ling-gloss-number::after {
+    content: ")";
+}
+
+.ling-gloss-number:empty {
+    visibility: hidden;
+}
 
 .ling-gloss-preamble {
     font-weight: bold;
@@ -47,12 +74,82 @@
     content: "”";
 }
 
+.ling-gloss-source::before {
+    content: "(";
+}
+
+.ling-gloss-source::after {
+    content: ")";
+}
+
 .ling-gloss-level-a {
     font-style: italic;
+}
+
+/* Gloss source layout overrides */
+
+.ling-gloss-source.ling-style-right {
+    flex-grow: 1 !important;
+    text-align: right !important;
+}
+
+.ling-gloss-source.ling-style-line {
+    flex-grow: 1 !important;
+    flex-basis: 100% !important;
+}
+
+/* Gloss source appearance overrides */
+
+.ling-gloss-source.ling-style-alt::before {
+    content: "[" !important;
+}
+
+.ling-gloss-source.ling-style-alt::after {
+    content: "]" !important;
 }
 
 /* Language-specific style overrides */
 
 .ling-gloss-level-a.ling-style-cjk {
-    font-style: unset;
+    font-style: unset !important;
+}
+
+/* Font scale style overrides */
+
+.ling-style-f80 {
+    font-size: 0.8em !important;
+}
+
+.ling-style-f90 {
+    font-size: 0.9em !important;
+}
+
+.ling-style-f100 {
+    font-size: 1.0em !important;
+}
+
+.ling-style-f110 {
+    font-size: 1.1em !important;
+}
+
+.ling-style-f120 {
+    font-size: 1.2em !important;
+}
+
+.ling-style-f130 {
+    font-size: 1.3em !important;
+}
+
+.ling-style-f140 {
+    font-size: 1.4em !important;
+}
+
+/* Writing direction style overrides */
+
+.ling-style-rtl {
+    direction: rtl !important;
+}
+
+.ling-style-ltr {
+    direction: ltr !important;
 }

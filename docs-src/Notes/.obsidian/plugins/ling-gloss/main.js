@@ -37,17 +37,22 @@ var CommandType = /* @__PURE__ */ ((CommandType2) => {
   CommandType2[CommandType2["glb"] = 3] = "glb";
   CommandType2[CommandType2["glc"] = 4] = "glc";
   CommandType2[CommandType2["gl"] = 5] = "gl";
-  CommandType2[CommandType2["set"] = 6] = "set";
+  CommandType2[CommandType2["num"] = 6] = "num";
+  CommandType2[CommandType2["lbl"] = 7] = "lbl";
+  CommandType2[CommandType2["src"] = 8] = "src";
+  CommandType2[CommandType2["set"] = 9] = "set";
   return CommandType2;
 })(CommandType || {});
 var SetOptionType = /* @__PURE__ */ ((SetOptionType2) => {
-  SetOptionType2[SetOptionType2["exstyle"] = 0] = "exstyle";
-  SetOptionType2[SetOptionType2["ftstyle"] = 1] = "ftstyle";
-  SetOptionType2[SetOptionType2["glastyle"] = 2] = "glastyle";
-  SetOptionType2[SetOptionType2["glbstyle"] = 3] = "glbstyle";
-  SetOptionType2[SetOptionType2["glcstyle"] = 4] = "glcstyle";
-  SetOptionType2[SetOptionType2["glxstyle"] = 5] = "glxstyle";
-  SetOptionType2[SetOptionType2["glaspaces"] = 6] = "glaspaces";
+  SetOptionType2[SetOptionType2["style"] = 0] = "style";
+  SetOptionType2[SetOptionType2["exstyle"] = 1] = "exstyle";
+  SetOptionType2[SetOptionType2["ftstyle"] = 2] = "ftstyle";
+  SetOptionType2[SetOptionType2["srcstyle"] = 3] = "srcstyle";
+  SetOptionType2[SetOptionType2["glastyle"] = 4] = "glastyle";
+  SetOptionType2[SetOptionType2["glbstyle"] = 5] = "glbstyle";
+  SetOptionType2[SetOptionType2["glcstyle"] = 6] = "glcstyle";
+  SetOptionType2[SetOptionType2["glxstyle"] = 7] = "glxstyle";
+  SetOptionType2[SetOptionType2["glaspaces"] = 8] = "glaspaces";
   return SetOptionType2;
 })(SetOptionType || {});
 
@@ -59,10 +64,12 @@ var initGlossElement = () => ({
   nlevels: []
 });
 var initGlossLineStyle = () => ({
-  classes: [],
-  altSpaces: false
+  classes: []
 });
 var initGlossData = () => ({
+  number: "",
+  label: "",
+  source: "",
   preamble: "",
   elements: [],
   translation: "",
@@ -252,7 +259,10 @@ var getSetOption = (tokens) => {
 // src/gloss-parser.ts
 var GlossStrings = {
   [0 /* ex */]: "preamble",
-  [1 /* ft */]: "translation"
+  [1 /* ft */]: "translation",
+  [6 /* num */]: "number",
+  [7 /* lbl */]: "label",
+  [8 /* src */]: "source"
 };
 var GlossLevels = {
   [2 /* gla */]: "levelA",
@@ -260,13 +270,15 @@ var GlossLevels = {
   [4 /* glc */]: "levelC"
 };
 var GlossLineStyles = {
-  [0 /* exstyle */]: "preamble",
-  [1 /* ftstyle */]: "translation",
-  [2 /* glastyle */]: "levelA",
-  [3 /* glbstyle */]: "levelB",
-  [4 /* glcstyle */]: "levelC",
-  [5 /* glxstyle */]: "nlevels",
-  [6 /* glaspaces */]: "levelA"
+  [0 /* style */]: "global",
+  [1 /* exstyle */]: "preamble",
+  [2 /* ftstyle */]: "translation",
+  [3 /* srcstyle */]: "source",
+  [4 /* glastyle */]: "levelA",
+  [5 /* glbstyle */]: "levelB",
+  [6 /* glcstyle */]: "levelC",
+  [7 /* glxstyle */]: "nlevels",
+  [8 /* glaspaces */]: "levelA"
 };
 var GlossParser = class {
   constructor(options) {
@@ -298,6 +310,9 @@ var GlossParser = class {
     switch (type) {
       case 0 /* ex */:
       case 1 /* ft */:
+      case 6 /* num */:
+      case 7 /* lbl */:
+      case 8 /* src */:
         this.parseStringField(params, GlossStrings[type]);
         break;
       case 2 /* gla */:
@@ -312,7 +327,7 @@ var GlossParser = class {
           throw `command \u201C${text}\u201D can't be used in regular mode`;
         this.parseCombinedElements(params);
         break;
-      case 6 /* set */:
+      case 9 /* set */:
         this.parseOptionsList(params);
         break;
       default:
@@ -321,15 +336,17 @@ var GlossParser = class {
   }
   parseSetOption({ text, type, values }) {
     switch (type) {
-      case 0 /* exstyle */:
-      case 1 /* ftstyle */:
-      case 2 /* glastyle */:
-      case 3 /* glbstyle */:
-      case 4 /* glcstyle */:
-      case 5 /* glxstyle */:
-        this.parseLineStyleClassesField(values, GlossLineStyles[type]);
+      case 0 /* style */:
+      case 1 /* exstyle */:
+      case 2 /* ftstyle */:
+      case 3 /* srcstyle */:
+      case 4 /* glastyle */:
+      case 5 /* glbstyle */:
+      case 6 /* glcstyle */:
+      case 7 /* glxstyle */:
+        this.setLineStyleClasses(values, GlossLineStyles[type]);
         break;
-      case 6 /* glaspaces */:
+      case 8 /* glaspaces */:
         this.setLineStyleValue(true, GlossLineStyles[type], "altSpaces");
         break;
       default:
@@ -365,7 +382,7 @@ var GlossParser = class {
       throw `don't know how to parse ${makeTokenError(errTokens)}`;
     options.forEach((opt) => this.parseSetOption(opt));
   }
-  parseLineStyleClassesField(values, section) {
+  setLineStyleClasses(values, section) {
     if (values.length < 1)
       throw `no values provided for \u201C${section}\u201D`;
     const invalid = values.find((x) => !/^[a-z0-9-]+$/i.test(x));
@@ -381,28 +398,43 @@ var GlossParser = class {
 };
 
 // src/gloss-printer.ts
+var withNbsp = (text) => text.replace(/\s+/g, "\xA0");
 var textOrNbsp = (text, style) => {
   if (text.length < 1)
     return "\xA0";
   if (style == null ? void 0 : style.altSpaces) {
     text = text.replace(/[_]+/g, "\xA0");
   }
-  return text.replace(/\s+/g, "\xA0");
+  return withNbsp(text);
 };
 var styleClasses = (style) => {
   var _a;
   return (_a = style == null ? void 0 : style.classes.filter((x) => x.length > 0).map((x) => `ling-style-${x}`)) != null ? _a : [];
 };
 var glossPrinter = (gloss, dest) => {
-  var _a, _b, _c;
+  var _a;
   const container = dest.createDiv({ cls: "ling-gloss" });
-  if (((_a = gloss.preamble) == null ? void 0 : _a.length) > 0) {
-    const preamble = container.createDiv({ cls: "ling-gloss-preamble" });
-    preamble.innerText = gloss.preamble;
-    preamble.addClasses(styleClasses(gloss.options.preamble));
+  container.createDiv({
+    text: withNbsp(gloss.number),
+    cls: "ling-gloss-number"
+  });
+  const body = container.createDiv({
+    cls: ["ling-gloss-body", ...styleClasses(gloss.options.global)]
+  });
+  if (gloss.label.length > 0) {
+    body.createDiv({
+      text: gloss.label,
+      cls: "ling-gloss-label"
+    });
+  }
+  if (gloss.preamble.length > 0) {
+    body.createDiv({
+      text: gloss.preamble,
+      cls: ["ling-gloss-preamble", ...styleClasses(gloss.options.preamble)]
+    });
   }
   if (gloss.elements.length > 0) {
-    const elements = container.createDiv({ cls: "ling-gloss-elements" });
+    const elements = body.createDiv({ cls: "ling-gloss-elements" });
     const hasLevelB = gloss.elements.some((el) => {
       var _a2;
       return ((_a2 = el.levelB) == null ? void 0 : _a2.length) > 0;
@@ -414,39 +446,57 @@ var glossPrinter = (gloss, dest) => {
     const maxNlevel = gloss.elements.reduce((acc, el) => Math.max(acc, el.nlevels.length), 0);
     for (const glelem of gloss.elements) {
       const element = elements.createDiv({ cls: "ling-gloss-element" });
-      const levelA = element.createDiv({ cls: "ling-gloss-level-a" });
-      levelA.innerText = textOrNbsp(glelem.levelA, gloss.options.levelA);
-      levelA.addClasses(styleClasses(gloss.options.levelA));
+      element.createDiv({
+        text: textOrNbsp(glelem.levelA, gloss.options.levelA),
+        cls: ["ling-gloss-level-a", ...styleClasses(gloss.options.levelA)]
+      });
       if (hasLevelB) {
-        const levelB = element.createDiv({ cls: "ling-gloss-level-b" });
-        levelB.innerText = textOrNbsp(glelem.levelB);
-        levelB.addClasses(styleClasses(gloss.options.levelB));
+        element.createDiv({
+          text: textOrNbsp(glelem.levelB, gloss.options.levelA),
+          cls: ["ling-gloss-level-b", ...styleClasses(gloss.options.levelB)]
+        });
       }
       if (hasLevelC) {
-        const levelC = element.createDiv({ cls: "ling-gloss-level-c" });
-        levelC.innerText = textOrNbsp(glelem.levelC);
-        levelC.addClasses(styleClasses(gloss.options.levelC));
+        element.createDiv({
+          text: textOrNbsp(glelem.levelC, gloss.options.levelA),
+          cls: ["ling-gloss-level-c", ...styleClasses(gloss.options.levelC)]
+        });
       }
       for (let index = 0; index < maxNlevel; index += 1) {
-        const levelX = element.createDiv({ cls: "ling-gloss-level-x" });
-        levelX.innerText = textOrNbsp((_b = glelem.nlevels[index]) != null ? _b : "");
-        levelX.addClasses(styleClasses(gloss.options.nlevels));
+        element.createDiv({
+          text: textOrNbsp((_a = glelem.nlevels[index]) != null ? _a : ""),
+          cls: ["ling-gloss-level-x", ...styleClasses(gloss.options.nlevels)]
+        });
       }
     }
   }
-  if (((_c = gloss.translation) == null ? void 0 : _c.length) > 0) {
-    const translation = container.createDiv({ cls: "ling-gloss-translation" });
-    translation.innerText = gloss.translation;
-    translation.addClasses(styleClasses(gloss.options.translation));
+  const hasTranslation = gloss.translation.length > 0;
+  const hasSource = gloss.source.length > 0;
+  if (hasTranslation || hasSource) {
+    const postamble = body.createDiv({ cls: "ling-gloss-postamble" });
+    if (hasTranslation) {
+      postamble.createDiv({
+        text: gloss.translation,
+        cls: ["ling-gloss-translation", ...styleClasses(gloss.options.translation)]
+      });
+    }
+    if (hasSource) {
+      postamble.createDiv({
+        text: gloss.source,
+        cls: ["ling-gloss-source", ...styleClasses(gloss.options.source)]
+      });
+    }
   }
-  if (!container.hasChildNodes()) {
+  if (!body.hasChildNodes()) {
     errorPrinter(["the gloss is empty, there's nothing to display"], dest);
   }
 };
 var errorPrinter = (messages, dest) => {
   for (const msg of messages) {
-    const error = dest.createDiv({ cls: "ling-gloss-error" });
-    error.innerText = msg;
+    dest.createDiv({
+      text: msg,
+      cls: "ling-gloss-error"
+    });
   }
 };
 
