@@ -114,14 +114,19 @@ By the way: you'll get errors from their install bat script, unless you do this:
 
 C:\Windows\System32>cd "C:\Users\Ger\Downloads\warez\VSNASM-master"
 
+C:\Users\Ger\Downloads\warez\VSNASM-master>set NASMPATH="C:\Program Files\NASM"
+
 C:\Users\Ger\Downloads\warez\VSNASM-master>install_script.bat
 Detected 64 bit system...
 Existing Visual Studio 2022 environment detected...
 Installing build customisations...
 Checking for existing NASM in NASMPATH...
-Using existing NASM binary from ...
+Using existing NASM binary from "C:\Program Files\NASM"...
 Finished Successfully
 Press any key to continue . . .
 
 C:\Users\Ger\Downloads\warez\VSNASM-master>
 ```
+
+Note: do NOT forget to set the `NASMPATH` environment variable as indicated or the MSVC build process will fail anyway, this time with an error report like: "`[...]"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\nasm.exe"[...] process failed with exit code 1."` due to the `nasm.exe` not having been copied there by the install batch file. Simply re-running the `install_script.bat` batch file again *after* having set up `NASMPATH` as indicated in the code above fixes this remaining issue.
+
