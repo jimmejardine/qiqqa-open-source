@@ -94,4 +94,34 @@ In order to build the present backend code (work in progress) a.k.a. Qiqqa<sup>N
    - [NASM](https://nasm.us/)
 8. **Python 3** -- not needed immediately, but there's some scripting stuff in there that may need your python to be up and running when you wish to regenerate some coding tables, etc. in various libraries/submodules.
 
- 
+
+ ### Note on installing VSNASM
+
+By the way: you'll get errors from their install bat script, unless you do this:
+
+- you have MSVC2022 installed
+- you have installed NASM-for-Windows in the default directory **by running its setup as Administrator** and installed "for all users" that way -- the NASM installer mentions that you do this if you want to install for "All Users on this machine" and I do / I did.
+- *specifically* open Visual Studio 2022 -> **Developer Command Prompt for VS 2022** and **run as Administrator** -- I have a tendency to run everything from a git-for-win bash console and that's not going to cut it for this one, even if we switch to `cmd` from in there; you MUST use the **Developer Command Prompt for VS 2022**!
+- `cd` to the VSNASM directory, i.e. where you unpacked the VSNASM zip from github.
+- run VSNASM's `install_script.bat`
+- *WIN*:
+
+```
+**********************************************************************
+** Visual Studio 2022 Developer Command Prompt v17.9.4
+** Copyright (c) 2022 Microsoft Corporation
+**********************************************************************
+
+C:\Windows\System32>cd "C:\Users\Ger\Downloads\warez\VSNASM-master"
+
+C:\Users\Ger\Downloads\warez\VSNASM-master>install_script.bat
+Detected 64 bit system...
+Existing Visual Studio 2022 environment detected...
+Installing build customisations...
+Checking for existing NASM in NASMPATH...
+Using existing NASM binary from ...
+Finished Successfully
+Press any key to continue . . .
+
+C:\Users\Ger\Downloads\warez\VSNASM-master>
+```
