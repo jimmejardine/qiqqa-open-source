@@ -41,7 +41,6 @@ If you want to build Qiqqa from scratch yourself and/or wish to participate in i
   
     
     
-    
 
 ### Extra bits you might need later
 
@@ -74,3 +73,25 @@ If you want to build Qiqqa from scratch yourself and/or wish to participate in i
 Read the [[Misc notes for developers]] and browse the repository for more information on the internals and operation of Qiqqa and the related tools.
 
 
+
+------------
+
+## Update: Building Qiqqa<sup>NG</sup>/MuPDF with Microsoft Visual Studio 2022
+
+A system fatality -- I have a track record record with Windows that's consistent for about 20 years! Every install lasts about 1 year, where it gets crufty either slow or fast, but nevertheless fails dramatically to work after about 9 - 15 months (median ~ 12 month) and a full OS + applications' software re-install is called for.
+Which is a great moment to check install / build assumptions... 😅😇😱
+
+In order to build the present backend code (work in progress) a.k.a. Qiqqa<sup>NG</sup>/MuPDF/tesseract, you'll need these:
+
+1. **nvm for windows** -- NodeJS manager. Use that one to install latest stable NodeJS.
+2. **git for windows** -- duh!
+3. **TortoiseGit** -- gosh!
+4. **Scooter Software Beyond Compare** -- if you're like me and often do `git merge` operations and alike: it's far better at resolving merge conflicts then anything else I've met during my entire career! 👍
+5. **Microsoft Visual Studio** -- the full Monty. Turns out enabling all I wish/want in there gobbles nearly 50GB (*sic*) install space today. *Meh.*
+6. **NASM for windows** -- grab that one via **VSNASM**, by the way.
+7. **VSNASM** -- Visual Studio plugin for nasm support -- if you don't have it, the build will fail due to errors reporting crap in `nasm.props`. 
+   - [GitHub - ShiftMediaProject/VSNASM: Provides Visual Studio integration for the NASM assembler.](https://github.com/ShiftMediaProject/VSNASM)
+   - [NASM](https://nasm.us/)
+8. **Python 3** -- not needed immediately, but there's some scripting stuff in there that may need your python to be up and running when you wish to regenerate some coding tables, etc. in various libraries/submodules.
+
+ 
