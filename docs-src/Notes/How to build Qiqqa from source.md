@@ -95,7 +95,7 @@ In order to build the present backend code (work in progress) a.k.a. Qiqqa<sup>N
 8. **Python 3** -- not needed immediately, but there's some scripting stuff in there that may need your python to be up and running when you wish to regenerate some coding tables, etc. in various libraries/submodules.
 
 
- ### Note on installing VSNASM
+### Note on installing VSNASM
 
 By the way: you'll get errors from their install bat script, unless you do this:
 
@@ -129,4 +129,13 @@ C:\Users\Ger\Downloads\warez\VSNASM-master>
 ```
 
 Note: do NOT forget to set the `NASMPATH` environment variable as indicated or the MSVC build process will fail anyway, this time with an error report like: "`[...]"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\nasm.exe"[...] process failed with exit code 1."` due to the `nasm.exe` not having been copied there by the install batch file. Simply re-running the `install_script.bat` batch file again *after* having set up `NASMPATH` as indicated in the code above fixes this remaining issue.
+
+
+### Note on Node/JS tools/scripts
+
+The project uses several Node/JS scripts to generate/update/patch the MSVC project files, update the `owemdjee` README documentation, etc.
+For these to work, `node` must be installed on the development machine, preferably using `nvm` / nvm for Windows, as you can then easily switch between installed node releases for testing further JavaScript-based code & projects, such as website generators.
+However, installing `node` does not suffice: we use several npm packages in these gen/patch scripts! The quickest way to get these packages installed *globally* in a way that's compatible and easy to use for every project on the developer machine, fetch the git utility scripts in the github repo: https://github.com/GerHobbelt/developer-utility-commands (suggestion: place these in `/z/tools/` f.e., where `/z/` is our local drive's development tree root directory).
+Then run the `npm-install-global-required-packages.sh` bash script in there (using bash-for-windows, which is installed as part of git-for-windows) to install all npm packages that we need for this Qiqqa development project, e.g. the `json` commandline tool.
+
 
