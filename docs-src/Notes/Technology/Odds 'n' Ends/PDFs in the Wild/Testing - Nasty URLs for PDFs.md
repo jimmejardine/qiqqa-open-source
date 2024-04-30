@@ -1010,4 +1010,33 @@ https://dokumen.pub/qdownload/isogeometric-methods-for-numerical-simulation-9783
 
 
 
+April 2024: SemanticScholar PDF browser view (HTML page) has a non-working 'Download' top menu item for some PDFs, e.g.:
+- https://browse.arxiv.org/pdf/2102.10346v1.pdf by way of https://www.semanticscholar.org/paper/Convergence-Rates-of-Stochastic-Gradient-Descent-Wang-Gurbuzbalaban/65505eb6bb0ef9b5990a694da6697e1a9114d4e7 --> https://www.semanticscholar.org/reader/65505eb6bb0ef9b5990a694da6697e1a9114d4e7
+Fun note: this happens in latest Chrome, but when visiting the semanticscholar link above using WaterFox, the 'Download' menu works: while it doesn't exactly *download* but shows the fetched PDF in the WaterFox PDF native viewer, it results in us being able to fetch that PDF. 
+- ditto: https://www.semanticscholar.org/paper/Global-Convergence-and-Stability-of-Stochastic-Patel-Tian/ac4a78a38713450fe9ba1419ca07f8561e13e3d5
+- ditto: https://proceedings.mlr.press/v125/woodworth20a.html --> "Download PDF" at bottom of page --> http://proceedings.mlr.press/v125/woodworth20a/woodworth20a.pdf works in WaterFox, silently fails in Chrome.
+- ditto: https://paperswithcode.com/paper/stochastic-variance-reduced-ensemble-1 : both the PDF and CVPR2022 PDF buttons...
+- ditto https://paperswithcode.com/paper/towards-sample-efficient-overparameterized-1 : both PDF buttons; works in MSEdge though. (Haven't tested the previous URLs with MSEdge so don't read this as yet another anomaly; I started to dump these bothersome URLs in different browsers just now...)
+- ditto: https://www.scirp.org/journal/paperinformation?paperid=115011 (PDF link works in WaterFox and MSEdge; NOTE: seems this is a very slow download as Chrome seems to have fetched it after several minutes, while the others were only a little faster but showed much better UX: visual feedback of the download progress.)
+- ditto: https://www.semanticscholar.org/paper/The-trade-off-between-long-term-memory-and-for-Ribeiro-Tiels/18c823a3763f88f9a6f4a3ceefdcc4a74dd10ab1 :: follow the link fails in Chrome, succeeds in  WaterFox; also succeeds in MSEdge, but that one then DOES NOT APPEND THE `.pdf` FILE EXTENSION to the 'Save As' target, so there's probably something rotten with the response headers / MIME type, I suppose. To be debugged... ([1906.08482 (arxiv.org)](https://export.arxiv.org/pdf/1906.08482))
+- ditto: https://aclanthology.org/L12-1475/
+   This is why the PDF download fails for this one, as per console window in Chrome: `Mixed Content: The site at 'https://aclanthology.org/' was loaded over a secure connection, but the file at 'http://www.lrec-conf.org/proceedings/lrec2012/pdf/806_Paper.pdf' was loaded over an insecure connection. This file should be served over HTTPS. See https://blog.chromium.org/2020/02/protecting-users-from-insecure.html for more details.` 
+   FireFox has no problem with this.
+- 
+
+- https://www.sciencedirect.com/science/article/pii/S0377042717303497 :: View PDF shows a 'verify you're human' page a la Cloudflare, where you need to click before the PDF will be fetched.
+
+- sci-hub.ru shows empty page in FireFox / WaterFox / etc. and basic 404-not-found page in Chrome / MSEdge for this DOI: [https://doi.org/10.1002/acs.3382](https://doi.org/10.1002/acs.3382)
+- ditto: https://sci-hub.ru/https://doi.org/10.1016/j.acha.2021.12.009
+- 
+
+
+- https://core.ac.uk/reader/147907050 shows the PDF reader provided by core (website), but Chrome doesn't render the controls, thus making it unusable. None of the browsers I use did render the control icons, by the way, so this is not a Chrome issue. A quick check of the debug messages in the browser reveal several 404 reports under the hood.
+
+
+
+
+- https://link.springer.com/chapter/10.1007/978-3-540-46332-0_8 :: provides a PREVIEW PDF download, which isn't the real thing. Follow the DOI instead! Springer has more pages like this one, where you get a preview = few pages PDF, so it's generally wise to follow the DOI there and at least compare file content / size, I suppose. *To Be Researched.*
+- 
+
 
