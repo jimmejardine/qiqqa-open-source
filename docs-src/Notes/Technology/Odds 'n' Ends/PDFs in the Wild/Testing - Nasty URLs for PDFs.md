@@ -1039,4 +1039,6 @@ Fun note: this happens in latest Chrome, but when visiting the semanticscholar l
 - https://link.springer.com/chapter/10.1007/978-3-540-46332-0_8 :: provides a PREVIEW PDF download, which isn't the real thing. Follow the DOI instead! Springer has more pages like this one, where you get a preview = few pages PDF, so it's generally wise to follow the DOI there and at least compare file content / size, I suppose. *To Be Researched.*
 - 
 
+- https://cubs.cedar.buffalo.edu/images/pdf/pub/Binarization-and-Cleanup-of-Handwritten-Text-from-Carbon-Copy-Medical-Form-Images.pdf :: curl --> error curl: (60) schannel: SNI or certificate check failed: SEC_E_WRONG_PRINCIPAL (0x80090322) - The target principal name is incorrect.
+
 
