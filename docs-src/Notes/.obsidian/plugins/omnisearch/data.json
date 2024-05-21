@@ -1,6 +1,7 @@
 {
   "useCache": true,
   "hideExcluded": false,
+  "downrankedFoldersFilters": [],
   "ignoreDiacritics": true,
   "indexedFileTypes": [],
   "PDFIndexing": false,
@@ -17,6 +18,7 @@
   "highlight": true,
   "showPreviousQueryResults": true,
   "simpleSearch": false,
+  "tokenizeUrls": false,
   "fuzziness": "1",
   "weightBasename": 3,
   "weightDirectory": 2,

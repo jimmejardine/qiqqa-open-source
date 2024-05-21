@@ -1,0 +1,50 @@
+{
+  "types": {
+    "markdown": [
+      "",
+      "md",
+      "Rmd",
+      "txt",
+      "js",
+      "css",
+      "ts",
+      "jsx",
+      "tsx",
+      "yaml",
+      "yml",
+      "sass",
+      "scss",
+      "tex",
+      "json",
+      "html"
+    ]
+  },
+  "configIsValid": true,
+  "errors": {
+    "rmd": "Could not register extension: 'rmd' to view type: markdown. rmd is already registered to markdown."
+  },
+  "allowMdOverride": false,
+  "mobileSettings": {
+    "enabled": false,
+    "configIsValid": true,
+    "types": {
+      "markdown": [
+        "",
+        "md",
+        "txt",
+        "js",
+        "css",
+        "ts",
+        "jsx",
+        "tsx",
+        "yaml",
+        "yml",
+        "sass",
+        "scss",
+        "tex",
+        "json",
+        "html"
+      ]
+    }
+  }
+}

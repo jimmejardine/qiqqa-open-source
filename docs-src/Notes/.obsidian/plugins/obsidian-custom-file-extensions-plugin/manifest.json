@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-custom-file-extensions-plugin",
+	"name": "Custom File Extensions Plugin",
+	"version": "1.2.1",
+	"minAppVersion": "0.10.12",
+	"description": "Associate views with custom file extensions via settings.",
+	"author": "Meep.Tech",
+	"authorUrl": "https://github.com/Meep-Tech/",
+	"isDesktopOnly": false
+}
