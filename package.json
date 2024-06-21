@@ -46,13 +46,13 @@
     "@gerhobbelt/nomnom": "1.8.4-31",
     "@gerhobbelt/xml-beautifier": "1.0.2-1",
     "deGaulle": "file:../deGaulle",
-    "glob": "8.0.3",
-    "globby": "13.1.2",
-    "jsdom": "20.0.0",
-    "moment": "2.29.4",
-    "prettier": "2.7.1",
+    "glob": "10.4.1",
+    "globby": "14.0.1",
+    "jsdom": "24.1.0",
+    "moment": "2.30.1",
+    "prettier": "3.3.1",
     "prettier-cli": "0.1.0",
-    "sass": "1.55.0",
-    "semver": "7.3.7"
+    "sass": "1.77.4",
+    "semver": "7.6.2"
   }
 }

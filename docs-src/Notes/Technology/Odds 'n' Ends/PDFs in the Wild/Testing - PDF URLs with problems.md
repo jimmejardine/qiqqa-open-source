@@ -69,6 +69,10 @@
 - 
 
 
+- https://www.worldscientific.com/doi/epdf/10.1142/S0219198914400076 -- obnoxious Ad Blocker; PDF is available via DOI + sci-hub though.
+
+- https://www.semanticscholar.org/reader/07ff49b4b626f9d5e182de3b8e1b94841637fbe4 -- Chrome will not react properly to clicking the "Download" menu; use FireFox or Brave Browser to get the PDF file.
+
 
 
 ### 302 redirects:

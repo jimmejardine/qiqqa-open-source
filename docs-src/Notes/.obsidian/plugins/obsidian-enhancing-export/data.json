@@ -1,7 +1,8 @@
 {
   "items": [
     {
-      "name": "Markdown"
+      "name": "Markdown",
+      "openExportedFileLocation": true
     },
     {
       "name": "Markdown (Hugo)"
@@ -92,13 +93,10 @@
   "defaultExportDirectoryMode": "Auto",
   "openExportedFile": true,
   "env": {
-    "*": {
-      "HOME": "${HOME}"
-    },
     "darwin": {
-      "PATH": "/usr/local/bin:/Library/TeX/texbin:${PATH}",
-      "TEXINPUTS": "${pluginDir}/textemplate/:"
+      "PATH": "/usr/local/bin:/Library/TeX/texbin:${PATH}"
     }
   },
+  "showExportProgressBar": true,
   "openExportedFileLocation": true
 }
