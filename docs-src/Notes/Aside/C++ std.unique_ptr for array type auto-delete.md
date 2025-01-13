@@ -159,3 +159,14 @@ int edit_distance_dp_basic(const string& str1, const string& str2)
 } 
 
 ```
+
+---
+
+## Post Scriptum: minor bonus note: `std::unique_ptr(new Obj)` vs. `std::make_unique<Obj>()`
+
+As seen on a C++ blog (link not immediately at hand while writing this from human memory, sorry) there's one minor performance improvement: `std::unique_ptr<X2> p1(new X2)` is not cache-optimal as it takes two(2) heap allocations: one for the `X2` object and one for the `std::unique_ptr` internals necessary for `unique_ptr` to deliver its gorgeous magic to us, which include a counter (for `weak_ptr` family relations) and a to-be-dereferenced *pointer* to the `X2` instance now located elsewhere on the heap. 
+All this while the `std::make_unique` idiom only takes a *single* allocation, combining the `X2` instance and the `unique_ptr` internals into a single heap chunk, thus improving CPU access performance of the `X2` instance as the pointer dereference will very probably address (depending on the size of `X2` and the CPU cache line width) `X2` memory residing in the very same cache line, which is 👍 for performance.
+
+The key there was that the `std::unique_ptr<X2> p1(new X2)` is only potentially beneficial when your usage of the `std::unique_ptr` is one where you use `.reset()`, `.swap()` or `operator=` to have it release its hold on your `X2` instance *early* and `free/delete` that one from the heap long before the `std::unique_ptr` instance itself goes out of scope, where its internals are released back into the heap: as `std::make_unique` treats both as a single heap chunk, your `X2` destructor may be called as early as before, but the actual releasing-back-allocated-memory-to-the-heap activity will have to wait until the `std::unique_ptr` instance goes out of scope as well, potentially increasing peak heap memory usage to undesirable levels then as the allocate-release timeline for the heap will be quite different. Otherwise, they argued (and I don't see any flaw in their logic), it's advisable to use `std::make_unique` instead of the `new/assignment` idiom to set up your `std::unique_ptr` instances. 
+
+Granted, my brain keeps thinking in terms of the outmoded constructor+`new` rather than `std::make_unique` best practices, so this sub-par idiom may show up in a few places still, after today. Alas. I blame my advancing age. *(koff koff koff)*😇

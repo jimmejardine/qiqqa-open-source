@@ -8,7 +8,7 @@
   
   3. *hopefully* add the ability to manipulate these behaviours through user-provided *scripting* for customized behaviours for individual input files. This SHOULD include arbitrary *page image* preprocessing flows, inspired on the algorithms included in `unpaper` and `libprecog` (a.k.a. `PRLib`).
      
-      The key to this (scriptable) flow is that image (pre)processing is just not a single forward movement, but should allow for a preprocessing *graph* to be set up so we can create masks, etc., which are then to be applied to later stages in hat preprocessing graph
+      The key to this (scriptable) flow is that image (pre)processing is just not a single forward movement, but should allow for a preprocessing *graph* to be set up so we can create masks, etc., which are then to be applied to later stages in that preprocessing graph.
       
   1. Also add the feature to tesseract to provide a separate image for the *segmentation phase* in that codebase and/or override that phase entirely by allowing external processes (or the preprocessor) to deliver a list of segments (*bboxes*) to be OCR-ed.
    
