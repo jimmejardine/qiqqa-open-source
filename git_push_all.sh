@@ -7,15 +7,9 @@ cat <<EOF
 
 EOF
 for f in GerHobbelt jimmejardine ; do 
-	echo $f 
-	git push --all git@github.com:$f/qiqqa-open-source.git
+    echo ""
+    echo "::REPO: git@github.com:$f/qiqqa-open-source.git"
+    git push --all --follow-tags git@github.com:$f/qiqqa-open-source.git                                         2>&1
+    git push --tags              git@github.com:$f/qiqqa-open-source.git                                         2>&1
 done
 
-# fetch all remote work as an afterthought
-cat <<EOF
-
-
->>> Fetching all remote work...
-
-EOF
-git fetch --all 
