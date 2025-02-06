@@ -23,7 +23,7 @@ The first 100, maybe 200, open issues at github *hint* at the root causes of thi
   3. find the revision in the Lucene.NET source tree that got turned into a binary Qiqqa release and fix the b0rks there.
   I looked into (3) and quickly found that option was nuts: good luck finding the precise revision and rebuilding for testing was a headache. (2) is not my cup of tea -- I've committed many sins, but writing Java code has only made a minor smudge on my aeternal ledger thus far -- so... (1)? Rrrright. API changed. Significantly. And to my 2019/2020 mind, *incomprehensibly*. How the mighty falter. So we're all still stuck with that piece of cruft.
   
-  As far as I'm concerned, anno 2023, Lucene.NET can go paint radishes: I'm looking at SQLite FTS and possibly `manticore` for absolution. (While having looked into Apache SOLR before: that one *is* very nice, but somehow not exactly *end user ready* from my perspective. A matter of taste and limited ability, perhaps? You tell me.)
+  As far as I'm concerned, anno 2023, Lucene.NET can go paint radishes: I'm looking at SQLite FTS and possibly `manticore` for absolution. (While having looked into Apache SOLR before: that one *is* very nice, but somehow not exactly *end user ready* from my perspective: Apache SOLR is only beautiful when you have someone around who likes playing the IT admin role. -- A matter of taste and limited ability, perhaps? You tell me.)
 
 
 ............................................................................................
@@ -54,7 +54,7 @@ ChatGPT is the Christian Louboutin of user-facing software *couture* today. If y
 
 [^6]: yes, those crashes are non-deterministic: they happen at random. And woe the naivitee who thought he could observe better from the vantage point of a running debugger session: now you're *guaranteed* to fail with out-of-memory and other random failures *elsewhere*, accompanied by catastrophic failure of the (Visual Studio) debugger itself, in a joint effort to lift your spirits. What fun! The joy is great!
 
-[^7]: ah, still with us! Oh dear. Yes, that 80% number was plucked from thin air. But it's not total bollocks: let me rephrase that 80% statement as a question: do you, to the best of your recollection (as we noted your logbook usage execution has something to beg for, alas), remember to *ever* having observed a successfully *completed* import into Qiqqa of your library, ever after you got v76 (and your library being that much smaller back then)? And if so, how many times? ... No, your honour. 
+[^7]: ah, still with us! Oh dear. Yes, that 80% number was plucked from thin air. But it's not total bollocks: let me rephrase that 80% statement as a question: do you, to the best of your recollection (as we noted your logbook usage execution has something to beg for, alas), remember to *ever* having observed a successfully *completed* import into Qiqqa of your library, ever after you got v76 (and your library being that much smaller back then)? And if so, how many times? ... "*No, none ever, your honour.*" ... Ha! The defense rests!
 
  
  

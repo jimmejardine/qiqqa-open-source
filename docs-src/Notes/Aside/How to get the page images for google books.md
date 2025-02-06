@@ -33,7 +33,7 @@ Fetching those content URLs using your go-to tool `curl` (or `wget`) won't work 
 
 Fetching the url with your browser does work: it produces a bit of HTML, within which is located the image we seek, and that one can be saved as-is. Allegedly (according to the suggestion of my browser) this is JFIF format.
 
-🤔 I *think* that IFF we get one to work with any of our tools, then we might 85% along the way of making Google Scholar working for us again, as well... Ah well, *allemaal schurftige honden met tegenwerkende belangen*. 🤷 *La vie, c'est une tartine de merde et il faut que tu en manges une bouchée tous les jours.*
+🤔 I *think* that IFF we get one to work with any of our tools, then we might be 85% along the way of making Google Scholar working for us again, as well... Ah well, *allemaal schurftige honden met tegenwerkende belangen*. 🤷 *La vie, c'est une tartine de merde et il faut que tu en manges une bouchée tous les jours.*
 
 
 

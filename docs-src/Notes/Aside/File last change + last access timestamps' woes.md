@@ -1,4 +1,4 @@
-# x
+# File last change + last access timestamps' woes
 
 See https://github.com/git-for-windows/git/issues/1000#issuecomment-301611003:
 

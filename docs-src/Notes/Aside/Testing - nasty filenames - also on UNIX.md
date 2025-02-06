@@ -8,4 +8,4 @@ rsync: [generator] recv_generator: failed to stat "/media/root/16TB_DSK06/16TB03
 ```
 
 
-Also note that UNIX/Linux apparently has a (hard?) 256 character filename limit; the question being if this 256 *bytes* or 256 *codepoints* as most of the badly breaking files I've seen have Chinese names.
+Also note that UNIX/Linux apparently has a (hard?) 256 character filename limit; the question being if this is 256 *bytes* or 256 *codepoints* as most of the badly breaking files I've seen have Chinese names.
