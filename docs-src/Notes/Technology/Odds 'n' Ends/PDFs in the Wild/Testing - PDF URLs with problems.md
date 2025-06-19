@@ -78,4 +78,58 @@
 ### 302 redirects:
 
 - https://link.springer.com/content/pdf/10.1007/s11336-021-09823-9.pdf
-- 
+- ...
+
+
+
+### Wrong mimetype (?)
+
+* https://www.mikrocontroller.net/attachment/473656/The_Art_of_Electronics_-_third_Edition__Amazon.co.uk__Horowitz__Paul__Hill__Winfield__Books.pdf --> shows `%PDF-1.3 %Çì¢` as literal text, rather than properly discovering this is an incoming PDF anyhow.
+* ...
+
+
+
+### Untrusted Root Certificate
+
+* https://azadproject.ir/wp-content/uploads/2018/02/2011-Low-Cost-Semi-Z-source-Inverter-for-Single-Phase-Photovoltaic-Systems.pdf --> `curl -k` works for this one.
+* ...
+
+
+
+### Protected by NordVPN (or similar VPN/firewall/virus early warning systems)
+
+... because the sites these links/files are at have been flagged somewhere as " carrying nasty stuff" of some kind. And you're feeling particularly lucky (or obstreperous) right now :wink: 
+
+* https://docs.neu.edu.tr/library/6714812649.pdf
+* https://krishisanskriti.org/vol_image/03Jul201503075021.pdf
+* https://figshare.swinburne.edu.au/articles/journal_contribution/Single-phase_uninterruptible_power_supply_based_on_Z-source_inverter/26224010?file=47530448 --> not by itself, but click the link to download the PDF and the AWS S3 instance URL shows up with a warning/blocking page about it carrying malware.
+* https://docs.neu.edu.tr/library/6582865805.pdf
+* ...
+
+
+
+### URL/page carrying the PDF, but kinda wrapped, one way or another
+
+* https://journals.squ.edu.om/index.php/tjer/article/view/76/76 --> shows "download" header above the embedded PDF.
+* https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/pel2.12064 --> Wiley always has their own PDF viewer, so click the PDF icon and arrive at their viewer. Which requires additional click/download user activity before you actually obtain the PDF.
+* ...
+
+
+## OpenAccess My Foot!!1! (a.k.a. calling BS)
+
+* https://kolibris.univ-antilles.fr/discovery/fulldisplay?docid=cdi_proquest_miscellaneous_1677977597&context=PC&vid=33UAG_INST:33UAG_INST&lang=fr&search_scope=TOUTEXL&adaptor=Primo%20Central&tab=TOUT&query=null,,copyright%202013,AND&mode=advanced&offset=20 --> listed as OpenAccess but clearly behind logon/paywall. sci-hub has this one, though.
+* ...
+
+
+
+## Hard to spot DOI id or DOI not in page
+
+* https://www.inderscienceonline.com/doi/pdf/10.1504/IJCSE.2019.103780 -- has the DOI in its URL, but not in the page itself. Crawling the page content for a DOI to feed to [sci-hub.ru](https://sci-hub.ru/) is not the whole thing. ;-)
+* ...
+
+
+
+
+
+
+

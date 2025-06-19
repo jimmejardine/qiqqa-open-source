@@ -4,6 +4,12 @@
 
 > Also note: 
 > - [[scripting the OCR + text extraction process]]
+> - [[tesseract preprocessing - discovering an optimal preprocess]]
+> - [[tesseract image binarization et al - tuning the preprocess parameters by applying a system feedback loop]]
+> - [[tesseract - using Normalized Discounted Cumulative Gain as a metric during training (and use)]]
+> - [[OpenMP & tesseract - NSFQ (Not Suitable For Qiqqa)]]
+> - [[Why I consider OpenMP the spawn of evil and disable it in tesseract]]
+> - [[tesseract - can we use, retrain, the RGB BLSTM engine for greyscale plus alternative features, e.g. tesseract v3 skeleton data]]
 
 ---
 

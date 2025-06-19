@@ -30,6 +30,9 @@
 
 **The Problem**: ditching your stopwords, whichever they are according to *your definition*, is reducing your chances at success when you expect to search texts for *phrases* such as the classic "*to be or not be*" example, i.e. when you wish to *find exact phrase elements which may contain locally-relevant stopwords*. When, f.e., you wish to find precisely the phrase "*the extra dose*" instead of just *any* "*extra dose*", or, god forbid, *any mention of any "dose" at all* -- if "*extra*" somehow also made it into your stopwords list.
 
+> And, yeah, I've seen stopwords lists published which contain quite a few adverbs like "extra", "large", ...: if you were to use such a stopwords list, a search like the one above would be *gutted*. 
+> The only application of such lists is for searches in webshops where you want to push stuff under headings such as "*you may also like this crap*"; for search in *libraries* though, I don't see a benefit in adding such qualifying adverbs to a reject/discard filter.)
+
 The (theoretical) solution then is to abstain from using stopword filters. Good for the theoreticians, much less lucky for you, as you now will have a low-specificity search index: "*the*" will drive the search index statistics *nuts* by appearing in almost every line of text in your entire database, while the reverse search index record *construction* for that "*the*" trigram alone will mimic the re-enactment of a full table import: **not fun at all**. And all around horrible performance to boot: at index *creation* and while *using* the bloody result.)
 
 Not much data about how to tackle that conundrum, out there.

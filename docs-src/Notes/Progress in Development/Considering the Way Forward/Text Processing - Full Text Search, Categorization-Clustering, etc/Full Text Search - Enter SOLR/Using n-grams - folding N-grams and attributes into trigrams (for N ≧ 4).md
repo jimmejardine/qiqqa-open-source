@@ -1,5 +1,18 @@
 # Using *n-grams* ։։ folding N-grams and attributes into *trigrams* (for N ≧ 4)
 
+
+> 👷🚧🛃⛔
+> 
+>  **Edit Jun/2025:**  
+>  
+> as I re-read my text below, it comes across as pretty confusing and *probably not correctly understanding what the GitHub weighted skipgram idea is about* as my current sense tells me this not helping in any way, the way it is described then and understood today -- by me, at least. 
+>
+> So either I'm confused *today* or *back then*: either way, we need to recheck and re-evaluate this stuff!
+> 
+> 👷🚧🛃⛔ 
+
+
+
 This idea was triggered after reading [The technology behind GitHub’s new code search | The GitHub Blog](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/). Quoting some relevant parts from there:
 
 > The n-gram indices we use are especially interesting. While trigrams are a known sweet spot in the design space (as [Russ Cox and others](https://swtch.com/~rsc/regexp/regexp4.html) have noted: bigrams aren’t selective enough and quadgrams take up too much space), they cause some problems at our scale.
@@ -28,6 +41,8 @@ This idea was triggered after reading [The technology behind GitHub’s new code
 >  ```
 > 
 > Using those weights, we tokenize by selecting intervals where the inner weights are strictly smaller than the weights at the borders. The inclusive characters of that interval make up the n-gram and we apply this algorithm recursively until its natural end at trigrams. At query time, we use the exact same algorithm, but keep only the covering n-grams, as the others are redundant.
+
+## My commentary 
 
 While the weights shown in the quoted article's diagram don't make sense (at least the 0-weight I'ld have expected to be something like 4 or 5, or the sequence start with 9,3,6 instead of 9,6,3) the trigger for me was "*like adding follow masks, which use bitmasks for the character following the trigram (basically halfway to quad grams), but they saturate too quickly to be useful*": how about we *encode attributes* in a trigram, eh?
 
@@ -133,9 +148,9 @@ Stuff gets rougher for no-prefix wildcard/regex searches, e.g. a search for "\*f
 >  ⇒
 > **100,98,99: "🙞fo" = 100, "for" = 98, "or🙜" = 99**  
 
-where "for" @ 98 would match indexed trigram "for" @ 98 for the indexes word "fort", which does not match the wildcard search. However, "beaufort"'s "for" @ 95 is still conveniently skipped.
+where "for" @ 98 would match indexed trigram "for" @ 98 for the indexed word "fort", which does not match the wildcard search. However, "beaufort"'s "for" @ 95 is still conveniently skipped.
 
-It gets hairy where the partial is *surrounded by wildcards*, e.g. in a search for "\*for\*" (which is also pretty bad if you would have a regular index, by the way): due to the '\*' you cannot say anything useful about the length of the word this part is supposed to bee part *of*, so we have to assume the longest word possible, resulting in these weights:
+It gets hairy where the partial is *surrounded by wildcards*, e.g. in a search for "\*for\*" (which is also pretty bad if you would have a regular index, by the way): due to the '\*' you cannot say anything useful about the length of the word this part is supposed to be part *of*, so we have to assume the longest word possible, resulting in these weights:
 
 > "🙞 \* for \* *🙜"
 >  ⇒ (wildcards cannot be part of any trigram: discard, but be weary and mark the surrounding of the partial!)
@@ -210,7 +225,7 @@ To be more precise:
 
 ### Approach A
 
-- take any word (codepoint input) of length  n > 3 and *hash its 3rd-plus characters*.
+- take any word (codepoint input) of length  n > 3 and *hash its 3-plus characters*.
 - map the given hash into single-codepoint-space **but shifted**: Unicode has roughly a $2^{20}$ codepoint value range. We use the same for our *masked hash* so as to mimic the cost of a single codepoint in any trigram.
 - this now constitutes a complete trigram input. Process (hash) it as usual.
 
@@ -236,7 +251,7 @@ let trigram_hash = hash(word[0..2])
 
 ### Approach B
 
-- take any word (codepoint input) of length  n > 3 and *hash its 3rd-plus characters*.
+- take any word (codepoint input) of length  n > 3 and *hash its 3-plus characters*.
 - map the given hash into Private Use Area space, thus making it a *legal* Unicode codepoint. This is done so we equal the cost of a single codepoint in any trigram.
 - this now constitutes a complete trigram input. Process (hash) it as usual.
 
@@ -310,9 +325,9 @@ Same as the previous idea, but now targeting other information: **attributes**.
 
 Say we intend to support *case-INsensitive* searches, next to regular *case-sensitive* (a.k.a. *exact*) searches. Then we can either query the index with every combination of upper- and lowercase of our input, or we can load the index at indexing time with every combination of, etc. Either way, the cost is pretty steep, possibly in storage and surely in processing time.
 
-Another approach seen elsewhere is to index all material *cased*, e.g. lowercased and then cope with *exact queries* by post-filtering the search results against the original data to remove the wrong-case preliminary matches. Another costly approach, if slightly less so.
+Another approach seen elsewhere is to index all material *normalized*, e.g. *lowercased* and then cope with *exact queries* by post-filtering the search results against the original data to remove the wrong-case preliminary matches. Another costly approach, if slightly less so.
 
-Here the idea is take those approaches and *combine them* into a more optimal storage cost and search effort: the idea isn't far removed from keeping two dedicated indexes: one for exact searches, plus one for case-insensitive searches. But now using a single index by tweaking our trigrams: we encode the 'is-this-case-exact-or-lowercased' attribute bit by injecting it into the trigrams themselves, slightly increasing the codespace so we can store both unique trigrams in the same index and search for them when we want to.
+Here the idea is take those approaches and *combine them* into a more optimal storage cost and search effort: **the idea isn't far removed from keeping two dedicated indexes**: one for exact searches, plus one for case-insensitive searches. But now using a single index by tweaking our trigrams: we encode the 'is-this-case-exact-or-lowercased' attribute bit by injecting it into the trigrams themselves, slightly increasing the codespace so we can store both unique trigrams in the same index and search for them when we want to.
 
 
 
@@ -362,3 +377,13 @@ References / See also:
 - [The technology behind GitHub’s new code search | The GitHub Blog](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/)
 - [Regular Expression Matching with a Trigram Index (swtch.com)](https://swtch.com/~rsc/regexp/regexp4.html)
  
+
+
+> Also note other considerations regarding the employ of *n-grams*:
+> - [[Considering n-grams at byte, codepoint and word level - for n=2..large]]
+> - [[Using n-grams - folding N-grams and attributes into trigrams (for N ≧ 4)]]
+> - [[Detecting near-duplicate articles]]
+> - [[trigrams etc - considering the relevant atomic search unit]]
+> - [[Another possibly stupid idea to reduce the number of references in a unigram, bigram, trigram inverted index]]
+> - [[Unicode homoglyphs - adversarial Unicode characters]]
+
