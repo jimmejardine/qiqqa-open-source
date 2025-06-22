@@ -1,6 +1,7 @@
 # Using *n-grams* ։։ folding N-grams and attributes into *trigrams* (for N ≧ 4)
 
 
+
 > 👷🚧🛃⛔
 > 
 >  **Edit Jun/2025:**  
@@ -386,4 +387,5 @@ References / See also:
 > - [[trigrams etc - considering the relevant atomic search unit]]
 > - [[Another possibly stupid idea to reduce the number of references in a unigram, bigram, trigram inverted index]]
 > - [[Unicode homoglyphs - adversarial Unicode characters]]
+
 

@@ -1,6 +1,7 @@
 # Considering n-grams at byte, codepoint and word level - for n=2..large
 
 
+
 > Also note other considerations regarding the employ of *n-grams*:
 > - [[Using n-grams - folding N-grams and attributes into trigrams (for N ≧ 4)]]
 > - [[Detecting near-duplicate articles]]
@@ -138,24 +139,6 @@ Small, tiny, optimistic thought to follow the dread of the paragraph above: Oy, 
 Once we have "*bloomfilter*" as a viable and space cost limiting answer to the inverted index record data content, we can, of course, consider doing a *mixed set* as our documents collective grows: with such growth come new challenges and new, rationally adjusted size cost limits, so we borrow the basic approach from Lucene and friends: create your index in batches. Keep an index intact, while you set up and grow a second one alongside. Then, when you have enough of the buggers to hit the collective high water mark, you go an *join* a.k.a. *merge* the fellas into a new index to be pooped out pronto. To keep such *merges* cheap we don't go and rewrite those bloomfilters, but instead *tolerate* their continued existence: we know which document id range they addressed, as that's the document id range their managing inverted index addressed, so we can store these in a 'set' of sorts iff we mention their applicable document id range -- which happens to be a single continuous range as document id tends to increase forever, during the entire lifetime of the application. Thus we potentially end up with a mixed set of one or more "ranged" bloomfilters (for those batches where this particular n-gram happened to be quite prominent), mixed with *tuple sets* for the other batches, now merged, where the same n-gram occurred far less frequently.
 
 And if all else fails, we can still do the re-generating thing when the user/admin orders a `VACUUM` job on our database! Heck, we could get really pedantic and regenerate from source as we have to keep the document content for other search/analysis purposes anyway, so a "re-generate n-gram stream from source" action is not impossible. It's just *very costly*, so perfectly suited for that rarest of animals: a database re-index/vacuum job!🥳
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
 
 
 
