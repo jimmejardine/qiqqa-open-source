@@ -211,7 +211,7 @@ e.g. `"be*for*"` query: that one has two worth-while trigrams: "🙞be" = 100, "
 
 
 
-## 2. Idea A: folding N-grams into trigrams
+## 2. Idea A: folding n-grams into trigrams
 
 As the blog article says:
 
@@ -381,8 +381,8 @@ References / See also:
 
 
 > Also note other considerations regarding the employ of *n-grams*:
-> - [[Considering n-grams at byte, codepoint and word level - for n=2..large]]
-> - [[Using n-grams - folding N-grams and attributes into trigrams (for N ≧ 4)]]
+> - [[Considering n-grams at byte, codepoint and word level]]
+> - [[Using n-grams - folding n-grams and attributes into trigrams (for N ≧ 4)]]
 > - [[Detecting near-duplicate articles]]
 > - [[trigrams etc - considering the relevant atomic search unit]]
 > - [[Another possibly stupid idea to reduce the number of references in a unigram, bigram, trigram inverted index]]

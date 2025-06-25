@@ -3,7 +3,7 @@
 
 
 > Also note other considerations regarding the employ of *n-grams*:
-> - [[Using n-grams - folding N-grams and attributes into trigrams (for N ≧ 4)]]
+> - [[Using n-grams - folding n-grams and attributes into trigrams (for N ≧ 4)]]
 > - [[Detecting near-duplicate articles]]
 > - [[trigrams etc - considering the relevant atomic search unit]]
 > - [[Another possibly stupid idea to reduce the number of references in a unigram, bigram, trigram inverted index]]
