@@ -2,7 +2,17 @@
 
 See google breakpad et al for others' implementations.
 
-TODO.
+
+
+
+
+TBD
+
+
+
+
+
+
 
 Save any crash info locally to disk and have a *separate* application / background service pick these up and transmit to anywhere (target repo / server / mailing list) on the Internet.
 

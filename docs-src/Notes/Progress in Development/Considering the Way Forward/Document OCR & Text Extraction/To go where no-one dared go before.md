@@ -1,6 +1,11 @@
 # Megalo...? ... To go where no-one dared go before: a new OCR + PDF/text processing facility!
 
+
+
 **TBD**
+
+
+
 
 One idea: run an "adaptive" OCR process cycle where the page image preprocess (color-grading, thresholding, …) gets tuned by the quality metrics produced by the follow-up OCR phase: tesseract produces text + statistics AND we can add our own "sensible text" statistics afterwards, all of which combine in a quality indicator for this specific round. Then fiddle the preprocessing parameters a little and see if the quality metric improves. When it does, try settings in the neighbourhood. Keep doing this until either your time budget runs out or you reach an OCR output optimum.
 

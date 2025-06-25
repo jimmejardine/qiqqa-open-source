@@ -1,4 +1,4 @@
-# `hog` a.k.a. `hound` - fetch the document you seek using maximum effort
+# `hog` a.k.a. `hound` :: fetch the document you seek using maximum effort
 
 `hog` (a.k.a. `(news)hound`)[^1] = a tool for fetching *files* from the internet, specifically PDFs. Intended to be used where you browse the 'Net and decide you want to download a given PDF from any site: this can be done through the browser itself, but is sometimes convoluted or neigh impossible (ftp links require another tool, PDFs stored at servers which report as having their SSL certificates *expired* are a hassle to get through for the user-in-a-hurry, etc. etc.) and `hog` is meant to cope with all these by providing:
   - ability to detect the listed PDF url and *download* it, i.e. has knowledge about several approaches used by various sites (publishers, etc.) which offer on-line PDFs for viewing & downloading,
