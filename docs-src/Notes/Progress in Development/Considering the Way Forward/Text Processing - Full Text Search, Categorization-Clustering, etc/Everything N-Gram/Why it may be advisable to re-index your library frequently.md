@@ -31,7 +31,7 @@ So we mumbled a bit about bloomfilters[^bloom] and other "statistical" cop-outs 
 [^1]:  when I say "*bloomfilters*", of course that includes the entire *family* of likewise algorithms, which are presented as improvements on this riff in some way, e.g. *xor filters*, …
 
 
-Then there was the section about doing the skipgrams for wildcarded search queries -- after all we need to match skip-gram to skip-gram, *equality of numbers and all that machine jazz* -- and I came away with the sense that, even this long after I wrote that skip-gram piece [[Using n-grams - folding n-grams and attributes into trigrams (for N ≧ 4)]] , I *still don't grok it, do I?*
+Then there was the section about doing the skipgrams for wildcarded search queries -- after all we need to match skip-gram to skip-gram, *equality of numbers and all that machine jazz* -- and I came away with the sense that, even this long after I wrote that skip-gram piece [[Using n-grams - folding n-grams and attributes into trigrams]] , I *still don't grok it, do I?*
 What's my worry?
 First and foremost, I *think* the wildcard-suitable approach there is *flawed*, or rather: *broken*/*bad*. Why exactly? Can't say right now, brain's not operating the way I want, but it keeps nagging and the lesson of decades living with myself is this: when something keeps nagging inside my skull, it turns out to be rotten to the core and a major cause for failure/trouble down-range. No exceptions.
 
@@ -42,7 +42,7 @@ Say, we *ditch* this whole GitHubby blurb about their *skip-grams*, in particula
 Hence, say, *skip-grams* is the *fundamental idea* and you are left to your own resources to *really find out what a good & proper **skip** is to be, in that jargon word "skip-gram"*. 
 Okidoki. I can work with that premise. Let's do this.
 
-First off, we're going to pone this: 2-grams (*bigrams*) are a good basis to take off from. They're right there between "too little information" of 1-gram *bytes* and 3-gram semi-syllables. Heck, let's *tweak* this and simply state that *any n-grammy NUMBER* we come up with as a basis is a proper start. Take a gander at [[trigrams etc - considering the relevant atomic search unit]] and [[Considering n-grams at byte, codepoint and word level]] for more on that level of abstraction.
+First off, we're going to pone this: 2-grams (*bigrams*) are a good basis to take off from. They're right there between "too little information" of 1-gram *bytes* and 3-gram semi-syllables. Heck, let's *tweak* this and simply state that *any n-grammy NUMBER* we come up with as a basis is a proper start. Take a gander at [[n-grams - considering the atomic search unit]] and [[Considering n-grams at byte, codepoint and word level]] for more on that level of abstraction.
 
 Yes, we know that Chinese has a huge alphabet, so we *assume* our base NUMBER is something rather specific enough to at least aid in language detection, one way (*byte-based 2-grams*) or another (*a single Chinese Unicode codepoint/glyph*). As we mentioned *typed* n-grams like that in [[Considering n-grams at byte, codepoint and word level]], let's keep that *type/category* idea in mind and simply state: we are only going to combine multiple base units like that **when they are of the same type**.
 

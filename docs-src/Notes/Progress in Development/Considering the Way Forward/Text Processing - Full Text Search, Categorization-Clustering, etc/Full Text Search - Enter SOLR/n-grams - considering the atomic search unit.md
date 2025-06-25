@@ -113,7 +113,12 @@ Research samples / References:
 - 
 
 
-Also note other considerations regarding the employ of *n-grams*:
-- [[Using n-grams - folding n-grams and attributes into trigrams (for N ≧ 4)]]
+
+> Also note other considerations regarding the employ of *n-grams*: see the articles / notes linked at the [[0000. n-grams - index| n-grams Article Index]].
+
+
+Also note:
 - [[../../Fingerprinting Documents/Fingerprinting - moving forward and away from b0rked SHA1|Fingerprinting - moving forward and away from b0rked SHA1]], section "*Re SHA1B collisions*" and onwards.
 - [[Detecting near-duplicate articles]]
+
+

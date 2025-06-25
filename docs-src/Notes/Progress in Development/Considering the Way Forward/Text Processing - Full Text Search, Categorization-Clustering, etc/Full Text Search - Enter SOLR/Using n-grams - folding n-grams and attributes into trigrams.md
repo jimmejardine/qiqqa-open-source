@@ -1,4 +1,4 @@
-# Using *n-grams* ։։ folding N-grams and attributes into *trigrams* (for N ≧ 4)
+# Using *n-grams* ։։ folding n-grams and attributes into *trigrams* (for n ≧ 4)
 
 
 
@@ -377,15 +377,15 @@ References / See also:
 - [Unicode Utilities: Description and Index](https://util.unicode.org/UnicodeJsps/)
 - [The technology behind GitHub’s new code search | The GitHub Blog](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/)
 - [Regular Expression Matching with a Trigram Index (swtch.com)](https://swtch.com/~rsc/regexp/regexp4.html)
+- [[Detecting near-duplicate articles]]
+- [[Unicode homoglyphs - adversarial Unicode characters]]
+- [[Another stupid idea to reduce the size of an inverted index]]
  
 
 
-> Also note other considerations regarding the employ of *n-grams*:
-> - [[Considering n-grams at byte, codepoint and word level]]
-> - [[Using n-grams - folding n-grams and attributes into trigrams (for N ≧ 4)]]
-> - [[Detecting near-duplicate articles]]
-> - [[trigrams etc - considering the relevant atomic search unit]]
-> - [[Another possibly stupid idea to reduce the number of references in a unigram, bigram, trigram inverted index]]
-> - [[Unicode homoglyphs - adversarial Unicode characters]]
+
+> Also note other considerations regarding the employ of *n-grams*: see the articles / notes linked at the [[0000. n-grams - index| n-grams Article Index]].
+
+
 
 

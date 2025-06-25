@@ -1,13 +1,8 @@
-# Considering n-grams at byte, codepoint and word level - for n=2..large
+# Considering n-grams at byte, codepoint and word level - for n = 2 .. large
 
 
 
-> Also note other considerations regarding the employ of *n-grams*:
-> - [[Using n-grams - folding n-grams and attributes into trigrams (for N ≧ 4)]]
-> - [[Detecting near-duplicate articles]]
-> - [[trigrams etc - considering the relevant atomic search unit]]
-> - [[Another possibly stupid idea to reduce the number of references in a unigram, bigram, trigram inverted index]]
-> - [[Unicode homoglyphs - adversarial Unicode characters]]
+> Also note other considerations regarding the employ of *n-grams*: see the articles / notes linked at the [[0000. n-grams - index| n-grams Article Index]].
 
 
 
