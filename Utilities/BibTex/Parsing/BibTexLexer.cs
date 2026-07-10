@@ -97,10 +97,12 @@ namespace Utilities.BibTex.Parsing
                 switch (bibtex[c])
                 {
                     case '(':
+                        ++c;
                         callback.RaiseComment(ParseUntilDelim(callback, ')'));
                         return;
 
                     case '{':
+                        ++c;
                         callback.RaiseComment(ParseUntilDelim(callback, '}'));
                         return;
 
